@@ -1,0 +1,663 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"POT-Creation-Date: 2007-03-21 12:30\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: OpenSubtitles.org\n"
+
+msgid "Search by:"
+msgstr "Hakutapa:"
+
+msgid "Retrieving info from IMDB server, please wait..."
+msgstr "Hakee tietoa IMDB:n palvelimelta, odota..."
+
+msgid "CD1 subtitle file:"
+msgstr "CD1 tekstitystiedosto"
+
+msgid "Browse sub..."
+msgstr "Selaa tekstitys..."
+
+msgid "Yes, there is an CD2 file."
+msgstr "Kyllä, CD2-tiedosto on olemassa."
+
+msgid "CD2 AVI file:"
+msgstr "CD2 AVI-tiedosto:"
+
+msgid "CD2 subtitle file:"
+msgstr "CD2 tekstitystiedosto:"
+
+msgid "Add more Cds"
+msgstr "Lisää CD:itä"
+
+msgid "Confirm..."
+msgstr "Vahvista..."
+
+msgid "Subtitle Language:"
+msgstr "Tekstityskieli:"
+
+msgid "Movie IMDB ID:"
+msgstr "Elokuvan IMDB ID:"
+
+msgid "Search ID..."
+msgstr "Hae ID:tä"
+
+msgid "Error requesting Title in IMDB Server"
+msgstr "Virhe haettaessa nimeä IMDB:n palvelimelta"
+
+msgid "Release name:"
+msgstr "Julkaisunimi:"
+
+msgid "Alternative Movie title (AKA): "
+msgstr "Elokuvan vaihtoehtoinen nimi (AKA):"
+
+msgid "Comments:"
+msgstr "Kommentit:"
+
+msgid "Upload"
+msgstr "Lisää"
+
+msgid "Movies"
+msgstr "Elokuvat"
+
+msgid "Serials/Seasons/Episodes"
+msgstr "Sarjat/Kaudet/Elokuvat"
+
+msgid "Errors found:"
+msgstr "Virheitä havaittu:"
+
+msgid "Upload More Cds"
+msgstr "Lisää enemmän CD:itä"
+
+msgid "%d extra CDs added."
+msgstr "%d extra-CD:tä lisätty"
+
+msgid "The video %(videopath)s doesn't exist."
+msgstr "Video %(videopath) ei ole olemassa"
+
+msgid "Try searching by IMDB ID number."
+msgstr "Kokeile etsimällä IMDB ID-numerolla"
+
+msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
+msgstr "Sisäinen virhe havaittu videossa CD%(cd_number)s : %(videopath)s"
+
+msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
+msgstr "Videon CD%(cd_number)s : %(videopath)s koko liian pieni"
+
+msgid "The subtitle %s doesn't exist."
+msgstr "Tekstitystä %s ei ole olemassa."
+
+msgid "Size of subtitle %s bigger than 300Kb"
+msgstr "Tekstityksen %s koko on suurempi kuin 300Kb"
+
+msgid "Error: video CD %d = video CD %d"
+msgstr "Virhe: video CD %d = video CD %d"
+
+msgid "Error: sub CD %d = sub CD %d"
+msgstr "Virhe: sub CD %d = sub CD %d"
+
+msgid "Checking videofiles and subs, please wait..."
+msgstr "Tarkistaa videotiedostoja ja tekstityksiä, odota..."
+
+msgid "Checking subtitles in server, please wait..."
+msgstr "Tarkistaa tekstityksiä palvelimella, odota..."
+
+msgid "Error Checking Subtitles in server, possible causes:"
+msgstr "Virhe tarkistettaessa tekstityksiä palvelimella, mahdollisia syitä:"
+
+msgid "The connection with the server is off"
+msgstr "Tämä yhteys palvelimen kanssa on poikki"
+
+msgid "Error getting the IMDB info of %s"
+msgstr "Virhe haettaessa IMDB-tietoa %s:stä"
+
+msgid "Your subtitle name has some special characters you should remove."
+msgstr "Tekstityksesi nimi sisältää joitain erikoismerkkejä, jotka sinun tulee poistaa."
+
+msgid "Subtitle Found..."
+msgstr "Tekstitys löydetty..."
+
+msgid "AutoDetected"
+msgstr "Automaattitunnistus"
+
+msgid "Detected .nfo file, please wait..."
+msgstr ".nfo-tiedosto tunnistettu, odota..."
+
+msgid "Error retrieving IMDB ID from .NFO file"
+msgstr "Virhe vastaanotettaessa IMDB ID:tä .NFO-tiedostosta"
+
+msgid "IMDB Search"
+msgstr "IMDB-haku"
+
+msgid "Error: The IMDB ID field is required."
+msgstr "Virhe: IMDB ID -kenttä on pakollinen"
+
+msgid "Upload Progress"
+msgstr "Tiedoston lisäyksen kehitys"
+
+msgid "Uploading, it can take a while..."
+msgstr "Tiedostoa lisätään, saataa viedä hetken..."
+
+msgid "Thank you. Subtitle sucessfuly uploaded."
+msgstr "Kiitos. Tekstitys onnistuneesti lisätty."
+
+msgid "The number %s is the ID of the movie?"
+msgstr "Numero %s on elokuvan ID?"
+
+msgid "Would you like to check the detailed page of the subtitle uploaded?"
+msgstr "Haluatko tarkistaa sivun, jolle tekstitys lisättiin."
+
+msgid "Successful Upload"
+msgstr "Onnistunut lisäys"
+
+msgid "The server returned some errors"
+msgstr "Palvelin törmäsi muutamaan virheeseen"
+
+msgid "Error Uploading Subtitles in server, possible causes:"
+msgstr "Virhe lisättäessä tekstityksiä palvelimelle, mahdollisia syitä:"
+
+msgid "Replacing subtitle"
+msgstr "Korvaa tekstitystä"
+
+msgid "No Subtitle found."
+msgstr "Tekstitystä ei löytynyt"
+
+msgid "Where can I download subtitles?"
+msgstr "Mistä voin ladata tekstityksiä?"
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "No subtitles found. Please upload it."
+msgstr "Tekstityksiä ei löytynyt. Lisää tekstitys."
+
+msgid "log-in"
+msgstr "kirjaudu"
+
+msgid "IMBD ID or MOVIE TITLE disambiguation"
+msgstr "IMDB ID tai ELOKUVAN NIMI täydennys"
+
+msgid "Exit"
+msgstr "Poistu"
+
+msgid "Main"
+msgstr "Pää"
+
+msgid "Contact us"
+msgstr "Ota yhteyttä"
+
+msgid "Donate"
+msgstr "Lahjoita"
+
+msgid "About"
+msgstr "Meistä"
+
+msgid "Help"
+msgstr "Apua"
+
+msgid "SubDownloader"
+msgstr "SubDowloader"
+
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Options"
+msgstr "Valinnat"
+
+msgid "Help us"
+msgstr "Auta meitä"
+
+msgid "You must search the movie title and select an IMDB ID"
+msgstr "Sinun on etsittävät elokuvan nimi ja valittava IMDB ID"
+
+msgid "Log"
+msgstr "Loki"
+
+msgid "The application found some errors. Would you like to report them to be corrected?"
+msgstr "Ohjelma havaitsi muutamia virheitä. Haluaisitko ilmoittaa ne korjattaviksi?"
+
+msgid "Reporting errors"
+msgstr "Ilmoittaa virheistä"
+
+msgid "Error sending bug. Thank you anyway"
+msgstr "Virhe ilmoittaessa bugista. Kiitos kuitenkin."
+
+msgid "Please Login"
+msgstr "Kirjaudu sisään"
+
+msgid "We strongly recommend to log-in before uploading files"
+msgstr "Me suosittelemme sinua kirjautumaan sisään, ennen tiedostojen lisäämistä"
+
+msgid "Connecting, please wait..."
+msgstr "Yhdistää, odota..."
+
+msgid "Error XMLRPC creating server connection to : %s"
+msgstr "Virhe XMLRPC luo palvelin yhteyttä : %s"
+
+msgid "Not Connected"
+msgstr "Ei yhdistetty"
+
+msgid "Connected as %s"
+msgstr "Yhdistetty %s"
+
+msgid "Error opening link"
+msgstr "Virhe avattaessa linkkiä"
+
+msgid "Connected anonymously"
+msgstr "Yhdistetty anonyymisti"
+
+msgid "I cannot login to server. Status: %s"
+msgstr "En voi kirjautua palvelimelle. Tila: %s"
+
+msgid "A new version of SubDownloader has been released."
+msgstr "Uusi versio SubDowloaderista on julkaistu"
+
+msgid "NEW VERSION: "
+msgstr "UUSI VERSIO:"
+
+msgid "UNKNOWN"
+msgstr "TUNTEMATON"
+
+msgid "CURRENT VERSION:"
+msgstr "NYKYINEN VERSIO:"
+
+msgid "Changes in the new version:"
+msgstr "Muutokset uudessa versiossa:"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "New Update"
+msgstr "Uusi päivitys"
+
+msgid "The video hash of "
+msgstr "Videon hajautus"
+
+msgid "Accept"
+msgstr "Hyväksy"
+
+msgid " has been updated."
+msgstr " on päivitetty."
+
+msgid "Thank you very much for your collaboration  :-)"
+msgstr "Kiitos yhteistyöstäsi :-)"
+
+msgid "Movie Title:"
+msgstr "Elokuvan nimi:"
+
+msgid "Report wrong info"
+msgstr "Ilmoita väärästä tiedosta"
+
+msgid "Uploading Subtitle"
+msgstr "Lisää tekstitystä"
+
+msgid "extra CDs added."
+msgstr "extra-CD:itä lisätty"
+
+msgid "The video %(videopath) doesn't exist."
+msgstr "Videoa %(videopath) ei ole olemassa."
+
+msgid "Found internal error in video CD%(cd_number) : %(videopath)"
+msgstr "Sisäinen virhe havaittu videossa CD%(cd_number) : %(videopath)"
+
+msgid "Size too little of the video CD%(cd_number) : %(videopath)"
+msgstr "Videon CD%(cd_number) : %(videopath)koko liian pieni"
+
+msgid "The subtitle %(subpath) doesn't exist."
+msgstr "Tekstitystä %(subpath) ei ole olemassa."
+
+msgid "Upload More Subtitles"
+msgstr "Lisää enenmmän tekstityksiä"
+
+msgid "Size of subtitle %(subpath)"
+msgstr "Tekstityksen koko %(subpath)"
+
+msgid "Error occurred while autodetecting language"
+msgstr "Virhe havaittu tunnistettaessa kieltä"
+
+msgid "Autodecteded language"
+msgstr "Tunnistettu kieli"
+
+msgid "Uploading..."
+msgstr "Siirtää..."
+
+msgid "Subtitle download directory:"
+msgstr "Tekstitysten dowload-hakemisto:"
+
+msgid "Videofiles directory"
+msgstr "Videotiedostohakemisto"
+
+msgid "Please choose directory"
+msgstr "Valitsehakemisto"
+
+msgid "Login:"
+msgstr "Kirjaudu:"
+
+msgid "If you don't have a user account, please"
+msgstr "Jos sinulla ei ole käyttäjätunnusta,"
+
+msgid "Register for free"
+msgstr "Rekisteröidy ilmaiseksi"
+
+msgid "MOVIE TITLE or IMDB ID: "
+msgstr "ELOKUVAN NIMI tai IMDB ID:"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+msgid "Password:"
+msgstr "Salasana:"
+
+msgid "Languages:"
+msgstr "Kielet:"
+
+msgid "Choose interface language here ..."
+msgstr "Valitse käyttöliittymän kieli..."
+
+msgid "Search subtitles in ALL the languages"
+msgstr "Etsi tekstityksiä KAIKILLA kielillä"
+
+msgid "Autodetect Language in Upload"
+msgstr "Tunnista kieli automaattisesti Lisätessä"
+
+msgid "Default Upload Language:"
+msgstr "Oletus Lisäyskieli:"
+
+msgid "Servers configuration:"
+msgstr "Palvelinkokoonpano:"
+
+msgid "Proxy Parameters:"
+msgstr "Välityspalvelin parametrit:"
+
+msgid "OSDB protocol:"
+msgstr "OSDB protokolla:"
+
+msgid "The file for AVI CD%d is required"
+msgstr "Tiedosto AVI CD%d:lle on toivottu"
+
+msgid "Host address: "
+msgstr "Isäntäosoite:"
+
+msgid "Get server info"
+msgstr "Palvelininfo"
+
+msgid "Server:"
+msgstr "Palvelin:"
+
+msgid "Port:"
+msgstr "Portti:"
+
+msgid "User:"
+msgstr "Käyttäjä:"
+
+msgid "%s is not a valid http:// address"
+msgstr "%s ei ole kelvollinen http:// osoite"
+
+msgid "OSDB Server Info"
+msgstr "OSDB Palvelininfo"
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "The OSDB server address is unreacheable"
+msgstr "OSDB-palvelimen osoite on tavoittamattomissa"
+
+msgid "The file for Sub CD%d is required"
+msgstr "Tiedosto Sub CD%d:lle on toivottu"
+
+msgid "AVI File CD%d"
+msgstr "AVI File CD%d"
+
+msgid "Browse video..."
+msgstr "Selaa videota..."
+
+msgid "Browse subtitle..."
+msgstr "Selaa tekstitystä..."
+
+msgid "Clear content"
+msgstr "Tyhjennä sisältö"
+
+msgid "Add videofile"
+msgstr "Lisää videotiedosto"
+
+msgid "Add directory"
+msgstr "Lisää hakemisto"
+
+msgid "Clear List"
+msgstr "Tyhjennä lista"
+
+msgid "SEARCH"
+msgstr "Etsi"
+
+msgid "Download"
+msgstr "Lataa"
+
+msgid "Select / Unselect ALL"
+msgstr "Valitse KAIKKI / Poista KAIKKI valinnat"
+
+msgid "Add film's directory"
+msgstr "Lisää elokuvan hakemisto"
+
+msgid "Add videos from folder (recursive)"
+msgstr "Lisää videoita kansiosta (toistuva"
+
+msgid "Add video file"
+msgstr "Lisää videotiedosto"
+
+msgid "Download Subtitles"
+msgstr "Lataa tekstityksiä"
+
+msgid "Download subtitle"
+msgstr "Lataa tekstitys"
+
+msgid "View Details and Rate Subtitle"
+msgstr "Näytä tekstityksen tiedot ja arvosana"
+
+msgid "This SUBTITLE is not for this AVI"
+msgstr "Tämä TEKSTITYS ei ole tälle AVI:lle"
+
+msgid "The MOVIE IMDB is not for this AVI"
+msgstr "ELOKUVA IMDB ei ole tälle AVI:lle"
+
+msgid "IMDB details"
+msgstr "Imdb tiedot"
+
+msgid "The subtitle LANGUAGE is not correct"
+msgstr "Tämä tekstitysKIELI ei kelpaa"
+
+msgid "Report us Wrong Info"
+msgstr "Ilmoita virheellisestä tiedosta"
+
+msgid "Play videofile"
+msgstr "Toista videotiedosto"
+
+msgid "Search other subs for this Movie"
+msgstr "Etsi toisia tekstityksiä tälle elokuvalle"
+
+msgid "Download this programs: %s to watch movies + subtitles."
+msgstr "Lataa tämä ohjelma: %s katsoaksesi elokuvía ja tekstityksiä"
+
+msgid "(It means subtitles are for this movie, but are not well-synchronized)"
+msgstr "(Tämä tarkoittaa, että tekstitykset ovat tälle elokuvalle, mutta huonosti ajastetut)"
+
+msgid "Are you sure these subtitles are not good for your video file?"
+msgstr "Oletko varma, etteivät nämä tekstitykset sopineet videotiedostoosi?"
+
+msgid "The report has been noted. Thank you very much."
+msgstr "Ilmoitus on huomioitu. Kiitos paljon."
+
+msgid "Choose directory..."
+msgstr "Valitse hakemisto..."
+
+msgid "Downloading"
+msgstr "Lataa"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Downloading, it can take a while..."
+msgstr "Lataa, tämä voi viedä hetken..."
+
+msgid "Save as..."
+msgstr "Tallenna nimellä..."
+
+msgid "Downloading subtitle %s of %s"
+msgstr "Ladataan tekstitystä %s of %s"
+
+msgid "%d subtitle(s) were downloaded"
+msgstr "%d tekstitystä ladattiin"
+
+msgid "Some errors found:"
+msgstr "Virheitä havaittu:"
+
+msgid "Search Progress"
+msgstr "Haun edistyminen"
+
+msgid "Searching..."
+msgstr "Hakee..."
+
+msgid "Searching using OSDB protocol"
+msgstr "Hakee käyttäen OSDB-protokollaa"
+
+msgid "Searching, it can take a while..."
+msgstr "Hakee, saattaa viedä hetken..."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Error connecting to the OSDB server"
+msgstr "Virhe yhdistäessä OSDB:n palvelimelle"
+
+msgid "Anonymous"
+msgstr "Anonyymi"
+
+msgid "New Version Detected"
+msgstr "Uusi versio havaittu"
+
+msgid "Connecting to server..."
+msgstr "Yhdistää palvelimelle..."
+
+msgid "Calculating Hash"
+msgstr "Laskee hajautusta"
+
+msgid "Hashing files..."
+msgstr "Hajauttaa tiedostoja..."
+
+msgid "Found error in the file %s"
+msgstr "Virhe havaittu tiedostossa %s"
+
+msgid "Size error in the file %s"
+msgstr "Kokovirhe tiedostossa %s"
+
+msgid "The file <%s> can't be found"
+msgstr "Tiedostoa <%s> ei löydy"
+
+msgid "We need your help to keep up Subdownloader, you can help us in many ways:"
+msgstr "Tarvitsemme apuasi pitämään yllä Subdownloaderia, voit auttaa meitä monin tavoin:"
+
+msgid "IMBD ID"
+msgstr "IMDB ID"
+
+msgid "- Uploading a lot of subtitles to grow up the database quickly"
+msgstr "- Lisäämällä paljon tekstityksiä kasvattaaksesi tietokantaa nopeasti"
+
+msgid "- Contact us to translate the program in your language"
+msgstr "- Ottamalla yhteyttä meihin kääntääksesi ohjelman sinun kielellesi"
+
+msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
+msgstr "- LAHJOITA, jotta voimme ostaa kebabbia tai kiinalaista joskus :-)"
+
+msgid "- Send us some FEEDBACK"
+msgstr "- Lähetä meille PALAUTETTA"
+
+msgid "Send Feedback"
+msgstr "Lähetä palautetta"
+
+msgid "    - Chat with us:"
+msgstr "    - Keskustele kanssamme:"
+
+msgid "   capiscuas@gmail.com"
+msgstr "   capiscuas@gmail.com"
+
+msgid "Thank you very much"
+msgstr "Kiitos paljon"
+
+msgid "Log Messages:"
+msgstr "Lokiviestit:"
+
+msgid "Apply Changes"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Title"
+msgstr "Nimi"
+
+msgid "Cancel Changes"
+msgstr "Peruuta muutokset"
+
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+msgid "Servers"
+msgstr "Palvelimet"
+
+msgid "Language"
+msgstr "Kieli"
+
+msgid "Directories"
+msgstr "Hakemistot"
+
+msgid "Downloading Language"
+msgstr "Latauskieli"
+
+msgid "Downloading %s language, it can take a while..."
+msgstr "Lataa %s kieltä, saattaa viedä hetken..."
+
+msgid "The new language will be displayed after restarting the program."
+msgstr "Uusi kieli tulee käyttöön ohjelman uudelleenkäynnistyksen jälkeen."
+
+msgid "Error retrieving new language from server."
+msgstr "Virhe vastaanottaessa uutta kieltä palvelimelta."
+
+msgid "No translation available in %s. Please contact %s to help us."
+msgstr "Ei käännöksiä saatavilla %s. Ota yhteyttä %s auttaaksesi meitä."
+
+msgid "IMDB search dialog:"
+msgstr "IMDB-haku"
+
+msgid "Error trying to save preferences in '%s'"
+msgstr "Virhe yritettäessä tallentaa asetuksia tiedostoon '%s'"
+
+msgid "Login Again"
+msgstr "Kirjaudu uudestaan"
+
+msgid "2nd Step: CD2 files"
+msgstr "2. Askel: CD2 Tiedostot"
+
+msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
+msgstr "3. Askel: Katsotaan, jos tekstity(k)s(et) :) on jo tietokannassa"
+
+msgid "4th Step: Required Information"
+msgstr "4. Askel: Vaadittu info"
+
+msgid "5th Step: Optional Information"
+msgstr "5. Askel: Vaihtoehtoinen informaatio"
+
+msgid "6th Step: Uploading the subtitle"
+msgstr "6. Askel: Tekstitysten lisääminen"
+
+msgid "1st Step: CD1 files"
+msgstr "1. Askel: CD1 tiedostot"
+
+msgid "CD1 AVI file:"
+msgstr "CD1 AVI-tiedosto:"
+
+msgid "Browse avi..."
+msgstr "Selaa avi..."
+
+msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
+msgstr "Suomennos: Aleksi Heinonen aleksi.heinonen@gmail.com"
+

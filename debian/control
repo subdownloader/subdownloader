@@ -1,0 +1,12 @@
+Source: subdownloader
+Section: web
+Priority: extra
+Maintainer: Mario Izquierdo (mariodebian) <mariodebian@gmail.com>
+Build-Depends: debhelper (>= 5), python
+Standards-Version: 3.7.2
+Version: 1.2.8
+Package: subdownloader
+Architecture: any
+Depends: python-wxtools, python-imdbpy
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

@@ -1,0 +1,82 @@
+Changes 1.2.8
+ NEW - Image cover from IMDB displayed while uploading
+ CHG - Tested internationalization
+ NEW - Shell context menu possibility to remove or add
+ NEW - VLC and MPLAYER integration, now u play the video with the subtitles automatically from Subdownloader.
+ BUG - Bug issues
+
+Changes 1.2.7
+ CHG - Updated all the messages to gettext internationalisation
+ BUG - Minimal bug issue
+
+Changes 1.2.6
+ BUG - In some internationalisation messages.
+ CHG - txt of uploading message
+
+Changes 1.2.5
+ BUG - When saving preferences now it saves the parameters correctly, so no more feedback window + tips window repetition.
+ CHG - Now the list of Subtitle Languages is loaded from the server, that way it remains centralized and updated every day.
+ FEATURE: Added splash screen to avoid show the non-good-looking ENQUEING FILES when somebody call the program from the contextual menu
+ CHG - Improved the Progress windows with the new module PyProgress.py thks Andrea Gavana
+ CHG - Improved the choice components with the new module ExtendedChoiceDemo.py thks Andrea Gavana
+ CHG - Improved interface using the LabelBook class of Andrea Gavana
+ FEATURE: The feedback now shows in WINDOWS a widget directly to chat with me capiscuas@gmail.com
+ FEATURE: Added sponsor banner
+ CHG - Updated the library of IMDBpy to version 2.9 supporting unicode
+ CHG - Used the CustomTreeCtrl of Andrea Gavana to allow using checkboxes to download the subtitles founded.
+  
+Changes 1.2.4.1
+ BUG - Using the contextual menus with files with special characters is now possible
+ CHG - In the Windows installer now is possible to avoid the installation of the Contextual Menu integration
+ BUG - Corrected bug while trying to delete the subdownloader.log errors file.
+
+Changes 1.2.4
+ CHG - Message of the Upload Confirmation, now the user know he helped updating the hash.
+ BUG - Fixed dumb while Search IMDB and the name has spaces, this spaces where converted to %20 and app didn't find anything
+ BUG - The Drag and Drop files in UploadWindow now work.
+ FEATURE: Context Menu (Search and Upload Subtitle) now available when u make right click into Windows folders or files.
+          Very useful to search or upload easily.
+ BUG - Big file size movies (More than 2GB) fixed bug.
+ BUG - Default ENG language when LOCALE is not defined on system.
+ FEATURE: Tip of the day
+ CHG: The download transfer is done using XMLRPC method and not HTTP normal download.
+ FEATURE: Autodetection of the Uploaded Subtitle's language for SRT, TXT or SUB formats.
+ FEATURE: Added Language Flags
+ BUG: Py2exe doesn't compress the .exe (compress: 0) anymore, i hope that solves some XP/2000 bugs reported.
+ FEATURE: Feedback window every 5 times when you close the app
+ BUG: Reporting Bad Hashes of subtitles now is available.
+ FEATURE: Added LOG Messages Window for debugging
+ CHANGE: All the connections have been ported using XMLRPC, Update, Download, etc
+ 
+ 
+Changes 1.2.3
+ ChoiceBox of IMDB text, now it remembers the last IMDB titles searched in upload.
+ Fixed bugs when cancel button was pressed.
+ Added popups menus(View Subtitle Details, Play AVI,Search other subtitles for this AVI)
+ Fixed bug for special languages(Greek, Farsi, etc)
+ Thanks to Davide Alberani <alberanid AT libero.it> for his help with IMDBPY module.
+ Rename subtitles downloaded with "MovieTitle".srt or .sub ,etc , if more than 1 language, then "movietitle".en.srt or .sp.srt ,etc
+ Donate Advertising is only showed after 10 times
+
+Changes 1.2.2
+ Now Hashing files is done inside the thread, so we can cancel in the middle of hashing.
+ Correcting bugs with special characters in the filenames
+ 
+ http://nixdoc.net/files/forum/about168118-Illegal-instruction-or-undefined-symbol-from-import.html
+ http://forge.novell.com/pipermail/ldtp-dev/2005-January/000107.html
+
+http://forum.opensubtitles.org/viewtopic.php?t=189
+http://wiki.wxpython.org/index.cgi/CreatingStandaloneExecutables
+
+
+--gui --search "E:\subs\New Folder\subdownloader.zip.mpeg"
+
+<?xml version="1.0" encoding="utf-8"?> 
+<language>en</language> 
+<version>1.0</version> 
+<date>2006-12-12</date> 
+<maintainer>user@mail.com</maintainer> 
+<strings> 
+   <string id="1"><![CDATA[this is just text]]</string> 
+   <string id="2"><![CDATA[this is just %another% text]]</string> 
+</strings>

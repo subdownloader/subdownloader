@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"POT-Creation-Date: 2007-03-08 12:30\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: OpenSubtitles.org\n"
+
+msgid "Select"
+msgstr "Seleziona"
+
+msgid "System message"
+msgstr "Sistema messaggi"
+
+msgid "subtitles"
+msgstr "sottotitoli"
+
+msgid "No results found"
+msgstr "Nessun risultato trovato"
+
+msgid "Access denied; you need to login or register"
+msgstr "Accesso negato; c'e' bisogno del login o registrazione"
+
+msgid "Link will open in new window"
+msgstr "Il collegamento sarŕ aperto in una nuova finestra"
+
+msgid "Close window"
+msgstr "Chiudi finestra"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Comment"
+msgstr "Commenti"
+
+msgid "log-in"
+msgstr "log-in"
+
+msgid " to post comments"
+msgstr " per inviare commenti"
+

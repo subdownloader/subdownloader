@@ -1,0 +1,663 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"POT-Creation-Date: 2007-03-14 12:30\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: OpenSubtitles.org\n"
+
+msgid "Search by:"
+msgstr "Hľadať podľa:"
+
+msgid "Retrieving info from IMDB server, please wait..."
+msgstr "Prenášam dáta z IMDB, prosím čakajte..."
+
+msgid "CD1 subtitle file:"
+msgstr "CD1 titulky:"
+
+msgid "Browse sub..."
+msgstr "Vybrať titulky..."
+
+msgid "Yes, there is an CD2 file."
+msgstr "Áno, existuje CD2"
+
+msgid "CD2 AVI file:"
+msgstr "CD2 film:"
+
+msgid "CD2 subtitle file:"
+msgstr "CD2 titulky:"
+
+msgid "Add more Cds"
+msgstr "Pridať viac CD"
+
+msgid "Confirm..."
+msgstr "Potvrdiť..."
+
+msgid "Subtitle Language:"
+msgstr "Jazyk titulkov:"
+
+msgid "Movie IMDB ID:"
+msgstr "Filmové IMDB ID:"
+
+msgid "Search ID..."
+msgstr "Hľadať ID..."
+
+msgid "Error requesting Title in IMDB Server"
+msgstr "Chyba pri hľadaní Názvu z IMDB serveru"
+
+msgid "Release name:"
+msgstr "Meno releasu:"
+
+msgid "Alternative Movie title (AKA): "
+msgstr "Preklad názvu filmu (AKA):"
+
+msgid "Comments:"
+msgstr "Komentár:"
+
+msgid "Upload"
+msgstr "Nahrať"
+
+msgid "Movies"
+msgstr "Filmy"
+
+msgid "Serials/Seasons/Episodes"
+msgstr "Seriály/Epizódy"
+
+msgid "Errors found:"
+msgstr "Nájdené chyby:"
+
+msgid "Upload More Cds"
+msgstr "Nahrať viac CD"
+
+msgid "%d extra CDs added."
+msgstr "Pridaných %d CD."
+
+msgid "The video %(videopath)s doesn't exist."
+msgstr "Video %(videopath)s neexistuje."
+
+msgid "Try searching by IMDB ID number."
+msgstr "Skúste hľadať podľa IMDB ID čísla."
+
+msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
+msgstr "Nájdená interná chyba vo video CD%(cd_number)s : %(videopath)s"
+
+msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
+msgstr "Vľkosť je príliž malá pre video CD%(cd_number)s : %(videopath)s"
+
+msgid "The subtitle %s doesn't exist."
+msgstr "Titulky %s neexistujú."
+
+msgid "Size of subtitle %s bigger than 300Kb"
+msgstr "Veľkosť titulkov %s je väčšia ako 300Kb"
+
+msgid "Error: video CD %d = video CD %d"
+msgstr "Chyba: video CD %d = video CD %d"
+
+msgid "Error: sub CD %d = sub CD %d"
+msgstr "Chyba: titulky CD %d = titulky CD %d"
+
+msgid "Checking videofiles and subs, please wait..."
+msgstr "Kontrolujem videosúbory a titulky, prosím čakajte..."
+
+msgid "Checking subtitles in server, please wait..."
+msgstr "Kontrolujem titulky na servri, prosím čakajte..."
+
+msgid "Error Checking Subtitles in server, possible causes:"
+msgstr "Chyba pri kontrolovaní titulkov na servri, možné chyby:"
+
+msgid "The connection with the server is off"
+msgstr "Spojenie so servrom je vypnuté"
+
+msgid "Error getting the IMDB info of %s"
+msgstr "Chyba pri sťahovaní IMDB infa pre %s"
+
+msgid "Your subtitle name has some special characters you should remove."
+msgstr "Názov súboru titulkov má špeciálne znaky, odstránte ich"
+
+msgid "Subtitle Found..."
+msgstr "Nájdené titulky..."
+
+msgid "AutoDetected"
+msgstr "Auto Detekované"
+
+msgid "Detected .nfo file, please wait..."
+msgstr "Detekovaný .nfo súbor, prosím čakajte..."
+
+msgid "Error retrieving IMDB ID from .NFO file"
+msgstr "Chyba pri hľadaní IMDB ID z .nfo súboru"
+
+msgid "IMDB Search"
+msgstr "IMDB hľadanie"
+
+msgid "Error: The IMDB ID field is required."
+msgstr "Chyba: IMDB ID poľe je povinné"
+
+msgid "Upload Progress"
+msgstr "Stav nehrávania"
+
+msgid "Uploading, it can take a while..."
+msgstr "Nahrávam. môže to chvíľku trvať"
+
+msgid "Thank you. Subtitle sucessfuly uploaded."
+msgstr "Ďakujeme. Titulky úspešne nahraté."
+
+msgid "The number %s is the ID of the movie?"
+msgstr "Je číslo %s IMDB ID filmu?"
+
+msgid "Would you like to check the detailed page of the subtitle uploaded?"
+msgstr "Chceli by ste otvoriť web stránku práve nahratých titulkov ?"
+
+msgid "Successful Upload"
+msgstr "Úspešné nahratie"
+
+msgid "The server returned some errors"
+msgstr "Server vrátil nejaké chyby"
+
+msgid "Error Uploading Subtitles in server, possible causes:"
+msgstr "Chyba pri nahrávaní titulkov na server, možné chyby:"
+
+msgid "Replacing subtitle"
+msgstr "Prepísanie titulkov"
+
+msgid "No Subtitle found."
+msgstr "Neboli nájdené žiadne titulky."
+
+msgid "Where can I download subtitles?"
+msgstr "Kde môžem stiahnúť titulky?"
+
+msgid "Close"
+msgstr "Zatvoriť"
+
+msgid "No subtitles found. Please upload it."
+msgstr "Neboli nájdene titulky. Prosím, nahrajte ich."
+
+msgid "log-in"
+msgstr "Prihlásenie"
+
+msgid "IMBD ID or MOVIE TITLE disambiguation"
+msgstr "IMDB ID alebo NÁZOV FILMU nie je jednoznačný"
+
+msgid "Exit"
+msgstr "Koniec"
+
+msgid "Main"
+msgstr "Hlavné"
+
+msgid "Contact us"
+msgstr "Kontaktujte nás"
+
+msgid "Donate"
+msgstr "Prispejte"
+
+msgid "About"
+msgstr "O programe"
+
+msgid "Help"
+msgstr "Pomoc"
+
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+msgid "Search"
+msgstr "Hľadanie"
+
+msgid "Options"
+msgstr "Možnosti"
+
+msgid "Help us"
+msgstr "Pomôžte nám"
+
+msgid "You must search the movie title and select an IMDB ID"
+msgstr "Musíte hľadať názov filmu a vybrať IMDB ID"
+
+msgid "Log"
+msgstr "Log"
+
+msgid "The application found some errors. Would you like to report them to be corrected?"
+msgstr "Aplikácia našla nejaké chyby. Chcete ich nahlásiť, aby boli opravené?"
+
+msgid "Reporting errors"
+msgstr "Chyby"
+
+msgid "Error sending bug. Thank you anyway"
+msgstr "Chyba pri posielaní. Ďakujeme aj tak ;-)"
+
+msgid "Please Login"
+msgstr "Prosím prihláste sa"
+
+msgid "We strongly recommend to log-in before uploading files"
+msgstr "Veľmi odporúčame, aby ste sa prihlásili pred nahrávaním titulkov"
+
+msgid "Connecting, please wait..."
+msgstr "Spájam, prosím počkajte"
+
+msgid "Error XMLRPC creating server connection to : %s"
+msgstr "Chyba XMLRPC spojenia s %s"
+
+msgid "Not Connected"
+msgstr "Nepripojený"
+
+msgid "Connected as %s"
+msgstr "Pripojený ako %s"
+
+msgid "Error opening link"
+msgstr "Chyba pri otváraní odkazu"
+
+msgid "Connected anonymously"
+msgstr "Pripojený anonymne"
+
+msgid "I cannot login to server. Status: %s"
+msgstr "Nemôžem sa prihlásiť na server. Stav: %s"
+
+msgid "A new version of SubDownloader has been released."
+msgstr "Nová verzia SubDownloader-a bola vydaná."
+
+msgid "NEW VERSION: "
+msgstr "Nová verzia:"
+
+msgid "UNKNOWN"
+msgstr "Neznáma"
+
+msgid "CURRENT VERSION:"
+msgstr "Súčasná verzia:"
+
+msgid "Changes in the new version:"
+msgstr "Zmeny v novej verzií:"
+
+msgid "Update"
+msgstr "Aktualizovať"
+
+msgid "New Update"
+msgstr "Nová aktualizácia"
+
+msgid "The video hash of "
+msgstr "Video hash"
+
+msgid "Accept"
+msgstr "Akceptovať"
+
+msgid " has been updated."
+msgstr " bol aktualizovaný."
+
+msgid "Thank you very much for your collaboration  :-)"
+msgstr "Ďakujeme pekne za spoluprácu ;-)"
+
+msgid "Movie Title:"
+msgstr "Názov filmu"
+
+msgid "Report wrong info"
+msgstr "Nahlásiť zlé info"
+
+msgid "Uploading Subtitle"
+msgstr "Nahrávanie Titulkov"
+
+msgid "extra CDs added."
+msgstr "extra CD pridané."
+
+msgid "The video %(videopath) doesn't exist."
+msgstr "Video %(videopath) neexistuje."
+
+msgid "Found internal error in video CD%(cd_number) : %(videopath)"
+msgstr "Nájdená interná chyba vo video CD%(cd_number) : %(videopath)"
+
+msgid "Size too little of the video CD%(cd_number) : %(videopath)"
+msgstr "Veľkosť je príliž malá pre video CD%(cd_number) : %(videopath)"
+
+msgid "The subtitle %(subpath) doesn't exist."
+msgstr "Titulky %(subpath) neexistujú."
+
+msgid "Upload More Subtitles"
+msgstr "Nahrať viac titulkov"
+
+msgid "Size of subtitle %(subpath)"
+msgstr "Veľkosť titulkov %(subpath)"
+
+msgid "Error occurred while autodetecting language"
+msgstr "Chyba nastala pri autodetekcií jazyku"
+
+msgid "Autodecteded language"
+msgstr "Autodetekovaný jazyk"
+
+msgid "Uploading..."
+msgstr "Nahrávam..."
+
+msgid "Subtitle download directory:"
+msgstr "Adresár pre ukladanie titulkov:"
+
+msgid "Videofiles directory"
+msgstr "Adresár pre video"
+
+msgid "Please choose directory"
+msgstr "Prosím zvoľte adresár"
+
+msgid "Login:"
+msgstr "Prihlásenie:"
+
+msgid "If you don't have a user account, please"
+msgstr "Ak nemáte uživateľský účet, prosíme"
+
+msgid "Register for free"
+msgstr "Registrujte sa zdarma"
+
+msgid "MOVIE TITLE or IMDB ID: "
+msgstr "Názov filmu alebo IMDB ID:"
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Username:"
+msgstr "Meno:"
+
+msgid "Password:"
+msgstr "Heslo:"
+
+msgid "Languages:"
+msgstr "Jazyky:"
+
+msgid "Choose interface language here ..."
+msgstr "Zvoľte jazyk programu..."
+
+msgid "Search subtitles in ALL the languages"
+msgstr "Hľadať titulky vo VŠETKÝCH jazykoch"
+
+msgid "Autodetect Language in Upload"
+msgstr "Autodetekovať jazyk pri nahrávaní"
+
+msgid "Default Upload Language:"
+msgstr "Východzí jazyk pre nahrávanie:"
+
+msgid "Servers configuration:"
+msgstr "Konfigurácia serverov:"
+
+msgid "Proxy Parameters:"
+msgstr "Proxy nastavenia:"
+
+msgid "OSDB protocol:"
+msgstr "OSDB protokol:"
+
+msgid "The file for AVI CD%d is required"
+msgstr "Súbor pre AVI CD%d je vyžadovaný"
+
+msgid "Host address: "
+msgstr "Adresa servra:"
+
+msgid "Get server info"
+msgstr "Stiahnúť info servra"
+
+msgid "Server:"
+msgstr "Server:"
+
+msgid "Port:"
+msgstr "Port:"
+
+msgid "User:"
+msgstr "Meno:"
+
+msgid "%s is not a valid http:// address"
+msgstr "%s nie je validná http:// adresa"
+
+msgid "OSDB Server Info"
+msgstr "OSDB server informácie"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "The OSDB server address is unreacheable"
+msgstr "OSDB server nie je dosiahnuteľný"
+
+msgid "The file for Sub CD%d is required"
+msgstr "Súbor pre titulky CD%d je vyžadovaný"
+
+msgid "AVI File CD%d"
+msgstr "Video Súbor CD%d"
+
+msgid "Browse video..."
+msgstr "Pridať video..."
+
+msgid "Browse subtitle..."
+msgstr "Pridať titulky..."
+
+msgid "Clear content"
+msgstr "Vyčistiť obsah"
+
+msgid "Add videofile"
+msgstr "Pridať videosúbor"
+
+msgid "Add directory"
+msgstr "Pridať adresár"
+
+msgid "Clear List"
+msgstr "Vyčistiť zoznam"
+
+msgid "SEARCH"
+msgstr "HĽADAŤ"
+
+msgid "Download"
+msgstr "Stiahnúť"
+
+msgid "Select / Unselect ALL"
+msgstr "Označiť / Odznačiť všetko"
+
+msgid "Add film's directory"
+msgstr "Pridať adresár filmu"
+
+msgid "Add videos from folder (recursive)"
+msgstr "Pridať videá z adresára (rekurzívne)"
+
+msgid "Add video file"
+msgstr "Pridať video súbor"
+
+msgid "Download Subtitles"
+msgstr "Stiahnúť titulky"
+
+msgid "Download subtitle"
+msgstr "Stiahnúť titulok"
+
+msgid "View Details and Rate Subtitle"
+msgstr "Prezrieť detaily hodnotiť titulky"
+
+msgid "This SUBTITLE is not for this AVI"
+msgstr "Tieto TITULKY nie sú pre toto AVI"
+
+msgid "The MOVIE IMDB is not for this AVI"
+msgstr "NÁZOV FILMU nie je správny pre toto AVI"
+
+msgid "IMDB details"
+msgstr "IMDB detaily"
+
+msgid "The subtitle LANGUAGE is not correct"
+msgstr "JAZYK TITULKOV nie je správny"
+
+msgid "Report us Wrong Info"
+msgstr "Nahláste nám NESPRÁVNE informácie"
+
+msgid "Play videofile"
+msgstr "Prehrať videosúbor"
+
+msgid "Search other subs for this Movie"
+msgstr "Hľadať iné titulkz pre tento film"
+
+msgid "Download this programs: %s to watch movies + subtitles."
+msgstr "Stiahnite si tento program: %s pre pozeranie filmu a titulkov"
+
+msgid "(It means subtitles are for this movie, but are not well-synchronized)"
+msgstr "(to znamená, že titulky sú pre tento film, ale nie sú dobre synchronizované)"
+
+msgid "Are you sure these subtitles are not good for your video file?"
+msgstr "Ste si istý, že tieto titulky nepatria k Vašemu video súboru?"
+
+msgid "The report has been noted. Thank you very much."
+msgstr "Hlásenie bolo zaznamenané. Ďakujeme pekne."
+
+msgid "Choose directory..."
+msgstr "Zvoľte adresár...."
+
+msgid "Downloading"
+msgstr "Sťahujem"
+
+msgid "Cancel"
+msgstr "Zrušiť"
+
+msgid "Downloading, it can take a while..."
+msgstr "Sťahujem, môže to chvílku trvať...."
+
+msgid "Save as..."
+msgstr "Uloži5 ako..."
+
+msgid "Downloading subtitle %s of %s"
+msgstr "Sťahujem titulky %s / %s"
+
+msgid "%d subtitle(s) were downloaded"
+msgstr "%d titulkov bolo stiahnutých"
+
+msgid "Some errors found:"
+msgstr "Nejaké chyby boli nájdené:"
+
+msgid "Search Progress"
+msgstr "Stav vyhľadávania"
+
+msgid "Searching..."
+msgstr "Hľadám..."
+
+msgid "Searching using OSDB protocol"
+msgstr "Hľadanie použitím OSDB protokolu"
+
+msgid "Searching, it can take a while..."
+msgstr "Hľadám, môže to chvíľku trvať"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Error connecting to the OSDB server"
+msgstr "Chyba pri spojení s OSDB serverom"
+
+msgid "Anonymous"
+msgstr "Anonymný"
+
+msgid "New Version Detected"
+msgstr "Bola nájdená nová verzia"
+
+msgid "Connecting to server..."
+msgstr "Pripájam sa na server..."
+
+msgid "Calculating Hash"
+msgstr "Rátam hash"
+
+msgid "Hashing files..."
+msgstr "Hashujem súbory...."
+
+msgid "Found error in the file %s"
+msgstr "Nájdená chyba v súbore %s"
+
+msgid "Size error in the file %s"
+msgstr "Chyba veľkosti súboru %s"
+
+msgid "The file <%s> can't be found"
+msgstr "Súbor <%s> nie je možné nájsť"
+
+msgid "We need your help to keep up Subdownloader, you can help us in many ways:"
+msgstr "Potrebujeme pomoc pre udržanie SubDownloader-a, môžete nám pomôcť viacerými spôsobmi:"
+
+msgid "IMBD ID"
+msgstr "IMDB ID"
+
+msgid "- Uploading a lot of subtitles to grow up the database quickly"
+msgstr "- Nahrávanie veľa titulkov cez SubDownloader, databáza rýchlo narastie"
+
+msgid "- Contact us to translate the program in your language"
+msgstr "- Kontaktujte nás, ak chcete preložiť jazyk do Vášho jazyka"
+
+msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
+msgstr "- Prispejte nám, aby sme si mohli kúpiť nejaké pivko pri dlhých nociach stráveným nad týmto projektom"
+
+msgid "- Send us some FEEDBACK"
+msgstr "- Pošlite nám Váš názor"
+
+msgid "Send Feedback"
+msgstr "Posla5 názor"
+
+msgid "    - Chat with us:"
+msgstr "    - Pokecať si s nami:"
+
+msgid "   capiscuas@gmail.com"
+msgstr "   capiscuas@gmail.com"
+
+msgid "Thank you very much"
+msgstr "Ďakujeme veľmi pekne"
+
+msgid "Log Messages:"
+msgstr "Log správy:"
+
+msgid "Apply Changes"
+msgstr "Potvrdiť zmeny"
+
+msgid "Title"
+msgstr "Názov"
+
+msgid "Cancel Changes"
+msgstr "Zrušiť zmeny"
+
+msgid "Login"
+msgstr "Prihlásenie"
+
+msgid "Servers"
+msgstr "Servre"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Directories"
+msgstr "Adresáre"
+
+msgid "Downloading Language"
+msgstr "Sťahujem jazyk"
+
+msgid "Downloading %s language, it can take a while..."
+msgstr "Sťahujem %s jazyk, môže to chvíľku trvať...."
+
+msgid "The new language will be displayed after restarting the program."
+msgstr "Nový jazyk bude zobrazený po reštarte programu."
+
+msgid "Error retrieving new language from server."
+msgstr "Chyba pri sťahovaní jazyka zo servra."
+
+msgid "No translation available in %s. Please contact %s to help us."
+msgstr "Bohužiaľ, preklad pre %s neexistuje. Prosím kontaktujte %s, keď chcete pomôcť"
+
+msgid "IMDB search dialog:"
+msgstr "IMDB okno:"
+
+msgid "Error trying to save preferences in '%s'"
+msgstr "Chyba pri zápise INI súboru <%s>"
+
+msgid "Login Again"
+msgstr "Prihlásiť sa znovu"
+
+msgid "2nd Step: CD2 files"
+msgstr "2. krok: CD2 súbory"
+
+msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
+msgstr "3. krok: Kontrola, či sú titulky už v databáze"
+
+msgid "4th Step: Required Information"
+msgstr "4. krok: Povinné informácie"
+
+msgid "5th Step: Optional Information"
+msgstr "5. krok: Nepovinné informácie"
+
+msgid "6th Step: Uploading the subtitle"
+msgstr "6. krok: Nahranie titulkov"
+
+msgid "1st Step: CD1 files"
+msgstr "1. krok: CD1 súbory"
+
+msgid "CD1 AVI file:"
+msgstr "CD1 film:"
+
+msgid "Browse avi..."
+msgstr "Vybrať film..."
+
+msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
+msgstr "Slovenský preklad: 2ge@2ge.us"
+

@@ -1,0 +1,1728 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>CustomTreeCtrl.GenericTreeItem</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="CustomTreeCtrl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center">
+            <p class="nomargin">
+              <a class="navbar" target="_top" href="http://xoomer.virgilio.it/infinity77/eng/freeware.html">CustomTreeCtrl</a>
+      </p></th></tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="CustomTreeCtrl-module.html">Module&nbsp;CustomTreeCtrl</a> ::
+        Class&nbsp;GenericTreeItem
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript: void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="CustomTreeCtrl.GenericTreeItem-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h2 class="class">Class GenericTreeItem
+<br/><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem">source&nbsp;code</a></span></h2>
+This class holds all the information and methods for every single item
+  in CustomTreeCtrl. No wx based.<br /><br />
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <td colspan="2">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <th align="left" class="summary">Instance Methods</th>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#AssignAttributes" class="sig-name">AssignAttributes</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attr</span>)</span>
+    <br />Assigns the item attributes (font, colours).
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Attr" class="sig-name">Attr</a>(<span class="sig-arg">self</span>)</span>
+    <br />Creates a new attribute (font, colours).
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Check" class="sig-name">Check</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">checked</span>=<span class="sig-default">True</span>)</span>
+    <br />Check an item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Collapse" class="sig-name">Collapse</a>(<span class="sig-arg">self</span>)</span>
+    <br />Collapse the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#DeleteChildren" class="sig-name">DeleteChildren</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">tree</span>)</span>
+    <br />Deletes the item children.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Enable" class="sig-name">Enable</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">enable</span>=<span class="sig-default">True</span>)</span>
+    <br />Enables/disables the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Expand" class="sig-name">Expand</a>(<span class="sig-arg">self</span>)</span>
+    <br />Expand the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetAttributes" class="sig-name">GetAttributes</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the item attributes (font, colours).
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetCheckedImage" class="sig-name">GetCheckedImage</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">which</span>=<span class="sig-default">0</span>)</span>
+    <br />Returns the item check image.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetChildren" class="sig-name">GetChildren</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the item's children.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetChildrenCount" class="sig-name">GetChildrenCount</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">recursively</span>=<span class="sig-default">True</span>)</span>
+    <br />Gets the number of children.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetCurrentCheckedImage" class="sig-name">GetCurrentCheckedImage</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the current item check image.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetCurrentImage" class="sig-name">GetCurrentImage</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the current item image.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetData" class="sig-name">GetData</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the data associated to this item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetHeight" class="sig-name">GetHeight</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the height of the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetImage" class="sig-name">GetImage</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">which</span>=<span class="sig-default">0</span>)</span>
+    <br />Returns the item image for a particular state.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetParent" class="sig-name">GetParent</a>(<span class="sig-arg">self</span>)</span>
+    <br />Gets the item parent.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetSize" class="sig-name">GetSize</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>,
+        <span class="sig-arg">y</span>,
+        <span class="sig-arg">theButton</span>)</span>
+    <br />Returns the item size.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetText" class="sig-name">GetText</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the item text.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetType" class="sig-name">GetType</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the item type.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetVisited" class="sig-name">GetVisited</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether an hypertext item was visited or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetWidth" class="sig-name">GetWidth</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the width of the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetWindow" class="sig-name">GetWindow</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the window associated to the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetWindowEnabled" class="sig-name">GetWindowEnabled</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the associated window is enabled or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetWindowSize" class="sig-name">GetWindowSize</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the associated window size.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetX" class="sig-name">GetX</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the x position on an item in the ScrolledWindow.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#GetY" class="sig-name">GetY</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns the y position on an item in the ScrolledWindow.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#HasChildren" class="sig-name">HasChildren</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item has children or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#HasPlus" class="sig-name">HasPlus</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item has the plus button or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#HitTest" class="sig-name">HitTest</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">point</span>,
+        <span class="sig-arg">theCtrl</span>,
+        <span class="sig-arg">flags</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">level</span>=<span class="sig-default">0</span>)</span>
+    <br />HitTest method for an item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#Insert" class="sig-name">Insert</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">child</span>,
+        <span class="sig-arg">index</span>)</span>
+    <br />Inserts an item in the item children.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsBold" class="sig-name">IsBold</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item font is bold or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsChecked" class="sig-name">IsChecked</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is checked or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsEnabled" class="sig-name">IsEnabled</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is enabled or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsExpanded" class="sig-name">IsExpanded</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is expanded or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsHyperText" class="sig-name">IsHyperText</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is hypetext or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsItalic" class="sig-name">IsItalic</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item font is italic or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsOk" class="sig-name">IsOk</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is ok or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#IsSelected" class="sig-name">IsSelected</a>(<span class="sig-arg">self</span>)</span>
+    <br />Returns whether the item is selected or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#OnSetFocus" class="sig-name">OnSetFocus</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">event</span>)</span>
+    <br />Handles the wx.EVT_SET_FOCUS event for the associated window.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetAttributes" class="sig-name">SetAttributes</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attr</span>)</span>
+    <br />Sets the item attributes (font, colours).
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetBold" class="sig-name">SetBold</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">bold</span>)</span>
+    <br />Sets the item font bold.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetData" class="sig-name">SetData</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>)</span>
+    <br />Sets the data associated to this item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetHasPlus" class="sig-name">SetHasPlus</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">has</span>=<span class="sig-default">True</span>)</span>
+    <br />Sets whether an item has the 'plus' button.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetHeight" class="sig-name">SetHeight</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">h</span>)</span>
+    <br />Sets the height of the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetHilight" class="sig-name">SetHilight</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">set</span>=<span class="sig-default">True</span>)</span>
+    <br />Sets the item focus/unfocus.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetHyperText" class="sig-name">SetHyperText</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">hyper</span>=<span class="sig-default">True</span>)</span>
+    <br />Sets whether the item is hypertext or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetImage" class="sig-name">SetImage</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">image</span>,
+        <span class="sig-arg">which</span>)</span>
+    <br />Sets the item image.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetItalic" class="sig-name">SetItalic</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">italic</span>)</span>
+    <br />Sets the item font italic.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetText" class="sig-name">SetText</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">text</span>)</span>
+    <br />Sets the item text.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetVisited" class="sig-name">SetVisited</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">visited</span>=<span class="sig-default">True</span>)</span>
+    <br />Sets whether an hypertext item was visited or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetWidth" class="sig-name">SetWidth</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">w</span>)</span>
+    <br />Sets the width of the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetWindow" class="sig-name">SetWindow</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wnd</span>)</span>
+    <br />Sets the window associated to the item.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetWindowEnabled" class="sig-name">SetWindowEnabled</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">enable</span>=<span class="sig-default">True</span>)</span>
+    <br />Sets whether the associated window is enabled or not.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetX" class="sig-name">SetX</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>)</span>
+    <br />Sets the x position on an item in the ScrolledWindow.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#SetY" class="sig-name">SetY</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">y</span>)</span>
+    <br />Sets the y position on an item in the ScrolledWindow.
+  </td>
+</tr>
+<tr>
+  <td width="15%" align="right" valign="top" class="rtype">
+    &nbsp;
+   </td>
+  <td>
+    <span class="sig"><a href="CustomTreeCtrl.GenericTreeItem-class.html#__init__" class="sig-name">__init__</a>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">parent</span>,
+        <span class="sig-arg">text</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">ct_type</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">wnd</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">image</span>=<span class="sig-default">-1</span>,
+        <span class="sig-arg">selImage</span>=<span class="sig-default">-1</span>,
+        <span class="sig-arg">data</span>=<span class="sig-default">None</span>)</span>
+    <br />Default class constructor.
+  </td>
+</tr>
+</table>
+
+<br />
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <td colspan="2">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <th align="left" class="details">Method Details</th>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="AssignAttributes"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">AssignAttributes</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.AssignAttributes">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Assigns the item attributes (font, colours).
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Attr"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Attr</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Attr">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Creates a new attribute (font, colours).
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Check"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Check</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">checked</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Check">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Check an item. Meaningful only for check and radio items.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Collapse"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Collapse</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Collapse">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Collapse the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="DeleteChildren"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">DeleteChildren</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">tree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.DeleteChildren">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Deletes the item children.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Enable"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Enable</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">enable</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Enable">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Enables/disables the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Expand"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Expand</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Expand">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Expand the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetAttributes"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetAttributes</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetAttributes">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item attributes (font, colours).
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetCheckedImage"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetCheckedImage</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">which</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetCheckedImage">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item check image. Meaningful only for radio &amp; check 
+  items.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetChildren"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetChildren</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetChildren">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item's children.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetChildrenCount"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetChildrenCount</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">recursively</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetChildrenCount">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Gets the number of children.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetCurrentCheckedImage"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetCurrentCheckedImage</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetCurrentCheckedImage">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the current item check image.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetCurrentImage"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetCurrentImage</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetCurrentImage">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the current item image.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetData"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetData</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetData">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the data associated to this item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetHeight"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetHeight</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetHeight">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the height of the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetImage"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetImage</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">which</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetImage">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item image for a particular state.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetParent"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetParent</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetParent">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Gets the item parent.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetSize"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetSize</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>,
+        <span class="sig-arg">y</span>,
+        <span class="sig-arg">theButton</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetSize">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item size.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetText"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetText</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetText">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item text.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetType"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetType</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetType">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the item type. It should be one of: 0: normal items 1: 
+  checkbox item 2: radiobutton item
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetVisited"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetVisited</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetVisited">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether an hypertext item was visited or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetWidth"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetWidth</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetWidth">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the width of the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetWindow"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetWindow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetWindow">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the window associated to the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetWindowEnabled"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetWindowEnabled</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetWindowEnabled">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the associated window is enabled or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetWindowSize"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetWindowSize</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetWindowSize">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the associated window size.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetX"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetX</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetX">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the x position on an item in the ScrolledWindow.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="GetY"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">GetY</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.GetY">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns the y position on an item in the ScrolledWindow.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="HasChildren"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">HasChildren</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.HasChildren">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item has children or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="HasPlus"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">HasPlus</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.HasPlus">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item has the plus button or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="HitTest"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">HitTest</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">point</span>,
+        <span class="sig-arg">theCtrl</span>,
+        <span class="sig-arg">flags</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">level</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.HitTest">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  HitTest method for an item. Called from the main window HitTest. see 
+  the CustomTreeCtrl HitTest method for the flags explanation.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="Insert"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">Insert</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">child</span>,
+        <span class="sig-arg">index</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.Insert">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Inserts an item in the item children.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsBold"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsBold</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsBold">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item font is bold or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsChecked"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsChecked</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsChecked">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is checked or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsEnabled"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsEnabled</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsEnabled">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is enabled or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsExpanded"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsExpanded</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsExpanded">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is expanded or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsHyperText"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsHyperText</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsHyperText">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is hypetext or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsItalic"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsItalic</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsItalic">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item font is italic or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsOk"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsOk</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsOk">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is ok or not. Useless on Python, but added 
+  for backward compatibility with the C++ implementation.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="IsSelected"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">IsSelected</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.IsSelected">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Returns whether the item is selected or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="OnSetFocus"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">OnSetFocus</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.OnSetFocus">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Handles the wx.EVT_SET_FOCUS event for the associated window.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetAttributes"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetAttributes</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetAttributes">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item attributes (font, colours).
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetBold"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetBold</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">bold</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetBold">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item font bold.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetData"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetData</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetData">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the data associated to this item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetHasPlus"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetHasPlus</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">has</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetHasPlus">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets whether an item has the 'plus' button.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetHeight"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetHeight</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">h</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetHeight">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the height of the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetHilight"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetHilight</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">set</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetHilight">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item focus/unfocus.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetHyperText"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetHyperText</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">hyper</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetHyperText">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets whether the item is hypertext or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetImage"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetImage</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">image</span>,
+        <span class="sig-arg">which</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetImage">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item image.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetItalic"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetItalic</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">italic</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetItalic">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item font italic.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetText"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetText</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">text</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetText">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the item text.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetVisited"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetVisited</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">visited</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetVisited">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets whether an hypertext item was visited or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetWidth"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetWidth</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">w</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetWidth">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the width of the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetWindow"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetWindow</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wnd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetWindow">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the window associated to the item.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetWindowEnabled"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetWindowEnabled</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">enable</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetWindowEnabled">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets whether the associated window is enabled or not.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetX"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetX</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetX">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the x position on an item in the ScrolledWindow.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="SetY"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">SetY</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">y</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.SetY">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Sets the y position on an item in the ScrolledWindow.
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<a name="__init__"></a>
+<div>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">parent</span>,
+        <span class="sig-arg">text</span>=<span class="sig-default">''</span>,
+        <span class="sig-arg">ct_type</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">wnd</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">image</span>=<span class="sig-default">-1</span>,
+        <span class="sig-arg">selImage</span>=<span class="sig-default">-1</span>,
+        <span class="sig-arg">data</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="CustomTreeCtrl-pysrc.html#GenericTreeItem.__init__">source&nbsp;code</a></span>&nbsp;</span
+    ></td>
+  </table>
+  
+  Default class constructor. For internal use: do not call it in your 
+  code!&quot;
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="CustomTreeCtrl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar"
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center">
+            <p class="nomargin">
+              <a class="navbar" target="_top" href="http://xoomer.virgilio.it/infinity77/eng/freeware.html">CustomTreeCtrl</a>
+      </p></th></tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">Generated by Epydoc
+        3.0alpha2 on Fri May 26 10:25:01 2006</td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sf.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

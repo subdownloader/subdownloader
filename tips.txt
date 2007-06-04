@@ -1,0 +1,8 @@
+You can upload all episodes of TV series from the Upload Window choosing 'Add more CDs' or from Windows right contextual menu on the episode's folder.
+You can report bad movie, bad subtitles for your movie, bad language of subtitles and vote for subtitles from 'search window' with right click on found subtitles
+You can search or upload subtiles using 'Contextual menu' on Folders and Files in your operating system.
+Now the language of the subtitle that you want to upload will be AUTODETECTED saving you time while uploading.
+Further developing of this program needs your programming skills or donation. Please support us.
+'Alternative Movie title (AKA)' is name of movie in same language as subtitles language for upload.
+Please upload all your subtitles using this program, so others can download through this program.
+If program is not working, please check your proxy settings in 'Preferences'.

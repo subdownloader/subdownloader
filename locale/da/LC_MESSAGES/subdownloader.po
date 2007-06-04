@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"POT-Creation-Date: 2007-03-13 12:30\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: OpenSubtitles.org\n"
+
+msgid "Select"
+msgstr "Vælg"
+
+msgid "System message"
+msgstr "System besked"
+
+msgid "subtitles"
+msgstr "undertekster"
+
+msgid "No results found"
+msgstr "Der blev ikke fundet nogle resultater"
+
+msgid "Access denied; you need to login or register"
+msgstr "Adgang nægtet; du skal logge ind eller registrere"
+
+msgid "Link will open in new window"
+msgstr "Linket vil åbnes i et nyt vindue"
+
+msgid "Close window"
+msgstr "Luk vindue"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "log-in"
+msgstr "Log ind"
+
+msgid " to post comments"
+msgstr " for at skrive kommentarer"
+

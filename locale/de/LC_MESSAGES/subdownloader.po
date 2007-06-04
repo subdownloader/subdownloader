@@ -1,0 +1,663 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"POT-Creation-Date: 2007-03-21 12:30\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: OpenSubtitles.org\n"
+
+msgid "Search by:"
+msgstr ""
+
+msgid "Retrieving info from IMDB server, please wait..."
+msgstr ""
+
+msgid "CD1 subtitle file:"
+msgstr ""
+
+msgid "Browse sub..."
+msgstr ""
+
+msgid "Yes, there is an CD2 file."
+msgstr ""
+
+msgid "CD2 AVI file:"
+msgstr ""
+
+msgid "CD2 subtitle file:"
+msgstr ""
+
+msgid "Add more Cds"
+msgstr ""
+
+msgid "Confirm..."
+msgstr ""
+
+msgid "Subtitle Language:"
+msgstr ""
+
+msgid "Movie IMDB ID:"
+msgstr ""
+
+msgid "Search ID..."
+msgstr ""
+
+msgid "Error requesting Title in IMDB Server"
+msgstr ""
+
+msgid "Release name:"
+msgstr ""
+
+msgid "Alternative Movie title (AKA): "
+msgstr ""
+
+msgid "Comments:"
+msgstr ""
+
+msgid "Upload"
+msgstr ""
+
+msgid "Movies"
+msgstr ""
+
+msgid "Serials/Seasons/Episodes"
+msgstr ""
+
+msgid "Errors found:"
+msgstr ""
+
+msgid "Upload More Cds"
+msgstr ""
+
+msgid "%d extra CDs added."
+msgstr ""
+
+msgid "The video %(videopath)s doesn't exist."
+msgstr ""
+
+msgid "Try searching by IMDB ID number."
+msgstr ""
+
+msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
+msgstr ""
+
+msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
+msgstr ""
+
+msgid "The subtitle %s doesn't exist."
+msgstr ""
+
+msgid "Size of subtitle %s bigger than 300Kb"
+msgstr ""
+
+msgid "Error: video CD %d = video CD %d"
+msgstr ""
+
+msgid "Error: sub CD %d = sub CD %d"
+msgstr ""
+
+msgid "Checking videofiles and subs, please wait..."
+msgstr ""
+
+msgid "Checking subtitles in server, please wait..."
+msgstr ""
+
+msgid "Error Checking Subtitles in server, possible causes:"
+msgstr ""
+
+msgid "The connection with the server is off"
+msgstr ""
+
+msgid "Error getting the IMDB info of %s"
+msgstr ""
+
+msgid "Your subtitle name has some special characters you should remove."
+msgstr ""
+
+msgid "Subtitle Found..."
+msgstr ""
+
+msgid "AutoDetected"
+msgstr ""
+
+msgid "Detected .nfo file, please wait..."
+msgstr ""
+
+msgid "Error retrieving IMDB ID from .NFO file"
+msgstr ""
+
+msgid "IMDB Search"
+msgstr ""
+
+msgid "Error: The IMDB ID field is required."
+msgstr ""
+
+msgid "Upload Progress"
+msgstr ""
+
+msgid "Uploading, it can take a while..."
+msgstr ""
+
+msgid "Thank you. Subtitle sucessfuly uploaded."
+msgstr ""
+
+msgid "The number %s is the ID of the movie?"
+msgstr ""
+
+msgid "Would you like to check the detailed page of the subtitle uploaded?"
+msgstr ""
+
+msgid "Successful Upload"
+msgstr ""
+
+msgid "The server returned some errors"
+msgstr ""
+
+msgid "Error Uploading Subtitles in server, possible causes:"
+msgstr ""
+
+msgid "Replacing subtitle"
+msgstr ""
+
+msgid "No Subtitle found."
+msgstr ""
+
+msgid "Where can I download subtitles?"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "No subtitles found. Please upload it."
+msgstr ""
+
+msgid "log-in"
+msgstr ""
+
+msgid "IMBD ID or MOVIE TITLE disambiguation"
+msgstr ""
+
+msgid "Exit"
+msgstr ""
+
+msgid "Main"
+msgstr ""
+
+msgid "Contact us"
+msgstr ""
+
+msgid "Donate"
+msgstr ""
+
+msgid "About"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "SubDownloader"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Help us"
+msgstr ""
+
+msgid "You must search the movie title and select an IMDB ID"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
+msgid "The application found some errors. Would you like to report them to be corrected?"
+msgstr ""
+
+msgid "Reporting errors"
+msgstr ""
+
+msgid "Error sending bug. Thank you anyway"
+msgstr ""
+
+msgid "Please Login"
+msgstr ""
+
+msgid "We strongly recommend to log-in before uploading files"
+msgstr ""
+
+msgid "Connecting, please wait..."
+msgstr ""
+
+msgid "Error XMLRPC creating server connection to : %s"
+msgstr ""
+
+msgid "Not Connected"
+msgstr ""
+
+msgid "Connected as %s"
+msgstr ""
+
+msgid "Error opening link"
+msgstr ""
+
+msgid "Connected anonymously"
+msgstr ""
+
+msgid "I cannot login to server. Status: %s"
+msgstr ""
+
+msgid "A new version of SubDownloader has been released."
+msgstr ""
+
+msgid "NEW VERSION: "
+msgstr ""
+
+msgid "UNKNOWN"
+msgstr ""
+
+msgid "CURRENT VERSION:"
+msgstr ""
+
+msgid "Changes in the new version:"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "New Update"
+msgstr ""
+
+msgid "The video hash of "
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid " has been updated."
+msgstr ""
+
+msgid "Thank you very much for your collaboration  :-)"
+msgstr ""
+
+msgid "Movie Title:"
+msgstr ""
+
+msgid "Report wrong info"
+msgstr ""
+
+msgid "Uploading Subtitle"
+msgstr ""
+
+msgid "extra CDs added."
+msgstr ""
+
+msgid "The video %(videopath) doesn't exist."
+msgstr ""
+
+msgid "Found internal error in video CD%(cd_number) : %(videopath)"
+msgstr ""
+
+msgid "Size too little of the video CD%(cd_number) : %(videopath)"
+msgstr ""
+
+msgid "The subtitle %(subpath) doesn't exist."
+msgstr ""
+
+msgid "Upload More Subtitles"
+msgstr ""
+
+msgid "Size of subtitle %(subpath)"
+msgstr ""
+
+msgid "Error occurred while autodetecting language"
+msgstr ""
+
+msgid "Autodecteded language"
+msgstr ""
+
+msgid "Uploading..."
+msgstr ""
+
+msgid "Subtitle download directory:"
+msgstr ""
+
+msgid "Videofiles directory"
+msgstr ""
+
+msgid "Please choose directory"
+msgstr ""
+
+msgid "Login:"
+msgstr ""
+
+msgid "If you don't have a user account, please"
+msgstr ""
+
+msgid "Register for free"
+msgstr ""
+
+msgid "MOVIE TITLE or IMDB ID: "
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Username:"
+msgstr ""
+
+msgid "Password:"
+msgstr ""
+
+msgid "Languages:"
+msgstr ""
+
+msgid "Choose interface language here ..."
+msgstr ""
+
+msgid "Search subtitles in ALL the languages"
+msgstr ""
+
+msgid "Autodetect Language in Upload"
+msgstr ""
+
+msgid "Default Upload Language:"
+msgstr ""
+
+msgid "Servers configuration:"
+msgstr ""
+
+msgid "Proxy Parameters:"
+msgstr ""
+
+msgid "OSDB protocol:"
+msgstr ""
+
+msgid "The file for AVI CD%d is required"
+msgstr ""
+
+msgid "Host address: "
+msgstr ""
+
+msgid "Get server info"
+msgstr ""
+
+msgid "Server:"
+msgstr ""
+
+msgid "Port:"
+msgstr ""
+
+msgid "User:"
+msgstr ""
+
+msgid "%s is not a valid http:// address"
+msgstr ""
+
+msgid "OSDB Server Info"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "The OSDB server address is unreacheable"
+msgstr ""
+
+msgid "The file for Sub CD%d is required"
+msgstr ""
+
+msgid "AVI File CD%d"
+msgstr ""
+
+msgid "Browse video..."
+msgstr ""
+
+msgid "Browse subtitle..."
+msgstr ""
+
+msgid "Clear content"
+msgstr ""
+
+msgid "Add videofile"
+msgstr ""
+
+msgid "Add directory"
+msgstr ""
+
+msgid "Clear List"
+msgstr ""
+
+msgid "SEARCH"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "Select / Unselect ALL"
+msgstr ""
+
+msgid "Add film's directory"
+msgstr ""
+
+msgid "Add videos from folder (recursive)"
+msgstr ""
+
+msgid "Add video file"
+msgstr ""
+
+msgid "Download Subtitles"
+msgstr ""
+
+msgid "Download subtitle"
+msgstr ""
+
+msgid "View Details and Rate Subtitle"
+msgstr ""
+
+msgid "This SUBTITLE is not for this AVI"
+msgstr ""
+
+msgid "The MOVIE IMDB is not for this AVI"
+msgstr ""
+
+msgid "IMDB details"
+msgstr ""
+
+msgid "The subtitle LANGUAGE is not correct"
+msgstr ""
+
+msgid "Report us Wrong Info"
+msgstr ""
+
+msgid "Play videofile"
+msgstr ""
+
+msgid "Search other subs for this Movie"
+msgstr ""
+
+msgid "Download this programs: %s to watch movies + subtitles."
+msgstr ""
+
+msgid "(It means subtitles are for this movie, but are not well-synchronized)"
+msgstr ""
+
+msgid "Are you sure these subtitles are not good for your video file?"
+msgstr ""
+
+msgid "The report has been noted. Thank you very much."
+msgstr ""
+
+msgid "Choose directory..."
+msgstr ""
+
+msgid "Downloading"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Downloading, it can take a while..."
+msgstr ""
+
+msgid "Save as..."
+msgstr ""
+
+msgid "Downloading subtitle %s of %s"
+msgstr ""
+
+msgid "%d subtitle(s) were downloaded"
+msgstr ""
+
+msgid "Some errors found:"
+msgstr ""
+
+msgid "Search Progress"
+msgstr ""
+
+msgid "Searching..."
+msgstr ""
+
+msgid "Searching using OSDB protocol"
+msgstr ""
+
+msgid "Searching, it can take a while..."
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Error connecting to the OSDB server"
+msgstr ""
+
+msgid "Anonymous"
+msgstr ""
+
+msgid "New Version Detected"
+msgstr ""
+
+msgid "Connecting to server..."
+msgstr ""
+
+msgid "Calculating Hash"
+msgstr ""
+
+msgid "Hashing files..."
+msgstr ""
+
+msgid "Found error in the file %s"
+msgstr ""
+
+msgid "Size error in the file %s"
+msgstr ""
+
+msgid "The file <%s> can't be found"
+msgstr ""
+
+msgid "We need your help to keep up Subdownloader, you can help us in many ways:"
+msgstr ""
+
+msgid "IMBD ID"
+msgstr ""
+
+msgid "- Uploading a lot of subtitles to grow up the database quickly"
+msgstr ""
+
+msgid "- Contact us to translate the program in your language"
+msgstr ""
+
+msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
+msgstr ""
+
+msgid "- Send us some FEEDBACK"
+msgstr ""
+
+msgid "Send Feedback"
+msgstr ""
+
+msgid "    - Chat with us:"
+msgstr ""
+
+msgid "   capiscuas@gmail.com"
+msgstr ""
+
+msgid "Thank you very much"
+msgstr ""
+
+msgid "Log Messages:"
+msgstr ""
+
+msgid "Apply Changes"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Cancel Changes"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Servers"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Directories"
+msgstr ""
+
+msgid "Downloading Language"
+msgstr ""
+
+msgid "Downloading %s language, it can take a while..."
+msgstr ""
+
+msgid "The new language will be displayed after restarting the program."
+msgstr ""
+
+msgid "Error retrieving new language from server."
+msgstr ""
+
+msgid "No translation available in %s. Please contact %s to help us."
+msgstr ""
+
+msgid "IMDB search dialog:"
+msgstr ""
+
+msgid "Error trying to save preferences in '%s'"
+msgstr ""
+
+msgid "Login Again"
+msgstr ""
+
+msgid "2nd Step: CD2 files"
+msgstr ""
+
+msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
+msgstr ""
+
+msgid "4th Step: Required Information"
+msgstr ""
+
+msgid "5th Step: Optional Information"
+msgstr ""
+
+msgid "6th Step: Uploading the subtitle"
+msgstr ""
+
+msgid "1st Step: CD1 files"
+msgstr ""
+
+msgid "CD1 AVI file:"
+msgstr ""
+
+msgid "Browse avi..."
+msgstr ""
+
+msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
+msgstr ""
+
