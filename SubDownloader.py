@@ -56,6 +56,7 @@ class MainApp(wx.App):
 		
 		self.GetLocaleLanguage()
 		
+        #Setting all the initial configuration with their default values if not value loaded from the pickle load
 		self.DefaultValue("upload_language",globals.language_system_id)
 		if len(globals.preferences_list["upload_language"]) != 2:
 		    globals.preferences_list["upload_language"] = globals.language_system_id
