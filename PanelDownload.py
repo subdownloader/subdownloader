@@ -10,6 +10,7 @@ from xmlrpclib import Transport,Server
 import  wx.lib.buttons  as  buttons
 import  cStringIO
 import os
+import re
 import SubDownloaderFrame
 import struct
 
@@ -41,7 +42,8 @@ class PanelDownload(wx.Panel):
         # begin wxGlade: PanelDownload.__init__
         kwds["style"] = wx.TAB_TRAVERSAL
         wx.Panel.__init__(self, *args, **kwds)
-        self.list_downsubtitles = CT.CustomTreeCtrl(self, -1, style=wx.TR_HAS_BUTTONS|wx.TR_NO_LINES|wx.TR_LINES_AT_ROOT|wx.TR_MULTIPLE|wx.TR_HIDE_ROOT|wx.TR_MULTIPLE|wx.TR_DEFAULT_STYLE|wx.SUNKEN_BORDER)
+	
+        self.list_downsubtitles = CT.CustomTreeCtrl(self, -1, pos=wx.DefaultPosition,style=wx.SUNKEN_BORDER,ctstyle=CT.TR_HAS_BUTTONS|CT.TR_HAS_VARIABLE_ROW_HEIGHT)
         self.static_line_1 = wx.StaticLine(self, -1, style=wx.LI_VERTICAL)
         self.button_browsefile = wx.Button(self, -1, _("Add video file"))
         self.button_browsedir = wx.Button(self, -1, _("Add directory"))
@@ -52,6 +54,7 @@ class PanelDownload(wx.Panel):
         self.__set_properties()
         self.__do_layout()
         # end wxGlade
+	
 
     def __set_properties(self):
         # begin wxGlade: PanelDownload.__set_properties
@@ -225,8 +228,12 @@ class PanelDownload(wx.Panel):
 	video_data = self.list_downsubtitles.GetPyData(self.list_downsubtitles.GetItemParent(self.item_choiced))
 	video_filename = os.path.join(video_data["dirname"],video_data["filename"])
 	subfile_id = sub_data["IDSubtitleFile"]	
-	
-	path_sub_temp = os.path.join(globals.sourcefolder,"conf","temp.srt")
+	# We learn about the users system, and use the correct file settings(next 5 lines)
+	win = re.compile('nt')
+	if win.match(os.name):
+		path_sub_temp = os.path.join(globals.sourcefolder,"conf","temp.srt")
+	else:
+		path_sub_temp = os.path.join(globals.sourcefolder,sub_data.get("subname"))
 	self.download_dlg = PP.PyProgress(None, -1, _("Downloading"),
                             _("Downloading, it can take a while..."),                            
                             style = wx.PD_CAN_ABORT)
@@ -236,7 +243,11 @@ class PanelDownload(wx.Panel):
 	executable = globals.preferences_list["mplayer"]
 	try:
 	    executable_quote = '"' + executable+'"'
-	    os.spawnve(os.P_NOWAIT, executable,[executable_quote,'"'+video_filename+'"' + ' -sub "'+path_sub_temp+'"'], os.environ)
+	    win = re.compile('nt')
+	    if win.match(os.name):
+		    os.spawnve(os.P_NOWAIT, executable,[executable_quote,'"'+video_filename+'"' + ' -sub "'+path_sub_temp+'"'], os.environ)
+	    else:
+		    os.spawnve(os.P_NOWAIT, executable,[executable_quote,video_filename,"-sub",path_sub_temp], os.environ)
 	except AttributeError:
 	    pid = os.fork()
 	    if not pid :
@@ -261,7 +272,11 @@ class PanelDownload(wx.Panel):
 	video_filename = os.path.join(video_data["dirname"],video_data["filename"])
 	subfile_id = sub_data["IDSubtitleFile"]	
 	
-	path_sub_temp = os.path.join(globals.sourcefolder,"conf","temp.srt")
+	win = re.compile('nt')
+	if win.match(os.name):
+		path_sub_temp = os.path.join(globals.sourcefolder,"conf","temp.srt")
+	else:
+		path_sub_temp = os.path.join(globals.sourcefolder,sub_data.get("subname"))
 	self.download_dlg = PP.PyProgress(None, -1, _("Downloading"),
                             _("Downloading, it can take a while..."),                            
                             style = wx.PD_CAN_ABORT)
@@ -271,7 +286,11 @@ class PanelDownload(wx.Panel):
 	executable = globals.preferences_list["vlc"]
 	try:
 	    executable_quote = '"' + executable+'"'
-	    os.spawnve(os.P_NOWAIT, executable,[executable_quote,video_filename + ' --sub-file "'+path_sub_temp+'"'], os.environ)
+	    win = re.compile('nt')
+	    if win.match(os.name):
+		    os.spawnve(os.P_NOWAIT, executable,[executable_quote,video_filename + ' --sub-file "'+path_sub_temp+'"'], os.environ)
+	    else:
+		    os.spawnve(os.P_NOWAIT, executable,[executable_quote,video_filename,' --sub-file ',path_sub_temp], os.environ)
 	except AttributeError:
 	    pid = os.fork()
 	    if not pid :

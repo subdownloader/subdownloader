@@ -5,6 +5,7 @@
 import wx
 import globals
 import os
+import re
 
 class PanelMisc(wx.ScrolledWindow):
     def __init__(self, *args, **kwds):
@@ -65,33 +66,35 @@ class PanelMisc(wx.ScrolledWindow):
         # end wxGlade
 
     def OnButtonBrowseMplayer(self,evt):
-        dlg = wx.FileDialog(
-            self, message=_("Browse..."), defaultDir=globals.sourcefolder, 
-            defaultFile="mplayer.exe", wildcard="ALL programs (*.exe)|*.exe", style=wx.OPEN |wx.CHANGE_DIR)
-	
+        win = re.compile('nt')
+        if win.match(os.name):
+            dlg = wx.FileDialog( self, message=_("Browse..."), defaultDir=globals.sourcefolder,defaultFile="mplayer.exe", wildcard="ALL programs (*.exe)|*.exe", style=wx.OPEN |wx.CHANGE_DIR)
+        else:
+            dlg = wx.FileDialog( self, message=_("Browse..."), defaultDir=globals.sourcefolder,defaultFile="mplayer", wildcard="ALL programs (*)|*", style=wx.OPEN |wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
-	     self.mplayerPath.SetValue(dlg.GetPath())
-	
-	dlg.Destroy()
-	     
+            self.mplayerPath.SetValue(dlg.GetPath())
+        dlg.Destroy()
+
     def OnButtonBrowseVLC(self,evt):
-	dlg = wx.FileDialog(
-            self, message=_("Browse..."), defaultDir=globals.sourcefolder, 
-            defaultFile="vlc.exe", wildcard="ALL programs (*.exe)|*.exe", style=wx.OPEN |wx.CHANGE_DIR)
-	
+        
+        win = re.compile('nt')
+        if win.match(os.name):
+            dlg = wx.FileDialog( self, message=_("Browse..."), defaultDir=globals.sourcefolder,defaultFile="vlc.exe", wildcard="ALL programs (*.exe)|*.exe", style=wx.OPEN |wx.CHANGE_DIR)
+        else:
+            dlg = wx.FileDialog( self, message=_("Browse..."), defaultDir=globals.sourcefolder,defaultFile="vlc", wildcard="ALL programs (*)|*", style=wx.OPEN |wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
-	     self.vlcPath.SetValue(dlg.GetPath())
-	
-	dlg.Destroy()
+            self.vlcPath.SetValue(dlg.GetPath())
+        dlg.Destroy()
+
     def OnButtonInstallShell(self,evt):
-	if wx.Platform == '__WXMSW__':
-	   executable = os.path.join(globals.sourcefolder,"install_shell.exe")
-	   os.spawnve(os.P_NOWAIT, executable,['install_shell.exe'], os.environ)
+        if wx.Platform == '__WXMSW__':
+        	executable = os.path.join(globals.sourcefolder,"install_shell.exe")
+        	os.spawnve(os.P_NOWAIT, executable,['install_shell.exe'], os.environ)
     def OnButtonUninstallShell(self,evt):
-	if wx.Platform == '__WXMSW__':
-	   executable = os.path.join(globals.sourcefolder,"uninstall_shell.exe")
-	   os.spawnve(os.P_NOWAIT, executable,['uninstall_shell.exe'], os.environ)
-	    
+        if wx.Platform == '__WXMSW__':
+        	executable = os.path.join(globals.sourcefolder,"uninstall_shell.exe")
+        	os.spawnve(os.P_NOWAIT, executable,['uninstall_shell.exe'], os.environ)
+    
 # end of class PanelMisc
 
 
