@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/" >
-        <file>images/clear.png</file>
-        <file>images/clear_list.png</file>
-        <file>images/download.png</file>
-        <file>images/search.png</file>
-    </qresource>
-</RCC>
