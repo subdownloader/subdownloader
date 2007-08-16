@@ -32,9 +32,15 @@ class VideoFile:
         self._hash = self.calculateOSDBHash()
         self._fps = 0
 	self._osdb_info = {}
-        
+        self._subs = []
+	
+
+	
     def getFilePath(self):
 	return self._filepath
+    
+    def getFileName(self):
+	return os.path.basename(self._filepath)
     
     def getSize(self):
         return self._size
@@ -47,12 +53,30 @@ class VideoFile:
     
     def setOsdbInfo(self,info):
 	self._osdb_info = info
+	
+    def hasMovieName(self):
+	return self._osdb_info[0]["MovieName"] != ""
+    def getMovieName(self):
+	return self._osdb_info[0]["MovieName"]
+    def hasMovieNameEng(self):
+	return self._osdb_info[0]["MovieNameEng"] != ""
+    def getMovieNameEng(self):
+	return self._osdb_info[0]["MovieNameEng"]
+    
+    def hasOsdbInfo(self):
+	return len(self._osdb_info) != 0
     
     def hasSubtitles(self):
-	return self._osdb_info != None
+	return len(self._subs) != 0
     
+    def setSubtitles(self,subs):
+	self._subs = subs
+	
     def getSubtitles(self):
-	return self._osdb_info
+	return self._subs
+    
+    def getTotalSubtitles(self):
+	return len(self._osdb_info)
     
     def calculateOSDBHash(self):
 	try:

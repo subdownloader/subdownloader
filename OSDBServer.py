@@ -17,7 +17,7 @@ from xmlrpclib import Transport,Server
 from subdownloader import *
 
 import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
+import subdownloader.subtitlefile as subtitle
 
 SERVER_ADDRESS = "http://www.opensubtitles.org/xml-rpc"
 
@@ -80,7 +80,15 @@ class OSDBServer:
             videos_result = []
             for video in videos:
                 if moviehashes.has_key(video.getHash()):
-                      video.setOsdbInfo(moviehashes[video.getHash()])
+                      osdb_info = moviehashes[video.getHash()]
+                      subtitles = []
+                      for i in osdb_info:
+                          sub = subtitle.SubtitleFile(online=True,address=i["SubDownloadLink"])
+                          sub.setFileName(i["SubFileName"])
+                          sub.setLanguage(i["SubLanguageID"])
+                          subtitles.append(sub)
+                      video.setOsdbInfo(osdb_info)
+                      video.setSubtitles(subtitles)
                 videos_result.append(video)
                             
             return videos_result

@@ -25,12 +25,27 @@ class SubtitleFile:
     """Contains the class that represents a VideoFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
-   
-    def __init__(self, filepath):
-	self._filepath = filepath
-        self._size = os.path.getsize(filepath)
-        self._hash = sub_md5hex = md5.new(file(filepath,mode='rb').read()).hexdigest()
+    def __init__(self, online, address):
+	if online:
+	    self._online = True
+	    self._url = address
+	else:
+	    self._filepath = address
+	    self._size = os.path.getsize(self._filepath)
+	    self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
         
+    def setFileName(self,filename):
+	self._filename = filename
+	
+    def getFileName(self):
+	return self._filename
+    
+    def setUrl(self,url):
+	self._url = url
+	
+    def getUrl(self):
+	return self._url
+	
     def getFilePath(self):
 	return self._filepath
     
@@ -40,4 +55,11 @@ class SubtitleFile:
     def getHash(self):
         return self._hash
     
+    def setLanguage(self,language):
+	self._language = language
     
+    def getLanguage(self):
+	return self._language
+    
+    def isOnline(self):
+	return self._online
