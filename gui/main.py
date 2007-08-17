@@ -16,7 +16,7 @@
 import sys, re, os, traceback, tempfile
 sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
 
-from PyQt4 import QtCore, QtGui,Qt
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
                          QBuffer, QIODevice, QModelIndex,QDir
