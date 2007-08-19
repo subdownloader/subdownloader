@@ -31,13 +31,20 @@ from subdownloader.gui import installErrorHandler, Error, _Warning, \
                           extension
 from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videolistview import VideoListModel, VideoListView
+from subdownloader.gui.sublistview import SubListModel, SubListView
 from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
+
+
+from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
+from subdownloader.gui.videolistview import VideoListModel, VideoListView
+from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
+
 
 from subdownloader.gui.main_ui import Ui_MainWindow
 import subdownloader.FileManagement.FileScan as FileScan
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
-import subdownloader.languages.Languages as languages
+
 
 class Main(QObject, Ui_MainWindow): 
     def report_error(func):
@@ -119,17 +126,28 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"), \
                         self.videos_leftclicked) 
 	
+	
+	#SETTING UP SUBS_VIEW
+	QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
+	self.sub_model = SubListModel(window)  
+	#self.video_view.resizeColumnsToContents()
+        self.sub_view.setModel(self.sub_model)
+	
+	
 	#SETTING UP SUBS_OSDB_VIEW
-	QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
+	QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
 	self.subs_osdb_model = SubOsdbListModel(window)  
 	#self.video_view.resizeColumnsToContents()
 	self.subs_osdb_view.setModel(self.subs_osdb_model)
-	
+		
 
 	#SETTING UP UPLOAD_VIEW
 	self.upload_model = UploadListModel(window)    
         self.upload_view.setModel(self.upload_model)
 	self.upload_view.resizeColumnsToContents()
+	QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
+	
+
 	self.folderView.show()
 	
 	self.status_progress = QtGui.QProgressBar(self.statusBar)
@@ -146,21 +164,20 @@ class Main(QObject, Ui_MainWindow):
         
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
-    
+
     """What to do when a Folder in the tree is clicked"""
     def folderView_clicked(self, index):
         if index.isValid():
             data = self.folderView.model().filePath(index)
             folder_path = unicode(data, 'utf-8')
+
 	    ###print folder_path
 	    #self.videos_view.clear()
-	    self.tree_subs.clear()
+	    #self.tree_subs.clear()
+
 	    #Scan recursively the selected directory finding subtitles and videos
 	    videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
 	    
-	    #We need to save a tablelink between hashes and TreeWidgetItems bcs we will need that items after searching
-	    self.videohashes_treeitems = {}
-	    self.subhashes_treeitems = {}
 	    
 	    #Populating the items in the VideoListView
 	    self.video_model.set_videos(videos_found)
@@ -168,21 +185,20 @@ class Main(QObject, Ui_MainWindow):
 	    self.video_view.resizeColumnsToContents()
    
 		
-	    sub_hashes = []
+	    self.sub_model.set_subs(subs_found)
+	    self.sub_view.setModel(self.sub_model)
+	    self.sub_view.resizeColumnsToContents()
 
-	    for sub in subs_found:
-		item = QtGui.QTreeWidgetItem(self.tree_subs)
-		sub_hashes.append(sub.getHash())
-		self.subhashes_treeitems[sub.getHash()] = item
-		###item.setCheckState(0,Qt.Unchecked)
-		item.setText(0,os.path.basename(sub.getFilePath()))
 
 	    #Searching our videohashes in the OSDB database
+	    '''
 	    QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 	    self.status("Asking Database...")
 	    #This effect causes the progress bar turn all sides
 	    #self.status_progress.setMinimum(0)
 	    #self.status_progress.setMaximum(0)
+	    
+	    
 	    
 	    self.window.setCursor(Qt.WaitCursor)
 	    try:
@@ -194,51 +210,32 @@ class Main(QObject, Ui_MainWindow):
 	    self.video_model.set_videos(videos_found)
 	    self.video_view.setModel(self.video_model)
 	    self.video_view.resizeColumnsToContents()
+	    '''
+		
+
+	    self.video_model.set_videos(videos_found)
+	    self.video_view.setModel(self.video_model)
+	    self.video_view.resizeColumnsToContents()
+
+
 	    
-		    #for sub in video.getSubtitles():
-			
-			#item_sub = QtGui.QTreeWidgetItem(item)
-			##item_sub.setText(0,sub['SubLanguageID'])
-			##item_sub.setText(0,sub['SubFileName'])
-			
-			
-			
-			#if self.subhashes_treeitems.has_key(sub['SubHash']):
-			    #item_sub.setTextColor(0,QtGui.QColor("red"))
-			    #item_sub.setTextColor(1,QtGui.QColor("red"))
-			    ####item_sub.setCheckState(0,Qt.Checked)
-			    #sub_already = self.subhashes_treeitems[sub['SubHash']]
-			    #sub_already.setTextColor(0,QtGui.QColor("red"))
-			    #sub_already.setTextColor(1,QtGui.QColor("red"))
-			    ##root_subs.takeChild(root_subs.indexOfChild(delete_item))
-			    ##del self.subhashes_treeitems[sub['SubHash']]
-			#else:
-			    #item_sub.setCheckState(0,Qt.Unchecked)
-	
-	    
-	    
-	    ##Trying to autodetect the language
-	    #percentage = 100 / len(subs_found)
-	    #count = 0
-	    #for sub in subs_found:
-		#detected_lang = languages.AutoDetectLang(sub.getFilePath())
-		#if detected_lang != None:
-		    #lang_xx = languages.name2xx(detected_lang)
-		    #image_file = lang_xx + '.gif'
-		    #icon = QtGui.QIcon(":/images/flags/" + image_file)
-		    #item = self.subhashes_treeitems[sub.getHash()]
-		    #item.setIcon(0,icon)
-		    #item.setText(0,detected_lang)
-		    #count += percentage
-		    #self.progress(count,"Autodetecting Language: " + os.path.basename(sub.getFilePath()))
-	    self.tree_subs.resizeColumnToContents(0)
-	    #self.tree_subs.setColumnWidth(0,self.tree_subs.columnWidth(0)+20)
 	    self.progress(100)
 	    self.status_progress.setFormat("Results returned.")
 	
 	    self.window.setCursor(Qt.ArrowCursor)
 	    
 	    #self.OSDBServer.CheckSubHash(sub_hashes)
+
+    def videos_leftclicked(self, index):
+        if index.isValid():
+	    subs = self.video_model.getSubsFromIndex(index.row())
+	    print len(subs)
+	    self.subs_osdb_model.setSubs(subs)
+	    self.subs_osdb_view.setModel(self.subs_osdb_model)
+	    self.subs_osdb_view.resizeColumnsToContents()
+
+    def videos_rightclicked(self, point):
+	menu = QtGui.QMenu(self.video_view)
     
     def videos_leftclicked(self, index):
         if index.isValid():
@@ -254,6 +251,23 @@ class Main(QObject, Ui_MainWindow):
 	menu.exec_(self.video_view.mapToGlobal(point))
 	#if index.isValid():
 	    #print "hello"
+	    
+    def subs_odbc_rightclicked(self, point):
+	menu = QtGui.QMenu(self.subs_osdb_view)
+	menu.addAction(self.actionDownload_Subtitle)
+	menu.exec_(self.subs_osdb_view.mapToGlobal(point))
+	#if index.isValid():
+	    #print "hello"
+
+    def subs_rightclicked(self, point):
+	menu = QtGui.QMenu(self.sub_view)
+	menu.addAction(self.actionUpload_Subtitle)
+	menu.exec_(self.sub_view.mapToGlobal(point))
+	#if index.isValid():
+	    #print "hello"
+	    
+    def update_language(self,lang):
+	self.label_language.setText(lang)
 	    
 	
     """Control the STATUS BAR PROGRESS"""

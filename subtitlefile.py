@@ -19,18 +19,22 @@ import md5
 
 from subdownloader import *
 
+
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
 
 class SubtitleFile:
     """Contains the class that represents a VideoFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
+
     def __init__(self, online, address):
+	self._language = None
 	if online:
 	    self._online = True
 	    self._url = address
 	else:
 	    self._filepath = address
+	    self.setFileName(os.path.basename(self.getFilePath()))
 	    self._size = os.path.getsize(self._filepath)
 	    self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
         

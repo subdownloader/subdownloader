@@ -120,4 +120,4 @@ def AutoDetectLang(filepath):
 	else:
 	    return lang
     else:
-	return None
+	return ""
