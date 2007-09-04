@@ -147,6 +147,7 @@ class Main(QObject, Ui_MainWindow):
 	self.upload_view.resizeColumnsToContents()
 	QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
 	
+	QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
 
 	self.folderView.show()
 	
@@ -169,7 +170,8 @@ class Main(QObject, Ui_MainWindow):
     def folderView_clicked(self, index):
         if index.isValid():
             data = self.folderView.model().filePath(index)
-            folder_path = unicode(data, 'utf-8')
+        
+	    folder_path = unicode(data, 'utf-8')
 
 	    ###print folder_path
 	    #self.videos_view.clear()
@@ -191,7 +193,7 @@ class Main(QObject, Ui_MainWindow):
 
 
 	    #Searching our videohashes in the OSDB database
-	    '''
+	    
 	    QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 	    self.status("Asking Database...")
 	    #This effect causes the progress bar turn all sides
@@ -210,15 +212,11 @@ class Main(QObject, Ui_MainWindow):
 	    self.video_model.set_videos(videos_found)
 	    self.video_view.setModel(self.video_model)
 	    self.video_view.resizeColumnsToContents()
-	    '''
-		
-
+	    
 	    self.video_model.set_videos(videos_found)
 	    self.video_view.setModel(self.video_model)
 	    self.video_view.resizeColumnsToContents()
 
-
-	    
 	    self.progress(100)
 	    self.status_progress.setFormat("Results returned.")
 	
@@ -226,21 +224,42 @@ class Main(QObject, Ui_MainWindow):
 	    
 	    #self.OSDBServer.CheckSubHash(sub_hashes)
 
-    def videos_leftclicked(self, index):
-        if index.isValid():
-	    subs = self.video_model.getSubsFromIndex(index.row())
-	    print len(subs)
-	    self.subs_osdb_model.setSubs(subs)
-	    self.subs_osdb_view.setModel(self.subs_osdb_model)
-	    self.subs_osdb_view.resizeColumnsToContents()
-
-    def videos_rightclicked(self, point):
-	menu = QtGui.QMenu(self.video_view)
+    def click_download(self, checked):
+	#We download the subtitle in the same folder than the video
+	for index in self.subs_osdb_view.selectedIndexes():
+	    destinationfolder = self.video_model.getVideoFromIndex(index.row()).getFolderPath()
+	    
+	#Let's detect which subtitles the user want to download
+	rows = frozenset([ index.row() for index in self.subs_osdb_view.selectedIndexes()])
+	if not len(rows):
+	    QMessageBox.about(self.window,"Error","You need to select 1 or more subtitles to download")
+	else:
+	    
+	    percentage = 100/len(rows)
+	    count = 0
+	    self.status("Connecting to download...")
+	    for row in rows:
+		sub = self.subs_osdb_model.getSubFromRow(row)
+		id_online = sub.getIdOnline()
+		sub_filename = sub.getFileName()
+		self.progress(count,"Downloading subtitle... "+id_online)
+		count += percentage
+		try:
+		    #This effect causes the progress bar turn all sides
+		    destinationpath = os.path.join(destinationfolder,sub_filename)
+		    videos_result = self.OSDBServer.DownloadSubtitle(id_online,destinationpath)
+		except Exception, e: 
+		    traceback.print_exc(e)
+		    qFatal("Unable to download subtitle "+id_online)
     
+	    self.status("Subtitles downloaded succesfully.")
+	    self.progress(100)
+	    
+	
     def videos_leftclicked(self, index):
         if index.isValid():
 	    subs = self.video_model.getSubsFromIndex(index.row())
-	    print len(subs)
+	    #print len(subs)
 	    self.subs_osdb_model.setSubs(subs)
 	    self.subs_osdb_view.setModel(self.subs_osdb_model)
 	    self.subs_osdb_view.resizeColumnsToContents()
@@ -272,11 +291,13 @@ class Main(QObject, Ui_MainWindow):
 	
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val,msg = None):
-        if val < 0:
-            self.status_progress.setMaximum(0)
-        else: self.status_progress.setValue(val)
+	self.status_progress.setMaximum(100)
+        self.status_progress.reset()
 	if msg != None:
 	    self.status_progress.setFormat(msg + ": %p%")
+	if val < 0:
+            self.status_progress.setMaximum(0)
+        else: self.status_progress.setValue(val)
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 	
     def status(self, msg):

@@ -27,13 +27,13 @@ class SubtitleFile:
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
 
-    def __init__(self, online, address):
+    def __init__(self, online, id):
 	self._language = None
 	if online:
 	    self._online = True
-	    self._url = address
+	    self._id_online = id
 	else:
-	    self._filepath = address
+	    self._filepath = id
 	    self.setFileName(os.path.basename(self.getFilePath()))
 	    self._size = os.path.getsize(self._filepath)
 	    self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
@@ -44,11 +44,11 @@ class SubtitleFile:
     def getFileName(self):
 	return self._filename
     
-    def setUrl(self,url):
-	self._url = url
+    def setIdOnline(self,_id_online):
+	self._id_online = _id_online
 	
-    def getUrl(self):
-	return self._url
+    def getIdOnline(self):
+	return self._id_online
 	
     def getFilePath(self):
 	return self._filepath

@@ -51,7 +51,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     percentage = 100 / len(files_found)
     count = 0
     for filepath in files_found:
-        subs_found.append(subtitlefile.SubtitleFile(online = False,address = filepath))
+        subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
         count += percentage
         report_progress(count,"Hashing sub: " + os.path.basename(filepath))
         

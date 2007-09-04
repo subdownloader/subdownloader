@@ -14,7 +14,12 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,Server
+import base64
+import StringIO
+import gzip
+
 from subdownloader import *
+
 
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitle
@@ -62,6 +67,45 @@ class OSDBServer:
             print answer
             #I need changes in the API to get more info about these subtitles
     
+    def DownloadSubtitle(self,sub_id,dest = "temp.sub"):
+
+	try:
+		subtitlefile = file(dest,'wb')
+		subtitlefile.close()
+	except:
+		#self.LogMessage("Error saving " + dest)
+		return
+		
+	#if globals.debugmode:
+		#globals.Log("-------------Download parameters:")
+		#globals.Log([sub_id])
+		
+	#try:
+	answer = self.xmlrpc_server.DownloadSubtitles(self._token,[sub_id])
+	#if globals.debugmode:
+		#globals.Log("-------------Download Answer:")
+		#globals.Log("disabled")
+	
+	if answer.has_key("data"):
+		subtitle_compressed = answer["data"][0]["data"]
+	else:
+		#self.LogMessage("XMLRPC Error downloading result for idsubfile="+sub_id)
+		return
+		
+	compressedstream = base64.decodestring(subtitle_compressed)
+	#compressedstream = subtitle_compressed
+	gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
+	
+	s=gzipper.read()
+	gzipper.close()
+	subtitlefile = file(dest,'wb')
+	subtitlefile.write(s)
+	subtitlefile.close()
+	#self.LogMessage(dest + " saved",status="OK")
+	#self.download_subs +=1
+#except: 
+	#self.LogMessage("XMLRPC Error downloading id="+sub_id)
+		
     def SearchSubtitles(self,lang,videos):
             search_array = []
             for video in videos:
@@ -83,7 +127,7 @@ class OSDBServer:
                       osdb_info = moviehashes[video.getHash()]
                       subtitles = []
                       for i in osdb_info:
-                          sub = subtitle.SubtitleFile(online=True,address=i["SubDownloadLink"])
+                          sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                           sub.setFileName(i["SubFileName"])
                           sub.setLanguage(i["SubLanguageID"])
                           subtitles.append(sub)

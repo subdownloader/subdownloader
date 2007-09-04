@@ -39,6 +39,9 @@ class VideoFile:
     def getFilePath(self):
 	return self._filepath
     
+    def getFolderPath(self):
+	return os.path.dirname(self._filepath)
+    
     def getFileName(self):
 	return os.path.basename(self._filepath)
     
