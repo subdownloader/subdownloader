@@ -1,0 +1,5 @@
+content	firesubtitles	content/
+locale	firesubtitles	en-US	locale/en-US/
+skin	firesubtitles	classic/1.0	skin/
+overlay	chrome://browser/content/browser.xul	chrome://firesubtitles/content/firefoxOverlay.xul
+style	chrome://global/content/customizeToolbar.xul	chrome://firesubtitles/skin/overlay.css
