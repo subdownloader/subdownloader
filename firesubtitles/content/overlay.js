@@ -5,10 +5,11 @@ var firesubtitles = {
     this.strings = document.getElementById("firesubtitles-strings");
   },
   onMenuItemCommand: function(e) {
-    var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+    /*var promptService = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                   .getService(Components.interfaces.nsIPromptService);
     promptService.alert(window, this.strings.getString("helloMessageTitle"),
-                                this.strings.getString("helloMessage"));
+                                this.strings.getString("helloMessage"));*/
+    window.open("chrome://firesubtitles/content/main.xul", "FireSubtitles", "chrome,width=600,height=300");
   },
   onToolbarButtonCommand: function(e) {
     // just reuse the function above.  you can change this, obviously!

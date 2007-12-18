@@ -1,0 +1,26 @@
+<window id="treeImage" title="FireSubtitles"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<tree flex="1" width="350" height="200">
+  <treecols>
+    <treecol id="name" label="Video File" primary="true" flex="1"/>
+    <treecol id="emotion" label="Movie Title" flex="1"/>
+  </treecols>
+
+  <treechildren>
+    <treeitem>
+      <treerow>
+        <treecell label="Movie1.avi"/>
+        <treecell label="El niño." src="happy.png"/>
+      </treerow>
+    </treeitem>
+    <treeitem>
+      <treerow>
+        <treecell label="Movie2.avi"/>
+        <treecell label="Another title" src="happy.png"/>
+      </treerow>
+    </treeitem>
+  </treechildren>
+</tree>
+
+</window>
