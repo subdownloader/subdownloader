@@ -34,5 +34,8 @@
 	<button label=" Open" image="open.gif" oncommand="localDirTree.changeDir('/home/ivan/');" />
 </box>	
 
+ 
+
+
       
 </window>
