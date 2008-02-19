@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Sep  1 17:10:35 2007
+# Created: Tue Sep 25 22:00:53 2007
 #      by: PyQt4 UI code generator 4.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,26 +22,6 @@ class Ui_MainWindow(object):
         self.splitter_3.setGeometry(QtCore.QRect(200,10,101,21))
         self.splitter_3.setOrientation(QtCore.Qt.Vertical)
         self.splitter_3.setObjectName("splitter_3")
-
-        self.groupBox_5 = QtGui.QGroupBox(self.centralwidget)
-        self.groupBox_5.setGeometry(QtCore.QRect(10,10,181,251))
-        self.groupBox_5.setObjectName("groupBox_5")
-
-        self.folderView = QtGui.QTreeView(self.groupBox_5)
-        self.folderView.setGeometry(QtCore.QRect(10,20,161,221))
-        self.folderView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.folderView.setObjectName("folderView")
-
-        self.groupBox_3 = QtGui.QGroupBox(self.centralwidget)
-        self.groupBox_3.setGeometry(QtCore.QRect(200,10,431,251))
-        self.groupBox_3.setObjectName("groupBox_3")
-
-        self.video_view = VideoListView(self.groupBox_3)
-        self.video_view.setGeometry(QtCore.QRect(10,20,411,221))
-        self.video_view.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.video_view.setDragEnabled(True)
-        self.video_view.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
-        self.video_view.setObjectName("video_view")
 
         self.groupBox_4 = QtGui.QGroupBox(self.centralwidget)
         self.groupBox_4.setGeometry(QtCore.QRect(640,10,271,251))
@@ -114,6 +94,26 @@ class Ui_MainWindow(object):
         self.label_5 = QtGui.QLabel(self.groupBox)
         self.label_5.setGeometry(QtCore.QRect(10,50,66,17))
         self.label_5.setObjectName("label_5")
+
+        self.groupBox_3 = QtGui.QGroupBox(self.centralwidget)
+        self.groupBox_3.setGeometry(QtCore.QRect(320,10,311,251))
+        self.groupBox_3.setObjectName("groupBox_3")
+
+        self.video_view = VideoListView(self.groupBox_3)
+        self.video_view.setGeometry(QtCore.QRect(10,20,411,221))
+        self.video_view.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.video_view.setDragEnabled(True)
+        self.video_view.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
+        self.video_view.setObjectName("video_view")
+
+        self.groupBox_5 = QtGui.QGroupBox(self.centralwidget)
+        self.groupBox_5.setGeometry(QtCore.QRect(10,10,291,251))
+        self.groupBox_5.setObjectName("groupBox_5")
+
+        self.folderView = QtGui.QTreeView(self.groupBox_5)
+        self.folderView.setGeometry(QtCore.QRect(10,20,271,221))
+        self.folderView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.folderView.setObjectName("folderView")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QtGui.QMenuBar(MainWindow)
@@ -138,8 +138,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_4.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles Online:", None, QtGui.QApplication.UnicodeUTF8))
         self.button_download.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
@@ -150,6 +148,8 @@ class Ui_MainWindow(object):
         self.label_language.setText(QtGui.QApplication.translate("MainWindow", "Undefined", None, QtGui.QApplication.UnicodeUTF8))
         self.button_chglng.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("MainWindow", "Language:", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDownload_Subtitle.setText(QtGui.QApplication.translate("MainWindow", "Download Subtitle", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUpload_Subtitle.setText(QtGui.QApplication.translate("MainWindow", "Upload Subtitle", None, QtGui.QApplication.UnicodeUTF8))
 

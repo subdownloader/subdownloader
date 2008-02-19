@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-4.2.dtd">
+<!-- eric4 project file for project subdownloader -->
+<!-- Saved: 2008-02-20, 00:52:08 -->
+<!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
+<Project version="4.2">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <ProjectType>Qt4</ProjectType>
+  <Description></Description>
+  <Version>0.1</Version>
+  <Author>Ivan Garcia</Author>
+  <Email>capiscuas@gmail.com</Email>
+  <Sources>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>main.py</Name>
+    </Source>
+    <Source>
+      <Dir>languages</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>languages</Dir>
+      <Name>autodetect_lang.py</Name>
+    </Source>
+    <Source>
+      <Dir>languages</Dir>
+      <Name>Languages.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>videolistview.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>images_rc.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>sublistview.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>widgets.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>subosdblistview.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>main_ui.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>uploadlistview.py</Name>
+    </Source>
+    <Source>
+      <Dir>FileManagement</Dir>
+      <Name>FileScan.py</Name>
+    </Source>
+    <Source>
+      <Dir>FileManagement</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>FileManagement</Dir>
+      <Name>RecursiveParser.py</Name>
+    </Source>
+    <Source>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Name>subtitlefile.py</Name>
+    </Source>
+    <Source>
+      <Name>OSDBServer.py</Name>
+    </Source>
+    <Source>
+      <Name>videofile.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+    <Form>
+      <Dir>gui</Dir>
+      <Name>main.ui</Name>
+    </Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Resources>
+    <Resource>
+      <Dir>gui</Dir>
+      <Name>images.qrc</Name>
+    </Resource>
+  </Resources>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+  </Others>
+  <MainScript>
+    <Dir>gui</Dir>
+    <Name>main.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>Subversion</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.qrc" type="RESOURCES" />
+  </FiletypeAssociations>
+</Project>

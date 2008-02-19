@@ -95,73 +95,73 @@ class Main(QObject, Ui_MainWindow):
         window.closeEvent = self.close_event
         self.read_settings()
         
-    	#self.treeView.reset()
+        #self.treeView.reset()
         window.show()
-	model = QDirModel(window)
-	
-	#SETTING UP FOLDERVIEW
-    	model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
-    	self.folderView.setModel(model)
-	index = model.index(QDir.rootPath())
-	self.folderView.setRootIndex(index)
-	
-	self.folderView.header().hide()
-	self.folderView.hideColumn(3)
-	self.folderView.hideColumn(2)
-	self.folderView.hideColumn(1)
-	
-	QObject.connect(self.folderView, SIGNAL("activated(QModelIndex)"), \
-                        self.folderView_clicked)
+        model = QDirModel(window)
+        
+        #SETTING UP FOLDERVIEW
+        model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
+        self.folderView.setModel(model)
+        index = model.index(QDir.rootPath())
+        self.folderView.setRootIndex(index)
+        
+        self.folderView.header().hide()
+        self.folderView.hideColumn(3)
+        self.folderView.hideColumn(2)
+        self.folderView.hideColumn(1)
+
+        QObject.connect(self.folderView, SIGNAL("activated(QModelIndex)"), \
+                            self.folderView_clicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
-                        self.folderView_clicked)    
-	
+                            self.folderView_clicked)    
+        
 
-	
-	#SETTING UP VIDEOS_VIEW
-	QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
-	self.video_model = VideoListModel(window)  
-	#self.video_view.resizeColumnsToContents()
+        
+        #SETTING UP VIDEOS_VIEW
+        QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
+        self.video_model = VideoListModel(window)  
+        #self.video_view.resizeColumnsToContents()
         self.video_view.setModel(self.video_model)
-	
+        
         QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"), \
-                        self.videos_leftclicked) 
-	
-	
-	#SETTING UP SUBS_VIEW
-	QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
-	self.sub_model = SubListModel(window)  
-	#self.video_view.resizeColumnsToContents()
+                            self.videos_leftclicked) 
+        
+        
+        #SETTING UP SUBS_VIEW
+        QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
+        self.sub_model = SubListModel(window)  
+        #self.video_view.resizeColumnsToContents()
         self.sub_view.setModel(self.sub_model)
-	
-	
-	#SETTING UP SUBS_OSDB_VIEW
-	QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
-	self.subs_osdb_model = SubOsdbListModel(window)  
-	#self.video_view.resizeColumnsToContents()
-	self.subs_osdb_view.setModel(self.subs_osdb_model)
-		
+        
+        
+        #SETTING UP SUBS_OSDB_VIEW
+        QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
+        self.subs_osdb_model = SubOsdbListModel(window)  
+        #self.video_view.resizeColumnsToContents()
+        self.subs_osdb_view.setModel(self.subs_osdb_model)
+            
 
-	#SETTING UP UPLOAD_VIEW
-	self.upload_model = UploadListModel(window)    
+        #SETTING UP UPLOAD_VIEW
+        self.upload_model = UploadListModel(window)    
         self.upload_view.setModel(self.upload_model)
-	self.upload_view.resizeColumnsToContents()
-	QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
-	
-	QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
+        self.upload_view.resizeColumnsToContents()
+        QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
+        
+        QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
 
-	self.folderView.show()
-	
-	self.status_progress = QtGui.QProgressBar(self.statusBar)
-	self.status_progress.setProperty("value",QVariant(0))
-	
+        self.folderView.show()
+        
+        self.status_progress = QtGui.QProgressBar(self.statusBar)
+        self.status_progress.setProperty("value",QVariant(0))
+        
         self.status_progress.setOrientation(QtCore.Qt.Horizontal)
-	self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusBar)
-	
-	
-	self.statusBar.insertWidget(0,self.status_label)
-	self.statusBar.addPermanentWidget(self.status_progress,2)
-	
-	self.establish_connection()
+        self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusBar)
+        
+        
+        self.statusBar.insertWidget(0,self.status_label)
+        self.statusBar.addPermanentWidget(self.status_progress,2)
+        
+        self.establish_connection()
         
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
@@ -247,6 +247,7 @@ class Main(QObject, Ui_MainWindow):
 		try:
 		    #This effect causes the progress bar turn all sides
 		    destinationpath = os.path.join(destinationfolder,sub_filename)
+		    print destinationpath
 		    videos_result = self.OSDBServer.DownloadSubtitle(id_online,destinationpath)
 		except Exception, e: 
 		    traceback.print_exc(e)
