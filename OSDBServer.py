@@ -60,92 +60,91 @@ class OSDBServer:
         self.create_xmlrpcserver()
         
     def GetSubLanguages(self,languages):
-            print self.xmlrpc_server.GetSubLanguages(self._token,languages)["data"]
+        print self.xmlrpc_server.GetSubLanguages(self._token,languages)["data"]
             
     def CheckSubHash(self,hashes):
-            answer = self.xmlrpc_server.CheckSubHash(self._token,hashes)
-            print answer
-            #I need changes in the API to get more info about these subtitles
+        answer = self.xmlrpc_server.CheckSubHash(self._token,hashes)
+        print answer
+        #TODO: I need changes in the API to get more info about these subtitles
     
     def DownloadSubtitle(self,sub_id,dest = "temp.sub"):
-
-	try:
-		subtitlefile = file(dest,'wb')
-		subtitlefile.close()
-	except:
-		#self.LogMessage("Error saving " + dest)
-		return
-		
-	#if globals.debugmode:
-		#globals.Log("-------------Download parameters:")
-		#globals.Log([sub_id])
-		
-	#try:
-	answer = self.xmlrpc_server.DownloadSubtitles(self._token,[sub_id])
-	#if globals.debugmode:
-		#globals.Log("-------------Download Answer:")
-		#globals.Log("disabled")
-	
-	if answer.has_key("data"):
-		subtitle_compressed = answer["data"][0]["data"]
-	else:
-		#self.LogMessage("XMLRPC Error downloading result for idsubfile="+sub_id)
-		return
-		
-	compressedstream = base64.decodestring(subtitle_compressed)
-	#compressedstream = subtitle_compressed
-	gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
-	
-	s=gzipper.read()
-	gzipper.close()
-	subtitlefile = file(dest,'wb')
-	subtitlefile.write(s)
-	subtitlefile.close()
-	#self.LogMessage(dest + " saved",status="OK")
-	#self.download_subs +=1
-#except: 
-	#self.LogMessage("XMLRPC Error downloading id="+sub_id)
-		
+        try:
+            subtitlefile = file(dest,'wb')
+            subtitlefile.close()
+        except:
+            #self.LogMessage("Error saving " + dest)
+            return
+            
+        #if globals.debugmode:
+            #globals.Log("-------------Download parameters:")
+            #globals.Log([sub_id])
+            
+        #try:
+        answer = self.xmlrpc_server.DownloadSubtitles(self._token,[sub_id])
+        #if globals.debugmode:
+            #globals.Log("-------------Download Answer:")
+            #globals.Log("disabled")
+        
+        if answer.has_key("data"):
+            subtitle_compressed = answer["data"][0]["data"]
+        else:
+            #self.LogMessage("XMLRPC Error downloading result for idsubfile="+sub_id)
+            return
+            
+        compressedstream = base64.decodestring(subtitle_compressed)
+        #compressedstream = subtitle_compressed
+        gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
+        
+        s=gzipper.read()
+        gzipper.close()
+        subtitlefile = file(dest,'wb')
+        subtitlefile.write(s)
+        subtitlefile.close()
+        #self.LogMessage(dest + " saved",status="OK")
+        #self.download_subs +=1
+    #except: 
+        #self.LogMessage("XMLRPC Error downloading id="+sub_id)
+        
     def SearchSubtitles(self,lang,videos):
-            search_array = []
-            for video in videos:
-                    search_array.append({'sublanguageid':lang,'moviehash':video.getHash(),'moviebytesize':video.getSize()})
-            result = self.xmlrpc_server.SearchSubtitles(self._token,search_array)
-            ###print result
-            moviehashes = {}
-            if result['data'] != False:
-                    for i in result['data']:
-                            moviehash = i['MovieHash']
-                            if not moviehashes.has_key(moviehash):
-                                    moviehashes[moviehash] = []
+        search_array = []
+        for video in videos:
+                search_array.append({'sublanguageid':lang,'moviehash':video.getHash(),'moviebytesize':video.getSize()})
+        result = self.xmlrpc_server.SearchSubtitles(self._token,search_array)
+        ###print result
+        moviehashes = {}
+        if result['data'] != False:
+            for i in result['data']:
+                moviehash = i['MovieHash']
+                if not moviehashes.has_key(moviehash):
+                    moviehashes[moviehash] = []
+            
+                moviehashes[moviehash].append(i)
+             
+        videos_result = []
+        for video in videos:
+            if moviehashes.has_key(video.getHash()):
+                osdb_info = moviehashes[video.getHash()]
+                subtitles = []
+                for i in osdb_info:
+                    sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                    sub.setFileName(i["SubFileName"])
+                    sub.setLanguage(i["SubLanguageID"])
+                    subtitles.append(sub)
+                video.setOsdbInfo(osdb_info)
+                video.setSubtitles(subtitles)
+            videos_result.append(video)
                         
-                            moviehashes[moviehash].append(i)
-                 
-            videos_result = []
-            for video in videos:
-                if moviehashes.has_key(video.getHash()):
-                      osdb_info = moviehashes[video.getHash()]
-                      subtitles = []
-                      for i in osdb_info:
-                          sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
-                          sub.setFileName(i["SubFileName"])
-                          sub.setLanguage(i["SubLanguageID"])
-                          subtitles.append(sub)
-                      video.setOsdbInfo(osdb_info)
-                      video.setSubtitles(subtitles)
-                videos_result.append(video)
-                            
-            return videos_result
-                            
+        return videos_result
+                        
             
     def create_xmlrpcserver(self):
         transport = GtkTransport()
         try:
-                self.xmlrpc_server = Server(SERVER_ADDRESS,transport)
+            self.xmlrpc_server = Server(SERVER_ADDRESS,transport)
         except:
-                error = ("Error XMLRPC creating server connection to : %s") % SERVER_ADDRESS
-                wx.MessageBox(error)
-                return
+            error = ("Error XMLRPC creating server connection to : %s") % SERVER_ADDRESS
+            wx.MessageBox(error)
+            return
             
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    

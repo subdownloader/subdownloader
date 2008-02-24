@@ -28,30 +28,30 @@ class SubtitleFile:
     """
 
     def __init__(self, online, id):
-	self._language = None
-	if online:
-	    self._online = True
-	    self._id_online = id
-	else:
-	    self._filepath = id
-	    self.setFileName(os.path.basename(self.getFilePath()))
-	    self._size = os.path.getsize(self._filepath)
-	    self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
+        self._language = None
+        if online:
+            self._online = True
+            self._id_online = id
+        else:
+            self._filepath = id
+            self.setFileName(os.path.basename(self.getFilePath()))
+            self._size = os.path.getsize(self._filepath)
+            self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
         
     def setFileName(self,filename):
-	self._filename = filename
-	
+        self._filename = filename
+    
     def getFileName(self):
-	return self._filename
+        return self._filename
     
     def setIdOnline(self,_id_online):
-	self._id_online = _id_online
-	
+        self._id_online = _id_online
+    
     def getIdOnline(self):
-	return self._id_online
-	
+        return self._id_online
+    
     def getFilePath(self):
-	return self._filepath
+        return self._filepath
     
     def getSize(self):
         return self._size
@@ -60,10 +60,10 @@ class SubtitleFile:
         return self._hash
     
     def setLanguage(self,language):
-	self._language = language
+        self._language = language
     
     def getLanguage(self):
-	return self._language
+        return self._language
     
     def isOnline(self):
-	return self._online
+        return self._online

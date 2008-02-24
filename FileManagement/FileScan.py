@@ -35,25 +35,28 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     #Scanning VIDEOS
     files_found = parser.getRecursiveFileList(folderpath, videofile.VIDEOS_EXT)
     videos_found = []
-    percentage = 100 / len(files_found)
-    count = 0
-    for filepath in files_found:
-        videos_found.append(videofile.VideoFile(filepath))
-        count += percentage
-        report_progress(count,"Hashing video: " + os.path.basename(filepath))
-            
+    # only work the video files if any were found
+    if len(files_found):
+        percentage = 100 / len(files_found)
+        count = 0
+        for filepath in files_found:
+            videos_found.append(videofile.VideoFile(filepath))
+            count += percentage
+            report_progress(count,"Hashing video: " + os.path.basename(filepath))
     
     report_progress(0)
     
     #Scanning Subs
     files_found = parser.getRecursiveFileList(folderpath,subtitlefile.SUBTITLES_EXT)
     subs_found = []
-    percentage = 100 / len(files_found)
-    count = 0
-    for filepath in files_found:
-        subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
-        count += percentage
-        report_progress(count,"Hashing sub: " + os.path.basename(filepath))
+    # only work the subtitles if any were found
+    if len(files_found):
+        percentage = 100 / len(files_found)
+        count = 0
+        for filepath in files_found:
+            subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
+            count += percentage
+            report_progress(count,"Hashing sub: " + os.path.basename(filepath))
         
     report_progress(100,"Finished hashing")
         
