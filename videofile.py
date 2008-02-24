@@ -27,23 +27,23 @@ class VideoFile:
     """
    
     def __init__(self, filepath):
-	self._filepath = filepath
+        self._filepath = filepath
         self._size = os.path.getsize(filepath)
         self._hash = self.calculateOSDBHash()
         self._fps = 0
-	self._osdb_info = {}
+        self._osdb_info = {}
         self._subs = []
-	
+    
 
-	
+    
     def getFilePath(self):
-	return self._filepath
+        return self._filepath
     
     def getFolderPath(self):
-	return os.path.dirname(self._filepath)
+        return os.path.dirname(self._filepath)
     
     def getFileName(self):
-	return os.path.basename(self._filepath)
+        return os.path.basename(self._filepath)
     
     def getSize(self):
         return self._size
@@ -55,64 +55,67 @@ class VideoFile:
         return self._fps
     
     def setOsdbInfo(self,info):
-	self._osdb_info = info
-	
+        self._osdb_info = info
+    
     def hasMovieName(self):
-	return self._osdb_info[0]["MovieName"] != ""
+        return self._osdb_info[0]["MovieName"] != ""
+    
     def getMovieName(self):
-	return self._osdb_info[0]["MovieName"]
+        return self._osdb_info[0]["MovieName"]
+    
     def hasMovieNameEng(self):
-	return self._osdb_info[0]["MovieNameEng"] != ""
+        return self._osdb_info[0]["MovieNameEng"] != ""
+    
     def getMovieNameEng(self):
-	return self._osdb_info[0]["MovieNameEng"]
+        return self._osdb_info[0]["MovieNameEng"]
     
     def hasOsdbInfo(self):
-	return len(self._osdb_info) != 0
+        return len(self._osdb_info) != 0
     
     def hasSubtitles(self):
-	return len(self._subs) != 0
+        return len(self._subs) != 0
     
     def setSubtitles(self,subs):
-	self._subs = subs
-	
+        self._subs = subs
+    
     def getSubtitles(self):
-	return self._subs
+        return self._subs
     
     def getTotalSubtitles(self):
-	return len(self._osdb_info)
+        return len(self._osdb_info)
     
     def calculateOSDBHash(self):
-	try:
-		longlongformat = 'LL'  # signed long, unsigned long
-		bytesize = struct.calcsize(longlongformat)
+        try:
+            longlongformat = 'LL'  # signed long, unsigned long
+            bytesize = struct.calcsize(longlongformat)
 
-		filesize = os.path.getsize(self._filepath)
-		hash = filesize
-		f = file(self._filepath, "rb")
-		#print struct.calcsize(longlongformat)
-		if filesize < 65536 * 2:
-			return "SizeError"
-		
-		for x in range(65536/bytesize):
-			buffer = f.read(bytesize)
-			(l2, l1)= struct.unpack(longlongformat, buffer)
-			l_value = (long(l1) << 32) | long(l2)
-			hash += l_value
-			hash = hash & 0xFFFFFFFFFFFFFFFF #to remain as 64bit number
-			#if x < 20 : print "%016x" % hash
-			
-		
-		f.seek(max(0,filesize-65536),0)
-		for x in range(65536/bytesize):
-			buffer = f.read(bytesize)
-			(l2, l1) = struct.unpack(longlongformat, buffer)
-			l_value = (long(l1) << 32) | long(l2)
-			hash += l_value
-			hash = hash & 0xFFFFFFFFFFFFFFFF
-	
-		f.close()
-		returnedhash =  "%016x" % hash
-		return returnedhash
-		
-	except(IOError):
-		return "IOError"
+            filesize = os.path.getsize(self._filepath)
+            hash = filesize
+            f = file(self._filepath, "rb")
+            #print struct.calcsize(longlongformat)
+            if filesize < 65536 * 2:
+                return "SizeError"
+            
+            for x in range(65536/bytesize):
+                buffer = f.read(bytesize)
+                (l2, l1)= struct.unpack(longlongformat, buffer)
+                l_value = (long(l1) << 32) | long(l2)
+                hash += l_value
+                hash = hash & 0xFFFFFFFFFFFFFFFF #to remain as 64bit number
+                #if x < 20 : print "%016x" % hash
+                
+            
+            f.seek(max(0,filesize-65536),0)
+            for x in range(65536/bytesize):
+                buffer = f.read(bytesize)
+                (l2, l1) = struct.unpack(longlongformat, buffer)
+                l_value = (long(l1) << 32) | long(l2)
+                hash += l_value
+                hash = hash & 0xFFFFFFFFFFFFFFFF
+        
+            f.close()
+            returnedhash =  "%016x" % hash
+            return returnedhash
+            
+        except(IOError):
+            return "IOError"
