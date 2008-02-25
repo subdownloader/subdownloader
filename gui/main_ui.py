@@ -10,7 +10,18 @@
 import sys
 from PyQt4 import QtCore, QtGui
 
+from sublistview import SubListView
+from subosdblistview import SubOsdbListView
+from uploadlistview import UploadListView
+from videolistview import VideoListView
+import images_rc
+
+
 class Ui_MainWindow(object):
+    
+    def __init__(self):
+        pass
+        
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,914,589).size()).expandedTo(MainWindow.minimumSizeHint()))
@@ -152,9 +163,3 @@ class Ui_MainWindow(object):
         self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDownload_Subtitle.setText(QtGui.QApplication.translate("MainWindow", "Download Subtitle", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUpload_Subtitle.setText(QtGui.QApplication.translate("MainWindow", "Upload Subtitle", None, QtGui.QApplication.UnicodeUTF8))
-
-from sublistview import SubListView
-from subosdblistview import SubOsdbListView
-from uploadlistview import UploadListView
-from videolistview import VideoListView
-import images_rc

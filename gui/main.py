@@ -12,9 +12,10 @@
 ##    You should have received a copy of the GNU General Public License along
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.Warning
+
 """ Create and launch the GUI """
 import sys, re, os, traceback, tempfile
-sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
+#sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
@@ -171,136 +172,135 @@ class Main(QObject, Ui_MainWindow):
         if index.isValid():
             data = self.folderView.model().filePath(index)
         
-	    folder_path = unicode(data, 'utf-8')
+        folder_path = unicode(data, 'utf-8')
+        
+        ###print folder_path
+        #self.videos_view.clear()
+        #self.tree_subs.clear()
 
-	    ###print folder_path
-	    #self.videos_view.clear()
-	    #self.tree_subs.clear()
-
-	    #Scan recursively the selected directory finding subtitles and videos
-	    videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
-	    
-	    
-	    #Populating the items in the VideoListView
-	    self.video_model.set_videos(videos_found)
-	    self.video_view.setModel(self.video_model)
-	    self.video_view.resizeColumnsToContents()
-   
-		
-	    self.sub_model.set_subs(subs_found)
-	    self.sub_view.setModel(self.sub_model)
-	    self.sub_view.resizeColumnsToContents()
+        #Scan recursively the selected directory finding subtitles and videos
+        videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
+        
+        
+        #Populating the items in the VideoListView
+        self.video_model.set_videos(videos_found)
+        self.video_view.setModel(self.video_model)
+        self.video_view.resizeColumnsToContents()
+    
+        
+        self.sub_model.set_subs(subs_found)
+        self.sub_view.setModel(self.sub_model)
+        self.sub_view.resizeColumnsToContents()
 
 
-	    #Searching our videohashes in the OSDB database
-	    
-	    QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-	    self.status("Asking Database...")
-	    #This effect causes the progress bar turn all sides
-	    #self.status_progress.setMinimum(0)
-	    #self.status_progress.setMaximum(0)
-	    
-	    
-	    
-	    self.window.setCursor(Qt.WaitCursor)
-	    try:
-		videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
-	    except Exception, e: 
-		traceback.print_exc(e)
-		qFatal("Unable to connect to server. Please try later")
-	    
-	    self.video_model.set_videos(videos_found)
-	    self.video_view.setModel(self.video_model)
-	    self.video_view.resizeColumnsToContents()
-	    
-	    self.video_model.set_videos(videos_found)
-	    self.video_view.setModel(self.video_model)
-	    self.video_view.resizeColumnsToContents()
+        #Searching our videohashes in the OSDB database
+        
+        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        self.status("Asking Database...")
+        #This effect causes the progress bar turn all sides
+        #self.status_progress.setMinimum(0)
+        #self.status_progress.setMaximum(0)
+        
+        self.window.setCursor(Qt.WaitCursor)
+        try:
+            videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
+        except Exception, e: 
+            traceback.print_exc(e)
+        qFatal("Unable to connect to server. Please try later")
+    
+        self.video_model.set_videos(videos_found)
+        self.video_view.setModel(self.video_model)
+        self.video_view.resizeColumnsToContents()
+        
+        self.video_model.set_videos(videos_found)
+        self.video_view.setModel(self.video_model)
+        self.video_view.resizeColumnsToContents()
 
-	    self.progress(100)
-	    self.status_progress.setFormat("Results returned.")
-	
-	    self.window.setCursor(Qt.ArrowCursor)
-	    
-	    #self.OSDBServer.CheckSubHash(sub_hashes)
+        self.progress(100)
+        self.status_progress.setFormat("Results returned.")
+    
+        self.window.setCursor(Qt.ArrowCursor)
+        
+        #self.OSDBServer.CheckSubHash(sub_hashes)
 
     def click_download(self, checked):
-	#We download the subtitle in the same folder than the video
-	for index in self.subs_osdb_view.selectedIndexes():
-	    destinationfolder = self.video_model.getVideoFromIndex(index.row()).getFolderPath()
-	    
-	#Let's detect which subtitles the user want to download
-	rows = frozenset([ index.row() for index in self.subs_osdb_view.selectedIndexes()])
-	if not len(rows):
-	    QMessageBox.about(self.window,"Error","You need to select 1 or more subtitles to download")
-	else:
-	    
-	    percentage = 100/len(rows)
-	    count = 0
-	    self.status("Connecting to download...")
-	    for row in rows:
-		sub = self.subs_osdb_model.getSubFromRow(row)
-		id_online = sub.getIdOnline()
-		sub_filename = sub.getFileName()
-		self.progress(count,"Downloading subtitle... "+id_online)
-		count += percentage
-		try:
-		    #This effect causes the progress bar turn all sides
-		    destinationpath = os.path.join(destinationfolder,sub_filename)
-		    print destinationpath
-		    videos_result = self.OSDBServer.DownloadSubtitle(id_online,destinationpath)
-		except Exception, e: 
-		    traceback.print_exc(e)
-		    qFatal("Unable to download subtitle "+id_online)
+        #We download the subtitle in the same folder than the video
+        for index in self.subs_osdb_view.selectedIndexes():
+            destinationfolder = self.video_model.getVideoFromIndex(index.row()).getFolderPath()
+            
+        #Let's detect which subtitles the user want to download
+        rows = frozenset([ index.row() for index in self.subs_osdb_view.selectedIndexes()])
+        if not len(rows):
+            QMessageBox.about(self.window,"Error","You need to select 1 or more subtitles to download")
+        else:
+            
+            percentage = 100/len(rows)
+            count = 0
+            self.status("Connecting to download...")
+            for row in rows:
+                sub = self.subs_osdb_model.getSubFromRow(row)
+                id_online = sub.getIdOnline()
+                sub_filename = sub.getFileName()
+                self.progress(count,"Downloading subtitle... "+id_online)
+                count += percentage
+                try:
+                    #This effect causes the progress bar turn all sides
+                    destinationpath = os.path.join(destinationfolder,sub_filename)
+                    print destinationpath
+                    videos_result = self.OSDBServer.DownloadSubtitle(id_online,destinationpath)
+                except Exception, e: 
+                    traceback.print_exc(e)
+                    qFatal("Unable to download subtitle "+id_online)
+        
+            self.status("Subtitles downloaded succesfully.")
+            self.progress(100)
+        
     
-	    self.status("Subtitles downloaded succesfully.")
-	    self.progress(100)
-	    
-	
     def videos_leftclicked(self, index):
         if index.isValid():
-	    subs = self.video_model.getSubsFromIndex(index.row())
-	    #print len(subs)
-	    self.subs_osdb_model.setSubs(subs)
-	    self.subs_osdb_view.setModel(self.subs_osdb_model)
-	    self.subs_osdb_view.resizeColumnsToContents()
-	    
+            subs = self.video_model.getSubsFromIndex(index.row())
+        #print len(subs)
+        self.subs_osdb_model.setSubs(subs)
+        self.subs_osdb_view.setModel(self.subs_osdb_model)
+        self.subs_osdb_view.resizeColumnsToContents()
+        
     def videos_rightclicked(self, point):
-	menu = QtGui.QMenu(self.video_view)
-	menu.addAction(self.actionUpload_Subtitle)
-	menu.exec_(self.video_view.mapToGlobal(point))
-	#if index.isValid():
-	    #print "hello"
-	    
+        menu = QtGui.QMenu(self.video_view)
+        menu.addAction(self.actionUpload_Subtitle)
+        menu.exec_(self.video_view.mapToGlobal(point))
+        #if index.isValid():
+            #print "hello"
+        
     def subs_odbc_rightclicked(self, point):
-	menu = QtGui.QMenu(self.subs_osdb_view)
-	menu.addAction(self.actionDownload_Subtitle)
-	menu.exec_(self.subs_osdb_view.mapToGlobal(point))
-	#if index.isValid():
-	    #print "hello"
+        menu = QtGui.QMenu(self.subs_osdb_view)
+        menu.addAction(self.actionDownload_Subtitle)
+        menu.exec_(self.subs_osdb_view.mapToGlobal(point))
+        #if index.isValid():
+            #print "hello"
 
     def subs_rightclicked(self, point):
-	menu = QtGui.QMenu(self.sub_view)
-	menu.addAction(self.actionUpload_Subtitle)
-	menu.exec_(self.sub_view.mapToGlobal(point))
-	#if index.isValid():
-	    #print "hello"
-	    
+        menu = QtGui.QMenu(self.sub_view)
+        menu.addAction(self.actionUpload_Subtitle)
+        menu.exec_(self.sub_view.mapToGlobal(point))
+        #if index.isValid():
+            #print "hello"
+        
     def update_language(self,lang):
-	self.label_language.setText(lang)
-	    
-	
+        self.label_language.setText(lang)
+        
+    
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val,msg = None):
-	self.status_progress.setMaximum(100)
+        self.status_progress.setMaximum(100)
         self.status_progress.reset()
-	if msg != None:
-	    self.status_progress.setFormat(msg + ": %p%")
-	if val < 0:
+        if msg != None:
+            self.status_progress.setFormat(msg + ": %p%")
+        if val < 0:
             self.status_progress.setMaximum(0)
-        else: self.status_progress.setValue(val)
+        else: 
+            self.status_progress.setValue(val)
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-	
+    
     def status(self, msg):
         self.status_progress.setMaximum(100)
         self.status_progress.reset()
@@ -319,7 +319,7 @@ class Main(QObject, Ui_MainWindow):
             qFatal("Unable to connect to server. Please try later")
         self.progress(100)
         self.status_progress.setFormat("Connected")
-	
+    
         self.window.setCursor(Qt.ArrowCursor)
     
 

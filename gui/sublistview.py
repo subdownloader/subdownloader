@@ -9,8 +9,11 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
 
 import subdownloader.videofile as videofile
 import pickle
+
 class SubListModel(QAbstractTableModel):
+    
     TIME_READ_FMT = "%Y-%m-%d %H:%M:%S"
+    
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None

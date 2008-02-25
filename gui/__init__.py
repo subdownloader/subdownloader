@@ -17,7 +17,8 @@ __docformat__ = "epytext"
 __author__    = "Ivan Garcia <contact@ivangarcia.org>"
 
 import sys, os, re, StringIO, traceback
-from subdownloader import *
+from subdownloader import APP_TITLE, APP_VERSION, OSDBServer, subtitlefile, videofile
+                                
 
 error_dialog = None
 

@@ -94,7 +94,7 @@ def xxx2name(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
             return lang['LanguageName']
-	
+    
 def name2xx(name):
     for lang in LANGUAGES:
         if lang['LanguageName'].lower() == name.lower():
@@ -109,15 +109,15 @@ def CleanTagsFile(texto):
 
 def AutoDetectLang(filepath):
     if filepath.endswith("sub") or filepath.endswith("srt") or filepath.endswith("txt"):
-	subtitle_content = file(filepath,mode='rb').read()
-	CleanTagsFile(subtitle_content)
-	n = autodetect_lang._NGram()
-	l = autodetect_lang.NGram(os.path.join(os.getcwd(),'lm'))
-	percentage, lang = l.classify(subtitle_content)
-	pos = lang.rfind("-")
-	if pos != -1:
-	    return lang[:pos]
-	else:
-	    return lang
+        subtitle_content = file(filepath,mode='rb').read()
+        CleanTagsFile(subtitle_content)
+        n = autodetect_lang._NGram()
+        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'lm'))
+        percentage, lang = l.classify(subtitle_content)
+        pos = lang.rfind("-")
+        if pos != -1:
+            return lang[:pos]
+        else:
+            return lang
     else:
-	return ""
+        return ""

@@ -207,7 +207,6 @@ class TableView(FileDragAndDrop, QTableView):
         drag.setPixmap(self.render_to_pixmap(self.selectedIndexes()))
         return drag
 
-        
 
 class CoverDisplay(FileDragAndDrop, QLabel):
     def __init__(self, parent):

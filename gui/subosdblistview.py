@@ -11,7 +11,9 @@ import subdownloader.videofile as videofile
 import subdownloader.languages.Languages as languages
 
 class SubOsdbListModel(QAbstractTableModel):
+    
     TIME_READ_FMT = "%Y-%m-%d %H:%M:%S"
+    
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._subs = []
@@ -57,12 +59,12 @@ class SubOsdbListModel(QAbstractTableModel):
             
             if col == COL_LANG:
                 lang_xx= languages.xxx2xx(sub.getLanguage())
-		lang_name = languages.xxx2name(sub.getLanguage())
-			
-		#image_file = lang_xx + '.gif'
-		#icon = QtGui.QIcon(":/images/flags/" + image_file)
-		#item_sub.setIcon(0,icon)
-		
+                lang_name = languages.xxx2name(sub.getLanguage())
+            
+        #image_file = lang_xx + '.gif'
+        #icon = QtGui.QIcon(":/images/flags/" + image_file)
+        #item_sub.setIcon(0,icon)
+        
                 text = lang_name
             if col == COL_NAME:
                 text = sub.getFileName()

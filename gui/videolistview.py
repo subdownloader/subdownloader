@@ -11,7 +11,9 @@ import subdownloader.videofile as videofile
 import pickle
 
 class VideoListModel(QAbstractTableModel):
+    
     TIME_READ_FMT = "%Y-%m-%d %H:%M:%S"
+    
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
@@ -128,7 +130,6 @@ class VideoListView(QTableView):
             #QByteArray("\n".join(ids))
             drag.start()
 
-    
     
     def files_dropped(self, files, event):
         if not files: return

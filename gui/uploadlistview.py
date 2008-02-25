@@ -11,7 +11,9 @@ import pickle
 import subdownloader.languages.Languages as languages
             
 class UploadListModel(QAbstractTableModel):
+    
     TIME_READ_FMT = "%Y-%m-%d %H:%M:%S"
+    
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
@@ -51,15 +53,15 @@ class UploadListModel(QAbstractTableModel):
     def update_lang_upload(self):
         ##Trying to autodetect the language
 
-		#if detected_lang != None:
-		    #lang_xx = languages.name2xx(detected_lang)
-		    #image_file = lang_xx + '.gif'
-		    #icon = QtGui.QIcon(":/images/flags/" + image_file)
-		    #item = self.subhashes_treeitems[sub.getHash()]
-		    #item.setIcon(0,icon)
-		    #item.setText(0,detected_lang)
-		    #count += percentage
-		    #self.progress(count,"Autodetecting Language: " + os.path.basename(sub.getFilePath()))
+        #if detected_lang != None:
+            #lang_xx = languages.name2xx(detected_lang)
+            #image_file = lang_xx + '.gif'
+            #icon = QtGui.QIcon(":/images/flags/" + image_file)
+            #item = self.subhashes_treeitems[sub.getHash()]
+            #item.setIcon(0,icon)
+            #item.setText(0,detected_lang)
+            #count += percentage
+            #self.progress(count,"Autodetecting Language: " + os.path.basename(sub.getFilePath()))
 
 
         all_langs = []
