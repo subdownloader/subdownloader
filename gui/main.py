@@ -46,6 +46,8 @@ import subdownloader.FileManagement.FileScan as FileScan
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
 
+import logging
+log = logging.getLogger("subdownloader.gui.main")
 
 class Main(QObject, Ui_MainWindow): 
     def report_error(func):
@@ -326,6 +328,8 @@ class Main(QObject, Ui_MainWindow):
 def main():
     
     from PyQt4.Qt import QApplication, QMainWindow
+    
+    log.debug("Building main dialog")
     app = QApplication(sys.argv)
     window = QMainWindow()
     window.setWindowTitle(APP_TITLE)
@@ -333,9 +337,11 @@ def main():
     installErrorHandler(QErrorMessage(window))
     QCoreApplication.setOrganizationName("IvanGarcia")
     QCoreApplication.setApplicationName(APP_TITLE)
+    
+    log.debug("Showing main dialog")
     Main(window,"")    
     
     return app.exec_()
 
-if __name__ == "__main__": 
-    sys.exit(main())
+#if __name__ == "__main__": 
+#    sys.exit(main())

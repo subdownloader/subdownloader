@@ -14,11 +14,33 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # this will allow logic imports
-import sys, os
+import sys, os,  logging
 sys.path.append(os.path.dirname(os.getcwd()))
 
 # simple aplication starter
 import gui.main
 
+#d = {'hoy': '123', 'clientip': '192.168.0.1', 'user': 'ivan'}
+#FORMAT = "%(asctime)-30s %(clientip)s %(levelname)s:%(name)s %(message)s"
+#FORMAT = "hoy-15s %(clientip)s %(user)-8s %(message)s"
+
+LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
+
+logging.basicConfig(level=logging.DEBUG,
+                    format=LOG_FORMAT,
+                     datefmt='%y-%m-%d %H:%M',
+                    #uncomment next two lines if we want logging into a file
+                    #filename='/tmp/subdownloader.log',
+                    #filemode='w',
+                    )
+
+# create the root logger named 'subdownloader' 
+# consequent ones should follow its parent as. 'subdownloader.package.foo'
+log = logging.getLogger("subdownloader")
+
 if __name__ == "__main__": 
-    sys.exit(gui.main.main())
+    log.info('Subdownloader starting...')
+    #sys.stdout.write("Subdownloader running... "); sys.stdout.flush()
+    gui.main.main()
+    log.info('Subdownloader closed for construction.')
+    #sys.stdout.write("stopped!\n"); sys.stdout.flush()
