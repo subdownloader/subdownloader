@@ -23,10 +23,18 @@ import gui.main
 #d = {'hoy': '123', 'clientip': '192.168.0.1', 'user': 'ivan'}
 #FORMAT = "%(asctime)-30s %(clientip)s %(levelname)s:%(name)s %(message)s"
 #FORMAT = "hoy-15s %(clientip)s %(user)-8s %(message)s"
-
+"""
+CRITICAL 	50
+ERROR 	40
+WARNING 	30
+INFO 	20
+DEBUG 	10
+NOTSET 	0
+"""
+LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=LOG_LEVEL,
                     format=LOG_FORMAT,
                      datefmt='%y-%m-%d %H:%M',
                     #uncomment next two lines if we want logging into a file
