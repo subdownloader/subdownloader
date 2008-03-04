@@ -13,42 +13,76 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import sys, os
+import logging
+from optparse import OptionParser
 # this will allow logic imports
-import sys, os,  logging
 sys.path.append(os.path.dirname(os.getcwd()))
-
 # simple aplication starter
+import conf
 import gui.main
 
 #d = {'hoy': '123', 'clientip': '192.168.0.1', 'user': 'ivan'}
 #FORMAT = "%(asctime)-30s %(clientip)s %(levelname)s:%(name)s %(message)s"
 #FORMAT = "hoy-15s %(clientip)s %(user)-8s %(message)s"
 """
-CRITICAL 	50
-ERROR 	40
-WARNING 	30
-INFO 	20
-DEBUG 	10
-NOTSET 	0
+CRITICAL    50
+ERROR        40
+WARNING    30
+INFO            20
+DEBUG       10
+NOTSET       0
 """
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 
-logging.basicConfig(level=LOG_LEVEL,
+parser = OptionParser(description=conf.DESCRIPTION,  version=conf.VERSION,  option_list=conf.OPTION_LIST)
+(options, args) = parser.parse_args()
+
+
+logging.basicConfig(level=options.logging,
                     format=LOG_FORMAT,
-                     datefmt='%y-%m-%d %H:%M',
+                    datefmt='%y-%m-%d %H:%M',
                     #uncomment next two lines if we want logging into a file
-                    #filename='/tmp/subdownloader.log',
-                    #filemode='w',
+                    filename=conf.LOG_PATH,
+                    filemode=conf.LOG_MODE,
                     )
-
-# create the root logger named 'subdownloader' 
+# define a Handler which writes INFO messages or higher to the sys.stderr
+console = logging.StreamHandler()
+if options.verbose:
+    console.setLevel(options.logging)
+# set a format which is simpler for console use
+formatter = logging.Formatter("%(levelname)s::%(name)s # %(message)s")
+# tell the handler to use this format
+console.setFormatter(formatter)
+# add the handler to the root logger
+logging.getLogger('').addHandler(console)
+# create a logger named 'subdownloader.run' 
 # consequent ones should follow its parent as. 'subdownloader.package.foo'
-log = logging.getLogger("subdownloader")
-
+log = logging.getLogger("subdownloader.run")
+    
 if __name__ == "__main__": 
     log.info('Subdownloader starting...')
     #sys.stdout.write("Subdownloader running... "); sys.stdout.flush()
-    gui.main.main()
-    log.info('Subdownloader closed for construction.')
+    if options.mode == 'gui':
+        gui.main.main()
+    elif options.mode == 'cli':
+        # check if user set a video file name
+        log.debug("Checking video file parameter...")
+        if options.videofile:
+            log.debug("...passed")
+        else:
+            log.debug("...failed")
+            log.info("--video parameter must be set")
+            #exit()
+        # check if user set language to use on subtitles
+        log.debug("Checking language parameter...")
+        if options.videofile:
+            log.debug("...passed")
+        else:
+            log.debug("...failed")
+            log.info("--lang parameter must be set")
+            #exit()
+        
+    log.info('Subdownloader closed for mantainance.')
     #sys.stdout.write("stopped!\n"); sys.stdout.flush()
