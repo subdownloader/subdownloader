@@ -77,7 +77,7 @@ if __name__ == "__main__":
             #exit()
         # check if user set language to use on subtitles
         log.debug("Checking language parameter...")
-        if options.videofile:
+        if options.language:
             log.debug("...passed")
         else:
             log.debug("...failed")
