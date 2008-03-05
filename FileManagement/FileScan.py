@@ -16,11 +16,12 @@
 
 import os.path
 from subdownloader import *
+from subdownloader.FileManagement import get_extension
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
 
-def FakeProgress(count,msg):
+def FakeProgress(count,msg=""):
     pass
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
@@ -32,8 +33,18 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     #Let's reset the progress bar to 0%
     report_progress(0)
     parser = RecursiveParser.RecursiveParser()
-    #Scanning VIDEOS
-    files_found = parser.getRecursiveFileList(folderpath, videofile.VIDEOS_EXT)
+    files_found = []
+    try:
+        # it's a file
+        open(folderpath, 'r')
+        if get_extension(folderpath) in videofile.VIDEOS_EXT:
+            files_found.append(folderpath)
+        folderpath = os.path.dirname(folderpath)
+    except IOError:
+        # it's a directory
+        #Scanning VIDEOS
+        files_found = parser.getRecursiveFileList(folderpath, videofile.VIDEOS_EXT)
+        
     videos_found = []
     # only work the video files if any were found
     if len(files_found):

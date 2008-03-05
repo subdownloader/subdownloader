@@ -135,6 +135,7 @@ class OSDBServer:
             videos_result.append(video)
                         
         return videos_result
+        
                         
             
     def create_xmlrpcserver(self):
@@ -162,6 +163,9 @@ class OSDBServer:
         """Login to the Server using username/password,
         empty parameters means an anonymously login""" 
         
+    def logout(self):
+        return self.xmlrpc_server.LogOut()
+        
     @classmethod
     def is_connected(self):
         """ 
@@ -170,3 +174,27 @@ class OSDBServer:
         connection.
         """
         return self.logged_as != None
+        
+    def SearchToMail(self):
+        pass
+    def CheckMovieHash(self):
+        pass
+    def TryUploadSubtitles(self):
+        pass
+    def UploadSubtitles(self):
+        pass
+    def ReportWrongMovieHash(self):
+        pass
+    def GetAvailableTranslations(self):
+        pass
+    def GetTranslation(self):
+        pass
+    def SearchMoviesOnIMDB(self):
+        pass
+    def GetIMDBMovieDetails(self):
+        pass
+    def AutoUpdate(self):
+        pass
+    def NoOperation(self):
+        pass
+    

@@ -1,4 +1,4 @@
-##    Copyright (C) 2007 Ivan Garcia contact@ivangarcia.org
+##    Copyright (C) 2007 Ivan Garcia <contact@ivangarcia.org>
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation; either version 2 of the License, or
@@ -13,9 +13,5 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 '''
-FileManagement package
+CLI package
 '''
-import os.path
-
-def get_extension(path):
-    return os.path.splitext(path)[1][1:].lower()

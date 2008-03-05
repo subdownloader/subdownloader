@@ -21,10 +21,8 @@ sys.path.append(os.path.dirname(os.getcwd()))
 # simple aplication starter
 import conf
 import gui.main
+import cli.main
 
-#d = {'hoy': '123', 'clientip': '192.168.0.1', 'user': 'ivan'}
-#FORMAT = "%(asctime)-30s %(clientip)s %(levelname)s:%(name)s %(message)s"
-#FORMAT = "hoy-15s %(clientip)s %(user)-8s %(message)s"
 """
 CRITICAL    50
 ERROR        40
@@ -36,9 +34,9 @@ NOTSET       0
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 
+#TODO: change conf.VERSION to subdownload.APP_VERSION
 parser = OptionParser(description=conf.DESCRIPTION,  version=conf.VERSION,  option_list=conf.OPTION_LIST)
 (options, args) = parser.parse_args()
-
 
 logging.basicConfig(level=options.logging,
                     format=LOG_FORMAT,
@@ -47,22 +45,26 @@ logging.basicConfig(level=options.logging,
                     filename=conf.LOG_PATH,
                     filemode=conf.LOG_MODE,
                     )
-# define a Handler which writes INFO messages or higher to the sys.stderr
-console = logging.StreamHandler()
+# add a console logging handler if verbosity is turned on
 if options.verbose:
+    # define a Handler which writes INFO messages or higher to the sys.stderr
+    console = logging.StreamHandler()
     console.setLevel(options.logging)
-# set a format which is simpler for console use
-formatter = logging.Formatter("%(levelname)s::%(name)s # %(message)s")
-# tell the handler to use this format
-console.setFormatter(formatter)
-# add the handler to the root logger
-logging.getLogger('').addHandler(console)
+    # set a format which is simpler for console use
+    if options.output == "nerd":
+        formatter = logging.Formatter("%(levelname)s::%(name)s # %(message)s")
+    elif options.output == "human":
+        formatter = logging.Formatter("%(message)s")
+    # tell the handler to use this format
+    console.setFormatter(formatter)
+    # add the handler to the root logger
+    logging.getLogger('').addHandler(console)
 # create a logger named 'subdownloader.run' 
 # consequent ones should follow its parent as. 'subdownloader.package.foo'
 log = logging.getLogger("subdownloader.run")
     
 if __name__ == "__main__": 
-    log.info('Subdownloader starting...')
+    log.info('Subdownloader started')
     #sys.stdout.write("Subdownloader running... "); sys.stdout.flush()
     if options.mode == 'gui':
         gui.main.main()
@@ -83,6 +85,10 @@ if __name__ == "__main__":
             log.debug("...failed")
             log.info("--lang parameter must be set")
             #exit()
+            
+        # assume everything is good from here
+        cli = cli.main.Main(options)
+        cli.start_session()
         
     log.info('Subdownloader closed for mantainance.')
     #sys.stdout.write("stopped!\n"); sys.stdout.flush()

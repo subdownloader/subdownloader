@@ -37,7 +37,7 @@ DESCRIPTION = "%s is a Free Open-Source tool written in PYTHON for automatic dow
 VERSION = "%s v2.0"% NAME
 OPTION_LIST = [
     # internal application options
-    make_option("-g", "--gui", dest="mode", action="store_const", const="gui",  default="cli", 
+    make_option("-g", "--gui", dest="mode", action="store_const", const="gui",  #default="cli", 
                             help="Run applicatin in GUI mode. This is the default"),
     make_option("-c", "--cli", dest="mode", action="store_const", const="cli",  default="gui",
                             help="Run applicatin in CLI mode"),
@@ -47,7 +47,15 @@ OPTION_LIST = [
     make_option("--quiet", dest="verbose", 
                             action="store_false", default=True, 
                             help="Don't print status messages to stdout"), 
+    make_option("--human", dest="output", action="store_const", const="human", 
+                            help="Print human readable messages. Default for CLI mode"), 
+    make_option("--nerd", dest="output", action="store_const", const="nerd", 
+                            default="human", help="Print messages with more details"), 
     # user application options
+    make_option("-d", "--download", dest="operation", action="store_const", const="download", 
+                            help="Download a subtitle. Default for CLI mode"), 
+    make_option("-u", "--upload", dest="operation", action="store_const", const="upload", 
+                            default="download", help="Upload a subtitle"), 
     make_option("--video", dest="videofile", metavar="FILE/DIR",  
                             help="Video file or a directory with videos"), 
     make_option("--lang", dest="language",
