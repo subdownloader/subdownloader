@@ -67,3 +67,5 @@ LOG_DIR = "" # leave blank to use current path
 LOG_NAME = "%s.log"% NAME.lower()
 LOG_PATH = os.path.join(LOG_DIR, LOG_NAME)
 LOG_MODE = "a"
+
+

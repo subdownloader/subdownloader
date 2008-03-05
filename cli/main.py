@@ -25,10 +25,18 @@ class Main(OSDBServer.OSDBServer):
         self.log = logging.getLogger("subdownloader.cli.main")
         
     def start_session(self):
-        self.check_directory()
-        #self.check_video()
+        check_result = self.check_directory()
+        if check_result == 2:
+            continue_ = 'y'
+            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/n)\n: ")
+            if continue_.lower() != 'y':
+                return
+        if check_result == 1:
+            self.log.info("Starting subtitle search...")
+            self.build_matrix(self.videos, self.subs)
         
     def check_directory(self):
+        """ search for videos and subtitles in the given path """
         self.log.debug("Checking given directory")
         (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile)
         if len(self.videos):
@@ -41,8 +49,29 @@ class Main(OSDBServer.OSDBServer):
             else:
                 self.log.info("Looks like some of your videos might need subtitles :)")
                 return 1
-        else:
+        elif len(self.subs):
             self.log.debug("No videos were found")
+            self.log.debug("Subtitles found: %i"% len(self.subs))
+            self.log.info("Although some subtitles exist, no videos were found. No subtitles would be needed for this case :(")
+            return 0
+        else:
             self.log.info("Nothing to do here")
             return 0
-    
+            
+    def build_matrix(self, videos, subtitles):
+        """ construct a dictionary contaning existing videos and possible subtitle match """
+        self.videos_matrix = {}
+        for video in self.videos:
+            self.log.debug("Processing %s..."% video.getFileName())
+            possible_subtitle = FileScan.AutoDetectSubtitle(video.getFilePath())
+            self.log.debug("possible subtitle is: %s"% possible_subtitle)
+            for subtitle in self.subs:
+                sub_match = None
+                if possible_subtitle == subtitle.getFilePath():
+                    sub_match = subtitle
+                    self.log.debug("Match found: %s"% sub_match.getFileName())
+                    break
+            self.videos_matrix[video] = sub_match
+            
+        return self.videos_matrix
+        
