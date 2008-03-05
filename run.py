@@ -76,7 +76,7 @@ if __name__ == "__main__":
         else:
             log.debug("...failed")
             log.info("--video parameter must be set")
-            #exit()
+            exit()
         # check if user set language to use on subtitles
         log.debug("Checking language parameter...")
         if options.language:
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         else:
             log.debug("...failed")
             log.info("--lang parameter must be set")
-            #exit()
+            exit()
             
         # assume everything is good from here
         cli = cli.main.Main(options)
