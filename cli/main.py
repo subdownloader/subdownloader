@@ -26,14 +26,24 @@ class Main(OSDBServer.OSDBServer):
         
     def start_session(self):
         check_result = self.check_directory()
+        continue_ = 'y'
         if check_result == 2:
-            continue_ = 'y'
             continue_ = raw_input("Do you still want to search for missing subtitles? (Y/n)\n: ")
             if continue_.lower() != 'y':
                 return
-        if check_result == 1:
+        if check_result == 0:
+            return
+        if continue_ == 'y':
             self.log.info("Starting subtitle search...")
             self.build_matrix(self.videos, self.subs)
+            result = "\n"
+            for video in self.videos_matrix:
+                if video: video_name = video.getFileName()
+                else: video_name = "NO MATCH"
+                if self.videos_matrix[video]: sub_name = self.videos_matrix[video].getFileName()
+                else: sub_name = "NO MATCH"
+                result += "%s -> %s\n"% (video_name, sub_name)
+            self.log.info(result)
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """

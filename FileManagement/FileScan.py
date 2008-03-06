@@ -17,7 +17,7 @@
 import os.path
 import logging
 from subdownloader import *
-from subdownloader.FileManagement import get_extension
+from subdownloader.FileManagement import get_extension, clear_string, without_extension
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
@@ -85,7 +85,7 @@ def AutoDetectSubtitle(pathvideofile):
  
     if os.path.isfile(pathvideofile):
         videofolder = os.path.dirname(pathvideofile)
-        filename1_noextension = globals.DeleteExtension(pathvideofile)
+        filename1_noextension = without_extension(pathvideofile)
     else:
         log.debug("AutoDetectSubtitle argument must be a complete video path")
         return ""
@@ -98,13 +98,13 @@ def AutoDetectSubtitle(pathvideofile):
  
  
     #2nd METHOD FIND THE AVI NAME MERGED INTO THE SUB NAME
-    cleaned_file = globals.CleanString(filename1_noextension.lower())
+    cleaned_file = clear_string(filename1_noextension.lower())
     filesfound = []
     for filename in os.listdir(videofolder):
         for ext in subtitlefile.SUBTITLES_EXT:
             if filename.endswith("."+ext):
                 filesfound.append(filename)
-                cleaned_found = globals.CleanString(globals.DeleteExtension(filename.lower()))
+                cleaned_found = clear_string(without_extension(filename.lower()))
                 if "srt" in subtitlefile.SUBTITLES_EXT:
                     if cleaned_found.find(cleaned_file) != -1:
                         return os.path.join(videofolder,filename)

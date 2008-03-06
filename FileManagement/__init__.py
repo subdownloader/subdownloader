@@ -16,6 +16,17 @@
 FileManagement package
 '''
 import os.path
+import re, string
 
 def get_extension(path):
     return os.path.splitext(path)[1][1:].lower()
+
+def clear_string(strng):
+    r_chars = '_.,()'
+    return strng.translate(string.maketrans(r_chars," "*len(r_chars))).replace(" ", "")
+    
+def without_extension(filename):
+    if re.search("\.\w+$", filename):
+        ext = re.search("\.\w+$", filename).group(0)
+    else: ext = ""
+    return filename.replace(ext, "")
