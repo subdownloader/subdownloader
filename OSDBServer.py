@@ -77,13 +77,13 @@ class OSDBServer(Transport):
     def create_xmlrpcserver(self):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
-        try:
-            self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,transport)
-            return True
-        except:
-            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
-            self.log.error(error)
-            return False
+        #try:
+        self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,transport)
+        return True
+#        except:
+#            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
+#            self.log.error(error)
+#            return False
         
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    
