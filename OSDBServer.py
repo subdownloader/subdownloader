@@ -109,12 +109,13 @@ class OSDBServer(Transport):
         self._token = info['token']
         
     def logout(self):
+        """Logout from current session(token)"""
         self.log.debug("Logging out from session ID: %s"% self._token)
         info = self.xmlrpc_server.LogOut(self._token)
         self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
             
     def GetSubLanguages(self,languages):
-        print self.xmlrpc_server.GetSubLanguages(self._token,languages)["data"]
+        print self.xmlrpc_server.GetSubLanguages(self._token, languages)["data"]
             
     def CheckSubHash(self,hashes):
         answer = self.xmlrpc_server.CheckSubHash(self._token,hashes)
