@@ -79,6 +79,7 @@ class OSDBServer(Transport):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
         #try:
+        print dir(self)
         self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,self)
         return True
 #        except:
@@ -109,8 +110,8 @@ class OSDBServer(Transport):
         
     def logout(self):
         self.log.debug("Logging out from session ID: %s"% self._token)
-        info = self.xmlrpc_server.LogOut()
-        self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
+        info = self.xmlrpc_server.LogOut(self._token)
+        self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
             
     def GetSubLanguages(self,languages):
         print self.xmlrpc_server.GetSubLanguages(self._token,languages)["data"]
