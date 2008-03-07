@@ -62,6 +62,7 @@ class OSDBServer(Transport):
     """
     def __init__(self, options):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
+        Transport.__init__(self)
         self.language = options.language
         self.user_agent = USER_AGENT
         self.username = ""
