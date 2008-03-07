@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
-<!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-06, 22:58:27 -->
+<!-- eric4 project file for project subdowloader -->
+<!-- Saved: 2008-03-07, 16:37:31 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -100,11 +100,19 @@
       <Dir>cli</Dir>
       <Name>main.py</Name>
     </Source>
+    <Source>
+      <Dir>FileManagement</Dir>
+      <Name>Subtitle.py</Name>
+    </Source>
   </Sources>
   <Forms>
     <Form>
       <Dir>gui</Dir>
       <Name>main.ui</Name>
+    </Form>
+    <Form>
+      <Dir>gui</Dir>
+      <Name>gui.ui</Name>
     </Form>
   </Forms>
   <Translations>
