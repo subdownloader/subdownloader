@@ -15,7 +15,7 @@
 
 import logging
 from subdownloader import OSDBServer
-from subdownloader.FileManagement import FileScan
+from subdownloader.FileManagement import FileScan, Subtitle
 import videofile, subtitlefile
 
 class Main(OSDBServer.OSDBServer):
@@ -44,6 +44,9 @@ class Main(OSDBServer.OSDBServer):
                 else: sub_name = "NO MATCH"
                 result += "%s -> %s\n"% (video_name, sub_name)
             self.log.info(result)
+            
+        self.log.debug("Starting XMLRPC session...")
+        OSDB = OSDBServer.OSDBServer(self.options)
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """
@@ -73,8 +76,9 @@ class Main(OSDBServer.OSDBServer):
         self.videos_matrix = {}
         for video in self.videos:
             self.log.debug("Processing %s..."% video.getFileName())
-            possible_subtitle = FileScan.AutoDetectSubtitle(video.getFilePath())
+            possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
             self.log.debug("possible subtitle is: %s"% possible_subtitle)
+            sub_match = None
             for subtitle in self.subs:
                 sub_match = None
                 if possible_subtitle == subtitle.getFilePath():

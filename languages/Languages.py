@@ -14,6 +14,8 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
+import subdownloader.languages.autodetect_lang as autodetect_lang
+import re
 import os.path
 
 LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': 'Albanian'},
@@ -100,9 +102,6 @@ def name2xx(name):
         if lang['LanguageName'].lower() == name.lower():
             return lang['ISO639']
         
-import subdownloader.languages.autodetect_lang as autodetect_lang
-import re
-
 def CleanTagsFile(texto):
     p = re.compile( '<.*?>')
     return p.sub('',texto)

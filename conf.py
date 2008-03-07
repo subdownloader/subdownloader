@@ -58,8 +58,11 @@ OPTION_LIST = [
                             default="download", help="Upload a subtitle"), 
     make_option("--video", dest="videofile", metavar="FILE/DIR",  
                             help="Video file or a directory with videos"), 
-    make_option("--lang", dest="language",
-                            help="Subtitle language to download")
+    make_option("--lang", dest="language", default='en', 
+                            help="Used in subtitle download and upload preferences"), 
+    # misc options
+    make_option("--proxy", dest="proxy",
+                            help="Proxy to use on internet connections")
     ]
 
 # MISC #

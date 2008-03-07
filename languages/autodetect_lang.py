@@ -22,8 +22,8 @@
 
 
 from exceptions import KeyboardInterrupt
-import os
-import re
+import os, re
+import glob
 
 nb_ngrams = 400
 
@@ -92,10 +92,6 @@ class _NGram:
 			else:
 				d += nb_ngrams
 		return d
-
-
-import os
-import glob
 
 class NGram:
 	def __init__ (self,folder,ext='.lm'):
