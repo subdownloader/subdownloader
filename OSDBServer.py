@@ -78,7 +78,7 @@ class OSDBServer(Transport):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
         #try:
-        self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,transport)
+        self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,self)
         return True
 #        except:
 #            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
