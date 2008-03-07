@@ -13,7 +13,7 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-from xmlrpclib import Transport,Server
+from xmlrpclib import Transport,ServerProxy
 import base64, StringIO, gzip
 import logging
 
@@ -78,7 +78,7 @@ class OSDBServer(Transport):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
         try:
-            self.xmlrpc_server = Server(SERVER_ADDRESS,transport)
+            self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,transport)
             return True
         except:
             error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
