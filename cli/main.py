@@ -24,12 +24,12 @@ class Main(OSDBServer.OSDBServer):
         self.options = cli_options
         self.log = logging.getLogger("subdownloader.cli.main")
         
-    def start_session(self):
+    def start_session(self, testing=True):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2:
-            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/n)\n: ")
-            if continue_.lower() != 'y':
+            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/N)\n: ").lower()
+            if continue_ != 'y':
                 return
         if check_result == 0:
             return
@@ -46,7 +46,12 @@ class Main(OSDBServer.OSDBServer):
             self.log.info(result)
             
         self.log.debug("Starting XMLRPC session...")
-        OSDB = OSDBServer.OSDBServer(self.options)
+        OSDBServer.OSDBServer.__init__(self, self.options)
+        
+        if testing:
+            result = self.SearchSubtitles(self.options.language, self.videos)
+            for r in result:
+                print r.getFileName(), r.getHash(), r.getSubtitles()
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """

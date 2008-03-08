@@ -21,6 +21,7 @@ from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitle
 
+#SERVER_ADDRESS = "http://dev.opensubtitles.org/xml-rpc"
 DEFAULT_SERVER = "http://www.opensubtitles.org/xml-rpc"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
@@ -35,7 +36,6 @@ class ProxiedTransport(Transport):
     """ Used for proxied connections to the XMLRPC server
         When
     """
-    
     def __init__(self):
         self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
         self.user_agent = USER_AGENT
@@ -64,46 +64,41 @@ class OSDBServer(Transport):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
         Transport.__init__(self)
         self.user_agent = USER_AGENT
+        self.username = options.username
+        self.passwd = options.password
+        self.language = options.language
         #TODO:Is there a way to simulate the ternary operator in Python for this?
-        if options.has_key("language"):
-             self.language = options.language
-        else:
-            self.language = "en"
-            
-        if options.has_key("server"):
-             self.server = options.server
+        if options.server: 
+            self.server = options.server
         else:
             self.server = DEFAULT_SERVER
-        
-        if options.has_key("username"):
-             self.username = options.username
-        else:
-            self.username = ""
-        
-        if options.has_key("password"):
-             self.password = options.password
-        else:
-            self.password = ""
-        
         self.logged_as = None
         self.xmlrpc_server = None
-        self._token = "666"
+        self._token = None
         #Let's connect with the server XMLRPC
         if self.create_xmlrpcserver(self.server):
-            self.login(self.username, self.password)
-            self.logout()
+            self.login(self.username, self.passwd)
+            #self.logout()
             
     def create_xmlrpcserver(self, server):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
-        #try:
-        self.xmlrpc_server = ServerProxy(server,self)
-        print dir(self)
-        return True
-#        except:
-#            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
-#            self.log.error(error)
-#            return False
+        try:
+            self.xmlrpc_server = ServerProxy(server,self)
+            return True
+        except:
+            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
+            self.log.error(error)
+            return False
+
+    @classmethod
+    def is_connected(self):
+        """ 
+        This method checks to see whether we are connected to the server. 
+        It does not return any information about the validity of the 
+        connection.
+        """
+        return self._token != None
         
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    
@@ -119,28 +114,63 @@ class OSDBServer(Transport):
         
     def login(self, username="", password=""):
         """Login to the Server using username/password,
-        empty parameters means an anonymously login""" 
-        self.log.debug("Logging in (username:%s, password:%s)..."% (username, password))
+        empty parameters means an anonymously login
+        Returns True if login sucessful, and False if not.
+        """ 
+        self.log.debug("----------------")
+        self.log.debug("Logging in (username:%r, password:%r)..."% (username, password))
         info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
-        self.log.debug("Session ID: %s"% info['token'])
-        self._token = info['token']
+        if info['status'] == "200 OK":
+            self.log.debug("Session ID: %s"% info['token'])
+            self.log.debug("----------------")
+            self._token = info['token']
+            return True
+        else:
+            # force token reset
+            self.log.debug("----------------")
+            self._token = None
+            return False
         
     def logout(self):
-        """Logout from current session(token)"""
+        """Logout from current session(token)
+        This functions doesn't return any boolean value, since it can 'fail' for anonymous logins
+        """
         self.log.debug("Logging out from session ID: %s"% self._token)
         info = self.xmlrpc_server.LogOut(self._token)
         self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
-            
+        # force token reset
+        self._token = None
+        
+        
+    #
+    # SUBTITLE METHODS 
+    #
     def GetSubLanguages(self,languages):
-        print self.xmlrpc_server.GetSubLanguages(self._token, languages)["data"]
+        """Return all suported subtitles languages in a dictionary"""
+        return self.xmlrpc_server.GetSubLanguages(self._token, languages)["data"]
             
     def CheckSubHash(self,hashes):
-        answer = self.xmlrpc_server.CheckSubHash(self._token,hashes)
-        print answer
-        #TODO: I need changes in the API to get more info about these subtitles
+        """
+        @hashes = list of subtitle hashes
+        returns: dictionary like { hash: subID }
+        This method returns !IDSubtitleFile, if Subtitle Hash exists. If not exists, it returns '0'.
+        """
+        info = self.xmlrpc_server.CheckSubHash(self._token,hashes)
+        self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
+        result = {}
+        for data in info['data']:
+            result[data.key()] = data.value()
+        return results
     
-    def DownloadSubtitle(self,sub_id,dest = "temp.sub"):
+    def DownloadSubtitle(self,sub_ids,dest = "temp.sub"):
+        """
+        Download subtitles by there id's
+        
+        @sub_ids: list of subtitle id's
+        @dest: path to save subtitles in string format
+        Returns: BASE64 encoded gzipped !IDSubtitleFile(s). You need to BASE64 decode and ungzip 'data' to get its contents.
+        """
         try:
             subtitlefile = file(dest,'wb')
             subtitlefile.close()
@@ -167,7 +197,6 @@ class OSDBServer(Transport):
         compressedstream = base64.decodestring(subtitle_compressed)
         #compressedstream = subtitle_compressed
         gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
-        
         s=gzipper.read()
         gzipper.close()
         subtitlefile = file(dest,'wb')
@@ -178,49 +207,67 @@ class OSDBServer(Transport):
     #except: 
         #self.LogMessage("XMLRPC Error downloading id="+sub_id)
         
-    def SearchSubtitles(self,lang,videos):
+    def SearchSubtitles(self, language="", videos=None, imdb_ids=None):
+        """
+        Search subtitles for the given video(s).
+        
+        @language: language code - string
+        @videos: video objects - list
+        @imdb_id: IMDB movie id's - list
+        Note:Max results is 250. When nothing is found, 'data' is empty.
+        """
+        self.log.debug("----------------")
+        self.log.debug("SearchSubtitles RPC method starting...")
         search_array = []
-        for video in videos:
-                search_array.append({'sublanguageid':lang,'moviehash':video.getHash(),'moviebytesize':video.getSize()})
+        if videos:
+            self.log.debug("Building search array with video objects info")
+            for video in videos:
+                search_array.append({'sublanguageid':language,'moviehash':video.getHash(),'moviebytesize':video.getSize()})
+        elif imdb_ids:
+            self.log.debug("Building search array with IMDB id's")
+            for id in imdb_ids:
+                search_array.append({'sublanguageid':language,'imdbid': id})
+                
+        self.log.debug("Doing actual server search...")
         result = self.xmlrpc_server.SearchSubtitles(self._token,search_array)
-        ###print result
+        print result
+        
+        self.log.debug("Collecting downloaded data")
+        
+        self.log.debug("Movie hashes...")
         moviehashes = {}
         if result['data'] != False:
             for i in result['data']:
                 moviehash = i['MovieHash']
                 if not moviehashes.has_key(moviehash):
                     moviehashes[moviehash] = []
-            
                 moviehashes[moviehash].append(i)
              
-        videos_result = []
-        for video in videos:
-            if moviehashes.has_key(video.getHash()):
-                osdb_info = moviehashes[video.getHash()]
-                subtitles = []
-                for i in osdb_info:
-                    sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
-                    sub.setFileName(i["SubFileName"])
-                    sub.setLanguage(i["SubLanguageID"])
-                    subtitles.append(sub)
-                video.setOsdbInfo(osdb_info)
-                video.setSubtitles(subtitles)
-            videos_result.append(video)
-                        
-        return videos_result
-        
-                        
+        if videos:
+            videos_result = []
+            for video in videos:
+                if moviehashes.has_key(video.getHash()):
+                    osdb_info = moviehashes[video.getHash()]
+                    subtitles = []
+                    for i in osdb_info:
+                        sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                        sub.setFileName(i["SubFileName"])
+                        sub.setLanguage(i["SubLanguageID"])
+                        subtitles.append(sub)
+                    video.setOsdbInfo(osdb_info)
+                    video.setSubtitles(subtitles)
+                videos_result.append(video)
+                            
+            return videos_result
             
-
+        elif imdb_ids:
+            pass
         
-    @classmethod
-    def is_connected(self):
-        """ 
-        This method checks to see whether we are connected to the server. 
-        It does not return any information about the validity of the 
-        connection.
-        """
-        return self.logged_as != None
+        
+    #
+    # VIDEO METHODS 
+    #
+
         
     def SearchToMail(self):
         pass

@@ -60,8 +60,14 @@ OPTION_LIST = [
                             help="Video file or a directory with videos"), 
     make_option("--lang", dest="language", default='en', 
                             help="Used in subtitle download and upload preferences"), 
+    make_option("--user", dest="username", default='', 
+                            help="Opensubtitles.com username. Must be set in upload mode. Default is blank (anonymous)"), 
+    make_option("--passwd", dest="password", default='', 
+                            help="Opensubtitles.com password. Must be set in upload mode. Default is blank (anonymous)"), 
     # misc options
-    make_option("--proxy", dest="proxy",
+    make_option("--server", dest="server", default=None,
+                            help="Proxy to use on internet connections"), 
+    make_option("--proxy", dest="proxy", default=None, 
                             help="Proxy to use on internet connections")
     ]
 
@@ -70,5 +76,4 @@ LOG_DIR = "" # leave blank to use current path
 LOG_NAME = "%s.log"% NAME.lower()
 LOG_PATH = os.path.join(LOG_DIR, LOG_NAME)
 LOG_MODE = "a"
-
 
