@@ -121,48 +121,47 @@ class Main(QObject, Ui_MainWindow):
 
         
         #SETTING UP VIDEOS_VIEW
-        QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
+        #QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
         self.video_model = VideoListModel(window)  
         #self.video_view.resizeColumnsToContents()
         self.video_view.setModel(self.video_model)
         
-        QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"), \
-                            self.videos_leftclicked) 
+        #QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"),                             self.videos_leftclicked) 
         
         
         #SETTING UP SUBS_VIEW
-        QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
-        self.sub_model = SubListModel(window)  
+        #QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
+        #self.sub_model = SubListModel(window)  
         #self.video_view.resizeColumnsToContents()
-        self.sub_view.setModel(self.sub_model)
+        #self.sub_view.setModel(self.sub_model)
         
         
         #SETTING UP SUBS_OSDB_VIEW
-        QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
+        #QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
         self.subs_osdb_model = SubOsdbListModel(window)  
         #self.video_view.resizeColumnsToContents()
-        self.subs_osdb_view.setModel(self.subs_osdb_model)
+        #self.subs_osdb_view.setModel(self.subs_osdb_model)
             
 
         #SETTING UP UPLOAD_VIEW
         self.upload_model = UploadListModel(window)    
-        self.upload_view.setModel(self.upload_model)
-        self.upload_view.resizeColumnsToContents()
-        QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
+        #self.upload_view.setModel(self.upload_model)
+        #self.upload_view.resizeColumnsToContents()
+        #QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
         
         QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
 
         self.folderView.show()
         
-        self.status_progress = QtGui.QProgressBar(self.statusBar)
+        self.status_progress = QtGui.QProgressBar(self.statusbar)
         self.status_progress.setProperty("value",QVariant(0))
         
         self.status_progress.setOrientation(QtCore.Qt.Horizontal)
-        self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusBar)
+        self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         
         
-        self.statusBar.insertWidget(0,self.status_label)
-        self.statusBar.addPermanentWidget(self.status_progress,2)
+        self.statusbar.insertWidget(0,self.status_label)
+        self.statusbar.addPermanentWidget(self.status_progress,2)
         
         self.establish_connection()
         
@@ -177,7 +176,7 @@ class Main(QObject, Ui_MainWindow):
         folder_path = unicode(data, 'utf-8')
         
         ###print folder_path
-        #self.videos_view.clear()
+        #self.video_view.clear()
         #self.tree_subs.clear()
 
         #Scan recursively the selected directory finding subtitles and videos
@@ -187,12 +186,12 @@ class Main(QObject, Ui_MainWindow):
         #Populating the items in the VideoListView
         self.video_model.set_videos(videos_found)
         self.video_view.setModel(self.video_model)
-        self.video_view.resizeColumnsToContents()
+        #self.video_view.resizeColumnsToContents()
     
         
-        self.sub_model.set_subs(subs_found)
-        self.sub_view.setModel(self.sub_model)
-        self.sub_view.resizeColumnsToContents()
+        #self.sub_model.set_subs(subs_found)
+        #self.sub_view.setModel(self.sub_model)
+        #self.sub_view.resizeColumnsToContents()
 
 
         #Searching our videohashes in the OSDB database
@@ -204,22 +203,16 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setMaximum(0)
         
         self.window.setCursor(Qt.WaitCursor)
-        try:
-            videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
-        except Exception, e: 
-            traceback.print_exc(e)
-        qFatal("Unable to connect to server. Please try later")
+        videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
     
-        self.video_model.set_videos(videos_found)
-        self.video_view.setModel(self.video_model)
-        self.video_view.resizeColumnsToContents()
-        
+        print videos_result
+        print videos_found
         self.video_model.set_videos(videos_found)
         self.video_view.setModel(self.video_model)
         self.video_view.resizeColumnsToContents()
 
         self.progress(100)
-        self.status_progress.setFormat("Results returned.")
+        self.status_progress.setFormat("Search finished")
     
         self.window.setCursor(Qt.ArrowCursor)
         
@@ -315,7 +308,7 @@ class Main(QObject, Ui_MainWindow):
 
         self.status("Connecting to server")        
         try:
-            self.OSDBServer = OSDBServer()       
+            self.OSDBServer = OSDBServer({})
         except Exception, e: 
             traceback.print_exc(e)
             qFatal("Unable to connect to server. Please try later")

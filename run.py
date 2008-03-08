@@ -34,7 +34,7 @@ NOTSET       0
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 
-#TODO: change conf.VERSION to subdownload.APP_VERSION
+#TODO: change conf.VERSION to subdownloader.APP_VERSION
 parser = OptionParser(description=conf.DESCRIPTION,  version=conf.VERSION,  option_list=conf.OPTION_LIST)
 (options, args) = parser.parse_args()
 

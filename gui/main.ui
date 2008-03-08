@@ -1,334 +1,513 @@
 <ui version="4.0" >
- <author>Ivan Garcia</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>914</width>
-    <height>589</height>
+    <width>782</width>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QSplitter" name="splitter_3" >
-    <property name="geometry" >
-     <rect>
-      <x>200</x>
-      <y>10</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="orientation" >
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_4" >
-    <property name="geometry" >
-     <rect>
-      <x>640</x>
-      <y>10</y>
-      <width>271</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Subtitles found:</string>
-    </property>
-    <widget class="SubListView" name="sub_view" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>241</width>
-       <height>221</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy" >
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="dragDropMode" >
-      <enum>QAbstractItemView::DragOnly</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>280</y>
-      <width>261</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Subtitles Online:</string>
-    </property>
-    <widget class="QPushButton" name="button_download" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>220</y>
-       <width>91</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Download</string>
-     </property>
-     <property name="icon" >
-      <iconset resource="images.qrc" >:/images/download.png</iconset>
-     </property>
-    </widget>
-    <widget class="SubOsdbListView" name="subs_osdb_view" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>241</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy" >
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox" >
-    <property name="geometry" >
-     <rect>
-      <x>280</x>
-      <y>280</y>
-      <width>621</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Upload Subtitles</string>
-    </property>
-    <widget class="QPushButton" name="button_upload" >
-     <property name="geometry" >
-      <rect>
-       <x>790</x>
-       <y>20</y>
-       <width>91</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Upload</string>
-     </property>
-     <property name="icon" >
-      <iconset resource="images.qrc" >:/images/upload.png</iconset>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton" >
-     <property name="geometry" >
-      <rect>
-       <x>270</x>
-       <y>20</y>
-       <width>91</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Choose IMDB</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit" >
-     <property name="geometry" >
-      <rect>
-       <x>110</x>
-       <y>20</y>
-       <width>151</width>
-       <height>29</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>86</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Select Movie: </string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_language" >
-     <property name="geometry" >
-      <rect>
-       <x>110</x>
-       <y>50</y>
-       <width>81</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font" >
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text" >
-      <string>Undefined</string>
-     </property>
-     <property name="textFormat" >
-      <enum>Qt::PlainText</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="button_chglng" >
-     <property name="geometry" >
-      <rect>
-       <x>190</x>
-       <y>50</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>...</string>
-     </property>
-    </widget>
-    <widget class="UploadListView" name="upload_view" >
-     <property name="geometry" >
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>511</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <property name="acceptDrops" >
-      <bool>true</bool>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="dragDropMode" >
-      <enum>QAbstractItemView::DropOnly</enum>
-     </property>
-     <property name="selectionBehavior" >
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>66</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Language:</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3" >
-    <property name="geometry" >
-     <rect>
-      <x>320</x>
-      <y>10</y>
-      <width>311</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Videos found:</string>
-    </property>
-    <widget class="VideoListView" name="video_view" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>411</width>
-       <height>221</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy" >
-      <enum>Qt::CustomContextMenu</enum>
-     </property>
-     <property name="dragEnabled" >
-      <bool>true</bool>
-     </property>
-     <property name="dragDropMode" >
-      <enum>QAbstractItemView::DragOnly</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_5" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>291</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <property name="title" >
-     <string>Select Folder:</string>
-    </property>
-    <widget class="QTreeView" name="folderView" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>271</width>
-       <height>221</height>
-      </rect>
-     </property>
-     <property name="verticalScrollBarPolicy" >
-      <enum>Qt::ScrollBarAsNeeded</enum>
-     </property>
-    </widget>
-   </widget>
+   <layout class="QVBoxLayout" >
+    <item>
+     <widget class="QTabWidget" name="tabs" >
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab" >
+       <attribute name="title" >
+        <string>Search from Video file(s)</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QPushButton" name="button_play" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text" >
+             <string>Play</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="button_download" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text" >
+             <string>Download</string>
+            </property>
+            <property name="icon" >
+             <iconset/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QSplitter" name="splitter" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="layoutDirection" >
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="autoFillBackground" >
+           <bool>false</bool>
+          </property>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QGroupBox" name="groupBox_5" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="title" >
+            <string>Select Folder:</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QTreeView" name="folderView" >
+              <property name="verticalScrollBarPolicy" >
+               <enum>Qt::ScrollBarAsNeeded</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox_3" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title" >
+            <string>Videos found:</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="VideoListView" name="video_view" >
+              <property name="contextMenuPolicy" >
+               <enum>Qt::CustomContextMenu</enum>
+              </property>
+              <property name="dragEnabled" >
+               <bool>true</bool>
+              </property>
+              <property name="dragDropMode" >
+               <enum>QAbstractItemView::DragOnly</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3" >
+       <attribute name="title" >
+        <string>Search by Movie Name</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QLineEdit" name="lineEdit_2" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2" >
+            <property name="text" >
+             <string>Search</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>29</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3" >
+            <property name="text" >
+             <string>Search in: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text" >
+              <string>OpenSubtitles.org</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>subtitles.images.o2.cz</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>mysubtitles.com</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>subtitlesbox.com</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>divxsubtitles.net</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QGroupBox" name="groupBox_4" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title" >
+             <string>Subtitles found:</string>
+            </property>
+            <layout class="QHBoxLayout" >
+             <item>
+              <widget class="SubListView" name="sub_view" >
+               <property name="sizePolicy" >
+                <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="contextMenuPolicy" >
+                <enum>Qt::CustomContextMenu</enum>
+               </property>
+               <property name="dragEnabled" >
+                <bool>true</bool>
+               </property>
+               <property name="dragDropMode" >
+                <enum>QAbstractItemView::DragOnly</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4" >
+       <attribute name="title" >
+        <string>Upload subtitles</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QSplitter" name="splitter_2" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="layoutWidget" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <layout class="QHBoxLayout" >
+              <item>
+               <widget class="QLabel" name="label_2" >
+                <property name="text" >
+                 <string>Select Folder with Videos / Subtitles: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton" >
+                <property name="text" >
+                 <string>...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="UploadListView" name="upload_view" >
+              <property name="acceptDrops" >
+               <bool>true</bool>
+              </property>
+              <property name="dragEnabled" >
+               <bool>true</bool>
+              </property>
+              <property name="dragDropMode" >
+               <enum>QAbstractItemView::DropOnly</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox" >
+           <property name="title" >
+            <string>Details</string>
+           </property>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" >
+             <widget class="QLabel" name="label_4" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize" >
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text" >
+               <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:10pt; color:#ff0000;">*&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" >
+             <widget class="QLabel" name="label" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text" >
+               <string>IMDB: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" >
+             <widget class="QComboBox" name="comboBox_3" />
+            </item>
+            <item row="0" column="3" >
+             <widget class="QPushButton" name="pushButton" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize" >
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize" >
+               <size>
+                <width>50</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text" >
+               <string>Find</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="label_8" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize" >
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text" >
+               <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:10pt; color:#ff0000;">*&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QLabel" name="label_5" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text" >
+               <string>Language:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="QComboBox" name="comboBox_2" />
+            </item>
+            <item row="2" column="1" >
+             <widget class="QLabel" name="label_6" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text" >
+               <string>Release:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" colspan="2" >
+             <widget class="QLineEdit" name="lineEdit" />
+            </item>
+            <item row="3" column="1" >
+             <widget class="QLabel" name="label_7" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text" >
+               <string>Comments:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2" >
+             <widget class="QTextEdit" name="textEdit" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize" >
+               <size>
+                <width>16777215</width>
+                <height>100</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1" >
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5" >
+       <attribute name="title" >
+        <string>Options</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_2" >
+       <attribute name="title" >
+        <string>Contact us / Tip us :-)</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>914</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusBar" />
-  <action name="actionDownload_Subtitle" >
-   <property name="icon" >
-    <iconset resource="images.qrc" >:/images/download.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Download Subtitle</string>
-   </property>
-  </action>
-  <action name="actionUpload_Subtitle" >
-   <property name="icon" >
-    <iconset resource="images.qrc" >:/images/upload.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Upload Subtitle</string>
-   </property>
-  </action>
+  <widget class="QStatusBar" name="statusbar" />
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>SubOsdbListView</class>
-   <extends>QTableView</extends>
-   <header>subosdblistview.h</header>
-  </customwidget>
   <customwidget>
    <class>UploadListView</class>
    <extends>QTableView</extends>

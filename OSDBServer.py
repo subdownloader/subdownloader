@@ -21,7 +21,7 @@ from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitle
 
-SERVER_ADDRESS = "http://www.opensubtitles.org/xml-rpc"
+DEFAULT_SERVER = "http://www.opensubtitles.org/xml-rpc"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 
@@ -63,24 +63,42 @@ class OSDBServer(Transport):
     def __init__(self, options):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
         Transport.__init__(self)
-        self.language = options.language
         self.user_agent = USER_AGENT
-        self.username = ""
-        self.passwd = ""
+        #TODO:Is there a way to simulate the ternary operator in Python for this?
+        if options.has_key("language"):
+             self.language = options.language
+        else:
+            self.language = "en"
+            
+        if options.has_key("server"):
+             self.server = options.server
+        else:
+            self.server = DEFAULT_SERVER
+        
+        if options.has_key("username"):
+             self.username = options.username
+        else:
+            self.username = ""
+        
+        if options.has_key("password"):
+             self.password = options.password
+        else:
+            self.password = ""
+        
         self.logged_as = None
         self.xmlrpc_server = None
         self._token = "666"
         #Let's connect with the server XMLRPC
-        if self.create_xmlrpcserver():
-            self.login(self.username, self.passwd)
+        if self.create_xmlrpcserver(self.server):
+            self.login(self.username, self.password)
             self.logout()
             
-    def create_xmlrpcserver(self):
+    def create_xmlrpcserver(self, server):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
         #try:
+        self.xmlrpc_server = ServerProxy(server,self)
         print dir(self)
-        self.xmlrpc_server = ServerProxy(SERVER_ADDRESS,self)
         return True
 #        except:
 #            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
