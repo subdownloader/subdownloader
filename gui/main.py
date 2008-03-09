@@ -93,6 +93,7 @@ class Main(QObject, Ui_MainWindow):
         self.card = None
         self.window = window
         window.closeEvent = self.close_event
+        window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION, None, QtGui.QApplication.UnicodeUTF8))
         self.read_settings()
         
         #self.treeView.reset()
@@ -117,11 +118,12 @@ class Main(QObject, Ui_MainWindow):
         
 
         
+        
         #SETTING UP VIDEOS_VIEW
         #QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
         self.videoModel = VideoTreeModel(window)  
-        #self.videoView.resizeColumnsToContents()
         self.videoView.setModel(self.videoModel)
+
         
         #QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"),                             self.videos_leftclicked) 
         
@@ -156,13 +158,15 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         
-        
         self.statusbar.insertWidget(0,self.status_label)
         self.statusbar.addPermanentWidget(self.status_progress,2)
-        
+
         self.establish_connection()
-        
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        
+#        self.videoModel.setVideos([])
+#        self.videoView.setModel(self.videoModel)
+#        self.videoView.expandAll()
 
 
     """What to do when a Folder in the tree is clicked"""
@@ -173,22 +177,13 @@ class Main(QObject, Ui_MainWindow):
         folder_path = unicode(data, 'utf-8')
         
         ###print folder_path
-        #self.video_view.clear()
-        #self.tree_subs.clear()
-
         #Scan recursively the selected directory finding subtitles and videos
         videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
-        
-        
+
         #Populating the items in the VideoListView
-        self.video_model.set_videos(videos_found)
-        self.video_view.setModel(self.video_model)
-        #self.video_view.resizeColumnsToContents()
-    
-        
-        #self.sub_model.set_subs(subs_found)
-        #self.sub_view.setModel(self.sub_model)
-        #self.sub_view.resizeColumnsToContents()
+        self.videoModel.setVideos(videos_found)
+        self.videoView.setModel(self.videoModel)
+        self.videoView.expandAll() #This was a solution found to refresh the treeView
 
 
         #Searching our videohashes in the OSDB database

@@ -69,7 +69,6 @@ class OSDBServer(Transport):
         self.username = options.username
         self.passwd = options.password
         self.language = options.language
-        #TODO:Is there a way to simulate the ternary operator in Python for this?
         if options.server: 
             self.server = options.server
         else:

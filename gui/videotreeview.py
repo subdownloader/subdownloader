@@ -10,6 +10,9 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
 
 import subdownloader.videofile as videofile
 
+import logging
+log = logging.getLogger("subdownloader.gui.videotreeview")
+
 class Node:
   def __init__(self, data, parent=None):
     self.data=data
@@ -32,19 +35,28 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
     QtCore.QAbstractItemModel.__init__(self, parent)
     self.root=Node([QtCore.QVariant("")]) 
-    self.setupTree(self.root)
+    #self.setupTree(self.root)
 
   def setupTree(self, node):
-    current=node.addChild([self.trUtf8("aa")])
+    current=node.addChild(["aa"])
     current=current.addChild([self.trUtf8("bb")])
 
     current.addChild([self.trUtf8("cc")])
     current.addChild([self.trUtf8("dd")])
     current.addChild([self.trUtf8("ee")])
     current.addChild([self.trUtf8("ff")])
-   
+
+  def setVideos(self,videoResults):
+    #self.setupTree(self.root)
+    log.debug("Clearing VideoTree")
+    #self.clearTree()
+    for video in videoResults:
+       log.debug("Adding video: %s", video.getFileName())
+       current_video = self.root.addChild([video.getFileName()])
+       
   def clearTree(self):
-     self.root.data = []
+     self.root.children = []
+
   def columnCount(self, parent):
     if parent.isValid():
       # parent.internalPointer()
