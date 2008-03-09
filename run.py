@@ -67,7 +67,7 @@ if __name__ == "__main__":
     log.info('Subdownloader started')
     #sys.stdout.write("Subdownloader running... "); sys.stdout.flush()
     if options.mode == 'gui':
-        gui.main.main()
+        gui.main.main(options)
     elif options.mode == 'cli':
         # check if user set a video file name
         log.debug("Checking video file parameter...")

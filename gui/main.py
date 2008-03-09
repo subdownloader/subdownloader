@@ -82,15 +82,13 @@ class Main(QObject, Ui_MainWindow):
         self.write_settings()
         e.accept()
     
-
-    
-    def __init__(self, window, log_packets):
+    def __init__(self, window, log_packets, options):
         QObject.__init__(self)
         Ui_MainWindow.__init__(self)
         
         self.key = '-1'
         self.log_packets = log_packets
-
+        self.options = options
         self.setupUi(window)
         self.card = None
         self.window = window
@@ -306,9 +304,8 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.WaitCursor)
 
         self.status("Connecting to server")        
-        options = {'username':"", 'password':"", "language":""}
         try:
-            self.OSDBServer = OSDBServer(options)
+            self.OSDBServer = OSDBServer(self.options)
         except Exception, e: 
             traceback.print_exc(e)
             qFatal("Unable to connect to server. Please try later")
@@ -318,7 +315,7 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.ArrowCursor)
     
 
-def main():
+def main(options):
     
     from PyQt4.Qt import QApplication, QMainWindow
     
@@ -332,7 +329,7 @@ def main():
     QCoreApplication.setApplicationName(APP_TITLE)
     
     log.debug("Showing main dialog")
-    Main(window,"")    
+    Main(window,"", options)    
     
     return app.exec_()
 
