@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-09, 17:26:40 -->
+<!-- Saved: 2008-03-09, 23:36:48 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -103,6 +103,10 @@
     <Source>
       <Dir>FileManagement</Dir>
       <Name>Subtitle.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>videotreeview.py</Name>
     </Source>
   </Sources>
   <Forms>
