@@ -146,9 +146,20 @@ class OSDBServer(Transport):
     #
     # SUBTITLE METHODS 
     #
-    def GetSubLanguages(self,languages):
-        """Return all suported subtitles languages in a dictionary"""
-        return self.xmlrpc_server.GetSubLanguages(self._token, languages)["data"]
+    def GetSubLanguages(self,language=None):
+        """Return all suported subtitles languages in a dictionary
+        If language given returns SubLanguageID for it
+        """
+        self.log.debug("----------------")
+        self.log.debug("GetSubLanguages RPC method starting...")
+        info = self.xmlrpc_server.GetSubLanguages(language)
+        self.log.debug("GetSubLanguages complete in %s"% info['seconds'])
+
+        if language:
+            for lang in info['data']:
+                if lang['ISO639'] == language: return lang['SubLanguageID']
+                
+        return result['data']
             
     def CheckSubHash(self,hashes):
         """
@@ -222,47 +233,56 @@ class OSDBServer(Transport):
         if videos:
             self.log.debug("Building search array with video objects info")
             for video in videos:
-                search_array.append({'sublanguageid':language,'moviehash':video.getHash(),'moviebytesize':video.getSize()})
+                array = {'sublanguageid': language,'moviehash': video.getHash(),'moviebytesize': str(video.getSize())}
+                self.log.debug(" - adding: %s"% array)
+                search_array.append(array)
+            self.log.debug("Build result: %s"% search_array)
         elif imdb_ids:
             self.log.debug("Building search array with IMDB id's")
             for id in imdb_ids:
-                search_array.append({'sublanguageid':language,'imdbid': id})
+                array = {'sublanguageid':language,'imdbid': id}
+                self.log.debug(" - adding: %s"% array)
+                search_array.append(array)
                 
         self.log.debug("Doing actual server search...")
-        result = self.xmlrpc_server.SearchSubtitles(self._token,search_array)
+        result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
         print result
         
-        self.log.debug("Collecting downloaded data")
-        
-        self.log.debug("Movie hashes...")
-        moviehashes = {}
-        if result['data'] != False:
-            for i in result['data']:
-                moviehash = i['MovieHash']
-                if not moviehashes.has_key(moviehash):
-                    moviehashes[moviehash] = []
-                moviehashes[moviehash].append(i)
-             
-        if videos:
-            videos_result = []
-            for video in videos:
-                if moviehashes.has_key(video.getHash()):
-                    osdb_info = moviehashes[video.getHash()]
-                    subtitles = []
-                    for i in osdb_info:
-                        sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
-                        sub.setFileName(i["SubFileName"])
-                        sub.setLanguage(i["SubLanguageID"])
-                        subtitles.append(sub)
-                    video.setOsdbInfo(osdb_info)
-                    video.setSubtitles(subtitles)
-                videos_result.append(video)
-                            
-            return videos_result
+        if result['data']:
+            self.log.debug("Collecting downloaded data")
             
-        elif imdb_ids:
-            pass
-        
+            self.log.debug("Movie hashes...")
+            moviehashes = {}
+            if result['data'] != False:
+                for i in result['data']:
+                    moviehash = i['MovieHash']
+                    if not moviehashes.has_key(moviehash):
+                        moviehashes[moviehash] = []
+                    moviehashes[moviehash].append(i)
+                 
+            if videos:
+                videos_result = []
+                for video in videos:
+                    if moviehashes.has_key(video.getHash()):
+                        osdb_info = moviehashes[video.getHash()]
+                        subtitles = []
+                        for i in osdb_info:
+                            sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                            sub.setFileName(i["SubFileName"])
+                            sub.setLanguage(i["SubLanguageID"])
+                            subtitles.append(sub)
+                        video.setOsdbInfo(osdb_info)
+                        video.setSubtitles(subtitles)
+                    videos_result.append(video)
+                                
+                return videos_result
+                
+            elif imdb_ids:
+                pass
+            
+        else:
+            self.log.info("No subtitles were found on Opensubtitles.com")
+            return []
         
     #
     # VIDEO METHODS 

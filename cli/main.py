@@ -49,7 +49,8 @@ class Main(OSDBServer.OSDBServer):
         OSDBServer.OSDBServer.__init__(self, self.options)
         
         if testing:
-            result = self.SearchSubtitles(self.options.language, self.videos)
+            lang_id = self.GetSubLanguages(self.options.language)
+            result = self.SearchSubtitles(language=lang_id, videos=self.videos)
             for r in result:
                 print r.getFileName(), r.getHash(), r.getSubtitles()
         

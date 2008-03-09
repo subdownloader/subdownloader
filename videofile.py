@@ -34,8 +34,6 @@ class VideoFile:
         self._osdb_info = {}
         self._subs = []
     
-
-    
     def getFilePath(self):
         return self._filepath
     
