@@ -63,13 +63,15 @@ class OSDBServer(Transport):
     def __init__(self, options):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
         Transport.__init__(self)
+        self.log.debug("Creating OSDBServer with options= %s",  options)
         self.user_agent = USER_AGENT
-        self.username = options.username
-        self.passwd = options.password
-        self.language = options.language
+        
+        self.username = options["username"] #TODO: for a very weird reason it doesn't work with options.username
+        self.passwd = options["password"]
+        self.language = options["language"]
         #TODO:Is there a way to simulate the ternary operator in Python for this?
-        if options.server: 
-            self.server = options.server
+        if options.has_key("server"): 
+            self.server = options["server"]
         else:
             self.server = DEFAULT_SERVER
         self.logged_as = None

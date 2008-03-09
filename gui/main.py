@@ -35,11 +35,10 @@ from subdownloader.gui.videolistview import VideoListModel, VideoListView
 from subdownloader.gui.sublistview import SubListModel, SubListView
 from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
 
-
 from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
-from subdownloader.gui.videolistview import VideoListModel, VideoListView
+#from subdownloader.gui.videolistview import VideoListModel, VideoListView
+from subdownloader.gui.videotreeview import VideoTreeModel
 from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
-
 
 from subdownloader.gui.main_ui import Ui_MainWindow
 import subdownloader.FileManagement.FileScan as FileScan
@@ -122,9 +121,9 @@ class Main(QObject, Ui_MainWindow):
         
         #SETTING UP VIDEOS_VIEW
         #QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
-        self.video_model = VideoListModel(window)  
-        #self.video_view.resizeColumnsToContents()
-        self.video_view.setModel(self.video_model)
+        self.videoModel = VideoTreeModel(window)  
+        #self.videoView.resizeColumnsToContents()
+        self.videoView.setModel(self.videoModel)
         
         #QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"),                             self.videos_leftclicked) 
         
@@ -203,13 +202,13 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setMaximum(0)
         
         self.window.setCursor(Qt.WaitCursor)
-        videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
-    
-        print videos_result
-        print videos_found
-        self.video_model.set_videos(videos_found)
-        self.video_view.setModel(self.video_model)
-        self.video_view.resizeColumnsToContents()
+#        videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
+#    
+#        print videos_result
+#        print videos_found
+#        self.video_model.set_videos(videos_found)
+#        self.video_view.setModel(self.video_model)
+#        self.video_view.resizeColumnsToContents()
 
         self.progress(100)
         self.status_progress.setFormat("Search finished")
@@ -307,8 +306,9 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.WaitCursor)
 
         self.status("Connecting to server")        
+        options = {'username':"", 'password':"", "language":""}
         try:
-            self.OSDBServer = OSDBServer({})
+            self.OSDBServer = OSDBServer(options)
         except Exception, e: 
             traceback.print_exc(e)
             qFatal("Unable to connect to server. Please try later")

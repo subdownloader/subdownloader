@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>MainWindow</string>
+   <string>SubDownloader</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
@@ -131,17 +131,7 @@
            </property>
            <layout class="QVBoxLayout" >
             <item>
-             <widget class="VideoListView" name="video_view" >
-              <property name="contextMenuPolicy" >
-               <enum>Qt::CustomContextMenu</enum>
-              </property>
-              <property name="dragEnabled" >
-               <bool>true</bool>
-              </property>
-              <property name="dragDropMode" >
-               <enum>QAbstractItemView::DragOnly</enum>
-              </property>
-             </widget>
+             <widget class="QTreeView" name="videoView" />
             </item>
            </layout>
           </widget>
@@ -512,11 +502,6 @@ p, li { white-space: pre-wrap; }
    <class>UploadListView</class>
    <extends>QTableView</extends>
    <header>uploadlistview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>VideoListView</class>
-   <extends>QTableView</extends>
-   <header>videolistview.h</header>
   </customwidget>
   <customwidget>
    <class>SubListView</class>

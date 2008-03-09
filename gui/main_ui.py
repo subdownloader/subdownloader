@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Mar  8 15:53:22 2008
+# Created: Sun Mar  9 17:00:01 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -63,16 +63,19 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
         self.splitter.setSizePolicy(sizePolicy)
+        self.splitter.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.splitter.setAutoFillBackground(False)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
 
         self.groupBox_5 = QtGui.QGroupBox(self.splitter)
 
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred,QtGui.QSizePolicy.Preferred)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
         self.groupBox_5.setSizePolicy(sizePolicy)
+        self.groupBox_5.setMinimumSize(QtCore.QSize(0,0))
         self.groupBox_5.setMaximumSize(QtCore.QSize(200,16777215))
         self.groupBox_5.setObjectName("groupBox_5")
 
@@ -96,12 +99,9 @@ class Ui_MainWindow(object):
         self.vboxlayout3 = QtGui.QVBoxLayout(self.groupBox_3)
         self.vboxlayout3.setObjectName("vboxlayout3")
 
-        self.video_view = VideoListView(self.groupBox_3)
-        self.video_view.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.video_view.setDragEnabled(True)
-        self.video_view.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
-        self.video_view.setObjectName("video_view")
-        self.vboxlayout3.addWidget(self.video_view)
+        self.videoView = QtGui.QTreeView(self.groupBox_3)
+        self.videoView.setObjectName("videoView")
+        self.vboxlayout3.addWidget(self.videoView)
         self.vboxlayout1.addWidget(self.splitter)
         self.tabs.addTab(self.tab,"")
 
@@ -340,7 +340,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader", None, QtGui.QApplication.UnicodeUTF8))
         self.button_play.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.button_download.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
@@ -377,5 +377,4 @@ class Ui_MainWindow(object):
 
 from sublistview import SubListView
 from uploadlistview import UploadListView
-from videolistview import VideoListView
 import images_rc
