@@ -60,6 +60,11 @@ OPTION_LIST = [
                             help="Video file or a directory with videos"), 
     make_option("--lang", dest="language", default='en', 
                             help="Used in subtitle download and upload preferences"), 
+    make_option("--best", dest="interactive", action="store_false", default=False, 
+                            help="Download the best rated subtitle. Default for CLI mode"), 
+    make_option("--select", dest="interactive",  action="store_true", default=False, 
+                            help="Prompt user what subtitle to download"), 
+                            
     make_option("--user", dest="username", default='', 
                             help="Opensubtitles.com username. Must be set in upload mode. Default is blank (anonymous)"), 
     make_option("--passwd", dest="password", default='', 

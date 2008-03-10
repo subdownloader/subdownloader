@@ -149,7 +149,7 @@ class OSDBServer(Transport):
     #
     def GetSubLanguages(self,language=None):
         """Return all suported subtitles languages in a dictionary
-        If language given returns SubLanguageID for it
+        If language var is set, returns SubLanguageID for it
         """
         self.log.debug("----------------")
         self.log.debug("GetSubLanguages RPC method starting...")
@@ -171,8 +171,10 @@ class OSDBServer(Transport):
         info = self.xmlrpc_server.CheckSubHash(self._token,hashes)
         self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
         result = {}
-        for data in info['data']:
-            result[data.key()] = data.value()
+        for hash in hashes:
+            result[hash] = data['data'][hash]
+#        for data in info['data']:
+#            result[data.key()] = data.value()
         return results
     
     def DownloadSubtitle(self,sub_ids,dest = "temp.sub"):
@@ -219,7 +221,7 @@ class OSDBServer(Transport):
     #except: 
         #self.LogMessage("XMLRPC Error downloading id="+sub_id)
         
-    def SearchSubtitles(self, language="", videos=None, imdb_ids=None):
+    def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """
         Search subtitles for the given video(s).
         
@@ -245,7 +247,7 @@ class OSDBServer(Transport):
                 self.log.debug(" - adding: %s"% array)
                 search_array.append(array)
                 
-        self.log.debug("Doing actual server search...")
+        self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
         print result
         
@@ -294,8 +296,35 @@ class OSDBServer(Transport):
         pass
     def CheckMovieHash(self):
         pass
-    def TryUploadSubtitles(self):
-        pass
+    def TryUploadSubtitles(self, videos=None):
+        """Will (try) upload subtitle information for one or more videos
+        @videos: video and its subtitle - dictionary
+        """
+        self.log.debug("----------------")
+        self.log.debug("TryUploadSubtitles RPC method starting...")
+        # will run this method if we have videos and subtitles associated
+        if videos and video.getTotalSubtitles() > 0:
+            array = {}
+            self.log.debug("Building search array...")
+            for i in range(1, len(videos)+1):
+                cd = 'cd%i'% i
+                subtitle = video.getSubtitles()[0]
+                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
+                self.log.debug(" - adding %s: %s"% (cd, array_))
+                array[cd] = array_
+                
+            self.log.debug("Communicating with server...")
+            result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
+            self.log.debug("Search took %ss"% result['seconds'])
+            if result['alreadyindb']:
+                pass
+            else:
+                pass
+        else:
+            self.log.debug("No videos or subtitles were provided. Stoping method.")
+            
+        self.log.debug("----------------")
+        
     def UploadSubtitles(self):
         pass
     def ReportWrongMovieHash(self):
