@@ -14,7 +14,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip
+import base64, StringIO, gzip, httplib, re
 import logging
 
 from subdownloader import APP_TITLE, APP_VERSION
@@ -31,6 +31,19 @@ USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 #class GtkTransport (Transport):
 #        user_agent = "Subdownloader " + APP_VERSION 
     
+
+def test_connection(url, timeout=5):
+    import socket, urllib2
+    defTimeOut=socket.getdefaulttimeout()
+    socket.setdefaulttimeout(timeout)
+    connectable=True
+    try:
+        urllib2.urlopen(url)
+    except (urllib2.HTTPError, urllib2.URLError, socket.error, socket.sslerror):
+        connectable=False
+    socket.setdefaulttimeout(defTimeOut)
+    return connectable
+    
 """The XMLRPC can use a Proxy, this class is need for that."""
 class ProxiedTransport(Transport):
     """ Used for proxied connections to the XMLRPC server
@@ -38,19 +51,22 @@ class ProxiedTransport(Transport):
     """
     def __init__(self):
         self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
-        self.user_agent = USER_AGENT
+        self._use_datetime = True
+        #self.user_agent = USER_AGENT
     def set_proxy(self, proxy):
         self.proxy = proxy
+        self.log.debug("Proxy set to: %s"% proxy)
     def make_connection(self, host):
+        self.log.debug("Connecting to %s through %s"% (host, self.proxy))
         self.realhost = host
-        h = HTTP(self.proxy)
+        h = httplib.HTTP(self.proxy)
         return h
     def send_request(self, connection, handler, request_body):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
 
-class OSDBServer(Transport):
+class OSDBServer(ProxiedTransport):
     """
     Contains the class that represents the OSDB Server.
     Encapsules all the XMLRPC methods.
@@ -62,10 +78,13 @@ class OSDBServer(Transport):
     """
     def __init__(self, options):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
-        Transport.__init__(self)
         self.log.debug("Creating OSDBServer with options= %s",  options)
+        # for proxied connections
+        ProxiedTransport.__init__(self)
+        self.set_proxy(options.proxy)
+        #self.timeout = options.timeout
+        self.timeout = 30
         self.user_agent = USER_AGENT
-        
         self.username = options.username
         self.passwd = options.password
         self.language = options.language
@@ -84,14 +103,68 @@ class OSDBServer(Transport):
     def create_xmlrpcserver(self, server):
         #transport = GtkTransport()
         self.log.debug("Creating XMLRPC server connection...")
-        try:
-            self.xmlrpc_server = ServerProxy(server,self)
+#        timeout_transport = TimeoutTransport()
+#        timeout_transport.timeout = self.timeout
+#        try:
+        self.log.debug("Trying direct connection...")
+        if test_connection(server):
+            self.xmlrpc_server = ServerProxy(server)
+            self.log.debug("...connected")
             return True
-        except:
-            error = "Error creating XMLRPC server connection to: %s"% SERVER_ADDRESS
-            self.log.error(error)
-            return False
-
+        else:
+            self.log.debug("...failed")
+            if self.proxy:
+                self.log.debug("Trying proxied connection...")
+                #p = ProxiedTransport()
+                #p.set_proxy(self.proxy)
+                self.xmlrpc_server = ServerProxy(server, transport=self)
+                #self.xmlrpc_server.ServerInfo() # this would be the connection tester
+                self.log.debug("...connected")
+                return True
+            else:
+                self.log.error("No proxy was set. Unable to connect.")
+                return False
+            
+#            
+#        try:
+#            self.log.debug("Trying direct connection...")
+##            # test connection to our server
+##            self.log.debug("settings request var")
+##            req = urllib2.Request(server)
+##            self.log.debug("opening url request")
+##            f = urllib2.urlopen(req)
+##            self.log.debug("reading webpage to buffer")
+##            notes= f.readlines()
+##            self.log.debug("closing buffer")
+##            f.close()
+##            # end of test
+#            self.log.debug("creating xmlrpc server")
+#            self.xmlrpc_server = ServerProxy(server)
+#            #self.xmlrpc_server.ServerInfo() # this would be the connection tester
+#            self.log.debug("...connected")
+#            return True
+#        #except IOError, r:
+#        except:
+##            p = str(r)
+##            if re.search(r'urlopen error timed out',p):
+#            self.log.debug("...timeout")
+#            if self.proxy:
+#                self.log.debug("Trying proxied connection...")
+#                p = ProxiedTransport()
+#                p.set_proxy(self.proxy)
+#                self.xmlrpc_server = ServerProxy(server, transport=p)
+#                self.xmlrpc_server.ServerInfo() # this would be the connection tester
+#                self.log.debug("...connected")
+#                return True
+#            else:
+#                self.log.error("No proxy was set. Unable to connect.")
+#                return False
+##        except:
+##            error = "Error creating XMLRPC server connection to: %s"% server
+##            self.log.error(error)
+##            return False
+        
+        
     @classmethod
     def is_connected(self):
         """ 
@@ -109,9 +182,9 @@ class OSDBServer(Transport):
             text = ""
             for key,value in serverinfo.items():
                 text += key + " : " + str(value) + "\n"
-            print text
+            return text
         except Exception,e:
-            raise
+            raise e
         
     def login(self, username="", password=""):
         """Login to the Server using username/password,
