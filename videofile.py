@@ -75,6 +75,9 @@ class VideoFile:
     
     def setSubtitles(self,subs):
         self._subs = subs
+        
+    def addSubtitle(self, sub):
+        self._subs.append(sub)
     
     def getSubtitles(self):
         return self._subs

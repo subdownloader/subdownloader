@@ -322,7 +322,6 @@ class OSDBServer(ProxiedTransport):
                 
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
-        print result
         
         if result['data']:
             self.log.debug("Collecting downloaded data")
