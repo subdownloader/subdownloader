@@ -124,48 +124,7 @@ class OSDBServer(ProxiedTransport):
             else:
                 self.log.error("No proxy was set. Unable to connect.")
                 return False
-            
-#            
-#        try:
-#            self.log.debug("Trying direct connection...")
-##            # test connection to our server
-##            self.log.debug("settings request var")
-##            req = urllib2.Request(server)
-##            self.log.debug("opening url request")
-##            f = urllib2.urlopen(req)
-##            self.log.debug("reading webpage to buffer")
-##            notes= f.readlines()
-##            self.log.debug("closing buffer")
-##            f.close()
-##            # end of test
-#            self.log.debug("creating xmlrpc server")
-#            self.xmlrpc_server = ServerProxy(server)
-#            #self.xmlrpc_server.ServerInfo() # this would be the connection tester
-#            self.log.debug("...connected")
-#            return True
-#        #except IOError, r:
-#        except:
-##            p = str(r)
-##            if re.search(r'urlopen error timed out',p):
-#            self.log.debug("...timeout")
-#            if self.proxy:
-#                self.log.debug("Trying proxied connection...")
-#                p = ProxiedTransport()
-#                p.set_proxy(self.proxy)
-#                self.xmlrpc_server = ServerProxy(server, transport=p)
-#                self.xmlrpc_server.ServerInfo() # this would be the connection tester
-#                self.log.debug("...connected")
-#                return True
-#            else:
-#                self.log.error("No proxy was set. Unable to connect.")
-#                return False
-##        except:
-##            error = "Error creating XMLRPC server connection to: %s"% server
-##            self.log.error(error)
-##            return False
         
-        
-    @classmethod
     def is_connected(self):
         """ 
         This method checks to see whether we are connected to the server. 
@@ -220,7 +179,7 @@ class OSDBServer(ProxiedTransport):
     #
     # SUBTITLE METHODS 
     #
-    def GetSubLanguages(self,language=None):
+    def GetSubLanguages(self,language):
         """Return all suported subtitles languages in a dictionary
         If language var is set, returns SubLanguageID for it
         """

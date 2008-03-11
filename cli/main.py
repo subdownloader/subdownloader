@@ -28,7 +28,7 @@ class Main(OSDBServer.OSDBServer):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2:
-            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/N)\n: ").lower()
+            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/N)\n: ").lower() or 'y'
             if continue_ != 'y':
                 return
         if check_result == 0:
@@ -55,11 +55,13 @@ class Main(OSDBServer.OSDBServer):
         OSDBServer.OSDBServer.__init__(self, self.options)
         
         if testing:
-            lang_id = self.GetSubLanguages(self.options.language)
-            result = self.SearchSubtitles(language=lang_id, videos=self.videos)
-            for r in result:
-                print r in self.videos
-                print r.getFileName(), r.getHash(), r.getSubtitles()
+            if self.is_connected():
+                print self.options.language
+                lang_id = self.GetSubLanguages(self.options.language)
+                result = self.SearchSubtitles(language=lang_id, videos=self.videos)
+                for r in result:
+                    print r in self.videos
+                    print r.getFileName(), r.getHash(), r.getSubtitles()
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """
