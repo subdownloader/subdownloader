@@ -302,6 +302,7 @@ class OSDBServer(ProxiedTransport):
                         subtitles = []
                         for i in osdb_info:
                             sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                            sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
                             sub.setLanguage(i["SubLanguageID"])
                             subtitles.append(sub)
@@ -334,7 +335,7 @@ class OSDBServer(ProxiedTransport):
             array = {'moviehash': video.getHash(), 'moviesize': video.getSize()}
             video_array.append(array)
         info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
-        self.log.debug("CheckMovieHash finished in %s with status %s."% (info['seconds'], info['status']))
+        self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
         
     def CheckMovieHash(self, hashes):
         """Return MovieImdbID, MovieName, MovieYear for each hash
@@ -380,21 +381,72 @@ class OSDBServer(ProxiedTransport):
         
     def UploadSubtitles(self):
         pass
-    def ReportWrongMovieHash(self):
-        pass
-    def GetAvailableTranslations(self):
-        pass
-    def GetTranslation(self):
-        pass
-    def SearchMoviesOnIMDB(self):
-        pass
-    def GetIMDBMovieDetails(self):
-        pass
-    def AutoUpdate(self, app):
+    def ReportWrongMovieHash(self, subtitle_id):
+        """Report wrong subtitle for a movie
+        @subtitle_id: subtitle id from a video (IDSubMovieFile) - string/int
+        """
+        self.log.debug("----------------")
+        self.log.debug("ReportWrongMovieHash RPC method starting...")
+        info = self.xmlrpc_server.ReportWrongMovieHash(self._token, subtitle_id)
+        self.log.debug("ReportWrongMovieHash finished in %s with status %s."% (info['seconds'], info['status']))
+        
+    def GetAvailableTranslations(self, program=None):
+        """Returns dictionary of available translations for the given program. 
+        @program: program name - string
+        return example: {'en': {'LastCreated': '2007-02-03 21:36:14', 'StringsNo': 438}, 'ar': ...}
+        """
+        self.log.debug("----------------")
+        self.log.debug("GetAvailableTranslations RPC method starting...")
+        if not program: program = APP_TITLE.lower()
+        info = self.xmlrpc_server.GetAvailableTranslations(self._token, program)
+        self.log.debug("GetAvailableTranslations finished in %s with status %s."% (info['seconds'], info['status']))
+        if info.has_key('data'):
+            return info['data']
+        return False
+        
+    def GetTranslation(self, language, format):
+        """Returns base64 encoded strings for language.
+        @language: iso639 language code (2 chars)
+        @format: format in which the result is returned (mo, po, txt, xml)
+        """
+        self.log.debug("----------------")
+        self.log.debug("GetTranslation RPC method starting...")
+        info = self.xmlrpc_server.GetTranslation(self._token, language, format, self.user_agent )
+        self.log.debug("GetTranslation finished in %s with status %s."% (info['seconds'], info['status']))
+        if info.has_key('data'):
+            return info['data']
+        return False
+        
+    def SearchMoviesOnIMDB(self, query):
+        """Returns a list of found movies in IMDB
+        @query - search string (ie: movie name)
+        return example: [{'id': '0452623', 'title': 'Gone Baby Gone (2007)'}, { }, ...]
+        """
+        self.log.debug("----------------")
+        self.log.debug("SearchMoviesOnIMDB RPC method starting...")
+        info = self.xmlrpc_server.SearchMoviesOnIMDB(self._token, query)
+        self.log.debug("SearchMoviesOnIMDB finished in %s with status %s."% (info['seconds'], info['status']))
+        result = []
+        for result_ in info['data']:
+            result.append(result_)
+        return result
+        
+    def GetIMDBMovieDetails(self, imdb_id):
+        """Returns video details from IMDB if available
+        @imdb_id - IMDB movie id - int/string
+        """
+        self.log.debug("----------------")
+        self.log.debug("GetIMDBMovieDetails RPC method starting...")
+        info = self.xmlrpc_server.GetIMDBMovieDetails(self._token, imdb_id)
+        self.log.debug("GetIMDBMovieDetails finished in %s with status %s."% (info['seconds'], info['status']))
+        return info['data']
+        
+    def AutoUpdate(self, app=None):
         """Returns latest info on the given application if available
         """
         self.log.debug("----------------")
         self.log.debug("AutoUpdate RPC method starting...")
+        if not app: app = APP_TITLE.lower()
         info = self.xmlrpc_server.AutoUpdate(app)
         self.log.debug("CheckMovieHash finished with status %s"% info['status'])
         # no info about this program

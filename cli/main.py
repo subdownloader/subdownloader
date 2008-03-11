@@ -56,12 +56,13 @@ class Main(OSDBServer.OSDBServer):
         
         if testing:
             if self.is_connected():
-                print self.options.language
-                lang_id = self.GetSubLanguages(self.options.language)
-                result = self.SearchSubtitles(language=lang_id, videos=self.videos)
-                for r in result:
-                    print r in self.videos
-                    print r.getFileName(), r.getHash(), r.getSubtitles()
+                print self.GetAvailableTranslations()
+#                lang_id = self.GetSubLanguages(self.options.language)
+#                result = self.SearchSubtitles(language=lang_id, videos=self.videos)
+#                for r in result:
+#                    print r in self.videos
+#                    print r.getFileName(), r.getHash(), r.getSubtitles()
+                self.logout()
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """

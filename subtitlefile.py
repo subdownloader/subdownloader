@@ -54,6 +54,9 @@ class SubtitleFile:
     def getSize(self):
         return self._size
     
+    def setHash(self, hash):
+        self._hash = hash
+    
     def getHash(self):
         return self._hash
     
