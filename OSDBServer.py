@@ -51,7 +51,7 @@ class ProxiedTransport(Transport):
     """
     def __init__(self):
         self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
-        self._use_datetime = True
+        self._use_datetime = True # annoying -> AttributeError: Main instance has no attribute '_use_datetime'
         #self.user_agent = USER_AGENT
     def set_proxy(self, proxy):
         self.proxy = proxy
@@ -362,15 +362,37 @@ class OSDBServer(ProxiedTransport):
     #
     # VIDEO METHODS 
     #
-
         
-    def SearchToMail(self):
-        pass
-    def CheckMovieHash(self):
-        pass
+    def SearchToMail(self, videos, languages):
+        """Register user email to be noticed when given video subtitles are available to download
+        @videos: video objects - list
+        @languages: language id codes - list
+        """
+        self.log.debug("----------------")
+        self.log.debug("SearchToMail RPC method starting...")
+        video_array = []
+        for video in videos:
+            array = {'moviehash': video.getHash(), 'moviesize': video.getSize()}
+            video_array.append(array)
+        info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
+        self.log.debug("CheckMovieHash finished in %s with status %s."% (info['seconds'], info['status']))
+        
+    def CheckMovieHash(self, hashes):
+        """Return MovieImdbID, MovieName, MovieYear for each hash
+        @hashes - movie hashes - list
+        """
+        self.log.debug("----------------")
+        self.log.debug("CheckMovieHash RPC method starting...")
+        info = self.xmlrpc_server.CheckMovieHash(self._token, hashes)
+        self.log.debug("CheckMovieHash ended in %s. Processing data..."% info['seconds'])
+        result = {}
+        for hash in hashes:
+            result[hash] = info['data'][hash]
+        return result
+        
     def TryUploadSubtitles(self, videos=None):
         """Will (try) upload subtitle information for one or more videos
-        @videos: video and its subtitle - dictionary
+        @videos: video objects - list
         """
         self.log.debug("----------------")
         self.log.debug("TryUploadSubtitles RPC method starting...")
@@ -393,7 +415,7 @@ class OSDBServer(ProxiedTransport):
             else:
                 pass
         else:
-            self.log.debug("No videos or subtitles were provided. Stoping method.")
+            self.log.debug("No videos provided or no subtitles available. Stoping method.")
             
         self.log.debug("----------------")
         
@@ -409,8 +431,34 @@ class OSDBServer(ProxiedTransport):
         pass
     def GetIMDBMovieDetails(self):
         pass
-    def AutoUpdate(self):
-        pass
+    def AutoUpdate(self, app):
+        """Returns latest info on the given application if available
+        """
+        self.log.debug("----------------")
+        self.log.debug("AutoUpdate RPC method starting...")
+        info = self.xmlrpc_server.AutoUpdate(app)
+        self.log.debug("CheckMovieHash finished with status %s"% info['status'])
+        # no info about this program
+        if info['status'] != "200 OK":
+            self.log.info("Invalid application name provided.")
+            return False
+        # we have something to show
+        self.log.info("Last version details for %s:"% app)
+        self.log.info("Version: %s"% info['version'])
+        self.log.info("Linux url: %s"% info['url_linux'])
+        self.log.info("Windows url: %s"% info['url_windows'])
+        self.log.info("Comments: %s"% info['comments'])
+        return info
+        
     def NoOperation(self):
-        pass
-    
+        """This method should be called every 15 minutes after last request to xmlrpc. 
+        It's used to keep current session alive.
+        Returns True if current session token is valid and False if not.
+        """
+        self.log.debug("----------------")
+        self.log.debug("NoOperation RPC method starting...")
+        info = self.xmlrpc_server.NoOperation(self._token)
+        self.log.debug("NoOperation finished in %s with status %s."% (info['seconds'], info['status']))
+        if info['status'] != "200 OK":
+            return False
+        return True

@@ -74,10 +74,21 @@ class VideoFile:
         return len(self._subs) != 0
     
     def setSubtitles(self,subs):
-        self._subs = subs
+        if len(self._subs):
+            # we might have set other subtitles before
+            for sub in subs:
+                for _sub in self._subs:
+                    if sub.getHash() == _subs.getHash():
+                        subs.pop(subs.index(sub))
+            self.addSubtitle(subs)
+        else:
+            self._subs = subs
         
     def addSubtitle(self, sub):
-        self._subs.append(sub)
+        if isinstance(sub, list):
+            self._subs + sub
+        else:
+            self._subs.append(sub)
     
     def getSubtitles(self):
         return self._subs
