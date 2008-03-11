@@ -78,7 +78,7 @@ class VideoFile:
             # we might have set other subtitles before
             for sub in subs:
                 for _sub in self._subs:
-                    if sub.getHash() == _subs.getHash():
+                    if sub.getHash() == _sub.getHash():
                         subs.pop(subs.index(sub))
             self.addSubtitle(subs)
         else:

@@ -89,7 +89,7 @@ class Main(OSDBServer.OSDBServer):
             self.log.debug("Processing %s..."% video.getFileName())
             possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
             #self.log.debug("possible subtitle is: %s"% possible_subtitle)
-            #sub_match = None
+            sub_match = None
             for subtitle in self.subs:
                 sub_match = None
                 if possible_subtitle == subtitle.getFilePath():
