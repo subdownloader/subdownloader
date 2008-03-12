@@ -24,7 +24,7 @@ class Main(OSDBServer.OSDBServer):
         self.options = cli_options
         self.log = logging.getLogger("subdownloader.cli.main")
         
-    def start_session(self, testing=True):
+    def start_session(self, testing=False):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2:
@@ -63,7 +63,21 @@ class Main(OSDBServer.OSDBServer):
 #                for r in result:
 #                    print r in self.videos
 #                    print r.getFileName(), r.getHash(), r.getSubtitles()
-                self.logout()
+        else:
+            if self.is_connected():
+                self.SearchSubtitles(videos=self.videos)
+                self.handle_operation(self.options.operation)
+            
+        self.logout()
+                
+    def handle_operation(self, operation):
+        if operation == "download":
+            self.DownloadSubtitles(self.videos)
+            
+        elif operation == "upload":
+            pass
+        else:
+            pass
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """

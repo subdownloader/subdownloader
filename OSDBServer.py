@@ -208,7 +208,7 @@ class OSDBServer(ProxiedTransport):
 #            result[data.key()] = data.value()
         return result
     
-    def DownloadSubtitle(self,sub_ids,dest = "temp.sub"):
+    def DownloadSubtitles(self, videos):
         """
         Download subtitles by there id's
         
@@ -216,41 +216,58 @@ class OSDBServer(ProxiedTransport):
         @dest: path to save subtitles in string format
         Returns: BASE64 encoded gzipped !IDSubtitleFile(s). You need to BASE64 decode and ungzip 'data' to get its contents.
         """
-        try:
-            subtitlefile = file(dest,'wb')
-            subtitlefile.close()
-        except:
-            #self.LogMessage("Error saving " + dest)
-            return
+        self.log.debug("----------------")
+        self.log.debug("DownloadSubtitles RPC method starting...")
+        subtitles_to_download ={}
+        self.log.debug("Building subtitle matrix...")
+        for video in videos:
+            if video.getTotalSubtitles() == 1:
+                subtitle = video.getOneSubtitle()
+                self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
+                subtitles_to_download[subtitle.getIdOnline()] = subtitle.getFileName()
             
-        #if globals.debugmode:
-            #globals.Log("-------------Download parameters:")
-            #globals.Log([sub_id])
+        if len(subtitles_to_download):
+            self.log.debug("Communicating with server...")
+            answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
+            self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
+            if answer.has_key("data"):
+                self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
+                for sub in answer['data']:
+                    subtitle_compressed = sub['data']
+                    compressedstream = base64.decodestring(subtitle_compressed)
+                    #compressedstream = subtitle_compressed
+                    gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
+                    s=gzipper.read()
+                    gzipper.close()
+                    subtitlefile = file(subtitles_to_download[sub['idsubtitlefile']],'wb')
+                    subtitlefile.write(s)
+                    subtitlefile.close()
+                return True
+            else:
+                self.log.debug("Server sent no subtitles to me.")
+                return False
             
-        #try:
-        answer = self.xmlrpc_server.DownloadSubtitles(self._token,sub_ids)
-        #if globals.debugmode:
-            #globals.Log("-------------Download Answer:")
-            #globals.Log("disabled")
-        
-        if answer.has_key("data"):
-            subtitle_compressed = answer["data"][0]["data"]
-        else:
-            #self.LogMessage("XMLRPC Error downloading result for idsubfile="+sub_id)
-            return
-            
-        compressedstream = base64.decodestring(subtitle_compressed)
-        #compressedstream = subtitle_compressed
-        gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
-        s=gzipper.read()
-        gzipper.close()
-        subtitlefile = file(dest,'wb')
-        subtitlefile.write(s)
-        subtitlefile.close()
-        #self.LogMessage(dest + " saved",status="OK")
-        #self.download_subs +=1
-    #except: 
-        #self.LogMessage("XMLRPC Error downloading id="+sub_id)
+#        
+#        try:
+#            subtitlefile = file(dest,'wb')
+#            subtitlefile.close()
+#        except:
+#            #self.LogMessage("Error saving " + dest)
+#            return
+#            
+#        #if globals.debugmode:
+#            #globals.Log("-------------Download parameters:")
+#            #globals.Log([sub_id])
+#            
+#        #try:
+#        #if globals.debugmode:
+#            #globals.Log("-------------Download Answer:")
+#            #globals.Log("disabled")
+#        
+#        #self.LogMessage(dest + " saved",status="OK")
+#        #self.download_subs +=1
+#    #except: 
+#        #self.LogMessage("XMLRPC Error downloading id="+sub_id)
         
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """

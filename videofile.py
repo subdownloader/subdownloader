@@ -97,9 +97,13 @@ class VideoFile:
     
     def getSubtitles(self):
         return self._subs
+        
+    def getOneSubtitle(self):
+        return self._subs[0]
     
     def getTotalSubtitles(self):
-        return len(self._osdb_info)
+        try: return len(self._osdb_info)
+        except: return len(self._subs)
     
     def calculateOSDBHash(self):
         try:
