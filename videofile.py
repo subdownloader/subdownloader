@@ -62,16 +62,18 @@ class VideoFile:
         return len(self._osdb_info) != 0
     
     def hasMovieName(self):
-        return self._osdb_info[0]["MovieName"] != ""
+        try: return self._osdb_info["MovieName"] != ""
+        except: return False
     
     def getMovieName(self):
-        return self._osdb_info[0]["MovieName"]
+        return self._osdb_info["MovieName"]
     
     def hasMovieNameEng(self):
-        return self._osdb_info[0]["MovieNameEng"] != ""
+        try: return self._osdb_info["MovieNameEng"] != ""
+        except: return False
     
     def getMovieNameEng(self):
-        return self._osdb_info[0]["MovieNameEng"]
+        return self._osdb_info["MovieNameEng"]
     
     def hasSubtitles(self):
         return len(self._subs) != 0
