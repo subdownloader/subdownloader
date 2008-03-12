@@ -14,7 +14,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip, httplib, re
+import base64, StringIO, gzip, httplib
 import logging
 
 from subdownloader import APP_TITLE, APP_VERSION
@@ -52,7 +52,6 @@ class ProxiedTransport(Transport):
     def __init__(self):
         self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
         self._use_datetime = True # annoying -> AttributeError: Main instance has no attribute '_use_datetime'
-        #self.user_agent = USER_AGENT
     def set_proxy(self, proxy):
         self.proxy = proxy
         self.log.debug("Proxy set to: %s"% proxy)
@@ -192,7 +191,7 @@ class OSDBServer(ProxiedTransport):
             for lang in info['data']:
                 if lang['ISO639'] == language: return lang['SubLanguageID']
                 
-        return result['data']
+        return info['data']
             
     def CheckSubHash(self,hashes):
         """
@@ -204,10 +203,10 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
         result = {}
         for hash in hashes:
-            result[hash] = data['data'][hash]
+            result[hash] = info['data'][hash]
 #        for data in info['data']:
 #            result[data.key()] = data.value()
-        return results
+        return result
     
     def DownloadSubtitle(self,sub_ids,dest = "temp.sub"):
         """
@@ -271,7 +270,6 @@ class OSDBServer(ProxiedTransport):
                 array = {'sublanguageid': language,'moviehash': video.getHash(),'moviebytesize': str(video.getSize())}
                 self.log.debug(" - adding: %s"% array)
                 search_array.append(array)
-            self.log.debug("Build result: %s"% search_array)
         elif imdb_ids:
             self.log.debug("Building search array with IMDB id's")
             for id in imdb_ids:
@@ -350,37 +348,63 @@ class OSDBServer(ProxiedTransport):
             result[hash] = info['data'][hash]
         return result
         
-    def TryUploadSubtitles(self, videos=None):
-        """Will (try) upload subtitle information for one or more videos
+    def TryUploadSubtitles(self, videos):
+        """Check for subtitle existence in server database for one or more videos
+        
         @videos: video objects - list
+        Returns subtitle info in server if exists, and full info on movie if not.
         """
         self.log.debug("----------------")
         self.log.debug("TryUploadSubtitles RPC method starting...")
         # will run this method if we have videos and subtitles associated
-        if videos and video.getTotalSubtitles() > 0:
-            array = {}
-            self.log.debug("Building search array...")
-            for i in range(1, len(videos)+1):
+        array = {}
+        self.log.debug("Building search array...")
+        for i in range(1, len(videos)+1):
+            video = videos[i]
+            if video.getTotalSubtitles() > 0:
                 cd = 'cd%i'% i
                 subtitle = video.getSubtitles()[0]
                 array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
                 self.log.debug(" - adding %s: %s"% (cd, array_))
                 array[cd] = array_
-                
-            self.log.debug("Communicating with server...")
-            result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
-            self.log.debug("Search took %ss"% result['seconds'])
-            if result['alreadyindb']:
-                pass
             else:
-                pass
-        else:
-            self.log.debug("No videos provided or no subtitles available. Stoping method.")
+                self.log.debug("'%s' has no subtitles. Stopping method."% video.getMovieName())
+                return False
             
+        self.log.debug("Communicating with server...")
+        result = self.xmlrpc_server.SearchSubtitles(self._token, array)
+        self.log.debug("Search took %ss"% result['seconds'])
+        result.pop('seconds')
+        if result['alreadyindb']:
+            self.log.debug("Subtitle already exists in server database")
+        else:
+            self.log.debug("Subtitle doesn't exist in server database")
         self.log.debug("----------------")
+        return result
         
-    def UploadSubtitles(self):
-        pass
+    def UploadSubtitles(self, videos):
+        self.log.debug("----------------")
+        self.log.debug("UploadSubtitles RPC method starting...")
+        check_result = self.TryUploadSubtitles(videos)
+        if isinstance(check_result, bool) and not check_result:
+            self.log.info("One or more videos don't have subtitles associated. Stopping upload.")
+            return False
+        elif check_result['alreadyindb']:
+            self.log.info("Subtitle already exists in server database")
+            return False
+        else:
+            video_details
+            for details in check_result['data']:
+                for i in range(1, len(videos)+1):
+                    video = videos[i]
+                    if video.getHash() == details['MovieHash']:
+                        curr_video = video
+                        curr_sub = curr_video.getSubtitles()[0]
+                        curr_cd = {'cd%s'%i : ( 'subhash' => $md5subhash, 'subfilename' => $subfilename, 'moviehash' => $moviehash, 'moviebytesize' => $moviebytesize, 'movietimems' => $movietimems, 'moviefps' => $moviefps, 'movieframes' => $movieframes, 'moviefilename' => $moviefilename, 'subcontent' => $subtitlecontent )}
+                movie_info = {'baseinfo':  {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': details['SubAuthorComment']}, 
+
+            info = self.xmlrpc_server.UploadSubtitles(self._token, )
+        
     def ReportWrongMovieHash(self, subtitle_id):
         """Report wrong subtitle for a movie
         @subtitle_id: subtitle id from a video (IDSubMovieFile) - string/int

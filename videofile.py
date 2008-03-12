@@ -55,6 +55,12 @@ class VideoFile:
     def setOsdbInfo(self,info):
         self._osdb_info = info
     
+    def getOsdbInfo(self):
+        return self._osdb_info
+    
+    def hasOsdbInfo(self):
+        return len(self._osdb_info) != 0
+    
     def hasMovieName(self):
         return self._osdb_info[0]["MovieName"] != ""
     
@@ -66,9 +72,6 @@ class VideoFile:
     
     def getMovieNameEng(self):
         return self._osdb_info[0]["MovieNameEng"]
-    
-    def hasOsdbInfo(self):
-        return len(self._osdb_info) != 0
     
     def hasSubtitles(self):
         return len(self._subs) != 0
