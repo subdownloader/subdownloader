@@ -100,10 +100,19 @@ class VideoFile:
         
     def getOneSubtitle(self):
         return self._subs[0]
+        
+    def getOnlineSubtitles(self):
+        subs = []
+        for sub in self.getSubtitles():
+            if sub.isOnline(): subs.append(sub)
+        return subs
     
     def getTotalSubtitles(self):
         try: return len(self._osdb_info)
         except: return len(self._subs)
+        
+    def getTotalOnlineSubtitles(self):
+        return len(self.getOnlineSubtitles())
     
     def calculateOSDBHash(self):
         try:

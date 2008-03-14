@@ -31,10 +31,12 @@ class SubtitleFile:
             self._online = True
             self._id_online = id
         else:
+            self._online = False
             self._filepath = id
             self.setFileName(os.path.basename(self.getFilePath()))
             self._size = os.path.getsize(self._filepath)
             self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
+            self.rating = 0
         
     def setFileName(self,filename):
         self._filename = filename
@@ -68,3 +70,9 @@ class SubtitleFile:
     
     def isOnline(self):
         return self._online
+
+    def setRating(self, rating):
+        self.rating = rating
+        
+    def getRating(self):
+        return self.rating

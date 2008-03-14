@@ -14,7 +14,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip, httplib
+import base64, StringIO, gzip, httplib, os.path
 import logging
 
 from subdownloader import APP_TITLE, APP_VERSION
@@ -224,7 +224,17 @@ class OSDBServer(ProxiedTransport):
             if video.getTotalSubtitles() == 1:
                 subtitle = video.getOneSubtitle()
                 self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
-                subtitles_to_download[subtitle.getIdOnline()] = subtitle.getFileName()
+                subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
+            elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
+                #TODO: decide whether this should be always done or give the user to choose
+                # set a starting point to compare scores
+                best_rated_sub = video.getOnlineSubtitles()[0]
+                # iterate over all subtitles
+                for sub in video.getOnlineSubtitles():
+                    if sub.getRating() > best_rated_sub.getRating():
+                        best_rated_sub = sub
+                self.log.debug("- adding: %s"% (best_rated_sub.getFileName()))
+                subtitles_to_download[best_rated_sub.getIdOnline()] = os.path.join(video.getFolderPath(), best_rated_sub.getFileName())
             
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
@@ -246,28 +256,6 @@ class OSDBServer(ProxiedTransport):
             else:
                 self.log.debug("Server sent no subtitles to me.")
                 return False
-            
-#        
-#        try:
-#            subtitlefile = file(dest,'wb')
-#            subtitlefile.close()
-#        except:
-#            #self.LogMessage("Error saving " + dest)
-#            return
-#            
-#        #if globals.debugmode:
-#            #globals.Log("-------------Download parameters:")
-#            #globals.Log([sub_id])
-#            
-#        #try:
-#        #if globals.debugmode:
-#            #globals.Log("-------------Download Answer:")
-#            #globals.Log("disabled")
-#        
-#        #self.LogMessage(dest + " saved",status="OK")
-#        #self.download_subs +=1
-#    #except: 
-#        #self.LogMessage("XMLRPC Error downloading id="+sub_id)
         
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """
@@ -297,18 +285,16 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
         
-        if result['data']:
+        if result['data'] != False:
             self.log.debug("Collecting downloaded data")
-            
             self.log.debug("Movie hashes...")
             moviehashes = {}
-            if result['data'] != False:
-                for i in result['data']:
-                    moviehash = i['MovieHash']
-                    if not moviehashes.has_key(moviehash):
-                        moviehashes[moviehash] = []
-                    moviehashes[moviehash].append(i)
-                 
+            for i in result['data']:
+                moviehash = i['MovieHash']
+                if not moviehashes.has_key(moviehash):
+                    moviehashes[moviehash] = []
+                moviehashes[moviehash].append(i)
+            
             if videos:
                 videos_result = []
                 for video in videos:
@@ -320,6 +306,7 @@ class OSDBServer(ProxiedTransport):
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
                             sub.setLanguage(i["SubLanguageID"])
+                            sub.setRating(i["SubRating"])
                             subtitles.append(sub)
                         video.setOsdbInfo(osdb_info)
                         video.setSubtitles(subtitles)

@@ -65,7 +65,8 @@ class Main(OSDBServer.OSDBServer):
 #                    print r.getFileName(), r.getHash(), r.getSubtitles()
         else:
             if self.is_connected():
-                self.SearchSubtitles(videos=self.videos)
+                lang_id = self.GetSubLanguages(self.options.language)
+                self.SearchSubtitles(language=lang_id, videos=self.videos)
                 self.handle_operation(self.options.operation)
             
         self.logout()
