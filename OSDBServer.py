@@ -182,13 +182,14 @@ class OSDBServer(ProxiedTransport):
         """Return all suported subtitles languages in a dictionary
         If language var is set, returns SubLanguageID for it
         """
-	if(language == "all"):
-		 return "all"
         self.log.debug("----------------")
         self.log.debug("GetSubLanguages RPC method starting...")
+        if(language == "all"):
+            # return result right away if no 'translation' needed
+             return "all"
         info = self.xmlrpc_server.GetSubLanguages(language)
         self.log.debug("GetSubLanguages complete in %s"% info['seconds'])
-
+            
         if language:
             for lang in info['data']:
                 if lang['ISO639'] == language: return lang['SubLanguageID']
@@ -223,7 +224,7 @@ class OSDBServer(ProxiedTransport):
         subtitles_to_download ={}
         self.log.debug("Building subtitle matrix...")
         for video in videos:
-            if video.getTotalSubtitles() == 1:
+            if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
                 subtitle = video.getOneSubtitle()
                 self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
                 subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
