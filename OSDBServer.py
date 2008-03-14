@@ -182,6 +182,8 @@ class OSDBServer(ProxiedTransport):
         """Return all suported subtitles languages in a dictionary
         If language var is set, returns SubLanguageID for it
         """
+	if(language == "all"):
+		 return "all"
         self.log.debug("----------------")
         self.log.debug("GetSubLanguages RPC method starting...")
         info = self.xmlrpc_server.GetSubLanguages(language)

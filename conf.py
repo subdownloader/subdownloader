@@ -58,7 +58,7 @@ OPTION_LIST = [
                             default="download", help="Upload a subtitle"), 
     make_option("--video", dest="videofile", metavar="FILE/DIR",  
                             help="Video file or a directory with videos"), 
-    make_option("--lang", dest="language", default='en', 
+    make_option("--lang", dest="language", default='all', 
                             help="Used in subtitle download and upload preferences"), 
     make_option("--best", dest="interactive", action="store_false", default=False, 
                             help="Download the best rated subtitle. Default for CLI mode"), 
