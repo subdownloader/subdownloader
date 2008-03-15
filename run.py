@@ -20,8 +20,6 @@ from optparse import OptionParser
 sys.path.append(os.path.dirname(os.getcwd()))
 # simple aplication starter
 import conf
-import gui.main
-import cli.main
 
 """
 CRITICAL    50
@@ -37,6 +35,12 @@ LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 #TODO: change conf.VERSION to subdownloader.APP_VERSION
 parser = OptionParser(description=conf.DESCRIPTION,  version=conf.VERSION,  option_list=conf.OPTION_LIST)
 (options, args) = parser.parse_args()
+
+if options.mode == 'gui':
+    import gui.main
+elif options.mode == 'cli':
+    import cli.main
+
 
 logging.basicConfig(level=options.logging,
                     format=LOG_FORMAT,
