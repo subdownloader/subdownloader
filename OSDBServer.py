@@ -255,7 +255,7 @@ class OSDBServer(ProxiedTransport):
             if answer.has_key("data"):
                 self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
-                    self.log.info("%s..."% subtitles_to_download[sub['idsubtitlefile']])
+                    self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
                     subtitle_compressed = sub['data']
                     compressedstream = base64.decodestring(subtitle_compressed)
                     #compressedstream = subtitle_compressed
