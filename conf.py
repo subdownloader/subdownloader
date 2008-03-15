@@ -57,7 +57,7 @@ OPTION_LIST = [
     make_option("-u", "--upload", dest="operation", action="store_const", const="upload", 
                             default="download", help="Upload a subtitle"), 
     make_option("--video", dest="videofile", metavar="FILE/DIR",  
-                            help="Video file or a directory with videos"), 
+                            help="Full path to your video(s). Don't use '~'"), 
     make_option("--lang", dest="language", default='all', 
                             help="Used in subtitle download and upload preferences"), 
     make_option("--interactive", dest="interactive", action="store_true", default=False, 
