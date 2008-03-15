@@ -21,7 +21,7 @@ from subdownloader import *
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "3ivx"]
 
 
-class VideoFile:
+class VideoFile(object):
     """Contains the class that represents a VideoFile (AVI,MPG,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, FPS,etc)
     """
@@ -33,6 +33,7 @@ class VideoFile:
         self._fps = 0
         self._osdb_info = {}
         self._subs = []
+        self.nos_subs = []
     
     def getFilePath(self):
         return self._filepath
@@ -94,9 +95,19 @@ class VideoFile:
             self._subs + sub
         else:
             self._subs.append(sub)
+        
+    def getSubtitle(self, hash):
+        """returns the subtitle by its hash if any"""
+        for sub in self.getSubtitles():
+            if sub.getHash() == hash:
+                return sub
+        return None
     
     def getSubtitles(self):
         return self._subs
+        
+    def hasSubtitles(self):
+        return len(self._subs) != 0
         
     def getOneSubtitle(self):
         return self._subs[0]
@@ -113,6 +124,22 @@ class VideoFile:
         
     def getTotalOnlineSubtitles(self):
         return len(self.getOnlineSubtitles())
+        
+    def setNOSSubtitle(self, sub):
+        """ transfer a subtitle from general list to 'not on server'
+        """
+        self.nos_subs.append(sub)
+        self._subs.pop(self._subs.index(sub))
+        
+    def remNOSSubtitle(self, sub):
+        """removes a subtitle from NOS list"""
+        self.nos_subs.pop(self.nos_subs.index(sub))
+        
+    def getNOSSubtitles(self):
+        return self.nos_subs
+        
+    def hasNOSSubtitles(self):
+        return len(self.nos_subs) != 0
     
     def calculateOSDBHash(self):
         try:

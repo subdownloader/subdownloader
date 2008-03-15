@@ -20,7 +20,7 @@ from subdownloader import *
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
 
-class SubtitleFile:
+class SubtitleFile(object):
     """Contains the class that represents a SubtitleFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """

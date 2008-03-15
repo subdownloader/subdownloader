@@ -60,10 +60,12 @@ OPTION_LIST = [
                             help="Video file or a directory with videos"), 
     make_option("--lang", dest="language", default='all', 
                             help="Used in subtitle download and upload preferences"), 
-    make_option("--best", dest="interactive", action="store_false", default=False, 
-                            help="Download the best rated subtitle. Default for CLI mode"), 
-    make_option("--select", dest="interactive",  action="store_true", default=False, 
-                            help="Prompt user what subtitle to download"), 
+    make_option("--interactive", dest="interactive", action="store_true", default=False, 
+                            help="Prompt user when decisions need to be done"), 
+    make_option("--sol", dest="overwrite_local", action="store_true", #default=False, 
+                            help="'Server Over Local' overwrites local subtitle with one from server. This is in cases when local subtitle isn't found on server, but server has subtitles for the movie."), 
+    make_option("--los", dest="overwrite_local", action="store_false", default=False, 
+                            help="'Local Over Server' keeps local subtitles, even if another is found on server. This is the default"), 
                             
     make_option("--user", dest="username", default='', 
                             help="Opensubtitles.com username. Must be set in upload mode. Default is blank (anonymous)"), 
@@ -71,7 +73,7 @@ OPTION_LIST = [
                             help="Opensubtitles.com password. Must be set in upload mode. Default is blank (anonymous)"), 
     # misc options
     make_option("--server", dest="server", default=None,
-                            help="Proxy to use on internet connections"), 
+                            help="Server address of Opensubtitles API"), 
     make_option("--proxy", dest="proxy", default=None, 
                             help="Proxy to use on internet connections")
     ]

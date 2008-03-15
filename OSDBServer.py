@@ -14,12 +14,12 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip, httplib, os.path
+import base64, StringIO, gzip, httplib, os
 import logging
 
 from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitle
+import subdownloader.subtitlefile as subtitlefile
 
 #SERVER_ADDRESS = "http://dev.opensubtitles.org/xml-rpc"
 DEFAULT_SERVER = "http://www.opensubtitles.org/xml-rpc"
@@ -178,7 +178,7 @@ class OSDBServer(ProxiedTransport):
     #
     # SUBTITLE METHODS 
     #
-    def GetSubLanguages(self,language):
+    def GetSubLanguages(self, language):
         """Return all suported subtitles languages in a dictionary
         If language var is set, returns SubLanguageID for it
         """
@@ -196,12 +196,21 @@ class OSDBServer(ProxiedTransport):
                 
         return info['data']
             
-    def CheckSubHash(self,hashes):
+    def CheckSubHash(self, hashes):
         """
-        @hashes = list of subtitle hashes
+        @hashes = list of subtitle hashes or video object
         returns: dictionary like { hash: subID }
         This method returns !IDSubtitleFile, if Subtitle Hash exists. If not exists, it returns '0'.
         """
+        self.log.debug("----------------")
+        self.log.debug("CheckSubHash RPC method starting...")
+        if isinstance(hashes, videofile.VideoFile):
+            self.log.debug("Video object parameter detected. Extracting hashes...")
+            video = hashes
+            hashes = []
+            for sub in video.getSubtitles():
+                hashes.append(sub.getHash())
+            self.log.debug("...done")
         info = self.xmlrpc_server.CheckSubHash(self._token,hashes)
         self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
         result = {}
@@ -227,7 +236,7 @@ class OSDBServer(ProxiedTransport):
             if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
                 subtitle = video.getOneSubtitle()
                 self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
-                subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
+                subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
                 #TODO: decide whether this should be always done or give the user to choose
                 # set a starting point to compare scores
@@ -237,27 +246,36 @@ class OSDBServer(ProxiedTransport):
                     if sub.getRating() > best_rated_sub.getRating():
                         best_rated_sub = sub
                 self.log.debug("- adding: %s"% (best_rated_sub.getFileName()))
-                subtitles_to_download[best_rated_sub.getIdOnline()] = os.path.join(video.getFolderPath(), best_rated_sub.getFileName())
+                subtitles_to_download[best_rated_sub.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), best_rated_sub.getFileName()), 'video': video}
             
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
             answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
             self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
             if answer.has_key("data"):
-                self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
+                self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
+                    self.log.info("%s..."% subtitles_to_download[sub['idsubtitlefile']])
                     subtitle_compressed = sub['data']
                     compressedstream = base64.decodestring(subtitle_compressed)
                     #compressedstream = subtitle_compressed
                     gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
                     s=gzipper.read()
                     gzipper.close()
-                    subtitlefile = file(subtitles_to_download[sub['idsubtitlefile']],'wb')
+                    subtitlefile = file(subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'],'wb')
                     subtitlefile.write(s)
                     subtitlefile.close()
+                    if subtitles_to_download[sub['idsubtitlefile']]['video'].hasNOSSubtitles():
+                        self.log.info("Deleting old subtitle...")
+                        for sub in subtitles_to_download[sub['idsubtitlefile']]['video'].getNOSSubtitles():
+                            try:
+                                os.remove(sub.getFilePath())
+                                subtitles_to_download[sub['idsubtitlefile']]['video'].remNOSSubtitle(sub)
+                            except:
+                                self.log.error("Unable to delete %r"% sub.getFilePath())
                 return True
             else:
-                self.log.debug("Server sent no subtitles to me.")
+                self.log.info("Server sent no subtitles to me.")
                 return False
         
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
@@ -290,13 +308,13 @@ class OSDBServer(ProxiedTransport):
         
         if result['data'] != False:
             self.log.debug("Collecting downloaded data")
-            self.log.debug("Movie hashes...")
             moviehashes = {}
             for i in result['data']:
                 moviehash = i['MovieHash']
                 if not moviehashes.has_key(moviehash):
                     moviehashes[moviehash] = []
                 moviehashes[moviehash].append(i)
+            self.log.debug("Movie hashes: %i"% len(moviehashes.keys()))
             
             if videos:
                 videos_result = []
@@ -305,7 +323,7 @@ class OSDBServer(ProxiedTransport):
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
                         for i in osdb_info:
-                            sub = subtitle.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                            sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
                             sub.setLanguage(i["SubLanguageID"])
