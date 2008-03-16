@@ -396,10 +396,7 @@ class OSDBServer(ProxiedTransport):
         # will run this method if we have videos and subtitles associated
         array = {}
         self.log.debug("Building search array...")
-        #FIXME: use enumerate instead of range(len())
         for (i, video) in enumerate(videos):
-        #for i in range(len(videos)):
-            #video = videos[i]
             if video.getTotalLocalSubtitles() > 0:
                 cd = 'cd%i'% (i+1)
                 subtitle = video.getSubtitles()[0]
@@ -416,10 +413,10 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.SearchSubtitles(self._token, array)
         self.log.debug("Search took %ss"% result['seconds'])
-        print result.keys()
+#        print result.keys()
         result.pop('seconds')
-        import pprint
-        pprint.pprint(result)
+#        import pprint
+#        pprint.pprint(result)
         if result['alreadyindb']:
             self.log.debug("Subtitle already exists in server database")
         else:
@@ -450,10 +447,7 @@ class OSDBServer(ProxiedTransport):
             #
             movie_info = {}
             for details in check_result['data']:
-                #FIXME: use enumerate instead of range(len())
                 for (i, video) in enumerate(videos):
-                #for i in range(len(videos)):
-                    #video = videos[i]
                     if video.getHash() == details['MovieHash']:
                         cd = 'cd%i'% (i+1)
                         curr_video = video

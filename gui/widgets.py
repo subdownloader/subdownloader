@@ -475,7 +475,6 @@ class LibraryBooksModel(QAbstractTableModel):
             self._data[row][col] = val      
             self.emit(SIGNAL("dataChanged(QModelIndex, QModelIndex)"), \
                                 index, index)
-            #FIXME: use enumerate instead of range(len())
             for (i, item) in enumerate(self._orig_data):
             #for i in range(len(self._orig_data)):
                 if item["id"] == self._data[row]["id"]:
@@ -540,7 +539,6 @@ class LibraryBooksModel(QAbstractTableModel):
     def refresh_row(self, row):
         datum = self.db.get_row_by_id(self._data[row]["id"], self.FIELDS)
         self._data[row:row+1] = [datum]
-        #FIXME: use enumerate instead of range(len())
         for (i, item) in enumerate(self._orig_data):
         #for i in range(len(self._orig_data)):
             if item["id"] == datum["id"]:
