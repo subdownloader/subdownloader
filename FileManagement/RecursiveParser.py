@@ -1,7 +1,7 @@
 # Python is a feature-rich language and it can also be extended via libraries.  In
 # this file, we need to include functionality inside the "os" library module.  We
 # include this library by typing "import os"
-import os
+import os, logging
 
 # Creating classes in Python is easy.  Simply declare it as shown below and indent
 # everything that belongs in the class.
@@ -19,7 +19,9 @@ class RecursiveParser:
     The RecursiveParser class contains methods to recursively find directories, files, or specific files in a
     directory structure
     '''
-    
+    def __init__(self):
+        self.log = logging.getLogger("subdownloader.FileManagement.RecursiveParser")
+
     # The getRecursiveDirList() method accepts a directory path as an argument and
     # then recursively searches through that path looking for directories to return
     # to you in the form of a list.
@@ -80,9 +82,9 @@ class RecursiveParser:
         # Using specific exception types in your error handling allows you to customize
         # error messages for each type of error that occurs instead of always printing
         # a generic "Something went wrong but I don't know what it was" type of error.
-        except WindowsError:
-            print "An error has occured.  You may not have permission"
-            print "to access all files and folders in the specified path."
+        except WindowsError, e:
+            self.log.error("An error has occured. You may not have permission to access all files and folders in the specified path.")
+            self.log.error(e)
             
         # Now we need to recursively call getRecursiveDirList until you reach the end of
         # the directory structure.  This means that getRecursiveDirList will call itself
@@ -180,15 +182,13 @@ class RecursiveParser:
             #print "An error has occured.  You may not have permission"
             #print "to access all files and folders in the specified path."
             
-        except TypeError:
-            print "The calling code has passed an invalid parameter to"
-            print "getRecursiveFileList."
+        except TypeError, e:
+            self.log.error("The calling code has passed an invalid parameter to getRecursiveFileList.")
+            self.log.error(e)
         
         # This is an example of a generic catchall for exceptions.
-        except:
-            print "Failure! Failure! A failure has occured! We don't know"
-            print "what failed exactly, but whatever it was, it failed!" 
-
+        except Exception, e:
+            self.log.error(e)
                     
         # Recursively call getRecursiveDirList until you reach the end of the directory structure
         for subdir in subdirlist:

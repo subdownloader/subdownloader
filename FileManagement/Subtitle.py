@@ -13,12 +13,14 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import os
+import os, logging
 import subdownloader.subtitlefile as subtitlefile
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
 from subdownloader.languages import Languages, autodetect_lang
 
-def AutoDetectSubtitle(pathvideofile):
+log = logging.getLogger("subdownloader.FileManagement.Subtitle")
+
+def AutoDetectSubtitle(pathvideofile, sub_list=None):
     """ will try to guess the subtitle for the given filepath video """
     
     if os.path.isfile(pathvideofile):
@@ -31,27 +33,45 @@ def AutoDetectSubtitle(pathvideofile):
     #1st METHOD
     for ext in subtitlefile.SUBTITLES_EXT:
         possiblefilenamesrt = filename1_noextension + "." + ext
-        if os.path.exists(possiblefilenamesrt):
+        if sub_list:
+            try:
+                # check if subtitle is in our list
+                sub_list.index(possiblefilenamesrt)
+                return possiblefilenamesrt
+            except ValueError, e:
+                log.error(e)
+        elif os.path.exists(possiblefilenamesrt):
             return possiblefilenamesrt
  
     #2nd METHOD FIND THE AVI NAME MERGED INTO THE SUB NAME
     cleaned_file = clear_string(filename1_noextension.lower())
     filesfound = []
-    for filename in os.listdir(videofolder):
+    if sub_list:
+        search_list = sub_list
+    else:
+        search_list = os.listdir(videofolder)
+    for filename in search_list:
         for ext in subtitlefile.SUBTITLES_EXT:
             if filename.endswith("."+ext):
                 filesfound.append(filename)
                 cleaned_found = clear_string(without_extension(filename.lower()))
-                if "srt" in subtitlefile.SUBTITLES_EXT:
-                    if cleaned_found.find(cleaned_file) != -1:
+                if "srt" in subtitlefile.SUBTITLES_EXT and cleaned_found.find(cleaned_file) != -1:
+                    if sub_list:
+                        return filename
+                    else:
                         return os.path.join(videofolder,filename)
-                else:
-                    if cleaned_file.find(cleaned_found) != -1:
+                elif cleaned_file.find(cleaned_found) != -1:
+                    if sub_list:
+                        return filename
+                    else:
                         return os.path.join(videofolder,filename)
  
     #3rd METHOD WE TAKE THE SUB IF THERE IS ONLY ONE
     if len(filesfound) == 1:
-        return os.path.join(videofolder,filesfound[0])
+        if sub_list:
+            return filesfound[0]
+        else:
+            return os.path.join(videofolder,filesfound[0])
     
     return ""
     

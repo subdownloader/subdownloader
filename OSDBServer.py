@@ -20,6 +20,7 @@ import logging
 from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
+from subdownloader.FileManagement import Subtitle
 
 #SERVER_ADDRESS = "http://dev.opensubtitles.org/xml-rpc"
 DEFAULT_SERVER = "http://www.opensubtitles.org/xml-rpc"
@@ -238,15 +239,25 @@ class OSDBServer(ProxiedTransport):
                 self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
                 subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
-                #TODO: decide whether this should be always done or give the user to choose
+                #TODO: give user the list of subtitles to choose from
+                good_sub = None
                 # set a starting point to compare scores
                 best_rated_sub = video.getOnlineSubtitles()[0]
                 # iterate over all subtitles
+                subpath_list = {}
                 for sub in video.getOnlineSubtitles():
+                    subpath_list[sub.getFilePath()] = sub
                     if sub.getRating() > best_rated_sub.getRating():
                         best_rated_sub = sub
-                self.log.debug("- adding: %s"% (best_rated_sub.getFileName()))
-                subtitles_to_download[best_rated_sub.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), best_rated_sub.getFileName()), 'video': video}
+                #compare video name with subtitles name to find best match
+                sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
+                if len(sub_match):
+                    #set our match to download
+                    sub_choice = subpath_list[sub_match]
+                else:
+                    sub_choice = best_rated_sub
+                self.log.debug("- adding: %s"% (sub_choice.getFileName()))
+                subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
             
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
