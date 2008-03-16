@@ -121,7 +121,7 @@ class VideoFile(object):
     
     def getTotalSubtitles(self):
         """return total number of subtitles, local and remote"""
-        local = len(self._subs) + self.nos_subs
+        local = len(self._subs) + len(self.nos_subs)
         try:
             return len(self._osdb_info) + local
         except:
