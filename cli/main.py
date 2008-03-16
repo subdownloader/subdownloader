@@ -34,7 +34,7 @@ class Main(OSDBServer.OSDBServer):
         if check_result == 0:
             return
         if continue_ == 'y':
-            self.log.info("Starting subtitle search...")
+            self.log.info("Starting subtitle search, please wait...")
             self.do_matching(self.videos, self.subs)
             result = "\n"
             for video in self.videos:
@@ -49,7 +49,7 @@ class Main(OSDBServer.OSDBServer):
                             sub_name += "%s, "% sub.getFileName()
                 else: sub_name = "NO MATCH"
                 result += "%s -> %s\n"% (video_name, sub_name)
-            self.log.info(result)
+            self.log.debug(result)
             
         self.log.debug("Starting XMLRPC session...")
         OSDBServer.OSDBServer.__init__(self, self.options)
@@ -104,10 +104,11 @@ class Main(OSDBServer.OSDBServer):
         """ search for videos and subtitles in the given path """
         self.log.debug("Checking given directory")
         (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile)
+        self.log.info("Videos found: %i Subtitles found: %i"%(len(self.videos), len(self.subs)))
         if len(self.videos):
-            self.log.debug("Videos found: %i"% len(self.videos))
-            if len(self.subs):
-                self.log.debug("Subtitles found: %i"% len(self.subs))
+#            self.log.info("Videos found: %i"% len(self.videos))
+#            if len(self.subs):
+#                self.log.info("Subtitles found: %i"% len(self.subs))
             if len(self.videos) == len(self.subs):
                 self.log.info("Number of videos and subtitles are the same. I could guess you already have all subtitles.")
                 return 2
@@ -116,7 +117,7 @@ class Main(OSDBServer.OSDBServer):
                 return 1
         elif len(self.subs):
             self.log.debug("No videos were found")
-            self.log.debug("Subtitles found: %i"% len(self.subs))
+#            self.log.info("Subtitles found: %i"% len(self.subs))
             self.log.info("Although some subtitles exist, no videos were found. No subtitles would be needed for this case :(")
             return 0
         else:

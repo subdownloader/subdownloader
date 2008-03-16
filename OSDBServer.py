@@ -252,9 +252,10 @@ class OSDBServer(ProxiedTransport):
                 #compare video name with subtitles name to find best match
                 sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
                 if len(sub_match):
-                    #set our match to download
+                    self.log.debug("Subtitle choosen by match")
                     sub_choice = subpath_list[sub_match]
                 else:
+                    self.log.debug("Subtitle choosen by rating")
                     sub_choice = best_rated_sub
                 self.log.debug("- adding: %s"% (sub_choice.getFileName()))
                 subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}

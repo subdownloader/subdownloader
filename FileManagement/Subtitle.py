@@ -31,6 +31,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
         return ""
  
     #1st METHOD
+    log.debug("1st method starting...")
     for ext in subtitlefile.SUBTITLES_EXT:
         possiblefilenamesrt = filename1_noextension + "." + ext
         if sub_list:
@@ -44,6 +45,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
             return possiblefilenamesrt
  
     #2nd METHOD FIND THE AVI NAME MERGED INTO THE SUB NAME
+    log.debug("2nd method starting...")
     cleaned_file = clear_string(filename1_noextension.lower())
     filesfound = []
     if sub_list:
@@ -67,6 +69,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                         return os.path.join(videofolder,filename)
  
     #3rd METHOD WE TAKE THE SUB IF THERE IS ONLY ONE
+    log.debug("3rd method starting...")
     if len(filesfound) == 1:
         if sub_list:
             return filesfound[0]
