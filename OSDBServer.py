@@ -245,7 +245,7 @@ class OSDBServer(ProxiedTransport):
                 # iterate over all subtitles
                 subpath_list = {}
                 for sub in video.getOnlineSubtitles():
-                    subpath_list[sub.getFilePath()] = sub
+                    subpath_list[sub.getIdOnline()] = sub
                     if sub.getRating() > best_rated_sub.getRating():
                         best_rated_sub = sub
                 #compare video name with subtitles name to find best match
