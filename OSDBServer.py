@@ -240,7 +240,6 @@ class OSDBServer(ProxiedTransport):
                 subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
                 #TODO: give user the list of subtitles to choose from
-                good_sub = None
                 # set a starting point to compare scores
                 best_rated_sub = video.getOnlineSubtitles()[0]
                 # iterate over all subtitles
@@ -274,16 +273,17 @@ class OSDBServer(ProxiedTransport):
                     gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
                     s=gzipper.read()
                     gzipper.close()
-                    subtitlefile = file(subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'],'wb')
-                    subtitlefile.write(s)
-                    subtitlefile.close()
+                    subtitle_file = file(subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'],'wb')
+                    subtitle_file.write(s)
+                    subtitle_file.close()
                     if subtitles_to_download[sub['idsubtitlefile']]['video'].hasNOSSubtitles():
                         self.log.info("Deleting old subtitle...")
                         for sub in subtitles_to_download[sub['idsubtitlefile']]['video'].getNOSSubtitles():
                             try:
                                 os.remove(sub.getFilePath())
                                 subtitles_to_download[sub['idsubtitlefile']]['video'].remNOSSubtitle(sub)
-                            except:
+                            except Exception, e:
+                                self.log.error(e)
                                 self.log.error("Unable to delete %r"% sub.getFilePath())
                 return True
             else:
@@ -396,10 +396,12 @@ class OSDBServer(ProxiedTransport):
         # will run this method if we have videos and subtitles associated
         array = {}
         self.log.debug("Building search array...")
-        for i in range(len(videos)):
-            video = videos[i]
-            if video.getTotalSubtitles() > 0:
-                cd = 'cd%i'% i
+        #FIXME: use enumerate instead of range(len())
+        for (i, video) in enumerate(videos):
+        #for i in range(len(videos)):
+            #video = videos[i]
+            if video.getTotalLocalSubtitles() > 0:
+                cd = 'cd%i'% (i+1)
                 subtitle = video.getSubtitles()[0]
                 array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
                 self.log.debug(" - adding %s: %s"% (cd, array_))
@@ -414,7 +416,10 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.SearchSubtitles(self._token, array)
         self.log.debug("Search took %ss"% result['seconds'])
+        print result.keys()
         result.pop('seconds')
+        import pprint
+        pprint.pprint(result)
         if result['alreadyindb']:
             self.log.debug("Subtitle already exists in server database")
         else:
@@ -445,9 +450,12 @@ class OSDBServer(ProxiedTransport):
             #
             movie_info = {}
             for details in check_result['data']:
-                for i in range(len(videos)):
-                    video = videos[i]
+                #FIXME: use enumerate instead of range(len())
+                for (i, video) in enumerate(videos):
+                #for i in range(len(videos)):
+                    #video = videos[i]
                     if video.getHash() == details['MovieHash']:
+                        cd = 'cd%i'% (i+1)
                         curr_video = video
                         curr_sub = curr_video.getSubtitles()[0]
                         # cook subtitle content
@@ -461,7 +469,7 @@ class OSDBServer(ProxiedTransport):
                         curr_sub_content = encoded_buf
                         #curr_cd = {'cd': 'cd%s'%i, 'content': {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': None} }
                         # transfer info
-                        movie_info['cd%s'%i] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
                         
             movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': details['SubAuthorComment']}
             

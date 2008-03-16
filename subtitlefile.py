@@ -35,7 +35,7 @@ class SubtitleFile(object):
             self._filepath = id
             self.setFileName(os.path.basename(self.getFilePath()))
             self._size = os.path.getsize(self._filepath)
-            self._hash = sub_md5hex = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
+            self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
             self.rating = 0
         
     def setFileName(self,filename):

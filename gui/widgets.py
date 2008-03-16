@@ -186,19 +186,18 @@ class TableView(FileDragAndDrop, QTableView):
     def render_to_pixmap(self, indices):
         rect = self.visualRect(indices[0])
         rects = []
-        for i in range(len(indices)):
-            rects.append(self.visualRect(indices[i]))
-            rect |= rects[i]
+        for (i, indice) in enumerate(indices):
+            rects.append(self.visualRect(indice))
+            rect = rects[i]
         rect = rect.intersected(self.viewport().rect())
         pixmap = QPixmap(rect.size())
         pixmap.fill(self.palette().base().color())
         painter = QPainter(pixmap)
         option = self.viewOptions()
-        option.state |= QStyle.State_Selected
-        for j in range(len(indices)):
-            option.rect = QRect(rects[j].topLeft() - rect.topLeft(), \
-                                    rects[j].size())
-            self.itemDelegate(indices[j]).paint(painter, option, indices[j])
+        option.state = QStyle.State_Selected
+        for (j, indice) in enumerate(indices):
+            option.rect = QRect(rects[j].topLeft() - rect.topLeft(), rects[j].size())
+            self.itemDelegate(indice).paint(painter, option, indice)
         painter.end()
         return pixmap
     
@@ -476,9 +475,11 @@ class LibraryBooksModel(QAbstractTableModel):
             self._data[row][col] = val      
             self.emit(SIGNAL("dataChanged(QModelIndex, QModelIndex)"), \
                                 index, index)
-            for i in range(len(self._orig_data)):
-                if self._orig_data[i]["id"] == self._data[row]["id"]:
-                    self._orig_data[i][col] = self._data[row][col]
+            #FIXME: use enumerate instead of range(len())
+            for (i, item) in enumerate(self._orig_data):
+            #for i in range(len(self._orig_data)):
+                if item["id"] == self._data[row]["id"]:
+                    item[col] = self._data[row][col]
                     break      
             done = True
         return done
@@ -539,8 +540,10 @@ class LibraryBooksModel(QAbstractTableModel):
     def refresh_row(self, row):
         datum = self.db.get_row_by_id(self._data[row]["id"], self.FIELDS)
         self._data[row:row+1] = [datum]
-        for i in range(len(self._orig_data)):
-            if self._orig_data[i]["id"] == datum["id"]:
+        #FIXME: use enumerate instead of range(len())
+        for (i, item) in enumerate(self._orig_data):
+        #for i in range(len(self._orig_data)):
+            if item["id"] == datum["id"]:
                 self._orig_data[i:i+1] = [datum]
                 break
         self.emit(SIGNAL("dataChanged(QModelIndex, QModelIndex)"), \

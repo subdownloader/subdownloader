@@ -104,6 +104,7 @@ class VideoFile(object):
         return None
     
     def getSubtitles(self):
+        """return only local subtitles"""
         return self._subs
         
     def hasSubtitles(self):
@@ -119,11 +120,18 @@ class VideoFile(object):
         return subs
     
     def getTotalSubtitles(self):
-        try: return len(self._osdb_info)
-        except: return len(self._subs)
+        """return total number of subtitles, local and remote"""
+        local = len(self._subs) + self.nos_subs
+        try:
+            return len(self._osdb_info) + local
+        except:
+            return local
         
     def getTotalOnlineSubtitles(self):
         return len(self.getOnlineSubtitles())
+        
+    def getTotalLocalSubtitles(self):
+        return len(self.getSubtitles())
         
     def setNOSSubtitle(self, sub):
         """ transfer a subtitle from general list to 'not on server'

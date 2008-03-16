@@ -27,23 +27,22 @@ class Main(OSDBServer.OSDBServer):
     def start_session(self, testing=False):
         check_result = self.check_directory()
         continue_ = 'y'
-        if check_result == 2:
+        if check_result == 2 and self.options.interactive:
             continue_ = raw_input("Do you still want to search for missing subtitles? (Y/N)\n: ").lower() or 'y'
             if continue_ != 'y':
                 return
-        if check_result == 0:
+        if check_result == -1:
             return
-        if continue_ == 'y':
+        if continue_ == 'y' or not self.options.interactive:
             self.log.info("Starting subtitle search, please wait...")
             self.do_matching(self.videos, self.subs)
             result = "\n"
             for video in self.videos:
-                if video: video_name = video.getFileName()
-                else: video_name = "NO MATCH"
-                if len(video.getSubtitles()):
-                    if len(video.getSubtitles()) == 1:
+                video_name = video.getFileName()
+                if video.hasSubtitles():
+                    if video.getTotalLocalSubtitles() == 1:
                         sub_name = video.getSubtitles()[0].getFileName()
-                    elif len(video.getSubtitles()) > 1:
+                    elif video.getTotalLocalSubtitles() > 1:
                         sub_name = ""
                         for sub in video.getSubtitles():
                             sub_name += "%s, "% sub.getFileName()
@@ -96,7 +95,8 @@ class Main(OSDBServer.OSDBServer):
             self.DownloadSubtitles(self.videos)
             
         elif operation == "upload":
-            pass
+            self.UploadSubtitles(self.videos)
+            
         else:
             pass
         
@@ -119,18 +119,18 @@ class Main(OSDBServer.OSDBServer):
             self.log.debug("No videos were found")
 #            self.log.info("Subtitles found: %i"% len(self.subs))
             self.log.info("Although some subtitles exist, no videos were found. No subtitles would be needed for this case :(")
-            return 0
+            return -1
         else:
             self.log.info("Nothing to do here")
-            return 0
+            return -1
             
     def do_matching(self, videos, subtitles):
-        for video in self.videos:
+        for video in videos:
             self.log.debug("Processing %s..."% video.getFileName())
             possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
             #self.log.debug("possible subtitle is: %s"% possible_subtitle)
             sub_match = None
-            for subtitle in self.subs:
+            for subtitle in subtitles:
                 sub_match = None
                 if possible_subtitle == subtitle.getFilePath():
                     sub_match = subtitle
