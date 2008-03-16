@@ -249,7 +249,7 @@ class OSDBServer(ProxiedTransport):
                     if sub.getRating() > best_rated_sub.getRating():
                         best_rated_sub = sub
                 #compare video name with subtitles name to find best match
-                sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
+                sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list.keys())
                 if len(sub_match):
                     self.log.debug("Subtitle choosen by match")
                     sub_choice = subpath_list[sub_match]
