@@ -411,7 +411,7 @@ class OSDBServer(ProxiedTransport):
                 return False
             
         self.log.debug("Communicating with server...")
-        result = self.xmlrpc_server.SearchSubtitles(self._token, array)
+        result = self.xmlrpc_server.TryUploadSubtitles(self._token, array)
         self.log.debug("Search took %ss"% result['seconds'])
 #        print result.keys()
         result.pop('seconds')
