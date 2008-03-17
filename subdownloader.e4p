@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-14, 16:22:29 -->
+<!-- Saved: 2008-03-18, 00:09:43 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -131,7 +131,7 @@
     <Name>run.py</Name>
   </MainScript>
   <Vcs>
-    <VcsType>PySvn</VcsType>
+    <VcsType>Subversion (svn)</VcsType>
     <VcsOptions>
       <dict>
         <key>

@@ -183,23 +183,20 @@ class Main(QObject, Ui_MainWindow):
         #Populating the items in the VideoListView
         self.videoModel.setVideos(videos_found)
         self.videoView.setModel(self.videoModel)
-        self.videoView.expandAll() #This was a solution found to refresh the treeView
-
-
-        #Searching our videohashes in the OSDB database
         
+        self.videoView.expandAll() #This was a solution found to refresh the treeView
+        #Searching our videohashes in the OSDB database
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         self.status("Asking Database...")
         #This effect causes the progress bar turn all sides
-        #self.status_progress.setMinimum(0)
-        #self.status_progress.setMaximum(0)
+        self.status_progress.setMinimum(0)
+        self.status_progress.setMaximum(0)
         
         self.window.setCursor(Qt.WaitCursor)
-#        videos_result = self.OSDBServer.SearchSubtitles("",videos_found)
-#    
-#        print videos_result
-#        print videos_found
-#        self.video_model.set_videos(videos_found)
+        videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+        self.videoModel.clearTree()
+        self.videoModel.setVideos(videoSearchResults)
+        self.videoView.expandAll() #This was a solution found to refresh the treeView
 #        self.video_view.setModel(self.video_model)
 #        self.video_view.resizeColumnsToContents()
 

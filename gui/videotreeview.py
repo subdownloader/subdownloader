@@ -37,24 +37,19 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     self.root=Node([QtCore.QVariant("")]) 
     #self.setupTree(self.root)
 
-  def setupTree(self, node):
-    current=node.addChild(["aa"])
-    current=current.addChild([self.trUtf8("bb")])
-
-    current.addChild([self.trUtf8("cc")])
-    current.addChild([self.trUtf8("dd")])
-    current.addChild([self.trUtf8("ee")])
-    current.addChild([self.trUtf8("ff")])
-
   def setVideos(self,videoResults):
-    #self.setupTree(self.root)
-    log.debug("Clearing VideoTree")
-    #self.clearTree()
+    #TODO: Add bold color for the video Nodes
+    #TODO: Add flags for the subtitle
+    #TODO: Add context menus.
     for video in videoResults:
-       log.debug("Adding video: %s", video.getFileName())
-       current_video = self.root.addChild([video.getFileName()])
+       #log.debug("Adding video to VideoTree: %s", video.getFileName())
+       videoNode = self.root.addChild([video.getFileName()])
+       for sub in video._subs:
+           #log.debug("Adding subtitle to VideoTree: %s", sub.getFileName())
+           videoNode.addChild([sub.getFileName()])
        
   def clearTree(self):
+     log.debug("Clearing VideoTree")
      self.root.children = []
 
   def columnCount(self, parent):

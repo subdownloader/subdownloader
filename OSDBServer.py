@@ -413,10 +413,10 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.TryUploadSubtitles(self._token, array)
         self.log.debug("Search took %ss"% result['seconds'])
-#        print result.keys()
+        print result.keys()
         result.pop('seconds')
-#        import pprint
-#        pprint.pprint(result)
+        import pprint
+        pprint.pprint(result)
         if result['alreadyindb']:
             self.log.debug("Subtitle already exists in server database")
         else:
