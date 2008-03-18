@@ -66,10 +66,8 @@ class ProxiedTransport(Transport):
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
         
-#class OSTransport(Transport):
-#    """Main transport to use to connect to opensubtitles
-#    """
-    
+#TODO: implement timeouts in server requests:
+# http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/473878
 
 class OSDBServer(ProxiedTransport):
     """

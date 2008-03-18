@@ -67,9 +67,20 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                         return filename
                     else:
                         return os.path.join(videofolder,filename)
- 
-    #3rd METHOD WE TAKE THE SUB IF THERE IS ONLY ONE
+                        
+    #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list)
     log.debug("3rd method starting...")
+    sub_scores = score_subtitles(pathvideofile, sub_list)
+    best_scored_sub = sub_scores.keys()[0]
+    for sub in sub_scores:
+        if sub_scores[sub] > sub_scores[best_scored_sub]:
+            best_scored_sub = sub
+    if sub_scores[best_scored_sub] > 0:
+        return best_scored_sub
+    
+ 
+    #4th METHOD WE TAKE THE SUB IF THERE IS ONLY ONE
+    log.debug("4th method starting...")
     if len(filesfound) == 1:
         if sub_list:
             return filesfound[0]
@@ -78,6 +89,29 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     
     return ""
     
+def score_subtitles(video, subtitle_list):
+    """Will to a pseudo scoring on the subtitle list
+    @video: video file name
+    @subtitle_list: list of subtitle file names
+    
+    returns dictionary like {'subtitle_file_name': score}
+    """
+    video_name = os.path.basename(video)
+    # set initial scores to 0
+    sub_dict = dict(zip(subtitle_list, [0]*len(subtitle_list)))
+    for sub in sub_dict:
+        sub_name = os.path.basename(sub)
+        #fetch the seperating character
+        sep_ch = re.search("\W",sub_name).group(0)
+        splited_sub = sub_name.split(sep_ch)
+        # iterate over each word and serch for it in the video file name
+        for w in splited_sub:
+            if w in video:
+                sub_dict[sub] += 1
+                
+    # return scored subtitles
+    return sub_dict
+
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = file(filepath,mode='rb').read()
