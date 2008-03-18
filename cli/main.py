@@ -24,7 +24,7 @@ class Main(OSDBServer.OSDBServer):
         self.options = cli_options
         self.log = logging.getLogger("subdownloader.cli.main")
         
-    def start_session(self, testing=False):
+    def start_session(self):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.interactive:
@@ -53,42 +53,32 @@ class Main(OSDBServer.OSDBServer):
         self.log.debug("Starting XMLRPC session...")
         OSDBServer.OSDBServer.__init__(self, self.options)
         
-        if testing:
-            if self.is_connected():
-#                print self.GetAvailableTranslations()
-#                lang_id = self.GetSubLanguages(self.options.language)
-                result = self.SearchSubtitles(videos=self.videos)
-                self.UploadSubtitles(self.videos)
-#                for r in result:
-#                    print r in self.videos
-#                    print r.getFileName(), r.getHash(), r.getSubtitles()
-        else:
-            if self.is_connected():
-                # set language
-                if len(self.options.language) == 2:
-                    lang_id = self.GetSubLanguages(self.options.language)
-                elif len(self.options.language) == 3:
-                    lang_id = self.options.language
-                else:
-                    lang_id = 'all'
-                    self.log.debug("Wrong language code was set, using default: %r"% lang_id)
-                # check if we will overwrite local subtitles
-                if self.options.overwrite_local:
-                    self.log.debug("Overwriting local subtitles is set. Searching for victims...")
-                    for video in self.videos:
-                        if video.hasSubtitles():
-                            check_result = self.CheckSubHash(video)
-                            for hash in check_result:
-                                if check_result[hash] == '0':
-                                    # we found a subtitle that's not on server (nos)
-                                    nos_sub = video.getSubtitle(hash)
-                                    self.log.debug("Not on server - %s - jailing..."% nos_sub.getFileName())
-                                    video.setNOSSubtitle(nos_sub)
-                        
-                self.SearchSubtitles(language=lang_id, videos=self.videos)
-                self.handle_operation(self.options.operation)
+        if self.is_connected():
+            # set language
+            if len(self.options.language) == 2:
+                lang_id = self.GetSubLanguages(self.options.language)
+            elif len(self.options.language) == 3:
+                lang_id = self.options.language
+            else:
+                lang_id = 'all'
+                self.log.debug("Wrong language code was set, using default: %r"% lang_id)
+            # check if we will overwrite local subtitles
+            if self.options.overwrite_local:
+                self.log.debug("Overwriting local subtitles is set. Searching for victims...")
+                for video in self.videos:
+                    if video.hasSubtitles():
+                        check_result = self.CheckSubHash(video)
+                        for hash in check_result:
+                            if check_result[hash] == '0':
+                                # we found a subtitle that's not on server (nos)
+                                nos_sub = video.getSubtitle(hash)
+                                self.log.debug("Not on server - %s - jailing..."% nos_sub.getFileName())
+                                video.setNOSSubtitle(nos_sub)
+                
+            self.SearchSubtitles(language=lang_id, videos=self.videos)
+            self.handle_operation(self.options.operation)
             
-        self.logout()
+            self.logout()
                 
     def handle_operation(self, operation):
         if operation == "download":

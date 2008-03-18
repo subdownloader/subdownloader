@@ -65,6 +65,11 @@ class ProxiedTransport(Transport):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
+        
+#class OSTransport(Transport):
+#    """Main transport to use to connect to opensubtitles
+#    """
+    
 
 class OSDBServer(ProxiedTransport):
     """
