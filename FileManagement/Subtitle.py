@@ -115,6 +115,7 @@ def score_subtitles(video, subtitle_list):
         sub_dict = dict(zip(subtitle_list.keys(), [0]*len(subtitle_list)))
     for sub in sub_dict:
         sub_name = subtitle_list[sub].getFileName()
+        log.debug("scoring %s"% sub_name)
         #fetch the seperating character
         if re.search("\W",sub_name):
             sep_ch = re.search("\W",sub_name).group(0)
@@ -125,7 +126,8 @@ def score_subtitles(video, subtitle_list):
                     sub_dict[sub] += 1
         else:
             continue
-                
+        log.debug("scoring for %s is %i"% (sub_name, sub_dict[sub]))
+            
     # return scored subtitles
     return sub_dict
 
