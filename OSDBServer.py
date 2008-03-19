@@ -337,10 +337,12 @@ class OSDBServer(ProxiedTransport):
                     if moviehashes.has_key(video.getHash()):
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
+                        self.log.debug("- %s"% video.getHash())
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
+                            self.log.debug("  %s"% sub.setFileName())
                             sub.setLanguage(i["SubLanguageID"])
                             sub.setRating(i["SubRating"])
                             subtitles.append(sub)
