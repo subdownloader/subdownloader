@@ -13,7 +13,7 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import os, logging
+import re, os, logging
 import subdownloader.subtitlefile as subtitlefile
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
 from subdownloader.languages import Languages, autodetect_lang
@@ -22,6 +22,8 @@ log = logging.getLogger("subdownloader.FileManagement.Subtitle")
 
 def AutoDetectSubtitle(pathvideofile, sub_list=None):
     """ will try to guess the subtitle for the given filepath video """
+    log.debug("----------------")
+    log.debug("AutoDetectSubtitle started with: %r, %r"% (pathvideofile, sub_list))
     
     if os.path.isfile(pathvideofile):
         videofolder = os.path.dirname(pathvideofile)
@@ -41,6 +43,8 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                 return possiblefilenamesrt
             except ValueError, e:
                 log.error(e)
+            except AttributeError, e:
+                log.error(e)
         elif os.path.exists(possiblefilenamesrt):
             return possiblefilenamesrt
  
@@ -54,20 +58,23 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
         search_list = os.listdir(videofolder)
     for filename in search_list:
         for ext in subtitlefile.SUBTITLES_EXT:
-            if filename.endswith("."+ext):
-                filesfound.append(filename)
-                cleaned_found = clear_string(without_extension(filename.lower()))
-                if "srt" in subtitlefile.SUBTITLES_EXT and cleaned_found.find(cleaned_file) != -1:
-                    if sub_list:
-                        return filename
-                    else:
-                        return os.path.join(videofolder,filename)
-                elif cleaned_file.find(cleaned_found) != -1:
-                    if sub_list:
-                        return filename
-                    else:
-                        return os.path.join(videofolder,filename)
-                        
+            try:
+                if filename.endswith("."+ext):
+                    filesfound.append(filename)
+                    cleaned_found = clear_string(without_extension(filename.lower()))
+                    if "srt" in subtitlefile.SUBTITLES_EXT and cleaned_found.find(cleaned_file) != -1:
+                        if sub_list:
+                            return filename
+                        else:
+                            return os.path.join(videofolder,filename)
+                    elif cleaned_file.find(cleaned_found) != -1:
+                        if sub_list:
+                            return filename
+                        else:
+                            return os.path.join(videofolder,filename)
+            except AttributeError, e:
+                log.error(e)
+    
     #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list)
     if sub_list:
         log.debug("3rd method starting...")
@@ -99,18 +106,25 @@ def score_subtitles(video, subtitle_list):
     
     returns dictionary like {'subtitle_file_name': score}
     """
+    log.debug("Subtitle scoring started with: %r, %r"% (video, subtitle_list))
     video_name = os.path.basename(video)
     # set initial scores to 0
-    sub_dict = dict(zip(subtitle_list, [0]*len(subtitle_list)))
+    if isinstance(subtitle_list, list):
+        sub_dict = dict(zip(subtitle_list, [0]*len(subtitle_list)))
+    elif isinstance(subtitle_list, dict):
+        sub_dict = dict(zip(subtitle_list.keys(), [0]*len(subtitle_list)))
     for sub in sub_dict:
-        sub_name = os.path.basename(sub)
+        sub_name = subtitle_list[sub].getFileName()
         #fetch the seperating character
-        sep_ch = re.search("\W",sub_name).group(0)
-        splited_sub = sub_name.split(sep_ch)
-        # iterate over each word and serch for it in the video file name
-        for w in splited_sub:
-            if w in video:
-                sub_dict[sub] += 1
+        if re.search("\W",sub_name):
+            sep_ch = re.search("\W",sub_name).group(0)
+            splited_sub = sub_name.split(sep_ch)
+            # iterate over each word and serch for it in the video file name
+            for w in splited_sub:
+                if w in video:
+                    sub_dict[sub] += 1
+        else:
+            continue
                 
     # return scored subtitles
     return sub_dict
