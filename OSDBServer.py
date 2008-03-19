@@ -342,7 +342,7 @@ class OSDBServer(ProxiedTransport):
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
-                            self.log.debug("  %s"% sub.setFileName())
+                            self.log.debug("  %s"% sub.getFileName())
                             sub.setLanguage(i["SubLanguageID"])
                             sub.setRating(i["SubRating"])
                             subtitles.append(sub)
