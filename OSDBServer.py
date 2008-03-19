@@ -14,7 +14,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip, httplib, os
+import base64, StringIO, gzip, httplib, os, signal
 import logging
 
 from subdownloader import APP_TITLE, APP_VERSION
@@ -45,6 +45,29 @@ def test_connection(url, timeout=5):
     socket.setdefaulttimeout(defTimeOut)
     return connectable
     
+class TimeoutFunctionException(Exception): 
+    """Exception to raise on a timeout""" 
+    pass 
+
+class TimeoutFunction: 
+
+    def __init__(self, function, timeout=10): 
+        self.timeout = timeout 
+        self.function = function 
+
+    def handle_timeout(self, signum, frame): 
+        raise TimeoutFunctionException()
+
+    def __call__(self, *args): 
+        old = signal.signal(signal.SIGALRM, self.handle_timeout) 
+        signal.alarm(self.timeout) 
+        try: 
+            result = self.function(*args)
+        finally: 
+            signal.signal(signal.SIGALRM, old)
+        signal.alarm(0)
+        return result 
+    
 """The XMLRPC can use a Proxy, this class is need for that."""
 class ProxiedTransport(Transport):
     """ Used for proxied connections to the XMLRPC server
@@ -65,11 +88,9 @@ class ProxiedTransport(Transport):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
-        
-#TODO: implement timeouts in server requests:
-# http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/473878
 
-class OSDBServer(ProxiedTransport):
+
+class OSDBServer(object):
     """
     Contains the class that represents the OSDB Server.
     Encapsules all the XMLRPC methods.
@@ -83,50 +104,60 @@ class OSDBServer(ProxiedTransport):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
         self.log.debug("Creating OSDBServer with options= %s",  options)
         # for proxied connections
-        ProxiedTransport.__init__(self)
-        self.set_proxy(options.proxy)
+#        ProxiedTransport.__init__(self)
+#        self.set_proxy(options.proxy)
         #self.timeout = options.timeout
         self.timeout = 30
         self.user_agent = USER_AGENT
         self.username = options.username
         self.passwd = options.password
         self.language = options.language
+        self.interactive = options.interactive
         if options.server: 
             self.server = options.server
         else:
             self.server = DEFAULT_SERVER
+        self.proxy = options.proxy
         self.logged_as = None
         self.xmlrpc_server = None
         self._token = None
         #Let's connect with the server XMLRPC
-        if self.create_xmlrpcserver(self.server):
+        #OSConnection.__init__(self)
+        if self.create_xmlrpcserver(self.server, self.proxy):
             self.login(self.username, self.passwd)
             #self.logout()
             
-    def create_xmlrpcserver(self, server):
-        #transport = GtkTransport()
+    def create_xmlrpcserver(self, server, proxy):
         self.log.debug("Creating XMLRPC server connection...")
-#        timeout_transport = TimeoutTransport()
-#        timeout_transport.timeout = self.timeout
-#        try:
-        self.log.debug("Trying direct connection...")
-        if test_connection(server):
-            self.xmlrpc_server = ServerProxy(server)
+        if self.connect():
+            return True
+        return False
+        
+    def connect(self):
+        connect = TimeoutFunction(self._connect)
+        try:
+            return connect()
+        except TimeoutFunctionException:
+            self.log.error("Connection timed out. Maybe you need a proxy.")
+        
+    def _connect(self):
+        if self.proxy:
+            self.proxied_transport = ProxiedTransport()
+            self.proxied_transport.set_proxy(self.proxy)
+            self.log.debug("Trying proxied connection...")
+            self.xmlrpc_server = ServerProxy(self.server, transport=self.proxied_transport)
+            self.log.debug("...connected")
+            return True
+        elif test_connection(self.server):
+            self.log.debug("Trying direct connection...")
+            self.xmlrpc_server = ServerProxy(self.server)
+            self.ServerInfo()
             self.log.debug("...connected")
             return True
         else:
             self.log.debug("...failed")
-            if self.proxy:
-                self.log.debug("Trying proxied connection...")
-                #p = ProxiedTransport()
-                #p.set_proxy(self.proxy)
-                self.xmlrpc_server = ServerProxy(server, transport=self)
-                #self.xmlrpc_server.ServerInfo() # this would be the connection tester
-                self.log.debug("...connected")
-                return True
-            else:
-                self.log.error("No proxy was set. Unable to connect.")
-                return False
+            self.log.error("Unable to connect. Try setting a proxy.")
+            return False
         
     def is_connected(self):
         """ 
@@ -136,9 +167,16 @@ class OSDBServer(ProxiedTransport):
         """
         return self._token != None
         
+    def ServerInfo(self):
+        ServerInfo = TimeoutFunction(self._ServerInfo)
+        try:
+            ServerInfo()
+        except TimeoutFunctionException:
+            self.log.error("ServerInfo timed out")
+    
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    
-    def ServerInfo(self):
+    def _ServerInfo(self):
         try: 
             serverinfo = self.xmlrpc_server.ServerInfo()
             text = ""
@@ -147,8 +185,15 @@ class OSDBServer(ProxiedTransport):
             return text
         except Exception,e:
             raise e
-        
+            
     def login(self, username="", password=""):
+        login = TimeoutFunction(self._login)
+        try:
+            login(username, password)
+        except TimeoutFunctionException:
+            self.log.error("login timed out")
+        
+    def _login(self, username="", password=""):
         """Login to the Server using username/password,
         empty parameters means an anonymously login
         Returns True if login sucessful, and False if not.
@@ -169,6 +214,13 @@ class OSDBServer(ProxiedTransport):
             return False
         
     def logout(self):
+        logout = TimeoutFunction(self._logout)
+        try:
+            logout()
+        except TimeoutFunctionException:
+            self.log.error("logout timed out")
+        
+    def _logout(self):
         """Logout from current session(token)
         This functions doesn't return any boolean value, since it can 'fail' for anonymous logins
         """
@@ -183,6 +235,13 @@ class OSDBServer(ProxiedTransport):
     # SUBTITLE METHODS 
     #
     def GetSubLanguages(self, language):
+        GetSubLanguages = TimeoutFunction(self._GetSubLanguages)
+        try:
+            GetSubLanguages(language)
+        except TimeoutFunctionException:
+            self.log.error("GetSubLanguages timed out")
+            
+    def _GetSubLanguages(self, language):
         """Return all suported subtitles languages in a dictionary
         If language var is set, returns SubLanguageID for it
         """
@@ -199,8 +258,15 @@ class OSDBServer(ProxiedTransport):
                 if lang['ISO639'] == language: return lang['SubLanguageID']
                 
         return info['data']
-            
+        
     def CheckSubHash(self, hashes):
+        CheckSubHash = TimeoutFunction(self._CheckSubHash)
+        try:
+            CheckSubHash(hashes)
+        except TimeoutFunctionException:
+            self.log.error("CheckSubHash timed out")
+        
+    def _CheckSubHash(self, hashes):
         """
         @hashes = list of subtitle hashes or video object
         returns: dictionary like { hash: subID }
@@ -225,6 +291,13 @@ class OSDBServer(ProxiedTransport):
         return result
     
     def DownloadSubtitles(self, videos):
+        DownloadSubtitles = TimeoutFunction(self._DownloadSubtitles)
+        try:
+            return DownloadSubtitles(videos)
+        except TimeoutFunctionException:
+            self.log.error("DownloadSubtitles timed out")
+    
+    def _DownloadSubtitles(self, videos):
         """
         Download subtitles by there id's
         
@@ -294,6 +367,13 @@ class OSDBServer(ProxiedTransport):
                 return False
         
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
+        SearchSubtitles = TimeoutFunction(self._SearchSubtitles)
+        try:
+            return SearchSubtitles(language, videos, imdb_ids)
+        except TimeoutFunctionException:
+            self.log.error("SearchSubtitles timed out")
+        
+    def _SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """
         Search subtitles for the given video(s).
         
@@ -364,6 +444,13 @@ class OSDBServer(ProxiedTransport):
     #
         
     def SearchToMail(self, videos, languages):
+        SearchToMail = TimeoutFunction(self._SearchToMail)
+        try:
+            return SearchToMail(languages)
+        except TimeoutFunctionException:
+            self.log.error("SearchToMail timed out")
+        
+    def _SearchToMail(self, videos, languages):
         """Register user email to be noticed when given video subtitles are available to download
         @videos: video objects - list
         @languages: language id codes - list
@@ -378,6 +465,13 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
         
     def CheckMovieHash(self, hashes):
+        CheckMovieHash = TimeoutFunction(self._CheckMovieHash)
+        try:
+            return CheckMovieHash(hashes)
+        except TimeoutFunctionException:
+            self.log.error("CheckMovieHash timed out")
+        
+    def _CheckMovieHash(self, hashes):
         """Return MovieImdbID, MovieName, MovieYear for each hash
         @hashes - movie hashes - list
         """
@@ -391,6 +485,13 @@ class OSDBServer(ProxiedTransport):
         return result
         
     def TryUploadSubtitles(self, videos):
+        TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)
+        try:
+            return TryUploadSubtitles(videos)
+        except TimeoutFunctionException:
+            self.log.error("TryUploadSubtitles timed out")
+        
+    def _TryUploadSubtitles(self, videos):
         """Check for subtitle existence in server database for one or more videos
         
         @videos: video objects - list
@@ -430,6 +531,13 @@ class OSDBServer(ProxiedTransport):
         return result
         
     def UploadSubtitles(self, videos):
+        UploadSubtitles = TimeoutFunction(self._UploadSubtitles)
+        try:
+            return UploadSubtitles(videos)
+        except TimeoutFunctionException:
+            self.log.error("UploadSubtitles timed out")
+        
+    def _UploadSubtitles(self, videos):
         self.log.debug("----------------")
         self.log.debug("UploadSubtitles RPC method starting...")
         
@@ -476,6 +584,13 @@ class OSDBServer(ProxiedTransport):
             #info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
         
     def ReportWrongMovieHash(self, subtitle_id):
+        ReportWrongMovieHash = TimeoutFunction(self._ReportWrongMovieHash)
+        try:
+            return ReportWrongMovieHash(subtitle_id)
+        except TimeoutFunctionException:
+            self.log.error("ReportWrongMovieHash timed out")
+        
+    def _ReportWrongMovieHash(self, subtitle_id):
         """Report wrong subtitle for a movie
         @subtitle_id: subtitle id from a video (IDSubMovieFile) - string/int
         """
@@ -485,6 +600,13 @@ class OSDBServer(ProxiedTransport):
         self.log.debug("ReportWrongMovieHash finished in %s with status %s."% (info['seconds'], info['status']))
         
     def GetAvailableTranslations(self, program=None):
+        GetAvailableTranslations = TimeoutFunction(self._GetAvailableTranslations)
+        try:
+            return GetAvailableTranslations(program)
+        except TimeoutFunctionException:
+            self.log.error("GetAvailableTranslations timed out")
+        
+    def _GetAvailableTranslations(self, program=None):
         """Returns dictionary of available translations for the given program. 
         @program: program name - string
         return example: {'en': {'LastCreated': '2007-02-03 21:36:14', 'StringsNo': 438}, 'ar': ...}
@@ -499,6 +621,13 @@ class OSDBServer(ProxiedTransport):
         return False
         
     def GetTranslation(self, language, format):
+        GetTranslation = TimeoutFunction(self._GetTranslation)
+        try:
+            return GetTranslation(language, format)
+        except TimeoutFunctionException:
+            self.log.error("GetTranslation timed out")
+        
+    def _GetTranslation(self, language, format):
         """Returns base64 encoded strings for language.
         @language: iso639 language code (2 chars)
         @format: format in which the result is returned (mo, po, txt, xml)
@@ -512,6 +641,13 @@ class OSDBServer(ProxiedTransport):
         return False
         
     def SearchMoviesOnIMDB(self, query):
+        SearchMoviesOnIMDB = TimeoutFunction(self._SearchMoviesOnIMDB)
+        try:
+            return SearchMoviesOnIMDB(query)
+        except TimeoutFunctionException:
+            self.log.error("SearchMoviesOnIMDB timed out")
+        
+    def _SearchMoviesOnIMDB(self, query):
         """Returns a list of found movies in IMDB
         @query - search string (ie: movie name)
         return example: [{'id': '0452623', 'title': 'Gone Baby Gone (2007)'}, { }, ...]
@@ -526,6 +662,13 @@ class OSDBServer(ProxiedTransport):
         return result
         
     def GetIMDBMovieDetails(self, imdb_id):
+        GetIMDBMovieDetails = TimeoutFunction(self._GetIMDBMovieDetails)
+        try:
+            return GetIMDBMovieDetails(imdb_id)
+        except TimeoutFunctionException:
+            self.log.error("GetIMDBMovieDetails timed out")
+        
+    def _GetIMDBMovieDetails(self, imdb_id):
         """Returns video details from IMDB if available
         @imdb_id - IMDB movie id - int/string
         """
@@ -536,6 +679,13 @@ class OSDBServer(ProxiedTransport):
         return info['data']
         
     def AutoUpdate(self, app=None):
+        AutoUpdate = TimeoutFunction(self._AutoUpdate)
+        try:
+            return AutoUpdate(app)
+        except TimeoutFunctionException:
+            self.log.error("AutoUpdate timed out")
+        
+    def _AutoUpdate(self, app=None):
         """Returns latest info on the given application if available
         """
         self.log.debug("----------------")
@@ -556,6 +706,13 @@ class OSDBServer(ProxiedTransport):
         return info
         
     def NoOperation(self):
+        NoOperation = TimeoutFunction(self._NoOperation)
+        try:
+            return NoOperation()
+        except TimeoutFunctionException:
+            self.log.error("NoOperation timed out")
+        
+    def _NoOperation(self):
         """This method should be called every 15 minutes after last request to xmlrpc. 
         It's used to keep current session alive.
         Returns True if current session token is valid and False if not.
