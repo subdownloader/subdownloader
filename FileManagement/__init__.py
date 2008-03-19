@@ -23,7 +23,7 @@ def get_extension(path):
     return ""
 
 def clear_string(strng):
-    r_chars = '_.,()'
+    r_chars = string.punctuation
     return strng.translate(string.maketrans(r_chars," "*len(r_chars))).replace(" ", "")
     
 def without_extension(filename):
