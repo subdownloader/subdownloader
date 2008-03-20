@@ -51,7 +51,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=10): 
+    def __init__(self, function, timeout=20): 
         self.timeout = timeout 
         self.function = function 
 
@@ -247,9 +247,9 @@ class OSDBServer(object):
         """
         self.log.debug("----------------")
         self.log.debug("GetSubLanguages RPC method starting...")
-        if(language == "all"):
+        if language == "all":
             # return result right away if no 'translation' needed
-             return "all"
+            return "all"
         info = self.xmlrpc_server.GetSubLanguages(language)
         self.log.debug("GetSubLanguages complete in %s"% info['seconds'])
             
