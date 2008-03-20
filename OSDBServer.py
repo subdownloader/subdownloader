@@ -170,7 +170,7 @@ class OSDBServer(object):
     def ServerInfo(self):
         ServerInfo = TimeoutFunction(self._ServerInfo)
         try:
-            ServerInfo()
+            return ServerInfo()
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
     
@@ -189,7 +189,7 @@ class OSDBServer(object):
     def login(self, username="", password=""):
         login = TimeoutFunction(self._login)
         try:
-            login(username, password)
+            return login(username, password)
         except TimeoutFunctionException:
             self.log.error("login timed out")
         
@@ -216,7 +216,7 @@ class OSDBServer(object):
     def logout(self):
         logout = TimeoutFunction(self._logout)
         try:
-            logout()
+            return logout()
         except TimeoutFunctionException:
             self.log.error("logout timed out")
         
@@ -237,7 +237,7 @@ class OSDBServer(object):
     def GetSubLanguages(self, language):
         GetSubLanguages = TimeoutFunction(self._GetSubLanguages)
         try:
-            GetSubLanguages(language)
+            return GetSubLanguages(language)
         except TimeoutFunctionException:
             self.log.error("GetSubLanguages timed out")
             
@@ -262,7 +262,7 @@ class OSDBServer(object):
     def CheckSubHash(self, hashes):
         CheckSubHash = TimeoutFunction(self._CheckSubHash)
         try:
-            CheckSubHash(hashes)
+            return CheckSubHash(hashes)
         except TimeoutFunctionException:
             self.log.error("CheckSubHash timed out")
         
