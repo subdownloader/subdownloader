@@ -23,6 +23,9 @@
        <attribute name="title" >
         <string>Search from Video file(s)</string>
        </attribute>
+       <attribute name="icon" >
+        <iconset resource="images.qrc" >:/images/search.png</iconset>
+       </attribute>
        <layout class="QVBoxLayout" >
         <item>
          <layout class="QHBoxLayout" >
@@ -51,7 +54,7 @@
              <string>Download</string>
             </property>
             <property name="icon" >
-             <iconset/>
+             <iconset resource="images.qrc" >:/images/download.png</iconset>
             </property>
            </widget>
           </item>
@@ -142,6 +145,9 @@
       <widget class="QWidget" name="tab_3" >
        <attribute name="title" >
         <string>Search by Movie Name</string>
+       </attribute>
+       <attribute name="icon" >
+        <iconset resource="images.qrc" >:/images/search.png</iconset>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
@@ -266,6 +272,9 @@
       <widget class="QWidget" name="tab_4" >
        <attribute name="title" >
         <string>Upload subtitles</string>
+       </attribute>
+       <attribute name="icon" >
+        <iconset resource="images.qrc" >:/images/upload.png</iconset>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>

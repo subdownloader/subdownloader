@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Mar  9 17:00:01 2008
+# Created: Sat Mar 22 18:42:14 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -49,6 +49,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.button_download.sizePolicy().hasHeightForWidth())
         self.button_download.setSizePolicy(sizePolicy)
+        self.button_download.setIcon(QtGui.QIcon(":/images/download.png"))
         self.button_download.setObjectName("button_download")
         self.hboxlayout.addWidget(self.button_download)
 
@@ -103,7 +104,7 @@ class Ui_MainWindow(object):
         self.videoView.setObjectName("videoView")
         self.vboxlayout3.addWidget(self.videoView)
         self.vboxlayout1.addWidget(self.splitter)
-        self.tabs.addTab(self.tab,"")
+        self.tabs.addTab(self.tab,QtGui.QIcon(":/images/search.png"),"")
 
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName("tab_3")
@@ -175,7 +176,7 @@ class Ui_MainWindow(object):
         self.hboxlayout2.addWidget(self.sub_view)
         self.vboxlayout5.addWidget(self.groupBox_4)
         self.vboxlayout4.addLayout(self.vboxlayout5)
-        self.tabs.addTab(self.tab_3,"")
+        self.tabs.addTab(self.tab_3,QtGui.QIcon(":/images/search.png"),"")
 
         self.tab_4 = QtGui.QWidget()
         self.tab_4.setObjectName("tab_4")
@@ -319,7 +320,7 @@ class Ui_MainWindow(object):
         spacerItem2 = QtGui.QSpacerItem(20,40,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem2,4,1,1,1)
         self.vboxlayout6.addWidget(self.splitter_2)
-        self.tabs.addTab(self.tab_4,"")
+        self.tabs.addTab(self.tab_4,QtGui.QIcon(":/images/upload.png"),"")
 
         self.tab_5 = QtGui.QWidget()
         self.tab_5.setObjectName("tab_5")

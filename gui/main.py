@@ -115,38 +115,16 @@ class Main(QObject, Ui_MainWindow):
                             self.folderView_clicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
                             self.folderView_clicked)    
-        
 
-        
-        
         #SETTING UP VIDEOS_VIEW
-        #QObject.connect(self.video_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.videos_rightclicked)
         self.videoModel = VideoTreeModel(window)  
         self.videoView.setModel(self.videoModel)
 
-        
-        #QObject.connect(self.video_view, SIGNAL("clicked(QModelIndex)"),                             self.videos_leftclicked) 
-        
-        
-        #SETTING UP SUBS_VIEW
-        #QObject.connect(self.sub_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_rightclicked)
-        #self.sub_model = SubListModel(window)  
-        #self.video_view.resizeColumnsToContents()
-        #self.sub_view.setModel(self.sub_model)
-        
-        
         #SETTING UP SUBS_OSDB_VIEW
-        #QObject.connect(self.subs_osdb_view, SIGNAL("customContextMenuRequested(const QPoint &)"), self.subs_odbc_rightclicked)
-        self.subs_osdb_model = SubOsdbListModel(window)  
-        #self.video_view.resizeColumnsToContents()
-        #self.subs_osdb_view.setModel(self.subs_osdb_model)
-            
+        #self.subs_osdb_model = SubOsdbListModel(window)  
 
         #SETTING UP UPLOAD_VIEW
-        self.upload_model = UploadListModel(window)    
-        #self.upload_view.setModel(self.upload_model)
-        #self.upload_view.resizeColumnsToContents()
-        #QObject.connect(self.upload_model, SIGNAL('language_updated(QString)'), self.update_language)
+        #self.upload_model = UploadListModel(window)    
         
         QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
 
@@ -187,6 +165,7 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.expandAll() #This was a solution found to refresh the treeView
         #Searching our videohashes in the OSDB database
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        
         self.status("Asking Database...")
         #This effect causes the progress bar turn all sides
         self.status_progress.setMinimum(0)
@@ -197,8 +176,6 @@ class Main(QObject, Ui_MainWindow):
         self.videoModel.clearTree()
         self.videoModel.setVideos(videoSearchResults)
         self.videoView.expandAll() #This was a solution found to refresh the treeView
-#        self.video_view.setModel(self.video_model)
-#        self.video_view.resizeColumnsToContents()
 
         self.progress(100)
         self.status_progress.setFormat("Search finished")

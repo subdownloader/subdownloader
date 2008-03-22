@@ -8,8 +8,9 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect      
 
-import subdownloader.videofile as videofile
-
+from subdownloader.videofile import  VideoFile
+from subdownloader.subtitlefile import SubtitleFile
+import images_rc
 import logging
 log = logging.getLogger("subdownloader.gui.videotreeview")
 
@@ -38,15 +39,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults):
-    #TODO: Add bold color for the video Nodes
     #TODO: Add flags for the subtitle
     #TODO: Add context menus.
     for video in videoResults:
        #log.debug("Adding video to VideoTree: %s", video.getFileName())
-       videoNode = self.root.addChild([video.getFileName()])
+       videoNode = self.root.addChild(video)
        for sub in video._subs:
            #log.debug("Adding subtitle to VideoTree: %s", sub.getFileName())
-           videoNode.addChild([sub.getFileName()])
+           videoNode.addChild(sub)
        
   def clearTree(self):
      log.debug("Clearing VideoTree")
@@ -54,26 +54,44 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
   def columnCount(self, parent):
     if parent.isValid():
-      # parent.internalPointer()
-      return len(parent.internalPointer().data)
+      return 1 #Only 1 column
     else:
       # header
-      return len(self.root.data)
+      return 1 #len(self.root.data) 
 
   def data(self, index, role):
     if not index.isValid():
-      return QtCore.QVariant()
-
-    if role != QtCore.Qt.DisplayRole:
-      return QtCore.QVariant()
-
-    return QtCore.QVariant(index.internalPointer().data[index.column()])
+      return QVariant()
+    data = index.internalPointer().data
+    
+    if type(data)  == SubtitleFile: #It's a SUBTITLE treeitem.
+        if role == QtCore.Qt.DecorationRole:
+            return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX() ))
+            
+        if role == QtCore.Qt.ForegroundRole:
+            return QVariant(QColor(Qt.red))
+            
+        if role == QtCore.Qt.CheckStateRole:
+            return  QVariant(Qt.Unchecked)
+            
+        if role == QtCore.Qt.DisplayRole:
+            return QVariant("[%s] %s" % (data.getLanguageName() ,  data.getFileName()))
+            
+        return QVariant()
+    else: #It's a VIDEOFILE treeitem.
+        if role == QtCore.Qt.FontRole:
+          return QVariant(QFont('Arial', 10, QFont.Bold))
+          
+        if role == QtCore.Qt.DisplayRole:
+            return QVariant(data.getFileName())
+            
+        return QVariant()
 
   def flags(self, index):
     if not index.isValid():
-      return QtCore.Qt.ItemIsEnabled
+      return Qt.ItemIsEnabled
 
-    return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+    return Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
 
   def headerData(self, section, orientation, role):
   #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:

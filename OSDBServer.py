@@ -422,14 +422,16 @@ class OSDBServer(object):
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
-                            self.log.debug("  %s"% sub.getFileName())
-                            sub.setLanguage(i["SubLanguageID"])
+                            sub.setLanguageXXX(i["SubLanguageID"]) 
+                            sub.setLanguageXX(i["ISO639"]) 
+                            sub.setLanguageName(i["LanguageName"]) 
                             sub.setRating(i["SubRating"])
+                            self.log.debug("  [%s] - %s"%  (sub.getLanguage(), sub.getFileName()))
                             subtitles.append(sub)
                         video.setOsdbInfo(osdb_info)
                         video.setSubtitles(subtitles)
                     videos_result.append(video)
-                                
+                    
                 return videos_result
                 
             elif imdb_ids:

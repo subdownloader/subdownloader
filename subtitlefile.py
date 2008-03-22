@@ -63,10 +63,28 @@ class SubtitleFile(object):
         return self._hash
     
     def setLanguage(self,language):
-        self._language = language
-    
+        self._languageXXX = language
+        
     def getLanguage(self):
-        return self._language
+        return self._languageXXX
+    
+    def setLanguageXX(self,language):
+        self._languageXX = language
+    
+    def getLanguageXX(self):
+        return self._languageXX
+    
+    def setLanguageXXX(self,language):
+        self._languageXXX = language
+    
+    def getLanguageXXX(self):
+        return self._languageXXX
+    
+    def getLanguageName(self): 
+        return self._languageName
+    
+    def setLanguageName(self,language):
+        self._languageName = language
     
     def isOnline(self):
         return self._online
