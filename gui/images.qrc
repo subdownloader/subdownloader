@@ -49,6 +49,7 @@
         <file>images/flags/uk.gif</file>
         <file>images/flags/vi.gif</file>
         <file>images/flags/zh.gif</file>
+        <file>images/imdb.jpg</file>
         <file>images/search.png</file>
         <file>images/upload.png</file>
     </qresource>

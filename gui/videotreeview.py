@@ -17,6 +17,7 @@ log = logging.getLogger("subdownloader.gui.videotreeview")
 class Node:
   def __init__(self, data, parent=None):
     self.data=data
+    self.checked = False
     self.parent=parent
     self.children=[]
 
@@ -36,16 +37,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
     QtCore.QAbstractItemModel.__init__(self, parent)
     self.root=Node([QtCore.QVariant("")]) 
+    self.checkedSubtitles = []
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults):
-    #TODO: Add flags for the subtitle
     #TODO: Add context menus.
     for video in videoResults:
-       #log.debug("Adding video to VideoTree: %s", video.getFileName())
        videoNode = self.root.addChild(video)
        for sub in video._subs:
-           #log.debug("Adding subtitle to VideoTree: %s", sub.getFileName())
            videoNode.addChild(sub)
        
   def clearTree(self):
@@ -72,7 +71,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             return QVariant(QColor(Qt.red))
             
         if role == QtCore.Qt.CheckStateRole:
-            return  QVariant(Qt.Unchecked)
+            if index.internalPointer().checked:
+                return  QVariant(Qt.Checked)
+            else:
+                return  QVariant(Qt.Unchecked)
             
         if role == QtCore.Qt.DisplayRole:
             return QVariant("[%s] %s" % (data.getLanguageName() ,  data.getFileName()))
@@ -93,6 +95,30 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
     return Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
 
+  def setData (self, index, value, role):
+        #When user click to check the subtitle
+        if role == Qt.CheckStateRole:
+              node = index.internalPointer()
+              if value == QVariant(Qt.Checked):
+                 node.checked = True
+              else:
+                  node.checked = False
+        else:
+            print "Set data with no CheckStateRole"
+        
+        self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+        return True
+   
+  def getCheckedSubtitles(self):
+      checkedSubs = []
+      for video in self.root.children:
+          for subtitle in video.children:
+                if subtitle.checked:
+                    log.debug("Checked = " + subtitle.data.getFileName() )
+                    checkedSubs.append(subtitle.data)
+      log.debug("Getting Checked Subtitles, total = %d" % len(checkedSubs))
+
+      return checkedSubs
   def headerData(self, section, orientation, role):
   #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
      # return self.root.data[section]

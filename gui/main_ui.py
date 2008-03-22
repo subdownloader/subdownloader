@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Mar 22 18:42:14 2008
+# Created: Sun Mar 23 00:17:23 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,782,627).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,773,579).size()).expandedTo(MainWindow.minimumSizeHint()))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -32,28 +32,40 @@ class Ui_MainWindow(object):
         self.hboxlayout = QtGui.QHBoxLayout()
 
 
-        self.button_play = QtGui.QPushButton(self.tab)
+        self.buttonPlay = QtGui.QPushButton(self.tab)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_play.sizePolicy().hasHeightForWidth())
-        self.button_play.setSizePolicy(sizePolicy)
-        self.button_play.setObjectName("button_play")
-        self.hboxlayout.addWidget(self.button_play)
+        sizePolicy.setHeightForWidth(self.buttonPlay.sizePolicy().hasHeightForWidth())
+        self.buttonPlay.setSizePolicy(sizePolicy)
+        self.buttonPlay.setObjectName("buttonPlay")
+        self.hboxlayout.addWidget(self.buttonPlay)
 
-        self.button_download = QtGui.QPushButton(self.tab)
+        self.buttonDownload = QtGui.QPushButton(self.tab)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_download.sizePolicy().hasHeightForWidth())
-        self.button_download.setSizePolicy(sizePolicy)
-        self.button_download.setIcon(QtGui.QIcon(":/images/download.png"))
-        self.button_download.setObjectName("button_download")
-        self.hboxlayout.addWidget(self.button_download)
+        sizePolicy.setHeightForWidth(self.buttonDownload.sizePolicy().hasHeightForWidth())
+        self.buttonDownload.setSizePolicy(sizePolicy)
+        self.buttonDownload.setIcon(QtGui.QIcon(":/images/download.png"))
+        self.buttonDownload.setObjectName("buttonDownload")
+        self.hboxlayout.addWidget(self.buttonDownload)
 
-        spacerItem = QtGui.QSpacerItem(40,20,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
+        self.buttonIMDB = QtGui.QPushButton(self.tab)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonIMDB.sizePolicy().hasHeightForWidth())
+        self.buttonIMDB.setSizePolicy(sizePolicy)
+        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
+        self.buttonIMDB.setIconSize(QtCore.QSize(32,16))
+        self.buttonIMDB.setObjectName("buttonIMDB")
+        self.hboxlayout.addWidget(self.buttonIMDB)
+
+        spacerItem = QtGui.QSpacerItem(461,27,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
         self.hboxlayout.addItem(spacerItem)
         self.vboxlayout1.addLayout(self.hboxlayout)
 
@@ -342,8 +354,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader", None, QtGui.QApplication.UnicodeUTF8))
-        self.button_play.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
-        self.button_download.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonPlay.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonDownload.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Show Movie Info", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Search from Video file(s)", None, QtGui.QApplication.UnicodeUTF8))

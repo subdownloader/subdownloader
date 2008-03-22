@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
-    <height>627</height>
+    <width>773</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -30,7 +30,7 @@
         <item>
          <layout class="QHBoxLayout" >
           <item>
-           <widget class="QPushButton" name="button_play" >
+           <widget class="QPushButton" name="buttonPlay" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
               <horstretch>0</horstretch>
@@ -43,7 +43,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="button_download" >
+           <widget class="QPushButton" name="buttonDownload" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
               <horstretch>0</horstretch>
@@ -59,14 +59,36 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="buttonIMDB" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text" >
+             <string>Show Movie Info</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
+            </property>
+            <property name="iconSize" >
+             <size>
+              <width>32</width>
+              <height>16</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer>
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" >
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>461</width>
+              <height>27</height>
              </size>
             </property>
            </spacer>

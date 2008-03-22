@@ -115,19 +115,19 @@ class Main(QObject, Ui_MainWindow):
                             self.folderView_clicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
                             self.folderView_clicked)    
-
+                            
         #SETTING UP VIDEOS_VIEW
-        self.videoModel = VideoTreeModel(window)  
+        self.videoModel = VideoTreeModel(window) 
         self.videoView.setModel(self.videoModel)
-
+        QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
         #SETTING UP SUBS_OSDB_VIEW
         #self.subs_osdb_model = SubOsdbListModel(window)  
 
         #SETTING UP UPLOAD_VIEW
         #self.upload_model = UploadListModel(window)    
         
-        QObject.connect(self.button_download, SIGNAL("clicked(bool)"), self.click_download)
-
+        QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.click_download)
+        self.subtitlesCheckedChanged()
         self.folderView.show()
         
         self.status_progress = QtGui.QProgressBar(self.statusbar)
@@ -146,7 +146,14 @@ class Main(QObject, Ui_MainWindow):
 #        self.videoView.setModel(self.videoModel)
 #        self.videoView.expandAll()
 
-
+    def subtitlesCheckedChanged(self):
+       subs = self.videoModel.getCheckedSubtitles()
+       if subs:
+           self.buttonDownload.setEnabled(True)
+           self.buttonPlay.setEnabled(True)
+       else:
+           self.buttonDownload.setEnabled(False)
+           self.buttonPlay.setEnabled(False)
     """What to do when a Folder in the tree is clicked"""
     def folderView_clicked(self, index):
         if index.isValid():
@@ -159,6 +166,8 @@ class Main(QObject, Ui_MainWindow):
         videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
 
         #Populating the items in the VideoListView
+        self.videoModel.clearTree()
+        self.videoView.expandAll()
         self.videoModel.setVideos(videos_found)
         self.videoView.setModel(self.videoModel)
         
@@ -186,9 +195,8 @@ class Main(QObject, Ui_MainWindow):
 
     def click_download(self, checked):
         #We download the subtitle in the same folder than the video
-        for index in self.subs_osdb_view.selectedIndexes():
-            destinationfolder = self.video_model.getVideoFromIndex(index.row()).getFolderPath()
-            
+        subs = self.videoModel.getCheckedSubtitles()
+        return 
         #Let's detect which subtitles the user want to download
         rows = frozenset([ index.row() for index in self.subs_osdb_view.selectedIndexes()])
         if not len(rows):
