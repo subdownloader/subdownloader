@@ -585,8 +585,8 @@ class OSDBServer(object):
                     IDMovie = movie_sub['IDMovie']
             #
             movie_info = {}
-            for details in check_result['data']:
-                for (i, video) in enumerate(videos):
+            for (i, video) in enumerate(videos):
+                for details in check_result['data']:
                     if video.getHash() == details['MovieHash']:
                         cd = 'cd%i'% (i+1)
                         curr_video = video
@@ -598,11 +598,15 @@ class OSDBServer(object):
                         compressed_buf = StringIO.StringIO()
                         gzipper = gzip.GzipFile(fileobj=compressed_buf, mode='wb')
                         gzipper.write(buf); gzipper.close()
+                        print dir(compressed_buf)
+                        compressed_buf = compressed_buf.buf
+                        print compressed_buf
                         encoded_buf = base64.encodestring(compressed_buf)
                         curr_sub_content = encoded_buf
                         #curr_cd = {'cd': 'cd%s'%i, 'content': {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': None} }
                         # transfer info
-                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                        break
                         
             movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': details['SubAuthorComment']}
             

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-23, 12:26:00 -->
+<!-- Saved: 2008-03-23, 13:38:16 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -107,6 +107,14 @@
     <Source>
       <Dir>gui</Dir>
       <Name>videotreeview.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>terminal.py</Name>
     </Source>
   </Sources>
   <Forms>
