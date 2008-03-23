@@ -21,6 +21,7 @@ from subdownloader.FileManagement import get_extension, clear_string, without_ex
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
+from subdownloader.modules import terminal
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
@@ -35,6 +36,10 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     
     #Let's reset the progress bar to 0%
     report_progress(0)
+    #cli
+    term = terminal.TerminalController()
+    progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
+    
     parser = RecursiveParser.RecursiveParser()
     files_found = []
     try:
@@ -53,11 +58,12 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     if len(files_found):
         percentage = 100 / len(files_found)
         count = 0
-        for filepath in files_found:
+        for i, filepath in enumerate(files_found):
             videos_found.append(videofile.VideoFile(filepath))
             count += percentage
-            report_progress(count,"Hashing video: " + os.path.basename(filepath))
-    
+            report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
+            progress.update(float(i)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
+    progress.reset()
     report_progress(0)
     
     #Scanning Subs
@@ -67,13 +73,14 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     if len(files_found):
         percentage = 100 / len(files_found)
         count = 0
-        for filepath in files_found:
+        for i, filepath in enumerate(files_found):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
             report_progress(count,"Hashing sub: " + os.path.basename(filepath))
-        
+            progress.update(float(i)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
+    progress.clear()
     report_progress(100,"Finished hashing")
-        
+    #log.info('ACABOU')
         
     return videos_found,subs_found
     
