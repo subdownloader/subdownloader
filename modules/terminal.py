@@ -192,7 +192,7 @@ class ProgressBar:
                              self.term.UP + self.term.CLEAR_EOL +
                              self.term.UP + self.term.CLEAR_EOL+ "\n")
             self.cleared = 1
-            #sys.stdout.write("\r")
+            print ""
             
     def reset(self):
         self.update(0, '')
