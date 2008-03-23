@@ -32,12 +32,12 @@ class Node:
     else:
       return 0
 
-
+    
 class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
     QtCore.QAbstractItemModel.__init__(self, parent)
     self.root=Node([QtCore.QVariant("")]) 
-    self.checkedSubtitles = []
+    self.selectedNode = None
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults):
@@ -86,14 +86,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         
         movie_info = data.getMovieInfo()
         if role == QtCore.Qt.DecorationRole:
-            if(movie_info):
+            if movie_info :
                 #TODO: Show this icon bigger.
                 return QVariant(QIcon(':/images/imdb.jpg'))
             else:
                 return QVariant()
             
         if role == QtCore.Qt.DisplayRole:
-            if(movie_info):
+            if movie_info :
                 #The ENGLISH Movie Name is priority, if not shown, then we show the original name.
                 if movie_info["MovieNameEng"]:
                     movieName = movie_info["MovieNameEng"]
@@ -106,7 +106,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
            
             
         return QVariant()
-#TODO: When user SELECT some subtitle, CHECK/UNCHECK its checkbox automatically
+
   def flags(self, index):
     if not index.isValid():
       return Qt.ItemIsEnabled
@@ -116,27 +116,37 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else: #It's a VIDEO treeitem.
         return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
 
-  def setData (self, index, value, role):
-        #When user click to check the subtitle
-        if role == Qt.CheckStateRole:
-              node = index.internalPointer()
-              if value == QVariant(Qt.Checked):
-                 node.checked = True
-              else:
-                  node.checked = False
-        else:
-            print "Set data with no CheckStateRole"
+#  def setData (self, index, value, role):
+#        print role
+#        #When user click to check the subtitle
+#        if role == Qt.CheckStateRole:
+#              node = index.internalPointer()
+#              if value == QVariant(Qt.Checked):
+#                 node.checked = True
+#              else:
+#                  node.checked = False
+#        else:
+#            print "Set data with no CheckStateRole"
+#        
+#        self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+#        return True
+
+  def getSelectedItem(self, index = None):
+      if index == None: #We want to know the current Selected Item
+        return self.selectedNode
         
-        self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
-        return True
-   
+      if not index.isValid():
+            return None
+      else:
+            self.selectedNode = index.internalPointer()
+            return index.internalPointer()
+      
   def getCheckedSubtitles(self):
       checkedSubs = []
       for video in self.root.children:
           for subtitle in video.children:
                 if subtitle.checked:
                     checkedSubs.append(subtitle.data)
-
       return checkedSubs
   def headerData(self, section, orientation, role):
   #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:

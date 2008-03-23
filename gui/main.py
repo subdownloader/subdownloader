@@ -41,8 +41,8 @@ from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
 
 from subdownloader.gui.main_ui import Ui_MainWindow
 import subdownloader.FileManagement.FileScan as FileScan
-import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
+from subdownloader.videofile import  VideoFile
+from subdownloader.subtitlefile import SubtitleFile
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
@@ -113,11 +113,16 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.folderView, SIGNAL("activated(QModelIndex)"), \
                             self.folderView_clicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
-                            self.folderView_clicked)    
+                            self.folderView_clicked)
+                            
+       
+
                             
         #SETTING UP VIDEOS_VIEW
-        self.videoModel = VideoTreeModel(window) 
+        self.videoModel = VideoTreeModel(window)
         self.videoView.setModel(self.videoModel)
+        QObject.connect(self.videoView, SIGNAL("activated(QModelIndex)"), self.onClickVideoTreeView)
+        QObject.connect(self.videoView, SIGNAL("clicked(QModelIndex)"), self.onClickVideoTreeView)
         QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
         #SETTING UP SUBS_OSDB_VIEW
         #self.subs_osdb_model = SubOsdbListModel(window)  
@@ -125,7 +130,8 @@ class Main(QObject, Ui_MainWindow):
         #SETTING UP UPLOAD_VIEW
         #self.upload_model = UploadListModel(window)    
         
-        QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.click_download)
+        QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
+        QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onButtonIMDB)
 
         self.folderView.show()
         
@@ -143,7 +149,8 @@ class Main(QObject, Ui_MainWindow):
         
         #FOR TESTING
         #self.SearchVideos('/media/data/videos/downloaded/')
-        
+    
+    
     def subtitlesCheckedChanged(self):
        subs = self.videoModel.getCheckedSubtitles()
        if subs:
@@ -153,7 +160,13 @@ class Main(QObject, Ui_MainWindow):
            self.buttonDownload.setEnabled(False)
            self.buttonPlay.setEnabled(False)
            
-           
+    def videoSelectedChanged(self):
+       subs = self.videoModel.getSelected()
+       if subs:
+           self.buttonIMDB.setEnabled(True)
+       else:
+           self.buttonDownload.setEnabled(False)
+    
     def SearchVideos(self, path):
         #Scan recursively the selected directory finding subtitles and videos
         videos_found,subs_found = FileScan.ScanFolder(path,recursively = True,report_progress = self.progress)
@@ -185,6 +198,18 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: check if the subtitle found is already in our folder.
         #self.OSDBServer.CheckSubHash(sub_hashes) 
+        
+    def onClickVideoTreeView(self, index):
+        treeItem = self.videoModel.getSelectedItem(index)
+        if type(treeItem.data) == VideoFile:
+            video = treeItem.data
+            if video.getMovieInfo():
+                self.buttonIMDB.setEnabled(True)
+        else:
+            treeItem.checked = not(treeItem.checked)
+            self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+            self.buttonIMDB.setEnabled(False)
+        
     """What to do when a Folder in the tree is clicked"""
     def folderView_clicked(self, index):
         if index.isValid():
@@ -193,7 +218,13 @@ class Main(QObject, Ui_MainWindow):
         folder_path = unicode(data, 'utf-8')
         self.SearchVideos(folder_path)
 
-    def click_download(self, checked):
+    def onButtonIMDB(self, checked):
+        video = self.videoModel.getSelectedItem().data
+        movie_info = video.getMovieInfo()
+        if movie_info:
+            print "Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"]
+            
+    def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
         subs = self.videoModel.getCheckedSubtitles()
         return 
