@@ -32,9 +32,16 @@ class VideoFile(object):
         self._hash = self.calculateOSDBHash()
         self._fps = 0
         self._osdb_info = {}
+        self._movie_info = {}
         self._subs = []
         self.nos_subs = []
     
+    def setMovieInfo(self, info):
+        self._movie_info = info
+    
+    def getMovieInfo(self):
+        return self._movie_info
+
     def getFilePath(self):
         return self._filepath
     

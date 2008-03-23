@@ -30,6 +30,7 @@ class SubtitleFile(object):
         if online:
             self._online = True
             self._id_online = id
+            self._uploader = None
         else:
             self._online = False
             self._filepath = id
@@ -43,6 +44,12 @@ class SubtitleFile(object):
     
     def getFileName(self):
         return self._filename
+        
+    def setUploader(self,uploader):
+        self._uploader = uploader
+    
+    def getUploader(self):
+        return self._uploader
     
     def setIdOnline(self,_id_online):
         self._id_online = _id_online

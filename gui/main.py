@@ -25,7 +25,6 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, \
@@ -36,7 +35,7 @@ from subdownloader.gui.sublistview import SubListModel, SubListView
 from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
 
 from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
-#from subdownloader.gui.videolistview import VideoListModel, VideoListView
+
 from subdownloader.gui.videotreeview import VideoTreeModel
 from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
 
@@ -127,7 +126,7 @@ class Main(QObject, Ui_MainWindow):
         #self.upload_model = UploadListModel(window)    
         
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.click_download)
-        self.subtitlesCheckedChanged()
+
         self.folderView.show()
         
         self.status_progress = QtGui.QProgressBar(self.statusbar)
@@ -142,10 +141,9 @@ class Main(QObject, Ui_MainWindow):
         self.establish_connection()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
-#        self.videoModel.setVideos([])
-#        self.videoView.setModel(self.videoModel)
-#        self.videoView.expandAll()
-
+        #FOR TESTING
+        #self.SearchVideos('/media/data/videos/downloaded/')
+        
     def subtitlesCheckedChanged(self):
        subs = self.videoModel.getCheckedSubtitles()
        if subs:
@@ -154,16 +152,11 @@ class Main(QObject, Ui_MainWindow):
        else:
            self.buttonDownload.setEnabled(False)
            self.buttonPlay.setEnabled(False)
-    """What to do when a Folder in the tree is clicked"""
-    def folderView_clicked(self, index):
-        if index.isValid():
-            data = self.folderView.model().filePath(index)
-        
-        folder_path = unicode(data, 'utf-8')
-        
-        ###print folder_path
+           
+           
+    def SearchVideos(self, path):
         #Scan recursively the selected directory finding subtitles and videos
-        videos_found,subs_found = FileScan.ScanFolder(folder_path,recursively = True,report_progress = self.progress)
+        videos_found,subs_found = FileScan.ScanFolder(path,recursively = True,report_progress = self.progress)
 
         #Populating the items in the VideoListView
         self.videoModel.clearTree()
@@ -190,8 +183,15 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setFormat("Search finished")
     
         self.window.setCursor(Qt.ArrowCursor)
+        #TODO: check if the subtitle found is already in our folder.
+        #self.OSDBServer.CheckSubHash(sub_hashes) 
+    """What to do when a Folder in the tree is clicked"""
+    def folderView_clicked(self, index):
+        if index.isValid():
+            data = self.folderView.model().filePath(index)
         
-        #self.OSDBServer.CheckSubHash(sub_hashes)
+        folder_path = unicode(data, 'utf-8')
+        self.SearchVideos(folder_path)
 
     def click_download(self, checked):
         #We download the subtitle in the same folder than the video

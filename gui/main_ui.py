@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Mar 23 00:17:23 2008
+# Created: Sun Mar 23 15:48:41 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,8 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,773,579).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,792,579).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.setWindowIcon(QtGui.QIcon(":/images/logo.png"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -33,6 +34,7 @@ class Ui_MainWindow(object):
 
 
         self.buttonPlay = QtGui.QPushButton(self.tab)
+        self.buttonPlay.setEnabled(False)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -43,6 +45,7 @@ class Ui_MainWindow(object):
         self.hboxlayout.addWidget(self.buttonPlay)
 
         self.buttonDownload = QtGui.QPushButton(self.tab)
+        self.buttonDownload.setEnabled(False)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -54,6 +57,7 @@ class Ui_MainWindow(object):
         self.hboxlayout.addWidget(self.buttonDownload)
 
         self.buttonIMDB = QtGui.QPushButton(self.tab)
+        self.buttonIMDB.setEnabled(False)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -336,7 +340,7 @@ class Ui_MainWindow(object):
 
         self.tab_5 = QtGui.QWidget()
         self.tab_5.setObjectName("tab_5")
-        self.tabs.addTab(self.tab_5,"")
+        self.tabs.addTab(self.tab_5,QtGui.QIcon(":/images/preferences.png"),"")
 
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName("tab_2")

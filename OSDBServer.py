@@ -17,6 +17,8 @@ from xmlrpclib import Transport,ServerProxy
 import base64, StringIO, gzip, httplib, os, signal
 import logging
 
+log = logging.getLogger("subdownloader.OSDBServer")
+
 from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
@@ -418,6 +420,7 @@ class OSDBServer(object):
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
                         self.log.debug("- %s"% video.getHash())
+
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
@@ -426,8 +429,13 @@ class OSDBServer(object):
                             sub.setLanguageXX(i["ISO639"]) 
                             sub.setLanguageName(i["LanguageName"]) 
                             sub.setRating(i["SubRating"])
+                            sub.setUploader(i["UserNickName"])
+                            
                             self.log.debug("  [%s] - %s"%  (sub.getLanguage(), sub.getFileName()))
                             subtitles.append(sub)
+                            
+                        #Let's get the IMDB info which is majority in the subtitles
+                        video.setMovieInfo(self.getBestImdbInfo(osdb_info))
                         video.setOsdbInfo(osdb_info)
                         video.setSubtitles(subtitles)
                     videos_result.append(video)
@@ -444,7 +452,23 @@ class OSDBServer(object):
     #
     # VIDEO METHODS 
     #
-        
+    
+    def getBestImdbInfo(self, subs ):
+            movies_imdb = []
+            for sub in subs:
+                movies_imdb.append(sub["IDMovieImdb"])
+            best_imdb = movies_imdb[0] #FIXME: get the imdb that appears the most in that array
+            for sub in subs:
+                if sub["IDMovieImdb"] == best_imdb:
+                    log.debug("getBestImdbInfo = %s" % best_imdb)
+                    return {"IDMovieImdb":sub["IDMovieImdb"], 
+                                    "MovieName":sub["MovieName"], 
+                                    "MovieNameEng":sub["MovieNameEng"], 
+                                    "MovieYear":sub["MovieYear"], 
+                                    "MovieImdbRating":sub["MovieImdbRating"],
+                                    "MovieImdbRating":sub["MovieImdbRating"] }
+            return {}
+                    
     def SearchToMail(self, videos, languages):
         SearchToMail = TimeoutFunction(self._SearchToMail)
         try:

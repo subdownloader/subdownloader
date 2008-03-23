@@ -83,17 +83,38 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.FontRole:
           return QVariant(QFont('Arial', 10, QFont.Bold))
-          
+        
+        movie_info = data.getMovieInfo()
+        if role == QtCore.Qt.DecorationRole:
+            if(movie_info):
+                #TODO: Show this icon bigger.
+                return QVariant(QIcon(':/images/imdb.jpg'))
+            else:
+                return QVariant()
+            
         if role == QtCore.Qt.DisplayRole:
-            return QVariant(data.getFileName())
+            if(movie_info):
+                #The ENGLISH Movie Name is priority, if not shown, then we show the original name.
+                if movie_info["MovieNameEng"]:
+                    movieName = movie_info["MovieNameEng"]
+                else:
+                    movieName = movie_info["MovieName"]
+                info = "%s [%s] [IMDB rate=%s]" %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"])
+                return QVariant(info)
+            else:
+                 return QVariant(data.getFileName())
+           
             
         return QVariant()
-
+#TODO: When user SELECT some subtitle, CHECK/UNCHECK its checkbox automatically
   def flags(self, index):
     if not index.isValid():
       return Qt.ItemIsEnabled
-
-    return Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
+    data = index.internalPointer().data
+    if type(data)  == SubtitleFile: #It's a SUBTITLE treeitem.
+        return Qt.ItemIsSelectable |Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
+    else: #It's a VIDEO treeitem.
+        return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
 
   def setData (self, index, value, role):
         #When user click to check the subtitle
@@ -114,9 +135,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
       for video in self.root.children:
           for subtitle in video.children:
                 if subtitle.checked:
-                    log.debug("Checked = " + subtitle.data.getFileName() )
                     checkedSubs.append(subtitle.data)
-      log.debug("Getting Checked Subtitles, total = %d" % len(checkedSubs))
 
       return checkedSubs
   def headerData(self, section, orientation, role):

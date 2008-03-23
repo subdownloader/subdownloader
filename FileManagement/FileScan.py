@@ -21,7 +21,7 @@ from subdownloader.FileManagement import get_extension, clear_string, without_ex
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
-from subdownloader.modules import terminal
+#from subdownloader.modules import terminal
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
@@ -31,14 +31,15 @@ def FakeProgress(count,msg=""):
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
 def ScanFolder(folderpath,recursively = True,report_progress=None):    
     #Let's reset the progress bar to 0%
+    log.debug("Scanning Folder %s" % folderpath)
     if report_progress == None:
         report_progress = FakeProgress
     
     #Let's reset the progress bar to 0%
     report_progress(0)
-    #cli
-    term = terminal.TerminalController()
-    progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
+    #FIXME: Marco you need to fix the terminal import.
+    #term = terminal.TerminalController()
+    #progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
     
     parser = RecursiveParser.RecursiveParser()
     files_found = []
@@ -62,8 +63,8 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             videos_found.append(videofile.VideoFile(filepath))
             count += percentage
             report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
-            progress.update(float(i)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
-    progress.reset()
+            #progress.update(float(i)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
+    #progress.reset()
     report_progress(0)
     
     #Scanning Subs
@@ -77,8 +78,8 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
             report_progress(count,"Hashing sub: " + os.path.basename(filepath))
-            progress.update(float(i)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
-    progress.clear()
+            #progress.update(float(i)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
+    #progress.clear()
     report_progress(100,"Finished hashing")
     #log.info('ACABOU')
         
