@@ -28,157 +28,157 @@ import glob
 nb_ngrams = 400
 
 class _NGram:
-	def __init__ (self,arg={}):
-		t = type(arg)
-		if t == type(""):
-			self.addText(arg)
-			self.normalise()
-		elif t == type({}):
-			self.ngrams = arg
-			self.normalise()
-		else:
-			self.ngrams = dict()
+    def __init__ (self,arg={}):
+        t = type(arg)
+        if t == type(""):
+            self.addText(arg)
+            self.normalise()
+        elif t == type({}):
+            self.ngrams = arg
+            self.normalise()
+        else:
+            self.ngrams = dict()
 
-	def addText (self,text):
-		ngrams = dict()
-		
-		text = text.replace('\n',' ')
-		text = re.sub('\s+',' ',text)
-		words = text.split(' ')
+    def addText (self,text):
+        ngrams = dict()
+        
+        text = text.replace('\n',' ')
+        text = re.sub('\s+',' ',text)
+        words = text.split(' ')
 
-		for word in words:
-			word = '_'+word+'_'
-			size = len(word)
-			for i in xrange(size):
-				for s in (1,2,3,4):
-					sub = word[i:i+s]
-					#print "[",sub,"]"
-					if not ngrams.has_key(sub):
-						ngrams[sub] = 0
-					ngrams[sub] += 1
+        for word in words:
+            word = '_'+word+'_'
+            size = len(word)
+            for i in xrange(size):
+                for s in (1,2,3,4):
+                    sub = word[i:i+s]
+                    #print "[",sub,"]"
+                    if not ngrams.has_key(sub):
+                        ngrams[sub] = 0
+                    ngrams[sub] += 1
 
-					if i+s >= size:
-						break
-		self.ngrams = ngrams
-		return self
+                    if i+s >= size:
+                        break
+        self.ngrams = ngrams
+        return self
 
-	def sorted (self):
-		sorted = [(self.ngrams[k],k) for k in self.ngrams.keys()]
-		sorted.sort()
-		sorted.reverse()
-		sorted = sorted[:nb_ngrams]
-		return sorted
+    def sorted (self):
+        sorted = [(self.ngrams[k],k) for k in self.ngrams.keys()]
+        sorted.sort()
+        sorted.reverse()
+        sorted = sorted[:nb_ngrams]
+        return sorted
 
-	def normalise (self):
-		count = 0
-		ngrams = dict()
-		for v,k in self.sorted():
-			ngrams[k] = count
-			count += 1
+    def normalise (self):
+        count = 0
+        ngrams = dict()
+        for v,k in self.sorted():
+            ngrams[k] = count
+            count += 1
 
-		self.ngrams = ngrams
-		return self
+        self.ngrams = ngrams
+        return self
 
-	def addValues (self,key,value):
-		self.ngrams[key] = value
-		return self
+    def addValues (self,key,value):
+        self.ngrams[key] = value
+        return self
 
-	def compare (self,ngram):
-		d = 0
-		ngrams = ngram.ngrams
-		for k in self.ngrams.keys():
-			if ngrams.has_key(k):
-				d += abs(ngrams[k] - self.ngrams[k])
-			else:
-				d += nb_ngrams
-		return d
+    def compare (self,ngram):
+        d = 0
+        ngrams = ngram.ngrams
+        for k in self.ngrams.keys():
+            if ngrams.has_key(k):
+                d += abs(ngrams[k] - self.ngrams[k])
+            else:
+                d += nb_ngrams
+        return d
 
 class NGram:
-	def __init__ (self,folder,ext='.lm'):
-		self.ngrams = dict()
-		folder = os.path.join(folder,'*'+ext)
-		size = len(ext) 
-		count = 0
-		
-		for fname in glob.glob(os.path.normcase(folder)):
-			count += 1
-			lang = os.path.split(fname)[-1][:-size]
-			ngrams = dict()
-			file = open(fname,'r')
-		
-			for line in file.readlines():
-				parts = line[:-1].split('\t ')
-				if len(parts) != 2:
-					raise ValueError("invalid language file %s line : %s" % (fname,parts))
-				try:
-					ngrams[parts[0]] = int(parts[1])
-				except KeyboardInterrupt:
-					raise
-				except:
-					raise ValueError("invalid language file %s line : %s" % (fname,parts))
-					
-			if len(ngrams.keys()):
-				self.ngrams[lang] = _NGram(ngrams)
-			
-			file.close()
-	
-		if not count:
-			raise ValueError("no language files found")
+    def __init__ (self,folder,ext='.lm'):
+        self.ngrams = dict()
+        folder = os.path.join(folder,'*'+ext)
+        size = len(ext) 
+        count = 0
+        
+        for fname in glob.glob(os.path.normcase(folder)):
+            count += 1
+            lang = os.path.split(fname)[-1][:-size]
+            ngrams = dict()
+            file = open(fname,'r')
+        
+            for line in file.readlines():
+                parts = line[:-1].split('\t ')
+                if len(parts) != 2:
+                    raise ValueError("invalid language file %s line : %s" % (fname,parts))
+                try:
+                    ngrams[parts[0]] = int(parts[1])
+                except KeyboardInterrupt:
+                    raise
+                except:
+                    raise ValueError("invalid language file %s line : %s" % (fname,parts))
+                    
+            if len(ngrams.keys()):
+                self.ngrams[lang] = _NGram(ngrams)
+            
+            file.close()
+    
+        if not count:
+            raise ValueError("no language files found")
 
-	def classify (self,text):
-		ngram = _NGram(text)
-		r = 'guess'
+    def classify (self,text):
+        ngram = _NGram(text)
+        r = 'guess'
 
-		langs = self.ngrams.keys()
-		r = langs.pop()
-		min = self.ngrams[r].compare(ngram)
+        langs = self.ngrams.keys()
+        r = langs.pop()
+        min = self.ngrams[r].compare(ngram)
 
-		for lang in langs:
-			d = self.ngrams[lang].compare(ngram)
-			if d < min:
-				min = d
-				r = lang
+        for lang in langs:
+            d = self.ngrams[lang].compare(ngram)
+            if d < min:
+                min = d
+                r = lang
 
-		return min,r
+        return min,r
 
 class Generate:
-	def __init__ (self,folder,ext='.txt'):
-		self.ngrams = dict()
-		folder = os.path.join(folder,'*'+ext)
-		size = len(ext)
-		count = 0
-		
-		for fname in glob.glob(os.path.normcase(folder)):
-			count += 1
-			lang = os.path.split(fname)[-1][:-size]
-			n = _NGram()
-			
-			file = open(fname,'r')
-			for line in file.readlines():
-				n.addText(line)
-			file.close()
-				
-			n.normalise()
-			self.ngrams[lang] = n
-			
-	def save (self,folder,ext='.lm'):
-		for lang in self.ngrams.keys():
-			fname = os.path.join(folder,lang+ext)
-			file = open(fname,'w')
-			for v,k in self.ngrams[lang].sorted():
-				file.write("%s\t %d\n" % (k,v))
-			file.close()
+    def __init__ (self,folder,ext='.txt'):
+        self.ngrams = dict()
+        folder = os.path.join(folder,'*'+ext)
+        size = len(ext)
+        count = 0
+        
+        for fname in glob.glob(os.path.normcase(folder)):
+            count += 1
+            lang = os.path.split(fname)[-1][:-size]
+            n = _NGram()
+            
+            file = open(fname,'r')
+            for line in file.readlines():
+                n.addText(line)
+            file.close()
+                
+            n.normalise()
+            self.ngrams[lang] = n
+            
+    def save (self,folder,ext='.lm'):
+        for lang in self.ngrams.keys():
+            fname = os.path.join(folder,lang+ext)
+            file = open(fname,'w')
+            for v,k in self.ngrams[lang].sorted():
+                file.write("%s\t %d\n" % (k,v))
+            file.close()
 
 #if __name__ == '__main__':
-	#import sys
-	#import globals
-	## Should you want to generate your own .lm files
-	##conf = Generate('/tmp')
-	##conf.save('/tmp')
+    #import sys
+    #import globals
+    ## Should you want to generate your own .lm files
+    ##conf = Generate('/tmp')
+    ##conf.save('/tmp')
 
-	#text = file(os.path.join(globals.sourcefolder,'tests_subs/english_tags.srt'),mode='rb').read()
-	#text = globals.CleanTagsFile(text)
-	#n = _NGram()
-	#l = NGram(os.path.join(globals.sourcefolder,'lm'))
-	#percentage, lang = l.classify(text)
-	#print percentage,lang
+    #text = file(os.path.join(globals.sourcefolder,'tests_subs/english_tags.srt'),mode='rb').read()
+    #text = globals.CleanTagsFile(text)
+    #n = _NGram()
+    #l = NGram(os.path.join(globals.sourcefolder,'lm'))
+    #percentage, lang = l.classify(text)
+    #print percentage,lang

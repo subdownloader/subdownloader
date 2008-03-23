@@ -135,7 +135,7 @@ def AutoDetectLang(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         Languages.CleanTagsFile(subtitle_content)
         n = autodetect_lang._NGram()
-        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'lm'))
+        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
         percentage, lang = l.classify(subtitle_content)
         pos = lang.rfind("-")
         if pos != -1:
@@ -146,6 +146,6 @@ def AutoDetectLang(filepath):
         return ""
         
 def isSubtitle(filepath):
-    if get_extension(filepath) in SUBTITLES_EXT:
+    if get_extension(filepath) in subtitlefile.SUBTITLES_EXT:
         return True
     return False

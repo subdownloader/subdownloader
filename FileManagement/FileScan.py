@@ -37,7 +37,8 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     
     #Let's reset the progress bar to 0%
     report_progress(0)
-    #FIXME: Marco you need to fix the terminal import.
+    #TODO: pass this progressbar as argument do ScanFolder
+    #cli progress bar
     term = terminal.TerminalController()
     progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
     

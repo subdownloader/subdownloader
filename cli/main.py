@@ -127,4 +127,6 @@ class Main(OSDBServer.OSDBServer):
                     self.log.debug("Match found: %s"% sub_match.getFileName())
                     break
             if sub_match:
+                sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
+                sub_match.setLanguage(sub_lang[:3])
                 video.addSubtitle(sub_match)

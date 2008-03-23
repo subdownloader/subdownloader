@@ -14,7 +14,9 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, StringIO, gzip, httplib, os, signal
+import base64, httplib, os, signal
+#import StringIO, gzip
+import zlib
 import logging
 
 log = logging.getLogger("subdownloader.OSDBServer")
@@ -592,26 +594,27 @@ class OSDBServer(object):
                         curr_video = video
                         curr_sub = curr_video.getSubtitles()[0]
                         # cook subtitle content
-                        f = open(curr_sub.getFilePath())
-                        buf = f.read()
-                        f.close()
-                        compressed_buf = StringIO.StringIO()
-                        gzipper = gzip.GzipFile(fileobj=compressed_buf, mode='wb')
-                        gzipper.write(buf); gzipper.close()
-                        print dir(compressed_buf)
-                        compressed_buf = compressed_buf.buf
-                        print compressed_buf
-                        encoded_buf = base64.encodestring(compressed_buf)
-                        curr_sub_content = encoded_buf
+                        self.log.debug("Compressing subtitle...")
+                        buf = open(curr_sub.getFilePath()).read()
+                        curr_sub_content = base64.encodestring(zlib.compress(buf))
+                        
                         #curr_cd = {'cd': 'cd%s'%i, 'content': {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': None} }
                         # transfer info
                         movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
                         break
                         
-            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': details['SubAuthorComment']}
+            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': "Another great upload with Subdownloader2.0"} #details['SubAuthorComment']}
             
-            print movie_info
-            #info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
+            #print movie_info
+            self.log.info("Uploading subtitle...")
+            info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
+            self.log.debug("Upload finished in %s with status %s."% (info['seconds'], info['status']))
+            if info['status'] == "200 OK":
+                self.log.info("Subtitle download URL: %s"% info['data'])
+                self.log.debug("----------------")
+                return True
+            self.log.debug("----------------")
+            return False
         
     def ReportWrongMovieHash(self, subtitle_id):
         ReportWrongMovieHash = TimeoutFunction(self._ReportWrongMovieHash)
