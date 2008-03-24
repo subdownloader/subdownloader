@@ -159,7 +159,7 @@ def subtitle_name_gen(video_filename, extension=".srt"):
             video_name = without_extension(video_filename.getFileName())
             
     if video_name:
-        sub_name = video_filename + extension
+        sub_name = video_name + extension
         return sub_name
     else:
         log.debug("No video name to generate subtitle file name")
