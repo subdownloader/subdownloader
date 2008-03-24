@@ -27,17 +27,11 @@ from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
-from subdownloader.gui import installErrorHandler, Error, _Warning, \
-                          extension
-from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
-from subdownloader.gui.videolistview import VideoListModel, VideoListView
-from subdownloader.gui.sublistview import SubListModel, SubListView
-from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
+from subdownloader.gui import installErrorHandler, Error, _Warning, extension
 
-from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 
+#from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videotreeview import VideoTreeModel
-from subdownloader.gui.subosdblistview import SubOsdbListModel, SubOsdbListView
 
 from subdownloader.gui.main_ui import Ui_MainWindow
 import subdownloader.FileManagement.FileScan as FileScan
