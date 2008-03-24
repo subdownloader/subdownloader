@@ -461,7 +461,11 @@ class OSDBServer(object):
             movies_imdb = []
             for sub in subs:
                 movies_imdb.append(sub["IDMovieImdb"])
-            best_imdb = movies_imdb[0] #FIXME: get the imdb that appears the most in that array
+            _best_imdb = {'imdb': None, 'count': 0}
+            for imdb in movies_imdb:
+                if movies_imdb.count(imdb) > _best_imdb['count']:
+                    _best_imdb = {'imdb': imdb, 'count': movies_imdb.count(imdb)}
+            best_imdb = _best_imdb['imdb']
             for sub in subs:
                 if sub["IDMovieImdb"] == best_imdb:
                     self.log.debug("getBestImdbInfo = %s" % best_imdb)
