@@ -446,6 +446,7 @@ class OSDBServer(object):
                 return videos_result
                 
             elif imdb_ids:
+                #TODO: search with IMDB id's
                 pass
             
         else:
@@ -463,7 +464,7 @@ class OSDBServer(object):
             best_imdb = movies_imdb[0] #FIXME: get the imdb that appears the most in that array
             for sub in subs:
                 if sub["IDMovieImdb"] == best_imdb:
-                    log.debug("getBestImdbInfo = %s" % best_imdb)
+                    self.log.debug("getBestImdbInfo = %s" % best_imdb)
                     return {"IDMovieImdb":sub["IDMovieImdb"], 
                                     "MovieName":sub["MovieName"], 
                                     "MovieNameEng":sub["MovieNameEng"], 
@@ -617,6 +618,9 @@ class OSDBServer(object):
                 return True
             self.log.debug("----------------")
             return False
+            
+        else:
+            pass
         
     def ReportWrongMovieHash(self, subtitle_id):
         ReportWrongMovieHash = TimeoutFunction(self._ReportWrongMovieHash)
