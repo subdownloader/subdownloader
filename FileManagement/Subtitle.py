@@ -14,6 +14,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import re, os, logging
+import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
 from subdownloader.languages import Languages, autodetect_lang
@@ -143,6 +144,25 @@ def AutoDetectLang(filepath):
         else:
             return lang
     else:
+        return ""
+        
+def subtitle_name_gen(video_filename, extension=".srt"):
+    """Generates a subtitle file name given the video file name
+    """
+    video_name = ""
+    sub_name = ""
+    if isinstance(video_filename, str):
+        if get_extension(video_filename) in videofile.VIDEOS_EXT:
+            video_name = without_extension(video_filename)
+    elif isinstance(video_filename, videofile):
+        if get_extension(video_filename.getFileName()) in videofile.VIDEOS_EXT:
+            video_name = without_extension(video_filename.getFileName())
+            
+    if video_name:
+        sub_name = video_filename + extension
+        return sub_name
+    else:
+        log.debug("No video name to generate subtitle file name")
         return ""
         
 def isSubtitle(filepath):

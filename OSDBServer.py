@@ -336,7 +336,9 @@ class OSDBServer(object):
                     self.log.debug("Subtitle choosen by rating")
                     sub_choice = best_rated_sub
                 self.log.debug("- adding: %s"% (sub_choice.getFileName()))
-                subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
+                #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
+                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
+                subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
             
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
@@ -575,7 +577,8 @@ class OSDBServer(object):
         elif check_result['alreadyindb']:
             self.log.info("Subtitle already exists in server database. Stopping upload.")
             return False
-        else:
+        elif check_result['data']:
+            #TODO: make this to work with non-hashed subtitles (no 'data' to handle)
             # quick check to see if all video/subtitles are from same movie
             for movie_sub in check_result['data']:
                 if locals().has_key('IDMovie'):
