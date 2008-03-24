@@ -15,8 +15,7 @@
 
 from xmlrpclib import Transport,ServerProxy
 import base64, httplib, os, signal
-#import StringIO, gzip
-import zlib
+import StringIO, gzip, zlib
 import logging
 
 log = logging.getLogger("subdownloader.OSDBServer")

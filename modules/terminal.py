@@ -196,6 +196,9 @@ class ProgressBar:
             
     def reset(self):
         self.update(0, '')
+        
+    def end(self):
+        print "\n"
             
         
 if __name__=='__main__':

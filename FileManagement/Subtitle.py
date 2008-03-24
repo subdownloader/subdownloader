@@ -42,9 +42,9 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                 sub_list.index(possiblefilenamesrt)
                 return possiblefilenamesrt
             except ValueError, e:
-                log.error(e)
+                log.debug(e)
             except AttributeError, e:
-                log.error(e)
+                log.debug(e)
         elif os.path.exists(possiblefilenamesrt):
             return possiblefilenamesrt
  

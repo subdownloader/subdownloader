@@ -64,7 +64,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             videos_found.append(videofile.VideoFile(filepath))
             count += percentage
             report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
-            progress.update(float(i)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
+            progress.update(float(i+1)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
     progress.reset()
     report_progress(0)
     
@@ -79,8 +79,8 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
             report_progress(count,"Hashing sub: " + os.path.basename(filepath))
-            progress.update(float(i)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
-    progress.clear()
+            progress.update(float(i+1)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
+    progress.end()
     report_progress(100,"Finished hashing")
     #log.info('ACABOU')
         

@@ -16,6 +16,7 @@
 import logging
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
+from subdownloader.modules import terminal
 import videofile, subtitlefile
 
 class Main(OSDBServer.OSDBServer):
@@ -115,8 +116,15 @@ class Main(OSDBServer.OSDBServer):
             return -1
             
     def do_matching(self, videos, subtitles):
-        for video in videos:
+        if self.options.logging > logging.DEBUG:
+                term = terminal.TerminalController()
+                progress = terminal.ProgressBar(term, 'Matching %i videos with %i subtitles'% (len(videos), len(subtitles)))
+
+        for i, video in enumerate(videos):
+            if self.options.logging > logging.DEBUG:
+                progress.update(float(i+1)/len(videos), "Processing %s..."% video.getFileName())
             self.log.debug("Processing %s..."% video.getFileName())
+            
             possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
             #self.log.debug("possible subtitle is: %s"% possible_subtitle)
             sub_match = None
@@ -124,9 +132,17 @@ class Main(OSDBServer.OSDBServer):
                 sub_match = None
                 if possible_subtitle == subtitle.getFilePath():
                     sub_match = subtitle
+                    if self.options.logging > logging.DEBUG:
+                        progress.update(float(i+1)/len(videos), "Match found: %s"% sub_match.getFileName())
                     self.log.debug("Match found: %s"% sub_match.getFileName())
                     break
             if sub_match:
+                if self.options.logging > logging.DEBUG:
+                    progress.update(float(i+1)/len(videos), "Auto-detecting language of %s..."% sub_match.getFileName())
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
+                if self.options.logging > logging.DEBUG:
+                    progress.update(float(i+1)/len(videos), "Setting language to %s..."% sub_lang[:3])
                 sub_match.setLanguage(sub_lang[:3])
                 video.addSubtitle(sub_match)
+        if self.options.logging > logging.DEBUG:
+            progress.end()
