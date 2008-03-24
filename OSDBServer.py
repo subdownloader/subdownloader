@@ -623,8 +623,6 @@ class OSDBServer(object):
             self.log.debug("----------------")
             return False
             
-        else:
-            pass
         
     def ReportWrongMovieHash(self, subtitle_id):
         ReportWrongMovieHash = TimeoutFunction(self._ReportWrongMovieHash)
