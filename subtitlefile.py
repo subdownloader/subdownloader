@@ -27,6 +27,7 @@ class SubtitleFile(object):
 
     def __init__(self, online, id):
         self._language = None
+        self._video = None
         if online:
             self._online = True
             self._id_online = id
@@ -44,6 +45,12 @@ class SubtitleFile(object):
     
     def getFileName(self):
         return self._filename
+    
+    def setVideo(self, _video):
+        self._video = _video
+        
+    def getVideo(self):
+        return self._video 
         
     def setUploader(self,uploader):
         self._uploader = uploader

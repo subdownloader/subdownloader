@@ -142,7 +142,7 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
-        #self.SearchVideos('/media/data/videos/downloaded/')
+        self.SearchVideos('/media/data/videos/downloaded/')
     
     
     def subtitlesCheckedChanged(self):
@@ -216,40 +216,28 @@ class Main(QObject, Ui_MainWindow):
         video = self.videoModel.getSelectedItem().data
         movie_info = video.getMovieInfo()
         if movie_info:
-            print "Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"]
+            QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
             
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
-        subs = self.videoModel.getCheckedSubtitles()
-        return 
-        #Let's detect which subtitles the user want to download
-        rows = frozenset([ index.row() for index in self.subs_osdb_view.selectedIndexes()])
-        if not len(rows):
-            QMessageBox.about(self.window,"Error","You need to select 1 or more subtitles to download")
-        else:
-            
-            percentage = 100/len(rows)
+            subs = self.videoModel.getCheckedSubtitles()
+            percentage = 100/len(subs)
             count = 0
             self.status("Connecting to download...")
-            for row in rows:
-                sub = self.subs_osdb_model.getSubFromRow(row)
-                id_online = sub.getIdOnline()
-                sub_filename = sub.getFileName()
-                self.progress(count,"Downloading subtitle... "+id_online)
+            for sub in subs:
+                self.progress(count,"Downloading subtitle... "+sub.getIdOnline())
                 count += percentage
+                destinationPath = os.path.join(sub.getVideo().getFolderPath(),sub.getFileName())
+                log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
-                    #This effect causes the progress bar turn all sides
-                    destinationpath = os.path.join(destinationfolder,sub_filename)
-                    print destinationpath
-                    videos_result = self.OSDBServer.DownloadSubtitle(id_online,destinationpath)
+                    videos_result = self.OSDBServer.DownloadSubtitle(sub.getIdOnline(),destinationPath)
                 except Exception, e: 
+                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getIdOnline())
                     traceback.print_exc(e)
-                    qFatal("Unable to download subtitle "+id_online)
-        
+
             self.status("Subtitles downloaded succesfully.")
             self.progress(100)
-        
-    
+
     def videos_leftclicked(self, index):
         if index.isValid():
             subs = self.video_model.getSubsFromIndex(index.row())

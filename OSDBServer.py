@@ -433,6 +433,7 @@ class OSDBServer(object):
                             sub.setLanguageName(i["LanguageName"]) 
                             sub.setRating(i["SubRating"])
                             sub.setUploader(i["UserNickName"])
+                            sub.setVideo(video)
                             
                             self.log.debug("  [%s] - %s"%  (sub.getLanguage(), sub.getFileName()))
                             subtitles.append(sub)
@@ -452,7 +453,76 @@ class OSDBServer(object):
         else:
             self.log.info("No subtitles were found on Opensubtitles.com")
             return []
+        
+    #
+    # VIDEO METHODS 
+    #
+    
+    def getBestImdbInfo(self, subs ):
+            movies_imdb = []
+            for sub in subs:
+                movies_imdb.append(sub["IDMovieImdb"])
             
+            max_times = 0
+            best_imdb = ""
+            for imdb in frozenset(movies_imdb):
+                    times = movies_imdb.count(imdb)
+                    if max_times < times:
+                        best_imdb = imdb
+                        max_times = times
+
+            for sub in subs:
+                if sub["IDMovieImdb"] == best_imdb:
+                    log.debug("getBestImdbInfo = %s" % sub["MovieName"])
+                    return {"IDMovieImdb":sub["IDMovieImdb"], 
+                                    "MovieName":sub["MovieName"], 
+                                    "MovieNameEng":sub["MovieNameEng"], 
+                                    "MovieYear":sub["MovieYear"], 
+                                    "MovieImdbRating":sub["MovieImdbRating"],
+                                    "MovieImdbRating":sub["MovieImdbRating"] }
+            return {}
+                    
+    def SearchToMail(self, videos, languages):
+        SearchToMail = TimeoutFunction(self._SearchToMail)
+        try:
+            return SearchToMail(languages)
+        except TimeoutFunctionException:
+            self.log.error("SearchToMail timed out")
+        
+    def _SearchToMail(self, videos, languages):
+        """Register user email to be noticed when given video subtitles are available to download
+        @videos: video objects - list
+        @languages: language id codes - list
+        """
+        self.log.debug("----------------")
+        self.log.debug("SearchToMail RPC method starting...")
+        video_array = []
+        for video in videos:
+            array = {'moviehash': video.getHash(), 'moviesize': video.getSize()}
+            video_array.append(array)
+        info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
+        self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
+        
+    def CheckMovieHash(self, hashes):
+        CheckMovieHash = TimeoutFunction(self._CheckMovieHash)
+        try:
+            return CheckMovieHash(hashes)
+        except TimeoutFunctionException:
+            self.log.error("CheckMovieHash timed out")
+        
+    def _CheckMovieHash(self, hashes):
+        """Return MovieImdbID, MovieName, MovieYear for each hash
+        @hashes - movie hashes - list
+        """
+        self.log.debug("----------------")
+        self.log.debug("CheckMovieHash RPC method starting...")
+        info = self.xmlrpc_server.CheckMovieHash(self._token, hashes)
+        self.log.debug("CheckMovieHash ended in %s. Processing data..."% info['seconds'])
+        result = {}
+        for hash in hashes:
+            result[hash] = info['data'][hash]
+        return result
+        
     def TryUploadSubtitles(self, videos):
         TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)
         try:
