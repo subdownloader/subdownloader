@@ -83,8 +83,8 @@ class Main(OSDBServer.OSDBServer):
                 
     def handle_operation(self, operation):
         if operation == "download":
-            filter = filter.Filter(self.videos)
-            self.DownloadSubtitles(filter.subtitles_to_download())
+            _filter = filter.Filter(self.videos)
+            self.DownloadSubtitles(_filter.subtitles_to_download())
             
         elif operation == "upload":
             self.UploadSubtitles(self.videos)
