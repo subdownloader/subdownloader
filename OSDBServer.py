@@ -300,46 +300,18 @@ class OSDBServer(object):
         except TimeoutFunctionException:
             self.log.error("DownloadSubtitles timed out")
     
-    def _DownloadSubtitles(self, videos):
+    def _DownloadSubtitles(self, subtitles):
         """
         Download subtitles by there id's
         
-        @sub_ids: list of subtitle id's
-        @dest: path to save subtitles in string format
+        @subtitles: dictionary with subtitle id's and their path - { id: "path_to_save", ...}
         Returns: BASE64 encoded gzipped !IDSubtitleFile(s). You need to BASE64 decode and ungzip 'data' to get its contents.
         """
         self.log.debug("----------------")
         self.log.debug("DownloadSubtitles RPC method starting...")
-        subtitles_to_download ={}
-        self.log.debug("Building subtitle matrix...")
-        for video in videos:
-            if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
-                subtitle = video.getOneSubtitle()
-                self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
-                subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
-            elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
-                #TODO: give user the list of subtitles to choose from
-                # set a starting point to compare scores
-                best_rated_sub = video.getOnlineSubtitles()[0]
-                # iterate over all subtitles
-                subpath_list = {}
-                for sub in video.getOnlineSubtitles():
-                    subpath_list[sub.getIdOnline()] = sub
-                    if sub.getRating() > best_rated_sub.getRating():
-                        best_rated_sub = sub
-                #compare video name with subtitles name to find best match
-                sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
-                if sub_match:
-                    self.log.debug("Subtitle choosen by match")
-                    sub_choice = subpath_list[sub_match]
-                else:
-                    self.log.debug("Subtitle choosen by rating")
-                    sub_choice = best_rated_sub
-                self.log.debug("- adding: %s"% (sub_choice.getFileName()))
-                #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
-                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
-                subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
-            
+        
+        subtitles_to_download = subtitles
+        
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
             answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
@@ -347,26 +319,17 @@ class OSDBServer(object):
             if answer.has_key("data"):
                 self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
-                    self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
+                    #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
                     subtitle_compressed = sub['data']
                     compressedstream = base64.decodestring(subtitle_compressed)
                     #compressedstream = subtitle_compressed
                     gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
                     s=gzipper.read()
                     gzipper.close()
-                    subtitle_file = file(subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'],'wb')
+                    subtitle_file = file(subtitles_to_download[sub['idsubtitlefile']],'wb')
                     subtitle_file.write(s)
                     subtitle_file.close()
-                    if subtitles_to_download[sub['idsubtitlefile']]['video'].hasNOSSubtitles():
-                        self.log.info("Deleting old subtitle...")
-                        for sub in subtitles_to_download[sub['idsubtitlefile']]['video'].getNOSSubtitles():
-                            try:
-                                os.remove(sub.getFilePath())
-                                subtitles_to_download[sub['idsubtitlefile']]['video'].remNOSSubtitle(sub)
-                            except Exception, e:
-                                self.log.error(e)
-                                self.log.error("Unable to delete %r"% sub.getFilePath())
-                return True
+                return answer['data']
             else:
                 self.log.info("Server sent no subtitles to me.")
                 return False

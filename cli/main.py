@@ -16,7 +16,7 @@
 import logging
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader.modules import terminal
+from subdownloader.modules import terminal, filter
 import videofile, subtitlefile
 
 class Main(OSDBServer.OSDBServer):
@@ -83,7 +83,8 @@ class Main(OSDBServer.OSDBServer):
                 
     def handle_operation(self, operation):
         if operation == "download":
-            self.DownloadSubtitles(self.videos)
+            filter = filter.Filter(self.videos)
+            self.DownloadSubtitles(filter.subtitles_to_download())
             
         elif operation == "upload":
             self.UploadSubtitles(self.videos)

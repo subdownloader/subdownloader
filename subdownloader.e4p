@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-25, 00:16:33 -->
+<!-- Saved: 2008-03-26, 17:43:15 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -115,6 +115,10 @@
     <Source>
       <Dir>modules</Dir>
       <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>filter.py</Name>
     </Source>
   </Sources>
   <Forms>
