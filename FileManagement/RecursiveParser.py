@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Python is a feature-rich language and it can also be extended via libraries.  In
 # this file, we need to include functionality inside the "os" library module.  We
 # include this library by typing "import os"

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/475116
 
 import sys, re

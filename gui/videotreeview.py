@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from PyQt4.QtCore import Qt, SIGNAL
 import PyQt4.QtCore as QtCore
 from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
