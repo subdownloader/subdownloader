@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Mar 23 15:48:41 2008
+# Created: Thu Mar 27 22:32:08 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,792,579).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,792,578).size()).expandedTo(MainWindow.minimumSizeHint()))
         MainWindow.setWindowIcon(QtGui.QIcon(":/images/logo.png"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -223,13 +222,13 @@ class Ui_MainWindow(object):
         self.hboxlayout3.addWidget(self.toolButton)
         self.vboxlayout7.addLayout(self.hboxlayout3)
 
-        self.upload_view = UploadListView(self.layoutWidget)
-        self.upload_view.setAcceptDrops(True)
-        self.upload_view.setDragEnabled(True)
-        self.upload_view.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
-        self.upload_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        self.upload_view.setObjectName("upload_view")
-        self.vboxlayout7.addWidget(self.upload_view)
+        self.uploadView = UploadListView(self.layoutWidget)
+        self.uploadView.setAcceptDrops(True)
+        self.uploadView.setDragEnabled(True)
+        self.uploadView.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
+        self.uploadView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.uploadView.setObjectName("uploadView")
+        self.vboxlayout7.addWidget(self.uploadView)
 
         self.groupBox = QtGui.QGroupBox(self.splitter_2)
         self.groupBox.setObjectName("groupBox")

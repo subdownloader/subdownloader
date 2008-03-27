@@ -296,10 +296,10 @@ class OSDBServer(object):
 #            result[data.key()] = data.value()
         return result
     
-    def DownloadSubtitles(self, videos):
+    def DownloadSubtitles(self, subtitles):
         DownloadSubtitles = TimeoutFunction(self._DownloadSubtitles)
         try:
-            return DownloadSubtitles(videos)
+            return DownloadSubtitles(subtitles)
         except TimeoutFunctionException:
             self.log.error("DownloadSubtitles timed out")
     
@@ -329,7 +329,8 @@ class OSDBServer(object):
                     gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
                     s=gzipper.read()
                     gzipper.close()
-                    subtitle_file = file(subtitles_to_download[sub['idsubtitlefile']],'wb')
+                    path_to_save = subtitles_to_download[sub['idsubtitlefile']]
+                    subtitle_file = file(path_to_save,'wb')
                     subtitle_file.write(s)
                     subtitle_file.close()
                 return answer['data']

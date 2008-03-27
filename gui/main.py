@@ -33,7 +33,7 @@ from subdownloader.OSDBServer import OSDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, extension
 
 
-#from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
+from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videotreeview import VideoTreeModel
 
 from subdownloader.gui.main_ui import Ui_MainWindow
@@ -177,20 +177,25 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.expandAll() #This was a solution found to refresh the treeView
         #Searching our videohashes in the OSDB database
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-        
-        self.status("Asking Database...")
-        #This effect causes the progress bar turn all sides
-        self.status_progress.setMinimum(0)
-        self.status_progress.setMaximum(0)
-        
-        self.window.setCursor(Qt.WaitCursor)
-        videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
-        self.videoModel.clearTree()
-        self.videoModel.setVideos(videoSearchResults)
-        self.videoView.expandAll() #This was a solution found to refresh the treeView
-
-        self.progress(100)
-        self.status_progress.setFormat("Search finished")
+        if(videos_found):
+            self.status("Asking Database...")
+            #This effect causes the progress bar turn all sides
+            self.status_progress.setMinimum(0)
+            self.status_progress.setMaximum(0)
+            
+            self.window.setCursor(Qt.WaitCursor)
+            videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+            if(videoSearchResults):
+                self.videoModel.clearTree()
+                self.videoModel.setVideos(videoSearchResults)
+                self.videoView.expandAll() #This was a solution found to refresh the treeView
+            elif videoSearchResults == None :
+                QMessageBox.about(self.window,"Error","Server is not responding. Please try again later")
+            self.progress(100)
+            self.status_progress.setFormat("Search finished")
+        else:
+            self.progress(100)
+            self.status_progress.setFormat("No videos founded")
     
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: check if the subtitle found is already in our folder.
@@ -233,7 +238,7 @@ class Main(QObject, Ui_MainWindow):
                 destinationPath = os.path.join(sub.getVideo().getFolderPath(),sub.getFileName())
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
-                    videos_result = self.OSDBServer.DownloadSubtitle(sub.getIdOnline(),destinationPath)
+                    videos_result = self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath})
                 except Exception, e: 
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getIdOnline())
                     traceback.print_exc(e)

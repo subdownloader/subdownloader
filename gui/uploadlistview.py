@@ -142,66 +142,6 @@ class UploadListModel(QAbstractTableModel):
                         from the <b>Subs found</b> list above."
                 return QVariant(edit)
         return QVariant()
-    
-    def sort(self, col, order):
-        descending = order != Qt.AscendingOrder
-        def getter(key, func):  
-            return lambda x : func(itemgetter(key)(x))
-        if col == 0: key, func = "title", lambda x : x.lower()
-        if col == 1: key, func = "authors", lambda x : x.split()[-1:][0].lower()\
-                                                       if x else ""
-        if col == 2: key, func = "size", int
-        if col == 3: key, func = "date", lambda x: time.mktime(\
-                                            time.strptime(x, self.TIME_READ_FMT))
-        if col == 4: key, func = "rating", lambda x: x if x else 0
-        if col == 5: key, func = "publisher", lambda x : x.lower() if x else ""
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        self._data.sort(key=getter(key, func))
-        if descending: self._data.reverse()
-        self.emit(SIGNAL("layoutChanged()"))
-        self.emit(SIGNAL("sorted()"))
-    
-    def search(self, query):
-        def query_in(book, q):
-            au = book["authors"]
-            if not au : au = "unknown"
-            pub = book["publisher"]
-            if not pub : pub = "unknown"
-            return q in book["title"].lower() or q in au.lower() or \
-                                                                q in pub.lower()
-        queries = unicode(query, 'utf-8').lower().split()
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        self._data = []
-        for book in self._orig_data:
-            match = True
-            for q in queries:
-                if query_in(book, q) : continue
-                else:
-                    match = False
-                    break
-            if match: self._data.append(book)
-        self.emit(SIGNAL("layoutChanged()"))
-        self.emit(SIGNAL("searched()"))
-    
-    def delete(self, indices):
-        if len(indices): self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        items = [ self._data[index.row()] for index in indices ]    
-        for item in items:
-            _id = item["id"]
-            try:
-                self._data.remove(item)
-            except ValueError: continue
-            self.db.delete_by_id(_id)
-            for x in self._orig_data:
-                if x["id"] == _id: self._orig_data.remove(x)
-        self.emit(SIGNAL("layoutChanged()"))
-        self.emit(SIGNAL("deleted()"))
-        self.db.commit()    
-    
-    def add_book(self, path):
-        """ Must call search and sort on this models view after this """
-        _id = self.db.add_book(path)    
-        self._orig_data.append(self.db.get_row_by_id(_id, self.FIELDS))
 
 class UploadListView(QTableView):
     def __init__(self, parent):    
@@ -209,42 +149,42 @@ class UploadListView(QTableView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setAcceptDrops(1)
              
-    def dragMoveEvent(self, event):
-        md = event.mimeData()
-        if md.hasFormat('application/x-subdownloader-video-id'):
-            event.acceptProposedAction()
-        elif md.hasFormat('application/x-subdownloader-subtitle-id'):
-            event.acceptProposedAction()
-    
-    def dropEvent(self, event):
-        md = event.mimeData()
-        if md.hasFormat('application/x-subdownloader-video-id'):
-            index = self.indexAt(event.pos())
-            if index.isValid():
-                a = md.data('application/x-subdownloader-video-id')
-                videos = pickle.loads(a)
-                self.model().add_videos(index.row(),videos)
-                print index.row(), index.column()
-                self.setModel(self.model())
-                self.resizeColumnsToContents()
-        elif md.hasFormat('application/x-subdownloader-subtitle-id'):
-            index = self.indexAt(event.pos())
-            if index.isValid():
-                a = md.data('application/x-subdownloader-subtitle-id')
-                subs = pickle.loads(a)
-                self.model().add_subs(index.row(),subs)
-                print index.row(), index.column()
-                self.setModel(self.model())
-                self.resizeColumnsToContents()
-
-    
-    def dragEnterEvent(self, event):
-        #event.setDropAction(Qt.IgnoreAction)
-        md = event.mimeData()
-        index = self.indexAt(event.pos())
-        print index.column()
-        if md.hasFormat('application/x-subdownloader-video-id') and index.column() == 0:
-            event.accept()
-        elif md.hasFormat('application/x-subdownloader-subtitle-id') and index.column() == 1:
-            event.accept()
-        
+#    def dragMoveEvent(self, event):
+#        md = event.mimeData()
+#        if md.hasFormat('application/x-subdownloader-video-id'):
+#            event.acceptProposedAction()
+#        elif md.hasFormat('application/x-subdownloader-subtitle-id'):
+#            event.acceptProposedAction()
+#    
+#    def dropEvent(self, event):
+#        md = event.mimeData()
+#        if md.hasFormat('application/x-subdownloader-video-id'):
+#            index = self.indexAt(event.pos())
+#            if index.isValid():
+#                a = md.data('application/x-subdownloader-video-id')
+#                videos = pickle.loads(a)
+#                self.model().add_videos(index.row(),videos)
+#                print index.row(), index.column()
+#                self.setModel(self.model())
+#                self.resizeColumnsToContents()
+#        elif md.hasFormat('application/x-subdownloader-subtitle-id'):
+#            index = self.indexAt(event.pos())
+#            if index.isValid():
+#                a = md.data('application/x-subdownloader-subtitle-id')
+#                subs = pickle.loads(a)
+#                self.model().add_subs(index.row(),subs)
+#                print index.row(), index.column()
+#                self.setModel(self.model())
+#                self.resizeColumnsToContents()
+#
+#    
+#    def dragEnterEvent(self, event):
+#        #event.setDropAction(Qt.IgnoreAction)
+#        md = event.mimeData()
+#        index = self.indexAt(event.pos())
+#        print index.column()
+#        if md.hasFormat('application/x-subdownloader-video-id') and index.column() == 0:
+#            event.accept()
+#        elif md.hasFormat('application/x-subdownloader-subtitle-id') and index.column() == 1:
+#            event.accept()
+#        
