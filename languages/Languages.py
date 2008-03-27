@@ -102,7 +102,8 @@ def xxx2name(xxx):
     
 def name2xx(name):
     for lang in LANGUAGES:
-        if lang['LanguageName'].lower() == name.lower():
+        #FIXME: must be non case-sensitive (use lower function)
+        if lang['LanguageName'] == name:
             return lang['ISO639']
         
 def CleanTagsFile(texto):

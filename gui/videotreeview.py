@@ -41,6 +41,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     QtCore.QAbstractItemModel.__init__(self, parent)
     self.root=Node([QtCore.QVariant("")]) 
     self.selectedNode = None
+    self.languageFilter = None
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults):
@@ -53,6 +54,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
   def clearTree(self):
      log.debug("Clearing VideoTree")
      self.root.children = []
+
+  def setLanguageFilter(self, lang):
+        self.languageFilter = lang
 
   def columnCount(self, parent):
     if parent.isValid():
@@ -166,9 +170,18 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else:
       parentItem = parent.internalPointer()
 
+    show = False
     childItem = parentItem.children[row]
     if childItem:
-      return self.createIndex(row, column, childItem)
+      if type(childItem.data) == SubtitleFile:
+          sub = childItem.data
+          if not self.languageFilter  or self.languageFilter == sub.getLanguageXX():
+              show = True
+      else:
+          show = True
+          
+    if show:
+        return self.createIndex(row, column, childItem)
     else:
       return QtCore.QModelIndex()
 

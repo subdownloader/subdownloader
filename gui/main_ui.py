@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Thu Mar 27 22:32:08 2008
+# Created: Thu Mar 27 23:59:56 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,792,578).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,811,605).size()).expandedTo(MainWindow.minimumSizeHint()))
         MainWindow.setWindowIcon(QtGui.QIcon(":/images/logo.png"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -69,8 +69,23 @@ class Ui_MainWindow(object):
         self.buttonIMDB.setObjectName("buttonIMDB")
         self.hboxlayout.addWidget(self.buttonIMDB)
 
-        spacerItem = QtGui.QSpacerItem(461,27,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
+        spacerItem = QtGui.QSpacerItem(231,27,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
         self.hboxlayout.addItem(spacerItem)
+
+        self.label_9 = QtGui.QLabel(self.tab)
+        self.label_9.setObjectName("label_9")
+        self.hboxlayout.addWidget(self.label_9)
+
+        self.filterLanguageForVideo = QtGui.QComboBox(self.tab)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred,QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.filterLanguageForVideo.sizePolicy().hasHeightForWidth())
+        self.filterLanguageForVideo.setSizePolicy(sizePolicy)
+        self.filterLanguageForVideo.setMinimumSize(QtCore.QSize(100,0))
+        self.filterLanguageForVideo.setObjectName("filterLanguageForVideo")
+        self.hboxlayout.addWidget(self.filterLanguageForVideo)
         self.vboxlayout1.addLayout(self.hboxlayout)
 
         self.splitter = QtGui.QSplitter(self.tab)
@@ -163,6 +178,34 @@ class Ui_MainWindow(object):
         self.hboxlayout1.addWidget(self.comboBox)
         self.vboxlayout4.addLayout(self.hboxlayout1)
 
+        self.hboxlayout2 = QtGui.QHBoxLayout()
+        self.hboxlayout2.setObjectName("hboxlayout2")
+
+        spacerItem2 = QtGui.QSpacerItem(581,20,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Minimum)
+        self.hboxlayout2.addItem(spacerItem2)
+
+        self.label_10 = QtGui.QLabel(self.tab_3)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
+        self.label_10.setSizePolicy(sizePolicy)
+        self.label_10.setObjectName("label_10")
+        self.hboxlayout2.addWidget(self.label_10)
+
+        self.filterLanguageForTitle = QtGui.QComboBox(self.tab_3)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred,QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.filterLanguageForTitle.sizePolicy().hasHeightForWidth())
+        self.filterLanguageForTitle.setSizePolicy(sizePolicy)
+        self.filterLanguageForTitle.setMinimumSize(QtCore.QSize(100,0))
+        self.filterLanguageForTitle.setObjectName("filterLanguageForTitle")
+        self.hboxlayout2.addWidget(self.filterLanguageForTitle)
+        self.vboxlayout4.addLayout(self.hboxlayout2)
+
         self.vboxlayout5 = QtGui.QVBoxLayout()
         self.vboxlayout5.setObjectName("vboxlayout5")
 
@@ -175,8 +218,8 @@ class Ui_MainWindow(object):
         self.groupBox_4.setSizePolicy(sizePolicy)
         self.groupBox_4.setObjectName("groupBox_4")
 
-        self.hboxlayout2 = QtGui.QHBoxLayout(self.groupBox_4)
-        self.hboxlayout2.setObjectName("hboxlayout2")
+        self.hboxlayout3 = QtGui.QHBoxLayout(self.groupBox_4)
+        self.hboxlayout3.setObjectName("hboxlayout3")
 
         self.sub_view = SubListView(self.groupBox_4)
 
@@ -189,7 +232,7 @@ class Ui_MainWindow(object):
         self.sub_view.setDragEnabled(True)
         self.sub_view.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
         self.sub_view.setObjectName("sub_view")
-        self.hboxlayout2.addWidget(self.sub_view)
+        self.hboxlayout3.addWidget(self.sub_view)
         self.vboxlayout5.addWidget(self.groupBox_4)
         self.vboxlayout4.addLayout(self.vboxlayout5)
         self.tabs.addTab(self.tab_3,QtGui.QIcon(":/images/search.png"),"")
@@ -210,17 +253,17 @@ class Ui_MainWindow(object):
         self.vboxlayout7 = QtGui.QVBoxLayout(self.layoutWidget)
         self.vboxlayout7.setObjectName("vboxlayout7")
 
-        self.hboxlayout3 = QtGui.QHBoxLayout()
-        self.hboxlayout3.setObjectName("hboxlayout3")
+        self.hboxlayout4 = QtGui.QHBoxLayout()
+        self.hboxlayout4.setObjectName("hboxlayout4")
 
         self.label_2 = QtGui.QLabel(self.layoutWidget)
         self.label_2.setObjectName("label_2")
-        self.hboxlayout3.addWidget(self.label_2)
+        self.hboxlayout4.addWidget(self.label_2)
 
         self.toolButton = QtGui.QToolButton(self.layoutWidget)
         self.toolButton.setObjectName("toolButton")
-        self.hboxlayout3.addWidget(self.toolButton)
-        self.vboxlayout7.addLayout(self.hboxlayout3)
+        self.hboxlayout4.addWidget(self.toolButton)
+        self.vboxlayout7.addLayout(self.hboxlayout4)
 
         self.uploadView = UploadListView(self.layoutWidget)
         self.uploadView.setAcceptDrops(True)
@@ -333,8 +376,8 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName("textEdit")
         self.gridlayout.addWidget(self.textEdit,3,2,1,2)
 
-        spacerItem2 = QtGui.QSpacerItem(20,40,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem2,4,1,1,1)
+        spacerItem3 = QtGui.QSpacerItem(20,40,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Expanding)
+        self.gridlayout.addItem(spacerItem3,4,1,1,1)
         self.vboxlayout6.addWidget(self.splitter_2)
         self.tabs.addTab(self.tab_4,QtGui.QIcon(":/images/upload.png"),"")
 
@@ -361,6 +404,7 @@ class Ui_MainWindow(object):
         self.buttonPlay.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonDownload.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Show Movie Info", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Search from Video file(s)", None, QtGui.QApplication.UnicodeUTF8))
@@ -371,6 +415,7 @@ class Ui_MainWindow(object):
         self.comboBox.addItem(QtGui.QApplication.translate("MainWindow", "mysubtitles.com", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox.addItem(QtGui.QApplication.translate("MainWindow", "subtitlesbox.com", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox.addItem(QtGui.QApplication.translate("MainWindow", "divxsubtitles.net", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_4.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Search by Movie Name", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Select Folder with Videos / Subtitles: ", None, QtGui.QApplication.UnicodeUTF8))
