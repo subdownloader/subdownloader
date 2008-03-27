@@ -60,6 +60,7 @@ class Filter(object):
                 self.log.debug("- adding: %s"% (sub_choice.getFileName()))
                 #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
                 subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
-                subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
+                #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
+                subtitles_to_download[sub_choice.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle_filename)
             
         return subtitles_to_download
