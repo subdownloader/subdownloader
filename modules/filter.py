@@ -38,7 +38,8 @@ class Filter(object):
             if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
                 subtitle = video.getOneSubtitle()
                 self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
-                subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
+                #subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
+                subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
                 #TODO: give user the list of subtitles to choose from
                 # set a starting point to compare scores

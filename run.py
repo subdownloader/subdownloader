@@ -22,7 +22,7 @@ from optparse import OptionParser
 # this will allow logic imports
 sys.path.append(os.path.dirname(os.getcwd()))
 # simple aplication starter
-import conf
+from subdownloader.cli import conf
 
 """
 CRITICAL    50
