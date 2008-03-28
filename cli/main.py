@@ -20,7 +20,6 @@ import logging
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import terminal, filter
-import videofile, subtitlefile
 
 class Main(OSDBServer.OSDBServer):
     

@@ -19,7 +19,6 @@
 
 import os.path
 import struct
-from subdownloader import *
 
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "3ivx"]
 
@@ -116,9 +115,6 @@ class VideoFile(object):
     def getSubtitles(self):
         """return only local subtitles"""
         return self._subs
-        
-    def hasSubtitles(self):
-        return len(self._subs) != 0
         
     def getOneSubtitle(self):
         return self._subs[0]

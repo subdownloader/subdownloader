@@ -19,7 +19,6 @@
 
 import os.path
 import md5
-from subdownloader import *
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
 

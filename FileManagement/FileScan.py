@@ -19,8 +19,7 @@
 
 import os.path
 import logging
-from subdownloader import *
-from subdownloader.FileManagement import get_extension, clear_string, without_extension
+from subdownloader.FileManagement import get_extension
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
