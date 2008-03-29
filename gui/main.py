@@ -150,7 +150,7 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
-        self.SearchVideos('/media/data/videos/downloaded/')
+        self.SearchVideos('/media/xp/pelis/')
     
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
@@ -162,16 +162,20 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
 
-        QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onChangeFilterVideo)
+        QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
     
-    def onChangeFilterVideo(self, index):
+    def onFilterLanguageVideo(self, index):
         selectedLanguageName = self.filterLanguageForVideo.itemText(index)
         log.debug("Filtering subtitles by language : %s" % selectedLanguageName)
+        self.videoModel.clearTree()
+        self.videoView.expandAll()
         if selectedLanguageName != "All": #FIXME: Instead of using english words, we should use lang_codes
             selectedLanguageXX = languages.name2xx(selectedLanguageName)
             self.videoModel.setLanguageFilter(selectedLanguageXX)
         else:
             self.videoModel.setLanguageFilter(None)
+        
+        self.videoView.expandAll()
         
     def subtitlesCheckedChanged(self):
        subs = self.videoModel.getCheckedSubtitles()
@@ -300,11 +304,7 @@ class Main(QObject, Ui_MainWindow):
         menu.exec_(self.sub_view.mapToGlobal(point))
         #if index.isValid():
             #print "hello"
-        
-    def update_language(self,lang):
-        self.label_language.setText(lang)
-        
-    
+
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val,msg = None):
         self.status_progress.setMaximum(100)

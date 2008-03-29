@@ -39,10 +39,13 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
     
     #Let's reset the progress bar to 0%
     report_progress(0)
-    #TODO: pass this progressbar as argument do ScanFolder
+    #TODO: MARCO, make the terminal progressbar become an argument of this function
     #cli progress bar
-    term = terminal.TerminalController()
-    progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
+    
+    #FIXME: I had to do this way cause Eric4 debugger is not compatible with Terminal
+    if report_progress == FakeProgress: 
+        term = terminal.TerminalController()
+        progress = terminal.ProgressBar(term, 'Processing %s'% folderpath)    
     
     parser = RecursiveParser.RecursiveParser()
     files_found = []
@@ -66,8 +69,10 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             videos_found.append(videofile.VideoFile(filepath))
             count += percentage
             report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
-            progress.update(float(i+1)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
-    progress.reset()
+            if report_progress == FakeProgress:
+                progress.update(float(i+1)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
+    if report_progress == FakeProgress:
+        progress.reset()
     report_progress(0)
     
     #Scanning Subs
@@ -81,8 +86,10 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
             report_progress(count,"Hashing sub: " + os.path.basename(filepath))
-            progress.update(float(i+1)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
-    progress.end()
+            if report_progress == FakeProgress:
+                progress.update(float(i+1)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
+    if report_progress == FakeProgress:
+        progress.end()
     report_progress(100,"Finished hashing")
     #log.info('ACABOU')
         

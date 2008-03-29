@@ -39,24 +39,35 @@ class Node:
 class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
     QtCore.QAbstractItemModel.__init__(self, parent)
-    self.root=Node([QtCore.QVariant("")]) 
+    self.root=Node(QtCore.QVariant("")) 
     self.selectedNode = None
     self.languageFilter = None
+    self.videoResultsBackup = None
     #self.setupTree(self.root)
 
-  def setVideos(self,videoResults):
+  def setVideos(self,videoResults,filter = None):
     #TODO: Add context menus.
+    if filter:
+        print "FILTER=" + filter
+    self.videoResultsBackup = videoResults
     for video in videoResults:
        videoNode = self.root.addChild(video)
        for sub in video._subs:
-           videoNode.addChild(sub)
-       
+           if (not filter) or (filter == sub.getLanguageXX()) :    #Filter subtitles by Language
+               videoNode.addChild(sub)
+               print sub.getFileName()
+    #print 4
+    
   def clearTree(self):
      log.debug("Clearing VideoTree")
-     self.root.children = []
+     self.selectedNode = None
+     self.languageFilter = None
+     self.root=Node(QtCore.QVariant("")) 
 
   def setLanguageFilter(self, lang):
-        self.languageFilter = lang
+      #self.clearTree()
+      self.languageFilter = lang
+      self.setVideos(self.videoResultsBackup, lang)
 
   def columnCount(self, parent):
     if parent.isValid():
@@ -155,6 +166,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 if subtitle.checked:
                     checkedSubs.append(subtitle.data)
       return checkedSubs
+      
   def headerData(self, section, orientation, role):
   #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
      # return self.root.data[section]
@@ -170,17 +182,8 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else:
       parentItem = parent.internalPointer()
 
-    show = False
     childItem = parentItem.children[row]
     if childItem:
-      if type(childItem.data) == SubtitleFile:
-          sub = childItem.data
-          if not self.languageFilter  or self.languageFilter == sub.getLanguageXX():
-              show = True
-      else:
-          show = True
-          
-    if show:
         return self.createIndex(row, column, childItem)
     else:
       return QtCore.QModelIndex()
@@ -194,8 +197,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
     if parentItem == self.root:
       return QtCore.QModelIndex()
-
+      
     return self.createIndex(parentItem.row(), 0, parentItem)
+
 
   def rowCount(self, parent):
     if parent.column() > 0:
@@ -205,5 +209,5 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
       parentItem = self.root
     else:
       parentItem = parent.internalPointer()
-
+      
     return len(parentItem.children)

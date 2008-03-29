@@ -57,7 +57,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=20): 
+    def __init__(self, function, timeout=30): 
         self.timeout = timeout 
         self.function = function 
 
@@ -421,34 +421,6 @@ class OSDBServer(object):
             self.log.info("No subtitles were found on Opensubtitles.com")
             return []
         
-    #
-    # VIDEO METHODS 
-    #
-    
-    #FIXME: Ivan please consider removing the function bellow or take a look at line
-#    def getBestImdbInfo(self, subs ):
-#            movies_imdb = []
-#            for sub in subs:
-#                movies_imdb.append(sub["IDMovieImdb"])
-#            
-#            max_times = 0
-#            best_imdb = ""
-#            for imdb in frozenset(movies_imdb):
-#                    times = movies_imdb.count(imdb)
-#                    if max_times < times:
-#                        best_imdb = imdb
-#                        max_times = times
-#
-#            for sub in subs:
-#                if sub["IDMovieImdb"] == best_imdb:
-#                    log.debug("getBestImdbInfo = %s" % sub["MovieName"])
-#                    return {"IDMovieImdb":sub["IDMovieImdb"], 
-#                                    "MovieName":sub["MovieName"], 
-#                                    "MovieNameEng":sub["MovieNameEng"], 
-#                                    "MovieYear":sub["MovieYear"], 
-#                                    "MovieImdbRating":sub["MovieImdbRating"],
-#                                    "MovieImdbRating":sub["MovieImdbRating"] }
-#            return {}
         
     def TryUploadSubtitles(self, videos):
         TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)
