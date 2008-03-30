@@ -128,7 +128,6 @@ class Main(QObject, Ui_MainWindow):
         self.uploadModel = UploadListModel(window)
         self.uploadView.setModel(self.uploadModel)
 
-        #self.splitter_upload.moveSplitter(-300,0) #The ListView will be minimized.
         #Resizing the headers to take all the space(50/50) in the TableView
         header = self.uploadView.horizontalHeader()
         header.setResizeMode(QtGui.QHeaderView.Stretch)
@@ -356,17 +355,21 @@ class Main(QObject, Ui_MainWindow):
             fileName = QFileDialog.getOpenFileName(None, "Select Video", "", videofile.SELECT_VIDEOS)
             if fileName:
                 video = VideoFile(str(fileName.toUtf8())) 
+                self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
                 self.uploadModel.addVideos(row, [video])
-                self.uploadModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
-                self.uploadModel.emit(SIGNAL("headerDataChanged(Qt.Orientation,int,int)"),Qt.Horizontal, 0, 0)
-                self.uploadModel.beginInsertRows(index, row, row + 1)
+                self.uploadView.resizeRowsToContents()
+                self.uploadModel.emit(SIGNAL("layoutChanged()"))
         else:
             fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", "", subtitlefile.SELECT_SUBTITLES)
             if fileName:
                 sub = SubtitleFile(False, str(fileName.toUtf8())) 
+                self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
                 self.uploadModel.addSubs(row, [sub])
+                self.uploadView.resizeRowsToContents()
+                self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 self.uploadModel.update_lang_upload()
-                self.uploadModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+                
+
 
 def main(options):
     

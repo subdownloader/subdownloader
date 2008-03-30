@@ -37,7 +37,6 @@ class SubtitleFile(object):
         else:
             self._online = False
             self._filepath = id
-            #FIXME: The filepath should support unicode.
             self.setFileName(self.getFilePath())
             self._languageXX = None
             self._languageXXX = None

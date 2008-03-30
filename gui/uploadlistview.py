@@ -42,7 +42,6 @@ class UploadListModel(QAbstractTableModel):
                     self._videos[index] = video
             index += 1
 
-
     def addSubs(self,index,subs):
         for sub in subs:
             if len(self._subs) <= index:
@@ -67,12 +66,13 @@ class UploadListModel(QAbstractTableModel):
 
         all_langs = []
         for sub in self._subs:
-            lang = sub.getLanguage()
-            if lang == None:
-                lang = languages.AutoDetectLang(sub.getFilePath())
-                sub.setLanguage(lang)
-            all_langs.append(lang)
-
+            if sub:
+                lang = sub.getLanguage()
+                if lang == None:
+                    lang = languages.AutoDetectLang(sub.getFilePath())
+                    sub.setLanguage(lang)
+                all_langs.append(lang)
+#FIXME: Clean this code here and put it in a shared script for also CLI to use
         max = 0
         max_lang = ""
         for lang in all_langs:
@@ -83,11 +83,6 @@ class UploadListModel(QAbstractTableModel):
         self.emit(SIGNAL('language_updated(QString)'),max_lang)
   
     def rowCount(self, index):
-       if not index.isValid():
-          print "Invalid"
-          return 1 
-       else:
-           print max(len(self._subs),len(self._videos)) +1
            return max(len(self._subs),len(self._videos)) +1
         
         
@@ -137,7 +132,6 @@ class UploadListModel(QAbstractTableModel):
 class UploadListView(QTableView):
     def __init__(self, parent):    
         QTableView.__init__(self, parent)
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setAcceptDrops(1)
              
 #    def dragMoveEvent(self, event):
