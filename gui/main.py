@@ -358,6 +358,7 @@ class Main(QObject, Ui_MainWindow):
                 video = VideoFile(str(fileName.toUtf8())) 
                 self.uploadModel.addVideos(row, [video])
                 self.uploadModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+                self.uploadModel.emit(SIGNAL("headerDataChanged(Qt.Orientation,int,int)"),Qt.Horizontal, 0, 0)
                 self.uploadModel.beginInsertRows(index, row, row + 1)
         else:
             fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", "", subtitlefile.SELECT_SUBTITLES)

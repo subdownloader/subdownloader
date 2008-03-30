@@ -82,9 +82,14 @@ class UploadListModel(QAbstractTableModel):
         log.debug("Language Autodetected for Upload = " + str(max_lang))
         self.emit(SIGNAL('language_updated(QString)'),max_lang)
   
-    def rowCount(self, parent): 
-        totalRows = max(len(self._subs),len(self._videos)) +1
-        return totalRows
+    def rowCount(self, index):
+       if not index.isValid():
+          print "Invalid"
+          return 1 
+       else:
+           print max(len(self._subs),len(self._videos)) +1
+           return max(len(self._subs),len(self._videos)) +1
+        
         
     def columnCount(self, parent): 
         return len(self._headers)
