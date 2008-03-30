@@ -10,12 +10,11 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect      
 
-import pickle
 import subdownloader.languages.Languages as languages
-            
+import logging
+log = logging.getLogger("subdownloader.gui.uploadlistview")
+
 class UploadListModel(QAbstractTableModel):
-    
-    TIME_READ_FMT = "%Y-%m-%d %H:%M:%S"
     
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
@@ -34,24 +33,24 @@ class UploadListModel(QAbstractTableModel):
                 flags |= Qt.ItemIsDropEnabled
         return flags
     
-    def add_videos(self,index,videos):
-        count = index
+    def addVideos(self,index,videos):
         for video in videos:            
-            try:
-                self._videos[count] = video
-            except:
-                self._videos.insert(count,video)
-            count += 1
-    
-    def add_subs(self,index,subs):
-        count = index
-        for sub in subs:            
-            try:
-                self._subs[count] = sub
-            except:
-                self._subs.insert(count,sub)
-            count += 1
-        self.update_lang_upload()
+            if len(self._videos) <= index:
+                    self._videos.insert(index,video)
+                    self._subs.insert(index, None)
+            else:
+                    self._videos[index] = video
+            index += 1
+
+
+    def addSubs(self,index,subs):
+        for sub in subs:
+            if len(self._subs) <= index:
+                self._subs.insert(index,sub)
+                self._videos.insert(index, None)
+            else:
+                self._subs[index] = sub
+            index += 1
     
     def update_lang_upload(self):
         ##Trying to autodetect the language
@@ -65,7 +64,6 @@ class UploadListModel(QAbstractTableModel):
             #item.setText(0,detected_lang)
             #count += percentage
             #self.progress(count,"Autodetecting Language: " + os.path.basename(sub.getFilePath()))
-
 
         all_langs = []
         for sub in self._subs:
@@ -81,15 +79,16 @@ class UploadListModel(QAbstractTableModel):
             if all_langs.count(lang) > max:
                 max = all_langs.count(lang)
                 max_lang = lang
-        print max_lang
+        log.debug("Language Autodetected for Upload = " + str(max_lang))
         self.emit(SIGNAL('language_updated(QString)'),max_lang)
-            
+  
     def rowCount(self, parent): 
-        return max(len(self._subs),len(self._videos)) + 1
+        totalRows = max(len(self._subs),len(self._videos)) +1
+        return totalRows
         
     def columnCount(self, parent): 
         return len(self._headers)
-        
+    
     def headerData(self, section, orientation, role): 
         if role != Qt.DisplayRole:
             return QVariant()
@@ -97,7 +96,8 @@ class UploadListModel(QAbstractTableModel):
         if orientation == Qt.Horizontal:      
             text = self._headers[section]
             return QVariant(self.trUtf8(text))
-        else: return QVariant("CD"+str(1+section))
+        else: 
+            return QVariant("CD"+str(1+section))
         
     def id_from_index(self, index): return self._data[index.row()]["id"]
     def id_from_row(self, row): return self._data[row]["id"]
@@ -114,33 +114,19 @@ class UploadListModel(QAbstractTableModel):
         if role == Qt.DisplayRole:      
             text = None
             if   col == COL_VIDEO: 
-                if row >= total_cds:
-                    text = "Drag more videofiles here"
+                if row >= total_cds or self._videos[row] == None:
+                    text = "Select video..."
                 else:
-                    try:
                         text = self._videos[row].getFileName()
-                    except:
-                        text = "Drag videofile here"
             elif col == COL_SUB: 
-                if row >= total_cds:
-                    text = "Drag more subtitles here"
+                if row >= total_cds or self._subs[row] == None:
+                    text = "Select subtitle..."
                 else:
-                    try:
                         text = self._subs[row].getFileName()
-                    except:
-                        text = "Drag subtitle here"
             if text == None: 
                 text = "Unknown"
             return QVariant(text)
-        elif role == Qt.ToolTipRole and index.isValid():
-            if extra_line:
-                if index.column() == COL_VIDEO:
-                    edit = "<b>Drag and drop</b> the videos<br>\
-                        from the <b>Videos found</b> list above."
-                if index.column() == COL_SUB:
-                    edit = "<b>Drag and drop</b> the subtitles<br>\
-                        from the <b>Subs found</b> list above."
-                return QVariant(edit)
+
         return QVariant()
 
 class UploadListView(QTableView):

@@ -17,16 +17,16 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-import os.path
+import os
 import md5
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
+SELECT_SUBTITLES = "Subtitle Files (*.srt *.sub *.txt *.ssa)"
 
 class SubtitleFile(object):
     """Contains the class that represents a SubtitleFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
-
     def __init__(self, online, id):
         self._language = None
         self._video = None
@@ -37,7 +37,11 @@ class SubtitleFile(object):
         else:
             self._online = False
             self._filepath = id
-            self.setFileName(os.path.basename(self.getFilePath()))
+            #FIXME: The filepath should support unicode.
+            self.setFileName(self.getFilePath())
+            self._languageXX = None
+            self._languageXXX = None
+            self._languageName = None
             self._size = os.path.getsize(self._filepath)
             self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
             self.rating = 0
@@ -46,7 +50,7 @@ class SubtitleFile(object):
         self._filename = filename
     
     def getFileName(self):
-        return self._filename
+        return os.path.basename(self._filepath)
     
     def setVideo(self, _video):
         self._video = _video

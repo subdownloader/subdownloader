@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Thu Mar 27 23:59:56 2008
+# Created: Sun Mar 30 19:44:41 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,811,605).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,804,608).size()).expandedTo(MainWindow.minimumSizeHint()))
         MainWindow.setWindowIcon(QtGui.QIcon(":/images/logo.png"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -243,11 +243,13 @@ class Ui_MainWindow(object):
         self.vboxlayout6 = QtGui.QVBoxLayout(self.tab_4)
         self.vboxlayout6.setObjectName("vboxlayout6")
 
-        self.splitter_2 = QtGui.QSplitter(self.tab_4)
-        self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
-        self.splitter_2.setObjectName("splitter_2")
+        self.splitter_upload = QtGui.QSplitter(self.tab_4)
+        self.splitter_upload.setBaseSize(QtCore.QSize(0,0))
+        self.splitter_upload.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter_upload.setHandleWidth(6)
+        self.splitter_upload.setObjectName("splitter_upload")
 
-        self.layoutWidget = QtGui.QWidget(self.splitter_2)
+        self.layoutWidget = QtGui.QWidget(self.splitter_upload)
         self.layoutWidget.setObjectName("layoutWidget")
 
         self.vboxlayout7 = QtGui.QVBoxLayout(self.layoutWidget)
@@ -260,20 +262,30 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.hboxlayout4.addWidget(self.label_2)
 
-        self.toolButton = QtGui.QToolButton(self.layoutWidget)
-        self.toolButton.setObjectName("toolButton")
-        self.hboxlayout4.addWidget(self.toolButton)
+        self.buttonUploadBrowseFolder = QtGui.QToolButton(self.layoutWidget)
+        self.buttonUploadBrowseFolder.setObjectName("buttonUploadBrowseFolder")
+        self.hboxlayout4.addWidget(self.buttonUploadBrowseFolder)
         self.vboxlayout7.addLayout(self.hboxlayout4)
 
         self.uploadView = UploadListView(self.layoutWidget)
         self.uploadView.setAcceptDrops(True)
         self.uploadView.setDragEnabled(True)
         self.uploadView.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
-        self.uploadView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.uploadView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+        self.uploadView.setSelectionBehavior(QtGui.QAbstractItemView.SelectItems)
+        self.uploadView.setGridStyle(QtCore.Qt.DotLine)
         self.uploadView.setObjectName("uploadView")
         self.vboxlayout7.addWidget(self.uploadView)
 
-        self.groupBox = QtGui.QGroupBox(self.splitter_2)
+        self.groupBox = QtGui.QGroupBox(self.splitter_upload)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+        self.groupBox.setSizePolicy(sizePolicy)
+        self.groupBox.setMinimumSize(QtCore.QSize(300,0))
+        self.groupBox.setMaximumSize(QtCore.QSize(300,16777215))
         self.groupBox.setObjectName("groupBox")
 
         self.gridlayout = QtGui.QGridLayout(self.groupBox)
@@ -378,7 +390,7 @@ class Ui_MainWindow(object):
 
         spacerItem3 = QtGui.QSpacerItem(20,40,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Expanding)
         self.gridlayout.addItem(spacerItem3,4,1,1,1)
-        self.vboxlayout6.addWidget(self.splitter_2)
+        self.vboxlayout6.addWidget(self.splitter_upload)
         self.tabs.addTab(self.tab_4,QtGui.QIcon(":/images/upload.png"),"")
 
         self.tab_5 = QtGui.QWidget()
@@ -396,7 +408,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -419,7 +431,7 @@ class Ui_MainWindow(object):
         self.groupBox_4.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Search by Movie Name", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Select Folder with Videos / Subtitles: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolButton.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadBrowseFolder.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("MainWindow", "Details", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
         "p, li { white-space: pre-wrap; }\n"

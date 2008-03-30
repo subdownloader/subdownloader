@@ -38,8 +38,8 @@ from subdownloader.gui.videotreeview import VideoTreeModel
 
 from subdownloader.gui.main_ui import Ui_MainWindow
 import subdownloader.FileManagement.FileScan as FileScan
-from subdownloader.videofile import  VideoFile
-from subdownloader.subtitlefile import SubtitleFile
+from subdownloader.videofile import  *
+from subdownloader.subtitlefile import *
 
 import subdownloader.languages.Languages as languages
 
@@ -113,24 +113,30 @@ class Main(QObject, Ui_MainWindow):
                             self.folderView_clicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
                             self.folderView_clicked)
-                            
-       
 
-                            
-        #SETTING UP VIDEOS_VIEW
+        #SETTING UP SEARCH_VIDEO_VIEW
         self.videoModel = VideoTreeModel(window)
         self.videoView.setModel(self.videoModel)
         QObject.connect(self.videoView, SIGNAL("activated(QModelIndex)"), self.onClickVideoTreeView)
         QObject.connect(self.videoView, SIGNAL("clicked(QModelIndex)"), self.onClickVideoTreeView)
         QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
-        #SETTING UP SUBS_OSDB_VIEW
-        #self.subs_osdb_model = SubOsdbListModel(window)  
-
-        #SETTING UP UPLOAD_VIEW
-        #self.upload_model = UploadListModel(window)    
         
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onButtonIMDB)
+        
+        #SETTING UP UPLOAD_VIEW
+        self.uploadModel = UploadListModel(window)
+        self.uploadView.setModel(self.uploadModel)
+
+        #self.splitter_upload.moveSplitter(-300,0) #The ListView will be minimized.
+        #Resizing the headers to take all the space(50/50) in the TableView
+        header = self.uploadView.horizontalHeader()
+        header.setResizeMode(QtGui.QHeaderView.Stretch)
+        
+        QObject.connect(self.buttonUploadBrowseFolder, SIGNAL("clicked(bool)"), self.onUploadBrowseFolder)
+        QObject.connect(self.uploadView, SIGNAL("activated(QModelIndex)"), self.onClickUploadViewCell)
+        QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onClickUploadViewCell)
+        
 
         self.folderView.show()
         
@@ -146,11 +152,11 @@ class Main(QObject, Ui_MainWindow):
         self.statusbar.insertWidget(0,self.status_label)
         self.statusbar.addPermanentWidget(self.status_progress,2)
 
-        self.establish_connection()
+        #self.establish_connection()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
-        self.SearchVideos('/media/xp/pelis/')
+        #self.SearchVideos('/media/xp/pelis/')
     
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
@@ -337,7 +343,29 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setFormat("Connected")
     
         self.window.setCursor(Qt.ArrowCursor)
-    
+        
+    #UPLOAD METHODS
+    def onUploadBrowseFolder(self):
+        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
+        
+    def onClickUploadViewCell(self, index):
+        COL_VIDEO = 0 #FIXME: Use global variables
+        COL_SUB = 1
+        row, col = index.row(), index.column()
+        if col == COL_VIDEO:
+            fileName = QFileDialog.getOpenFileName(None, "Select Video", "", videofile.SELECT_VIDEOS)
+            if fileName:
+                video = VideoFile(str(fileName.toUtf8())) 
+                self.uploadModel.addVideos(row, [video])
+                self.uploadModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+                self.uploadModel.beginInsertRows(index, row, row + 1)
+        else:
+            fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", "", subtitlefile.SELECT_SUBTITLES)
+            if fileName:
+                sub = SubtitleFile(False, str(fileName.toUtf8())) 
+                self.uploadModel.addSubs(row, [sub])
+                self.uploadModel.update_lang_upload()
+                self.uploadModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
 
 def main(options):
     

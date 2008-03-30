@@ -115,7 +115,8 @@ def AutoDetectLang(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         CleanTagsFile(subtitle_content)
         n = autodetect_lang._NGram()
-        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'lm'))
+        #FIXME: The LM path should depend from the CWD or the subdownloader path? 
+        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
         percentage, lang = l.classify(subtitle_content)
         pos = lang.rfind("-")
         if pos != -1:
