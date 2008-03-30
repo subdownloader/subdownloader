@@ -157,7 +157,7 @@ class VideoFile(object):
     
     def calculateOSDBHash(self):
         try:
-            longlongformat = 'LL'  # signed long, unsigned long
+            longlongformat = 'q'  # long long
             bytesize = struct.calcsize(longlongformat)
 
             filesize = os.path.getsize(self._filepath)
@@ -169,21 +169,17 @@ class VideoFile(object):
             
             for x in range(65536/bytesize):
                 buffer = f.read(bytesize)
-                (l2, l1)= struct.unpack(longlongformat, buffer)
-                l_value = (long(l1) << 32) | long(l2)
+                (l_value,)= struct.unpack(longlongformat, buffer)  
                 hash += l_value
                 hash = hash & 0xFFFFFFFFFFFFFFFF #to remain as 64bit number
-                #if x < 20 : print "%016x" % hash
-                
             
             f.seek(max(0,filesize-65536),0)
             for x in range(65536/bytesize):
                 buffer = f.read(bytesize)
-                (l2, l1) = struct.unpack(longlongformat, buffer)
-                l_value = (long(l1) << 32) | long(l2)
+                (l_value,)= struct.unpack(longlongformat, buffer)  
                 hash += l_value
                 hash = hash & 0xFFFFFFFFFFFFFFFF
-        
+            
             f.close()
             returnedhash =  "%016x" % hash
             return returnedhash
