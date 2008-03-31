@@ -152,12 +152,14 @@ class Main(QObject, Ui_MainWindow):
         
         self.statusbar.insertWidget(0,self.status_label)
         self.statusbar.addPermanentWidget(self.status_progress,2)
-
-        #self.establish_connection()
+        if not options.test:
+            self.establish_connection()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
-        #self.SearchVideos('/media/xp/pelis/')
+        if options.test:
+            #self.SearchVideos('/media/xp/pelis/')
+            pass
     
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
@@ -348,6 +350,8 @@ class Main(QObject, Ui_MainWindow):
     #UPLOAD METHODS
     def onUploadBrowseFolder(self):
         directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
+        if directory:
+            directory =  str(directory.toUtf8())
         
     def onClickUploadViewCell(self, index):
         COL_VIDEO = 0 #FIXME: Use global variables
