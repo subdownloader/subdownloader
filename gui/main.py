@@ -28,6 +28,8 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
+from subdownloader.gui.SplashScreen import SplashScreen, NoneSplashScreen
+
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, extension
@@ -377,6 +379,8 @@ def main(options):
     
     log.debug("Building main dialog")
     app = QApplication(sys.argv)
+    splash = SplashScreen()
+    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
     window = QMainWindow()
     window.setWindowTitle(APP_TITLE)
     window.setWindowIcon(QIcon(":/icon"))

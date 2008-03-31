@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-03-28, 01:31:03 -->
+<!-- Saved: 2008-03-31, 13:09:46 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -121,6 +121,10 @@
       <Dir>cli</Dir>
       <Name>conf.py</Name>
     </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>SplashScreen.py</Name>
+    </Source>
   </Sources>
   <Forms>
     <Form>
@@ -144,7 +148,7 @@
     <Name>run.py</Name>
   </MainScript>
   <Vcs>
-    <VcsType>Subversion</VcsType>
+    <VcsType>Subversion (svn)</VcsType>
     <VcsOptions>
       <dict>
         <key>

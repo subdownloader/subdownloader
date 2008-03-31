@@ -72,7 +72,6 @@ log = logging.getLogger("subdownloader.run")
     
 if __name__ == "__main__": 
     log.info('Subdownloader started')
-    #sys.stdout.write("Subdownloader running... "); sys.stdout.flush()
     if options.mode == 'gui':
         gui.main.main(options)
     elif options.mode == 'cli':
