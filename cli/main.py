@@ -100,9 +100,9 @@ class Main(OSDBServer.OSDBServer):
         #for cli progressbar
         term = terminal.TerminalController()
         progress = terminal.ProgressBar(term, 'Processing %s'% self.options.videofile)
-        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=progress.update, progress_reset=progress.reset)
+        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=progress.update, progress_end=progress.end)
 #        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile)
-        progress.end()
+        #progress.end()
         self.log.info("Videos found: %i Subtitles found: %i"%(len(self.videos), len(self.subs)))
         if len(self.videos):
 #            self.log.info("Videos found: %i"% len(self.videos))
