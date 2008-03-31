@@ -39,9 +39,10 @@ from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videotreeview import VideoTreeModel
 
 from subdownloader.gui.main_ui import Ui_MainWindow
-import subdownloader.FileManagement.FileScan as FileScan
+from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.videofile import  *
 from subdownloader.subtitlefile import *
+
 
 import subdownloader.languages.Languages as languages
 
@@ -352,7 +353,18 @@ class Main(QObject, Ui_MainWindow):
         directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
         if directory:
             directory =  str(directory.toUtf8())
-        
+            videos_found,subs_found = FileScan.ScanFolder(directory,recursively = False,report_progress = self.progress)
+            log.info("Videos found: %i Subtitles found: %i"%(len(videos_found), len(subs_found)))
+            self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
+            for row, video in enumerate(videos_found):
+                self.uploadModel.addVideos(row, [ video])
+                subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                if subtitle:
+                    sub = SubtitleFile(False,subtitle) 
+                    self.uploadModel.addSubs(row, [sub])
+            self.uploadView.resizeRowsToContents()
+            self.uploadModel.emit(SIGNAL("layoutChanged()"))
+
     def onClickUploadViewCell(self, index):
         COL_VIDEO = 0 #FIXME: Use global variables
         COL_SUB = 1
