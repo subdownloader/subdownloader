@@ -49,6 +49,8 @@ class SubtitleFile(object):
         self._filename = filename
     
     def getFileName(self):
+        if self._online:
+            return os.path.basename(self._id_online)
         return os.path.basename(self._filepath)
     
     def setVideo(self, _video):

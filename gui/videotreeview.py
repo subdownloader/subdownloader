@@ -50,12 +50,13 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     if filter:
         print "FILTER=" + filter
     self.videoResultsBackup = videoResults
-    for video in videoResults:
-       videoNode = self.root.addChild(video)
-       for sub in video._subs:
-           if (not filter) or (filter == sub.getLanguageXX()) :    #Filter subtitles by Language
-               videoNode.addChild(sub)
-               print sub.getFileName()
+    if videoResults:
+        for video in videoResults:
+           videoNode = self.root.addChild(video)
+           for sub in video._subs:
+               if (not filter) or (filter == sub.getLanguageXX()) :    #Filter subtitles by Language
+                   videoNode.addChild(sub)
+                   print sub.getFileName()
     #print 4
     
   def clearTree(self):
