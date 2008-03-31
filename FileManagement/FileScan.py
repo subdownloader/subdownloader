@@ -31,7 +31,7 @@ def FakeProgress(count,msg=""):
     pass
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
-def ScanFolder(folderpath,recursively = True,report_progress=None):    
+def ScanFolder(folderpath,recursively = True,report_progress=None, progress_reset=None):
     #Let's reset the progress bar to 0%
     log.debug("Scanning Folder %s" % folderpath)
     if report_progress == None:
@@ -69,10 +69,11 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             videos_found.append(videofile.VideoFile(filepath))
             count += percentage
             report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
-            if report_progress == FakeProgress:
-                progress.update(float(i+1)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
-    if report_progress == FakeProgress:
-        progress.reset()
+#            if report_progress == FakeProgress:
+#                progress.update(float(i+1)/len(files_found), 'Hashing video: %s' % os.path.basename(filepath))
+#    try:
+#        progress_reset()
+#    except:
     report_progress(0)
     
     #Scanning Subs
@@ -86,10 +87,11 @@ def ScanFolder(folderpath,recursively = True,report_progress=None):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
             report_progress(count,"Hashing sub: " + os.path.basename(filepath))
-            if report_progress == FakeProgress:
-                progress.update(float(i+1)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
-    if report_progress == FakeProgress:
-        progress.end()
+#            if report_progress == FakeProgress:
+#                progress.update(float(i+1)/len(files_found), 'Hashing sub: %s' % os.path.basename(filepath))
+#    try:
+#        report_progress.im_class.end()
+#    except:
     report_progress(100,"Finished hashing")
     #log.info('ACABOU')
         

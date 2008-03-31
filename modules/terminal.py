@@ -179,16 +179,18 @@ class ProgressBar:
         self.cleared = 1 #: true if we haven't drawn the bar yet.
         self.update(0, '')
 
-    def update(self, percent, message):
+    def update(self, percent, message=""):
         if self.cleared:
             sys.stdout.write(self.header)
             self.cleared = 0
+        if percent > 1:
+            percent /= float(100)
         n = int((self.width-10)*percent)
         sys.stdout.write( #(self.bar % (100*percent, '='*n, '-'*(self.width-10-n))) )
             self.term.BOL + self.term.UP + self.term.CLEAR_EOL +
             (self.bar % (100*percent, '='*n, '-'*(self.width-10-n))) +
             self.term.CLEAR_EOL + message.center(self.width))
-
+    
     def clear(self):
         if not self.cleared:
             sys.stdout.write(self.term.BOL + self.term.CLEAR_EOL +
@@ -203,6 +205,8 @@ class ProgressBar:
     def end(self):
         print "\n"
             
+    def test(self):
+        print 'test'
         
 if __name__=='__main__':
 	import time
