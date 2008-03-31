@@ -20,8 +20,8 @@
 import os.path
 import struct
 
-VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "3ivx"]
-SELECT_VIDEOS = "Video Files (*.avi *.mpg *.mpeg *.wmv *.divx *.mkv *.ogm *.asf *.rm *.vob *.dv *.3ivx)"
+VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "mp4", "mpv"," swf"]
+SELECT_VIDEOS = "Video Files (*.avi *.mpg *.mpeg *.wmv *.divx *.mkv *.ogm *.asf *.rm *.vob *.dv *.mp4 *.mpv *.swf)"
 
 class VideoFile(object):
     """Contains the class that represents a VideoFile (AVI,MPG,etc)
