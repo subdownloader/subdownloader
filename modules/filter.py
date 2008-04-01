@@ -38,14 +38,19 @@ class Filter(object):
         for video in self.videos:
             if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
                 subtitle = video.getOneSubtitle()
-                self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
-                #subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
-                subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
+                choice = 'y'
+                if self.interactive:
+                    self.log.info("Only one subtitle was found for %s: %s"% (video.getFileName(), subtitle.getFileName()))
+                    choice = raw_input("Is that correct? (Y/n)").lower() or 'y'
+                if choice == 'y':
+                    self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
+                    #subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
+                    subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
                 #TODO: give user the list of subtitles to choose from
                 choice = 'auto'
                 if self.interactive:
-                    self.log.info("Looks like %s have more than one subtitle candidate. Plase make you choice:")
+                    self.log.info("Looks like %s have more than one subtitle candidate."% video.getFileName())
                     for i, sub in enumerate(video.getOnlineSubtitles()):
                         self.log.info("[%i] %s"% (i, sub.getFileName()))
                     self.log.info("[auto] Subdownloader will select one for you.")
@@ -54,7 +59,7 @@ class Filter(object):
                     if choice != 'auto':
                         sub_choice = video.getOnlineSubtitles()[int(choice)]
                         
-                elif choice == 'auto':
+                if choice == 'auto':
                     # set a starting point to compare scores
                     best_rated_sub = video.getOnlineSubtitles()[0]
                     # iterate over all subtitles
