@@ -39,8 +39,8 @@ class SubtitleFile(object):
         self._languageName = None
         self.rating = 0
         if not online:
-            self._size = os.path.getsize(self._filepath)
-            self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
+            self._size = os.path.getsize(self._path)
+            self._hash = md5.new(file(self._path,mode='rb').read()).hexdigest()
             
 #        if online:
 #            self._online = True
