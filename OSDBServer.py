@@ -151,7 +151,7 @@ class OSDBServer(object):
             self.proxied_transport = ProxiedTransport()
             self.proxied_transport.set_proxy(self.proxy)
             self.log.debug("Trying proxied connection...")
-            self.xmlrpc_server = ServerProxy(self.server, transport=self.proxied_transport)
+            self.xmlrpc_server = ServerProxy(self.server, transport=self.proxied_transport, allow_none=1)
             self.log.debug("...connected")
             return True
         elif test_connection(self.server):

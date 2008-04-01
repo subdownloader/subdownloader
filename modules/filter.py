@@ -26,10 +26,11 @@ class Filter(object):
             filter = Filter(list_of_video_objects)
             subs = filter.subtitles_to_download()
     """
-    def __init__(self, videos):
+    def __init__(self, videos, interactive=False):
         self.log = logging.getLogger("subdownloader.cli.filter")
         self.log.debug("Creating Filter object for %i videos", len(videos))
         self.videos = videos
+        self.interactive = interactive
         
     def subtitles_to_download(self):
         subtitles_to_download ={}
@@ -42,23 +43,36 @@ class Filter(object):
                 subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
             elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
                 #TODO: give user the list of subtitles to choose from
-                # set a starting point to compare scores
-                best_rated_sub = video.getOnlineSubtitles()[0]
-                # iterate over all subtitles
-                subpath_list = {}
-                for sub in video.getOnlineSubtitles():
-                    subpath_list[sub.getIdOnline()] = sub
-                    if sub.getRating() > best_rated_sub.getRating():
-                        best_rated_sub = sub
-                #compare video name with subtitles name to find best match
-                sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
-                if sub_match:
-                    self.log.debug("Subtitle choosen by match")
-                    sub_choice = subpath_list[sub_match]
-                else:
-                    self.log.debug("Subtitle choosen by rating")
-                    sub_choice = best_rated_sub
-                self.log.debug("- adding: %s"% (sub_choice.getFileName()))
+                choice = 'auto'
+                if self.interactive:
+                    self.log.info("Looks like %s have more than one subtitle candidate. Plase make you choice:")
+                    for i, sub in enumerate(video.getOnlineSubtitles()):
+                        self.log.info("[%i] %s"% (i, sub.getFileName()))
+                    self.log.info("[auto] Subdownloader will select one for you.")
+                    while choice not in range(len(video.getOnlineSubtitles())) + ['auto']:
+                        choice = raw_input("Plase make you choice: ").lower() or 'auto'
+                    if choice != 'auto':
+                        sub_choice = video.getOnlineSubtitles()[int(choice)]
+                        
+                elif choice == 'auto':
+                    # set a starting point to compare scores
+                    best_rated_sub = video.getOnlineSubtitles()[0]
+                    # iterate over all subtitles
+                    subpath_list = {}
+                    for sub in video.getOnlineSubtitles():
+                        subpath_list[sub.getIdOnline()] = sub
+                        if sub.getRating() > best_rated_sub.getRating():
+                            best_rated_sub = sub
+                    #compare video name with subtitles name to find best match
+                    sub_match = Subtitle.AutoDetectSubtitle(video.getFilePath(), sub_list=subpath_list)
+                    if sub_match:
+                        self.log.debug("Subtitle choosen by match")
+                        sub_choice = subpath_list[sub_match]
+                    else:
+                        self.log.debug("Subtitle choosen by rating")
+                        sub_choice = best_rated_sub
+                    self.log.debug("- adding: %s"% (sub_choice.getFileName()))
+                    
                 #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
                 subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
