@@ -28,6 +28,9 @@ class Main(OSDBServer.OSDBServer):
         self.log = logging.getLogger("subdownloader.cli.main")
         
     def start_session(self):
+        if not self.minimum_parameters():
+            return
+            
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.interactive:
@@ -83,6 +86,27 @@ class Main(OSDBServer.OSDBServer):
             
             self.logout()
                 
+    def minimum_parameters(self):
+        """Check for minimum parameters integrity"""
+        # check if user set a video file name
+        self.log.debug("Checking video file parameter...")
+        if self.options.videofile:
+            self.log.debug("...passed")
+        else:
+            self.log.debug("...failed")
+            self.log.info("--video parameter must be set")
+            return False
+        # check if user set language to use on subtitles
+        self.log.debug("Checking language parameter...")
+        if self.options.language:
+            self.log.debug("...passed")
+        else:
+            self.log.debug("...failed")
+            self.log.info("--lang parameter must be set")
+            return False
+        # everything is good
+        return True
+            
     def handle_operation(self, operation):
         if operation == "download":
             _filter = filter.Filter(self.videos)

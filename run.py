@@ -44,7 +44,6 @@ if options.mode == 'gui':
 elif options.mode == 'cli':
     import cli.main
 
-
 logging.basicConfig(level=options.logging,
                     format=LOG_FORMAT,
                     datefmt='%y-%m-%d %H:%M',
@@ -72,29 +71,11 @@ log = logging.getLogger("subdownloader.run")
     
 if __name__ == "__main__": 
     log.info('Subdownloader started')
+    
     if options.mode == 'gui':
         gui.main.main(options)
     elif options.mode == 'cli':
-        # check if user set a video file name
-        log.debug("Checking video file parameter...")
-        if options.videofile:
-            log.debug("...passed")
-        else:
-            log.debug("...failed")
-            log.info("--video parameter must be set")
-            exit()
-        # check if user set language to use on subtitles
-        log.debug("Checking language parameter...")
-        if options.language:
-            log.debug("...passed")
-        else:
-            log.debug("...failed")
-            log.info("--lang parameter must be set")
-            exit()
-            
-        # assume everything is good from here
         cli = cli.main.Main(options)
         cli.start_session()
-        
+    
     log.info('Subdownloader closed for mantainance.')
-    #sys.stdout.write("stopped!\n"); sys.stdout.flush()
