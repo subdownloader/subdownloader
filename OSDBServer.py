@@ -304,6 +304,7 @@ class OSDBServer(object):
             self.log.error("DownloadSubtitles timed out")
     
     def _DownloadSubtitles(self, subtitles):
+        #TODO: decide wheter this should save the subtitle (as it does atm) or just return the encoded data
         """
         Download subtitles by there id's
         
@@ -323,16 +324,7 @@ class OSDBServer(object):
                 self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
                     #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
-                    subtitle_compressed = sub['data']
-                    compressedstream = base64.decodestring(subtitle_compressed)
-                    #compressedstream = subtitle_compressed
-                    gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
-                    s=gzipper.read()
-                    gzipper.close()
-                    path_to_save = subtitles_to_download[sub['idsubtitlefile']]
-                    subtitle_file = file(path_to_save,'wb')
-                    subtitle_file.write(s)
-                    subtitle_file.close()
+                    self.BaseToFile(sub['data'], subtitles_to_download[sub['idsubtitlefile']])
                 return answer['data']
             else:
                 self.log.info("Server sent no subtitles to me.")
@@ -390,7 +382,6 @@ class OSDBServer(object):
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
                         self.log.debug("- %s"% video.getHash())
-
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
@@ -734,3 +725,14 @@ class OSDBServer(object):
             video_array.append(array)
         info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
         self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
+        
+    def BaseToFile(self, base_data, path):
+        """This will decode the base64 data and save it as a file with the given path
+        """
+        compressedstream = base64.decodestring(base_data)
+        gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
+        s=gzipper.read()
+        gzipper.close()
+        subtitle_file = file(path,'wb')
+        subtitle_file.write(s)
+        subtitle_file.close()

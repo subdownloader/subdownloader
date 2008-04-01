@@ -31,7 +31,7 @@ class Main(OSDBServer.OSDBServer):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.interactive:
-            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/N)\n: ").lower() or 'y'
+            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/n)\n: ").lower() or 'y'
             if continue_ != 'y':
                 return
         if check_result == -1:
@@ -101,13 +101,8 @@ class Main(OSDBServer.OSDBServer):
         term = terminal.TerminalController()
         progress = terminal.ProgressBar(term, 'Processing %s'% self.options.videofile)
         (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=progress.update, progress_end=progress.end)
-#        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile)
-        #progress.end()
         self.log.info("Videos found: %i Subtitles found: %i"%(len(self.videos), len(self.subs)))
         if len(self.videos):
-#            self.log.info("Videos found: %i"% len(self.videos))
-#            if len(self.subs):
-#                self.log.info("Subtitles found: %i"% len(self.subs))
             if len(self.videos) == len(self.subs):
                 self.log.info("Number of videos and subtitles are the same. I could guess you already have all subtitles.")
                 return 2
@@ -116,7 +111,6 @@ class Main(OSDBServer.OSDBServer):
                 return 1
         elif len(self.subs):
             self.log.debug("No videos were found")
-#            self.log.info("Subtitles found: %i"% len(self.subs))
             self.log.info("Although some subtitles exist, no videos were found. No subtitles would be needed for this case :(")
             return -1
         else:
