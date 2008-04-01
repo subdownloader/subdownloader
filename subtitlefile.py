@@ -21,7 +21,7 @@ import os
 import md5
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
-SELECT_SUBTITLES = "Subtitle Files (*.srt *.sub *.txt *.ssa)"
+SELECT_SUBTITLES = "Subtitle Files (*.%s)"% " *.".join(SUBTITLES_EXT)
 
 class SubtitleFile(object):
     """Contains the class that represents a SubtitleFile (SRT,SUB,etc)
@@ -30,28 +30,41 @@ class SubtitleFile(object):
     def __init__(self, online, id):
         self._language = None
         self._video = None
-        if online:
-            self._online = True
-            self._id_online = id
-            self._uploader = None
-        else:
-            self._online = False
-            self._filepath = id
-            self.setFileName(self.getFilePath())
-            self._languageXX = None
-            self._languageXXX = None
-            self._languageName = None
+        self._online = online
+        self._path = id
+        self._uploader = None
+        self.setFileName(self._path)
+        self._languageXX = None
+        self._languageXXX = None
+        self._languageName = None
+        self.rating = 0
+        if not online:
             self._size = os.path.getsize(self._filepath)
             self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
-            self.rating = 0
+            
+#        if online:
+#            self._online = True
+#            self._id_online = id
+#            self._uploader = None
+#        else:
+#            self._online = False
+#            self._filepath = id
+#            self.setFileName(self.getFilePath())
+#            self._languageXX = None
+#            self._languageXXX = None
+#            self._languageName = None
+#            self._size = os.path.getsize(self._filepath)
+#            self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
+#            self.rating = 0
         
     def setFileName(self,filename):
         self._filename = filename
     
     def getFileName(self):
-        if self._online:
-            return os.path.basename(self._id_online)
-        return os.path.basename(self._filepath)
+        return os.path.basename(self._path)
+#        if self._online:
+#            return os.path.basename(self._id_online)
+#        return os.path.basename(self._filepath)
     
     def setVideo(self, _video):
         self._video = _video
@@ -66,13 +79,13 @@ class SubtitleFile(object):
         return self._uploader
     
     def setIdOnline(self,_id_online):
-        self._id_online = _id_online
+        self._path = _id_online
     
     def getIdOnline(self):
-        return self._id_online
+        return self._path
     
     def getFilePath(self):
-        return self._filepath
+        return self._path
     
     def getSize(self):
         return self._size
