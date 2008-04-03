@@ -16,7 +16,7 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import logging
+import logging, os.path
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import terminal, filter
@@ -90,12 +90,25 @@ class Main(OSDBServer.OSDBServer):
         """Check for minimum parameters integrity"""
         # check if user set a video file name
         self.log.debug("Checking video file parameter...")
-        if self.options.videofile:
+        if self.options.videofile == os.path.abspath(os.path.curdir) and self.options.interactive:
+            # confirm with user if he wants to use default directory
+            self.options.videofile = raw_input("Enter your video(s) directory [%s]: "% self.options.videofile) or self.options.videofile
+        if os.path.exists(self.options.videofile):
             self.log.debug("...passed")
+        elif self.options.interactive:
+            choice = raw_input("Enter your video(s) directory: ") or ""
+            self.options.videofile = choice
+            if os.path.exists(self.options.videofile):
+                self.log.debug("...passed")
+            else:
+                self.log.debug("...failed")
+                self.log.info("--video parameter looks bad")
+                return False
         else:
             self.log.debug("...failed")
             self.log.info("--video parameter must be set")
             return False
+           
         # check if user set language to use on subtitles
         self.log.debug("Checking language parameter...")
         if self.options.language:
