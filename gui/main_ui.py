@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon Mar 31 23:41:51 2008
+# Created: Thu Apr  3 21:33:42 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,804,608).size()).expandedTo(MainWindow.minimumSizeHint()))
-        MainWindow.setWindowIcon(QtGui.QIcon(":/images/logo.png"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -52,7 +51,11 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonDownload.sizePolicy().hasHeightForWidth())
         self.buttonDownload.setSizePolicy(sizePolicy)
-        self.buttonDownload.setIcon(QtGui.QIcon(":/images/download.png"))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.buttonDownload.setFont(font)
         self.buttonDownload.setObjectName("buttonDownload")
         self.hboxlayout.addWidget(self.buttonDownload)
 
@@ -64,7 +67,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonIMDB.sizePolicy().hasHeightForWidth())
         self.buttonIMDB.setSizePolicy(sizePolicy)
-        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
+        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/info.png"))
         self.buttonIMDB.setIconSize(QtCore.QSize(32,16))
         self.buttonIMDB.setObjectName("buttonIMDB")
         self.hboxlayout.addWidget(self.buttonIMDB)
@@ -135,7 +138,7 @@ class Ui_MainWindow(object):
         self.videoView.setObjectName("videoView")
         self.vboxlayout3.addWidget(self.videoView)
         self.vboxlayout1.addWidget(self.splitter)
-        self.tabs.addTab(self.tab,QtGui.QIcon(":/images/search.png"),"")
+        self.tabs.addTab(self.tab,"")
 
         self.tab_3 = QtGui.QWidget()
         self.tab_3.setObjectName("tab_3")
@@ -235,49 +238,13 @@ class Ui_MainWindow(object):
         self.hboxlayout3.addWidget(self.sub_view)
         self.vboxlayout5.addWidget(self.groupBox_4)
         self.vboxlayout4.addLayout(self.vboxlayout5)
-        self.tabs.addTab(self.tab_3,QtGui.QIcon(":/images/search.png"),"")
+        self.tabs.addTab(self.tab_3,"")
 
         self.tab_4 = QtGui.QWidget()
         self.tab_4.setObjectName("tab_4")
 
-        self.vboxlayout6 = QtGui.QVBoxLayout(self.tab_4)
-        self.vboxlayout6.setObjectName("vboxlayout6")
-
-        self.splitter_upload = QtGui.QSplitter(self.tab_4)
-        self.splitter_upload.setBaseSize(QtCore.QSize(0,0))
-        self.splitter_upload.setOrientation(QtCore.Qt.Horizontal)
-        self.splitter_upload.setHandleWidth(6)
-        self.splitter_upload.setObjectName("splitter_upload")
-
-        self.layoutWidget = QtGui.QWidget(self.splitter_upload)
-        self.layoutWidget.setObjectName("layoutWidget")
-
-        self.vboxlayout7 = QtGui.QVBoxLayout(self.layoutWidget)
-        self.vboxlayout7.setObjectName("vboxlayout7")
-
-        self.hboxlayout4 = QtGui.QHBoxLayout()
-        self.hboxlayout4.setObjectName("hboxlayout4")
-
-        self.label_2 = QtGui.QLabel(self.layoutWidget)
-        self.label_2.setObjectName("label_2")
-        self.hboxlayout4.addWidget(self.label_2)
-
-        self.buttonUploadBrowseFolder = QtGui.QToolButton(self.layoutWidget)
-        self.buttonUploadBrowseFolder.setObjectName("buttonUploadBrowseFolder")
-        self.hboxlayout4.addWidget(self.buttonUploadBrowseFolder)
-        self.vboxlayout7.addLayout(self.hboxlayout4)
-
-        self.uploadView = UploadListView(self.layoutWidget)
-        self.uploadView.setAcceptDrops(True)
-        self.uploadView.setDragEnabled(True)
-        self.uploadView.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
-        self.uploadView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
-        self.uploadView.setSelectionBehavior(QtGui.QAbstractItemView.SelectItems)
-        self.uploadView.setGridStyle(QtCore.Qt.DotLine)
-        self.uploadView.setObjectName("uploadView")
-        self.vboxlayout7.addWidget(self.uploadView)
-
-        self.groupBox = QtGui.QGroupBox(self.splitter_upload)
+        self.groupBox = QtGui.QGroupBox(self.tab_4)
+        self.groupBox.setGeometry(QtCore.QRect(10,300,761,221))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -285,13 +252,11 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy)
         self.groupBox.setMinimumSize(QtCore.QSize(300,0))
-        self.groupBox.setMaximumSize(QtCore.QSize(300,16777215))
+        self.groupBox.setMaximumSize(QtCore.QSize(16777215,16777215))
         self.groupBox.setObjectName("groupBox")
 
-        self.gridlayout = QtGui.QGridLayout(self.groupBox)
-        self.gridlayout.setObjectName("gridlayout")
-
         self.label_4 = QtGui.QLabel(self.groupBox)
+        self.label_4.setGeometry(QtCore.QRect(11,28,10,27))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -300,9 +265,9 @@ class Ui_MainWindow(object):
         self.label_4.setSizePolicy(sizePolicy)
         self.label_4.setMaximumSize(QtCore.QSize(10,16777215))
         self.label_4.setObjectName("label_4")
-        self.gridlayout.addWidget(self.label_4,0,0,1,1)
 
         self.label = QtGui.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(37,28,38,27))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -310,25 +275,25 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         self.label.setObjectName("label")
-        self.gridlayout.addWidget(self.label,0,1,1,1)
 
         self.comboBox_3 = QtGui.QComboBox(self.groupBox)
+        self.comboBox_3.setGeometry(QtCore.QRect(114,30,571,22))
         self.comboBox_3.setObjectName("comboBox_3")
-        self.gridlayout.addWidget(self.comboBox_3,0,2,1,1)
 
-        self.pushButton = QtGui.QPushButton(self.groupBox)
+        self.buttonUploadFindIMDB = QtGui.QPushButton(self.groupBox)
+        self.buttonUploadFindIMDB.setGeometry(QtCore.QRect(700,30,50,27))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMinimumSize(QtCore.QSize(0,0))
-        self.pushButton.setMaximumSize(QtCore.QSize(50,16777215))
-        self.pushButton.setObjectName("pushButton")
-        self.gridlayout.addWidget(self.pushButton,0,3,1,1)
+        sizePolicy.setHeightForWidth(self.buttonUploadFindIMDB.sizePolicy().hasHeightForWidth())
+        self.buttonUploadFindIMDB.setSizePolicy(sizePolicy)
+        self.buttonUploadFindIMDB.setMinimumSize(QtCore.QSize(0,0))
+        self.buttonUploadFindIMDB.setMaximumSize(QtCore.QSize(50,16777215))
+        self.buttonUploadFindIMDB.setObjectName("buttonUploadFindIMDB")
 
         self.label_8 = QtGui.QLabel(self.groupBox)
+        self.label_8.setGeometry(QtCore.QRect(11,62,10,22))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -337,9 +302,9 @@ class Ui_MainWindow(object):
         self.label_8.setSizePolicy(sizePolicy)
         self.label_8.setMaximumSize(QtCore.QSize(10,16777215))
         self.label_8.setObjectName("label_8")
-        self.gridlayout.addWidget(self.label_8,1,0,1,1)
 
         self.label_5 = QtGui.QLabel(self.groupBox)
+        self.label_5.setGeometry(QtCore.QRect(37,62,66,22))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -347,13 +312,13 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
         self.label_5.setSizePolicy(sizePolicy)
         self.label_5.setObjectName("label_5")
-        self.gridlayout.addWidget(self.label_5,1,1,1,1)
 
         self.comboBox_2 = QtGui.QComboBox(self.groupBox)
+        self.comboBox_2.setGeometry(QtCore.QRect(114,62,171,22))
         self.comboBox_2.setObjectName("comboBox_2")
-        self.gridlayout.addWidget(self.comboBox_2,1,2,1,1)
 
         self.label_6 = QtGui.QLabel(self.groupBox)
+        self.label_6.setGeometry(QtCore.QRect(37,91,53,23))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -361,13 +326,13 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
         self.label_6.setObjectName("label_6")
-        self.gridlayout.addWidget(self.label_6,2,1,1,1)
 
         self.lineEdit = QtGui.QLineEdit(self.groupBox)
+        self.lineEdit.setGeometry(QtCore.QRect(114,91,175,23))
         self.lineEdit.setObjectName("lineEdit")
-        self.gridlayout.addWidget(self.lineEdit,2,2,1,2)
 
         self.label_7 = QtGui.QLabel(self.groupBox)
+        self.label_7.setGeometry(QtCore.QRect(37,121,70,100))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -375,9 +340,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
         self.label_7.setSizePolicy(sizePolicy)
         self.label_7.setObjectName("label_7")
-        self.gridlayout.addWidget(self.label_7,3,1,1,1)
 
         self.textEdit = QtGui.QTextEdit(self.groupBox)
+        self.textEdit.setGeometry(QtCore.QRect(114,121,451,94))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -386,16 +351,69 @@ class Ui_MainWindow(object):
         self.textEdit.setSizePolicy(sizePolicy)
         self.textEdit.setMaximumSize(QtCore.QSize(16777215,100))
         self.textEdit.setObjectName("textEdit")
-        self.gridlayout.addWidget(self.textEdit,3,2,1,2)
 
-        spacerItem3 = QtGui.QSpacerItem(20,40,QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Expanding)
-        self.gridlayout.addItem(spacerItem3,4,1,1,1)
-        self.vboxlayout6.addWidget(self.splitter_upload)
-        self.tabs.addTab(self.tab_4,QtGui.QIcon(":/images/upload.png"),"")
+        self.buttonUpload = QtGui.QPushButton(self.tab_4)
+        self.buttonUpload.setEnabled(False)
+        self.buttonUpload.setGeometry(QtCore.QRect(692,20,81,27))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.buttonUpload.setFont(font)
+        self.buttonUpload.setObjectName("buttonUpload")
+
+        self.groupBox_2 = QtGui.QGroupBox(self.tab_4)
+        self.groupBox_2.setGeometry(QtCore.QRect(10,60,761,241))
+        self.groupBox_2.setObjectName("groupBox_2")
+
+        self.uploadView = UploadListView(self.groupBox_2)
+        self.uploadView.setGeometry(QtCore.QRect(10,60,741,171))
+        self.uploadView.setAcceptDrops(True)
+        self.uploadView.setDragEnabled(True)
+        self.uploadView.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
+        self.uploadView.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
+        self.uploadView.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.uploadView.setGridStyle(QtCore.Qt.DotLine)
+        self.uploadView.setObjectName("uploadView")
+
+        self.buttonUploadBrowseFolder = QtGui.QToolButton(self.groupBox_2)
+        self.buttonUploadBrowseFolder.setGeometry(QtCore.QRect(10,20,34,33))
+        self.buttonUploadBrowseFolder.setIcon(QtGui.QIcon(":/images/openfolder.png"))
+        self.buttonUploadBrowseFolder.setIconSize(QtCore.QSize(24,24))
+        self.buttonUploadBrowseFolder.setObjectName("buttonUploadBrowseFolder")
+
+        self.buttonUploadPlusRow = QtGui.QToolButton(self.groupBox_2)
+        self.buttonUploadPlusRow.setEnabled(False)
+        self.buttonUploadPlusRow.setGeometry(QtCore.QRect(60,20,30,31))
+        self.buttonUploadPlusRow.setIcon(QtGui.QIcon(":/images/plus.png"))
+        self.buttonUploadPlusRow.setIconSize(QtCore.QSize(24,24))
+        self.buttonUploadPlusRow.setObjectName("buttonUploadPlusRow")
+
+        self.buttonUploadMinusRow = QtGui.QToolButton(self.groupBox_2)
+        self.buttonUploadMinusRow.setEnabled(False)
+        self.buttonUploadMinusRow.setGeometry(QtCore.QRect(100,20,30,31))
+        self.buttonUploadMinusRow.setIcon(QtGui.QIcon(":/images/minus.png"))
+        self.buttonUploadMinusRow.setIconSize(QtCore.QSize(24,24))
+        self.buttonUploadMinusRow.setObjectName("buttonUploadMinusRow")
+
+        self.buttonUploadDownRow = QtGui.QToolButton(self.groupBox_2)
+        self.buttonUploadDownRow.setEnabled(False)
+        self.buttonUploadDownRow.setGeometry(QtCore.QRect(170,20,34,33))
+        self.buttonUploadDownRow.setIcon(QtGui.QIcon(":/images/down.png"))
+        self.buttonUploadDownRow.setIconSize(QtCore.QSize(24,24))
+        self.buttonUploadDownRow.setObjectName("buttonUploadDownRow")
+
+        self.buttonUploadUpRow = QtGui.QToolButton(self.groupBox_2)
+        self.buttonUploadUpRow.setEnabled(False)
+        self.buttonUploadUpRow.setGeometry(QtCore.QRect(210,20,34,33))
+        self.buttonUploadUpRow.setIcon(QtGui.QIcon(":/images/up.png"))
+        self.buttonUploadUpRow.setIconSize(QtCore.QSize(24,24))
+        self.buttonUploadUpRow.setObjectName("buttonUploadUpRow")
+        self.tabs.addTab(self.tab_4,"")
 
         self.tab_5 = QtGui.QWidget()
         self.tab_5.setObjectName("tab_5")
-        self.tabs.addTab(self.tab_5,QtGui.QIcon(":/images/preferences.png"),"")
+        self.tabs.addTab(self.tab_5,"")
 
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -408,7 +426,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -430,15 +448,13 @@ class Ui_MainWindow(object):
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_4.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Search by Movie Name", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Select Folder with Videos / Subtitles: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonUploadBrowseFolder.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("MainWindow", "Details", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
         "p, li { white-space: pre-wrap; }\n"
         "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "IMDB: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Find", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadFindIMDB.setText(QtGui.QApplication.translate("MainWindow", "Find", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
         "p, li { white-space: pre-wrap; }\n"
         "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
@@ -446,6 +462,13 @@ class Ui_MainWindow(object):
         self.label_5.setText(QtGui.QApplication.translate("MainWindow", "Language:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("MainWindow", "Release:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("MainWindow", "Comments:", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUpload.setText(QtGui.QApplication.translate("MainWindow", "Upload", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder with Videos / Subtitles: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadBrowseFolder.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadPlusRow.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadMinusRow.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadDownRow.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonUploadUpRow.setText(QtGui.QApplication.translate("MainWindow", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "Upload subtitles", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Options", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_2), QtGui.QApplication.translate("MainWindow", "Contact us / Tip us :-)", None, QtGui.QApplication.UnicodeUTF8))

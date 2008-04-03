@@ -2,6 +2,7 @@
     <qresource prefix="/" >
         <file>images/clear.png</file>
         <file>images/clear_list.png</file>
+        <file>images/down.png</file>
         <file>images/download.png</file>
         <file>images/flags/ar.gif</file>
         <file>images/flags/ay.gif</file>
@@ -50,9 +51,14 @@
         <file>images/flags/vi.gif</file>
         <file>images/flags/zh.gif</file>
         <file>images/imdb.jpg</file>
+        <file>images/info.png</file>
         <file>images/logo.png</file>
+        <file>images/minus.png</file>
+        <file>images/openfolder.png</file>
+        <file>images/plus.png</file>
         <file>images/preferences.png</file>
         <file>images/search.png</file>
+        <file>images/up.png</file>
         <file>images/upload.png</file>
     </qresource>
 </RCC>
