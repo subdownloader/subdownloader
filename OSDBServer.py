@@ -184,11 +184,7 @@ class OSDBServer(object):
     it could be used for ping or telling server info to client"""    
     def _ServerInfo(self):
         try: 
-            serverinfo = self.xmlrpc_server.ServerInfo()
-            text = ""
-            for key,value in serverinfo.items():
-                text += key + " : " + str(value) + "\n"
-            return text
+            return self.xmlrpc_server.ServerInfo()
         except Exception,e:
             raise e
             

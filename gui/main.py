@@ -25,7 +25,7 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-                        QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel
+                        QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
 from subdownloader.gui.SplashScreen import SplashScreen, NoneSplashScreen
@@ -139,7 +139,16 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadView, SIGNAL("activated(QModelIndex)"), self.onClickUploadViewCell)
         QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onClickUploadViewCell)
         
-
+        QObject.connect(self.buttonUpload, SIGNAL("clicked(bool)"), self.onUploadButton)
+        QObject.connect(self.buttonUploadUpRow, SIGNAL("clicked(bool)"), self.onUploadButtonUpRow)
+        QObject.connect(self.buttonUploadDownRow, SIGNAL("clicked(bool)"), self.onUploadButtonUpRow)
+        QObject.connect(self.buttonUploadPlusRow, SIGNAL("clicked(bool)"), self.onUploadButtonPlusRow)
+        QObject.connect(self.buttonUploadMinusRow, SIGNAL("clicked(bool)"), self.onUploadButtonMinusRow)
+        
+        self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
+        self.uploadView.setSelectionModel(self.uploadSelectionModel)
+        QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
+            
         self.folderView.show()
         
         #Fill Out the Filters Language SelectBoxes
@@ -155,6 +164,8 @@ class Main(QObject, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.status_progress,2)
         if not options.test:
             self.establish_connection()
+            data = self.OSDBServer.ServerInfo()
+            self.status_label.setText("Users online: "+ str(data["users_online_program"]))
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
@@ -365,6 +376,31 @@ class Main(QObject, Ui_MainWindow):
             self.uploadView.resizeRowsToContents()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
+    def onUploadButtonPlusRow(self, clicked):
+        pass
+        
+    def onUploadButtonMinusRow(self, clicked):
+        pass
+        
+    def onUploadButtonUpRow(self, clicked):
+        pass
+        
+    def onUploadButtonDownRow(self, clicked):
+        pass
+        
+    def onUploadButton(self, clicked):
+        pass
+        
+    def onUploadChangeSelection(self, selected, unselected):
+        if selected.count():
+            self.buttonUploadDownRow.setEnabled(True)
+            self.buttonUploadUpRow.setEnabled(True)
+            self.buttonUploadMinusRow.setEnabled(True)
+        else:
+            self.buttonUploadDownRow.setEnabled(False)
+            self.buttonUploadUpRow.setEnabled(False)
+            self.buttonUploadMinusRow.setEnabled(False)
+        
     def onClickUploadViewCell(self, index):
         COL_VIDEO = 0 #FIXME: Use global variables
         COL_SUB = 1
