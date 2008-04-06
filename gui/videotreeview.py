@@ -56,8 +56,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
            for sub in video._subs:
                if (not filter) or (filter == sub.getLanguageXX()) :    #Filter subtitles by Language
                    videoNode.addChild(sub)
-                   print sub.getFileName()
-    #print 4
+    
     
   def clearTree(self):
      log.debug("Clearing VideoTree")
