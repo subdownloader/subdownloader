@@ -19,6 +19,10 @@
 
 import os.path
 import struct
+try:
+    import mmpython
+except:
+    print "Failed to import mmpython module. This means you will be unable to upload your videos with all details."
 
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "mp4", "mpv"," swf"]
 SELECT_VIDEOS = "Video Files (*.%s)"% " *.".join(VIDEOS_EXT)
@@ -32,7 +36,11 @@ class VideoFile(object):
         self._filepath = filepath
         self._size = os.path.getsize(filepath)
         self._hash = self.calculateOSDBHash()
-        self._fps = 0
+        try:
+            video = mmpython.parse(filepath)
+            self._fps = video.video[0].fps
+        except:
+            self._fps = 0
         self._osdb_info = {}
         self._movie_info = {}
         self._subs = []

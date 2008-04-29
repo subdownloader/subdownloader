@@ -22,7 +22,7 @@ import StringIO, gzip, zlib
 import logging
 
 log = logging.getLogger("subdownloader.OSDBServer")
-
+    
 from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
