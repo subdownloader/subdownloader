@@ -103,13 +103,13 @@ class SubtitleFile(object):
         self._languageXX = language
     
     def getLanguageXX(self):
-        return self._languageXX
+        return self._languageXX.lower()
     
     def setLanguageXXX(self,language):
         self._languageXXX = language
     
     def getLanguageXXX(self):
-        return self._languageXXX
+        return self._languageXXX.lower()
     
     def getLanguageName(self): 
         return self._languageName

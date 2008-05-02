@@ -134,6 +134,7 @@ def score_subtitles(video, subtitle_list):
     # return scored subtitles
     return sub_dict
 
+#FIXME: when language is 'Brazlian' wrong value is returned: 'Bra' instead of 'pob')
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = file(filepath,mode='rb').read()

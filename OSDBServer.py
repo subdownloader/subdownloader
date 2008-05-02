@@ -118,6 +118,7 @@ class OSDBServer(object):
         self.username = options.username
         self.passwd = options.password
         self.language = options.language
+        self.usermode = options.mode
         self.interactive = options.interactive
         if options.server: 
             self.server = options.server
@@ -444,10 +445,10 @@ class OSDBServer(object):
         self.log.debug("Communicating with server...")
         result = self.xmlrpc_server.TryUploadSubtitles(self._token, array)
         self.log.debug("Search took %ss"% result['seconds'])
-        print result.keys()
+#        print result.keys()
         result.pop('seconds')
-        import pprint
-        pprint.pprint(result)
+#        import pprint
+#        pprint.pprint(result)
         if result['alreadyindb']:
             self.log.debug("Subtitle already exists in server database")
         else:
@@ -477,31 +478,58 @@ class OSDBServer(object):
             #TODO: make this to work with non-hashed subtitles (no 'data' to handle)
             # quick check to see if all video/subtitles are from same movie
             for movie_sub in check_result['data']:
-                if locals().has_key('IDMovie'):
-                    if IDMovie != movie_sub['IDMovie']:
-                        self.log.error("All videos must have same ID. Stopping upload.")
-                        return False
+                if not locals().has_key('IDMovie'):
+                    IDMovie = {}
+                if IDMovie.has_key(movie_sub['IDMovie']):
+                    IDMovie[movie_sub['IDMovie']] += 1
                 else:
-                    IDMovie = movie_sub['IDMovie']
+                    IDMovie[movie_sub['IDMovie']] = 1
+#                    if IDMovie != movie_sub['IDMovie']:
+#                        self.log.error("All videos must have same ID. Stopping upload.")
+#                        return False
+#                else:
+#                    IDMovie = movie_sub['IDMovie']
             #
             movie_info = {}
             for (i, video) in enumerate(videos):
-                for details in check_result['data']:
-                    if video.getHash() == details['MovieHash']:
-                        cd = 'cd%i'% (i+1)
-                        curr_video = video
-                        curr_sub = curr_video.getSubtitles()[0]
-                        # cook subtitle content
-                        self.log.debug("Compressing subtitle...")
-                        buf = open(curr_sub.getFilePath()).read()
-                        curr_sub_content = base64.encodestring(zlib.compress(buf))
+#                for details in check_result['data']:
+                details = check_result['data'][0]
+                
+                if video.getHash() == details['MovieHash']:
+                    cd = 'cd%i'% (i+1)
+                    curr_video = video
+                    curr_sub = curr_video.getSubtitles()[0]
+                    user_choices = {'moviereleasename': details['MovieName'], 
+                                    'movieaka': details['MovieNameEng'], 
+                                    'moviefilename': curr_video.getFileName(), 
+                                    'subfilename': curr_sub.getFileName(), 
+                                    'sublanguageid': curr_sub.getLanguage(), 
+                                    }
+                    # interactive mode
+                    if self.usermode == 'cli' and self.interactive:
+                        self.log.info("Upload the following information:")
+                        for (i, choice) in enumerate(user_choices):
+                            self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
+                        change = raw_input("Change any of the details? [y/N] ").lower() or 'n'
+                        while change == 'y':
+                            change_what = int(raw_input("What detail? "))
+                            if change_what in range(len(user_choices.keys())):
+                                choice = user_choices.keys()[change_what]
+                                new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
+                                user_choices[choice] = new_value
+                            change = raw_input("Change any more details? [y/N] ").lower() or 'n'
                         
-                        #curr_cd = {'cd': 'cd%s'%i, 'content': {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': None} }
-                        # transfer info
-                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
-                        break
+                    # cook subtitle content
+                    self.log.debug("Compressing subtitle...")
+                    buf = open(curr_sub.getFilePath()).read()
+                    curr_sub_content = base64.encodestring(zlib.compress(buf))
+                    
+                    #curr_cd = {'cd': 'cd%s'%i, 'content': {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'movieframes': details['MovieFrames'], 'moviefilename': curr_video.getFileName(), 'subcontent': None} }
+                    # transfer info
+                    movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': user_choices['subfilename'], 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': user_choices['moviefilename'], 'subcontent': curr_sub_content}
+                    break
                         
-            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['MovieName'], 'movieaka': details['MovieNameEng'], 'sublanguageid': curr_sub.getLanguage(), 'subauthorcomment': "Another great upload with Subdownloader2.0"} #details['SubAuthorComment']}
+            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': user_choices['moviereleasename'], 'movieaka': user_choices['movieaka'], 'sublanguageid': user_choices['sublanguageid'], 'subauthorcomment': "Another great upload with Subdownloader2.0"} #details['SubAuthorComment']}
             
             #print movie_info
             self.log.info("Uploading subtitle...")
