@@ -23,7 +23,6 @@ from subdownloader.FileManagement import get_extension
 import RecursiveParser
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
-from subdownloader.modules import terminal
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
@@ -34,6 +33,7 @@ def FakeProgress(count,msg=""):
 def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=None):
     #Let's reset the progress bar to 0%
     log.debug("Scanning Folder %s" % folderpath)
+    
     if report_progress == None:
         report_progress = FakeProgress
     

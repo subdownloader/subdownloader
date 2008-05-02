@@ -19,7 +19,8 @@
 import logging, os.path
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader.modules import terminal, filter
+from subdownloader.modules import filter, progressbar
+import cli.conf as conf
 
 class Main(OSDBServer.OSDBServer):
     
@@ -34,7 +35,7 @@ class Main(OSDBServer.OSDBServer):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.interactive:
-            continue_ = raw_input("Do you still want to search for missing subtitles? (Y/n)\n: ").lower() or 'y'
+            continue_ = raw_input("Do you still want to search for missing subtitles? [Y/n] ").lower() or 'y'
             if continue_ != 'y':
                 return
         if check_result == -1:
@@ -122,7 +123,7 @@ class Main(OSDBServer.OSDBServer):
             
     def handle_operation(self, operation):
         if operation == "download":
-            _filter = filter.Filter(self.videos)
+            _filter = filter.Filter(self.videos, interactive=True)
             self.DownloadSubtitles(_filter.subtitles_to_download())
             
         elif operation == "upload":
@@ -133,11 +134,15 @@ class Main(OSDBServer.OSDBServer):
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """
-        self.log.debug("Checking given directory")
-        #for cli progressbar
-        term = terminal.TerminalController()
-        progress = terminal.ProgressBar(term, 'Processing %s'% self.options.videofile)
-        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=progress.update, progress_end=progress.end)
+        self.log.info("Scanning %s ..."% self.options.videofile)
+        if self.options.verbose:
+            #for cli progressbar
+            progress = progressbar.ProgressBar(widgets=conf.PROGRESS_BAR_STYLE).start()
+            report_progress = progress.update
+            progress_end = progress.finish
+        else:
+            report_progress = progress_end = None
+        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=report_progress, progress_end=progress_end)
         self.log.info("Videos found: %i Subtitles found: %i"%(len(self.videos), len(self.subs)))
         if len(self.videos):
             if len(self.videos) == len(self.subs):
@@ -155,13 +160,12 @@ class Main(OSDBServer.OSDBServer):
             return -1
             
     def do_matching(self, videos, subtitles):
-        if self.options.logging > logging.DEBUG:
-                term = terminal.TerminalController()
-                progress = terminal.ProgressBar(term, 'Matching %i videos with %i subtitles'% (len(videos), len(subtitles)))
+        if self.options.logging > logging.DEBUG and self.options.verbose:
+            progress = progressbar.ProgressBar(widgets=conf.PROGRESS_BAR_STYLE, maxval=len(videos)).start()
 
         for i, video in enumerate(videos):
-            if self.options.logging > logging.DEBUG:
-                progress.update(float(i+1)/len(videos), "Processing %s..."% video.getFileName())
+            if self.options.logging > logging.DEBUG and self.options.verbose:
+                progress.update(i+1)
             self.log.debug("Processing %s..."% video.getFileName())
             
             possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
@@ -171,17 +175,11 @@ class Main(OSDBServer.OSDBServer):
                 sub_match = None
                 if possible_subtitle == subtitle.getFilePath():
                     sub_match = subtitle
-                    if self.options.logging > logging.DEBUG:
-                        progress.update(float(i+1)/len(videos), "Match found: %s"% sub_match.getFileName())
                     self.log.debug("Match found: %s"% sub_match.getFileName())
                     break
             if sub_match:
-                if self.options.logging > logging.DEBUG:
-                    progress.update(float(i+1)/len(videos), "Auto-detecting language of %s..."% sub_match.getFileName())
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
-                if self.options.logging > logging.DEBUG:
-                    progress.update(float(i+1)/len(videos), "Setting language to %s..."% sub_lang[:3])
                 sub_match.setLanguage(sub_lang[:3])
                 video.addSubtitle(sub_match)
-        if self.options.logging > logging.DEBUG:
-            progress.end()
+        if self.options.logging > logging.DEBUG and self.options.verbose:
+            progress.finish()

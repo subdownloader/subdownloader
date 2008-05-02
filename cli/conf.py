@@ -22,6 +22,7 @@
 from optparse import make_option
 import logging
 import os.path
+from subdownloader.modules import progressbar
 
 """
 Logging levels:
@@ -90,3 +91,4 @@ LOG_NAME = "%s.log"% NAME.lower()
 LOG_PATH = os.path.join(LOG_DIR, LOG_NAME)
 LOG_MODE = "a"
 
+PROGRESS_BAR_STYLE = [progressbar.Bar(), progressbar.Percentage(), ' ', progressbar.ETA()]

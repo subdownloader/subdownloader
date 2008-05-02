@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-04-30, 00:11:47 -->
+<!-- Saved: 2008-05-02, 20:33:31 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -107,10 +107,6 @@
     </Source>
     <Source>
       <Dir>modules</Dir>
-      <Name>terminal.py</Name>
-    </Source>
-    <Source>
-      <Dir>modules</Dir>
       <Name>__init__.py</Name>
     </Source>
     <Source>
@@ -124,6 +120,10 @@
     <Source>
       <Dir>gui</Dir>
       <Name>SplashScreen.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>progressbar.py</Name>
     </Source>
   </Sources>
   <Forms>

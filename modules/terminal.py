@@ -209,11 +209,11 @@ class ProgressBar:
         print 'test'
         
 if __name__=='__main__':
-	import time
-	term = TerminalController()
-	progress = ProgressBar(term, 'Processing some files')
-	filenames = ['this', 'that', 'other', 'foo', 'bar', 'baz']
-	for i, filename in enumerate(filenames):
-		progress.update(float(i)/len(filenames), 'working on %s' % filename)
-		time.sleep(.3)
-	progress.clear()
+    import time
+    term = TerminalController()
+    progress = ProgressBar(term, 'Processing some files')
+    filenames = ['this', 'that', 'other', 'foo', 'bar', 'baz']
+    for i, filename in enumerate(filenames):
+        progress.update(float(i)/len(filenames), 'working on %s' % filename)
+        time.sleep(.3)
+    progress.clear()
