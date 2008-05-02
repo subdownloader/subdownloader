@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>776</width>
-    <height>594</height>
+    <height>653</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -138,40 +138,10 @@
         </item>
         <item>
          <widget class="QSplitter" name="splitter" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="layoutDirection" >
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="autoFillBackground" >
-           <bool>false</bool>
-          </property>
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="QGroupBox" name="groupBox_5" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize" >
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize" >
-            <size>
-             <width>200</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="title" >
             <string>Select Folder:</string>
            </property>
@@ -185,17 +155,11 @@
             </item>
            </layout>
           </widget>
-          <widget class="QGroupBox" name="groupBox_3" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+          <widget class="QGroupBox" name="groupBox_videosFound" >
            <property name="title" >
             <string>Videos found:</string>
            </property>
-           <layout class="QVBoxLayout" >
+           <layout class="QHBoxLayout" >
             <item>
              <widget class="QTreeView" name="videoView" />
             </item>
