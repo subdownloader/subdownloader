@@ -18,6 +18,7 @@
 
 """ Create and launch the GUI """
 import sys, re, os, traceback, tempfile
+import webbrowser
 #sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
 
 from PyQt4 import QtCore, QtGui
@@ -275,7 +276,8 @@ class Main(QObject, Ui_MainWindow):
         video = self.videoModel.getSelectedItem().data
         movie_info = video.getMovieInfo()
         if movie_info:
-            QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
+            #QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
+            webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
             
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
