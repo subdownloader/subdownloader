@@ -22,7 +22,7 @@ from optparse import OptionParser
 # this will allow logic imports
 sys.path.append(os.path.dirname(os.getcwd()))
 # simple aplication starter
-from subdownloader.cli import conf
+import subdownloader.modules.configuration as conf
 
 """
 CRITICAL    50
@@ -32,11 +32,9 @@ INFO            20
 DEBUG       10
 NOTSET       0
 """
-LOG_LEVEL = logging.DEBUG
-LOG_FORMAT = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
 
 #TODO: change conf.VERSION to subdownloader.APP_VERSION
-parser = OptionParser(description=conf.DESCRIPTION,  version=conf.VERSION,  option_list=conf.OPTION_LIST)
+parser = OptionParser(description=conf.General.description, version=conf.General.version, option_list=conf.Terminal.option_list)
 (options, args) = parser.parse_args()
 
 if options.mode == 'gui':
@@ -45,11 +43,11 @@ elif options.mode == 'cli':
     import cli.main
 
 logging.basicConfig(level=options.logging,
-                    format=LOG_FORMAT,
+                    format=conf.Logging.log_format,
                     datefmt='%y-%m-%d %H:%M',
                     #uncomment next two lines if we want logging into a file
-                    filename=conf.LOG_PATH,
-                    filemode=conf.LOG_MODE,
+                    filename=conf.Logging.log_path,
+                    filemode=conf.Logging.log_mode,
                     )
 # add a console logging handler if verbosity is turned on
 if options.verbose:

@@ -20,7 +20,7 @@ import logging, os.path
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import filter, progressbar
-import cli.conf as conf
+import subdownloader.modules.configuration as conf
 
 class Main(OSDBServer.OSDBServer):
     
@@ -137,7 +137,7 @@ class Main(OSDBServer.OSDBServer):
         self.log.info("Scanning %s ..."% self.options.videofile)
         if self.options.verbose:
             #for cli progressbar
-            progress = progressbar.ProgressBar(widgets=conf.PROGRESS_BAR_STYLE).start()
+            progress = progressbar.ProgressBar(widgets=conf.Terminal.progress_bar_style).start()
             report_progress = progress.update
             progress_end = progress.finish
         else:
@@ -161,7 +161,7 @@ class Main(OSDBServer.OSDBServer):
             
     def do_matching(self, videos, subtitles):
         if self.options.logging > logging.DEBUG and self.options.verbose:
-            progress = progressbar.ProgressBar(widgets=conf.PROGRESS_BAR_STYLE, maxval=len(videos)).start()
+            progress = progressbar.ProgressBar(widgets=conf.Terminal.progress_bar_style, maxval=len(videos)).start()
 
         for i, video in enumerate(videos):
             if self.options.logging > logging.DEBUG and self.options.verbose:
