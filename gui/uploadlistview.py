@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from PyQt4.QtCore import Qt, SIGNAL
+from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop
 from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QVariant, QAbstractTableModel, QTableView, QListView, \
                      QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
@@ -19,9 +19,11 @@ class UploadListModel(QAbstractTableModel):
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
-        self._subs = []
-        self._videos = []
-        self._headers = ["VideoFile", "SubTitle"]  
+        self._subs = [None, None]
+        self._videos = [None, None]
+        self._headers = ["VideoFile", "SubTitle"]
+        self._main = None
+        self.rowSelected = None
     
     def dropMimeData(self, data, action, row, column, parent):
         print row,column
@@ -34,22 +36,22 @@ class UploadListModel(QAbstractTableModel):
         return flags
     
     def addVideos(self,index,videos):
-        for video in videos:            
-            if len(self._videos) <= index:
-                    self._videos.insert(index,video)
-                    self._subs.insert(index, None)
-            else:
-                    self._videos[index] = video
-            index += 1
+        for video in videos:    
+                if len(self._videos) <= index:
+                        self._videos.insert(index,video)
+                        self._subs.insert(index, None)
+                else:
+                        self._videos[index] = video
+                index += 1
 
-    def addSubs(self,index,subs):
+    def addSubs(self,index,subs ):
         for sub in subs:
-            if len(self._subs) <= index:
-                self._subs.insert(index,sub)
-                self._videos.insert(index, None)
-            else:
-                self._subs[index] = sub
-            index += 1
+                if len(self._subs) <= index:
+                    self._subs.insert(index,sub)
+                    self._videos.insert(index, None)
+                else:
+                    self._subs[index] = sub
+                index += 1
     
     def update_lang_upload(self):
         ##Trying to autodetect the language
@@ -82,10 +84,11 @@ class UploadListModel(QAbstractTableModel):
         log.debug("Language Autodetected for Upload = " + str(max_lang))
         self.emit(SIGNAL('language_updated(QString)'),max_lang)
   
+    def getTotalRows(self):
+        return self.rowCount(None)
     def rowCount(self, index):
-           return max(len(self._subs),len(self._videos)) +1
-        
-        
+           return max(len(self._subs),len(self._videos))
+
     def columnCount(self, parent): 
         return len(self._headers)
     
@@ -103,24 +106,18 @@ class UploadListModel(QAbstractTableModel):
     def id_from_row(self, row): return self._data[row]["id"]
     
     def data(self, index, role):
-        COL_VIDEO = 0
-        COL_SUB = 1
-        extra_line = False
-        total_cds = max(len(self._subs),len(self._videos))
         row, col = index.row(), index.column()
-        if row >= total_cds:
-               extra_line = True
-                
+
         if role == Qt.DisplayRole:      
             text = None
-            if   col == COL_VIDEO: 
-                if row >= total_cds or self._videos[row] == None:
-                    text = "Select video..."
+            if   col == UploadListView.COL_VIDEO: 
+                if self._videos[row] == None:
+                    text = "Click here to select video..."
                 else:
                         text = self._videos[row].getFileName()
-            elif col == COL_SUB: 
-                if row >= total_cds or self._subs[row] == None:
-                    text = "Select subtitle..."
+            elif col == UploadListView.COL_SUB: 
+                if self._subs[row] == None:
+                    text = "Click here to select subtitle..."
                 else:
                         text = self._subs[row].getFileName()
             if text == None: 
@@ -128,8 +125,64 @@ class UploadListModel(QAbstractTableModel):
             return QVariant(text)
 
         return QVariant()
+    
+    def onUploadButtonPlusRow(self, clicked):
+        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        if(self.rowSelected != None):
+             self._videos.insert(self.rowSelected +1, None)
+             self._subs.insert(self.rowSelected +1, None)
+        else:
+            self._videos.append(None)
+            self._subs.append(None)
+        self.emit(SIGNAL("layoutChanged()"))
+        self._main.updateButtonsUpload() 
+        
+    def onUploadButtonMinusRow(self, clicked):
+         if self.rowSelected != None:
+            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            try:
+                del self._videos[self.rowSelected]
+                del self._subs[self.rowSelected]
+            except:
+                pass
+            self.emit(SIGNAL("layoutChanged()"))
+            self._main.uploadSelectionModel.reset()
+            #self._main.uploadSelectionModel.select() #FIXME: We should select the row before the deleted one.
+            self._main.updateButtonsUpload() 
+        
+    def onUploadButtonUpRow(self, clicked):
+        if self.rowSelected != None:
+            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            if self.rowSelected != 0:
+                temp = self._videos[self.rowSelected]
+                self._videos[self.rowSelected] = self._videos[self.rowSelected -1]
+                self._videos[self.rowSelected - 1] = temp
+                
+                temp = self._subs[self.rowSelected]
+                self._subs[self.rowSelected] = self._subs[self.rowSelected -1]
+                self._subs[self.rowSelected - 1] = temp
+
+            self.emit(SIGNAL("layoutChanged()"))
+        self._main.updateButtonsUpload() 
+
+    def onUploadButtonDownRow(self, clicked):
+        if self.rowSelected != None:
+            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            if self.rowSelected != self.getTotalRows() -1:
+                temp = self._videos[self.rowSelected]
+                self._videos[self.rowSelected] = self._videos[self.rowSelected +1]
+                self._videos[self.rowSelected + 1] = temp
+                
+                temp = self._subs[self.rowSelected]
+                self._subs[self.rowSelected] = self._subs[self.rowSelected +1]
+                self._subs[self.rowSelected + 1] = temp
+
+            self.emit(SIGNAL("layoutChanged()"))
+        self._main.updateButtonsUpload() 
 
 class UploadListView(QTableView):
+    COL_VIDEO = 0
+    COL_SUB = 1
     def __init__(self, parent):    
         QTableView.__init__(self, parent)
         self.setAcceptDrops(1)

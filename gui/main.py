@@ -101,6 +101,7 @@ class Main(QObject, Ui_MainWindow):
         #self.treeView.reset()
         window.show()
         model = QDirModel(window)
+        self.splitter.setSizes([300, 1000])
         
         #SETTING UP FOLDERVIEW
         model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
@@ -131,6 +132,7 @@ class Main(QObject, Ui_MainWindow):
         #SETTING UP UPLOAD_VIEW
         self.uploadModel = UploadListModel(window)
         self.uploadView.setModel(self.uploadModel)
+        self.uploadModel._main = self #FIXME: This connection should be cleaner.
 
         #Resizing the headers to take all the space(50/50) in the TableView
         header = self.uploadView.horizontalHeader()
@@ -141,10 +143,10 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onClickUploadViewCell)
         
         QObject.connect(self.buttonUpload, SIGNAL("clicked(bool)"), self.onUploadButton)
-        QObject.connect(self.buttonUploadUpRow, SIGNAL("clicked(bool)"), self.onUploadButtonUpRow)
-        QObject.connect(self.buttonUploadDownRow, SIGNAL("clicked(bool)"), self.onUploadButtonUpRow)
-        QObject.connect(self.buttonUploadPlusRow, SIGNAL("clicked(bool)"), self.onUploadButtonPlusRow)
-        QObject.connect(self.buttonUploadMinusRow, SIGNAL("clicked(bool)"), self.onUploadButtonMinusRow)
+        QObject.connect(self.buttonUploadUpRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonUpRow)
+        QObject.connect(self.buttonUploadDownRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonUpRow)
+        QObject.connect(self.buttonUploadPlusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonPlusRow)
+        QObject.connect(self.buttonUploadMinusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonMinusRow)
         
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
@@ -165,13 +167,15 @@ class Main(QObject, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.status_progress,2)
         if not options.test:
             self.establish_connection()
-            data = self.OSDBServer.ServerInfo()
-            self.status_label.setText("Users online: "+ str(data["users_online_program"]))
+            if self.OSDBServer.is_connected():
+                data = self.OSDBServer.ServerInfo()
+                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING
         if options.test:
             #self.SearchVideos('/media/xp/pelis/')
+            self.tabs.setCurrentIndex(2)
             pass
     
     def InitializeFilterLanguages(self):
@@ -378,36 +382,38 @@ class Main(QObject, Ui_MainWindow):
             self.uploadView.resizeRowsToContents()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
-    def onUploadButtonPlusRow(self, clicked):
-        pass
-        
-    def onUploadButtonMinusRow(self, clicked):
-        pass
-        
-    def onUploadButtonUpRow(self, clicked):
-        pass
-        
-    def onUploadButtonDownRow(self, clicked):
-        pass
-        
     def onUploadButton(self, clicked):
         pass
-        
-    def onUploadChangeSelection(self, selected, unselected):
+    
+    def updateButtonsUpload(self):
+        self.uploadView.resizeRowsToContents()
+        selected = self.uploadSelectionModel.selection()
         if selected.count():
-            self.buttonUploadDownRow.setEnabled(True)
-            self.buttonUploadUpRow.setEnabled(True)
+            self.uploadModel.rowSelected = selected.last().bottomRight().row()
             self.buttonUploadMinusRow.setEnabled(True)
+            if self.uploadModel.rowSelected != self.uploadModel.getTotalRows() -1:
+                self.buttonUploadDownRow.setEnabled(True)
+            else:
+                self.buttonUploadDownRow.setEnabled(False)
+                
+            if self.uploadModel.rowSelected != 0:
+                self.buttonUploadUpRow.setEnabled(True)
+            else:
+                self.buttonUploadUpRow.setEnabled(False)
+
         else:
+            self.uploadModel.rowSelected = None
             self.buttonUploadDownRow.setEnabled(False)
             self.buttonUploadUpRow.setEnabled(False)
             self.buttonUploadMinusRow.setEnabled(False)
+            
+    def onUploadChangeSelection(self, selected, unselected):
+        self.updateButtonsUpload()
+        
         
     def onClickUploadViewCell(self, index):
-        COL_VIDEO = 0 #FIXME: Use global variables
-        COL_SUB = 1
         row, col = index.row(), index.column()
-        if col == COL_VIDEO:
+        if col == UploadListView.COL_VIDEO:
             fileName = QFileDialog.getOpenFileName(None, "Select Video", "", videofile.SELECT_VIDEOS)
             if fileName:
                 video = VideoFile(str(fileName.toUtf8())) 

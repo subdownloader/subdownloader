@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Fri May  2 23:41:17 2008
+# Created: Sun May  4 14:01:52 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -95,13 +95,13 @@ class Ui_MainWindow(object):
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
 
-        self.groupBox_5 = QtGui.QGroupBox(self.splitter)
-        self.groupBox_5.setObjectName("groupBox_5")
+        self.groupBox_folderselect = QtGui.QGroupBox(self.splitter)
+        self.groupBox_folderselect.setObjectName("groupBox_folderselect")
 
-        self.vboxlayout2 = QtGui.QVBoxLayout(self.groupBox_5)
+        self.vboxlayout2 = QtGui.QVBoxLayout(self.groupBox_folderselect)
         self.vboxlayout2.setObjectName("vboxlayout2")
 
-        self.folderView = QtGui.QTreeView(self.groupBox_5)
+        self.folderView = QtGui.QTreeView(self.groupBox_folderselect)
         self.folderView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.folderView.setObjectName("folderView")
         self.vboxlayout2.addWidget(self.folderView)
@@ -115,6 +115,7 @@ class Ui_MainWindow(object):
         self.videoView = QtGui.QTreeView(self.groupBox_videosFound)
         self.videoView.setObjectName("videoView")
         self.hboxlayout1.addWidget(self.videoView)
+       
         self.vboxlayout1.addWidget(self.splitter)
         self.tabs.addTab(self.tab,"")
 
@@ -461,7 +462,7 @@ class Ui_MainWindow(object):
         self.buttonDownload.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Show Movie Info", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_folderselect.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_videosFound.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Search from Video file(s)", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Search", None, QtGui.QApplication.UnicodeUTF8))
