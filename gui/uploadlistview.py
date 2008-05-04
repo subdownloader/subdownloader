@@ -8,7 +8,9 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
-                     QDrag, QRect      
+                     QDrag, QRect
+                     
+from PyQt4.QtGui import QItemSelection
 
 import subdownloader.languages.Languages as languages
 import logging
@@ -115,6 +117,7 @@ class UploadListModel(QAbstractTableModel):
                     text = "Click here to select video..."
                 else:
                         text = self._videos[row].getFileName()
+                
             elif col == UploadListView.COL_SUB: 
                 if self._subs[row] == None:
                     text = "Click here to select subtitle..."
@@ -127,6 +130,7 @@ class UploadListModel(QAbstractTableModel):
         return QVariant()
     
     def onUploadButtonPlusRow(self, clicked):
+        
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         if(self.rowSelected != None):
              self._videos.insert(self.rowSelected +1, None)
@@ -151,6 +155,7 @@ class UploadListModel(QAbstractTableModel):
             self._main.updateButtonsUpload() 
         
     def onUploadButtonUpRow(self, clicked):
+        
         if self.rowSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
             if self.rowSelected != 0:
@@ -161,8 +166,10 @@ class UploadListModel(QAbstractTableModel):
                 temp = self._subs[self.rowSelected]
                 self._subs[self.rowSelected] = self._subs[self.rowSelected -1]
                 self._subs[self.rowSelected - 1] = temp
-
             self.emit(SIGNAL("layoutChanged()"))
+            previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
+            self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
+            
         self._main.updateButtonsUpload() 
 
     def onUploadButtonDownRow(self, clicked):
@@ -178,6 +185,9 @@ class UploadListModel(QAbstractTableModel):
                 self._subs[self.rowSelected + 1] = temp
 
             self.emit(SIGNAL("layoutChanged()"))
+            nextRowSelection = QItemSelection(self.index(self.rowSelected , UploadListView.COL_VIDEO),self.index(self.rowSelected, UploadListView.COL_SUB))
+            #FIXME 
+            self._main.uploadSelectionModel.select(nextRowSelection, self._main.uploadSelectionModel.Select)
         self._main.updateButtonsUpload() 
 
 class UploadListView(QTableView):
