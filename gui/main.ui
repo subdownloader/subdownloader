@@ -82,10 +82,10 @@
              </sizepolicy>
             </property>
             <property name="text" >
-             <string>Show Movie Info</string>
+             <string>Movie Info</string>
             </property>
             <property name="icon" >
-             <iconset resource="images.qrc" >:/images/info.png</iconset>
+             <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
             </property>
             <property name="iconSize" >
              <size>
@@ -542,7 +542,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox" >
             <property name="sizePolicy" >
-             <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+             <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -599,7 +599,13 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="0" column="2" >
-              <widget class="QComboBox" name="uploadIMDB" />
+              <widget class="QComboBox" name="uploadIMDB" >
+               <item>
+                <property name="text" >
+                 <string>Click on FIND button to choose the IMDB link</string>
+                </property>
+               </item>
+              </widget>
              </item>
              <item row="0" column="3" >
               <widget class="QPushButton" name="buttonUploadFindIMDB" >

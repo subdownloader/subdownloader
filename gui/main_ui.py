@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon May  5 23:21:38 2008
+# Created: Mon May  5 23:31:54 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonIMDB.sizePolicy().hasHeightForWidth())
         self.buttonIMDB.setSizePolicy(sizePolicy)
-        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/info.png"))
+        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
         self.buttonIMDB.setIconSize(QtCore.QSize(32,16))
         self.buttonIMDB.setObjectName("buttonIMDB")
         self.hboxlayout.addWidget(self.buttonIMDB)
@@ -325,7 +325,7 @@ class Ui_MainWindow(object):
 
         self.groupBox = QtGui.QGroupBox(self.tab_4)
 
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
@@ -459,7 +459,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonPlay.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonDownload.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Show Movie Info", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Movie Info", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_folderselect.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_videosFound.setTitle(QtGui.QApplication.translate("MainWindow", "Videos found:", None, QtGui.QApplication.UnicodeUTF8))
@@ -487,6 +487,7 @@ class Ui_MainWindow(object):
         "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
         "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "IMDB: ", None, QtGui.QApplication.UnicodeUTF8))
+        self.uploadIMDB.addItem(QtGui.QApplication.translate("MainWindow", "Click on FIND button to choose the IMDB link", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonUploadFindIMDB.setText(QtGui.QApplication.translate("MainWindow", "Find", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
         "p, li { white-space: pre-wrap; }\n"
