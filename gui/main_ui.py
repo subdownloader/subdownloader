@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun May  4 14:01:52 2008
+# Created: Mon May  5 23:21:38 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -115,7 +115,6 @@ class Ui_MainWindow(object):
         self.videoView = QtGui.QTreeView(self.groupBox_videosFound)
         self.videoView.setObjectName("videoView")
         self.hboxlayout1.addWidget(self.videoView)
-       
         self.vboxlayout1.addWidget(self.splitter)
         self.tabs.addTab(self.tab,"")
 
@@ -359,9 +358,9 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.gridlayout.addWidget(self.label,0,1,1,1)
 
-        self.comboBox_3 = QtGui.QComboBox(self.groupBox)
-        self.comboBox_3.setObjectName("comboBox_3")
-        self.gridlayout.addWidget(self.comboBox_3,0,2,1,1)
+        self.uploadIMDB = QtGui.QComboBox(self.groupBox)
+        self.uploadIMDB.setObjectName("uploadIMDB")
+        self.gridlayout.addWidget(self.uploadIMDB,0,2,1,1)
 
         self.buttonUploadFindIMDB = QtGui.QPushButton(self.groupBox)
 
@@ -396,9 +395,9 @@ class Ui_MainWindow(object):
         self.label_5.setObjectName("label_5")
         self.gridlayout.addWidget(self.label_5,1,1,1,1)
 
-        self.comboBox_2 = QtGui.QComboBox(self.groupBox)
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.gridlayout.addWidget(self.comboBox_2,1,2,1,1)
+        self.uploadLanguages = QtGui.QComboBox(self.groupBox)
+        self.uploadLanguages.setObjectName("uploadLanguages")
+        self.gridlayout.addWidget(self.uploadLanguages,1,2,1,1)
 
         self.label_6 = QtGui.QLabel(self.groupBox)
 
@@ -410,9 +409,9 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.gridlayout.addWidget(self.label_6,2,1,1,1)
 
-        self.lineEdit = QtGui.QLineEdit(self.groupBox)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridlayout.addWidget(self.lineEdit,2,2,1,1)
+        self.uploadReleaseText = QtGui.QLineEdit(self.groupBox)
+        self.uploadReleaseText.setObjectName("uploadReleaseText")
+        self.gridlayout.addWidget(self.uploadReleaseText,2,2,1,1)
 
         self.label_7 = QtGui.QLabel(self.groupBox)
 
@@ -424,16 +423,16 @@ class Ui_MainWindow(object):
         self.label_7.setObjectName("label_7")
         self.gridlayout.addWidget(self.label_7,3,1,1,1)
 
-        self.textEdit = QtGui.QTextEdit(self.groupBox)
+        self.uploadComments = QtGui.QTextEdit(self.groupBox)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.textEdit.sizePolicy().hasHeightForWidth())
-        self.textEdit.setSizePolicy(sizePolicy)
-        self.textEdit.setMaximumSize(QtCore.QSize(16777215,100))
-        self.textEdit.setObjectName("textEdit")
-        self.gridlayout.addWidget(self.textEdit,3,2,1,1)
+        sizePolicy.setHeightForWidth(self.uploadComments.sizePolicy().hasHeightForWidth())
+        self.uploadComments.setSizePolicy(sizePolicy)
+        self.uploadComments.setMaximumSize(QtCore.QSize(16777215,100))
+        self.uploadComments.setObjectName("uploadComments")
+        self.gridlayout.addWidget(self.uploadComments,3,2,1,1)
         self.vboxlayout6.addWidget(self.groupBox)
         self.vboxlayout5.addLayout(self.vboxlayout6)
         self.tabs.addTab(self.tab_4,"")

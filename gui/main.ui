@@ -599,7 +599,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="0" column="2" >
-              <widget class="QComboBox" name="comboBox_3" />
+              <widget class="QComboBox" name="uploadIMDB" />
              </item>
              <item row="0" column="3" >
               <widget class="QPushButton" name="buttonUploadFindIMDB" >
@@ -662,7 +662,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="1" column="2" >
-              <widget class="QComboBox" name="comboBox_2" />
+              <widget class="QComboBox" name="uploadLanguages" />
              </item>
              <item row="2" column="1" >
               <widget class="QLabel" name="label_6" >
@@ -678,7 +678,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="2" column="2" >
-              <widget class="QLineEdit" name="lineEdit" />
+              <widget class="QLineEdit" name="uploadReleaseText" />
              </item>
              <item row="3" column="1" >
               <widget class="QLabel" name="label_7" >
@@ -694,7 +694,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item row="3" column="2" >
-              <widget class="QTextEdit" name="textEdit" >
+              <widget class="QTextEdit" name="uploadComments" >
                <property name="sizePolicy" >
                 <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
                  <horstretch>0</horstretch>

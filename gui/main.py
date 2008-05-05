@@ -184,9 +184,11 @@ class Main(QObject, Ui_MainWindow):
         for lang in languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
             self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
+            self.uploadLanguages.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
             
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
+        self.uploadLanguages.adjustSize()
 
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
     
