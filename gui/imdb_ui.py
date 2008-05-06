@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Wed May  7 00:28:49 2008
+# Created: Wed May  7 00:56:39 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,12 +13,15 @@ class Ui_IMDBSearchDialog(object):
     def setupUi(self, IMDBSearchDialog):
         IMDBSearchDialog.setObjectName("IMDBSearchDialog")
         IMDBSearchDialog.setWindowModality(QtCore.Qt.WindowModal)
-        IMDBSearchDialog.resize(QtCore.QSize(QtCore.QRect(0,0,522,374).size()).expandedTo(IMDBSearchDialog.minimumSizeHint()))
-        IMDBSearchDialog.setWindowIcon(QtGui.QIcon(":/images/imdb.jpg"))
+        IMDBSearchDialog.resize(QtCore.QSize(QtCore.QRect(0,0,522,406).size()).expandedTo(IMDBSearchDialog.minimumSizeHint()))
         IMDBSearchDialog.setModal(True)
 
         self.vboxlayout = QtGui.QVBoxLayout(IMDBSearchDialog)
 
+
+        self.label = QtGui.QLabel(IMDBSearchDialog)
+        self.label.setObjectName("label")
+        self.vboxlayout.addWidget(self.label)
 
         self.hboxlayout = QtGui.QHBoxLayout()
 
@@ -80,7 +83,7 @@ class Ui_IMDBSearchDialog(object):
 
     def retranslateUi(self, IMDBSearchDialog):
         IMDBSearchDialog.setWindowTitle(QtGui.QApplication.translate("IMDBSearchDialog", "Search the IMDB movie", None, QtGui.QApplication.UnicodeUTF8))
-        self.movieSearch.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Enter Movie Title or IMDB id", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Enter the Movie Title or IMDB id:", None, QtGui.QApplication.UnicodeUTF8))
         self.searchMovieButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Search Movie", None, QtGui.QApplication.UnicodeUTF8))
         self.movieInfoButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Movie Info", None, QtGui.QApplication.UnicodeUTF8))
         self.okButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))

@@ -9,19 +9,26 @@
     <x>0</x>
     <y>0</y>
     <width>522</width>
-    <height>374</height>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Search the IMDB movie</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
+   <iconset/>
   </property>
   <property name="modal" >
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Enter the Movie Title or IMDB id:</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" >
      <item>
@@ -33,7 +40,7 @@
         </sizepolicy>
        </property>
        <property name="text" >
-        <string>Enter Movie Title or IMDB id</string>
+        <string/>
        </property>
       </widget>
      </item>
