@@ -40,6 +40,7 @@ from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videotreeview import VideoTreeModel
 
 from subdownloader.gui.main_ui import Ui_MainWindow
+from subdownloader.gui.imdbSearch import imdbSearchDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.videofile import  *
 from subdownloader.subtitlefile import *
@@ -147,6 +148,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.buttonUploadDownRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonDownRow)
         QObject.connect(self.buttonUploadPlusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonPlusRow)
         QObject.connect(self.buttonUploadMinusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonMinusRow)
+        
+        QObject.connect(self.buttonUploadFindIMDB, SIGNAL("clicked(bool)"), self.onButtonUploadFindIMDB)
         
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
@@ -368,6 +371,12 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.ArrowCursor)
         
     #UPLOAD METHODS
+    
+    def onButtonUploadFindIMDB(self):
+        dialog = imdbSearchDialog()
+        dialog.show()
+        dialog.exec_()
+        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
     def onUploadBrowseFolder(self):
         directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
         if directory:
