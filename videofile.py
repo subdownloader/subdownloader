@@ -21,7 +21,7 @@ import os.path
 import struct
 try:
     import mmpython
-except:
+except ImportError:
     print "Failed to import mmpython module. This means you will be unable to upload your videos with all details."
 
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "mp4", "mpv"," swf"]
@@ -39,7 +39,7 @@ class VideoFile(object):
         try:
             video = mmpython.parse(filepath)
             self._fps = video.video[0].fps
-        except:
+        except NameError:
             self._fps = 0
         self._osdb_info = {}
         self._movie_info = {}
@@ -80,15 +80,19 @@ class VideoFile(object):
         return len(self._osdb_info) != 0
     
     def hasMovieName(self):
-        try: return self._osdb_info["MovieName"] != ""
-        except: return False
+        try:
+            return self._osdb_info["MovieName"] != ""
+        except NameError:
+            return False
     
     def getMovieName(self):
         return self._osdb_info["MovieName"]
     
     def hasMovieNameEng(self):
-        try: return self._osdb_info["MovieNameEng"] != ""
-        except: return False
+        try:
+            return self._osdb_info["MovieNameEng"] != ""
+        except NameError:
+            return False
     
     def getMovieNameEng(self):
         return self._osdb_info["MovieNameEng"]
@@ -138,7 +142,7 @@ class VideoFile(object):
         local = len(self._subs) + len(self.nos_subs)
         try:
             return len(self._osdb_info) + local
-        except:
+        except NameError:
             return local
         
     def getTotalOnlineSubtitles(self):

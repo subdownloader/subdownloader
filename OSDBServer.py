@@ -732,7 +732,7 @@ class OSDBServer(object):
     def SearchToMail(self, videos, languages):
         SearchToMail = TimeoutFunction(self._SearchToMail)
         try:
-            return SearchToMail(languages)
+            return SearchToMail(videos, languages)
         except TimeoutFunctionException:
             self.log.error("SearchToMail timed out")
         
