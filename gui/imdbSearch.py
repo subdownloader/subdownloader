@@ -76,7 +76,11 @@ class imdbSearchDialog(QtGui.QDialog):
         if self.imdbModel.rowSelected == None:
             QMessageBox.about(self,"Error","Please search and select a movie from the list")
         else:
-            self.close()
+            selection = self.imdbModel.getSelectedImdb()
+            print selection
+            print self._main
+            self._main.emit(SIGNAL('imdbDetected(QString,QString)'),selection["id"], selection["title"])
+            self.accept()
     def onCancelButton(self):
-        self.close()
+        self.reject()
 

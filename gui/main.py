@@ -94,6 +94,7 @@ class Main(QObject, Ui_MainWindow):
         self.options = options
         self.setupUi(window)
         self.card = None
+        self.uploadIMDB_list = []
         self.window = window
         window.closeEvent = self.close_event
         window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION, None, QtGui.QApplication.UnicodeUTF8))
@@ -154,6 +155,7 @@ class Main(QObject, Ui_MainWindow):
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
+        QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
             
         self.folderView.show()
         
@@ -358,8 +360,7 @@ class Main(QObject, Ui_MainWindow):
     
     def establish_connection(self):
         self.window.setCursor(Qt.WaitCursor)
-
-        self.status("Connecting to server")        
+        self.status("Connecting to server") 
         try:
             self.OSDBServer = OSDBServer(self.options)
         except Exception, e: 
@@ -367,7 +368,6 @@ class Main(QObject, Ui_MainWindow):
             qFatal("Unable to connect to server. Please try later")
         self.progress(100)
         self.status_progress.setFormat("Connected")
-    
         self.window.setCursor(Qt.ArrowCursor)
         
     #UPLOAD METHODS
@@ -375,8 +375,9 @@ class Main(QObject, Ui_MainWindow):
     def onButtonUploadFindIMDB(self):
         dialog = imdbSearchDialog(self)
         dialog.show()
-        dialog.exec_()
+        ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        
     def onUploadBrowseFolder(self):
         directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
         if directory:
@@ -396,6 +397,10 @@ class Main(QObject, Ui_MainWindow):
     def onUploadButton(self, clicked):
         pass
     
+    def onUploadIMDBNewSelection(self, id, title):
+        if not id in self.uploadIMDB_list:
+            self.uploadIMDB_list.append(id)
+            self.uploadIMDB.addItem("%s : %s" % (id, title))
     def updateButtonsUpload(self):
         self.uploadView.resizeRowsToContents()
         selected = self.uploadSelectionModel.selection()

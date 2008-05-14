@@ -28,7 +28,7 @@ class ImdbListModel(QAbstractTableModel):
         self._imdb = results
     
     def getSelectedImdb(self):
-        if self.rowSelected:
+        if self.rowSelected != None:
             return self._imdb[self.rowSelected]
         else:
             return None
