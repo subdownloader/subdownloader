@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Wed May  7 00:56:39 2008
+# Created: Wed May 14 15:23:45 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,7 +41,7 @@ class Ui_IMDBSearchDialog(object):
         self.hboxlayout.addWidget(self.searchMovieButton)
         self.vboxlayout.addLayout(self.hboxlayout)
 
-        self.searchResultsView = UploadListView(IMDBSearchDialog)
+        self.searchResultsView = ImdbListView(IMDBSearchDialog)
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -89,5 +89,5 @@ class Ui_IMDBSearchDialog(object):
         self.okButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
         self.cancelButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
 
-from uploadlistview import UploadListView
+from imdblistview import ImdbListView
 import images_rc

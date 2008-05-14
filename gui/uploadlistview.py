@@ -104,9 +104,6 @@ class UploadListModel(QAbstractTableModel):
         else: 
             return QVariant("CD"+str(1+section))
         
-    def id_from_index(self, index): return self._data[index.row()]["id"]
-    def id_from_row(self, row): return self._data[row]["id"]
-    
     def data(self, index, role):
         row, col = index.row(), index.column()
 

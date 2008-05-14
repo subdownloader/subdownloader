@@ -54,7 +54,7 @@
     </layout>
    </item>
    <item>
-    <widget class="UploadListView" name="searchResultsView" >
+    <widget class="ImdbListView" name="searchResultsView" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
        <horstretch>0</horstretch>
@@ -132,9 +132,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>UploadListView</class>
+   <class>ImdbListView</class>
    <extends>QTableView</extends>
-   <header>uploadlistview.h</header>
+   <header>imdblistview.h</header>
   </customwidget>
  </customwidgets>
  <resources>

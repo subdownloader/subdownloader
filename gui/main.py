@@ -102,7 +102,7 @@ class Main(QObject, Ui_MainWindow):
         #self.treeView.reset()
         window.show()
         model = QDirModel(window)
-        self.splitter.setSizes([300, 1000])
+        self.splitter.setSizes([400, 1000])
         
         #SETTING UP FOLDERVIEW
         model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
@@ -411,7 +411,6 @@ class Main(QObject, Ui_MainWindow):
                 self.buttonUploadUpRow.setEnabled(True)
             else:
                 self.buttonUploadUpRow.setEnabled(False)
-
         else:
             self.uploadModel.rowSelected = None
             self.buttonUploadDownRow.setEnabled(False)
@@ -420,7 +419,6 @@ class Main(QObject, Ui_MainWindow):
             
     def onUploadChangeSelection(self, selected, unselected):
         self.updateButtonsUpload()
-        
         
     def onClickUploadViewCell(self, index):
         row, col = index.row(), index.column()
