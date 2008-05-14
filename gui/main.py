@@ -398,9 +398,17 @@ class Main(QObject, Ui_MainWindow):
         pass
     
     def onUploadIMDBNewSelection(self, id, title):
+        id = str(id.toUtf8())
         if not id in self.uploadIMDB_list:
             self.uploadIMDB_list.append(id)
-            self.uploadIMDB.addItem("%s : %s" % (id, title))
+            self.uploadIMDB.addItem("%s : %s" % (id, title), QVariant(id)) #The dataItem is the ID
+            
+        #Let's select the item with that id.
+        index = self.uploadIMDB.findData(QVariant(id))
+        if index :
+            self.uploadIMDB.setCurrentIndex (index)
+            return
+            
     def updateButtonsUpload(self):
         self.uploadView.resizeRowsToContents()
         selected = self.uploadSelectionModel.selection()

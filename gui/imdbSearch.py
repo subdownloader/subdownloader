@@ -42,7 +42,7 @@ class imdbSearchDialog(QtGui.QDialog):
             self.setCursor(Qt.WaitCursor)
             text = self.ui.movieSearch.text()
             results = self._main.OSDBServer.SearchMoviesOnIMDB(str(text.toUtf8())) 
-            if not len(results) or not results[0].has_key("id"): #In case of empty results.
+            if not results or not len(results) or not results[0].has_key("id"): #In case of empty results.
                 results = []
             self.imdbModel.emit(SIGNAL("layoutAboutToBeChanged()"))
             self.imdbModel.setImdbResults(results)
@@ -77,8 +77,6 @@ class imdbSearchDialog(QtGui.QDialog):
             QMessageBox.about(self,"Error","Please search and select a movie from the list")
         else:
             selection = self.imdbModel.getSelectedImdb()
-            print selection
-            print self._main
             self._main.emit(SIGNAL('imdbDetected(QString,QString)'),selection["id"], selection["title"])
             self.accept()
     def onCancelButton(self):
