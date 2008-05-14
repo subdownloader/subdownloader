@@ -12,11 +12,11 @@ from subdownloader.gui.imdblistview import ImdbListModel, ImdbListView
 import webbrowser
 
 class imdbSearchDialog(QtGui.QDialog): 
-    def __init__(self):
+    def __init__(self, parent):
         QtGui.QDialog.__init__(self)
         self.ui = Ui_IMDBSearchDialog()
         self.ui.setupUi(self)
-        self.movieSelected = None
+        self._main  = parent
         
         QObject.connect(self.ui.searchMovieButton, SIGNAL("clicked(bool)"), self.onSearchMovieButton)
         QObject.connect(self.ui.movieInfoButton, SIGNAL("clicked(bool)"), self.onMovieInfoButton)
@@ -39,43 +39,41 @@ class imdbSearchDialog(QtGui.QDialog):
         if not self.ui.movieSearch.text():
             QMessageBox.about(self,"Error","Please fill out the search title")
         else:
+            self.setCursor(Qt.WaitCursor)
+            text = self.ui.movieSearch.text()
+            results = self._main.OSDBServer.SearchMoviesOnIMDB(str(text.toUtf8())) 
+            if not len(results) or not results[0].has_key("id"): #In case of empty results.
+                results = []
             self.imdbModel.emit(SIGNAL("layoutAboutToBeChanged()"))
-            self.imdbModel.setImdbResults([{"id":"339999", "title":"dsdada"}, {"id":"999999", "title":"dsadasdas"}])
+            self.imdbModel.setImdbResults(results)
             QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
             self.imdbModel.emit(SIGNAL("layoutChanged()"))
             self.ui.searchResultsView.resizeRowsToContents()
+            self.setCursor(Qt.ArrowCursor)
             
     def updateButtonsIMDB(self):
-        self.uploadView.resizeRowsToContents()
-        selected = self.uploadSelectionModel.selection()
+        self.ui.searchResultsView.resizeRowsToContents()
+        selected = self.imdbSelectionModel.selection()
         if selected.count():
-            self.uploadModel.rowSelected = selected.last().bottomRight().row()
-            self.buttonUploadMinusRow.setEnabled(True)
-            if self.uploadModel.rowSelected != self.uploadModel.getTotalRows() -1:
-                self.buttonUploadDownRow.setEnabled(True)
-            else:
-                self.buttonUploadDownRow.setEnabled(False)
-                
-            if self.uploadModel.rowSelected != 0:
-                self.buttonUploadUpRow.setEnabled(True)
-            else:
-                self.buttonUploadUpRow.setEnabled(False)
+            self.imdbModel.rowSelected = selected.last().bottomRight().row()
+            self.ui.movieInfoButton.setEnabled(True)
+            self.ui.okButton.setEnabled(True)
         else:
-            self.uploadModel.rowSelected = None
-            self.buttonUploadDownRow.setEnabled(False)
-            self.buttonUploadUpRow.setEnabled(False)
-            self.buttonUploadMinusRow.setEnabled(False)
+            self.imdbModel.rowSelected = None
+            self.ui.movieInfoButton.setEnabled(False)
+            self.ui.okButton.setEnabled(False)
             
     def onIMDBChangeSelection(self, selected, unselected):
         self.updateButtonsIMDB()
         
     def onMovieInfoButton(self):
-        if not self.movieSelected:
+        if self.imdbModel.rowSelected == None:
             QMessageBox.about(self,"Error","Please search and select a movie from the list")
-        else:
-            webbrowser.open( "http://www.imdb.com/title/tt%s"% "000000", new=2, autoraise=1)
+        else: 
+            imdbID = self.imdbModel.getSelectedImdb()["id"]
+            webbrowser.open( "http://www.imdb.com/title/tt%s"% imdbID, new=2, autoraise=1)
     def onOkButton(self):
-        if not self.movieSelected:
+        if self.imdbModel.rowSelected == None:
             QMessageBox.about(self,"Error","Please search and select a movie from the list")
         else:
             self.close()

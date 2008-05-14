@@ -2,7 +2,7 @@
  <class>IMDBSearchDialog</class>
  <widget class="QDialog" name="IMDBSearchDialog" >
   <property name="windowModality" >
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::ApplicationModal</enum>
   </property>
   <property name="geometry" >
    <rect>
@@ -85,6 +85,9 @@
     <layout class="QHBoxLayout" >
      <item>
       <widget class="QPushButton" name="movieInfoButton" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
        <property name="text" >
         <string>Movie Info</string>
        </property>
@@ -114,6 +117,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="okButton" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
        <property name="text" >
         <string>OK</string>
        </property>

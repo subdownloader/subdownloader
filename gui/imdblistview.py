@@ -19,7 +19,6 @@ class ImdbListView(QTableView):
 class ImdbListModel(QAbstractTableModel):
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
-        self._data = None
         self._imdb = []
         self._headers = ["Id"]
         self._main = None
@@ -27,6 +26,12 @@ class ImdbListModel(QAbstractTableModel):
 
     def setImdbResults(self, results):
         self._imdb = results
+    
+    def getSelectedImdb(self):
+        if self.rowSelected:
+            return self._imdb[self.rowSelected]
+        else:
+            return None
         
     def flags(self, index):
         flags = QAbstractTableModel.flags(self, index)

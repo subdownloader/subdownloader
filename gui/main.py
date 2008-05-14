@@ -373,7 +373,7 @@ class Main(QObject, Ui_MainWindow):
     #UPLOAD METHODS
     
     def onButtonUploadFindIMDB(self):
-        dialog = imdbSearchDialog()
+        dialog = imdbSearchDialog(self)
         dialog.show()
         dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)

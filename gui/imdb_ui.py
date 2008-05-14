@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Wed May 14 15:23:45 2008
+# Created: Wed May 14 22:27:32 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_IMDBSearchDialog(object):
     def setupUi(self, IMDBSearchDialog):
         IMDBSearchDialog.setObjectName("IMDBSearchDialog")
-        IMDBSearchDialog.setWindowModality(QtCore.Qt.WindowModal)
+        IMDBSearchDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         IMDBSearchDialog.resize(QtCore.QSize(QtCore.QRect(0,0,522,406).size()).expandedTo(IMDBSearchDialog.minimumSizeHint()))
         IMDBSearchDialog.setModal(True)
 
@@ -61,6 +61,7 @@ class Ui_IMDBSearchDialog(object):
         self.hboxlayout1.setObjectName("hboxlayout1")
 
         self.movieInfoButton = QtGui.QPushButton(IMDBSearchDialog)
+        self.movieInfoButton.setEnabled(False)
         self.movieInfoButton.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
         self.movieInfoButton.setIconSize(QtCore.QSize(32,16))
         self.movieInfoButton.setObjectName("movieInfoButton")
@@ -70,6 +71,7 @@ class Ui_IMDBSearchDialog(object):
         self.hboxlayout1.addItem(spacerItem)
 
         self.okButton = QtGui.QPushButton(IMDBSearchDialog)
+        self.okButton.setEnabled(False)
         self.okButton.setObjectName("okButton")
         self.hboxlayout1.addWidget(self.okButton)
 
