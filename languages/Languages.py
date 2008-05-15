@@ -98,13 +98,24 @@ def xxx2xx(xxx):
 def xxx2name(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
-            return lang['LanguageName']
+            return lang['LanguageName'].lower()
+            
+def xx2name(xx):
+    for lang in LANGUAGES:
+        if lang['ISO639'] == xx:
+            return lang['LanguageName'].lower()
     
 def name2xx(name):
     for lang in LANGUAGES:
         #FIXME: must be non case-sensitive (use lower function)
-        if lang['LanguageName'] == name:
+        if lang['LanguageName'].lower() == name.lower():
             return lang['ISO639']
+
+def name2xxx(name):
+    for lang in LANGUAGES:
+        #FIXME: must be non case-sensitive (use lower function)
+        if lang['LanguageName'].lower() == name.lower():
+            return lang['SubLanguageID']
         
 def CleanTagsFile(texto):
     p = re.compile( '<.*?>')

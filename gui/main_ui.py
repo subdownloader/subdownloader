@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Tue May  6 23:30:41 2008
+# Created: Thu May 15 19:18:20 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -289,7 +289,7 @@ class Ui_MainWindow(object):
         self.hboxlayout5.addItem(spacerItem3)
 
         self.buttonUpload = QtGui.QPushButton(self.groupBox_2)
-        self.buttonUpload.setEnabled(False)
+        self.buttonUpload.setEnabled(True)
 
         font = QtGui.QFont()
         font.setWeight(75)

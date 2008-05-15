@@ -69,6 +69,9 @@ class VideoFile(object):
     
     def getFPS(self):
         return self._fps
+        
+    def getTimeMS(self):
+        return 0
     
     def setOsdbInfo(self,info):
         self._osdb_info = info

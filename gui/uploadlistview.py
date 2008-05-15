@@ -54,7 +54,19 @@ class UploadListModel(QAbstractTableModel):
                 else:
                     self._subs[index] = sub
                 index += 1
-    
+                
+    def verify(self):
+        if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
+            return {'ok': False ,  'error_msg':'The list of video/subtitle is empty'}
+
+        for i in range(self.getTotalRows()):
+            if not self._subs[i] and not self._videos[i] and i != self.getTotalRows()-1:
+                return {'ok': False ,  'error_msg':'Some of the upload rows are empty'}
+                
+            if not self._subs[i] or not self._videos[i] :
+                return {'ok': False ,  'error_msg':'Some of the video/subtitles are empty'}
+                
+        return {'ok': True}
     def update_lang_upload(self):
         ##Trying to autodetect the language
 
@@ -83,8 +95,10 @@ class UploadListModel(QAbstractTableModel):
             if all_langs.count(lang) > max:
                 max = all_langs.count(lang)
                 max_lang = lang
-        log.debug("Language Autodetected for Upload = " + str(max_lang))
-        self.emit(SIGNAL('language_updated(QString)'),max_lang)
+        
+        xxx_lang = languages.name2xxx(max_lang)
+        log.debug("Majoritary Language Autodetected for Upload subtitles = " + str(xxx_lang))
+        self._main.uploadLanguages.emit(SIGNAL('language_updated(QString)'),xxx_lang)
   
     def getTotalRows(self):
         return self.rowCount(None)

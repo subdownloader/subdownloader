@@ -187,15 +187,15 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
         self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
         for lang in languages.LANGUAGES:
-            self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
-            self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
-            self.uploadLanguages.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8))
+            self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            self.uploadLanguages.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
-
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
+        QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
     
     def onFilterLanguageVideo(self, index):
         selectedLanguageName = self.filterLanguageForVideo.itemText(index)
@@ -395,7 +395,39 @@ class Main(QObject, Ui_MainWindow):
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
     def onUploadButton(self, clicked):
-        pass
+        
+        
+
+        result = self.uploadModel.verify()
+        if not result["ok"]:
+            QMessageBox.about(self.window,"Error",result["error_msg"])
+        else:
+            log.debug("Compressing subtitle...")
+            details = {}
+            imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
+            if imdb_id == QVariant(): #No IMDB
+                QMessageBox.about(self.window,"Error",result["error_msg"])
+            else:
+                details['IDMovieImdb'] = imdb_id
+            return
+
+            movie_info = {}
+            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details['movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
+             
+            for i in range(uploadModel.getTotalRows()):
+                curr_sub = uploadModel._subs[i]
+                curr_video = uploadModel._videos[i]
+                if curr_sub : #Make sure is not an empty row with None
+                    buf = open(curr_sub.getFilePath()).read()
+                    curr_sub_content = base64.encodestring(zlib.compress(buf))
+                    cd = "cd" + str(i)
+                    movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                        
+           
+            if self.OSDBServer.UploadSubtitlesGUI(movie_info):
+                QMessageBox.about(self,"Success","Subtitles succesfully uploaded. Thanks.")
+            else:
+                QMessageBox.about(self,"Error","Problem while uploading...")
     
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())
@@ -407,6 +439,13 @@ class Main(QObject, Ui_MainWindow):
         index = self.uploadIMDB.findData(QVariant(id))
         if index :
             self.uploadIMDB.setCurrentIndex (index)
+            return
+            
+    def onUploadLanguageDetection(self, lang_xxx):
+        #Let's select the item with that id.
+        index = self.uploadLanguages.findData(QVariant(lang_xxx))
+        if index :
+            self.uploadLanguages.setCurrentIndex (index)
             return
             
     def updateButtonsUpload(self):

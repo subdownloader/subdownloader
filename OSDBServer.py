@@ -541,7 +541,28 @@ class OSDBServer(object):
                 return True
             self.log.debug("----------------")
             return False
-            
+    
+    def UploadSubtitlesGUI(self, movie_info):
+        UploadSubtitlesGUI = TimeoutFunction(self._UploadSubtitlesGUI)
+        try:
+            return UploadSubtitlesGUI(movie_info)
+        except TimeoutFunctionException:
+            self.log.error("UploadSubtitles timed out")
+        
+    def _UploadSubtitles(self, movie_info):
+        self.log.debug("----------------")
+        self.log.debug("UploadSubtitles RPC method starting...")
+        self.log.info("Uploading subtitle(s)...")
+        
+        info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
+        self.log.debug("Upload finished in %s with status %s."% (info['seconds'], info['status']))
+        if info['status'] == "200 OK":
+            self.log.info("Subtitle download URL: %s"% info['data'])
+            self.log.debug("----------------")
+            return True
+        self.log.debug("----------------")
+        return False
+        
     def getBestImdbInfo(self, subs ):
             movies_imdb = []
             for sub in subs:

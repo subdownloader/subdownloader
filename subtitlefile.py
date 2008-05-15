@@ -19,6 +19,7 @@
 
 import os
 import md5
+import subdownloader.languages.Languages as languages
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa"]
 SELECT_SUBTITLES = "Subtitle Files (*.%s)"% " *.".join(SUBTITLES_EXT)
@@ -99,23 +100,38 @@ class SubtitleFile(object):
     def getLanguage(self):
         return self.getLanguageXXX()
     
-    def setLanguageXX(self,language):
-        self._languageXX = language
+    def setLanguageXX(self,xx):
+        self._languageXX = xx
+        self._languageXXX = languages.xx2xxx(xx)
+        self._languageName= languages.xx2name(xx)
     
     def getLanguageXX(self):
-        return self._languageXX.lower()
+        if self._languageXX:
+            return self._languageXX.lower()
+        else:
+            return None
     
-    def setLanguageXXX(self,language):
-        self._languageXXX = language
+    def setLanguageXXX(self,xxx):
+        self._languageXXX = xxx
+        self._languageXX = languages.xxx2xx(xxx)
+        self._languageName= languages.xxx2name(xxx)
     
     def getLanguageXXX(self):
-        return self._languageXXX.lower()
+        if self._languageXXX:
+            return self._languageXXX.lower()
+        else:
+            return None
     
     def getLanguageName(self): 
-        return self._languageName
+        if self._languageName:
+            return self._languageName.lower()
+        else:
+            return None
     
     def setLanguageName(self,language):
         self._languageName = language
+        self._languageXXX = languages.name2xx(language)
+        self._languageXX = languages.name2xx(language)
     
     def isOnline(self):
         return self._online
