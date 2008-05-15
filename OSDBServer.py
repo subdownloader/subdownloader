@@ -549,7 +549,7 @@ class OSDBServer(object):
         except TimeoutFunctionException:
             self.log.error("UploadSubtitles timed out")
         
-    def _UploadSubtitles(self, movie_info):
+    def _UploadSubtitlesGUI(self, movie_info):
         self.log.debug("----------------")
         self.log.debug("UploadSubtitles RPC method starting...")
         self.log.info("Uploading subtitle(s)...")

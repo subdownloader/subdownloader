@@ -60,13 +60,17 @@ class UploadListModel(QAbstractTableModel):
             return {'ok': False ,  'error_msg':'The list of video/subtitle is empty'}
 
         for i in range(self.getTotalRows()):
-            if not self._subs[i] and not self._videos[i] and i != self.getTotalRows()-1:
-                return {'ok': False ,  'error_msg':'Some of the upload rows are empty'}
+            if not self._subs[i] and not self._videos[i] :
+               if i != self.getTotalRows()-1:
+                    return {'ok': False ,  'error_msg':'Some of the upload rows are empty'}
+               else:
+                   return {'ok': True}
                 
-            if not self._subs[i] or not self._videos[i] :
+            if not self._subs[i] or not self._videos[i]  and i != self.getTotalRows()-1:
                 return {'ok': False ,  'error_msg':'Some of the video/subtitles are empty'}
                 
         return {'ok': True}
+        
     def update_lang_upload(self):
         ##Trying to autodetect the language
 

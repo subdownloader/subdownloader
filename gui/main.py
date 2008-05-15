@@ -19,6 +19,7 @@
 """ Create and launch the GUI """
 import sys, re, os, traceback, tempfile
 import webbrowser
+import base64, zlib
 #sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
 
 from PyQt4 import QtCore, QtGui
@@ -392,42 +393,45 @@ class Main(QObject, Ui_MainWindow):
                     sub = SubtitleFile(False,subtitle) 
                     self.uploadModel.addSubs(row, [sub])
             self.uploadView.resizeRowsToContents()
+            self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
     def onUploadButton(self, clicked):
-        
-        
-
         result = self.uploadModel.verify()
         if not result["ok"]:
             QMessageBox.about(self.window,"Error",result["error_msg"])
+            return
         else:
             log.debug("Compressing subtitle...")
             details = {}
             imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
             if imdb_id == QVariant(): #No IMDB
-                QMessageBox.about(self.window,"Error",result["error_msg"])
+                QMessageBox.about(self.window,"Error","Please select an IMDB movie.")
+                return
             else:
-                details['IDMovieImdb'] = imdb_id
-            return
-
-            movie_info = {}
-            movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details['movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
+                details['IDMovieImdb'] = str(imdb_id.toString().toUtf8())
+                lang_xxx = self.uploadLanguages.itemData(self.uploadLanguages.currentIndex())
+                details['sublanguageid'] = str(lang_xxx.toString().toUtf8()) 
+                details['movieaka'] = ''
+                details['moviereleasename'] = str(self.uploadReleaseText.text().toUtf8()) 
+                details['subauthorcomment'] = str(self.uploadComments.toPlainText().toUtf8()) 
+                
+                movie_info = {}
+                movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details['movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
              
-            for i in range(uploadModel.getTotalRows()):
-                curr_sub = uploadModel._subs[i]
-                curr_video = uploadModel._videos[i]
-                if curr_sub : #Make sure is not an empty row with None
-                    buf = open(curr_sub.getFilePath()).read()
-                    curr_sub_content = base64.encodestring(zlib.compress(buf))
-                    cd = "cd" + str(i)
-                    movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
-                        
-           
-            if self.OSDBServer.UploadSubtitlesGUI(movie_info):
-                QMessageBox.about(self,"Success","Subtitles succesfully uploaded. Thanks.")
-            else:
-                QMessageBox.about(self,"Error","Problem while uploading...")
+                for i in range(self.uploadModel.getTotalRows()):
+                    curr_sub = self.uploadModel._subs[i]
+                    curr_video = self.uploadModel._videos[i]
+                    if curr_sub : #Make sure is not an empty row with None
+                        buf = open(curr_sub.getFilePath()).read()
+                        curr_sub_content = base64.encodestring(zlib.compress(buf))
+                        cd = "cd" + str(i)
+                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+
+                if self.OSDBServer.UploadSubtitlesGUI(movie_info):
+                    QMessageBox.about(self.window,"Success","Subtitles succesfully uploaded. Thanks.")
+                else:
+                    QMessageBox.about(self.window,"Error","Problem while uploading...")
     
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())
@@ -480,6 +484,11 @@ class Main(QObject, Ui_MainWindow):
                 video = VideoFile(str(fileName.toUtf8())) 
                 self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
                 self.uploadModel.addVideos(row, [video])
+                subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                if subtitle:
+                    sub = SubtitleFile(False,subtitle) 
+                    self.uploadModel.addSubs(row, [sub])
+                    self.uploadModel.update_lang_upload()
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
         else:
