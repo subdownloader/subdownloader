@@ -25,7 +25,7 @@ import base64, zlib
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
-                         QBuffer, QIODevice, QModelIndex,QDir
+                         QBuffer, QIODevice, QModelIndex,QDir, QFileInfo
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
@@ -66,21 +66,13 @@ class Main(QObject, Ui_MainWindow):
                 raise
         return function
         
-    
     def read_settings(self):
         settings = QSettings()
-        settings.beginGroup("MainWindow")
-        self.window.resize(settings.value("size", QVariant(QSize(1000, 700))).\
-                            toSize())
-        settings.endGroup()
-        #self.database_path = settings.value("database path", QVariant(os.path\
-         #                           .expanduser("~/library.db"))).toString()
+        self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
     
     def write_settings(self):
         settings = QSettings()
-        settings.beginGroup("MainWindow")
-        settings.setValue("size", QVariant(self.window.size()))
-        settings.endGroup()
+        settings.setValue("mainwindow/size", QVariant(self.window.size()))
     
     def close_event(self, e):
         self.write_settings()
@@ -103,24 +95,35 @@ class Main(QObject, Ui_MainWindow):
         
         #self.treeView.reset()
         window.show()
-        model = QDirModel(window)
         self.splitter.setSizes([400, 1000])
-        
+
         #SETTING UP FOLDERVIEW
+        model = QDirModel(window)        
         model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
         self.folderView.setModel(model)
-        index = model.index(QDir.rootPath())
-        self.folderView.setRootIndex(index)
         
+        settings = QSettings()
+        path = settings.value("mainwindow/workingDirectory", QVariant(QDir.rootPath()))
+        self.folderView.setRootIndex(model.index(QDir.rootPath()))
+        #index = model.index(QDir.rootPath())
+
         self.folderView.header().hide()
         self.folderView.hideColumn(3)
         self.folderView.hideColumn(2)
         self.folderView.hideColumn(1)
-
+        self.folderView.show()
+        
+        #Loop to expand the current directory in the folderview.
+        log.debug('Current directory: %s' % path.toString())
+        path = QDir(path.toString())
+        while True:
+            self.folderView.expand(model.index(path.absolutePath()))
+            if not path.cdUp(): break
+                    
         QObject.connect(self.folderView, SIGNAL("activated(QModelIndex)"), \
-                            self.folderView_clicked)
+                            self.onFolderTreeClicked)
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
-                            self.folderView_clicked)
+                            self.onFolderTreeClicked)
 
         #SETTING UP SEARCH_VIDEO_VIEW
         self.videoModel = VideoTreeModel(window)
@@ -158,7 +161,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
             
-        self.folderView.show()
+        
         
         #Fill Out the Filters Language SelectBoxes
         self.InitializeFilterLanguages()
@@ -183,7 +186,7 @@ class Main(QObject, Ui_MainWindow):
             #self.SearchVideos('/media/xp/pelis/')
             self.tabs.setCurrentIndex(2)
             pass
-    
+
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
         self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
@@ -277,12 +280,13 @@ class Main(QObject, Ui_MainWindow):
             self.buttonIMDB.setEnabled(False)
         
     """What to do when a Folder in the tree is clicked"""
-    def folderView_clicked(self, index):
+    def onFolderTreeClicked(self, index):
         if index.isValid():
+            settings = QSettings()
             data = self.folderView.model().filePath(index)
-        
-        folder_path = unicode(data, 'utf-8')
-        self.SearchVideos(folder_path)
+            folder_path = unicode(data, 'utf-8')
+            settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+            self.SearchVideos(folder_path)
 
     def onButtonIMDB(self, checked):
         video = self.videoModel.getSelectedItem().data
@@ -310,35 +314,6 @@ class Main(QObject, Ui_MainWindow):
 
             self.status("Subtitles downloaded succesfully.")
             self.progress(100)
-
-    def videos_leftclicked(self, index):
-        if index.isValid():
-            subs = self.video_model.getSubsFromIndex(index.row())
-        #print len(subs)
-        self.subs_osdb_model.setSubs(subs)
-        self.subs_osdb_view.setModel(self.subs_osdb_model)
-        self.subs_osdb_view.resizeColumnsToContents()
-        
-    def videos_rightclicked(self, point):
-        menu = QtGui.QMenu(self.video_view)
-        menu.addAction(self.actionUpload_Subtitle)
-        menu.exec_(self.video_view.mapToGlobal(point))
-        #if index.isValid():
-            #print "hello"
-        
-    def subs_odbc_rightclicked(self, point):
-        menu = QtGui.QMenu(self.subs_osdb_view)
-        menu.addAction(self.actionDownload_Subtitle)
-        menu.exec_(self.subs_osdb_view.mapToGlobal(point))
-        #if index.isValid():
-            #print "hello"
-
-    def subs_rightclicked(self, point):
-        menu = QtGui.QMenu(self.sub_view)
-        menu.addAction(self.actionUpload_Subtitle)
-        menu.exec_(self.sub_view.mapToGlobal(point))
-        #if index.isValid():
-            #print "hello"
 
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val,msg = None):
@@ -380,8 +355,11 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
     def onUploadBrowseFolder(self):
-        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory","Select a directory")
+        settings = QSettings()
+        path = settings.value("mainwindow/workingDirectory", QVariant())
+        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory",path.toString())
         if directory:
+            settings.setValue("mainwindow/workingDirectory", QVariant(directory))
             directory =  str(directory.toUtf8())
             videos_found,subs_found = FileScan.ScanFolder(directory,recursively = False,report_progress = self.progress)
             log.info("Videos found: %i Subtitles found: %i"%(len(videos_found), len(subs_found)))
@@ -478,9 +456,13 @@ class Main(QObject, Ui_MainWindow):
         
     def onClickUploadViewCell(self, index):
         row, col = index.row(), index.column()
+        settings = QSettings()
+        currentDir = settings.value("mainwindow/workingDirectory", QVariant())
+        
         if col == UploadListView.COL_VIDEO:
-            fileName = QFileDialog.getOpenFileName(None, "Select Video", "", videofile.SELECT_VIDEOS)
+            fileName = QFileDialog.getOpenFileName(None, "Select Video", currentDir.toString(), videofile.SELECT_VIDEOS)
             if fileName:
+                settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileName).absolutePath()))
                 video = VideoFile(str(fileName.toUtf8())) 
                 self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
                 self.uploadModel.addVideos(row, [video])
@@ -492,8 +474,9 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
         else:
-            fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", "", subtitlefile.SELECT_SUBTITLES)
+            fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", currentDir.toString(), subtitlefile.SELECT_SUBTITLES)
             if fileName:
+                settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileName).absolutePath()))
                 sub = SubtitleFile(False, str(fileName.toUtf8())) 
                 self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
                 self.uploadModel.addSubs(row, [sub])
