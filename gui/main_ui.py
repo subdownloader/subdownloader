@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun May 18 22:19:22 2008
-#      by: PyQt4 UI code generator 4.3.1
+# Created: Mon May 19 00:50:38 2008
+#      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,17 +13,22 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,776,532).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.setWindowIcon(QtGui.QIcon("
+            "))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget.setGeometry(QtCore.QRect(0,0,776,509))
         self.centralwidget.setObjectName("centralwidget")
 
         self.vboxlayout = QtGui.QVBoxLayout(self.centralwidget)
 
 
         self.tabs = QtGui.QTabWidget(self.centralwidget)
+        self.tabs.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabs.setObjectName("tabs")
 
         self.tab = QtGui.QWidget()
+        self.tab.setGeometry(QtCore.QRect(0,0,754,463))
         self.tab.setObjectName("tab")
 
         self.vboxlayout1 = QtGui.QVBoxLayout(self.tab)
@@ -56,6 +61,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setBold(True)
         self.buttonDownload.setFont(font)
+        self.buttonDownload.setIcon(QtGui.QIcon("
+                      "))
         self.buttonDownload.setObjectName("buttonDownload")
         self.hboxlayout.addWidget(self.buttonDownload)
 
@@ -67,7 +74,8 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonIMDB.sizePolicy().hasHeightForWidth())
         self.buttonIMDB.setSizePolicy(sizePolicy)
-        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
+        self.buttonIMDB.setIcon(QtGui.QIcon("
+                      "))
         self.buttonIMDB.setIconSize(QtCore.QSize(32,16))
         self.buttonIMDB.setObjectName("buttonIMDB")
         self.hboxlayout.addWidget(self.buttonIMDB)
@@ -119,6 +127,7 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab,"")
 
         self.tab_3 = QtGui.QWidget()
+        self.tab_3.setGeometry(QtCore.QRect(0,0,754,463))
         self.tab_3.setObjectName("tab_3")
 
         self.vboxlayout3 = QtGui.QVBoxLayout(self.tab_3)
@@ -219,6 +228,7 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab_3,"")
 
         self.tab_4 = QtGui.QWidget()
+        self.tab_4.setGeometry(QtCore.QRect(0,0,754,463))
         self.tab_4.setObjectName("tab_4")
 
         self.vboxlayout5 = QtGui.QVBoxLayout(self.tab_4)
@@ -240,7 +250,8 @@ class Ui_MainWindow(object):
         self.hboxlayout5.setObjectName("hboxlayout5")
 
         self.buttonUploadBrowseFolder = QtGui.QToolButton(self.groupBox_2)
-        self.buttonUploadBrowseFolder.setIcon(QtGui.QIcon(":/images/openfolder.png"))
+        self.buttonUploadBrowseFolder.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUploadBrowseFolder.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadBrowseFolder.setObjectName("buttonUploadBrowseFolder")
         self.hboxlayout5.addWidget(self.buttonUploadBrowseFolder)
@@ -253,14 +264,16 @@ class Ui_MainWindow(object):
 
         self.buttonUploadPlusRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadPlusRow.setEnabled(True)
-        self.buttonUploadPlusRow.setIcon(QtGui.QIcon(":/images/plus.png"))
+        self.buttonUploadPlusRow.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUploadPlusRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadPlusRow.setObjectName("buttonUploadPlusRow")
         self.hboxlayout5.addWidget(self.buttonUploadPlusRow)
 
         self.buttonUploadMinusRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadMinusRow.setEnabled(False)
-        self.buttonUploadMinusRow.setIcon(QtGui.QIcon(":/images/minus.png"))
+        self.buttonUploadMinusRow.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUploadMinusRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadMinusRow.setObjectName("buttonUploadMinusRow")
         self.hboxlayout5.addWidget(self.buttonUploadMinusRow)
@@ -273,14 +286,16 @@ class Ui_MainWindow(object):
 
         self.buttonUploadUpRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadUpRow.setEnabled(False)
-        self.buttonUploadUpRow.setIcon(QtGui.QIcon(":/images/up.png"))
+        self.buttonUploadUpRow.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUploadUpRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadUpRow.setObjectName("buttonUploadUpRow")
         self.hboxlayout5.addWidget(self.buttonUploadUpRow)
 
         self.buttonUploadDownRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadDownRow.setEnabled(False)
-        self.buttonUploadDownRow.setIcon(QtGui.QIcon(":/images/down.png"))
+        self.buttonUploadDownRow.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUploadDownRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadDownRow.setObjectName("buttonUploadDownRow")
         self.hboxlayout5.addWidget(self.buttonUploadDownRow)
@@ -295,6 +310,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setBold(True)
         self.buttonUpload.setFont(font)
+        self.buttonUpload.setIcon(QtGui.QIcon("
+                             "))
         self.buttonUpload.setObjectName("buttonUpload")
         self.hboxlayout5.addWidget(self.buttonUpload)
         self.vboxlayout8.addLayout(self.hboxlayout5)
@@ -438,6 +455,7 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab_4,"")
 
         self.tab_5 = QtGui.QWidget()
+        self.tab_5.setGeometry(QtCore.QRect(0,0,754,463))
         self.tab_5.setObjectName("tab_5")
 
         self.groupBox_3 = QtGui.QGroupBox(self.tab_5)
@@ -471,30 +489,30 @@ class Ui_MainWindow(object):
         self.groupBox_5.setObjectName("groupBox_5")
 
         self.pushButton_3 = QtGui.QPushButton(self.groupBox_5)
-        self.pushButton_3.setGeometry(QtCore.QRect(470,80,83,27))
+        self.pushButton_3.setGeometry(QtCore.QRect(480,80,83,27))
         self.pushButton_3.setObjectName("pushButton_3")
 
         self.lineEdit_6 = QtGui.QLineEdit(self.groupBox_5)
-        self.lineEdit_6.setGeometry(QtCore.QRect(160,80,301,23))
+        self.lineEdit_6.setGeometry(QtCore.QRect(180,80,291,26))
         self.lineEdit_6.setObjectName("lineEdit_6")
 
-        self.widget = QtGui.QWidget(self.groupBox_5)
-        self.widget.setGeometry(QtCore.QRect(10,20,179,91))
-        self.widget.setObjectName("widget")
+        self.layoutWidget = QtGui.QWidget(self.groupBox_5)
+        self.layoutWidget.setGeometry(QtCore.QRect(10,20,161,91))
+        self.layoutWidget.setObjectName("layoutWidget")
 
-        self.vboxlayout9 = QtGui.QVBoxLayout(self.widget)
+        self.vboxlayout9 = QtGui.QVBoxLayout(self.layoutWidget)
         self.vboxlayout9.setObjectName("vboxlayout9")
 
-        self.radioButton = QtGui.QRadioButton(self.widget)
+        self.radioButton = QtGui.QRadioButton(self.layoutWidget)
         self.radioButton.setObjectName("radioButton")
         self.vboxlayout9.addWidget(self.radioButton)
 
-        self.radioButton_2 = QtGui.QRadioButton(self.widget)
+        self.radioButton_2 = QtGui.QRadioButton(self.layoutWidget)
         self.radioButton_2.setChecked(True)
         self.radioButton_2.setObjectName("radioButton_2")
         self.vboxlayout9.addWidget(self.radioButton_2)
 
-        self.radioButton_3 = QtGui.QRadioButton(self.widget)
+        self.radioButton_3 = QtGui.QRadioButton(self.layoutWidget)
         self.radioButton_3.setObjectName("radioButton_3")
         self.vboxlayout9.addWidget(self.radioButton_3)
 
@@ -503,48 +521,48 @@ class Ui_MainWindow(object):
         self.groupBox_6.setObjectName("groupBox_6")
 
         self.comboBox_2 = QtGui.QComboBox(self.groupBox_6)
-        self.comboBox_2.setGeometry(QtCore.QRect(130,20,171,22))
+        self.comboBox_2.setGeometry(QtCore.QRect(130,20,341,26))
         self.comboBox_2.setObjectName("comboBox_2")
 
         self.pushButton = QtGui.QPushButton(self.groupBox_6)
-        self.pushButton.setGeometry(QtCore.QRect(440,50,83,27))
+        self.pushButton.setGeometry(QtCore.QRect(480,50,83,27))
         self.pushButton.setObjectName("pushButton")
 
         self.label_18 = QtGui.QLabel(self.groupBox_6)
-        self.label_18.setGeometry(QtCore.QRect(440,80,260,18))
+        self.label_18.setGeometry(QtCore.QRect(480,90,211,18))
         self.label_18.setObjectName("label_18")
 
-        self.widget1 = QtGui.QWidget(self.groupBox_6)
-        self.widget1.setGeometry(QtCore.QRect(10,20,114,91))
-        self.widget1.setObjectName("widget1")
+        self.layoutWidget1 = QtGui.QWidget(self.groupBox_6)
+        self.layoutWidget1.setGeometry(QtCore.QRect(10,20,114,91))
+        self.layoutWidget1.setObjectName("layoutWidget1")
 
-        self.vboxlayout10 = QtGui.QVBoxLayout(self.widget1)
+        self.vboxlayout10 = QtGui.QVBoxLayout(self.layoutWidget1)
         self.vboxlayout10.setObjectName("vboxlayout10")
 
-        self.label_15 = QtGui.QLabel(self.widget1)
+        self.label_15 = QtGui.QLabel(self.layoutWidget1)
         self.label_15.setObjectName("label_15")
         self.vboxlayout10.addWidget(self.label_15)
 
-        self.label_16 = QtGui.QLabel(self.widget1)
+        self.label_16 = QtGui.QLabel(self.layoutWidget1)
         self.label_16.setObjectName("label_16")
         self.vboxlayout10.addWidget(self.label_16)
 
-        self.label_17 = QtGui.QLabel(self.widget1)
+        self.label_17 = QtGui.QLabel(self.layoutWidget1)
         self.label_17.setObjectName("label_17")
         self.vboxlayout10.addWidget(self.label_17)
 
-        self.widget2 = QtGui.QWidget(self.groupBox_6)
-        self.widget2.setGeometry(QtCore.QRect(130,50,301,55))
-        self.widget2.setObjectName("widget2")
+        self.layoutWidget2 = QtGui.QWidget(self.groupBox_6)
+        self.layoutWidget2.setGeometry(QtCore.QRect(130,50,341,64))
+        self.layoutWidget2.setObjectName("layoutWidget2")
 
-        self.vboxlayout11 = QtGui.QVBoxLayout(self.widget2)
+        self.vboxlayout11 = QtGui.QVBoxLayout(self.layoutWidget2)
         self.vboxlayout11.setObjectName("vboxlayout11")
 
-        self.lineEdit_4 = QtGui.QLineEdit(self.widget2)
+        self.lineEdit_4 = QtGui.QLineEdit(self.layoutWidget2)
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.vboxlayout11.addWidget(self.lineEdit_4)
 
-        self.lineEdit_5 = QtGui.QLineEdit(self.widget2)
+        self.lineEdit_5 = QtGui.QLineEdit(self.layoutWidget2)
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.vboxlayout11.addWidget(self.lineEdit_5)
 
@@ -577,30 +595,31 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.hboxlayout6.addWidget(self.lineEdit_3)
 
-        self.widget3 = QtGui.QWidget(self.tab_5)
-        self.widget3.setGeometry(QtCore.QRect(23,430,701,29))
-        self.widget3.setObjectName("widget3")
+        self.layoutWidget3 = QtGui.QWidget(self.tab_5)
+        self.layoutWidget3.setGeometry(QtCore.QRect(20,420,701,30))
+        self.layoutWidget3.setObjectName("layoutWidget3")
 
-        self.hboxlayout7 = QtGui.QHBoxLayout(self.widget3)
+        self.hboxlayout7 = QtGui.QHBoxLayout(self.layoutWidget3)
         self.hboxlayout7.setObjectName("hboxlayout7")
 
         spacerItem4 = QtGui.QSpacerItem(40,20,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
         self.hboxlayout7.addItem(spacerItem4)
 
-        self.pushButton_5 = QtGui.QPushButton(self.widget3)
+        self.pushButton_5 = QtGui.QPushButton(self.layoutWidget3)
         self.pushButton_5.setObjectName("pushButton_5")
         self.hboxlayout7.addWidget(self.pushButton_5)
         self.tabs.addTab(self.tab_5,"")
 
         self.tab_2 = QtGui.QWidget()
+        self.tab_2.setGeometry(QtCore.QRect(0,0,754,463))
         self.tab_2.setObjectName("tab_2")
 
         self.label_2 = QtGui.QLabel(self.tab_2)
-        self.label_2.setGeometry(QtCore.QRect(20,10,601,51))
+        self.label_2.setGeometry(QtCore.QRect(20,30,701,31))
 
         font = QtGui.QFont()
-        font.setWeight(75)
-        font.setBold(True)
+        font.setWeight(50)
+        font.setBold(False)
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setWordWrap(True)
@@ -608,30 +627,41 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
 
         self.line_4 = QtGui.QFrame(self.tab_2)
-        self.line_4.setGeometry(QtCore.QRect(30,70,601,16))
+        self.line_4.setGeometry(QtCore.QRect(30,70,681,16))
         self.line_4.setFrameShape(QtGui.QFrame.HLine)
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
 
         self.label_11 = QtGui.QLabel(self.tab_2)
-        self.label_11.setGeometry(QtCore.QRect(40,130,201,31))
+        self.label_11.setGeometry(QtCore.QRect(30,120,201,21))
         self.label_11.setObjectName("label_11")
 
         self.label_12 = QtGui.QLabel(self.tab_2)
-        self.label_12.setGeometry(QtCore.QRect(260,140,351,18))
+        self.label_12.setGeometry(QtCore.QRect(230,120,351,21))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_12.setFont(font)
+        self.label_12.setAutoFillBackground(False)
         self.label_12.setOpenExternalLinks(True)
         self.label_12.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.label_12.setObjectName("label_12")
+
+        self.label_19 = QtGui.QLabel(self.tab_2)
+        self.label_19.setGeometry(QtCore.QRect(30,160,54,21))
+        self.label_19.setObjectName("label_19")
         self.tabs.addTab(self.tab_2,"")
         self.vboxlayout.addWidget(self.tabs)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar.setGeometry(QtCore.QRect(0,509,776,23))
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(3)
+        self.tabs.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -697,7 +727,8 @@ class Ui_MainWindow(object):
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_11.setText(QtGui.QApplication.translate("MainWindow", "Bugs, issues and suggestions:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_12.setText(QtGui.QApplication.translate("MainWindow", "http://code.google.com/p/subdownloader/issues/list", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_2), QtGui.QApplication.translate("MainWindow", "Contacts / Donations", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_19.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_2), QtGui.QApplication.translate("MainWindow", "Contacts", None, QtGui.QApplication.UnicodeUTF8))
 
 from sublistview import SubListView
 from uploadlistview import UploadListView

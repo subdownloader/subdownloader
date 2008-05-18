@@ -13,16 +13,37 @@
    <string>SubDownloader</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>776</width>
+     <height>509</height>
+    </rect>
+   </property>
    <layout class="QVBoxLayout" >
     <item>
      <widget class="QTabWidget" name="tabs" >
+      <property name="tabShape" >
+       <enum>QTabWidget::Rounded</enum>
+      </property>
       <property name="currentIndex" >
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>754</width>
+         <height>463</height>
+        </rect>
+       </property>
        <attribute name="title" >
         <string>Search from Video file(s)</string>
        </attribute>
@@ -66,7 +87,9 @@
              <string>Download</string>
             </property>
             <property name="icon" >
-             <iconset/>
+             <iconset>
+              <normaloff/>
+             </iconset>
             </property>
            </widget>
           </item>
@@ -85,7 +108,8 @@
              <string>Movie Info</string>
             </property>
             <property name="icon" >
-             <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
+             <iconset resource="images.qrc" >
+              <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
             </property>
             <property name="iconSize" >
              <size>
@@ -103,7 +127,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>231</width>
               <height>27</height>
@@ -170,6 +194,14 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>754</width>
+         <height>463</height>
+        </rect>
+       </property>
        <attribute name="title" >
         <string>Search by Movie Name</string>
        </attribute>
@@ -201,7 +233,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Minimum</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>29</width>
               <height>20</height>
@@ -263,7 +295,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Minimum</enum>
             </property>
-            <property name="sizeHint" >
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>581</width>
               <height>20</height>
@@ -343,6 +375,14 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_4" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>754</width>
+         <height>463</height>
+        </rect>
+       </property>
        <attribute name="title" >
         <string>Upload subtitles</string>
        </attribute>
@@ -365,7 +405,8 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/openfolder.png</iconset>
+                    <iconset resource="images.qrc" >
+                     <normaloff>:/images/openfolder.png</normaloff>:/images/openfolder.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -391,7 +432,8 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/plus.png</iconset>
+                    <iconset resource="images.qrc" >
+                     <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -410,7 +452,8 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/minus.png</iconset>
+                    <iconset resource="images.qrc" >
+                     <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -436,7 +479,8 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/up.png</iconset>
+                    <iconset resource="images.qrc" >
+                     <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -455,7 +499,8 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/down.png</iconset>
+                    <iconset resource="images.qrc" >
+                     <normaloff>:/images/down.png</normaloff>:/images/down.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -470,7 +515,7 @@
                    <property name="orientation" >
                     <enum>Qt::Horizontal</enum>
                    </property>
-                   <property name="sizeHint" >
+                   <property name="sizeHint" stdset="0" >
                     <size>
                      <width>401</width>
                      <height>33</height>
@@ -493,7 +538,9 @@
                     <string>Upload</string>
                    </property>
                    <property name="icon" >
-                    <iconset/>
+                    <iconset>
+                     <normaloff/>
+                    </iconset>
                    </property>
                   </widget>
                  </item>
@@ -723,6 +770,14 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="tab_5" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>754</width>
+         <height>463</height>
+        </rect>
+       </property>
        <attribute name="title" >
         <string>Options</string>
        </attribute>
@@ -785,7 +840,7 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="pushButton_3" >
          <property name="geometry" >
           <rect>
-           <x>470</x>
+           <x>480</x>
            <y>80</y>
            <width>83</width>
            <height>27</height>
@@ -798,19 +853,19 @@ p, li { white-space: pre-wrap; }
         <widget class="QLineEdit" name="lineEdit_6" >
          <property name="geometry" >
           <rect>
-           <x>160</x>
+           <x>180</x>
            <y>80</y>
-           <width>301</width>
-           <height>23</height>
+           <width>291</width>
+           <height>26</height>
           </rect>
          </property>
         </widget>
-        <widget class="QWidget" name="" >
+        <widget class="QWidget" name="layoutWidget" >
          <property name="geometry" >
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>179</width>
+           <width>161</width>
            <height>91</height>
           </rect>
          </property>
@@ -859,15 +914,15 @@ p, li { white-space: pre-wrap; }
           <rect>
            <x>130</x>
            <y>20</y>
-           <width>171</width>
-           <height>22</height>
+           <width>341</width>
+           <height>26</height>
           </rect>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton" >
          <property name="geometry" >
           <rect>
-           <x>440</x>
+           <x>480</x>
            <y>50</y>
            <width>83</width>
            <height>27</height>
@@ -880,9 +935,9 @@ p, li { white-space: pre-wrap; }
         <widget class="QLabel" name="label_18" >
          <property name="geometry" >
           <rect>
-           <x>440</x>
-           <y>80</y>
-           <width>260</width>
+           <x>480</x>
+           <y>90</y>
+           <width>211</width>
            <height>18</height>
           </rect>
          </property>
@@ -890,7 +945,7 @@ p, li { white-space: pre-wrap; }
           <string>{0} = video file path; {1} = subtitle path</string>
          </property>
         </widget>
-        <widget class="QWidget" name="" >
+        <widget class="QWidget" name="layoutWidget" >
          <property name="geometry" >
           <rect>
            <x>10</x>
@@ -923,13 +978,13 @@ p, li { white-space: pre-wrap; }
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="" >
+        <widget class="QWidget" name="layoutWidget" >
          <property name="geometry" >
           <rect>
            <x>130</x>
            <y>50</y>
-           <width>301</width>
-           <height>55</height>
+           <width>341</width>
+           <height>64</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" >
@@ -984,13 +1039,13 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="" >
+       <widget class="QWidget" name="layoutWidget" >
         <property name="geometry" >
          <rect>
-          <x>23</x>
-          <y>430</y>
+          <x>20</x>
+          <y>420</y>
           <width>701</width>
-          <height>29</height>
+          <height>30</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" >
@@ -999,7 +1054,7 @@ p, li { white-space: pre-wrap; }
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -1018,22 +1073,30 @@ p, li { white-space: pre-wrap; }
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>754</width>
+         <height>463</height>
+        </rect>
+       </property>
        <attribute name="title" >
-        <string>Contacts / Donations</string>
+        <string>Contacts</string>
        </attribute>
        <widget class="QLabel" name="label_2" >
         <property name="geometry" >
          <rect>
           <x>20</x>
-          <y>10</y>
-          <width>601</width>
-          <height>51</height>
+          <y>30</y>
+          <width>701</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="font" >
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text" >
@@ -1054,7 +1117,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>30</x>
           <y>70</y>
-          <width>601</width>
+          <width>681</width>
           <height>16</height>
          </rect>
         </property>
@@ -1065,10 +1128,10 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_11" >
         <property name="geometry" >
          <rect>
-          <x>40</x>
-          <y>130</y>
+          <x>30</x>
+          <y>120</y>
           <width>201</width>
-          <height>31</height>
+          <height>21</height>
          </rect>
         </property>
         <property name="text" >
@@ -1078,11 +1141,20 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_12" >
         <property name="geometry" >
          <rect>
-          <x>260</x>
-          <y>140</y>
+          <x>230</x>
+          <y>120</y>
           <width>351</width>
-          <height>18</height>
+          <height>21</height>
          </rect>
+        </property>
+        <property name="font" >
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="autoFillBackground" >
+         <bool>false</bool>
         </property>
         <property name="text" >
          <string>http://code.google.com/p/subdownloader/issues/list</string>
@@ -1094,12 +1166,34 @@ p, li { white-space: pre-wrap; }
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
+       <widget class="QLabel" name="label_19" >
+        <property name="geometry" >
+         <rect>
+          <x>30</x>
+          <y>160</y>
+          <width>54</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>509</y>
+     <width>776</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
