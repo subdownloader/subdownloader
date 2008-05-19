@@ -6,44 +6,29 @@
     <x>0</x>
     <y>0</y>
     <width>776</width>
-    <height>532</height>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>SubDownloader</string>
   </property>
   <property name="windowIcon" >
-   <iconset>
-    <normaloff/>
-   </iconset>
+   <iconset/>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>776</width>
-     <height>509</height>
-    </rect>
-   </property>
    <layout class="QVBoxLayout" >
+    <item>
+     <layout class="QVBoxLayout" />
+    </item>
     <item>
      <widget class="QTabWidget" name="tabs" >
       <property name="tabShape" >
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex" >
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>754</width>
-         <height>463</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Search from Video file(s)</string>
        </attribute>
@@ -87,9 +72,7 @@
              <string>Download</string>
             </property>
             <property name="icon" >
-             <iconset>
-              <normaloff/>
-             </iconset>
+             <iconset/>
             </property>
            </widget>
           </item>
@@ -108,8 +91,7 @@
              <string>Movie Info</string>
             </property>
             <property name="icon" >
-             <iconset resource="images.qrc" >
-              <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
+             <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
             </property>
             <property name="iconSize" >
              <size>
@@ -127,7 +109,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" >
              <size>
               <width>231</width>
               <height>27</height>
@@ -194,14 +176,6 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_3" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>754</width>
-         <height>463</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Search by Movie Name</string>
        </attribute>
@@ -233,7 +207,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Minimum</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" >
              <size>
               <width>29</width>
               <height>20</height>
@@ -295,7 +269,7 @@
             <property name="sizeType" >
              <enum>QSizePolicy::Minimum</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" >
              <size>
               <width>581</width>
               <height>20</height>
@@ -375,14 +349,6 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tab_4" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>754</width>
-         <height>463</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Upload subtitles</string>
        </attribute>
@@ -405,8 +371,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >
-                     <normaloff>:/images/openfolder.png</normaloff>:/images/openfolder.png</iconset>
+                    <iconset resource="images.qrc" >:/images/openfolder.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -432,8 +397,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >
-                     <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
+                    <iconset resource="images.qrc" >:/images/plus.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -452,8 +416,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >
-                     <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
+                    <iconset resource="images.qrc" >:/images/minus.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -479,8 +442,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >
-                     <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
+                    <iconset resource="images.qrc" >:/images/up.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -499,8 +461,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >
-                     <normaloff>:/images/down.png</normaloff>:/images/down.png</iconset>
+                    <iconset resource="images.qrc" >:/images/down.png</iconset>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -515,7 +476,7 @@
                    <property name="orientation" >
                     <enum>Qt::Horizontal</enum>
                    </property>
-                   <property name="sizeHint" stdset="0" >
+                   <property name="sizeHint" >
                     <size>
                      <width>401</width>
                      <height>33</height>
@@ -538,9 +499,7 @@
                     <string>Upload</string>
                    </property>
                    <property name="icon" >
-                    <iconset>
-                     <normaloff/>
-                    </iconset>
+                    <iconset/>
                    </property>
                   </widget>
                  </item>
@@ -770,430 +729,415 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="tab_5" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>754</width>
-         <height>463</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Options</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox_3" >
-        <property name="geometry" >
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>711</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="title" >
-         <string>Explorer Integration</string>
-        </property>
-        <widget class="QCheckBox" name="checkBox" >
-         <property name="geometry" >
-          <rect>
-           <x>20</x>
-           <y>20</y>
-           <width>621</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text" >
-          <string>Display shortcut for subtitle download/upload in Windows Explorer context menu (only Windows)</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_5" >
-        <property name="geometry" >
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>711</width>
-          <height>121</height>
-         </rect>
-        </property>
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Preferred" hsizetype="Fixed" >
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="title" >
-         <string>Subtitles download folder</string>
-        </property>
-        <widget class="QPushButton" name="pushButton_3" >
-         <property name="geometry" >
-          <rect>
-           <x>480</x>
-           <y>80</y>
-           <width>83</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text" >
-          <string>Choose...</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lineEdit_6" >
-         <property name="geometry" >
-          <rect>
-           <x>180</x>
-           <y>80</y>
-           <width>291</width>
-           <height>26</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QWidget" name="layoutWidget" >
-         <property name="geometry" >
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>161</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QRadioButton" name="radioButton" >
-            <property name="text" >
-             <string>Always ask user</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_2" >
-            <property name="text" >
-             <string>Same folder as video file</string>
-            </property>
-            <property name="checked" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_3" >
-            <property name="text" >
-             <string>Predefined folder:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_6" >
-        <property name="geometry" >
-         <rect>
-          <x>10</x>
-          <y>200</y>
-          <width>711</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="title" >
-         <string>External application for video playback</string>
-        </property>
-        <widget class="QComboBox" name="comboBox_2" >
-         <property name="geometry" >
-          <rect>
-           <x>130</x>
-           <y>20</y>
-           <width>341</width>
-           <height>26</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton" >
-         <property name="geometry" >
-          <rect>
-           <x>480</x>
-           <y>50</y>
-           <width>83</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <property name="text" >
-          <string>Choose...</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_18" >
-         <property name="geometry" >
-          <rect>
-           <x>480</x>
-           <y>90</y>
-           <width>211</width>
-           <height>18</height>
-          </rect>
-         </property>
-         <property name="text" >
-          <string>{0} = video file path; {1} = subtitle path</string>
-         </property>
-        </widget>
-        <widget class="QWidget" name="layoutWidget" >
-         <property name="geometry" >
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>114</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLabel" name="label_15" >
-            <property name="text" >
-             <string>Video application:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_16" >
-            <property name="text" >
-             <string>Location:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_17" >
-            <property name="text" >
-             <string>Parameters:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="layoutWidget" >
-         <property name="geometry" >
-          <rect>
-           <x>130</x>
-           <y>50</y>
-           <width>341</width>
-           <height>64</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLineEdit" name="lineEdit_4" />
-          </item>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_5" />
-          </item>
-         </layout>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_7" >
-        <property name="geometry" >
-         <rect>
-          <x>10</x>
-          <y>340</y>
-          <width>711</width>
-          <height>62</height>
-         </rect>
-        </property>
-        <property name="title" >
-         <string>Network Proxy</string>
-        </property>
-        <layout class="QHBoxLayout" >
-         <item>
-          <widget class="QLabel" name="label_13" >
-           <property name="text" >
-            <string>Server:</string>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QGroupBox" name="groupBox_3" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>0</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>Explorer Integration</string>
+          </property>
+          <widget class="QCheckBox" name="checkBox" >
+           <property name="geometry" >
+            <rect>
+             <x>20</x>
+             <y>20</y>
+             <width>621</width>
+             <height>22</height>
+            </rect>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit" />
-         </item>
-         <item>
-          <widget class="QLabel" name="label_14" >
-           <property name="text" >
-            <string>Port:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="lineEdit_3" >
            <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget" >
-        <property name="geometry" >
-         <rect>
-          <x>20</x>
-          <y>420</y>
-          <width>701</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" >
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="minimumSize" >
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>0</width>
+             <height>22</height>
             </size>
            </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_5" >
            <property name="text" >
-            <string>Apply Changes</string>
+            <string>Display shortcut for subtitle download/upload in Windows Explorer context menu (only Windows)</string>
            </property>
           </widget>
-         </item>
-        </layout>
-       </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_5" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>0</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>Subtitles download folder</string>
+          </property>
+          <widget class="QWidget" name="" >
+           <property name="geometry" >
+            <rect>
+             <x>10</x>
+             <y>70</y>
+             <width>611</width>
+             <height>29</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="radioButton_3" >
+              <property name="text" >
+               <string>Predefined folder:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_6" />
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3" >
+              <property name="text" >
+               <string>Choose...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="" >
+           <property name="geometry" >
+            <rect>
+             <x>11</x>
+             <y>21</y>
+             <width>179</width>
+             <height>49</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="radioButton" >
+              <property name="text" >
+               <string>Always ask user</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2" >
+              <property name="text" >
+               <string>Same folder as video file</string>
+              </property>
+              <property name="checked" >
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_6" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>0</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>External application for video playback</string>
+          </property>
+          <widget class="QComboBox" name="comboBox_2" >
+           <property name="geometry" >
+            <rect>
+             <x>139</x>
+             <y>21</y>
+             <width>122</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton" >
+           <property name="geometry" >
+            <rect>
+             <x>390</x>
+             <y>50</y>
+             <width>83</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text" >
+            <string>Choose...</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_18" >
+           <property name="geometry" >
+            <rect>
+             <x>390</x>
+             <y>80</y>
+             <width>260</width>
+             <height>18</height>
+            </rect>
+           </property>
+           <property name="text" >
+            <string>{0} = video file path; {1} = subtitle path</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_17" >
+           <property name="geometry" >
+            <rect>
+             <x>11</x>
+             <y>84</y>
+             <width>112</width>
+             <height>26</height>
+            </rect>
+           </property>
+           <property name="text" >
+            <string>Parameters:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_16" >
+           <property name="geometry" >
+            <rect>
+             <x>11</x>
+             <y>52</y>
+             <width>112</width>
+             <height>27</height>
+            </rect>
+           </property>
+           <property name="text" >
+            <string>Location:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_4" >
+           <property name="geometry" >
+            <rect>
+             <x>140</x>
+             <y>50</y>
+             <width>241</width>
+             <height>23</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="lineEdit_5" >
+           <property name="geometry" >
+            <rect>
+             <x>140</x>
+             <y>80</y>
+             <width>241</width>
+             <height>23</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_15" >
+           <property name="geometry" >
+            <rect>
+             <x>12</x>
+             <y>21</y>
+             <width>122</width>
+             <height>22</height>
+            </rect>
+           </property>
+           <property name="text" >
+            <string>Video application:</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_7" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>0</width>
+            <height>62</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>Network Proxy</string>
+          </property>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QLabel" name="label_13" >
+             <property name="text" >
+              <string>Server:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit" />
+           </item>
+           <item>
+            <widget class="QLabel" name="label_14" >
+             <property name="text" >
+              <string>Port:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_3" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_5" >
+            <property name="text" >
+             <string>Apply Changes</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_2" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>754</width>
-         <height>463</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Contacts</string>
        </attribute>
-       <widget class="QLabel" name="label_2" >
+       <widget class="QWidget" name="" >
         <property name="geometry" >
          <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>701</width>
-          <height>31</height>
+          <x>90</x>
+          <y>10</y>
+          <width>569</width>
+          <height>73</height>
          </rect>
         </property>
-        <property name="font" >
-         <font>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text" >
-         <string>If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.</string>
-        </property>
-        <property name="alignment" >
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="wordWrap" >
-         <bool>true</bool>
-        </property>
-        <property name="indent" >
-         <number>1</number>
-        </property>
-       </widget>
-       <widget class="Line" name="line_4" >
-        <property name="geometry" >
-         <rect>
-          <x>30</x>
-          <y>70</y>
-          <width>681</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_11" >
-        <property name="geometry" >
-         <rect>
-          <x>30</x>
-          <y>120</y>
-          <width>201</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text" >
-         <string>Bugs, issues and suggestions:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_12" >
-        <property name="geometry" >
-         <rect>
-          <x>230</x>
-          <y>120</y>
-          <width>351</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="font" >
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="autoFillBackground" >
-         <bool>false</bool>
-        </property>
-        <property name="text" >
-         <string>http://code.google.com/p/subdownloader/issues/list</string>
-        </property>
-        <property name="openExternalLinks" >
-         <bool>true</bool>
-        </property>
-        <property name="textInteractionFlags" >
-         <set>Qt::TextBrowserInteraction</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_19" >
-        <property name="geometry" >
-         <rect>
-          <x>30</x>
-          <y>160</y>
-          <width>54</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text" >
-         <string>TextLabel</string>
-        </property>
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_2" >
+           <property name="font" >
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap" >
+            <bool>true</bool>
+           </property>
+           <property name="indent" >
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_4" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QLabel" name="label_11" >
+             <property name="text" >
+              <string>Bugs, issues and suggestions:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_12" >
+             <property name="font" >
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+               <underline>true</underline>
+               <strikeout>false</strikeout>
+               <kerning>true</kerning>
+              </font>
+             </property>
+             <property name="cursor" >
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="autoFillBackground" >
+              <bool>false</bool>
+             </property>
+             <property name="text" >
+              <string>http://code.google.com/p/subdownloader/issues/list</string>
+             </property>
+             <property name="textFormat" >
+              <enum>Qt::PlainText</enum>
+             </property>
+             <property name="scaledContents" >
+              <bool>false</bool>
+             </property>
+             <property name="openExternalLinks" >
+              <bool>true</bool>
+             </property>
+             <property name="textInteractionFlags" >
+              <set>Qt::TextBrowserInteraction</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>509</y>
-     <width>776</width>
-     <height>23</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QStatusBar" name="statusbar" />
  </widget>
  <customwidgets>
   <customwidget>
