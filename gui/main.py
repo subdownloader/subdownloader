@@ -176,8 +176,10 @@ class Main(QObject, Ui_MainWindow):
         self.statusbar.addPermanentWidget(self.status_progress,2)
         if not options.test:
             self.establish_connection()
+            #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             if self.OSDBServer.is_connected():
                 data = self.OSDBServer.ServerInfo()
+                    
                 self.status_label.setText("Users online: "+ str(data["users_online_program"]))
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         

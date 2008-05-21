@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon May 19 21:20:05 2008
+# Created: Wed May 21 23:26:44 2008
 #      by: PyQt4 UI code generator 4.3.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,8 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,776,585).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.resize(QtCore.QSize(QtCore.QRect(0,0,776,593).size()).expandedTo(MainWindow.minimumSizeHint()))
+        MainWindow.setWindowIcon(QtGui.QIcon("../../../.designer/backup"))
 
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -61,6 +62,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setBold(True)
         self.buttonDownload.setFont(font)
+        self.buttonDownload.setIcon(QtGui.QIcon("../../../.designer/backup"))
         self.buttonDownload.setObjectName("buttonDownload")
         self.hboxlayout.addWidget(self.buttonDownload)
 
@@ -72,7 +74,6 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonIMDB.sizePolicy().hasHeightForWidth())
         self.buttonIMDB.setSizePolicy(sizePolicy)
-        self.buttonIMDB.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
         self.buttonIMDB.setIconSize(QtCore.QSize(32,16))
         self.buttonIMDB.setObjectName("buttonIMDB")
         self.hboxlayout.addWidget(self.buttonIMDB)
@@ -245,7 +246,6 @@ class Ui_MainWindow(object):
         self.hboxlayout5.setObjectName("hboxlayout5")
 
         self.buttonUploadBrowseFolder = QtGui.QToolButton(self.groupBox_2)
-        self.buttonUploadBrowseFolder.setIcon(QtGui.QIcon(":/images/openfolder.png"))
         self.buttonUploadBrowseFolder.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadBrowseFolder.setObjectName("buttonUploadBrowseFolder")
         self.hboxlayout5.addWidget(self.buttonUploadBrowseFolder)
@@ -258,14 +258,12 @@ class Ui_MainWindow(object):
 
         self.buttonUploadPlusRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadPlusRow.setEnabled(True)
-        self.buttonUploadPlusRow.setIcon(QtGui.QIcon(":/images/plus.png"))
         self.buttonUploadPlusRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadPlusRow.setObjectName("buttonUploadPlusRow")
         self.hboxlayout5.addWidget(self.buttonUploadPlusRow)
 
         self.buttonUploadMinusRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadMinusRow.setEnabled(False)
-        self.buttonUploadMinusRow.setIcon(QtGui.QIcon(":/images/minus.png"))
         self.buttonUploadMinusRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadMinusRow.setObjectName("buttonUploadMinusRow")
         self.hboxlayout5.addWidget(self.buttonUploadMinusRow)
@@ -278,14 +276,12 @@ class Ui_MainWindow(object):
 
         self.buttonUploadUpRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadUpRow.setEnabled(False)
-        self.buttonUploadUpRow.setIcon(QtGui.QIcon(":/images/up.png"))
         self.buttonUploadUpRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadUpRow.setObjectName("buttonUploadUpRow")
         self.hboxlayout5.addWidget(self.buttonUploadUpRow)
 
         self.buttonUploadDownRow = QtGui.QToolButton(self.groupBox_2)
         self.buttonUploadDownRow.setEnabled(False)
-        self.buttonUploadDownRow.setIcon(QtGui.QIcon(":/images/down.png"))
         self.buttonUploadDownRow.setIconSize(QtCore.QSize(24,24))
         self.buttonUploadDownRow.setObjectName("buttonUploadDownRow")
         self.hboxlayout5.addWidget(self.buttonUploadDownRow)
@@ -300,6 +296,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         font.setBold(True)
         self.buttonUpload.setFont(font)
+        self.buttonUpload.setIcon(QtGui.QIcon("../../../.designer/backup"))
         self.buttonUpload.setObjectName("buttonUpload")
         self.hboxlayout5.addWidget(self.buttonUpload)
         self.vboxlayout9.addLayout(self.hboxlayout5)
@@ -448,18 +445,186 @@ class Ui_MainWindow(object):
         self.vboxlayout10 = QtGui.QVBoxLayout(self.tab_5)
         self.vboxlayout10.setObjectName("vboxlayout10")
 
-        self.groupBox_3 = QtGui.QGroupBox(self.tab_5)
+        self.frame_6 = QtGui.QFrame(self.tab_5)
+        self.frame_6.setFrameShape(QtGui.QFrame.NoFrame)
+        self.frame_6.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_6.setObjectName("frame_6")
 
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
+        self.frame_4 = QtGui.QFrame(self.frame_6)
+        self.frame_4.setGeometry(QtCore.QRect(430,190,241,121))
+        self.frame_4.setFrameShape(QtGui.QFrame.Box)
+        self.frame_4.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+
+        self.label_22 = QtGui.QLabel(self.frame_4)
+        self.label_22.setGeometry(QtCore.QRect(10,10,111,18))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_22.setFont(font)
+        self.label_22.setObjectName("label_22")
+
+        self.lineEdit = QtGui.QLineEdit(self.frame_4)
+        self.lineEdit.setGeometry(QtCore.QRect(80,30,151,23))
+        self.lineEdit.setObjectName("lineEdit")
+
+        self.label_14 = QtGui.QLabel(self.frame_4)
+        self.label_14.setGeometry(QtCore.QRect(21,58,44,22))
+        self.label_14.setObjectName("label_14")
+
+        self.lineEdit_3 = QtGui.QLineEdit(self.frame_4)
+        self.lineEdit_3.setGeometry(QtCore.QRect(80,60,51,23))
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.groupBox_3.sizePolicy().hasHeightForWidth())
-        self.groupBox_3.setSizePolicy(sizePolicy)
-        self.groupBox_3.setMinimumSize(QtCore.QSize(0,51))
-        self.groupBox_3.setObjectName("groupBox_3")
+        sizePolicy.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
+        self.lineEdit_3.setSizePolicy(sizePolicy)
+        self.lineEdit_3.setObjectName("lineEdit_3")
 
-        self.checkBox = QtGui.QCheckBox(self.groupBox_3)
-        self.checkBox.setGeometry(QtCore.QRect(20,20,621,22))
+        self.label_13 = QtGui.QLabel(self.frame_4)
+        self.label_13.setGeometry(QtCore.QRect(21,31,44,22))
+        self.label_13.setObjectName("label_13")
+
+        self.frame_3 = QtGui.QFrame(self.frame_6)
+        self.frame_3.setGeometry(QtCore.QRect(0,320,671,121))
+        self.frame_3.setFrameShape(QtGui.QFrame.Box)
+        self.frame_3.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+
+        self.label_15 = QtGui.QLabel(self.frame_3)
+        self.label_15.setGeometry(QtCore.QRect(21,21,122,29))
+        self.label_15.setObjectName("label_15")
+
+        self.comboBox_2 = QtGui.QComboBox(self.frame_3)
+        self.comboBox_2.setGeometry(QtCore.QRect(148,24,122,22))
+        self.comboBox_2.setObjectName("comboBox_2")
+
+        self.label_18 = QtGui.QLabel(self.frame_3)
+        self.label_18.setGeometry(QtCore.QRect(390,80,260,18))
+        self.label_18.setObjectName("label_18")
+
+        self.pushButton = QtGui.QPushButton(self.frame_3)
+        self.pushButton.setGeometry(QtCore.QRect(390,50,83,27))
+        self.pushButton.setObjectName("pushButton")
+
+        self.label_21 = QtGui.QLabel(self.frame_3)
+        self.label_21.setGeometry(QtCore.QRect(10,0,281,18))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_21.setFont(font)
+        self.label_21.setObjectName("label_21")
+
+        self.label_17 = QtGui.QLabel(self.frame_3)
+        self.label_17.setGeometry(QtCore.QRect(21,81,76,23))
+        self.label_17.setObjectName("label_17")
+
+        self.label_16 = QtGui.QLabel(self.frame_3)
+        self.label_16.setGeometry(QtCore.QRect(21,51,76,23))
+        self.label_16.setObjectName("label_16")
+
+        self.lineEdit_4 = QtGui.QLineEdit(self.frame_3)
+        self.lineEdit_4.setGeometry(QtCore.QRect(102,51,278,23))
+        self.lineEdit_4.setObjectName("lineEdit_4")
+
+        self.lineEdit_5 = QtGui.QLineEdit(self.frame_3)
+        self.lineEdit_5.setGeometry(QtCore.QRect(102,81,278,23))
+        self.lineEdit_5.setObjectName("lineEdit_5")
+
+        self.frame_2 = QtGui.QFrame(self.frame_6)
+        self.frame_2.setGeometry(QtCore.QRect(0,0,411,221))
+        self.frame_2.setFrameShape(QtGui.QFrame.Box)
+        self.frame_2.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+
+        self.label_20 = QtGui.QLabel(self.frame_2)
+        self.label_20.setGeometry(QtCore.QRect(10,0,142,18))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_20.setFont(font)
+        self.label_20.setObjectName("label_20")
+
+        self.lineEdit_6 = QtGui.QLineEdit(self.frame_2)
+        self.lineEdit_6.setGeometry(QtCore.QRect(160,90,161,23))
+        self.lineEdit_6.setObjectName("lineEdit_6")
+
+        self.label_25 = QtGui.QLabel(self.frame_2)
+        self.label_25.setGeometry(QtCore.QRect(10,140,161,27))
+        self.label_25.setObjectName("label_25")
+
+        self.layoutWidget = QtGui.QWidget(self.frame_2)
+        self.layoutWidget.setGeometry(QtCore.QRect(10,158,291,61))
+        self.layoutWidget.setObjectName("layoutWidget")
+
+        self.vboxlayout11 = QtGui.QVBoxLayout(self.layoutWidget)
+        self.vboxlayout11.setObjectName("vboxlayout11")
+
+        self.radioButton_5 = QtGui.QRadioButton(self.layoutWidget)
+        self.radioButton_5.setChecked(True)
+        self.radioButton_5.setObjectName("radioButton_5")
+        self.vboxlayout11.addWidget(self.radioButton_5)
+
+        self.radioButton_6 = QtGui.QRadioButton(self.layoutWidget)
+        self.radioButton_6.setObjectName("radioButton_6")
+        self.vboxlayout11.addWidget(self.radioButton_6)
+
+        self.pushButton_3 = QtGui.QPushButton(self.frame_2)
+        self.pushButton_3.setGeometry(QtCore.QRect(330,90,75,27))
+        self.pushButton_3.setObjectName("pushButton_3")
+
+        self.line_5 = QtGui.QFrame(self.frame_2)
+        self.line_5.setGeometry(QtCore.QRect(10,130,391,16))
+        self.line_5.setFrameShape(QtGui.QFrame.HLine)
+        self.line_5.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_5.setObjectName("line_5")
+
+        self.label_26 = QtGui.QLabel(self.frame_2)
+        self.label_26.setGeometry(QtCore.QRect(10,20,161,27))
+        self.label_26.setObjectName("label_26")
+
+        self.widget = QtGui.QWidget(self.frame_2)
+        self.widget.setGeometry(QtCore.QRect(11,35,211,81))
+        self.widget.setObjectName("widget")
+
+        self.vboxlayout12 = QtGui.QVBoxLayout(self.widget)
+        self.vboxlayout12.setObjectName("vboxlayout12")
+
+        self.radioButton = QtGui.QRadioButton(self.widget)
+        self.radioButton.setObjectName("radioButton")
+        self.vboxlayout12.addWidget(self.radioButton)
+
+        self.radioButton_2 = QtGui.QRadioButton(self.widget)
+        self.radioButton_2.setChecked(True)
+        self.radioButton_2.setObjectName("radioButton_2")
+        self.vboxlayout12.addWidget(self.radioButton_2)
+
+        self.radioButton_3 = QtGui.QRadioButton(self.widget)
+        self.radioButton_3.setObjectName("radioButton_3")
+        self.vboxlayout12.addWidget(self.radioButton_3)
+
+        self.frame = QtGui.QFrame(self.frame_6)
+        self.frame.setGeometry(QtCore.QRect(0,230,411,81))
+        self.frame.setFrameShape(QtGui.QFrame.Box)
+        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setLineWidth(1)
+        self.frame.setObjectName("frame")
+
+        self.label_19 = QtGui.QLabel(self.frame)
+        self.label_19.setGeometry(QtCore.QRect(10,0,142,18))
+
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_19.setFont(font)
+        self.label_19.setObjectName("label_19")
+
+        self.checkBox = QtGui.QCheckBox(self.frame)
+        self.checkBox.setGeometry(QtCore.QRect(10,50,291,22))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -468,150 +633,104 @@ class Ui_MainWindow(object):
         self.checkBox.setSizePolicy(sizePolicy)
         self.checkBox.setMinimumSize(QtCore.QSize(0,22))
         self.checkBox.setObjectName("checkBox")
-        self.vboxlayout10.addWidget(self.groupBox_3)
 
-        self.groupBox_5 = QtGui.QGroupBox(self.tab_5)
+        self.comboBox_3 = QtGui.QComboBox(self.frame)
+        self.comboBox_3.setGeometry(QtCore.QRect(193,24,177,22))
+        self.comboBox_3.setObjectName("comboBox_3")
 
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
-        self.groupBox_5.setSizePolicy(sizePolicy)
-        self.groupBox_5.setMinimumSize(QtCore.QSize(0,121))
-        self.groupBox_5.setObjectName("groupBox_5")
+        self.label_24 = QtGui.QLabel(self.frame)
+        self.label_24.setGeometry(QtCore.QRect(11,21,177,29))
 
-        self.widget = QtGui.QWidget(self.groupBox_5)
-        self.widget.setGeometry(QtCore.QRect(10,70,611,29))
-        self.widget.setObjectName("widget")
+        font = QtGui.QFont()
+        font.setWeight(50)
+        font.setBold(False)
+        self.label_24.setFont(font)
+        self.label_24.setObjectName("label_24")
 
-        self.hboxlayout6 = QtGui.QHBoxLayout(self.widget)
-        self.hboxlayout6.setObjectName("hboxlayout6")
+        self.frame_7 = QtGui.QFrame(self.frame_6)
+        self.frame_7.setGeometry(QtCore.QRect(430,0,241,181))
+        self.frame_7.setFrameShape(QtGui.QFrame.Box)
+        self.frame_7.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_7.setObjectName("frame_7")
 
-        self.radioButton_3 = QtGui.QRadioButton(self.widget)
-        self.radioButton_3.setObjectName("radioButton_3")
-        self.hboxlayout6.addWidget(self.radioButton_3)
+        self.label_27 = QtGui.QLabel(self.frame_7)
+        self.label_27.setGeometry(QtCore.QRect(10,0,142,18))
 
-        self.lineEdit_6 = QtGui.QLineEdit(self.widget)
-        self.lineEdit_6.setObjectName("lineEdit_6")
-        self.hboxlayout6.addWidget(self.lineEdit_6)
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_27.setFont(font)
+        self.label_27.setObjectName("label_27")
 
-        self.pushButton_3 = QtGui.QPushButton(self.widget)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.hboxlayout6.addWidget(self.pushButton_3)
+        self.label_28 = QtGui.QLabel(self.frame_7)
+        self.label_28.setGeometry(QtCore.QRect(10,20,191,27))
+        self.label_28.setObjectName("label_28")
 
-        self.widget1 = QtGui.QWidget(self.groupBox_5)
-        self.widget1.setGeometry(QtCore.QRect(11,21,179,49))
-        self.widget1.setObjectName("widget1")
+        self.comboBox_4 = QtGui.QComboBox(self.frame_7)
+        self.comboBox_4.setGeometry(QtCore.QRect(50,50,177,22))
+        self.comboBox_4.setObjectName("comboBox_4")
 
-        self.vboxlayout11 = QtGui.QVBoxLayout(self.widget1)
-        self.vboxlayout11.setObjectName("vboxlayout11")
+        self.frame_5 = QtGui.QFrame(self.frame_7)
+        self.frame_5.setGeometry(QtCore.QRect(0,80,241,91))
+        self.frame_5.setFrameShape(QtGui.QFrame.NoFrame)
+        self.frame_5.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame_5.setObjectName("frame_5")
 
-        self.radioButton = QtGui.QRadioButton(self.widget1)
-        self.radioButton.setObjectName("radioButton")
-        self.vboxlayout11.addWidget(self.radioButton)
+        self.label_38 = QtGui.QLabel(self.frame_5)
+        self.label_38.setGeometry(QtCore.QRect(10,10,220,18))
 
-        self.radioButton_2 = QtGui.QRadioButton(self.widget1)
-        self.radioButton_2.setChecked(True)
-        self.radioButton_2.setObjectName("radioButton_2")
-        self.vboxlayout11.addWidget(self.radioButton_2)
-        self.vboxlayout10.addWidget(self.groupBox_5)
+        font = QtGui.QFont()
+        font.setWeight(50)
+        font.setBold(False)
+        self.label_38.setFont(font)
+        self.label_38.setObjectName("label_38")
 
-        self.groupBox_6 = QtGui.QGroupBox(self.tab_5)
+        self.lineEdit_13 = QtGui.QLineEdit(self.frame_5)
+        self.lineEdit_13.setGeometry(QtCore.QRect(104,31,110,23))
+        self.lineEdit_13.setObjectName("lineEdit_13")
 
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.groupBox_6.sizePolicy().hasHeightForWidth())
-        self.groupBox_6.setSizePolicy(sizePolicy)
-        self.groupBox_6.setMinimumSize(QtCore.QSize(0,121))
-        self.groupBox_6.setObjectName("groupBox_6")
-
-        self.comboBox_2 = QtGui.QComboBox(self.groupBox_6)
-        self.comboBox_2.setGeometry(QtCore.QRect(139,21,122,22))
-        self.comboBox_2.setObjectName("comboBox_2")
-
-        self.pushButton = QtGui.QPushButton(self.groupBox_6)
-        self.pushButton.setGeometry(QtCore.QRect(390,50,83,27))
-        self.pushButton.setObjectName("pushButton")
-
-        self.label_18 = QtGui.QLabel(self.groupBox_6)
-        self.label_18.setGeometry(QtCore.QRect(390,80,260,18))
-        self.label_18.setObjectName("label_18")
-
-        self.label_17 = QtGui.QLabel(self.groupBox_6)
-        self.label_17.setGeometry(QtCore.QRect(11,84,112,26))
-        self.label_17.setObjectName("label_17")
-
-        self.label_16 = QtGui.QLabel(self.groupBox_6)
-        self.label_16.setGeometry(QtCore.QRect(11,52,112,27))
-        self.label_16.setObjectName("label_16")
-
-        self.lineEdit_4 = QtGui.QLineEdit(self.groupBox_6)
-        self.lineEdit_4.setGeometry(QtCore.QRect(140,50,241,23))
-        self.lineEdit_4.setObjectName("lineEdit_4")
-
-        self.lineEdit_5 = QtGui.QLineEdit(self.groupBox_6)
-        self.lineEdit_5.setGeometry(QtCore.QRect(140,80,241,23))
-        self.lineEdit_5.setObjectName("lineEdit_5")
-
-        self.label_15 = QtGui.QLabel(self.groupBox_6)
-        self.label_15.setGeometry(QtCore.QRect(12,21,122,22))
-        self.label_15.setObjectName("label_15")
-        self.vboxlayout10.addWidget(self.groupBox_6)
-
-        self.groupBox_7 = QtGui.QGroupBox(self.tab_5)
-
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.groupBox_7.sizePolicy().hasHeightForWidth())
-        self.groupBox_7.setSizePolicy(sizePolicy)
-        self.groupBox_7.setMinimumSize(QtCore.QSize(0,62))
-        self.groupBox_7.setObjectName("groupBox_7")
-
-        self.hboxlayout7 = QtGui.QHBoxLayout(self.groupBox_7)
-        self.hboxlayout7.setObjectName("hboxlayout7")
-
-        self.label_13 = QtGui.QLabel(self.groupBox_7)
-        self.label_13.setObjectName("label_13")
-        self.hboxlayout7.addWidget(self.label_13)
-
-        self.lineEdit = QtGui.QLineEdit(self.groupBox_7)
-        self.lineEdit.setObjectName("lineEdit")
-        self.hboxlayout7.addWidget(self.lineEdit)
-
-        self.label_14 = QtGui.QLabel(self.groupBox_7)
-        self.label_14.setObjectName("label_14")
-        self.hboxlayout7.addWidget(self.label_14)
-
-        self.lineEdit_3 = QtGui.QLineEdit(self.groupBox_7)
+        self.lineEdit_14 = QtGui.QLineEdit(self.frame_5)
+        self.lineEdit_14.setGeometry(QtCore.QRect(104,61,110,23))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
-        self.lineEdit_3.setSizePolicy(sizePolicy)
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.hboxlayout7.addWidget(self.lineEdit_3)
-        self.vboxlayout10.addWidget(self.groupBox_7)
+        sizePolicy.setHeightForWidth(self.lineEdit_14.sizePolicy().hasHeightForWidth())
+        self.lineEdit_14.setSizePolicy(sizePolicy)
+        self.lineEdit_14.setObjectName("lineEdit_14")
 
-        self.hboxlayout8 = QtGui.QHBoxLayout()
-        self.hboxlayout8.setObjectName("hboxlayout8")
+        self.label_39 = QtGui.QLabel(self.frame_5)
+        self.label_39.setGeometry(QtCore.QRect(31,31,68,23))
+        self.label_39.setObjectName("label_39")
+
+        self.label_40 = QtGui.QLabel(self.frame_5)
+        self.label_40.setGeometry(QtCore.QRect(31,61,68,23))
+        self.label_40.setObjectName("label_40")
+        self.vboxlayout10.addWidget(self.frame_6)
+
+        self.hboxlayout6 = QtGui.QHBoxLayout()
+        self.hboxlayout6.setObjectName("hboxlayout6")
 
         spacerItem4 = QtGui.QSpacerItem(40,20,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
-        self.hboxlayout8.addItem(spacerItem4)
+        self.hboxlayout6.addItem(spacerItem4)
 
         self.pushButton_5 = QtGui.QPushButton(self.tab_5)
         self.pushButton_5.setObjectName("pushButton_5")
-        self.hboxlayout8.addWidget(self.pushButton_5)
-        self.vboxlayout10.addLayout(self.hboxlayout8)
+        self.hboxlayout6.addWidget(self.pushButton_5)
+        self.vboxlayout10.addLayout(self.hboxlayout6)
         self.tabs.addTab(self.tab_5,"")
 
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName("tab_2")
 
-        self.label_2 = QtGui.QLabel(self.tab_2)
-        self.label_2.setGeometry(QtCore.QRect(20,0,721,31))
+        self.layoutWidget1 = QtGui.QWidget(self.tab_2)
+        self.layoutWidget1.setGeometry(QtCore.QRect(90,10,569,73))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+
+        self.vboxlayout13 = QtGui.QVBoxLayout(self.layoutWidget1)
+        self.vboxlayout13.setObjectName("vboxlayout13")
+
+        self.label_2 = QtGui.QLabel(self.layoutWidget1)
 
         font = QtGui.QFont()
         font.setWeight(50)
@@ -621,28 +740,38 @@ class Ui_MainWindow(object):
         self.label_2.setWordWrap(True)
         self.label_2.setIndent(1)
         self.label_2.setObjectName("label_2")
+        self.vboxlayout13.addWidget(self.label_2)
 
-        self.line_4 = QtGui.QFrame(self.tab_2)
-        self.line_4.setGeometry(QtCore.QRect(40,30,681,16))
+        self.line_4 = QtGui.QFrame(self.layoutWidget1)
         self.line_4.setFrameShape(QtGui.QFrame.HLine)
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
+        self.vboxlayout13.addWidget(self.line_4)
 
-        self.label_11 = QtGui.QLabel(self.tab_2)
-        self.label_11.setGeometry(QtCore.QRect(30,50,201,21))
+        self.hboxlayout7 = QtGui.QHBoxLayout()
+        self.hboxlayout7.setObjectName("hboxlayout7")
+
+        self.label_11 = QtGui.QLabel(self.layoutWidget1)
         self.label_11.setObjectName("label_11")
+        self.hboxlayout7.addWidget(self.label_11)
 
-        self.label_12 = QtGui.QLabel(self.tab_2)
-        self.label_12.setGeometry(QtCore.QRect(240,50,371,21))
+        self.label_12 = QtGui.QLabel(self.layoutWidget1)
 
         font = QtGui.QFont()
         font.setWeight(75)
+        font.setUnderline(True)
+        font.setStrikeOut(False)
         font.setBold(True)
         self.label_12.setFont(font)
+        self.label_12.setCursor(QtCore.Qt.PointingHandCursor)
         self.label_12.setAutoFillBackground(False)
+        self.label_12.setTextFormat(QtCore.Qt.PlainText)
+        self.label_12.setScaledContents(False)
         self.label_12.setOpenExternalLinks(True)
         self.label_12.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.label_12.setObjectName("label_12")
+        self.hboxlayout7.addWidget(self.label_12)
+        self.vboxlayout13.addLayout(self.hboxlayout7)
         self.tabs.addTab(self.tab_2,"")
         self.vboxlayout.addWidget(self.tabs)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -652,7 +781,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(4)
+        self.tabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -697,22 +826,32 @@ class Ui_MainWindow(object):
         self.label_6.setText(QtGui.QApplication.translate("MainWindow", "Release:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("MainWindow", "Comments:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "Upload subtitles", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Explorer Integration", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Display shortcut for subtitle download/upload in Windows Explorer context menu (only Windows)", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_5.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles download folder", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_3.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton.setText(QtGui.QApplication.translate("MainWindow", "Always ask user", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_2.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_6.setTitle(QtGui.QApplication.translate("MainWindow", "External application for video playback", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_22.setText(QtGui.QApplication.translate("MainWindow", "Network Proxy", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Port:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_13.setText(QtGui.QApplication.translate("MainWindow", "Host:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Video application:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_18.setText(QtGui.QApplication.translate("MainWindow", "{0} = video file path; {1} = subtitle path", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_21.setText(QtGui.QApplication.translate("MainWindow", "External application for video playback", None, QtGui.QApplication.UnicodeUTF8))
         self.label_17.setText(QtGui.QApplication.translate("MainWindow", "Parameters:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_16.setText(QtGui.QApplication.translate("MainWindow", "Location:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Video application:", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_7.setTitle(QtGui.QApplication.translate("MainWindow", "Network Proxy", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_13.setText(QtGui.QApplication.translate("MainWindow", "Server:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Port:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_20.setText(QtGui.QApplication.translate("MainWindow", "Downloads", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_25.setText(QtGui.QApplication.translate("MainWindow", "Filename of the Subtitle:", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_5.setText(QtGui.QApplication.translate("MainWindow", "Same subtitle name as video file", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_6.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_26.setText(QtGui.QApplication.translate("MainWindow", "Destination folder:", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton.setText(QtGui.QApplication.translate("MainWindow", "Always ask user", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_2.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_3.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Others", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_24.setText(QtGui.QApplication.translate("MainWindow", "Interface Language:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_27.setText(QtGui.QApplication.translate("MainWindow", "Uploads", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_28.setText(QtGui.QApplication.translate("MainWindow", "Default language of subtitles", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_38.setText(QtGui.QApplication.translate("MainWindow", "Upload files as OpenSubtitles user:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_39.setText(QtGui.QApplication.translate("MainWindow", "Username:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_40.setText(QtGui.QApplication.translate("MainWindow", "Password:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_5.setText(QtGui.QApplication.translate("MainWindow", "Apply Changes", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Options", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.", None, QtGui.QApplication.UnicodeUTF8))

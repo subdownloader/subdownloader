@@ -6,14 +6,14 @@
     <x>0</x>
     <y>0</y>
     <width>776</width>
-    <height>585</height>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>SubDownloader</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>../../../.designer/backup</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
@@ -72,7 +72,7 @@
              <string>Download</string>
             </property>
             <property name="icon" >
-             <iconset/>
+             <iconset>../../../.designer/backup</iconset>
             </property>
            </widget>
           </item>
@@ -91,7 +91,7 @@
              <string>Movie Info</string>
             </property>
             <property name="icon" >
-             <iconset resource="images.qrc" >:/images/imdb.jpg</iconset>
+             <iconset/>
             </property>
             <property name="iconSize" >
              <size>
@@ -371,7 +371,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/openfolder.png</iconset>
+                    <iconset/>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -397,7 +397,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/plus.png</iconset>
+                    <iconset/>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -416,7 +416,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/minus.png</iconset>
+                    <iconset/>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -442,7 +442,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/up.png</iconset>
+                    <iconset/>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -461,7 +461,7 @@
                     <string>...</string>
                    </property>
                    <property name="icon" >
-                    <iconset resource="images.qrc" >:/images/down.png</iconset>
+                    <iconset/>
                    </property>
                    <property name="iconSize" >
                     <size>
@@ -499,7 +499,7 @@
                     <string>Upload</string>
                    </property>
                    <property name="icon" >
-                    <iconset/>
+                    <iconset>../../../.designer/backup</iconset>
                    </property>
                   </widget>
                  </item>
@@ -734,277 +734,594 @@ p, li { white-space: pre-wrap; }
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QGroupBox" name="groupBox_3" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QFrame" name="frame_6" >
+          <property name="frameShape" >
+           <enum>QFrame::NoFrame</enum>
           </property>
-          <property name="minimumSize" >
-           <size>
-            <width>0</width>
-            <height>51</height>
-           </size>
+          <property name="frameShadow" >
+           <enum>QFrame::Raised</enum>
           </property>
-          <property name="title" >
-           <string>Explorer Integration</string>
-          </property>
-          <widget class="QCheckBox" name="checkBox" >
+          <widget class="QFrame" name="frame_4" >
            <property name="geometry" >
             <rect>
-             <x>20</x>
-             <y>20</y>
-             <width>621</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize" >
-            <size>
-             <width>0</width>
-             <height>22</height>
-            </size>
-           </property>
-           <property name="text" >
-            <string>Display shortcut for subtitle download/upload in Windows Explorer context menu (only Windows)</string>
-           </property>
-          </widget>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_5" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize" >
-           <size>
-            <width>0</width>
-            <height>121</height>
-           </size>
-          </property>
-          <property name="title" >
-           <string>Subtitles download folder</string>
-          </property>
-          <widget class="QWidget" name="" >
-           <property name="geometry" >
-            <rect>
-             <x>10</x>
-             <y>70</y>
-             <width>611</width>
-             <height>29</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" >
-            <item>
-             <widget class="QRadioButton" name="radioButton_3" >
-              <property name="text" >
-               <string>Predefined folder:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_6" />
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3" >
-              <property name="text" >
-               <string>Choose...</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="" >
-           <property name="geometry" >
-            <rect>
-             <x>11</x>
-             <y>21</y>
-             <width>179</width>
-             <height>49</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" >
-            <item>
-             <widget class="QRadioButton" name="radioButton" >
-              <property name="text" >
-               <string>Always ask user</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="radioButton_2" >
-              <property name="text" >
-               <string>Same folder as video file</string>
-              </property>
-              <property name="checked" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_6" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize" >
-           <size>
-            <width>0</width>
-            <height>121</height>
-           </size>
-          </property>
-          <property name="title" >
-           <string>External application for video playback</string>
-          </property>
-          <widget class="QComboBox" name="comboBox_2" >
-           <property name="geometry" >
-            <rect>
-             <x>139</x>
-             <y>21</y>
-             <width>122</width>
-             <height>22</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton" >
-           <property name="geometry" >
-            <rect>
-             <x>390</x>
-             <y>50</y>
-             <width>83</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text" >
-            <string>Choose...</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_18" >
-           <property name="geometry" >
-            <rect>
-             <x>390</x>
-             <y>80</y>
-             <width>260</width>
-             <height>18</height>
-            </rect>
-           </property>
-           <property name="text" >
-            <string>{0} = video file path; {1} = subtitle path</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_17" >
-           <property name="geometry" >
-            <rect>
-             <x>11</x>
-             <y>84</y>
-             <width>112</width>
-             <height>26</height>
-            </rect>
-           </property>
-           <property name="text" >
-            <string>Parameters:</string>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_16" >
-           <property name="geometry" >
-            <rect>
-             <x>11</x>
-             <y>52</y>
-             <width>112</width>
-             <height>27</height>
-            </rect>
-           </property>
-           <property name="text" >
-            <string>Location:</string>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="lineEdit_4" >
-           <property name="geometry" >
-            <rect>
-             <x>140</x>
-             <y>50</y>
+             <x>430</x>
+             <y>190</y>
              <width>241</width>
-             <height>23</height>
+             <height>121</height>
             </rect>
            </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow" >
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_22" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>10</y>
+              <width>111</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Network Proxy</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit" >
+            <property name="geometry" >
+             <rect>
+              <x>80</x>
+              <y>30</y>
+              <width>151</width>
+              <height>23</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_14" >
+            <property name="geometry" >
+             <rect>
+              <x>21</x>
+              <y>58</y>
+              <width>44</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Port:</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_3" >
+            <property name="geometry" >
+             <rect>
+              <x>80</x>
+              <y>60</y>
+              <width>51</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_13" >
+            <property name="geometry" >
+             <rect>
+              <x>21</x>
+              <y>31</y>
+              <width>44</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Host:</string>
+            </property>
+           </widget>
           </widget>
-          <widget class="QLineEdit" name="lineEdit_5" >
+          <widget class="QFrame" name="frame_3" >
            <property name="geometry" >
             <rect>
-             <x>140</x>
-             <y>80</y>
+             <x>0</x>
+             <y>320</y>
+             <width>671</width>
+             <height>121</height>
+            </rect>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow" >
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_15" >
+            <property name="geometry" >
+             <rect>
+              <x>21</x>
+              <y>21</y>
+              <width>122</width>
+              <height>29</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Video application:</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_2" >
+            <property name="geometry" >
+             <rect>
+              <x>148</x>
+              <y>24</y>
+              <width>122</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_18" >
+            <property name="geometry" >
+             <rect>
+              <x>390</x>
+              <y>80</y>
+              <width>260</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>{0} = video file path; {1} = subtitle path</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton" >
+            <property name="geometry" >
+             <rect>
+              <x>390</x>
+              <y>50</y>
+              <width>83</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Choose...</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_21" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>281</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>External application for video playback</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_17" >
+            <property name="geometry" >
+             <rect>
+              <x>21</x>
+              <y>81</y>
+              <width>76</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Parameters:</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_16" >
+            <property name="geometry" >
+             <rect>
+              <x>21</x>
+              <y>51</y>
+              <width>76</width>
+              <height>23</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Location:</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_4" >
+            <property name="geometry" >
+             <rect>
+              <x>102</x>
+              <y>51</y>
+              <width>278</width>
+              <height>23</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_5" >
+            <property name="geometry" >
+             <rect>
+              <x>102</x>
+              <y>81</y>
+              <width>278</width>
+              <height>23</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame_2" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>411</width>
+             <height>221</height>
+            </rect>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow" >
+            <enum>QFrame::Raised</enum>
+           </property>
+           <widget class="QLabel" name="label_20" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>142</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Downloads</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_6" >
+            <property name="geometry" >
+             <rect>
+              <x>160</x>
+              <y>90</y>
+              <width>161</width>
+              <height>23</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_25" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>140</y>
+              <width>161</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Filename of the Subtitle:</string>
+            </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>158</y>
+              <width>291</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" >
+             <item>
+              <widget class="QRadioButton" name="radioButton_5" >
+               <property name="text" >
+                <string>Same subtitle name as video file</string>
+               </property>
+               <property name="checked" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_6" >
+               <property name="text" >
+                <string>Predefined folder:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QPushButton" name="pushButton_3" >
+            <property name="geometry" >
+             <rect>
+              <x>330</x>
+              <y>90</y>
+              <width>75</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Choose...</string>
+            </property>
+           </widget>
+           <widget class="Line" name="line_5" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>130</y>
+              <width>391</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_26" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>161</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Destination folder:</string>
+            </property>
+           </widget>
+           <widget class="QWidget" name="" >
+            <property name="geometry" >
+             <rect>
+              <x>11</x>
+              <y>35</y>
+              <width>211</width>
+              <height>81</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" >
+             <item>
+              <widget class="QRadioButton" name="radioButton" >
+               <property name="text" >
+                <string>Always ask user</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_2" >
+               <property name="text" >
+                <string>Same folder as video file</string>
+               </property>
+               <property name="checked" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_3" >
+               <property name="text" >
+                <string>Predefined folder:</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>230</y>
+             <width>411</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow" >
+            <enum>QFrame::Raised</enum>
+           </property>
+           <property name="lineWidth" >
+            <number>1</number>
+           </property>
+           <widget class="QLabel" name="label_19" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>142</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Others</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="checkBox" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>50</y>
+              <width>291</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize" >
+             <size>
+              <width>0</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>Enable Context Menu in Windows Explorer</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_3" >
+            <property name="geometry" >
+             <rect>
+              <x>193</x>
+              <y>24</y>
+              <width>177</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_24" >
+            <property name="geometry" >
+             <rect>
+              <x>11</x>
+              <y>21</y>
+              <width>177</width>
+              <height>29</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Interface Language:</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QFrame" name="frame_7" >
+           <property name="geometry" >
+            <rect>
+             <x>430</x>
+             <y>0</y>
              <width>241</width>
-             <height>23</height>
+             <height>181</height>
             </rect>
            </property>
-          </widget>
-          <widget class="QLabel" name="label_15" >
-           <property name="geometry" >
-            <rect>
-             <x>12</x>
-             <y>21</y>
-             <width>122</width>
-             <height>22</height>
-            </rect>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
            </property>
-           <property name="text" >
-            <string>Video application:</string>
+           <property name="frameShadow" >
+            <enum>QFrame::Raised</enum>
            </property>
-          </widget>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_7" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize" >
-           <size>
-            <width>0</width>
-            <height>62</height>
-           </size>
-          </property>
-          <property name="title" >
-           <string>Network Proxy</string>
-          </property>
-          <layout class="QHBoxLayout" >
-           <item>
-            <widget class="QLabel" name="label_13" >
+           <widget class="QLabel" name="label_27" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>0</y>
+              <width>142</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Uploads</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_28" >
+            <property name="geometry" >
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>191</width>
+              <height>27</height>
+             </rect>
+            </property>
+            <property name="text" >
+             <string>Default language of subtitles</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox_4" >
+            <property name="geometry" >
+             <rect>
+              <x>50</x>
+              <y>50</y>
+              <width>177</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QFrame" name="frame_5" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>80</y>
+              <width>241</width>
+              <height>91</height>
+             </rect>
+            </property>
+            <property name="frameShape" >
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Raised</enum>
+            </property>
+            <widget class="QLabel" name="label_38" >
+             <property name="geometry" >
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>220</width>
+               <height>18</height>
+              </rect>
+             </property>
+             <property name="font" >
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
              <property name="text" >
-              <string>Server:</string>
+              <string>Upload files as OpenSubtitles user:</string>
              </property>
             </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEdit" />
-           </item>
-           <item>
-            <widget class="QLabel" name="label_14" >
-             <property name="text" >
-              <string>Port:</string>
+            <widget class="QLineEdit" name="lineEdit_13" >
+             <property name="geometry" >
+              <rect>
+               <x>104</x>
+               <y>31</y>
+               <width>110</width>
+               <height>23</height>
+              </rect>
              </property>
             </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_3" >
+            <widget class="QLineEdit" name="lineEdit_14" >
+             <property name="geometry" >
+              <rect>
+               <x>104</x>
+               <y>61</y>
+               <width>110</width>
+               <height>23</height>
+              </rect>
+             </property>
              <property name="sizePolicy" >
               <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
                <horstretch>0</horstretch>
@@ -1012,8 +1329,34 @@ p, li { white-space: pre-wrap; }
               </sizepolicy>
              </property>
             </widget>
-           </item>
-          </layout>
+            <widget class="QLabel" name="label_39" >
+             <property name="geometry" >
+              <rect>
+               <x>31</x>
+               <y>31</y>
+               <width>68</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text" >
+              <string>Username:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_40" >
+             <property name="geometry" >
+              <rect>
+               <x>31</x>
+               <y>61</y>
+               <width>68</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="text" >
+              <string>Password:</string>
+             </property>
+            </widget>
+           </widget>
+          </widget>
          </widget>
         </item>
         <item>
@@ -1046,7 +1389,7 @@ p, li { white-space: pre-wrap; }
        <attribute name="title" >
         <string>Contacts</string>
        </attribute>
-       <widget class="QWidget" name="" >
+       <widget class="QWidget" name="layoutWidget" >
         <property name="geometry" >
          <rect>
           <x>90</x>
@@ -1155,4 +1498,21 @@ p, li { white-space: pre-wrap; }
   <include location="images.qrc" />
  </resources>
  <connections/>
+ <designerdata>
+  <property name="gridDeltaX" >
+   <number>10</number>
+  </property>
+  <property name="gridDeltaY" >
+   <number>10</number>
+  </property>
+  <property name="gridSnapX" >
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY" >
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible" >
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>

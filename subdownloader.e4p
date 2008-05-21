@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-05-15, 19:58:02 -->
+<!-- Saved: 2008-05-19, 22:37:51 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -136,6 +136,14 @@
     <Source>
       <Dir>gui</Dir>
       <Name>imdblistview.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>imdb.ui</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>main.ui</Name>
     </Source>
   </Sources>
   <Forms>
