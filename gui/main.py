@@ -264,7 +264,7 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.setFormat("Search finished")
         else:
             self.progress(100)
-            self.status_progress.setFormat("No videos founded")
+            self.status_progress.setFormat("No videos found")
     
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: check if the subtitle found is already in our folder.
@@ -343,7 +343,7 @@ class Main(QObject, Ui_MainWindow):
             self.OSDBServer = OSDBServer(self.options)
         except Exception, e: 
             traceback.print_exc(e)
-            qFatal("Unable to connect to server. Please try later")
+            qFatal("Unable to connect to server. Please try again later")
         self.progress(100)
         self.status_progress.setFormat("Connected")
         self.window.setCursor(Qt.ArrowCursor)
