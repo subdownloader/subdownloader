@@ -408,7 +408,7 @@ class Main(QObject, Ui_MainWindow):
                         cd = "cd" + str(i)
                         movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
 
-                if self.OSDBServer.UploadSubtitlesGUI(movie_info):
+                if self.OSDBServer.UploadSubtitles(movie_info):
                     QMessageBox.about(self.window,"Success","Subtitles succesfully uploaded. Thanks.")
                 else:
                     QMessageBox.about(self.window,"Error","Problem while uploading...")
