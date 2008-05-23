@@ -75,6 +75,13 @@ class Main(QObject, Ui_MainWindow):
     def read_settings(self):
         settings = QSettings()
         self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
+        size = settings.beginReadArray("upload/imdbHistory")
+        for i in range(size):
+            settings.setArrayIndex(i)
+            imdbId = settings.value("imdbId").toString()
+            title = settings.value("title").toString()
+            self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
+        settings.endArray()
     
     def write_settings(self):
         settings = QSettings()
@@ -93,7 +100,6 @@ class Main(QObject, Ui_MainWindow):
         self.options = options
         self.setupUi(window)
         self.card = None
-        self.uploadIMDB_list = []
         self.window = window
         window.closeEvent = self.close_event
         window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION, None, QtGui.QApplication.UnicodeUTF8))
@@ -421,15 +427,34 @@ class Main(QObject, Ui_MainWindow):
     
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())
-        if not id in self.uploadIMDB_list:
-            self.uploadIMDB_list.append(id)
-            self.uploadIMDB.addItem("%s : %s" % (id, title), QVariant(id)) #The dataItem is the ID
-            
+        
         #Let's select the item with that id.
         index = self.uploadIMDB.findData(QVariant(id))
-        if index :
+        if index != -1 :
             self.uploadIMDB.setCurrentIndex (index)
-            return
+        else:
+            self.uploadIMDB.addItem("%s : %s" % (id, title), QVariant(id))
+            index = self.uploadIMDB.findData(QVariant(id))
+            self.uploadIMDB.setCurrentIndex (index)
+            
+            #Adding the new IMDB in our settings historial
+            settings = QSettings()
+            size = settings.beginReadArray("upload/imdbHistory")
+            settings.endArray()
+            settings.beginWriteArray("upload/imdbHistory")
+            settings.setArrayIndex(size)
+            settings.setValue("imdbId", QVariant(id))
+            settings.setValue("title", QVariant(title))
+            settings.endArray()
+
+
+
+            #imdbHistoryList = settings.value("upload/imdbHistory", QVariant([])).toList()
+            #print imdbHistoryList
+            #imdbHistoryList.append({'id': id,  'title': title})
+            #settings.setValue("upload/imdbHistory", imdbHistoryList)
+            #print id
+            #print title
             
     def onUploadLanguageDetection(self, lang_xxx):
         #Let's select the item with that id.
