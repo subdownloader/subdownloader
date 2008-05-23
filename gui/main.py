@@ -26,16 +26,20 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
                          QBuffer, QIODevice, QModelIndex,QDir, QFileInfo
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
+from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
+from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
 
 from subdownloader.gui.SplashScreen import SplashScreen, NoneSplashScreen
+
+# create splash screen and show messages to the user
+app = QApplication(sys.argv)
+splash = SplashScreen()
+splash.showMessage(QApplication.translate("subdownloader", "Loading modules..."))
 
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, extension
-
 
 from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.gui.videotreeview import VideoTreeModel
@@ -46,11 +50,13 @@ from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.videofile import  *
 from subdownloader.subtitlefile import *
 
-
 import subdownloader.languages.Languages as languages
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
+
+splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
+
 
 class Main(QObject, Ui_MainWindow): 
     def report_error(func):
@@ -489,13 +495,10 @@ class Main(QObject, Ui_MainWindow):
 
 
 def main(options):
-    
-    from PyQt4.Qt import QApplication, QMainWindow
-    
     log.debug("Building main dialog")
-    app = QApplication(sys.argv)
-    splash = SplashScreen()
-    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
+#    app = QApplication(sys.argv)
+#    splash = SplashScreen()
+#    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
     window = QMainWindow()
     window.setWindowTitle(APP_TITLE)
     window.setWindowIcon(QIcon(":/icon"))
@@ -503,6 +506,7 @@ def main(options):
     QCoreApplication.setOrganizationName("IvanGarcia")
     QCoreApplication.setApplicationName(APP_TITLE)
     
+    splash.finish(window)
     log.debug("Showing main dialog")
     Main(window,"", options)    
     

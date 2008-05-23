@@ -33,9 +33,9 @@ class SplashScreen(QSplashScreen):
         """
         Constructor
         """
-        pixmap = QPixmap(os.path.join('images', 'SUBDOWNLOADER.jpg'))
-        self.labelAlignment = \
-            Qt.Alignment(Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute)
+        img_path = os.path.join(os.getcwd(), 'gui', 'images', 'sd_splash.png')
+        pixmap = QPixmap(img_path)
+        self.labelAlignment = Qt.Alignment(Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute)
         QSplashScreen.__init__(self, pixmap)
         self.show()
         QApplication.flush()
