@@ -18,6 +18,7 @@
 
 """ Create and launch the GUI """
 import sys, re, os, traceback, tempfile
+import time, thread
 import webbrowser
 import base64, zlib
 #sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
@@ -90,6 +91,17 @@ class Main(QObject, Ui_MainWindow):
     def close_event(self, e):
         self.write_settings()
         e.accept()
+        
+    def update_users(self, sleeptime=60):
+        # WARNING: to be used by a thread
+        while 1:
+            self.status_label.setText("Users online: Updating...")
+            try:
+                data = self.OSDBServer._ServerInfo() # we cant use the timeout class inherited in OSDBServer
+                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
+            except:
+                self.status_label.setText("Users online: ERROR")
+            time.sleep(sleeptime)
     
     def __init__(self, window, log_packets, options):
         QObject.__init__(self)
@@ -173,8 +185,6 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
             
-        
-        
         #Fill Out the Filters Language SelectBoxes
         self.InitializeFilterLanguages()
         
@@ -190,9 +200,9 @@ class Main(QObject, Ui_MainWindow):
             self.establish_connection()
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             if self.OSDBServer.is_connected():
-                data = self.OSDBServer.ServerInfo()
-                    
-                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
+                thread.start_new_thread(self.update_users, (60, ))
+#                data = self.OSDBServer.ServerInfo()
+#                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         
         #FOR TESTING

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-05-19, 22:37:51 -->
+<!-- Saved: 2008-05-23, 13:44:34 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -150,6 +150,10 @@
     <Form>
       <Dir>gui</Dir>
       <Name>main.ui</Name>
+    </Form>
+    <Form>
+      <Dir>gui</Dir>
+      <Name>imdb.ui</Name>
     </Form>
   </Forms>
   <Translations>
