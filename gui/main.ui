@@ -12,10 +12,6 @@
   <property name="windowTitle" >
    <string>SubDownloader</string>
   </property>
-  <property name="windowIcon" >
-   <iconset>
-    <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
-  </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
     <rect>
@@ -34,7 +30,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -87,10 +83,6 @@
               <property name="text" >
                <string>Download</string>
               </property>
-              <property name="icon" >
-               <iconset>
-                <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
-              </property>
              </widget>
             </item>
             <item>
@@ -106,10 +98,6 @@
               </property>
               <property name="text" >
                <string>Movie Info</string>
-              </property>
-              <property name="icon" >
-               <iconset>
-                <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
               </property>
               <property name="iconSize" >
                <size>
@@ -404,10 +392,6 @@
                      <property name="text" >
                       <string>...</string>
                      </property>
-                     <property name="icon" >
-                      <iconset resource="images.qrc" >
-                       <normaloff>:/images/openfolder.png</normaloff>:/images/openfolder.png</iconset>
-                     </property>
                      <property name="iconSize" >
                       <size>
                        <width>24</width>
@@ -431,10 +415,6 @@
                      <property name="text" >
                       <string>...</string>
                      </property>
-                     <property name="icon" >
-                      <iconset resource="images.qrc" >
-                       <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
-                     </property>
                      <property name="iconSize" >
                       <size>
                        <width>24</width>
@@ -450,10 +430,6 @@
                      </property>
                      <property name="text" >
                       <string>...</string>
-                     </property>
-                     <property name="icon" >
-                      <iconset resource="images.qrc" >
-                       <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
                      </property>
                      <property name="iconSize" >
                       <size>
@@ -478,10 +454,6 @@
                      <property name="text" >
                       <string>...</string>
                      </property>
-                     <property name="icon" >
-                      <iconset resource="images.qrc" >
-                       <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
-                     </property>
                      <property name="iconSize" >
                       <size>
                        <width>24</width>
@@ -497,10 +469,6 @@
                      </property>
                      <property name="text" >
                       <string>...</string>
-                     </property>
-                     <property name="icon" >
-                      <iconset resource="images.qrc" >
-                       <normaloff>:/images/down.png</normaloff>:/images/down.png</iconset>
                      </property>
                      <property name="iconSize" >
                       <size>
@@ -536,10 +504,6 @@
                      </property>
                      <property name="text" >
                       <string>Upload</string>
-                     </property>
-                     <property name="icon" >
-                      <iconset>
-                       <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1412,7 +1376,7 @@ p, li { white-space: pre-wrap; }
            </widget>
           </widget>
          </widget>
-         <widget class="QWidget" name="" >
+         <widget class="QWidget" name="layoutWidget" >
           <property name="geometry" >
            <rect>
             <x>10</x>
