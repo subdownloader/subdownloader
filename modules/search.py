@@ -107,8 +107,6 @@ class SearchByName(object):
                 sub['ReportLink'] = entry.getElementsByTagName('ReportLink')[0].firstChild.data
             # just s shortcut
             sub['DownloadLink'] = sub['SubtitleFile']['File']['SubActualCD']['DownloadLink']
-            print sub
-            
             if sub:
                 subtitle_entries.append(sub)
         return subtitle_entries
