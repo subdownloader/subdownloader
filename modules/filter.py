@@ -37,7 +37,7 @@ class Filter(object):
         self.log.debug("Building subtitle matrix ...")
         for video in self.videos:
             self.log.debug("(total: %i online: %i..."% (video.getTotalSubtitles(), video.getTotalOnlineSubtitles()))
-            if video.getTotalSubtitles() == 1 and video.getTotalOnlineSubtitles():
+            if video.getTotalOnlineSubtitles() == 1:
                 subtitle = video.getOneSubtitle()
                 choice = 'y'
                 if self.interactive:
@@ -47,11 +47,10 @@ class Filter(object):
                     self.log.debug("- adding: %s: %s"% (subtitle.getIdOnline(), subtitle.getFileName()))
                     #subtitles_to_download[subtitle.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
                     subtitles_to_download[subtitle.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
-            elif video.getTotalSubtitles() > 1 and video.getTotalOnlineSubtitles():
-                #TODO: give user the list of subtitles to choose from
+            elif video.getTotalOnlineSubtitles() > 1:
                 choice = 'auto_'
                 if self.interactive:
-                    self.log.info("Looks like \"%s\" have more than one subtitle candidate."% video.getFileName())
+                    self.log.info("Looks like \"%s\" has more than one subtitle candidate."% video.getFileName())
                     choices = ['auto']
                     for i, sub in enumerate(video.getOnlineSubtitles()):
                         self.log.info("[%i] %s"% (i, sub.getFileName()))
@@ -85,5 +84,7 @@ class Filter(object):
                 subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 #subtitles_to_download[sub_choice.getIdOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
                 subtitles_to_download[sub_choice.getIdOnline()] = os.path.join(video.getFolderPath(), subtitle_filename)
+            else:
+                self.log.info("No subtitle was downloaded \"%s\". Maybe you already have it?"% video.getFileName())
             
         return subtitles_to_download
