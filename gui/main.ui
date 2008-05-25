@@ -18,7 +18,7 @@
      <x>0</x>
      <y>0</y>
      <width>780</width>
-     <height>569</height>
+     <height>570</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" >
@@ -738,7 +738,7 @@ p, li { white-space: pre-wrap; }
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>522</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -1518,9 +1518,9 @@ p, li { white-space: pre-wrap; }
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>569</y>
+     <y>570</y>
      <width>780</width>
-     <height>24</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
