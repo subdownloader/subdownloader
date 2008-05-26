@@ -26,9 +26,14 @@ class SearchByName(object):
     def __init__(self):
         pass
         
-    def search_movie(self, moviename, sublanguageid="eng"):
+    def search_movie(self, moviename=None, sublanguageid="eng", MovieID_link=None):
         #xml_url = configuration.General.search_url % (sublanguageid, moviename)
-        xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
+        if MovieID_link:
+            xml_url = "http://www.opensubtitles.com%s"% MovieID_link
+        elif not moviename:
+            return None
+        else:
+            xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
         xml_page = urllib2.urlopen(xml_url)
         try:
             search = self.parse_results(xml_page.read())
@@ -37,6 +42,15 @@ class SearchByName(object):
         if not search:
             search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
             
+        return search
+        
+    def search_subtitles(self, IDSubtitle_link):
+        xml_url = "http://www.opensubtitles.com%s"% IDSubtitle_link
+        xml_page = urllib2.urlopen(xml_url)
+        try:
+            search = self.subtitle_info(xml_page.read())
+        except xml.parsers.expat.ExpatError: # this will happen when only one result is found
+            search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
         return search
         
     def subtitle_info(self, raw_xml):
@@ -151,8 +165,18 @@ class SearchByName(object):
                                                         'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'), 
                                                         'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'), 
                                                     }
+                if entry.getElementsByTagName('UserID'):
+                    sub['UserID'] = { 'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data, 
+                                                'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'), 
+                                                }
+                if entry.getElementsByTagName('UserNickName'):
+                    sub['UserNickName'] = entry.getElementsByTagName('UserNickName')[0].firstChild.data
                 if entry.getElementsByTagName('MovieID'):
                     sub['MovieID'] = entry.getElementsByTagName('MovieID')[0].firstChild.data
+                    sub['MovieID'] = { 'MovieID': entry.getElementsByTagName('MovieID')[0].firstChild.data, 
+                                                        'Link': entry.getElementsByTagName('MovieID')[0].getAttribute('Link'), 
+                                                        'LinkImdb': entry.getElementsByTagName('MovieID')[0].getAttribute('LinkImdb'), 
+                                                    }
                 if entry.getElementsByTagName('MovieThumb'):
                     sub['MovieThumb'] = entry.getElementsByTagName('MovieThumb')[0].firstChild.data
                 if entry.getElementsByTagName('LinkUseNext'):
@@ -171,6 +195,36 @@ class SearchByName(object):
                     sub['MovieImdbRating'] = entry.getElementsByTagName('MovieImdbRating')[0].firstChild.data
                 if entry.getElementsByTagName('MovieImdbID'):
                     sub['MovieImdbID'] = entry.getElementsByTagName('MovieImdbID')[0].firstChild.data
+                if entry.getElementsByTagName('SubAuthorComment'):
+                    try:
+                        sub['SubAuthorComment'] = entry.getElementsByTagName('SubAuthorComment')[0].firstChild.data
+                    except AttributeError:
+                        sub['SubAuthorComment'] = entry.getElementsByTagName('SubAuthorComment')[0].firstChild
+                if entry.getElementsByTagName('ISO639'):
+                    sub['ISO639'] = { 'ISO639': entry.getElementsByTagName('ISO639')[0].firstChild.data, 
+                                                'LinkSearch': entry.getElementsByTagName('ISO639')[0].getAttribute('LinkSearch'), 
+                                                'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
+                                                }
+                if entry.getElementsByTagName('LanguageName'):
+                    sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
+                if entry.getElementsByTagName('SubFormat'):
+                    sub['SubFormat'] = entry.getElementsByTagName('SubFormat')[0].firstChild.data
+                if entry.getElementsByTagName('SubSumCD'):
+                    sub['SubSumCD'] = entry.getElementsByTagName('SubSumCD')[0].firstChild.data
+                if entry.getElementsByTagName('SubAddDate'):
+                    sub['SubAddDate'] = entry.getElementsByTagName('SubAddDate')[0].firstChild.data
+                if entry.getElementsByTagName('SubBad'):
+                    sub['SubBad'] = entry.getElementsByTagName('SubBad')[0].firstChild.data
+                if entry.getElementsByTagName('SubRating'):
+                    sub['SubRating'] = entry.getElementsByTagName('SubRating')[0].firstChild.data
+                if entry.getElementsByTagName('SubDownloadsCnt'):
+                    sub['SubDownloadsCnt'] = entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild.data
+                if entry.getElementsByTagName('SubMovieAka'):
+                    sub['SubMovieAka'] = entry.getElementsByTagName('SubMovieAka')[0].firstChild.data
+                if entry.getElementsByTagName('SubDate'):
+                    sub['SubDate'] = entry.getElementsByTagName('SubDate')[0].firstChild.data
+                if entry.getElementsByTagName('SubComments'):
+                    sub['SubComments'] = entry.getElementsByTagName('SubComments')[0].firstChild.data
                 if entry.getElementsByTagName('TotalSubs'):
                     sub['TotalSubs'] = entry.getElementsByTagName('TotalSubs')[0].firstChild.data
                 if entry.getElementsByTagName('Newest'):
