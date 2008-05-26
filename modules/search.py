@@ -19,7 +19,19 @@
 import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
-#from subdownloader.modules import configuration
+from subdownloader import subtitlefile
+
+class Movie(object):
+   def __init__(self,  movieName):
+        self.movieName = movieName
+        self.movieSiteLink = ""        
+        self.IMDBSite = ""
+        self.IMDBRating = ""
+        self.MovieYear = ""
+        self.MovieId = "" #this ID will be used when calling the 2nd step function to get the Subtitle Details
+        self.totalSubs = None #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
+        self.subs = [] #this is an array of Subtitle 
+
 
 class SearchByName(object):
     
