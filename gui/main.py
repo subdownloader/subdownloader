@@ -83,6 +83,7 @@ class Main(QObject, Ui_MainWindow):
             title = settings.value("title").toString()
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
+        self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab
     
     def write_settings(self):
         settings = QSettings()
@@ -115,6 +116,8 @@ class Main(QObject, Ui_MainWindow):
         self.window = window
         window.closeEvent = self.close_event
         window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION, None, QtGui.QApplication.UnicodeUTF8))
+        #Fill Out the Filters Language SelectBoxes
+        self.InitializeFilterLanguages()
         self.read_settings()
         
         #self.treeView.reset()
@@ -184,9 +187,14 @@ class Main(QObject, Ui_MainWindow):
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
+        
+        #OPTIONS events
+        QObject.connect(self.optionsButtonApplyChanges, SIGNAL("clicked(bool)"), self.onOptionsButtonApplyChanges)
+        QObject.connect(self.optionButtonChooseFolder, SIGNAL("clicked(bool)"), self.onOptionButtonChooseFolder)
+        QObject.connect(self.optionDownloadFolderPredefined, SIGNAL("toggled(bool)"), self.onOptionDownloadFolderPredefined)
+        self.onOptionDownloadFolderPredefined()
             
-        #Fill Out the Filters Language SelectBoxes
-        self.InitializeFilterLanguages()
+        
         
         self.status_progress = QtGui.QProgressBar(self.statusbar)
         self.status_progress.setProperty("value",QVariant(0))
@@ -208,7 +216,7 @@ class Main(QObject, Ui_MainWindow):
         #FOR TESTING
         if options.test:
             #self.SearchVideos('/media/xp/pelis/')
-            self.tabs.setCurrentIndex(2)
+            self.tabs.setCurrentIndex(3)
             pass
 
     def InitializeFilterLanguages(self):
@@ -218,10 +226,14 @@ class Main(QObject, Ui_MainWindow):
             self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.uploadLanguages.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            self.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            
+            
             
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
+        self.optionDefaultUploadLanguage.adjustSize()
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
     
@@ -469,7 +481,7 @@ class Main(QObject, Ui_MainWindow):
     def onUploadLanguageDetection(self, lang_xxx):
         #Let's select the item with that id.
         index = self.uploadLanguages.findData(QVariant(lang_xxx))
-        if index :
+        if index != -1:
             self.uploadLanguages.setCurrentIndex (index)
             return
             
@@ -526,8 +538,65 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 self.uploadModel.update_lang_upload()
-                
+    
+    def onOptionButtonChooseFolder(self):
+        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory",QString())
+        if directory:
+            self.optionPredefinedFolderText.setText(directory)
+    
+    def onOptionDownloadFolderPredefined(self):
+        if self.optionDownloadFolderPredefined.isChecked():
+            self.optionPredefinedFolderText.setEnabled(True)
+            self.optionButtonChooseFolder.setEnabled(True)
+        else:
+            self.optionPredefinedFolderText.setEnabled(False)
+            self.optionButtonChooseFolder.setEnabled(False)
 
+    def onOptionsButtonApplyChanges(self):
+        log.debug("Saving Options Settings")
+        #Fields validation
+        if self.optionDownloadFolderPredefined.isChecked() and self.optionPredefinedFolderText.text() == QString():
+            QMessageBox.about(self.window,"Error","Predefined Folder cannot be empty")
+            return
+        #Writting settings
+        settings = QSettings()
+        if self.optionDownloadFolderAsk.isChecked():
+            settings.setValue("options/whereToDownload", QVariant("ASK_FOLDER"))
+        elif self.optionDownloadFolderSame.isChecked():
+            settings.setValue("options/whereToDownload", QVariant("SAME_FOLDER"))
+        elif self.optionDownloadFolderPredefined.isChecked():
+            settings.setValue("options/whereToDownload", QVariant("PREDEFINED_FOLDER"))
+            folder = self.optionPredefinedFolderText.text()
+            settings.setValue("options/whereToDownloadFolder", folder)
+            
+        if self.optionDownloadSameFilename.isChecked():
+            settings.setValue("options/subtitleName", QVariant("SAME_VIDEO"))
+        elif self.optionDownloadOnlineSubName.isChecked():
+            settings.setValue("options/subtitleName", QVariant("SAME_ONLINE"))
+        
+        optionUploadLanguage = self.optionDefaultUploadLanguage.itemData(self.optionDefaultUploadLanguage.currentIndex())
+        settings.setValue("options/uploadLanguage", optionUploadLanguage)
+            
+    def readOptionsSettings(self, settings):
+        log.debug("Reading Options Settings")
+        optionWhereToDownload = settings.value("options/whereToDownload", QVariant("SAME_FOLDER"))
+        if optionWhereToDownload == QVariant("ASK_FOLDER"):
+            self.optionDownloadFolderAsk.setChecked(True)
+        elif optionWhereToDownload == QVariant("SAME_FOLDER"):
+            self.optionDownloadFolderSame.setChecked(True)
+        elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
+            self.optionDownloadFolderPredefined.setChecked(True)
+            
+        optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
+        if optionSubtitleName == QVariant("SAME_VIDEO"):
+            self.optionDownloadSameFilename.setChecked(True)
+        elif optionSubtitleName == QVariant("SAME_ONLINE"):
+            self.optionDownloadOnlineSubName.setChecked(True)
+        
+        optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
+        index = self.optionDefaultUploadLanguage.findData(optionUploadLanguage)
+        if index != -1 :
+            self.optionDefaultUploadLanguage.setCurrentIndex (index)
 
 def main(options):
     log.debug("Building main dialog")

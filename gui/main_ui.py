@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun May 25 21:55:02 2008
+# Created: Mon May 26 12:18:35 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -25,6 +25,12 @@ class Ui_MainWindow(object):
         self.vboxlayout1.setObjectName("vboxlayout1")
 
         self.tabs = QtGui.QTabWidget(self.centralwidget)
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tabs.sizePolicy().hasHeightForWidth())
+        self.tabs.setSizePolicy(sizePolicy)
         self.tabs.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabs.setObjectName("tabs")
 
@@ -444,7 +450,13 @@ class Ui_MainWindow(object):
         self.tab_5.setObjectName("tab_5")
 
         self.frame_6 = QtGui.QFrame(self.tab_5)
-        self.frame_6.setGeometry(QtCore.QRect(9,9,731,451))
+        self.frame_6.setGeometry(QtCore.QRect(9,9,681,451))
+
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_6.sizePolicy().hasHeightForWidth())
+        self.frame_6.setSizePolicy(sizePolicy)
         self.frame_6.setFrameShape(QtGui.QFrame.NoFrame)
         self.frame_6.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_6.setObjectName("frame_6")
@@ -548,9 +560,10 @@ class Ui_MainWindow(object):
         self.label_20.setFont(font)
         self.label_20.setObjectName("label_20")
 
-        self.lineEdit_6 = QtGui.QLineEdit(self.frame_2)
-        self.lineEdit_6.setGeometry(QtCore.QRect(160,90,161,23))
-        self.lineEdit_6.setObjectName("lineEdit_6")
+        self.optionPredefinedFolderText = QtGui.QLineEdit(self.frame_2)
+        self.optionPredefinedFolderText.setGeometry(QtCore.QRect(160,90,161,23))
+        self.optionPredefinedFolderText.setReadOnly(True)
+        self.optionPredefinedFolderText.setObjectName("optionPredefinedFolderText")
 
         self.label_25 = QtGui.QLabel(self.frame_2)
         self.label_25.setGeometry(QtCore.QRect(10,140,161,27))
@@ -563,18 +576,18 @@ class Ui_MainWindow(object):
         self.vboxlayout10 = QtGui.QVBoxLayout(self.layoutWidget)
         self.vboxlayout10.setObjectName("vboxlayout10")
 
-        self.radioButton_5 = QtGui.QRadioButton(self.layoutWidget)
-        self.radioButton_5.setChecked(True)
-        self.radioButton_5.setObjectName("radioButton_5")
-        self.vboxlayout10.addWidget(self.radioButton_5)
+        self.optionDownloadSameFilename = QtGui.QRadioButton(self.layoutWidget)
+        self.optionDownloadSameFilename.setChecked(True)
+        self.optionDownloadSameFilename.setObjectName("optionDownloadSameFilename")
+        self.vboxlayout10.addWidget(self.optionDownloadSameFilename)
 
-        self.radioButton_6 = QtGui.QRadioButton(self.layoutWidget)
-        self.radioButton_6.setObjectName("radioButton_6")
-        self.vboxlayout10.addWidget(self.radioButton_6)
+        self.optionDownloadOnlineSubName = QtGui.QRadioButton(self.layoutWidget)
+        self.optionDownloadOnlineSubName.setObjectName("optionDownloadOnlineSubName")
+        self.vboxlayout10.addWidget(self.optionDownloadOnlineSubName)
 
-        self.pushButton_3 = QtGui.QPushButton(self.frame_2)
-        self.pushButton_3.setGeometry(QtCore.QRect(330,90,75,27))
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.optionButtonChooseFolder = QtGui.QPushButton(self.frame_2)
+        self.optionButtonChooseFolder.setGeometry(QtCore.QRect(330,90,75,27))
+        self.optionButtonChooseFolder.setObjectName("optionButtonChooseFolder")
 
         self.line_5 = QtGui.QFrame(self.frame_2)
         self.line_5.setGeometry(QtCore.QRect(10,130,391,16))
@@ -593,18 +606,18 @@ class Ui_MainWindow(object):
         self.vboxlayout11 = QtGui.QVBoxLayout(self.layoutWidget1)
         self.vboxlayout11.setObjectName("vboxlayout11")
 
-        self.radioButton = QtGui.QRadioButton(self.layoutWidget1)
-        self.radioButton.setObjectName("radioButton")
-        self.vboxlayout11.addWidget(self.radioButton)
+        self.optionDownloadFolderAsk = QtGui.QRadioButton(self.layoutWidget1)
+        self.optionDownloadFolderAsk.setObjectName("optionDownloadFolderAsk")
+        self.vboxlayout11.addWidget(self.optionDownloadFolderAsk)
 
-        self.radioButton_2 = QtGui.QRadioButton(self.layoutWidget1)
-        self.radioButton_2.setChecked(True)
-        self.radioButton_2.setObjectName("radioButton_2")
-        self.vboxlayout11.addWidget(self.radioButton_2)
+        self.optionDownloadFolderSame = QtGui.QRadioButton(self.layoutWidget1)
+        self.optionDownloadFolderSame.setChecked(True)
+        self.optionDownloadFolderSame.setObjectName("optionDownloadFolderSame")
+        self.vboxlayout11.addWidget(self.optionDownloadFolderSame)
 
-        self.radioButton_3 = QtGui.QRadioButton(self.layoutWidget1)
-        self.radioButton_3.setObjectName("radioButton_3")
-        self.vboxlayout11.addWidget(self.radioButton_3)
+        self.optionDownloadFolderPredefined = QtGui.QRadioButton(self.layoutWidget1)
+        self.optionDownloadFolderPredefined.setObjectName("optionDownloadFolderPredefined")
+        self.vboxlayout11.addWidget(self.optionDownloadFolderPredefined)
 
         self.frame = QtGui.QFrame(self.frame_6)
         self.frame.setGeometry(QtCore.QRect(0,230,411,81))
@@ -665,9 +678,9 @@ class Ui_MainWindow(object):
         self.label_28.setGeometry(QtCore.QRect(10,20,191,27))
         self.label_28.setObjectName("label_28")
 
-        self.comboBox_4 = QtGui.QComboBox(self.frame_7)
-        self.comboBox_4.setGeometry(QtCore.QRect(50,50,177,22))
-        self.comboBox_4.setObjectName("comboBox_4")
+        self.optionDefaultUploadLanguage = QtGui.QComboBox(self.frame_7)
+        self.optionDefaultUploadLanguage.setGeometry(QtCore.QRect(50,50,177,22))
+        self.optionDefaultUploadLanguage.setObjectName("optionDefaultUploadLanguage")
 
         self.frame_5 = QtGui.QFrame(self.frame_7)
         self.frame_5.setGeometry(QtCore.QRect(0,80,241,91))
@@ -707,7 +720,7 @@ class Ui_MainWindow(object):
         self.label_40.setObjectName("label_40")
 
         self.layoutWidget2 = QtGui.QWidget(self.tab_5)
-        self.layoutWidget2.setGeometry(QtCore.QRect(10,470,735,31))
+        self.layoutWidget2.setGeometry(QtCore.QRect(10,470,735,41))
         self.layoutWidget2.setObjectName("layoutWidget2")
 
         self.hboxlayout6 = QtGui.QHBoxLayout(self.layoutWidget2)
@@ -716,9 +729,9 @@ class Ui_MainWindow(object):
         spacerItem4 = QtGui.QSpacerItem(620,28,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
         self.hboxlayout6.addItem(spacerItem4)
 
-        self.pushButton_5 = QtGui.QPushButton(self.layoutWidget2)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.hboxlayout6.addWidget(self.pushButton_5)
+        self.optionsButtonApplyChanges = QtGui.QPushButton(self.layoutWidget2)
+        self.optionsButtonApplyChanges.setObjectName("optionsButtonApplyChanges")
+        self.hboxlayout6.addWidget(self.optionsButtonApplyChanges)
         self.tabs.addTab(self.tab_5,"")
 
         self.tab_2 = QtGui.QWidget()
@@ -785,7 +798,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(2)
+        self.tabs.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -841,13 +854,13 @@ class Ui_MainWindow(object):
         self.label_16.setText(QtGui.QApplication.translate("MainWindow", "Location:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("MainWindow", "Downloads", None, QtGui.QApplication.UnicodeUTF8))
         self.label_25.setText(QtGui.QApplication.translate("MainWindow", "Filename of the Subtitle:", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_5.setText(QtGui.QApplication.translate("MainWindow", "Same subtitle name as video file", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_6.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadSameFilename.setText(QtGui.QApplication.translate("MainWindow", "Same name as video file", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadOnlineSubName.setText(QtGui.QApplication.translate("MainWindow", "Same name as the online subtitle", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionButtonChooseFolder.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_26.setText(QtGui.QApplication.translate("MainWindow", "Destination folder:", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton.setText(QtGui.QApplication.translate("MainWindow", "Always ask user", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_2.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_3.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadFolderAsk.setText(QtGui.QApplication.translate("MainWindow", "Always ask user", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadFolderSame.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadFolderPredefined.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Others", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer", None, QtGui.QApplication.UnicodeUTF8))
         self.label_24.setText(QtGui.QApplication.translate("MainWindow", "Interface Language:", None, QtGui.QApplication.UnicodeUTF8))
@@ -856,7 +869,7 @@ class Ui_MainWindow(object):
         self.label_38.setText(QtGui.QApplication.translate("MainWindow", "Upload files as OpenSubtitles user:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_39.setText(QtGui.QApplication.translate("MainWindow", "Username:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_40.setText(QtGui.QApplication.translate("MainWindow", "Password:", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_5.setText(QtGui.QApplication.translate("MainWindow", "Apply Changes", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionsButtonApplyChanges.setText(QtGui.QApplication.translate("MainWindow", "Apply Changes", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Options", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.", None, QtGui.QApplication.UnicodeUTF8))
         self.label_11.setText(QtGui.QApplication.translate("MainWindow", "Bugs, issues and suggestions:", None, QtGui.QApplication.UnicodeUTF8))
