@@ -27,7 +27,7 @@
       <item>
        <widget class="QTabWidget" name="tabs" >
         <property name="sizePolicy" >
-         <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
+         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -36,7 +36,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -1390,12 +1390,6 @@ p, li { white-space: pre-wrap; }
             </widget>
            </widget>
           </widget>
-          <zorder>frame_4</zorder>
-          <zorder>frame_3</zorder>
-          <zorder>frame_2</zorder>
-          <zorder>frame</zorder>
-          <zorder>frame_7</zorder>
-          <zorder>layoutWidget</zorder>
          </widget>
          <widget class="QWidget" name="layoutWidget" >
           <property name="geometry" >

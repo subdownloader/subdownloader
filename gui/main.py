@@ -32,6 +32,7 @@ from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
 
 from subdownloader.gui.SplashScreen import SplashScreen, NoneSplashScreen
+from subdownloader.FileManagement import get_extension, clear_string, without_extension
 
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
@@ -334,29 +335,35 @@ class Main(QObject, Ui_MainWindow):
             #QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
             webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
     
-    def getDownloadPath(self):
-        downloadPath = ""
+    def getDownloadPath(self, video, subtitle):
+        downloadFullPath = ""
         settings = QSettings()
+        
+        #Creating the Subtitle Filename
+        optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
+        sub_extension = get_extension(subtitle.getFileName().lower())
+        if optionSubtitleName == QVariant("SAME_VIDEO"):
+           subFileName = without_extension(video.getFileName()) +"." + sub_extension
+        elif optionSubtitleName == QVariant("SAME_ONLINE"):
+           subFileName = subtitle.getFileName()
+        
+        #Creating the Folder Destination
         optionWhereToDownload = settings.value("options/whereToDownload", QVariant("SAME_FOLDER"))
         if optionWhereToDownload == QVariant("ASK_FOLDER"):
-            self.optionDownloadFolderAsk.setChecked(True)
+            folderPath = video.getFolderPath()
+            dir = QDir(QString(folderPath))
+            downloadFullPath = dir.filePath(QString(subFileName))
+            downloadFullPath = QFileDialog.getSaveFileName(None, "Save Subtitle", downloadFullPath, sub_extension)
         elif optionWhereToDownload == QVariant("SAME_FOLDER"):
-            self.optionDownloadFolderSame.setChecked(True)
+            folderPath = video.getFolderPath()
+            dir = QDir(QString(folderPath))
+            downloadFullPath = dir.filePath(QString(subFileName))
         elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
-            self.optionDownloadFolderPredefined.setChecked(True)
-        
-        os.path.join(sub.getVideo().getFolderPath(),sub.getFileName())
-        
-        folder = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
-        self.optionPredefinedFolderText.setText(folder)
-            
-        optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
-        if optionSubtitleName == QVariant("SAME_VIDEO"):
-            self.optionDownloadSameFilename.setChecked(True)
-        elif optionSubtitleName == QVariant("SAME_ONLINE"):
-            self.optionDownloadOnlineSubName.setChecked(True)
-            
-        return downloadPath
+            folderPath = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
+            dir = QDir(QString(folderPath)) 
+            downloadFullPath = dir.filePath(QString(subFileName))
+
+        return downloadFullPath
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
@@ -364,9 +371,9 @@ class Main(QObject, Ui_MainWindow):
             count = 0
             self.status("Connecting to download...")
             for sub in subs:
-                self.progress(count,"Downloading subtitle... "+sub.getIdOnline())
+                self.progress(count,"Downloading subtitle ... "+sub.getIdOnline())
                 count += percentage
-                destinationPath = getDownloadPath(sub.getVideo(), sub)
+                destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
@@ -596,7 +603,7 @@ class Main(QObject, Ui_MainWindow):
         elif self.optionDownloadFolderPredefined.isChecked():
             settings.setValue("options/whereToDownload", QVariant("PREDEFINED_FOLDER"))
             folder = self.optionPredefinedFolderText.text()
-            settings.setValue("options/whereToDownloadFolder", folder)
+            settings.setValue("options/whereToDownloadFolder", QVariant(folder))
             
         if self.optionDownloadSameFilename.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_VIDEO"))
