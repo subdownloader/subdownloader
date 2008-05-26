@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon May 26 12:18:35 2008
+# Created: Mon May 26 17:25:44 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -476,27 +476,23 @@ class Ui_MainWindow(object):
         self.label_22.setFont(font)
         self.label_22.setObjectName("label_22")
 
-        self.lineEdit = QtGui.QLineEdit(self.frame_4)
-        self.lineEdit.setGeometry(QtCore.QRect(80,30,151,23))
-        self.lineEdit.setObjectName("lineEdit")
+        self.optionProxyHost = QtGui.QLineEdit(self.frame_4)
+        self.optionProxyHost.setGeometry(QtCore.QRect(80,30,151,23))
+        self.optionProxyHost.setObjectName("optionProxyHost")
 
         self.label_14 = QtGui.QLabel(self.frame_4)
         self.label_14.setGeometry(QtCore.QRect(21,58,44,22))
         self.label_14.setObjectName("label_14")
 
-        self.lineEdit_3 = QtGui.QLineEdit(self.frame_4)
-        self.lineEdit_3.setGeometry(QtCore.QRect(80,60,51,23))
-
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
-        self.lineEdit_3.setSizePolicy(sizePolicy)
-        self.lineEdit_3.setObjectName("lineEdit_3")
-
         self.label_13 = QtGui.QLabel(self.frame_4)
         self.label_13.setGeometry(QtCore.QRect(21,31,44,22))
         self.label_13.setObjectName("label_13")
+
+        self.optionProxyPort = QtGui.QSpinBox(self.frame_4)
+        self.optionProxyPort.setGeometry(QtCore.QRect(80,60,71,25))
+        self.optionProxyPort.setMaximum(99999)
+        self.optionProxyPort.setProperty("value",QtCore.QVariant(8080))
+        self.optionProxyPort.setObjectName("optionProxyPort")
 
         self.frame_3 = QtGui.QFrame(self.frame_6)
         self.frame_3.setGeometry(QtCore.QRect(0,320,671,121))
@@ -508,20 +504,20 @@ class Ui_MainWindow(object):
         self.label_15.setGeometry(QtCore.QRect(21,21,122,29))
         self.label_15.setObjectName("label_15")
 
-        self.comboBox_2 = QtGui.QComboBox(self.frame_3)
-        self.comboBox_2.setGeometry(QtCore.QRect(148,24,122,22))
-        self.comboBox_2.setObjectName("comboBox_2")
+        self.optionVideoAppCombo = QtGui.QComboBox(self.frame_3)
+        self.optionVideoAppCombo.setGeometry(QtCore.QRect(148,24,122,22))
+        self.optionVideoAppCombo.setObjectName("optionVideoAppCombo")
 
         self.label_18 = QtGui.QLabel(self.frame_3)
         self.label_18.setGeometry(QtCore.QRect(390,80,260,18))
         self.label_18.setObjectName("label_18")
 
-        self.pushButton = QtGui.QPushButton(self.frame_3)
-        self.pushButton.setGeometry(QtCore.QRect(390,50,83,27))
-        self.pushButton.setObjectName("pushButton")
+        self.optionVideoAppChooseLocation = QtGui.QPushButton(self.frame_3)
+        self.optionVideoAppChooseLocation.setGeometry(QtCore.QRect(390,50,83,27))
+        self.optionVideoAppChooseLocation.setObjectName("optionVideoAppChooseLocation")
 
         self.label_21 = QtGui.QLabel(self.frame_3)
-        self.label_21.setGeometry(QtCore.QRect(10,0,281,18))
+        self.label_21.setGeometry(QtCore.QRect(10,0,301,18))
 
         font = QtGui.QFont()
         font.setWeight(75)
@@ -537,13 +533,13 @@ class Ui_MainWindow(object):
         self.label_16.setGeometry(QtCore.QRect(21,51,76,23))
         self.label_16.setObjectName("label_16")
 
-        self.lineEdit_4 = QtGui.QLineEdit(self.frame_3)
-        self.lineEdit_4.setGeometry(QtCore.QRect(102,51,278,23))
-        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.optionVideoAppLocation = QtGui.QLineEdit(self.frame_3)
+        self.optionVideoAppLocation.setGeometry(QtCore.QRect(102,51,278,23))
+        self.optionVideoAppLocation.setObjectName("optionVideoAppLocation")
 
-        self.lineEdit_5 = QtGui.QLineEdit(self.frame_3)
-        self.lineEdit_5.setGeometry(QtCore.QRect(102,81,278,23))
-        self.lineEdit_5.setObjectName("lineEdit_5")
+        self.optionVideoAppParams = QtGui.QLineEdit(self.frame_3)
+        self.optionVideoAppParams.setGeometry(QtCore.QRect(102,81,278,23))
+        self.optionVideoAppParams.setObjectName("optionVideoAppParams")
 
         self.frame_2 = QtGui.QFrame(self.frame_6)
         self.frame_2.setGeometry(QtCore.QRect(0,0,411,221))
@@ -635,20 +631,20 @@ class Ui_MainWindow(object):
         self.label_19.setFont(font)
         self.label_19.setObjectName("label_19")
 
-        self.checkBox = QtGui.QCheckBox(self.frame)
-        self.checkBox.setGeometry(QtCore.QRect(10,50,291,22))
+        self.optionIntegrationExplorer = QtGui.QCheckBox(self.frame)
+        self.optionIntegrationExplorer.setGeometry(QtCore.QRect(10,50,311,22))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.checkBox.sizePolicy().hasHeightForWidth())
-        self.checkBox.setSizePolicy(sizePolicy)
-        self.checkBox.setMinimumSize(QtCore.QSize(0,22))
-        self.checkBox.setObjectName("checkBox")
+        sizePolicy.setHeightForWidth(self.optionIntegrationExplorer.sizePolicy().hasHeightForWidth())
+        self.optionIntegrationExplorer.setSizePolicy(sizePolicy)
+        self.optionIntegrationExplorer.setMinimumSize(QtCore.QSize(0,22))
+        self.optionIntegrationExplorer.setObjectName("optionIntegrationExplorer")
 
-        self.comboBox_3 = QtGui.QComboBox(self.frame)
-        self.comboBox_3.setGeometry(QtCore.QRect(193,24,177,22))
-        self.comboBox_3.setObjectName("comboBox_3")
+        self.optionInterfaceLanguage = QtGui.QComboBox(self.frame)
+        self.optionInterfaceLanguage.setGeometry(QtCore.QRect(193,24,177,22))
+        self.optionInterfaceLanguage.setObjectName("optionInterfaceLanguage")
 
         self.label_24 = QtGui.QLabel(self.frame)
         self.label_24.setGeometry(QtCore.QRect(11,21,177,29))
@@ -697,19 +693,19 @@ class Ui_MainWindow(object):
         self.label_38.setFont(font)
         self.label_38.setObjectName("label_38")
 
-        self.lineEdit_13 = QtGui.QLineEdit(self.frame_5)
-        self.lineEdit_13.setGeometry(QtCore.QRect(104,31,110,23))
-        self.lineEdit_13.setObjectName("lineEdit_13")
+        self.optionLoginUsername = QtGui.QLineEdit(self.frame_5)
+        self.optionLoginUsername.setGeometry(QtCore.QRect(104,31,110,23))
+        self.optionLoginUsername.setObjectName("optionLoginUsername")
 
-        self.lineEdit_14 = QtGui.QLineEdit(self.frame_5)
-        self.lineEdit_14.setGeometry(QtCore.QRect(104,61,110,23))
+        self.optionLoginPassword = QtGui.QLineEdit(self.frame_5)
+        self.optionLoginPassword.setGeometry(QtCore.QRect(104,61,110,23))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed,QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_14.sizePolicy().hasHeightForWidth())
-        self.lineEdit_14.setSizePolicy(sizePolicy)
-        self.lineEdit_14.setObjectName("lineEdit_14")
+        sizePolicy.setHeightForWidth(self.optionLoginPassword.sizePolicy().hasHeightForWidth())
+        self.optionLoginPassword.setSizePolicy(sizePolicy)
+        self.optionLoginPassword.setObjectName("optionLoginPassword")
 
         self.label_39 = QtGui.QLabel(self.frame_5)
         self.label_39.setGeometry(QtCore.QRect(31,31,68,23))
@@ -739,7 +735,7 @@ class Ui_MainWindow(object):
         self.tab_2.setObjectName("tab_2")
 
         self.layoutWidget3 = QtGui.QWidget(self.tab_2)
-        self.layoutWidget3.setGeometry(QtCore.QRect(90,10,583,73))
+        self.layoutWidget3.setGeometry(QtCore.QRect(40,130,643,73))
         self.layoutWidget3.setObjectName("layoutWidget3")
 
         self.vboxlayout12 = QtGui.QVBoxLayout(self.layoutWidget3)
@@ -848,7 +844,7 @@ class Ui_MainWindow(object):
         self.label_13.setText(QtGui.QApplication.translate("MainWindow", "Host:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Video application:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_18.setText(QtGui.QApplication.translate("MainWindow", "{0} = video file path; {1} = subtitle path", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionVideoAppChooseLocation.setText(QtGui.QApplication.translate("MainWindow", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_21.setText(QtGui.QApplication.translate("MainWindow", "External application for video playback", None, QtGui.QApplication.UnicodeUTF8))
         self.label_17.setText(QtGui.QApplication.translate("MainWindow", "Parameters:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_16.setText(QtGui.QApplication.translate("MainWindow", "Location:", None, QtGui.QApplication.UnicodeUTF8))
@@ -862,7 +858,7 @@ class Ui_MainWindow(object):
         self.optionDownloadFolderSame.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
         self.optionDownloadFolderPredefined.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Others", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBox.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionIntegrationExplorer.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer", None, QtGui.QApplication.UnicodeUTF8))
         self.label_24.setText(QtGui.QApplication.translate("MainWindow", "Interface Language:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_27.setText(QtGui.QApplication.translate("MainWindow", "Uploads", None, QtGui.QApplication.UnicodeUTF8))
         self.label_28.setText(QtGui.QApplication.translate("MainWindow", "Default language of subtitles", None, QtGui.QApplication.UnicodeUTF8))

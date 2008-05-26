@@ -192,10 +192,9 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.optionsButtonApplyChanges, SIGNAL("clicked(bool)"), self.onOptionsButtonApplyChanges)
         QObject.connect(self.optionButtonChooseFolder, SIGNAL("clicked(bool)"), self.onOptionButtonChooseFolder)
         QObject.connect(self.optionDownloadFolderPredefined, SIGNAL("toggled(bool)"), self.onOptionDownloadFolderPredefined)
+        QObject.connect(self.optionInterfaceLanguage, SIGNAL("currentIndexChanged(int)"), self.onOptionInterfaceLanguage)
         self.onOptionDownloadFolderPredefined()
             
-        
-        
         self.status_progress = QtGui.QProgressBar(self.statusbar)
         self.status_progress.setProperty("value",QVariant(0))
         
@@ -227,6 +226,7 @@ class Main(QObject, Ui_MainWindow):
             self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.uploadLanguages.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            self.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             
             
             
@@ -234,8 +234,11 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
         self.optionDefaultUploadLanguage.adjustSize()
+        self.optionInterfaceLanguage.adjustSize()
+        
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
+        
     
     def onFilterLanguageVideo(self, index):
         selectedLanguageName = self.filterLanguageForVideo.itemText(index)
@@ -330,7 +333,30 @@ class Main(QObject, Ui_MainWindow):
         if movie_info:
             #QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
             webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
+    
+    def getDownloadPath(self):
+        downloadPath = ""
+        settings = QSettings()
+        optionWhereToDownload = settings.value("options/whereToDownload", QVariant("SAME_FOLDER"))
+        if optionWhereToDownload == QVariant("ASK_FOLDER"):
+            self.optionDownloadFolderAsk.setChecked(True)
+        elif optionWhereToDownload == QVariant("SAME_FOLDER"):
+            self.optionDownloadFolderSame.setChecked(True)
+        elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
+            self.optionDownloadFolderPredefined.setChecked(True)
+        
+        os.path.join(sub.getVideo().getFolderPath(),sub.getFileName())
+        
+        folder = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
+        self.optionPredefinedFolderText.setText(folder)
             
+        optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
+        if optionSubtitleName == QVariant("SAME_VIDEO"):
+            self.optionDownloadSameFilename.setChecked(True)
+        elif optionSubtitleName == QVariant("SAME_ONLINE"):
+            self.optionDownloadOnlineSubName.setChecked(True)
+            
+        return downloadPath
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
@@ -340,7 +366,8 @@ class Main(QObject, Ui_MainWindow):
             for sub in subs:
                 self.progress(count,"Downloading subtitle... "+sub.getIdOnline())
                 count += percentage
-                destinationPath = os.path.join(sub.getVideo().getFolderPath(),sub.getFileName())
+                destinationPath = getDownloadPath(sub.getVideo(), sub)
+                
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
                     videos_result = self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath})
@@ -543,7 +570,9 @@ class Main(QObject, Ui_MainWindow):
         directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory",QString())
         if directory:
             self.optionPredefinedFolderText.setText(directory)
-    
+    def onOptionInterfaceLanguage(self, option):
+        QMessageBox.about(self.window,"Alert","The new language will be displayed after restarting the application")
+        
     def onOptionDownloadFolderPredefined(self):
         if self.optionDownloadFolderPredefined.isChecked():
             self.optionPredefinedFolderText.setEnabled(True)
@@ -576,7 +605,38 @@ class Main(QObject, Ui_MainWindow):
         
         optionUploadLanguage = self.optionDefaultUploadLanguage.itemData(self.optionDefaultUploadLanguage.currentIndex())
         settings.setValue("options/uploadLanguage", optionUploadLanguage)
+        
+        optionInterfaceLanguage = self.optionInterfaceLanguage.itemData(self.optionInterfaceLanguage.currentIndex())
+        settings.setValue("options/interfaceLanguage", optionInterfaceLanguage)
+        
+        IEoldValue = settings.value("options/IntegrationExplorer", QVariant(False)).toBool()
+        IEnewValue = self.optionIntegrationExplorer.isChecked()
+        if  IEoldValue != IEnewValue:
+           settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
+           if IEnewValue:
+               log.debug('Installing the Integration Explorer feature') 
+               #TODO: install and uninstall
+           else:
+               log.debug('Uninstalling the Integration Explorer feature')
+        
+        newUsername =  self.optionLoginUsername.text()
+        newPassword = self.optionLoginPassword.text()
+        oldUsername = settings.value("options/LoginUsername", QVariant())
+        oldPassword = settings.value("options/LoginPassword", QVariant())
+        if newUsername != oldUsername.toString() or newPassword != oldPassword.toString():
+            settings.setValue("options/LoginUsername",QVariant(newUsername))
+            settings.setValue("options/LoginPassword", QVariant(newPassword))
+            log.debug('Login credentials has changed. Trying to login.')
             
+        newProxyHost =  self.optionProxyHost.text()
+        newProxyPort = self.optionProxyPort.value()
+        oldProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
+        oldProxyPort = settings.value("options/ProxyPort", QVariant("8080")).toInt()[0]
+        if newProxyHost != oldProxyHost or newProxyPort != oldProxyPort:
+            settings.setValue("options/ProxyHost",QVariant(newProxyHost))
+            settings.setValue("options/ProxyPort", QVariant(newProxyPort))
+            QMessageBox.about(self.window,"Alert","Modified proxy settings will take effect after restarting the program")
+
     def readOptionsSettings(self, settings):
         log.debug("Reading Options Settings")
         optionWhereToDownload = settings.value("options/whereToDownload", QVariant("SAME_FOLDER"))
@@ -586,6 +646,10 @@ class Main(QObject, Ui_MainWindow):
             self.optionDownloadFolderSame.setChecked(True)
         elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
             self.optionDownloadFolderPredefined.setChecked(True)
+        
+        folder = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
+        self.optionPredefinedFolderText.setText(folder)
+            
             
         optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
         if optionSubtitleName == QVariant("SAME_VIDEO"):
@@ -597,6 +661,20 @@ class Main(QObject, Ui_MainWindow):
         index = self.optionDefaultUploadLanguage.findData(optionUploadLanguage)
         if index != -1 :
             self.optionDefaultUploadLanguage.setCurrentIndex (index)
+            
+        optionInterfaceLanguage = settings.value("options/interfaceLanguage", QVariant("eng"))
+        index = self.optionInterfaceLanguage.findData(optionInterfaceLanguage)
+        if index != -1 :
+            self.optionInterfaceLanguage.setCurrentIndex (index)
+            
+        optionIntegrationExplorer = settings.value("options/IntegrationExplorer", QVariant(False))
+        self.optionIntegrationExplorer.setChecked(optionIntegrationExplorer.toBool())
+        
+        self.optionLoginUsername.setText(settings.value("options/LoginUsername", QVariant()).toString())
+        self.optionLoginPassword.setText(settings.value("options/LoginPassword", QVariant()).toString())
+        
+        self.optionProxyHost.setText(settings.value("options/ProxyHost", QVariant()).toString())
+        self.optionProxyPort.setValue(settings.value("options/ProxyPort", QVariant(8080)).toInt()[0])
 
 def main(options):
     log.debug("Building main dialog")
