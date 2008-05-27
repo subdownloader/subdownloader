@@ -40,7 +40,7 @@ LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': 'Albanian'
  {'ISO639': 'fr', 'SubLanguageID': 'fre', 'LanguageName': 'French'},
  {'ISO639': 'ka', 'SubLanguageID': 'geo', 'LanguageName': 'Georgian'},
  {'ISO639': 'de', 'SubLanguageID': 'ger', 'LanguageName': 'German'},
- {'ISO639': 'gr', 'SubLanguageID': 'ell', 'LanguageName': 'Greek'},
+ {'ISO639': 'el', 'SubLanguageID': 'ell', 'LanguageName': 'Greek'},
  {'ISO639': 'he', 'SubLanguageID': 'heb', 'LanguageName': 'Hebrew'},
  {'ISO639': 'hu', 'SubLanguageID': 'hun', 'LanguageName': 'Hungarian'},
  {'ISO639': 'id', 'SubLanguageID': 'ind', 'LanguageName': 'Indonesian'},
