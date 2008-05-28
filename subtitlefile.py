@@ -28,7 +28,7 @@ class SubtitleFile(object):
     """Contains the class that represents a SubtitleFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
-    def __init__(self, online, id):
+    def __init__(self, online, id=None):
         self._language = None
         self._video = None
         self._online = online
@@ -42,21 +42,6 @@ class SubtitleFile(object):
         if not online:
             self._size = os.path.getsize(self._path)
             self._hash = md5.new(file(self._path,mode='rb').read()).hexdigest()
-            
-#        if online:
-#            self._online = True
-#            self._id_online = id
-#            self._uploader = None
-#        else:
-#            self._online = False
-#            self._filepath = id
-#            self.setFileName(self.getFilePath())
-#            self._languageXX = None
-#            self._languageXXX = None
-#            self._languageName = None
-#            self._size = os.path.getsize(self._filepath)
-#            self._hash = md5.new(file(self._filepath,mode='rb').read()).hexdigest()
-#            self.rating = 0
         
     def setFileName(self,filename):
         self._filename = filename

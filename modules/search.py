@@ -22,16 +22,17 @@ import xml.parsers.expat
 from subdownloader import subtitlefile
 
 class Movie(object):
-   def __init__(self,  movieName):
-        self.movieName = movieName
-        self.movieSiteLink = ""        
-        self.IMDBSite = ""
-        self.IMDBRating = ""
-        self.MovieYear = ""
-        self.MovieId = "" #this ID will be used when calling the 2nd step function to get the Subtitle Details
-        self.totalSubs = None #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
-        self.subs = [] #this is an array of Subtitle 
-
+   def __init__(self, movieInfo, subtitles=[]):
+       #movieInfo is a dict 
+        self.movieName = movieInfo['MovieName']
+        self.movieSiteLink = movieInfo['MovieID']['Link']
+        self.IMDBLink = movieInfo['MovieID']['LinkImdb']
+        self.IMDBRating = movieInfo['MovieImdbRating']
+        self.MovieYear = movieInfo['MovieYear']
+        self.MovieId = movieInfo['MovieID']['MovieID'] #this ID will be used when calling the 2nd step function to get the Subtitle Details
+        self.totalSubs = movieInfo['TotalSubs'] #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
+        self.substitles = substitles #this is an list of Subtitle objects
+    
 
 class SearchByName(object):
     
@@ -51,7 +52,12 @@ class SearchByName(object):
             search = self.parse_results(xml_page.read())
         except xml.parsers.expat.ExpatError: # this will happen when only one result is found
             search = self.parse_results(urllib2.urlopen(xml_page.url + "/xml").read())
-        if not search:
+            
+        if search:
+            movies = []
+            for mov in search:
+                movies.append(Movie(mov))
+        else:
             search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
             
         return search
@@ -127,6 +133,18 @@ class SearchByName(object):
                                                         'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('DownloadLink'),  
                                                         }
                 sub['SubtitleFile'] = SubtitleFile
+            if entry.getElementsByTagName('Movie'):
+                _Movie = entry.getElementsByTagName('Movie')[0]
+                #sub['MovieName'] = _Movie.getElementsByTagName('MovieName')[0].firstChild.data
+                sub['MovieID'] = {'MovieID': _Movie.getElementsByTagName('MovieName')[0].getAttribute('MovieID'),
+                                            'Link': _Movie.getElementsByTagName('MovieName')[0].getAttribute('Link'),
+                                            }
+                for section in _Movie.getElementsByTagName('section'):
+                    if section.getAttribute('type') == u"about":
+                        for info in section.getElementsByTagName("info"):
+                            if info.getElementsByTagName("web_url")[0].firstChild.data == u"http://www.imdb.com":
+                                sub['MovieID']['LinkImdb'] = info.getElementsByTagName("link_detail")[0].firstChild.data
+                                
             if entry.getElementsByTagName('FullName'):
                 sub['FullName'] = entry.getElementsByTagName('FullName')[0].firstChild.data
             if entry.getElementsByTagName('ReportLink'):
@@ -169,6 +187,7 @@ class SearchByName(object):
         # catch all subtitles information
         for entry in data:
             try:
+                sub_obj = subtitlefile.SubtitleFile(online=True)
                 sub = {}
                 if entry.getElementsByTagName('IDSubtitle'):
                     sub['IDSubtitle'] = { 'IDSubtitle': entry.getElementsByTagName('IDSubtitle')[0].firstChild.data, 
@@ -177,14 +196,16 @@ class SearchByName(object):
                                                         'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'), 
                                                         'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'), 
                                                     }
+                    sub_obj.id = sub['IDSubtitle']['IDSubtitle']
                 if entry.getElementsByTagName('UserID'):
                     sub['UserID'] = { 'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data, 
                                                 'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'), 
                                                 }
                 if entry.getElementsByTagName('UserNickName'):
                     sub['UserNickName'] = entry.getElementsByTagName('UserNickName')[0].firstChild.data
+                    sub_obj._uploader = sub['UserNickName']
                 if entry.getElementsByTagName('MovieID'):
-                    sub['MovieID'] = entry.getElementsByTagName('MovieID')[0].firstChild.data
+                    #sub['MovieID'] = entry.getElementsByTagName('MovieID')[0].firstChild.data
                     sub['MovieID'] = { 'MovieID': entry.getElementsByTagName('MovieID')[0].firstChild.data, 
                                                         'Link': entry.getElementsByTagName('MovieID')[0].getAttribute('Link'), 
                                                         'LinkImdb': entry.getElementsByTagName('MovieID')[0].getAttribute('LinkImdb'), 
@@ -217,8 +238,10 @@ class SearchByName(object):
                                                 'LinkSearch': entry.getElementsByTagName('ISO639')[0].getAttribute('LinkSearch'), 
                                                 'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
                                                 }
+                    sub_obj._languageXX = sub['ISO639']['ISO639']
                 if entry.getElementsByTagName('LanguageName'):
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
+                    sub_obj._languageName = sub['LanguageName']
                 if entry.getElementsByTagName('SubFormat'):
                     sub['SubFormat'] = entry.getElementsByTagName('SubFormat')[0].firstChild.data
                 if entry.getElementsByTagName('SubSumCD'):
@@ -242,7 +265,13 @@ class SearchByName(object):
                 if entry.getElementsByTagName('Newest'):
                     sub['Newest'] = entry.getElementsByTagName('Newest')[0].firstChild.data
                 if sub:
-                    result_entries.append(sub)
+                    #result_entries.append(sub)
+                    movie = Movie(sub)
+                    if sub_obj.id:
+                        movie.subtitles.append()
+                    result_entries.append()
+                
+                    
             except IndexError, e:
                 pass
         return result_entries
