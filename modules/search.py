@@ -60,7 +60,8 @@ class SearchByName(object):
         else:
             search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
             
-        return search
+        #return search
+        return movies
         
     def search_subtitles(self, IDSubtitle_link):
         xml_url = "http://www.opensubtitles.com%s"% IDSubtitle_link
