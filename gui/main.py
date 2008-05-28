@@ -104,7 +104,24 @@ class Main(QObject, Ui_MainWindow):
             except:
                 self.status_label.setText("Users online: ERROR")
             time.sleep(sleeptime)
-    
+
+    def login_user(self, username, password):
+        # WARNING: to be used by a thread
+        self.status_label_login.setText("Trying to login...")
+        try:
+            if self.OSDBServer._login(username, password) :
+                if not username: username = 'Anonymous'
+                self.status_label_login.setText("Logged as: %s" % username)
+            elif username: #We try anonymous login in case the normal user login has failed
+                self.status_label_login.setText("Error logging as: %s" % username)
+                if self.OSDBServer._login("", "") :
+                    self.status_label_login.setText("Logged as: Anonymous")
+                else:
+                    self.status_label_login.setText("Login: Cannot login.")
+        except:
+            self.status_label_login.setText("Login: ERROR")
+
+            
     def __init__(self, window, log_packets, options):
         QObject.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -202,7 +219,10 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         
+        self.status_label_login = QtGui.QLabel("Not logged in",self.statusbar)
+        
         self.statusbar.insertWidget(0,self.status_label)
+        self.statusbar.insertWidget(1,self.status_label_login)
         self.statusbar.addPermanentWidget(self.status_progress,2)
         if not options.test:
             self.establish_connection()
@@ -409,12 +429,18 @@ class Main(QObject, Ui_MainWindow):
         self.status("Connecting to server") 
         try:
             self.OSDBServer = OSDBServer(self.options)
+            
         except Exception, e: 
             traceback.print_exc(e)
             qFatal("Unable to connect to server. Please try again later")
         self.progress(100)
         self.status_progress.setFormat("Connected")
         self.window.setCursor(Qt.ArrowCursor)
+        
+        settings = QSettings()
+        settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
+        settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
+        thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,))
         
     #UPLOAD METHODS
     
@@ -634,6 +660,7 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("options/LoginUsername",QVariant(newUsername))
             settings.setValue("options/LoginPassword", QVariant(newPassword))
             log.debug('Login credentials has changed. Trying to login.')
+            thread.start_new_thread(self.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),))
             
         newProxyHost =  self.optionProxyHost.text()
         newProxyPort = self.optionProxyPort.value()

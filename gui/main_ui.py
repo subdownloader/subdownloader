@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Tue May 27 01:06:18 2008
+# Created: Wed May 28 23:43:21 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -705,6 +705,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.optionLoginPassword.sizePolicy().hasHeightForWidth())
         self.optionLoginPassword.setSizePolicy(sizePolicy)
+        self.optionLoginPassword.setEchoMode(QtGui.QLineEdit.Password)
         self.optionLoginPassword.setObjectName("optionLoginPassword")
 
         self.label_39 = QtGui.QLabel(self.frame_5)
@@ -794,7 +795,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

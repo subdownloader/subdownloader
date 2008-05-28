@@ -36,7 +36,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -1360,6 +1360,9 @@ p, li { white-space: pre-wrap; }
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="echoMode" >
+              <enum>QLineEdit::Password</enum>
              </property>
             </widget>
             <widget class="QLabel" name="label_39" >

@@ -130,8 +130,8 @@ class OSDBServer(object):
         self._token = None
         #Let's connect with the server XMLRPC
         #OSConnection.__init__(self)
-        if self.create_xmlrpcserver(self.server, self.proxy):
-            self.login(self.username, self.passwd)
+        self.create_xmlrpcserver(self.server, self.proxy)
+        #self.login(self.username, self.passwd)
             #self.logout()
             
     def create_xmlrpcserver(self, server, proxy):
