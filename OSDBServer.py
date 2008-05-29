@@ -85,7 +85,7 @@ class ProxiedTransport(Transport):
     def set_proxy(self, proxy):
         self.proxy = proxy
         #self.log.debug("Proxy set to: %s"% proxy)
-    def make_connection(self, host):
+    def make_connection(self, host): #FIXME: this function is never called.
         #self.log.debug("Connecting to %s through %s"% (host, self.proxy))
         self.realhost = host
         h = httplib.HTTP(self.proxy)
@@ -134,7 +134,7 @@ class OSDBServer(object):
         #self.login(self.username, self.passwd)
             #self.logout()
             
-    def create_xmlrpcserver(self, server, proxy):
+    def create_xmlrpcserver(self, server, proxy): #FIXME: server and proxy are ignored
         self.log.debug("Creating XMLRPC server connection...")
         if self.connect():
             return True

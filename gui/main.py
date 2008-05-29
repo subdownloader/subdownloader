@@ -84,6 +84,13 @@ class Main(QObject, Ui_MainWindow):
             title = settings.value("title").toString()
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
+        
+        optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
+
+        index = self.optionDefaultUploadLanguage.findData(optionUploadLanguage)
+        if index != -1 :
+            self.optionDefaultUploadLanguage.setCurrentIndex (index)
+            
         self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab
     
     def write_settings(self):
@@ -113,7 +120,7 @@ class Main(QObject, Ui_MainWindow):
                 if not username: username = 'Anonymous'
                 self.status_label_login.setText("Logged as: %s" % username)
             elif username: #We try anonymous login in case the normal user login has failed
-                self.status_label_login.setText("Error logging as: %s" % username)
+                self.status_label_login.setText("Error logging as: %s. Logging anonymously..." % username)
                 if self.OSDBServer._login("", "") :
                     self.status_label_login.setText("Logged as: Anonymous")
                 else:
@@ -425,11 +432,21 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
     
     def establish_connection(self):
+        settings = QSettings()
+        settingsProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
+        settingsProxyPort = settings.value("options/ProxyPort", QVariant("8080")).toInt()[0]
+        if not self.options.proxy:  #If we are not defining the proxy from command line 
+            if settingsProxyHost: #Let's see if we have defined a proxy in our Settings
+                self.options.proxy = str(settingsProxyHost + ":" + str(settingsProxyPort))
+            else:
+                self.status("Connecting to server") 
+                
+        if self.options.proxy:
+            self.status("Connecting to server using proxy %s" % self.options.proxy) 
+        
         self.window.setCursor(Qt.WaitCursor)
-        self.status("Connecting to server") 
         try:
-            self.OSDBServer = OSDBServer(self.options)
-            
+            self.OSDBServer = OSDBServer(self.options)  
         except Exception, e: 
             traceback.print_exc(e)
             qFatal("Unable to connect to server. Please try again later")
@@ -692,9 +709,9 @@ class Main(QObject, Ui_MainWindow):
             self.optionDownloadOnlineSubName.setChecked(True)
         
         optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
-        index = self.optionDefaultUploadLanguage.findData(optionUploadLanguage)
+        index = self.uploadLanguages.findData(optionUploadLanguage)
         if index != -1 :
-            self.optionDefaultUploadLanguage.setCurrentIndex (index)
+            self.uploadLanguages.setCurrentIndex (index)
             
         optionInterfaceLanguage = settings.value("options/interfaceLanguage", QVariant("eng"))
         index = self.optionInterfaceLanguage.findData(optionInterfaceLanguage)
