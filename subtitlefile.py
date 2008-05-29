@@ -33,8 +33,9 @@ class SubtitleFile(object):
         self._video = None
         self._online = online
         self._path = id
+        if self._path:
+            self.setFileName(os.path.basename(self._path))
         self._uploader = None
-        self.setFileName(os.path.basename(self._path))
         self._languageXX = None
         self._languageXXX = None
         self._languageName = None

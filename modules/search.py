@@ -19,19 +19,35 @@
 import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
-from subdownloader import subtitlefile
+try:
+    from subdownloader import subtitlefile
+except ImportError:
+    import sys, os
+    sys.path.append(os.path.dirname(os.getcwd()))
+    from subdownloader import subtitlefile
+    
 
 class Movie(object):
-   def __init__(self, movieInfo, subtitles=[]):
-       #movieInfo is a dict 
-        self.movieName = movieInfo['MovieName']
-        self.movieSiteLink = movieInfo['MovieID']['Link']
-        self.IMDBLink = movieInfo['MovieID']['LinkImdb']
-        self.IMDBRating = movieInfo['MovieImdbRating']
-        self.MovieYear = movieInfo['MovieYear']
-        self.MovieId = movieInfo['MovieID']['MovieID'] #this ID will be used when calling the 2nd step function to get the Subtitle Details
-        self.totalSubs = movieInfo['TotalSubs'] #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
-        self.substitles = substitles #this is an list of Subtitle objects
+    def __init__(self, movieInfo, subtitles=[]):
+#        print str(movieInfo['MovieName'])
+#        print str(movieInfo['MovieID']['Link'])
+#        print str(movieInfo['MovieID']['LinkImdb'])
+#        print str(movieInfo['MovieImdbRating'])
+#        print str(movieInfo['MovieYear'])
+#        print int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
+#        print int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
+        #movieInfo is a dict 
+        self.MovieName = str(movieInfo['MovieName'])
+        self.MovieSiteLink = str(movieInfo['MovieID']['Link'])
+        self.IMDBLink = str(movieInfo['MovieID']['LinkImdb'])
+        self.IMDBRating = str(movieInfo['MovieImdbRating'])
+        self.MovieYear = str(movieInfo['MovieYear'])
+        self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
+        try:
+            self.totalSubs = int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
+        except KeyError:
+            self.totalSubs = None
+        self.subtitles = subtitles #this is an list of Subtitle objects
     
 
 class SearchByName(object):
@@ -54,9 +70,10 @@ class SearchByName(object):
             search = self.parse_results(urllib2.urlopen(xml_page.url + "/xml").read())
             
         if search:
-            movies = []
-            for mov in search:
-                movies.append(Movie(mov))
+            movies = search
+#            for mov in search:
+#                print "%r"% mov.movieName
+#                movies.append(Movie(mov))
         else:
             search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
             
@@ -269,10 +286,11 @@ class SearchByName(object):
                     #result_entries.append(sub)
                     movie = Movie(sub)
                     if sub_obj.id:
-                        movie.subtitles.append()
-                    result_entries.append()
+                        movie.subtitles.append(sub_obj)
+                    result_entries.append(movie)
                 
                     
             except IndexError, e:
                 pass
         return result_entries
+        
