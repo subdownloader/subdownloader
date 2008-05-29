@@ -85,7 +85,7 @@ class ProxiedTransport(Transport):
     def set_proxy(self, proxy):
         self.proxy = proxy
         #self.log.debug("Proxy set to: %s"% proxy)
-    def make_connection(self, host): #FIXME: this function is never called.
+    def make_connection(self, host):
         #self.log.debug("Connecting to %s through %s"% (host, self.proxy))
         self.realhost = host
         h = httplib.HTTP(self.proxy)
@@ -134,30 +134,30 @@ class OSDBServer(object):
         #self.login(self.username, self.passwd)
             #self.logout()
             
-    def create_xmlrpcserver(self, server, proxy): #FIXME: server and proxy are ignored
+    def create_xmlrpcserver(self, server, proxy):
         self.log.debug("Creating XMLRPC server connection...")
-        if self.connect():
+        if self.connect(server, proxy):
             return True
         return False
         
-    def connect(self):
+    def connect(self, server, proxy):
         connect = TimeoutFunction(self._connect)
         try:
-            return connect()
+            return connect(server, proxy)
         except TimeoutFunctionException:
             self.log.error("Connection timed out. Maybe you need a proxy.")
         
-    def _connect(self):
-        if self.proxy:
+    def _connect(self, server, proxy):
+        if proxy:
             self.proxied_transport = ProxiedTransport()
-            self.proxied_transport.set_proxy(self.proxy)
+            self.proxied_transport.set_proxy(proxy)
             self.log.debug("Trying proxied connection...")
-            self.xmlrpc_server = ServerProxy(self.server, transport=self.proxied_transport, allow_none=1)
+            self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
             self.log.debug("...connected")
             return True
-        elif test_connection(self.server):
+        elif test_connection(server):
             self.log.debug("Trying direct connection...")
-            self.xmlrpc_server = ServerProxy(self.server)
+            self.xmlrpc_server = ServerProxy(server)
             self.ServerInfo()
             self.log.debug("...connected")
             return True
