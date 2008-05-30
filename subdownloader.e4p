@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-05-23, 13:44:34 -->
+<!-- Saved: 2008-05-30, 19:44:03 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -29,19 +29,11 @@
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>videolistview.py</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
       <Name>__init__.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
       <Name>images_rc.py</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
-      <Name>sublistview.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
