@@ -136,9 +136,7 @@ class OSDBServer(object):
             
     def create_xmlrpcserver(self, server, proxy):
         self.log.debug("Creating XMLRPC server connection...")
-        if self.connect(server, proxy):
-            return True
-        return False
+        return self.connect(server, proxy)
         
     def connect(self, server, proxy):
         connect = TimeoutFunction(self._connect)
@@ -146,21 +144,29 @@ class OSDBServer(object):
             return connect(server, proxy)
         except TimeoutFunctionException:
             self.log.error("Connection timed out. Maybe you need a proxy.")
-        
+            raise
+
+
     def _connect(self, server, proxy):
         if proxy:
             self.proxied_transport = ProxiedTransport()
             self.proxied_transport.set_proxy(proxy)
             self.log.debug("Trying proxied connection... (%r)"% proxy)
             self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
-            self.log.debug("...connected")
-            return True
-        elif test_connection(server):
-            self.log.debug("Trying direct connection...")
-            self.xmlrpc_server = ServerProxy(server)
             self.ServerInfo()
             self.log.debug("...connected")
             return True
+            
+        elif test_connection(server):
+            self.log.debug("Trying direct connection...")
+            try:
+                self.xmlrpc_server = ServerProxy(server)
+                self.ServerInfo()
+                self.log.debug("...connected")
+                return True
+            except Exception,e:
+                self.log.debug("Connection to the server failed")
+                raise e
         else:
             self.log.debug("...failed")
             self.log.error("Unable to connect. Try setting a proxy.")
@@ -180,14 +186,21 @@ class OSDBServer(object):
             return ServerInfo()
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
+        except Exception, e:
+            print type(e)     # the exception instance
+            print e.args      # arguments stored in .args
+            print e           # __str__ allows args to printed directly
+            raise e
+            self.log.error("ServerInfo error connection.")
     
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    
     def _ServerInfo(self):
         try: 
             return self.xmlrpc_server.ServerInfo()
-        except Exception,e:
+        except Exception, e:
             raise e
+
             
     def login(self, username="", password=""):
         login = TimeoutFunction(self._login)

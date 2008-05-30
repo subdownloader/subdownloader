@@ -85,6 +85,8 @@ class Main(QObject, Ui_MainWindow):
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
         
+        self.initializeVideoPlayers(settings)
+        
         optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
 
         index = self.optionDefaultUploadLanguage.findData(optionUploadLanguage)
@@ -185,6 +187,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
         
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
+        QObject.connect(self.buttonPlay, SIGNAL("clicked(bool)"), self.onButtonPlay)
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onButtonIMDB)
         
         #SETTING UP UPLOAD_VIEW
@@ -232,13 +235,20 @@ class Main(QObject, Ui_MainWindow):
         self.statusbar.insertWidget(1,self.status_label_login)
         self.statusbar.addPermanentWidget(self.status_progress,2)
         if not options.test:
-            self.establish_connection()
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
-            if self.OSDBServer.is_connected():
+            self.window.setCursor(Qt.WaitCursor)
+        
+            if self.establish_connection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (60, ))
-#                data = self.OSDBServer.ServerInfo()
-#                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
+                settings = QSettings()
+                settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
+                settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
+                thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,))
+            else:
+                QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
+            self.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        
         
         #FOR TESTING
         if options.test:
@@ -312,11 +322,6 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         if(videos_found):
             self.status("Asking Database...")
-            #This effect causes the progress bar turn all sides
-            #FIXME: We need to send a refresh signal.
-            self.status_progress.setMinimum(0)
-            self.status_progress.setMaximum(0)
-            
             self.window.setCursor(Qt.WaitCursor)
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
             if(videoSearchResults):
@@ -348,13 +353,23 @@ class Main(QObject, Ui_MainWindow):
         
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
-        if index.isValid():
-            settings = QSettings()
-            data = self.folderView.model().filePath(index)
-            folder_path = unicode(data, 'utf-8')
-            settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
-            self.SearchVideos(folder_path)
+        if hasattr(self,"OSDBServer") and self.OSDBServer.is_connected():
+            if index.isValid():
+                settings = QSettings()
+                data = self.folderView.model().filePath(index)
+                folder_path = unicode(data, 'utf-8')
+                settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+                self.SearchVideos(folder_path)
+        else:
+            QMessageBox.about(self.window,"Error","You are not logged in")
 
+    def onButtonPlay(self, checked):
+        subtitle = self.videoModel.getSelectedItem().data
+        moviePath = subtitle.getVideo().getFilePath()
+        subtitlePath = subtitle.getFilePath()
+        print moviePath
+        print subtitlePath
+            
     def onButtonIMDB(self, checked):
         video = self.videoModel.getSelectedItem().data
         movie_info = video.getMovieInfo()
@@ -444,20 +459,18 @@ class Main(QObject, Ui_MainWindow):
         if self.options.proxy:
             self.status("Connecting to server using proxy %s" % self.options.proxy) 
         
-        self.window.setCursor(Qt.WaitCursor)
         try:
-            self.OSDBServer = OSDBServer(self.options)  
+            self.OSDBServer = OSDBServer(self.options) 
+            self.status_progress.setFormat("Connected succesfully")
+            self.progress(100)
+            return True
         except Exception, e: 
-            traceback.print_exc(e)
-            qFatal("Unable to connect to server. Please try again later")
-        self.progress(100)
-        self.status_progress.setFormat("Connected")
-        self.window.setCursor(Qt.ArrowCursor)
-        
-        settings = QSettings()
-        settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
-        settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
-        thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,))
+            #traceback.print_exc(e)
+            self.status("Error connecting to server") 
+            self.progress(0)
+            return False
+            #qFatal("Unable to connect to server. Please try again later")
+
         
     #UPLOAD METHODS
     
@@ -726,7 +739,51 @@ class Main(QObject, Ui_MainWindow):
         
         self.optionProxyHost.setText(settings.value("options/ProxyHost", QVariant()).toString())
         self.optionProxyPort.setValue(settings.value("options/ProxyPort", QVariant(8080)).toInt()[0])
-
+        
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        for i in range(totalVideoPlayers):
+            settings.setArrayIndex(i)
+            programPath = settings.value("programPath").toString()
+            parameters = settings.value("parameters").toString()
+            name = settings.value("name").toString()
+            self.optionVideoAppCombo.addItem("%s" % (name), QVariant(name))
+        settings.endArray()
+        
+        if totalVideoPlayers: 
+            QObject.connect(self.optionVideoAppCombo, SIGNAL("currentIndexChanged(int)"), self.onOptionVideoAppCombo)
+        selectedVideoApp = settings.value("options/selectedVideoPlayer", QVariant()).toString()
+        if selectedVideoApp != QString():
+            index = self.optionVideoAppCombo.findData(QVariant(selectedVideoApp))
+            if index != -1 : 
+                self.optionVideoAppCombo.setCurrentIndex (index)
+                self.onOptionVideoAppCombo(index)
+        
+    def onOptionVideoAppCombo(self, index):
+        settings = QSettings()
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        settings.setArrayIndex(index)
+        programPath = settings.value("programPath").toString()
+        parameters = settings.value("parameters").toString()
+        name = settings.value("name").toString()
+        self.optionVideoAppLocation.setText(programPath)
+        self.optionVideoAppParams.setText(parameters)
+        settings.endArray()
+        
+    def initializeVideoPlayers(self, settings):
+        predefinedVIdeosPlayers = [{'name': 'MPLAYER', 'programPath': '/usr/bin/mplayer',  'parameters': '{0} -sub {1}'}, 
+                                                    {'name': 'VLC','programPath': '/usr/bin/vlc',  'parameters': '{0} -subtitle {1}'}]
+                                                    
+        settings.beginWriteArray("options/videoPlayers")
+        for i, videoapp in enumerate(predefinedVIdeosPlayers):
+            settings.setArrayIndex(i)
+            settings.setValue("programPath",  QVariant(videoapp['programPath']))
+            settings.setValue("parameters", QVariant( videoapp['parameters']))
+            settings.setValue("name", QVariant( videoapp['name']))
+        settings.endArray()
+        
+        defaultVideoApp = predefinedVIdeosPlayers[0]
+        settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
+        
 def main(options):
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Wed May 28 23:43:21 2008
+# Created: Fri May 30 18:16:01 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -632,7 +632,7 @@ class Ui_MainWindow(object):
         self.label_19.setObjectName("label_19")
 
         self.optionIntegrationExplorer = QtGui.QCheckBox(self.frame)
-        self.optionIntegrationExplorer.setGeometry(QtCore.QRect(10,50,311,22))
+        self.optionIntegrationExplorer.setGeometry(QtCore.QRect(10,50,371,22))
 
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -795,7 +795,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabs.setCurrentIndex(3)
+        self.tabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -859,7 +859,7 @@ class Ui_MainWindow(object):
         self.optionDownloadFolderSame.setText(QtGui.QApplication.translate("MainWindow", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
         self.optionDownloadFolderPredefined.setText(QtGui.QApplication.translate("MainWindow", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Others", None, QtGui.QApplication.UnicodeUTF8))
-        self.optionIntegrationExplorer.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionIntegrationExplorer.setText(QtGui.QApplication.translate("MainWindow", "Enable Context Menu in Windows Explorer/KDE/Gnome", None, QtGui.QApplication.UnicodeUTF8))
         self.label_24.setText(QtGui.QApplication.translate("MainWindow", "Interface Language:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_27.setText(QtGui.QApplication.translate("MainWindow", "Uploads", None, QtGui.QApplication.UnicodeUTF8))
         self.label_28.setText(QtGui.QApplication.translate("MainWindow", "Default language of subtitles", None, QtGui.QApplication.UnicodeUTF8))

@@ -36,7 +36,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -1195,7 +1195,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>10</x>
               <y>50</y>
-              <width>311</width>
+              <width>371</width>
               <height>22</height>
              </rect>
             </property>
@@ -1212,7 +1212,7 @@ p, li { white-space: pre-wrap; }
              </size>
             </property>
             <property name="text" >
-             <string>Enable Context Menu in Windows Explorer</string>
+             <string>Enable Context Menu in Windows Explorer/KDE/Gnome</string>
             </property>
            </widget>
            <widget class="QComboBox" name="optionInterfaceLanguage" >
