@@ -362,13 +362,57 @@ class Main(QObject, Ui_MainWindow):
                 self.SearchVideos(folder_path)
         else:
             QMessageBox.about(self.window,"Error","You are not logged in")
-
+    
+    def GetDefaultVideoPlayer(self):
+        settings = QSettings()
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        settings.endArray()
+        if totalVideoPlayers: 
+            selectedVideoApp = settings.value("options/selectedVideoPlayer", QVariant()).toString()
+            if selectedVideoApp == QString(): 
+                return {}
+            else:
+                totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+                for i in range(totalVideoPlayers):
+                    settings.setArrayIndex(i)
+                    programPath = settings.value("programPath").toString()
+                    parameters = settings.value("parameters").toString()
+                    name = settings.value("name").toString()
+                    if name == selectedVideoApp:
+                        return {'name': name, 'programPath': programPath,  'parameters': parameters}
+                settings.endArray()
+        return {}
+        
     def onButtonPlay(self, checked):
-        subtitle = self.videoModel.getSelectedItem().data
-        moviePath = subtitle.getVideo().getFilePath()
-        subtitlePath = subtitle.getFilePath()
-        print moviePath
-        print subtitlePath
+        videoPlayer = self.GetDefaultVideoPlayer()
+        if not videoPlayer.has_key("programPath"):
+            QMessageBox.about(self.window,"Error","No default video player has been defined in Options")
+            return
+        else:
+            subtitle = self.videoModel.getSelectedItem().data
+            moviePath = subtitle.getVideo().getFilePath()
+            subtitleID= subtitle.getIdOnline()
+            tempSubFilePath = "/tmp/subdownloader.tmp.srt" #FIXME:  findout a temporary folder depending on the OS
+            self.progress(0,"Downloading subtitle ... "+subtitle.getFileName())
+            try:
+                ok = self.OSDBServer.DownloadSubtitles({subtitleID:tempSubFilePath})
+            except Exception, e: 
+                traceback.print_exc(e)
+                QMessageBox.about(self.window,"Error","Unable to download subtitle "+subtitle.getFileName())
+            finally:
+                self.progress(100)
+            
+            programPath = videoPlayer['programPath']
+            parameters = videoPlayer['parameters']
+            #Replace the {0} and {1} from parameteres
+            parameters = parameters.replace('{0}', '"' + moviePath +'"' )
+            parameters = parameters.replace('{1}', '"' + tempSubFilePath +'"')
+            try:
+                #TODO: launch a process for programPath + parameteres , take from codes 1.2.9
+                print "Running this command:\n%s %s" % (programPath, parameters)
+            except Exception, e: 
+                traceback.print_exc(e)
+                QMessageBox.about(self.window,"Error","Unable to launch videoplayer")
             
     def onButtonIMDB(self, checked):
         video = self.videoModel.getSelectedItem().data
@@ -376,6 +420,7 @@ class Main(QObject, Ui_MainWindow):
         if movie_info:
             #QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
             webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
+            
     
     def getDownloadPath(self, video, subtitle):
         downloadFullPath = ""
@@ -413,16 +458,19 @@ class Main(QObject, Ui_MainWindow):
             count = 0
             self.status("Connecting to download...")
             for sub in subs:
-                self.progress(count,"Downloading subtitle ... "+sub.getIdOnline())
+                self.progress(count,"Downloading subtitle ... "+sub.getFileName())
                 count += percentage
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
-                    videos_result = self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath})
+                   ok = self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath})
                 except Exception, e: 
-                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getIdOnline())
                     traceback.print_exc(e)
+                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
+                
+                if ok:
+                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
 
             self.status("Subtitles downloaded succesfully.")
             self.progress(100)
