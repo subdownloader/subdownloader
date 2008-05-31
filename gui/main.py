@@ -464,13 +464,11 @@ class Main(QObject, Ui_MainWindow):
                 
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
-                   ok = self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath})
+                   if not self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
+                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
                 except Exception, e: 
                     traceback.print_exc(e)
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
-                
-                if ok:
-                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
 
             self.status("Subtitles downloaded succesfully.")
             self.progress(100)
