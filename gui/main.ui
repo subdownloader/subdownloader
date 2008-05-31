@@ -16,9 +16,9 @@
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>0</y>
+     <y>24</y>
      <width>780</width>
-     <height>569</height>
+     <height>545</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" >
@@ -44,7 +44,7 @@
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>496</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -89,6 +89,10 @@
               <property name="text" >
                <string>Download</string>
               </property>
+              <property name="icon" >
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
+              </property>
              </widget>
             </item>
             <item>
@@ -104,6 +108,10 @@
               </property>
               <property name="text" >
                <string>Movie Info</string>
+              </property>
+              <property name="icon" >
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
               </property>
               <property name="iconSize" >
                <size>
@@ -193,7 +201,7 @@
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>496</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -374,7 +382,7 @@
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>496</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -397,6 +405,10 @@
                     <widget class="QToolButton" name="buttonUploadBrowseFolder" >
                      <property name="text" >
                       <string>...</string>
+                     </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/openfolder.png</normaloff>:/images/openfolder.png</iconset>
                      </property>
                      <property name="iconSize" >
                       <size>
@@ -421,6 +433,10 @@
                      <property name="text" >
                       <string>...</string>
                      </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
+                     </property>
                      <property name="iconSize" >
                       <size>
                        <width>24</width>
@@ -436,6 +452,10 @@
                      </property>
                      <property name="text" >
                       <string>...</string>
+                     </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/minus.png</normaloff>:/images/minus.png</iconset>
                      </property>
                      <property name="iconSize" >
                       <size>
@@ -460,6 +480,10 @@
                      <property name="text" >
                       <string>...</string>
                      </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
+                     </property>
                      <property name="iconSize" >
                       <size>
                        <width>24</width>
@@ -475,6 +499,10 @@
                      </property>
                      <property name="text" >
                       <string>...</string>
+                     </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/down.png</normaloff>:/images/down.png</iconset>
                      </property>
                      <property name="iconSize" >
                       <size>
@@ -510,6 +538,10 @@
                      </property>
                      <property name="text" >
                       <string>Upload</string>
+                     </property>
+                     <property name="icon" >
+                      <iconset resource="images.qrc" >
+                       <normaloff>:/images/upload.png</normaloff>:/images/upload.png</iconset>
                      </property>
                     </widget>
                    </item>
@@ -646,6 +678,10 @@ p, li { white-space: pre-wrap; }
                  <property name="text" >
                   <string>Find</string>
                  </property>
+                 <property name="icon" >
+                  <iconset resource="images.qrc" >
+                   <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
+                 </property>
                 </widget>
                </item>
                <item row="1" column="0" >
@@ -744,7 +780,7 @@ p, li { white-space: pre-wrap; }
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>496</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -1435,7 +1471,7 @@ p, li { white-space: pre-wrap; }
            <x>0</x>
            <y>0</y>
            <width>756</width>
-           <height>520</height>
+           <height>496</height>
           </rect>
          </property>
          <attribute name="title" >
@@ -1544,6 +1580,59 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
   </widget>
+  <widget class="QMenuBar" name="menuBar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>780</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMain" >
+    <property name="title" >
+     <string>Main</string>
+    </property>
+    <addaction name="action_Quit" />
+   </widget>
+   <widget class="QMenu" name="menuOptions" >
+    <property name="title" >
+     <string>Options</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Help" >
+    <property name="title" >
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionSubdownloader_Help" />
+    <addaction name="separator" />
+    <addaction name="actionAbout_Subdownloader" />
+    <addaction name="actionI_found_a_bug" />
+   </widget>
+   <addaction name="menuMain" />
+   <addaction name="menuOptions" />
+   <addaction name="menu_Help" />
+  </widget>
+  <action name="action_Quit" >
+   <property name="text" >
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="actionSubdownloader_Help" >
+   <property name="text" >
+    <string>Subdownloader Help</string>
+   </property>
+  </action>
+  <action name="actionAbout_Subdownloader" >
+   <property name="text" >
+    <string>About Subdownloader</string>
+   </property>
+  </action>
+  <action name="actionI_found_a_bug" >
+   <property name="text" >
+    <string>I found a bug/error</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

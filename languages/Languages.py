@@ -107,13 +107,11 @@ def xx2name(xx):
     
 def name2xx(name):
     for lang in LANGUAGES:
-        #FIXME: must be non case-sensitive (use lower function)
         if lang['LanguageName'].lower() == name.lower():
             return lang['ISO639']
 
 def name2xxx(name):
     for lang in LANGUAGES:
-        #FIXME: must be non case-sensitive (use lower function)
         if lang['LanguageName'].lower() == name.lower():
             return lang['SubLanguageID']
         
@@ -126,7 +124,7 @@ def AutoDetectLang(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         CleanTagsFile(subtitle_content)
         n = autodetect_lang._NGram()
-        #FIXME: The LM path should depend from the CWD or the subdownloader path? 
+        #FIXME: The LM path should depend the subdownloader path, not from the CWD 
         l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
         percentage, lang = l.classify(subtitle_content)
         pos = lang.rfind("-")

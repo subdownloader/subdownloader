@@ -396,9 +396,9 @@ class OSDBServer(object):
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
-                            sub.setLanguageXXX(i["SubLanguageID"]) 
-                            sub.setLanguageXX(i["ISO639"]) 
-                            sub.setLanguageName(i["LanguageName"]) 
+                            sub.setLanguageXXX(i["SubLanguageID"])  #This method will autogenerate the XX and the LanguageName 
+                            #sub.setLanguageXX(i["ISO639"])  
+                            #sub.setLanguageName(i["LanguageName"]) 
                             sub.setRating(i["SubRating"])
                             sub.setUploader(i["UserNickName"])
                             sub.setVideo(video)

@@ -142,7 +142,7 @@ def AutoDetectLang(filepath):
         n = autodetect_lang._NGram()
         l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
         percentage, lang = l.classify(subtitle_content)
-        pos = lang.rfind("-")
+        pos = lang.rfind("-") #for example belarus-windows1251.lm we only need belarus
         if pos != -1:
             return lang[:pos]
         else:
