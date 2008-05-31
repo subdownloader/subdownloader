@@ -13,6 +13,9 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
 
 from subdownloader.videofile import  VideoFile
 from subdownloader.subtitlefile import SubtitleFile
+
+import subdownloader.languages.Languages as languages
+
 import images_rc
 import logging
 log = logging.getLogger("subdownloader.gui.videotreeview")
@@ -46,15 +49,13 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults,filter = None):
-    #TODO: Add context menus.
-    if filter:
-        print "FILTER=" + filter
     self.videoResultsBackup = videoResults
     if videoResults:
         for video in videoResults:
            videoNode = self.root.addChild(video)
            for sub in video._subs:
-               if (not filter) or (filter == sub.getLanguageXX()) :    #Filter subtitles by Language
+               sub_lang_xxx =  sub.getLanguageXXX()
+               if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
                    videoNode.addChild(sub)
     
     
@@ -133,21 +134,6 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         return Qt.ItemIsSelectable |Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
     else: #It's a VIDEO treeitem.
         return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
-
-#  def setData (self, index, value, role):
-#        print role
-#        #When user click to check the subtitle
-#        if role == Qt.CheckStateRole:
-#              node = index.internalPointer()
-#              if value == QVariant(Qt.Checked):
-#                 node.checked = True
-#              else:
-#                  node.checked = False
-#        else:
-#            print "Set data with no CheckStateRole"
-#        
-#        self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
-#        return True
 
   def getSelectedItem(self, index = None):
       if index == None: #We want to know the current Selected Item

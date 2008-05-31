@@ -279,13 +279,12 @@ class Main(QObject, Ui_MainWindow):
         
     
     def onFilterLanguageVideo(self, index):
-        selectedLanguageName = self.filterLanguageForVideo.itemText(index)
-        log.debug("Filtering subtitles by language : %s" % selectedLanguageName)
+        selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
+        log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
         self.videoModel.clearTree()
         self.videoView.expandAll()
-        if selectedLanguageName != "All": #FIXME: Instead of using english words, we should use lang_codes
-            selectedLanguageXX = languages.name2xx(selectedLanguageName)
-            self.videoModel.setLanguageFilter(selectedLanguageXX)
+        if selectedLanguageXXX:
+            self.videoModel.setLanguageFilter(selectedLanguageXXX)
         else:
             self.videoModel.setLanguageFilter(None)
         

@@ -165,7 +165,6 @@ class UploadListModel(QAbstractTableModel):
             self.emit(SIGNAL("layoutChanged()"))
             previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
-            #self._main.uploadSelectionModel.select() #FIXME: We should select the row before the deleted one.
             self._main.updateButtonsUpload() 
         
     def onUploadButtonUpRow(self, clicked):

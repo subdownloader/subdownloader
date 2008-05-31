@@ -116,7 +116,7 @@ class SubtitleFile(object):
     
     def setLanguageName(self,language):
         self._languageName = language
-        self._languageXXX = languages.name2xx(language)
+        self._languageXXX = languages.name2xxx(language)
         self._languageXX = languages.name2xx(language)
     
     def isOnline(self):
