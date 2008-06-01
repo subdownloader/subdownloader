@@ -293,4 +293,11 @@ class SearchByName(object):
             except IndexError, e:
                 pass
         return result_entries
-        
+
+#For testing purposes
+if __name__ == "__main__":  
+    import pprint
+    import search
+    s = search.SearchByName()
+    res = s.search_movie("anamorph", "por,pob")
+    pprint.pprint(res)

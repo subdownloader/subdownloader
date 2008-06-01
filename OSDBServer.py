@@ -315,6 +315,7 @@ class OSDBServer(object):
     
     def _DownloadSubtitles(self, subtitles):
         #TODO: decide wheter this should save the subtitle (as it does atm) or just return the encoded data
+        #Note ivan: in my GUI before I replace the file I'll show a confirmation code
         """
         Download subtitles by there id's
         
