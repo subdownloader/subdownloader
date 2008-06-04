@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-05-30, 19:44:03 -->
+<!-- Saved: 2008-06-04, 18:23:26 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -136,6 +136,9 @@
     <Source>
       <Dir>gui</Dir>
       <Name>main.ui</Name>
+    </Source>
+    <Source>
+      <Name>build_cli_tarball.py</Name>
     </Source>
   </Sources>
   <Forms>
