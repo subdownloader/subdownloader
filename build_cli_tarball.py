@@ -8,9 +8,9 @@ import shutil
 import zipfile
 
 exclude_dirs = [".svn", "gui", "firesubtitles", "Subdownloader"]
-exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg"]
+exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_cli_tarball.py", "notes.py"]
 
-def copy_to_temp(copy_to="subdownloader_cli"):
+def copy_to_temp(copy_to="/tmp/subdownloader"):
     sys.stdout.write("Copying current path contents to '%s'..."% copy_to)
     sys.stdout.flush()
     #os.mkdir("subdownloader_cli")
@@ -19,7 +19,7 @@ def copy_to_temp(copy_to="subdownloader_cli"):
     sys.stdout.flush()
     sys.stdout.write("Cleaning '%s'..."% copy_to)
     sys.stdout.flush()
-    for root, dirs, fileNames in os.walk("./subdownloader_cli"):
+    for root, dirs, fileNames in os.walk(copy_to):
         # check for unwanted directories
         if os.path.split(root)[-1] in exclude_dirs:
             shutil.rmtree(root)
@@ -32,7 +32,7 @@ def copy_to_temp(copy_to="subdownloader_cli"):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def convert_to_cli(dir="subdownloader_cli"):
+def convert_to_cli(dir="/tmp/subdownloader"):
     # just a thing to replace some lines on the code
     fileName = 'run.py'
     f = open(os.path.join(dir, fileName))
@@ -44,22 +44,22 @@ def convert_to_cli(dir="subdownloader_cli"):
     final.write(text)
     final.close()
 
-def remove_temp(temp_path="subdownloader_cli"):
+def remove_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write("Removing temporary directory '%s'..."% temp_path)
     sys.stdout.flush()
     shutil.rmtree(temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def toZip( directory, zipFile, compress_lib=zipfile):
+def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, zipFile))
     sys.stdout.flush()
     z = compress_lib.ZipFile(zipFile, 'w', compression=zipfile.ZIP_DEFLATED)
-    for root, dirs, fileNames in os.walk("subdownloader_cli"):
+    for root, dirs, fileNames in os.walk(directory):
         for fileName in fileNames:
             if fileName is not zipFile: #avoid self compress
                 filePath = os.path.join(root, fileName)
-                z.write( filePath )
+                z.write( filePath, os.path.join(filePath.strip("/tmp/")) )
     z.close()
     sys.stdout.write(" done\n")
     sys.stdout.flush()
@@ -71,6 +71,6 @@ if __name__ == "__main__":
     copy_to_temp()
     convert_to_cli()
     # create the tarball and delete the source directory
-    toZip("subdownloader_cli", "subdownloader_cli.zip")
+    toZip("subdownloader_cli.zip")
     # delete temporary directory
     remove_temp()
