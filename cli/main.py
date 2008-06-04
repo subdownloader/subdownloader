@@ -59,6 +59,7 @@ class Main(OSDBServer.OSDBServer):
             
         self.log.debug("Starting XMLRPC session...")
         OSDBServer.OSDBServer.__init__(self, self.options)
+        self.login(self.username, self.passwd)
         
         if self.is_connected():
             # set language

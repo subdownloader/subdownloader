@@ -146,7 +146,6 @@ class OSDBServer(object):
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise
 
-
     def _connect(self, server, proxy):
         if proxy:
             self.proxied_transport = ProxiedTransport()
