@@ -70,6 +70,7 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     return zipFile
     
 def get_svn_revision():
+    commands.getoutput("svn update")
     for line in commands.getoutput("svn info").split("\n"):
         if re.search("^Revision: \d+$", line): 
             return re.search("\d+$", line).group(0)
