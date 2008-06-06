@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import zipfile
+import commands
 
 exclude_dirs = [".svn", "firesubtitles", "Subdownloader"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_cli_tarball.py", "notes.py", "srt"]
@@ -67,13 +68,21 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     return zipFile
+    
+def get_svn_revision():
+    for line in commands.getoutput("svn info").split("\n"):
+        if re.search("^Revision: \d+$", line): 
+            return re.search("\d+$", line).group(0)
+    return None
 
 
 if __name__ == "__main__":
+    zipName = "subdownloader-SVN_r%s.zip"% get_svn_revision()
     # create the tarball directory tree
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
+            zipName = "subdownloader_CLI-SVN_r%s.zip"% get_svn_revision()
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code
@@ -81,6 +90,6 @@ if __name__ == "__main__":
         elif sys.argv[1] == "-gui":
             pass
     # create the tarball and delete the source directory
-    toZip("subdownloader_cli.zip")
+    toZip(zipName)
     # delete temporary directory
     remove_temp()
