@@ -17,6 +17,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import logging, os.path
+import base64, zlib
 from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import filter, progressbar

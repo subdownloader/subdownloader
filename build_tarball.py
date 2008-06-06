@@ -19,8 +19,7 @@ def copy_to_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def clean_temp_cli(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
-    exclude_dirs.append("gui") # append another unwanted directory
+def clean_temp(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
     sys.stdout.write("Cleaning '%s'..."% temp_path)
     sys.stdout.flush()
     for root, dirs, fileNames in os.walk(temp_path):
@@ -36,6 +35,10 @@ def clean_temp_cli(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
+def clean_temp_cli(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
+    exclude_dirs.append("gui") # append another unwanted directory
+    clean_temp(exclude_dirs=exclude_dirs)
+
 def convert_to_cli(dir="/tmp/subdownloader"):
     # just a thing to replace some lines on the code
     fileName = 'run.py'
@@ -78,18 +81,21 @@ def get_svn_revision():
 
 
 if __name__ == "__main__":
-    zipName = "subdownloader-SVN_r%s.zip"% get_svn_revision()
+    svn_revision = get_svn_revision()
+    zipName = "subdownloader-SVN_r%s.zip"% svn_revision
     # create the tarball directory tree
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
-            zipName = "subdownloader_CLI-SVN_r%s.zip"% get_svn_revision()
+            zipName = "subdownloader_CLI-SVN_r%s.zip"% svn_revision
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code
             convert_to_cli()
         elif sys.argv[1] == "-gui":
             pass
+    else:
+        clean_temp()
     # create the tarball and delete the source directory
     toZip(zipName)
     # delete temporary directory
