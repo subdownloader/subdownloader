@@ -36,7 +36,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -773,105 +773,6 @@ p, li { white-space: pre-wrap; }
            </layout>
           </item>
          </layout>
-        </widget>
-        <widget class="QWidget" name="tab_2" >
-         <property name="geometry" >
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>756</width>
-           <height>496</height>
-          </rect>
-         </property>
-         <attribute name="title" >
-          <string>Contacts</string>
-         </attribute>
-         <widget class="QWidget" name="layoutWidget" >
-          <property name="geometry" >
-           <rect>
-            <x>40</x>
-            <y>130</y>
-            <width>643</width>
-            <height>73</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" >
-           <item>
-            <widget class="QLabel" name="label_2" >
-             <property name="font" >
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text" >
-              <string>If you would have contact us about bugs or just want to tip us on how to improve our work, choose how to do so.</string>
-             </property>
-             <property name="alignment" >
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap" >
-              <bool>true</bool>
-             </property>
-             <property name="indent" >
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="Line" name="line_4" >
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" >
-             <item>
-              <widget class="QLabel" name="label_11" >
-               <property name="text" >
-                <string>Bugs, issues and suggestions:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_12" >
-               <property name="font" >
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                 <underline>true</underline>
-                 <strikeout>false</strikeout>
-                 <kerning>true</kerning>
-                </font>
-               </property>
-               <property name="cursor" >
-                <cursorShape>PointingHandCursor</cursorShape>
-               </property>
-               <property name="autoFillBackground" >
-                <bool>false</bool>
-               </property>
-               <property name="text" >
-                <string>http://code.google.com/p/subdownloader/issues/list</string>
-               </property>
-               <property name="textFormat" >
-                <enum>Qt::PlainText</enum>
-               </property>
-               <property name="scaledContents" >
-                <bool>false</bool>
-               </property>
-               <property name="openExternalLinks" >
-                <bool>true</bool>
-               </property>
-               <property name="textInteractionFlags" >
-                <set>Qt::TextBrowserInteraction</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
         </widget>
        </widget>
       </item>

@@ -49,6 +49,7 @@ from subdownloader.gui.videotreeview import VideoTreeModel
 from subdownloader.gui.main_ui import Ui_MainWindow
 from subdownloader.gui.imdbSearch import imdbSearchDialog
 from subdownloader.gui.preferences import preferencesDialog
+from subdownloader.gui.about import aboutDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.videofile import  *
 from subdownloader.subtitlefile import *
@@ -257,7 +258,10 @@ class Main(QObject, Ui_MainWindow):
         print "QUIT. " #TODO: quit application
     
     def onMenuHelpAbout(self):
-        print "About. " #TODO: about
+        dialog = aboutDialog(self)
+        dialog.show()
+        ok = dialog.exec_()
+        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpHomepage(self):
         print "Homepage. " #TODO: about
