@@ -301,4 +301,6 @@ if __name__ == "__main__":
     import pprint
     s = SearchByName()
     res = s.search_movie("anamorph", "por,pob")
-    pprint.pprint(res)
+    pprint.pprint(dir(res))
+    for movie in res:
+        pprint.pprint(dir(movie))

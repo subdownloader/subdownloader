@@ -1,0 +1,689 @@
+<ui version="4.0" >
+ <class>PreferencesDialog</class>
+ <widget class="QDialog" name="PreferencesDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>536</width>
+    <height>373</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Preferences</string>
+  </property>
+  <property name="sizeGripEnabled" >
+   <bool>false</bool>
+  </property>
+  <property name="modal" >
+   <bool>true</bool>
+  </property>
+  <widget class="QTabWidget" name="tabWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>531</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="tabPosition" >
+    <enum>QTabWidget::North</enum>
+   </property>
+   <property name="tabShape" >
+    <enum>QTabWidget::Triangular</enum>
+   </property>
+   <property name="currentIndex" >
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab_6" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>527</width>
+      <height>288</height>
+     </rect>
+    </property>
+    <attribute name="title" >
+     <string>Downloads</string>
+    </attribute>
+    <widget class="QLabel" name="label_54" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>161</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Destination folder:</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_10" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>20</y>
+       <width>211</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="_25" >
+      <item>
+       <widget class="QRadioButton" name="optionDownloadFolderAsk" >
+        <property name="text" >
+         <string>Always ask user</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="optionDownloadFolderSame" >
+        <property name="text" >
+         <string>Same folder as video file</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="optionDownloadFolderPredefined" >
+        <property name="text" >
+         <string>Predefined folder:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLineEdit" name="optionPredefinedFolderText" >
+     <property name="geometry" >
+      <rect>
+       <x>210</x>
+       <y>80</y>
+       <width>221</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="readOnly" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_53" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>191</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Filename of the Subtitle:</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_9" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>170</y>
+       <width>291</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="_24" >
+      <item>
+       <widget class="QRadioButton" name="optionDownloadSameFilename" >
+        <property name="text" >
+         <string>Same name as video file</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
+        <property name="text" >
+         <string>Same name as the online subtitle</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line_8" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>481</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="optionButtonChooseFolder" >
+     <property name="geometry" >
+      <rect>
+       <x>440</x>
+       <y>80</y>
+       <width>75</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Choose...</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_8" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>527</width>
+      <height>288</height>
+     </rect>
+    </property>
+    <attribute name="title" >
+     <string>Upload</string>
+    </attribute>
+    <widget class="QLabel" name="label_55" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>301</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Default language of uploaded subtitles</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="optionDefaultUploadLanguage" >
+     <property name="geometry" >
+      <rect>
+       <x>330</x>
+       <y>20</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_56" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>271</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Upload files as OpenSubtitles user:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_58" >
+     <property name="geometry" >
+      <rect>
+       <x>37</x>
+       <y>110</y>
+       <width>68</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Password:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="optionLoginUsername" >
+     <property name="geometry" >
+      <rect>
+       <x>110</x>
+       <y>80</y>
+       <width>110</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_57" >
+     <property name="geometry" >
+      <rect>
+       <x>37</x>
+       <y>80</y>
+       <width>68</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Username:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="optionLoginPassword" >
+     <property name="geometry" >
+      <rect>
+       <x>110</x>
+       <y>110</y>
+       <width>110</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="echoMode" >
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_9" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>527</width>
+      <height>288</height>
+     </rect>
+    </property>
+    <attribute name="title" >
+     <string>Network</string>
+    </attribute>
+    <widget class="QLabel" name="label_52" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>111</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Network Proxy</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="optionProxyPort" >
+     <property name="geometry" >
+      <rect>
+       <x>90</x>
+       <y>60</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maximum" >
+      <number>99999</number>
+     </property>
+     <property name="value" >
+      <number>8080</number>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="optionProxyHost" >
+     <property name="geometry" >
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_60" >
+     <property name="geometry" >
+      <rect>
+       <x>31</x>
+       <y>31</y>
+       <width>44</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Host:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_59" >
+     <property name="geometry" >
+      <rect>
+       <x>31</x>
+       <y>58</y>
+       <width>44</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Port:</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_7" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>527</width>
+      <height>288</height>
+     </rect>
+    </property>
+    <attribute name="title" >
+     <string>Others</string>
+    </attribute>
+    <widget class="QComboBox" name="optionInterfaceLanguage" >
+     <property name="geometry" >
+      <rect>
+       <x>202</x>
+       <y>3</y>
+       <width>177</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_61" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>177</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Interface Language:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_62" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>177</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Context Menu:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_63" >
+     <property name="geometry" >
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>301</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>External application for video playback</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_64" >
+     <property name="geometry" >
+      <rect>
+       <x>31</x>
+       <y>161</y>
+       <width>122</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Video application:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="optionVideoAppParams" >
+     <property name="geometry" >
+      <rect>
+       <x>112</x>
+       <y>221</y>
+       <width>278</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="optionVideoAppChooseLocation" >
+     <property name="geometry" >
+      <rect>
+       <x>400</x>
+       <y>190</y>
+       <width>83</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Choose...</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="optionVideoAppLocation" >
+     <property name="geometry" >
+      <rect>
+       <x>112</x>
+       <y>191</y>
+       <width>278</width>
+       <height>23</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_65" >
+     <property name="geometry" >
+      <rect>
+       <x>120</x>
+       <y>250</y>
+       <width>271</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>{0} = video file path; {1} = subtitle path</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_66" >
+     <property name="geometry" >
+      <rect>
+       <x>31</x>
+       <y>221</y>
+       <width>76</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Parameters:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_67" >
+     <property name="geometry" >
+      <rect>
+       <x>31</x>
+       <y>191</y>
+       <width>76</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Location:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="optionVideoAppCombo" >
+     <property name="geometry" >
+      <rect>
+       <x>158</x>
+       <y>164</y>
+       <width>122</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget" >
+     <property name="geometry" >
+      <rect>
+       <x>70</x>
+       <y>50</y>
+       <width>321</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QCheckBox" name="optionIntegrationExplorer" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>Enable in Windows Explorer/KDE/Gnome</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="optionIntegrationKonqueror" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>Enable in Konqueror/Dolphin</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="optionIntegrationGnome" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>Enable in Gnome</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="layoutWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>11</x>
+     <y>330</y>
+     <width>521</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3" >
+    <item>
+     <spacer>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>498</width>
+        <height>36</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="optionsButtonApplyChanges" >
+      <property name="text" >
+       <string>Save</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="optionsButtonCancel" >
+      <property name="text" >
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="images.qrc" />
+ </resources>
+ <connections/>
+</ui>

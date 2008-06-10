@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-06-06, 11:59:16 -->
+<!-- Saved: 2008-06-09, 19:06:02 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -142,6 +142,18 @@
     </Source>
     <Source>
       <Name>setup.py2exe.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>options_ui.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>options.ui</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>options.py</Name>
     </Source>
   </Sources>
   <Forms>
