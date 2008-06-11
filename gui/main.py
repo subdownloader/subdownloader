@@ -26,7 +26,7 @@ import base64, zlib
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
-                         QBuffer, QIODevice, QModelIndex,QDir, QFileInfo
+                         QBuffer, QIODevice, QModelIndex,QDir, QFileInfo, QTime
 from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
@@ -38,7 +38,7 @@ from subdownloader.FileManagement import get_extension, clear_string, without_ex
 app = QApplication(sys.argv)
 splash = SplashScreen()
 splash.showMessage(QApplication.translate("subdownloader", "Loading modules..."))
-
+QCoreApplication.flush()
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, extension
@@ -75,65 +75,12 @@ class Main(QObject, Ui_MainWindow):
                 Error("There was an error calling " + func.__name__, e)
                 raise
         return function
-        
-    def read_settings(self):
-        settings = QSettings()
-        self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
-        size = settings.beginReadArray("upload/imdbHistory")
-        for i in range(size):
-            settings.setArrayIndex(i)
-            imdbId = settings.value("imdbId").toString()
-            title = settings.value("title").toString()
-            self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
-        settings.endArray()
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        settings.endArray()
-        if not totalVideoPlayers:
-            self.initializeVideoPlayers(settings)
-        
-
-        #self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab
     
-    def write_settings(self):
-        settings = QSettings()
-        settings.setValue("mainwindow/size", QVariant(self.window.size()))
-    
-    def close_event(self, e):
-        self.write_settings()
-        e.accept()
-        
-    def update_users(self, sleeptime=60):
-        # WARNING: to be used by a thread
-        while 1:
-            self.status_label.setText("Users online: Updating...")
-            try:
-                data = self.OSDBServer._ServerInfo() # we cant use the timeout class inherited in OSDBServer
-                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
-            except:
-                self.status_label.setText("Users online: ERROR")
-            time.sleep(sleeptime)
-
-    def login_user(self, username, password):
-        # WARNING: to be used by a thread
-        self.status_label_login.setText("Trying to login...")
-        try:
-            if self.OSDBServer._login(username, password) :
-                if not username: username = 'Anonymous'
-                self.status_label_login.setText("Logged as: %s" % username)
-            elif username: #We try anonymous login in case the normal user login has failed
-                self.status_label_login.setText("Error logging as: %s. Logging anonymously..." % username)
-                if self.OSDBServer._login("", "") :
-                    self.status_label_login.setText("Logged as: Anonymous")
-                else:
-                    self.status_label_login.setText("Login: Cannot login.")
-        except:
-            self.status_label_login.setText("Login: ERROR")
-
-            
     def __init__(self, window, log_packets, options):
         QObject.__init__(self)
         Ui_MainWindow.__init__(self)
-        
+        self.timeLastSearch = QTime.currentTime();
+
         self.key = '-1'
         self.log_packets = log_packets
         self.options = options
@@ -173,11 +120,8 @@ class Main(QObject, Ui_MainWindow):
             self.folderView.expand(model.index(path.absolutePath()))
             if not path.cdUp(): break
                     
-        QObject.connect(self.folderView, SIGNAL("activated(QModelIndex)"), \
-                            self.onFolderTreeClicked)
-        QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"), \
-                            self.onFolderTreeClicked)
-
+        QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
+        
         #SETTING UP SEARCH_VIDEO_VIEW
         self.videoModel = VideoTreeModel(window)
         self.videoView.setModel(self.videoModel)
@@ -255,6 +199,60 @@ class Main(QObject, Ui_MainWindow):
             #self.SearchVideos('/media/xp/pelis/')
             self.tabs.setCurrentIndex(3)
             pass
+    
+    def read_settings(self):
+        settings = QSettings()
+        self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
+        size = settings.beginReadArray("upload/imdbHistory")
+        for i in range(size):
+            settings.setArrayIndex(i)
+            imdbId = settings.value("imdbId").toString()
+            title = settings.value("title").toString()
+            self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
+        settings.endArray()
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        settings.endArray()
+        if not totalVideoPlayers:
+            self.initializeVideoPlayers(settings)
+        
+
+        #self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab
+    
+    def write_settings(self):
+        settings = QSettings()
+        settings.setValue("mainwindow/size", QVariant(self.window.size()))
+    
+    def close_event(self, e):
+        self.write_settings()
+        e.accept()
+        
+    def update_users(self, sleeptime=60):
+        # WARNING: to be used by a thread
+        while 1:
+            self.status_label.setText("Users online: Updating...")
+            try:
+                data = self.OSDBServer._ServerInfo() # we cant use the timeout class inherited in OSDBServer
+                self.status_label.setText("Users online: "+ str(data["users_online_program"]))
+            except:
+                self.status_label.setText("Users online: ERROR")
+            time.sleep(sleeptime)
+
+    def login_user(self, username, password):
+        # WARNING: to be used by a thread
+        self.status_label_login.setText("Trying to login...")
+        try:
+            if self.OSDBServer._login(username, password) :
+                if not username: username = 'Anonymous'
+                self.status_label_login.setText("Logged as: %s" % username)
+            elif username: #We try anonymous login in case the normal user login has failed
+                self.status_label_login.setText("Error logging as: %s. Logging anonymously..." % username)
+                if self.OSDBServer._login("", "") :
+                    self.status_label_login.setText("Logged as: Anonymous")
+                else:
+                    self.status_label_login.setText("Login: Cannot login.")
+        except:
+            self.status_label_login.setText("Login: ERROR")
+
 
     def onMenuQuit(self):
         print "QUIT. " #TODO: quit application
@@ -344,7 +342,7 @@ class Main(QObject, Ui_MainWindow):
         
         self.videoView.expandAll() #This was a solution found to refresh the treeView
         #Searching our videohashes in the OSDB database
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        QCoreApplication.processEvents()
         if(videos_found):
             self.status("Asking Database...")
             self.window.setCursor(Qt.WaitCursor)
@@ -380,13 +378,22 @@ class Main(QObject, Ui_MainWindow):
     def onFolderTreeClicked(self, index):
         if hasattr(self,"OSDBServer") and self.OSDBServer.is_connected():
             if index.isValid():
-                settings = QSettings()
-                data = self.folderView.model().filePath(index)
-                folder_path = unicode(data, 'utf-8')
-                settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
-                self.SearchVideos(folder_path)
+                #QObject.disconnect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
+                now = QTime.currentTime()
+                if now > self.timeLastSearch.addMSecs(500) :
+                    settings = QSettings()
+                    data = self.folderView.model().filePath(index)
+                    folder_path = unicode(data, 'utf-8')
+                    settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+                    self.SearchVideos(folder_path) 
+                    self.timeLastSearch = QTime.currentTime()
+                    #QCoreApplication.sendPostedEvents()
+                    #QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
         else:
             QMessageBox.about(self.window,"Error","You are not logged in")
+        
+        
+        
     
     def GetDefaultVideoPlayer(self):
         settings = QSettings()
