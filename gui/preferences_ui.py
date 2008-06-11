@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Tue Jun 10 20:53:22 2008
+# Created: Wed Jun 11 23:30:14 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -203,6 +203,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.optionIntegrationExplorer = QtGui.QCheckBox(self.layoutWidget)
+        self.optionIntegrationExplorer.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -212,6 +213,7 @@ class Ui_PreferencesDialog(object):
         self.optionIntegrationExplorer.setObjectName("optionIntegrationExplorer")
         self.verticalLayout.addWidget(self.optionIntegrationExplorer)
         self.optionIntegrationKonqueror = QtGui.QCheckBox(self.layoutWidget)
+        self.optionIntegrationKonqueror.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -221,6 +223,7 @@ class Ui_PreferencesDialog(object):
         self.optionIntegrationKonqueror.setObjectName("optionIntegrationKonqueror")
         self.verticalLayout.addWidget(self.optionIntegrationKonqueror)
         self.optionIntegrationGnome = QtGui.QCheckBox(self.layoutWidget)
+        self.optionIntegrationGnome.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum,QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

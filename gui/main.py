@@ -86,8 +86,10 @@ class Main(QObject, Ui_MainWindow):
             title = settings.value("title").toString()
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
-        
-        self.initializeVideoPlayers(settings)
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        settings.endArray()
+        if not totalVideoPlayers:
+            self.initializeVideoPlayers(settings)
         
 
         #self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab

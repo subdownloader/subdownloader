@@ -583,6 +583,9 @@
      <layout class="QVBoxLayout" name="verticalLayout" >
       <item>
        <widget class="QCheckBox" name="optionIntegrationExplorer" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
           <horstretch>0</horstretch>
@@ -602,6 +605,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="optionIntegrationKonqueror" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
           <horstretch>0</horstretch>
@@ -621,6 +627,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="optionIntegrationGnome" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy" >
          <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
           <horstretch>0</horstretch>

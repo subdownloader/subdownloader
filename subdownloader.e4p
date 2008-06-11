@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-06-09, 19:06:02 -->
+<!-- Saved: 2008-06-11, 01:55:05 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -145,15 +145,27 @@
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>options_ui.py</Name>
+      <Name>preferences.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>options.ui</Name>
+      <Name>preferences.ui</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>options.py</Name>
+      <Name>preferences_ui.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>about.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>about_ui.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>about.ui</Name>
     </Source>
   </Sources>
   <Forms>

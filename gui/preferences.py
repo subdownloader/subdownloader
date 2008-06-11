@@ -31,7 +31,8 @@ class preferencesDialog(QtGui.QDialog):
         
         for lang in languages.LANGUAGES:
             self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
-            self.ui.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+            if lang["SubLanguageID"] == "eng": #For the moment interface is only in English
+                self.ui.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
@@ -173,7 +174,7 @@ class preferencesDialog(QtGui.QDialog):
             settings.setValue("options/LoginUsername",QVariant(newUsername))
             settings.setValue("options/LoginPassword", QVariant(newPassword))
             log.debug('Login credentials has changed. Trying to login.')
-            thread.start_new_thread(self.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),))
+            thread.start_new_thread(self._main.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),))
             
         newProxyHost =  self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()
