@@ -200,8 +200,8 @@ p, li { white-space: pre-wrap; }
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Ivan Garcia &amp;lt;capiscuas@gmail.com&amp;gt;&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Marco Ferreira &amp;lt;sethts@gmail.com&amp;gt;&lt;/p>&lt;/body>&lt;/html></string>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Ivan Garcia &amp;lt;&lt;a href="mailto:ivangarcia@subdownloader.net">&lt;span style=" text-decoration: underline; color:#0057ae;">ivangarcia@subdownloader.net&lt;/span>&lt;/a>&amp;gt;&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Marco Ferreira &amp;lt;&lt;a href="mailto:mferreira@subdownloader.net">&lt;span style=" text-decoration: underline; color:#0057ae;">mferreira@subdownloader.net&lt;/span>&lt;/a>&amp;gt;&lt;/p>&lt;/body>&lt;/html></string>
          </property>
         </widget>
        </item>
