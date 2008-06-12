@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created: Tue Jun 10 23:08:50 2008
+# Created: Thu Jun 12 22:53:57 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -107,7 +107,7 @@ class Ui_AboutDialog(object):
         self.vboxlayout.addLayout(self.hboxlayout1)
 
         self.retranslateUi(AboutDialog)
-        self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(1)
         QtCore.QObject.connect(self.buttonClose,QtCore.SIGNAL("clicked()"),AboutDialog.close)
         QtCore.QMetaObject.connectSlotsByName(AboutDialog)
 

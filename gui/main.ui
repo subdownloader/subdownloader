@@ -36,7 +36,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex" >
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab" >
          <property name="geometry" >
@@ -295,7 +295,7 @@
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType" >
-               <enum>QSizePolicy::Minimum</enum>
+               <enum>QSizePolicy::Expanding</enum>
               </property>
               <property name="sizeHint" stdset="0" >
                <size>
@@ -807,7 +807,7 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuOptions" >
     <property name="title" >
-     <string>Tools</string>
+     <string>&amp;Tools</string>
     </property>
     <addaction name="action_ShowPreferences" />
    </widget>
