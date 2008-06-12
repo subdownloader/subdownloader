@@ -422,7 +422,9 @@ class Main(QObject, Ui_MainWindow):
             subtitle = self.videoModel.getSelectedItem().data
             moviePath = subtitle.getVideo().getFilePath()
             subtitleID= subtitle.getIdOnline()
-            tempSubFilePath = "/tmp/subdownloader.tmp.srt" #FIXME:  findout a temporary folder depending on the OS
+            #This should work in all the OS, creating a temporary file 
+            tempSubFilePath = str(QDir.temp().absoluteFilePath("subdownloader.tmp.srt"))
+            log.debug("Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
             self.progress(0,"Downloading subtitle ... "+subtitle.getFileName())
             try:
                 ok = self.OSDBServer.DownloadSubtitles({subtitleID:tempSubFilePath})
