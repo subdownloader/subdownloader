@@ -21,7 +21,7 @@ import sys, re, os, traceback, tempfile
 import time, thread
 import webbrowser
 import base64, zlib
-#sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
+
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
@@ -390,9 +390,7 @@ class Main(QObject, Ui_MainWindow):
                     #QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
         else:
             QMessageBox.about(self.window,"Error","You are not logged in")
-        
-        
-        
+
     
     def GetDefaultVideoPlayer(self):
         settings = QSettings()
@@ -433,14 +431,22 @@ class Main(QObject, Ui_MainWindow):
             finally:
                 self.progress(100)
             
-            programPath = videoPlayer['programPath']
-            parameters = videoPlayer['parameters']
+            programPath = str(videoPlayer['programPath'].toUtf8())
+            parameters = str(videoPlayer['parameters'].toUtf8())
             #Replace the {0} and {1} from parameteres
-            parameters = parameters.replace('{0}', '"' + moviePath +'"' )
-            parameters = parameters.replace('{1}', '"' + tempSubFilePath +'"')
+            parameters = parameters.replace('{0}',  moviePath  )
+            parameters = parameters.replace('{1}',  tempSubFilePath )
+            process = parameters.split(" ")
+            print process
+            process.insert(0,'"' + programPath+'"' )
+            print process
+            log.info("Running this command:\n%s %s" % (programPath, parameters))
             try:
-                #TODO: launch a process for programPath + parameteres , take from codes 1.2.9
-                print "Running this command:\n%s %s" % (programPath, parameters)
+                os.spawnve(os.P_NOWAIT, programPath,process, os.environ)
+            except AttributeError:
+                pid = os.fork()
+                if not pid :
+                    os.execvpe(os.P_NOWAIT, programPath,process, os.environ)
             except Exception, e: 
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,"Error","Unable to launch videoplayer")
@@ -709,7 +715,7 @@ class Main(QObject, Ui_MainWindow):
         
     def initializeVideoPlayers(self, settings):
         predefinedVIdeosPlayers = [{'name': 'MPLAYER', 'programPath': '/usr/bin/mplayer',  'parameters': '{0} -sub {1}'}, 
-                                                    {'name': 'VLC','programPath': '/usr/bin/vlc',  'parameters': '{0} -subtitle {1}'}]
+                                                    {'name': 'VLC','programPath': '/usr/bin/vlc',  'parameters': '{0} --sub-file {1}'}]
                                                     
         settings.beginWriteArray("options/videoPlayers")
         for i, videoapp in enumerate(predefinedVIdeosPlayers):
@@ -731,7 +737,7 @@ def main(options):
     window.setWindowTitle(APP_TITLE)
     window.setWindowIcon(QIcon(":/icon"))
     installErrorHandler(QErrorMessage(window))
-    QCoreApplication.setOrganizationName("IvanGarcia")
+    QCoreApplication.setOrganizationName("SubDownloader")
     QCoreApplication.setApplicationName(APP_TITLE)
     
     splash.finish(window)

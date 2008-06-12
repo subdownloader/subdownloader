@@ -185,10 +185,17 @@ class preferencesDialog(QtGui.QDialog):
             settings.setValue("options/ProxyPort", QVariant(newProxyPort))
             QMessageBox.about(self,"Alert","Modified proxy settings will take effect after restarting the program")
             
+        
+        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
+        settings.endArray()
+        if totalVideoPlayers:
+            name = self.ui.optionVideoAppCombo.itemData(self.ui.optionVideoAppCombo.currentIndex())
+            settings.setValue("options/selectedVideoPlayer", QVariant(name))
+        
+        #Closing the Preferences window
         self.reject()
 
-    
-        
+
     def onOptionsButtonCancel(self):
         self.reject()
 
