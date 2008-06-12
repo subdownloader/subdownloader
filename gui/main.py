@@ -21,7 +21,8 @@ import sys, re, os, traceback, tempfile
 import time, thread
 import webbrowser
 import base64, zlib
-
+import commands
+import platform
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
@@ -714,18 +715,26 @@ class Main(QObject, Ui_MainWindow):
 
         
     def initializeVideoPlayers(self, settings):
-        predefinedVIdeosPlayers = [{'name': 'MPLAYER', 'programPath': '/usr/bin/mplayer',  'parameters': '{0} -sub {1}'}, 
-                                                    {'name': 'VLC','programPath': '/usr/bin/vlc',  'parameters': '{0} --sub-file {1}'}]
-                                                    
+        predefinedVideoPlayers = []
+        if platform.system() == "Linux":
+            status, path = commands.getstatusoutput("which mplayer")
+            if status == 0: 
+                predefinedVideoPlayers.append({'name': 'MPLAYER', 'programPath': path,  'parameters': '{0} -sub {1}'})
+            status, path = commands.getstatusoutput("which vlc")
+            if status == 0:
+                predefinedVideosPlayers.append({'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'})
+        else  if platform.system() == "Windows":
+            pass #TODO: Detect from Registry the path of the Mplayer and VLC programs.
+
         settings.beginWriteArray("options/videoPlayers")
-        for i, videoapp in enumerate(predefinedVIdeosPlayers):
+        for i, videoapp in enumerate(predefinedVideoPlayers):
             settings.setArrayIndex(i)
             settings.setValue("programPath",  QVariant(videoapp['programPath']))
             settings.setValue("parameters", QVariant( videoapp['parameters']))
             settings.setValue("name", QVariant( videoapp['name']))
         settings.endArray()
         
-        defaultVideoApp = predefinedVIdeosPlayers[0]
+        defaultVideoApp = predefinedVideoPlayers[0]
         settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
         
 def main(options):
