@@ -130,7 +130,7 @@ p, li { white-space: pre-wrap; }
       <enum>Qt::WheelFocus</enum>
      </property>
      <property name="currentIndex" >
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab" >
       <property name="geometry" >

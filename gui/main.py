@@ -253,9 +253,8 @@ class Main(QObject, Ui_MainWindow):
         except:
             self.status_label_login.setText("Login: ERROR")
 
-
     def onMenuQuit(self):
-        print "QUIT. " #TODO: quit application
+        self.window.close()
     
     def onMenuHelpAbout(self):
         dialog = aboutDialog(self)
@@ -264,13 +263,13 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpHomepage(self):
-        print "Homepage. " #TODO: about
+         webbrowser.open( "http://code.google.com/p/subdownloader/", new=2, autoraise=1)
 
     def onMenuHelpBug(self):
-        print "HelpBug. " #TODO: about
+        webbrowser.open( "http://code.google.com/p/subdownloader/issues", new=2, autoraise=1)
 
     def onMenuHelpDonation(self):
-        print "HelpDonation. " #TODO: about
+        webbrowser.open( "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donations%40subdownloader%2enet&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=PT&bn=PP%2dDonationsBF&charset=UTF%2d8", new=2, autoraise=1)
         
     def onMenuPreferences(self):
         dialog = preferencesDialog(self)
@@ -450,7 +449,6 @@ class Main(QObject, Ui_MainWindow):
         video = self.videoModel.getSelectedItem().data
         movie_info = video.getMovieInfo()
         if movie_info:
-            #QMessageBox.about(self.window,"WWW","Open website: http://www.imdb.com/title/tt%s" % movie_info["IDMovieImdb"])
             webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
             
     
