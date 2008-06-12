@@ -34,7 +34,8 @@ class imdbSearchDialog(QtGui.QDialog):
         self.imdbSelectionModel = QItemSelectionModel(self.imdbModel)
         self.ui.searchResultsView.setSelectionModel(self.imdbSelectionModel)
         QObject.connect(self.imdbSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onIMDBChangeSelection)
-        
+        QObject.connect(self.ui.searchResultsView, SIGNAL("activated(QModelIndex)"), self.onOkButton)
+
     def onSearchMovieButton(self):
         if not self.ui.movieSearch.text():
             QMessageBox.about(self,"Error","Please fill out the search title")
