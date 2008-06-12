@@ -56,6 +56,8 @@ class Terminal(object):
                                 help="Download a subtitle. Default for CLI mode"), 
         make_option("-U", "--upload", dest="operation", action="store_const", const="upload", 
                                 default="download", help="Upload a subtitle"), 
+        make_option("-L", "--list", dest="operation", action="store_const", const="list", 
+                                default="download", help="List available subtitles without downloading"), 
         make_option("-V", "--video", dest="videofile", metavar="FILE/DIR", default=os.path.abspath(os.path.curdir), 
                                 help="Full path to your video(s). Don't use '~'"), 
         make_option("-l", "--lang", dest="language", default='all', 

@@ -131,8 +131,9 @@ class Main(OSDBServer.OSDBServer):
         elif operation == "upload":
             self.do_upload(self.videos)
             
-        else:
-            pass
+        elif operation == "list":
+            _filter = filter.Filter(self.videos, interactive=self.options.interactive)
+            print _filter.subtitles_to_download()
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """

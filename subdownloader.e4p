@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-06-12, 20:16:54 -->
+<!-- Saved: 2008-06-12, 18:04:16 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -34,6 +34,10 @@
     <Source>
       <Dir>gui</Dir>
       <Name>images_rc.py</Name>
+    </Source>
+    <Source>
+      <Dir>gui</Dir>
+      <Name>subosdblistview.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
@@ -141,11 +145,7 @@
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>preferences.py</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
-      <Name>preferences.ui</Name>
+      <Name>about.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
@@ -153,19 +153,11 @@
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>about.py</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
       <Name>about_ui.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>
-      <Name>about.ui</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
-      <Name>subosdblistview.py.delete</Name>
+      <Name>preferences.py</Name>
     </Source>
   </Sources>
   <Forms>
@@ -176,6 +168,14 @@
     <Form>
       <Dir>gui</Dir>
       <Name>imdb.ui</Name>
+    </Form>
+    <Form>
+      <Dir>gui</Dir>
+      <Name>about.ui</Name>
+    </Form>
+    <Form>
+      <Dir>gui</Dir>
+      <Name>preferences.ui</Name>
     </Form>
   </Forms>
   <Translations>
