@@ -347,8 +347,22 @@ class Main(QObject, Ui_MainWindow):
             self.status("Asking Database...")
             self.window.setCursor(Qt.WaitCursor)
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+            if(videoSearchResults and subs_found):
+                hashes_subs_found = {}
+                #Hashes of the local subtitles
+                for sub in subs_found:
+                    hashes_subs_found[sub.getHash()] = sub.getFilePath()
+                    
+                #are the online subtitles already in our folder?
+                for video in videoSearchResults:
+                   for sub in video._subs:
+                       if sub.getHash() in hashes_subs_found:
+                           sub._path = hashes_subs_found[sub.getHash()]
+                           sub._online = False
+                
             if(videoSearchResults):
                 self.videoModel.clearTree()
+                
                 self.videoModel.setVideos(videoSearchResults)
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
             elif videoSearchResults == None :
@@ -360,7 +374,7 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.setFormat("No videos found")
     
         self.window.setCursor(Qt.ArrowCursor)
-        #TODO: check if the subtitle found is already in our folder.
+        #TODO: CHECK if our local subtitles are already in the server.
         #self.OSDBServer.CheckSubHash(sub_hashes) 
         
     def onClickVideoTreeView(self, index):

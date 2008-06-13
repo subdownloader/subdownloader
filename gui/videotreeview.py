@@ -83,11 +83,17 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     data = index.internalPointer().data
     
     if type(data)  == SubtitleFile: #It's a SUBTITLE treeitem.
+        sub = data
         if role == QtCore.Qt.DecorationRole:
-            return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX() ))
+            if sub.isOnline():
+                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
+            else:
+                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Disabled))
             
-        if role == QtCore.Qt.ForegroundRole:
-            return QVariant(QColor(Qt.red))
+        
+        if role == QtCore.Qt.FontRole:
+            if sub.isOnline():
+                return QVariant(QFont('Arial', 10, QFont.Bold)) 
             
         if role == QtCore.Qt.CheckStateRole:
             if index.internalPointer().checked:
@@ -96,12 +102,18 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return  QVariant(Qt.Unchecked)
             
         if role == QtCore.Qt.DisplayRole:
-            return QVariant("[%s] %s" % (data.getLanguageName() ,  data.getFileName()))
+            uploader = data.getUploader()
+            if not uploader : 
+                uploader = 'Anonymous'
+            if sub.isOnline():
+                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
+            else:
+                return QVariant("[%s]\t Rate: %s\t %s - (Already downloaded)" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
             
         return QVariant()
     else: #It's a VIDEOFILE treeitem.
-        if role == QtCore.Qt.FontRole:
-          return QVariant(QFont('Arial', 10, QFont.Bold))
+        if role == QtCore.Qt.ForegroundRole:
+          return QVariant(QColor(Qt.blue))
         
         movie_info = data.getMovieInfo()
         if role == QtCore.Qt.DecorationRole:
@@ -110,6 +122,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return QVariant(QIcon(':/images/imdb.jpg'))
             else:
                 return QVariant()
+        
+        if role == QtCore.Qt.FontRole:
+            return QVariant(QFont('Arial', 10, QFont.Bold)) 
             
         if role == QtCore.Qt.DisplayRole:
             if movie_info :
@@ -118,7 +133,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     movieName = movie_info["MovieNameEng"]
                 else:
                     movieName = movie_info["MovieName"]
-                info = "%s [%s] [IMDB rate=%s]" %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"])
+                info = "%s [%s] [IMDB rate=%s] - File: %s" %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"], data.getFileName())
                 return QVariant(info)
             else:
                  return QVariant(data.getFileName())
