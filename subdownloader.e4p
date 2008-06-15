@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-06-12, 18:04:16 -->
+<!-- Saved: 2008-06-15, 15:29:45 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -34,10 +34,6 @@
     <Source>
       <Dir>gui</Dir>
       <Name>images_rc.py</Name>
-    </Source>
-    <Source>
-      <Dir>gui</Dir>
-      <Name>subosdblistview.py</Name>
     </Source>
     <Source>
       <Dir>gui</Dir>

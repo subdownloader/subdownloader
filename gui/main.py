@@ -738,7 +738,7 @@ class Main(QObject, Ui_MainWindow):
                 predefinedVideoPlayers.append({'name': 'MPLAYER', 'programPath': path,  'parameters': '{0} -sub {1}'})
             status, path = commands.getstatusoutput("which vlc")
             if status == 0:
-                predefinedVideosPlayers.append({'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'})
+                predefinedVideoPlayers.append({'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'})
         elif platform.system() == "Windows":
             pass #TODO: Detect from Registry the path of the Mplayer and VLC programs.
 
