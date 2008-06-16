@@ -47,6 +47,9 @@ class SubtitleFile(object):
         if not online:
             self._size = os.path.getsize(self._path)
             self._hash = md5.new(file(self._path,mode='rb').read()).hexdigest()
+            
+    def __repr__(self):
+        return "<SubtitleFile online: %s, path: %s, file: %s, size: %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %f>"% (self.isOnline(), self.getFilePath(), self.getFileName(), self.getSize(), self.getUploader(), self.getIdOnline(), self.getHash(), self.getLanguageXXX(), self.getRating())
         
     def setFileName(self,filename):
         self._filename = filename
