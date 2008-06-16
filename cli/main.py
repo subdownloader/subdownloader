@@ -22,6 +22,7 @@ from subdownloader import OSDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import filter, progressbar
 import subdownloader.modules.configuration as conf
+import subdownloader.languages.Languages as Languages
 
 class Main(OSDBServer.OSDBServer):
     
@@ -85,7 +86,35 @@ class Main(OSDBServer.OSDBServer):
                                 video.setNOSSubtitle(nos_sub)
                 
             self.SearchSubtitles(language=lang_id, videos=self.videos)
-            self.handle_operation(self.options.operation)
+            if self.options.test:
+                for (i, video) in enumerate(self.videos):
+                    #details = check_result['data'][0]
+                    if video.getHash():
+                        cd = 'cd%i'% (i+1)
+                        curr_video = video
+                        curr_sub = curr_video.getSubtitles()[0]
+                        user_choices = {'moviereleasename': 'NA', 
+                                        'movieaka': 'NA', 
+                                        'moviefilename': curr_video.getFileName(), 
+                                        'subfilename': curr_sub.getFileName(), 
+                                        'sublanguageid': curr_sub.getLanguage(), 
+                                        }
+                        # interactive mode
+                        if self.usermode == 'cli' and self.interactive:
+                            self.log.info("Upload the following information:")
+                            for (i, choice) in enumerate(user_choices):
+                                self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
+                            change = raw_input("Change any of the details? [y/N] ").lower() or 'n'
+                            while change == 'y':
+                                change_what = int(raw_input("What detail? "))
+                                if change_what in range(len(user_choices.keys())):
+                                    choice = user_choices.keys()[change_what]
+                                    new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
+                                    user_choices[choice] = new_value
+                                change = raw_input("Change any more details? [y/N] ").lower() or 'n'
+                            
+            else:
+                self.handle_operation(self.options.operation)
             
             self.logout()
                 
@@ -134,6 +163,7 @@ class Main(OSDBServer.OSDBServer):
         elif operation == "list":
             _filter = filter.Filter(self.videos, interactive=self.options.interactive)
             print _filter.subtitles_to_download()
+            
         
     def check_directory(self):
         """ search for videos and subtitles in the given path """
@@ -182,7 +212,7 @@ class Main(OSDBServer.OSDBServer):
                     break
             if sub_match:
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
-                sub_match.setLanguage(sub_lang[:3])
+                sub_match.setLanguage(Languages.name2xxx(sub_lang))
                 video.addSubtitle(sub_match)
         if self.options.logging > logging.DEBUG and self.options.verbose:
             progress.finish()
