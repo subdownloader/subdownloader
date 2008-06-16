@@ -64,8 +64,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
      self.languageFilter = None
      del self.root
      self.root=Node(QtCore.QVariant("")) 
-     self.reset()
-     #self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),QtCore.QModelIndex(), QtCore.QModelIndex())
+     self.reset() #Better than emit the dataChanged signal
      
   def selectMostRatedSubtitles(self):
     for video in self.root.children:
@@ -218,7 +217,6 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
       return QtCore.QModelIndex()
       
     return self.createIndex(parentItem.row(), 0, parentItem)
-
 
   def rowCount(self, parent):
     if parent.column() > 0:

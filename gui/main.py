@@ -521,23 +521,37 @@ class Main(QObject, Ui_MainWindow):
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
-            percentage = 100/len(subs)
+            replace_all = False
+            total_subs = len(subs)
+            percentage = 100/total_subs
             count = 20
+            success_downloaded = 0
             self.status("Connecting to download...")
             for sub in subs:
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 self.progress(count,"Downloading subtitle ... "+QFileInfo(destinationPath).fileName())
+                #Check if already exists, and show replace window
+                if QFileInfo(destinationPath).exists() and not replace_all:
+                    answer = QMessageBox.warning(self.window,"Replace subtitle","%s already exists.\nWould you like to replace it?" %destinationPath, QMessageBox.Yes, QMessageBox.YesAll, QMessageBox.No)
+                    if answer == QMessageBox.YesAll:
+                        replace_all = True
+                    elif answer == QMessageBox.No:
+                        count += percentage
+                        continue
                 QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
-                   if not self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
+                   if self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
+                       success_downloaded += 1
+                   else:
                      QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
                 except Exception, e: 
                     traceback.print_exc(e)
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
-                count += percentage
+                finally:
+                    count += percentage
 
-            self.status("Subtitles downloaded succesfully.")
+            self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
             self.progress(100)
 
     """Control the STATUS BAR PROGRESS"""
