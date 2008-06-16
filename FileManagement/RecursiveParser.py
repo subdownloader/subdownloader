@@ -197,7 +197,10 @@ class RecursiveParser:
         for subdir in subdirlist:
             filelist += self.getRecursiveFileList(subdir, extensions)
             
-        # Return a comprehensive list of all files (or specified files) contained within 'basedir' 
+        # Return a comprehensive list of all files (or specified files) contained within 'basedir'
+        #Sorting the list by name (Added by capiscuas)
+        filelist.sort()
+
         return filelist
 
     def addSlash(self, dir):
