@@ -27,7 +27,7 @@ import platform
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
-                         QBuffer, QIODevice, QModelIndex,QDir, QFileInfo, QTime
+                         QBuffer, QIODevice, QModelIndex,QDir, QFileInfo, QTime, QFile
 from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
@@ -301,7 +301,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
         
-    
+
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
         log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
@@ -348,6 +348,7 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents()
         if(videos_found):
             self.status("Asking Database...")
+            self.progress(20)
             self.window.setCursor(Qt.WaitCursor)
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
                 
@@ -366,8 +367,8 @@ class Main(QObject, Ui_MainWindow):
                 
             if(videoSearchResults):
                 self.videoModel.clearTree()
-                
                 self.videoModel.setVideos(videoSearchResults)
+                self.onFilterLanguageVideo(self.filterLanguageForVideo.currentIndex())
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
             elif videoSearchResults == None :
                 QMessageBox.about(self.window,"Error","Server is not responding. Please try again later")
@@ -490,6 +491,8 @@ class Main(QObject, Ui_MainWindow):
         sub_extension = get_extension(subtitle.getFileName().lower())
         if optionSubtitleName == QVariant("SAME_VIDEO"):
            subFileName = without_extension(video.getFileName()) +"." + sub_extension
+        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANG"):
+           subFileName = without_extension(video.getFileName()) +"." +subtitle.getLanguageXXX() +"." + sub_extension
         elif optionSubtitleName == QVariant("SAME_ONLINE"):
            subFileName = subtitle.getFileName()
         
@@ -514,13 +517,12 @@ class Main(QObject, Ui_MainWindow):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
             percentage = 100/len(subs)
-            count = 0
+            count = 20
             self.status("Connecting to download...")
             for sub in subs:
-                self.progress(count,"Downloading subtitle ... "+sub.getFileName())
-                count += percentage
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
-                
+                self.progress(count,"Downloading subtitle ... "+QFileInfo(destinationPath).fileName())
+                QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
                 log.debug("Downloading subtitle '%s'" % destinationPath)
                 try:
                    if not self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
@@ -528,6 +530,7 @@ class Main(QObject, Ui_MainWindow):
                 except Exception, e: 
                     traceback.print_exc(e)
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
+                count += percentage
 
             self.status("Subtitles downloaded succesfully.")
             self.progress(100)

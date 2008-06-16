@@ -73,8 +73,11 @@ class preferencesDialog(QtGui.QDialog):
         optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
         if optionSubtitleName == QVariant("SAME_VIDEO"):
             self.ui.optionDownloadSameFilename.setChecked(True)
+        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANG"):
+            self.ui.optionDownloadSameFilenamePlusLang.setChecked(True)
         elif optionSubtitleName == QVariant("SAME_ONLINE"):
             self.ui.optionDownloadOnlineSubName.setChecked(True)
+            
         
         optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
         index = self.ui.optionDefaultUploadLanguage.findData(optionUploadLanguage)
@@ -143,6 +146,8 @@ class preferencesDialog(QtGui.QDialog):
             
         if self.ui.optionDownloadSameFilename.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_VIDEO"))
+        elif self.ui.optionDownloadSameFilenamePlusLang.isChecked():
+            settings.setValue("options/subtitleName", QVariant("SAME_VIDEOPLUSLANG"))
         elif self.ui.optionDownloadOnlineSubName.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_ONLINE"))
         

@@ -141,35 +141,6 @@
       <string>Filename of the Subtitle:</string>
      </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget_9" >
-     <property name="geometry" >
-      <rect>
-       <x>50</x>
-       <y>170</y>
-       <width>291</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="_24" >
-      <item>
-       <widget class="QRadioButton" name="optionDownloadSameFilename" >
-        <property name="text" >
-         <string>Same name as video file</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
-        <property name="text" >
-         <string>Same name as the online subtitle</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="Line" name="line_8" >
      <property name="geometry" >
       <rect>
@@ -195,6 +166,45 @@
      <property name="text" >
       <string>Choose...</string>
      </property>
+    </widget>
+    <widget class="QWidget" name="" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>172</y>
+       <width>473</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <item>
+       <widget class="QRadioButton" name="optionDownloadSameFilename" >
+        <property name="text" >
+         <string>Same name as video file</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang" >
+        <property name="text" >
+         <string>Same name as video file + language code (ex: StarwardsCD1.eng.srt)</string>
+        </property>
+        <property name="checked" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
+        <property name="text" >
+         <string>Same name as the online subtitle</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_8" >

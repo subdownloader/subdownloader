@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Wed Jun 11 23:30:14 2008
+# Created: Mon Jun 16 16:35:54 2008
 #      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -61,18 +61,6 @@ class Ui_PreferencesDialog(object):
         font.setBold(True)
         self.label_53.setFont(font)
         self.label_53.setObjectName("label_53")
-        self.layoutWidget_9 = QtGui.QWidget(self.tab_6)
-        self.layoutWidget_9.setGeometry(QtCore.QRect(50,170,291,61))
-        self.layoutWidget_9.setObjectName("layoutWidget_9")
-        self._24 = QtGui.QVBoxLayout(self.layoutWidget_9)
-        self._24.setObjectName("_24")
-        self.optionDownloadSameFilename = QtGui.QRadioButton(self.layoutWidget_9)
-        self.optionDownloadSameFilename.setChecked(True)
-        self.optionDownloadSameFilename.setObjectName("optionDownloadSameFilename")
-        self._24.addWidget(self.optionDownloadSameFilename)
-        self.optionDownloadOnlineSubName = QtGui.QRadioButton(self.layoutWidget_9)
-        self.optionDownloadOnlineSubName.setObjectName("optionDownloadOnlineSubName")
-        self._24.addWidget(self.optionDownloadOnlineSubName)
         self.line_8 = QtGui.QFrame(self.tab_6)
         self.line_8.setGeometry(QtCore.QRect(20,120,481,16))
         self.line_8.setFrameShape(QtGui.QFrame.HLine)
@@ -81,6 +69,22 @@ class Ui_PreferencesDialog(object):
         self.optionButtonChooseFolder = QtGui.QPushButton(self.tab_6)
         self.optionButtonChooseFolder.setGeometry(QtCore.QRect(440,80,75,27))
         self.optionButtonChooseFolder.setObjectName("optionButtonChooseFolder")
+        self.widget = QtGui.QWidget(self.tab_6)
+        self.widget.setGeometry(QtCore.QRect(50,172,473,86))
+        self.widget.setObjectName("widget")
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.widget)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.optionDownloadSameFilename = QtGui.QRadioButton(self.widget)
+        self.optionDownloadSameFilename.setChecked(True)
+        self.optionDownloadSameFilename.setObjectName("optionDownloadSameFilename")
+        self.verticalLayout_2.addWidget(self.optionDownloadSameFilename)
+        self.optionDownloadSameFilenamePlusLang = QtGui.QRadioButton(self.widget)
+        self.optionDownloadSameFilenamePlusLang.setChecked(False)
+        self.optionDownloadSameFilenamePlusLang.setObjectName("optionDownloadSameFilenamePlusLang")
+        self.verticalLayout_2.addWidget(self.optionDownloadSameFilenamePlusLang)
+        self.optionDownloadOnlineSubName = QtGui.QRadioButton(self.widget)
+        self.optionDownloadOnlineSubName.setObjectName("optionDownloadOnlineSubName")
+        self.verticalLayout_2.addWidget(self.optionDownloadOnlineSubName)
         self.tabWidget.addTab(self.tab_6,"")
         self.tab_8 = QtGui.QWidget()
         self.tab_8.setGeometry(QtCore.QRect(0,0,527,288))
@@ -258,9 +262,10 @@ class Ui_PreferencesDialog(object):
         self.optionDownloadFolderSame.setText(QtGui.QApplication.translate("PreferencesDialog", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))
         self.optionDownloadFolderPredefined.setText(QtGui.QApplication.translate("PreferencesDialog", "Predefined folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_53.setText(QtGui.QApplication.translate("PreferencesDialog", "Filename of the Subtitle:", None, QtGui.QApplication.UnicodeUTF8))
-        self.optionDownloadSameFilename.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as video file", None, QtGui.QApplication.UnicodeUTF8))
-        self.optionDownloadOnlineSubName.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as the online subtitle", None, QtGui.QApplication.UnicodeUTF8))
         self.optionButtonChooseFolder.setText(QtGui.QApplication.translate("PreferencesDialog", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadSameFilename.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as video file", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadSameFilenamePlusLang.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as video file + language code (ex: StarwardsCD1.eng.srt)", None, QtGui.QApplication.UnicodeUTF8))
+        self.optionDownloadOnlineSubName.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as the online subtitle", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QtGui.QApplication.translate("PreferencesDialog", "Downloads", None, QtGui.QApplication.UnicodeUTF8))
         self.label_55.setText(QtGui.QApplication.translate("PreferencesDialog", "Default language of uploaded subtitles", None, QtGui.QApplication.UnicodeUTF8))
         self.label_56.setText(QtGui.QApplication.translate("PreferencesDialog", "Upload files as OpenSubtitles user:", None, QtGui.QApplication.UnicodeUTF8))
