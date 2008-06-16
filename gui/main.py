@@ -521,25 +521,52 @@ class Main(QObject, Ui_MainWindow):
     def onButtonDownload(self, checked):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
-            replace_all = False
+            replace_all  = False
             total_subs = len(subs)
             percentage = 100/total_subs
             count = 20
+            answer = None
             success_downloaded = 0
             self.status("Connecting to download...")
             for sub in subs:
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
+                log.debug("Downloading subtitle '%s'" % destinationPath)
                 self.progress(count,"Downloading subtitle ... "+QFileInfo(destinationPath).fileName())
-                #Check if already exists, and show replace window
+                #Check if we have write permissions, otherwise show warning window
+                while True: 
+                    if not QFileInfo(destinationPath).isWritable():
+                        warningBox = QMessageBox("Error write permission", 
+                                                                    "%s cannot be saved.\nCheck that the folder exists and user has write-access permissions." %destinationPath , 
+                                                                    QMessageBox.Warning, 
+                                                                    QMessageBox.Retry | QMessageBox.Default ,
+                                                                    QMessageBox.Discard | QMessageBox.Escape, 
+                                                                    QMessageBox.NoButton, 
+                                                                    self.window)
+
+                        saveAsButton = warningBox.addButton(QString("Save as..."), QMessageBox.ActionRole)
+                        answer = warningBox.exec_()
+                        print answer
+                        if answer == QMessageBox.Retry:
+                            continue
+                        elif answer == QMessageBox.Discard or answer ==  QMessageBox.NoButton:
+                            break #Let's get out from the While true
+                        
+                if answer == QMessageBox.Discard:
+                    count += percentage
+                    continue #Continue the next subtitle
+                elif answer ==  QMessageBox.NoButton:
+                    print "Show a SaveFile dialog."
+                            
+                #Check if doesn't exists already, otherwise show replace window
                 if QFileInfo(destinationPath).exists() and not replace_all:
-                    answer = QMessageBox.warning(self.window,"Replace subtitle","%s already exists.\nWould you like to replace it?" %destinationPath, QMessageBox.Yes, QMessageBox.YesAll, QMessageBox.No)
+                    answer = QMessageBox.warning(self.window,"Replace subtitle","%s already exists.\nWould you like to replace it?" %destinationPath, QMessageBox.Yes | QMessageBox.Default, QMessageBox.YesAll, QMessageBox.No |QMessageBox.Escape)
                     if answer == QMessageBox.YesAll:
                         replace_all = True
                     elif answer == QMessageBox.No:
                         count += percentage
                         continue
                 QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-                log.debug("Downloading subtitle '%s'" % destinationPath)
+                
                 try:
                    if self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
                        success_downloaded += 1
