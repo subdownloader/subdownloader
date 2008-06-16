@@ -130,7 +130,6 @@ class SubtitleFile(object):
         self._languageXXX = languages.name2xxx(language)
         self._languageXX = languages.name2xx(language)
 
-
     def setRating(self, rating):
         self.rating = rating
         

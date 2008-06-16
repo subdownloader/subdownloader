@@ -452,22 +452,24 @@ class Main(QObject, Ui_MainWindow):
             finally:
                 self.progress(100)
             
-            programPath = str(videoPlayer['programPath'].toUtf8())
-            parameters = str(videoPlayer['parameters'].toUtf8())
-            #Replace the {0} and {1} from parameteres
-            parameters = parameters.replace('{0}',  moviePath  )
-            parameters = parameters.replace('{1}',  tempSubFilePath )
-            process = parameters.split(" ")
-            print process
-            process.insert(0,'"' + programPath+'"' )
-            print process
-            log.info("Running this command:\n%s %s" % (programPath, parameters))
+            params = []
+            programPath = str(videoPlayer['programPath'].toUtf8()) 
+            parameters = str(videoPlayer['parameters'].toUtf8()) 
+
+            for param in parameters.split(" "):
+                param = param.replace('{0}', moviePath  )
+                param = param.replace('{1}',  tempSubFilePath )
+                params.append(param)
+                
+            params.insert(0,'"' + programPath+'"' )
+            print params
+            log.info("Running this command:\n%s %s" % (programPath, params))
             try:
-                os.spawnve(os.P_NOWAIT, programPath,process, os.environ)
+                os.spawnve(os.P_NOWAIT, programPath,params, os.environ)
             except AttributeError:
                 pid = os.fork()
                 if not pid :
-                    os.execvpe(os.P_NOWAIT, programPath,process, os.environ)
+                    os.execvpe(os.P_NOWAIT, programPath,params, os.environ)
             except Exception, e: 
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,"Error","Unable to launch videoplayer")
