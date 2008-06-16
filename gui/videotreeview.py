@@ -58,12 +58,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
                    videoNode.addChild(sub)
     
-    
   def clearTree(self):
      log.debug("Clearing VideoTree")
      self.selectedNode = None
      self.languageFilter = None
+     del self.root
      self.root=Node(QtCore.QVariant("")) 
+     self.reset()
+     #self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),QtCore.QModelIndex(), QtCore.QModelIndex())
      
   def selectMostRatedSubtitles(self):
     for video in self.root.children:
@@ -209,6 +211,8 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
     childItem = index.internalPointer()
     parentItem = childItem.parent
+    #if parentItem == None:
+        #return QtCore.QModelIndex()
 
     if parentItem == self.root:
       return QtCore.QModelIndex()

@@ -305,8 +305,12 @@ class Main(QObject, Ui_MainWindow):
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
         log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
+        self.videoView.clearSelection()
+        
+       # self.videoModel.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.videoModel.clearTree()
-        self.videoView.expandAll()
+       # self.videoModel.emit(SIGNAL("layoutChanged()"))
+        #self.videoView.expandAll()
         if selectedLanguageXXX:
             self.videoModel.setLanguageFilter(selectedLanguageXXX)
             self.videoModel.selectMostRatedSubtitles() #Let's select by default the most rated subtitle for each video 
@@ -315,6 +319,7 @@ class Main(QObject, Ui_MainWindow):
             self.videoModel.setLanguageFilter(None)
             self.videoModel.unselectSubtitles() #Let's select by default the most rated subtitle for each video 
             self.subtitlesCheckedChanged()
+        
         self.videoView.expandAll()
         
     def subtitlesCheckedChanged(self):
@@ -607,6 +612,7 @@ class Main(QObject, Ui_MainWindow):
             self.uploadView.resizeRowsToContents()
             self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
+
 
     def onUploadButton(self, clicked):
         result = self.uploadModel.verify()
