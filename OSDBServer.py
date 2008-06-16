@@ -346,6 +346,7 @@ class OSDBServer(object):
             return SearchSubtitles(language, videos, imdb_ids)
         except TimeoutFunctionException:
             self.log.error("SearchSubtitles timed out")
+            return None
         
     def _SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """

@@ -309,9 +309,12 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.expandAll()
         if selectedLanguageXXX:
             self.videoModel.setLanguageFilter(selectedLanguageXXX)
+            self.videoModel.selectMostRatedSubtitles() #Let's select by default the most rated subtitle for each video 
+            self.subtitlesCheckedChanged()
         else:
             self.videoModel.setLanguageFilter(None)
-        
+            self.videoModel.unselectSubtitles() #Let's select by default the most rated subtitle for each video 
+            self.subtitlesCheckedChanged()
         self.videoView.expandAll()
         
     def subtitlesCheckedChanged(self):
@@ -347,6 +350,7 @@ class Main(QObject, Ui_MainWindow):
             self.status("Asking Database...")
             self.window.setCursor(Qt.WaitCursor)
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+                
             if(videoSearchResults and subs_found):
                 hashes_subs_found = {}
                 #Hashes of the local subtitles

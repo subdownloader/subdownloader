@@ -32,8 +32,12 @@ class SubtitleFile(object):
         self._language = None
         self._video = None
         self._online = online
-        self._path = id
-        if self._path:
+        self._path = ""
+        self._onlineId = ""
+        if online:
+            self._onlineId = id
+        else:
+            self._path = id
             self.setFileName(os.path.basename(self._path))
         self._uploader = None
         self._languageXX = None
@@ -66,10 +70,17 @@ class SubtitleFile(object):
         self._path = _id_online
     
     def getIdOnline(self):
-        return self._path
+        return self._onlineId
     
     def getFilePath(self):
         return self._path
+    
+    #It could be the case when isLocal and isOnline are both true
+    def isOnline(self): 
+        return len(self._onlineId)
+        
+    def isLocal(self): 
+        return len(self._path)
     
     def getSize(self):
         return self._size
@@ -118,9 +129,7 @@ class SubtitleFile(object):
         self._languageName = language
         self._languageXXX = languages.name2xxx(language)
         self._languageXX = languages.name2xx(language)
-    
-    def isOnline(self):
-        return self._online
+
 
     def setRating(self, rating):
         self.rating = rating

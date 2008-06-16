@@ -64,6 +64,18 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
      self.selectedNode = None
      self.languageFilter = None
      self.root=Node(QtCore.QVariant("")) 
+     
+  def selectMostRatedSubtitles(self):
+    for video in self.root.children:
+          print  video.data.getFilePath()
+          if len(video.children):
+              subtitle = video.children[0] #We suppossed that the first subtitle is the most rated one
+              subtitle.checked = True
+  def unselectSubtitles(self):
+      for video in self.root.children:
+          print  video.data.getFilePath()
+          for subtitle in video.children:
+              subtitle.checked = False
 
   def setLanguageFilter(self, lang):
       #self.clearTree()
@@ -85,14 +97,17 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     if type(data)  == SubtitleFile: #It's a SUBTITLE treeitem.
         sub = data
         if role == QtCore.Qt.DecorationRole:
-            if sub.isOnline():
-                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
-            else:
+            if sub.isLocal():
                 return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Disabled))
-            
+            else:
+                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
+        
+        if role == QtCore.Qt.ForegroundRole:
+            if sub.isLocal():
+                return QVariant(QColor(Qt.red))
         
         if role == QtCore.Qt.FontRole:
-            if sub.isOnline():
+            if not sub.isLocal():
                 return QVariant(QFont('Arial', 10, QFont.Bold)) 
             
         if role == QtCore.Qt.CheckStateRole:
@@ -105,11 +120,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             uploader = data.getUploader()
             if not uploader : 
                 uploader = 'Anonymous'
-            if sub.isOnline():
-                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
-            else:
+            if sub.isLocal():
                 return QVariant("[%s]\t Rate: %s\t %s - (Already downloaded)" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
-            
+            else:
+                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))            
         return QVariant()
     else: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
