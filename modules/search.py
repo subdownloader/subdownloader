@@ -43,11 +43,14 @@ class Movie(object):
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
         self.MovieYear = str(movieInfo['MovieYear'])
         self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
+        self.subtitles = subtitles #this is an list of Subtitle objects
         try:
             self.totalSubs = int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
         except KeyError:
-            self.totalSubs = None
-        self.subtitles = subtitles #this is an list of Subtitle objects
+            self.totalSubs = self.get_total_subs()
+        
+    def get_total_subs(self):
+        return len(self.subtitles)
         
     def __repr__(self):
         return "<Movie MovieName: %s, MovieSiteLink: %s, IMDBLink: %s, IMDBRating: %s, MovieYear: %s, MovieId: %s, totalSubs: %s, subtitles: %r>"% (self.MovieName, self.MovieSiteLink, self.IMDBLink, self.IMDBRating, self.MovieYear, self.MovieId, self.totalSubs, self.subtitles)
@@ -290,10 +293,13 @@ class SearchByName(object):
                     sub['Newest'] = entry.getElementsByTagName('Newest')[0].firstChild.data
                 if sub:
                     #result_entries.append(sub)
-                    movie = Movie(sub)
+                    temp_movie = Movie(sub)
+                    for movie in result_entries:
+                        if movie.MovieId == temp_movie.MovieId:
+                            result_entries.pop(result_entries.index(movie))
                     if sub_obj.id:
-                        movie.subtitles.append(sub_obj)
-                    result_entries.append(movie)
+                        temp_movie.subtitles.append(sub_obj)
+                    result_entries.append(temp_movie)
                     
             except IndexError, e:
                 pass
@@ -304,6 +310,7 @@ if __name__ == "__main__":
     import pprint
     s = SearchByName()
     res = s.search_movie("anamorph", "por,pob")
-    pprint.pprint(res)
+    #pprint.pprint(res)
     for movie in res:
         pprint.pprint(movie)
+        print len(movie.subtitles)
