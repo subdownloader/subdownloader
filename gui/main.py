@@ -173,12 +173,11 @@ class Main(QObject, Ui_MainWindow):
         
         self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
-        
-        self.status_label_login = QtGui.QLabel("Not logged in",self.statusbar)
+        self.setTitleBarText("Connecting...")
         
         self.statusbar.insertWidget(0,self.status_label)
-        self.statusbar.insertWidget(1,self.status_label_login)
         self.statusbar.addPermanentWidget(self.status_progress,2)
+        self.status("")
         if not options.test:
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
@@ -193,14 +192,16 @@ class Main(QObject, Ui_MainWindow):
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-        
-        
+
         #FOR TESTING
         if options.test:
             #self.SearchVideos('/media/xp/pelis/')
             self.tabs.setCurrentIndex(3)
             pass
     
+    def setTitleBarText(self, text):
+        self.window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION + " - %s" %text, None, QtGui.QApplication.UnicodeUTF8))
+        
     def read_settings(self):
         settings = QSettings()
         self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
@@ -240,19 +241,19 @@ class Main(QObject, Ui_MainWindow):
 
     def login_user(self, username, password):
         # WARNING: to be used by a thread
-        self.status_label_login.setText("Trying to login...")
+        self.setTitleBarText("Trying to login...")
         try:
             if self.OSDBServer._login(username, password) :
                 if not username: username = 'Anonymous'
-                self.status_label_login.setText("Logged as: %s" % username)
+                self.setTitleBarText("Logged as: %s" % username)
             elif username: #We try anonymous login in case the normal user login has failed
-                self.status_label_login.setText("Error logging as: %s. Logging anonymously..." % username)
+                self.setTitleBarText("Error logging as: %s. Logging anonymously..." % username)
                 if self.OSDBServer._login("", "") :
-                    self.status_label_login.setText("Logged as: Anonymous")
+                    self.setTitleBarText("Logged as: Anonymous")
                 else:
-                    self.status_label_login.setText("Login: Cannot login.")
+                    self.setTitleBarText("Login: Cannot login.")
         except:
-            self.status_label_login.setText("Login: ERROR")
+            self.setTitleBarText("Login: ERROR")
 
     def onMenuQuit(self):
         self.window.close()
@@ -524,16 +525,15 @@ class Main(QObject, Ui_MainWindow):
             replace_all  = False
             total_subs = len(subs)
             percentage = 100/total_subs
-            count = 20
+            count = 0
             answer = None
             success_downloaded = 0
-            self.status("Connecting to download...")
-            for sub in subs:
+            for i, sub in enumerate(subs):
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 if not destinationPath:
-                    continue
+                    break
                 log.debug("Trying to download subtitle '%s'" % destinationPath)
-                self.progress(count,"Downloading subtitle ... "+QFileInfo(destinationPath).fileName())
+                self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i, total_subs))
                 #Check if we have write permissions, otherwise show warning window
                 while True: 
                     #If the file and the folder don't have writte access.
@@ -595,17 +595,18 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setMaximum(100)
         self.status_progress.reset()
         if msg != None:
-            self.status_progress.setFormat(msg + ": %p%")
+            self.status_progress.setFormat(msg) # + ": %p%")
         if val < 0:
             self.status_progress.setMaximum(0)
         else: 
             self.status_progress.setValue(val)
+        
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
     
     def status(self, msg):
         self.status_progress.setMaximum(100)
         self.status_progress.reset()
-        self.status_progress.setFormat(msg + ": %p%")
+        self.status_progress.setFormat(msg) #+ ": %p%")
         self.progress(0)
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
     
@@ -617,19 +618,19 @@ class Main(QObject, Ui_MainWindow):
             if settingsProxyHost: #Let's see if we have defined a proxy in our Settings
                 self.options.proxy = str(settingsProxyHost + ":" + str(settingsProxyPort))
             else:
-                self.status("Connecting to server") 
+                self.setTitleBarText("Connecting to server") 
                 
         if self.options.proxy:
-            self.status("Connecting to server using proxy %s" % self.options.proxy) 
+            self.setTitleBarText("Connecting to server using proxy %s" % self.options.proxy) 
         
         try:
             self.OSDBServer = OSDBServer(self.options) 
-            self.status_progress.setFormat("Connected succesfully")
+            self.setTitleBarText("Connected succesfully")
             self.progress(100)
             return True
         except Exception, e: 
             #traceback.print_exc(e)
-            self.status("Error connecting to server") 
+            self.setTitleBarText("Error connecting to server") 
             self.progress(0)
             return False
             #qFatal("Unable to connect to server. Please try again later")

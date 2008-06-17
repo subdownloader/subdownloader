@@ -72,6 +72,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
           if len(video.children):
               subtitle = video.children[0] #We suppossed that the first subtitle is the most rated one
               subtitle.checked = True
+              
   def unselectSubtitles(self):
       for video in self.root.children:
           print  video.data.getFilePath()
