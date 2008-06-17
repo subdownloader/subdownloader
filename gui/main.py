@@ -54,6 +54,7 @@ from subdownloader.gui.about import aboutDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.videofile import  *
 from subdownloader.subtitlefile import *
+from subdownloader.modules.search import *
 
 import subdownloader.languages.Languages as languages
 
@@ -159,6 +160,11 @@ class Main(QObject, Ui_MainWindow):
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
+        
+        #Search by Name
+        QObject.connect(self.buttonSearchByName, SIGNAL("clicked(bool)"), self.onButtonSearchByName)
+        self.moviesModel = VideoTreeModel(window)
+        self.moviesView.setModel(self.moviesModel)
         
         #Menu options
         QObject.connect(self.action_Quit, SIGNAL("triggered()"), self.onMenuQuit)
@@ -793,7 +799,6 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 self.uploadModel.update_lang_upload()
-    
 
         
     def initializeVideoPlayers(self, settings):
@@ -818,7 +823,17 @@ class Main(QObject, Ui_MainWindow):
         
         defaultVideoApp = predefinedVideoPlayers[0]
         settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
-        
+
+    def onButtonSearchByName(self):
+        self.window.setCursor(Qt.WaitCursor)
+        s = SearchByName()
+        search_text = str(self.movieNameText.text().toUtf8())
+        movies = s.search_movie(search_text, 'all')
+        self.moviesModel.setMovies(movies)
+        self.moviesView.expandAll() #This was a solution found to refresh the treeView
+        QCoreApplication.processEvents()
+        self.window.setCursor(Qt.ArrowCursor)
+
 def main(options):
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)

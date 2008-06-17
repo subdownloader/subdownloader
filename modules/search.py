@@ -37,7 +37,7 @@ class Movie(object):
 #        print int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
 #        print int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
         #movieInfo is a dict 
-        self.MovieName = str(movieInfo['MovieName'])
+        self.MovieName = movieInfo['MovieName']
         self.MovieSiteLink = str(movieInfo['MovieID']['Link'])
         self.IMDBLink = str(movieInfo['MovieID']['LinkImdb'])
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
@@ -290,7 +290,6 @@ class SearchByName(object):
                     if sub_obj.id:
                         movie.subtitles.append(sub_obj)
                     result_entries.append(movie)
-                
                     
             except IndexError, e:
                 pass

@@ -211,7 +211,7 @@
           <item>
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QLineEdit" name="lineEdit_2" >
+             <widget class="QLineEdit" name="movieNameText" >
               <property name="sizePolicy" >
                <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
                 <horstretch>0</horstretch>
@@ -221,7 +221,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2" >
+             <widget class="QPushButton" name="buttonSearchByName" >
               <property name="text" >
                <string>Search</string>
               </property>
@@ -251,7 +251,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox" >
+             <widget class="QComboBox" name="searchSitesCombo" >
               <property name="sizePolicy" >
                <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                 <horstretch>0</horstretch>
@@ -261,26 +261,6 @@
               <item>
                <property name="text" >
                 <string>OpenSubtitles.org</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>subtitles.images.o2.cz</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>mysubtitles.com</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>subtitlesbox.com</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>divxsubtitles.net</string>
                </property>
               </item>
              </widget>
@@ -351,23 +331,7 @@
               </property>
               <layout class="QHBoxLayout" >
                <item>
-                <widget class="SubListView" name="sub_view" >
-                 <property name="sizePolicy" >
-                  <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="contextMenuPolicy" >
-                  <enum>Qt::CustomContextMenu</enum>
-                 </property>
-                 <property name="dragEnabled" >
-                  <bool>true</bool>
-                 </property>
-                 <property name="dragDropMode" >
-                  <enum>QAbstractItemView::DragOnly</enum>
-                 </property>
-                </widget>
+                <widget class="QTreeView" name="moviesView" />
                </item>
               </layout>
              </widget>
@@ -861,11 +825,6 @@ p, li { white-space: pre-wrap; }
    <class>UploadListView</class>
    <extends>QTableView</extends>
    <header>uploadlistview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SubListView</class>
-   <extends>QTableView</extends>
-   <header>sublistview.h</header>
   </customwidget>
  </customwidgets>
  <resources>

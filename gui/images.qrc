@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/" >
+    <file>images/sites/opensubtitles.ico</file>
     <file>images/clear.png</file>
     <file>images/clear_list.png</file>
     <file>images/down.png</file>

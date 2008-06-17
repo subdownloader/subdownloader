@@ -80,10 +80,10 @@ class SubtitleFile(object):
     
     #It could be the case when isLocal and isOnline are both true
     def isOnline(self): 
-        return len(self._onlineId)
+        return self._onlineId != None and len(self._onlineId)
         
     def isLocal(self): 
-        return len(self._path)
+        return self._path != None and  len(self._path)
     
     def getSize(self):
         return self._size
