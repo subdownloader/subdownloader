@@ -826,11 +826,14 @@ class Main(QObject, Ui_MainWindow):
 
     def onButtonSearchByName(self):
         self.window.setCursor(Qt.WaitCursor)
+        self.moviesModel.clearTree()
+        self.moviesView.expandAll() #This was a solution found to refresh the treeView
+        QCoreApplication.processEvents()
         s = SearchByName()
         search_text = str(self.movieNameText.text().toUtf8())
         movies = s.search_movie(search_text, 'all')
         self.moviesModel.setMovies(movies)
-        self.moviesView.expandAll() #This was a solution found to refresh the treeView
+        self.moviesView.expandAll() 
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
 
