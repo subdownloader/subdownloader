@@ -62,6 +62,7 @@ class SearchByName(object):
         elif not moviename:
             return None
         else:
+            moviename = moviename.replace(" ","%20")
             xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
         xml_page = urllib2.urlopen(xml_url)
         try:
