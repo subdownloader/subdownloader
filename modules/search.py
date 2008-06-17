@@ -48,6 +48,9 @@ class Movie(object):
         except KeyError:
             self.totalSubs = None
         self.subtitles = subtitles #this is an list of Subtitle objects
+        
+    def __repr__(self):
+        return "<Movie MovieName: %s, MovieSiteLink: %s, IMDBLink: %s, IMDBRating: %s, MovieYear: %s, MovieId: %s, totalSubs: %s, subtitles: %r"% (self.MovieName, self.MovieSiteLink, self.IMDBLink, self.IMDBRating, self.MovieYear, self.MovieId, self.totalSubs, self.subtitles)
     
 
 class SearchByName(object):
@@ -301,6 +304,6 @@ if __name__ == "__main__":
     import pprint
     s = SearchByName()
     res = s.search_movie("anamorph", "por,pob")
-    pprint.pprint(dir(res))
+    pprint.pprint(res)
     for movie in res:
-        pprint.pprint(dir(movie))
+        pprint.pprint(movie)
