@@ -265,22 +265,25 @@ class SearchByName(object):
                                                 'LinkSearch': entry.getElementsByTagName('ISO639')[0].getAttribute('LinkSearch'), 
                                                 'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
                                                 }
-                    sub_obj._languageXX = sub['ISO639']['ISO639']
+                    sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
-                    sub_obj._languageName = sub['LanguageName']
                 if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
                     sub['SubFormat'] = entry.getElementsByTagName('SubFormat')[0].firstChild.data
+                    sub_obj.setExtraInfo('format', sub['SubFormat'])
                 if entry.getElementsByTagName('SubSumCD') and entry.getElementsByTagName('SubSumCD')[0].firstChild:
                     sub['SubSumCD'] = entry.getElementsByTagName('SubSumCD')[0].firstChild.data
+                    sub_obj.setExtraInfo('totalCDs', sub['SubSumCD'])
                 if entry.getElementsByTagName('SubAddDate') and entry.getElementsByTagName('SubAddDate')[0].firstChild:
                     sub['SubAddDate'] = entry.getElementsByTagName('SubAddDate')[0].firstChild.data
                 if entry.getElementsByTagName('SubBad') and entry.getElementsByTagName('SubBad')[0].firstChild:
                     sub['SubBad'] = entry.getElementsByTagName('SubBad')[0].firstChild.data
                 if entry.getElementsByTagName('SubRating') and entry.getElementsByTagName('SubRating')[0].firstChild:
                     sub['SubRating'] = entry.getElementsByTagName('SubRating')[0].firstChild.data
+                    sub_obj.setRating(sub['SubRating'])
                 if entry.getElementsByTagName('SubDownloadsCnt') and entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild:
                     sub['SubDownloadsCnt'] = entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild.data
+                    sub_obj.setExtraInfo('totalDownloads', sub['SubDownloadsCnt'])
                 if entry.getElementsByTagName('SubMovieAka') and entry.getElementsByTagName('SubMovieAka')[0].firstChild:
                     sub['SubMovieAka'] = entry.getElementsByTagName('SubMovieAka')[0].firstChild.data
                 if entry.getElementsByTagName('SubDate') and entry.getElementsByTagName('SubDate')[0].firstChild:

@@ -34,6 +34,7 @@ class SubtitleFile(object):
         self._online = online
         self._path = ""
         self._onlineId = ""
+        self._extraInfo = {}
         if online:
             self._onlineId = id
         else:
@@ -138,3 +139,13 @@ class SubtitleFile(object):
         
     def getRating(self):
         return self.rating
+    
+    def setExtraInfo(self, info, data):
+        self._extraInfo[info] = data
+        
+    def getExtraInfo(self, info):
+        return self._extraInfo[info]
+
+        
+    
+    

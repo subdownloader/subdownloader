@@ -64,10 +64,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         if moviesResults:
             for movie in moviesResults:
                movieNode = self.root.addChild(movie)
-#               for sub in movie.subtitles:
-#                   sub_lang_xxx =  sub.getLanguageXXX()
-#                   if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
-#                       movieNode.addChild(sub)
+               for sub in movie.subtitles:
+                   sub_lang_xxx =  sub.getLanguageXXX()
+                   if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
+                       movieNode.addChild(sub)
     
   def clearTree(self):
      log.debug("Clearing VideoTree")
@@ -135,8 +135,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 uploader = 'Anonymous'
             if sub.isLocal():
                 return QVariant("[%s]\t Rate: %s\t %s - (Already downloaded)" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
-            else:
-                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))            
+            elif hasattr(sub, "_filename"): #Subtitle found from hash
+                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
+            else: #Subtitle found from movie name
+                return QVariant("[%s]\t Rate: %s\t Format: %s\t Downloaded: %d\t Cds = %d\tUploader: %s" % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format'),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
         return QVariant()
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
@@ -178,11 +180,8 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             return QVariant(QFont('Arial', 10, QFont.Bold)) 
             
         if role == QtCore.Qt.DisplayRole:
-            #The ENGLISH Movie Name is priority, if not shown, then we show the original name.
             movieName = movie.MovieName
             info = "%s [%s] [IMDB rate=%s]" %(movie.MovieName,  movie.MovieYear, movie.IMDBRating)
-            print movieName
-            print len(movie.subtitles)
             if not len(movie.subtitles):
                 info += " (Click here to expand subtitles)"
             return QVariant(info)
