@@ -300,7 +300,7 @@ class SearchByName(object):
                     for movie in result_entries:
                         if movie.MovieId == temp_movie.MovieId:
                             result_entries.pop(result_entries.index(movie))
-                    if sub_obj.id:
+                    if hasattr(sub_obj, "_extraInfo"):
                         temp_movie.subtitles.append(sub_obj)
                     result_entries.append(temp_movie)
                     
