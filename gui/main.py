@@ -106,7 +106,7 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.setModel(model)
         
         settings = QSettings()
-        path = settings.value("mainwindow/workingDirectory", QVariant(QDir.rootPath()))
+        
         self.folderView.setRootIndex(model.index(QDir.rootPath()))
         #index = model.index(QDir.rootPath())
 
@@ -117,12 +117,14 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.show()
         
         #Loop to expand the current directory in the folderview.
-        log.debug('Current directory: %s' % path.toString())
-        path = QDir(path.toString())
+        lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.rootPath()))
+        log.debug('Current directory: %s' % lastDir.toString())
+        path = QDir(lastDir.toString())
         while True:
             self.folderView.expand(model.index(path.absolutePath()))
             if not path.cdUp(): break
-                    
+        
+        self.folderView.scrollTo(model.index(lastDir.toString()))
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
         
         #SETTING UP SEARCH_VIDEO_VIEW
