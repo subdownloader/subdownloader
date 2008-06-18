@@ -33,7 +33,7 @@ class Movie(object):
         self.MovieName = movieInfo['MovieName']
         self.MovieSiteLink = str(movieInfo['MovieID']['Link'])
         self.IMDBLink = str(movieInfo['MovieID']['LinkImdb'])
-        self.IMDBId = "000000" #TODO: Using regexp, get the ID from the linkimdb
+        self.IMDBId = movieInfo["MovieImdbID"]
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
         self.MovieYear = str(movieInfo['MovieYear'])
         self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
