@@ -879,33 +879,11 @@ class Main(QObject, Ui_MainWindow):
         answer = None
         success_downloaded = 0
         for i, sub in enumerate(subs):
-            folderPath = QSettings().value("mainwindow/workingDirectory", QVariant(QDir.temp().absolutePath()))
-            dir = QDir(folderPath.toString())
-            destinationPath = dir.absoluteFilePath(QString("example.zip"))
-            destinationPath = QFileDialog.getSaveFileName(None, "Save Subtitle", destinationPath, "")
-            if not destinationPath:
-                break
-            
             url = sub.getExtraInfo("downloadLink")
-            log.debug("Trying to download subtitle '%s' from %s" % (str(destinationPath.toUtf8()), url))
-            self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
-            #Check if we have write permissions, otherwise show warning window
-            #Downloading the file
-            try:
-                    webFile = urllib2.urlopen(url)
-                    localFile = open(str(destinationPath.toUtf8()), 'w')
-                    localFile.write(webFile.read())
-                    webFile.close()
-                    localFile.close()
-                    success_downloaded += 1
-                    log.debug("%s succesfully downloaded." % str(destinationPath.toUtf8()))
-            except Exception, e: 
-                    traceback.print_exc(e)
-                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
-            finally:
-                    count += percentage
-
-        self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
+            webbrowser.open( url, new=2, autoraise=1)
+            log.debug("Opening link %s" % (url))
+            count += percentage
+            self.progress(count,"Opening Link %s" % url)
         self.progress(100)
 
     def onButtonIMDBByTitle(self, checked):
