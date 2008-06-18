@@ -851,8 +851,10 @@ class Main(QObject, Ui_MainWindow):
         search_text = str(self.movieNameText.text().toUtf8())
         movies = s.search_movie(search_text,'all')
         self.moviesModel.setMovies(movies, selectedLanguageXXX)
-
-        self.moviesView.expandAll() 
+        if len(movies) == 1:
+            self.moviesView.expandAll() 
+        else:
+            self.moviesView.collapseAll() 
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
         

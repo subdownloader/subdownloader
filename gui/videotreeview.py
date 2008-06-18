@@ -107,7 +107,8 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else:
       # header
       return 1 #len(self.root.data) 
-
+      
+    
   def data(self, index, role):
     if not index.isValid():
       return QVariant()
@@ -266,5 +267,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
       parentItem = self.root
     else:
       parentItem = parent.internalPointer()
-      
-    return len(parentItem.children)
+    
+    if type(parentItem.data)  == Movie:
+        movie = parentItem.data
+        if not len(movie.subtitles):
+            if movie.totalSubs > 1: #To put a 0 in the future, the 1 is just to show it's working
+                return movie.totalSubs
+            else:
+                return 0
+        return len(movie.subtitles)
+    else:
+        return len(parentItem.children)
