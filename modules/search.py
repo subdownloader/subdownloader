@@ -289,13 +289,18 @@ class SearchByName(object):
                 if sub:
                     #result_entries.append(sub)
                     temp_movie = Movie(sub)
+                    movie_exists = False
                     for movie in result_entries:
                         if movie.MovieId == temp_movie.MovieId:
-                            already_movie = result_entries.pop(result_entries.index(movie))
-                            temp_movie.subtitles = already_movie.subtitles
-                    if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
-                        temp_movie.subtitles.append(sub_obj)
-                    result_entries.append(temp_movie)
+                            movie_exists = True
+                            if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
+                                movie.subtitles.append(sub_obj)
+#                            already_movie = result_entries.pop(result_entries.index(movie))
+#                            temp_movie.subtitles = already_movie.subtitles
+                    if not movie_exists:
+                        if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
+                            temp_movie.subtitles.append(sub_obj)
+                        result_entries.append(temp_movie)
                     
             except IndexError, e:
                 pass
