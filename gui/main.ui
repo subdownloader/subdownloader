@@ -272,7 +272,59 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" >
+           <layout class="QHBoxLayout" name="horizontalLayout_3" >
+            <item>
+             <widget class="QPushButton" name="buttonDownloadbyTitle" >
+              <property name="enabled" >
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font" >
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text" >
+               <string>Download</string>
+              </property>
+              <property name="icon" >
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonIMDBbyTitle" >
+              <property name="enabled" >
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text" >
+               <string>Movie Info</string>
+              </property>
+              <property name="icon" >
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
+              </property>
+              <property name="iconSize" >
+               <size>
+                <width>32</width>
+                <height>16</height>
+               </size>
+              </property>
+             </widget>
+            </item>
             <item>
              <spacer>
               <property name="orientation" >
@@ -283,7 +335,7 @@
               </property>
               <property name="sizeHint" stdset="0" >
                <size>
-                <width>581</width>
+                <width>328</width>
                 <height>20</height>
                </size>
               </property>
