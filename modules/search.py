@@ -28,7 +28,7 @@ except ImportError:
     
 
 class Movie(object):
-    def __init__(self, movieInfo, subtitles=[]):
+    def __init__(self, movieInfo):
 #        print str(movieInfo['MovieName'])
 #        print str(movieInfo['MovieID']['Link'])
 #        print str(movieInfo['MovieID']['LinkImdb'])
@@ -43,7 +43,7 @@ class Movie(object):
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
         self.MovieYear = str(movieInfo['MovieYear'])
         self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
-        self.subtitles = subtitles #this is an list of Subtitle objects
+        self.subtitles = [] #this is an list of Subtitle objects
         try:
             self.totalSubs = int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
         except KeyError:
@@ -80,13 +80,9 @@ class SearchByName(object):
             
         if search:
             movies = search
-#            for mov in search:
-#                print "%r"% mov.movieName
-#                movies.append(Movie(mov))
         else:
-            search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
+            movies = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
             
-        #return search
         return movies
         
     def search_subtitles(self, IDSubtitle_link):
@@ -223,7 +219,7 @@ class SearchByName(object):
                                                         'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'), 
                                                         'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'), 
                                                     }
-                    sub_obj.id = sub['IDSubtitle']['IDSubtitle']
+                    
                 if entry.getElementsByTagName('UserID'):
                     sub['UserID'] = { 'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data, 
                                                 'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'), 
@@ -266,6 +262,7 @@ class SearchByName(object):
                                                 'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
                                                 }
                     sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
+                    sub_obj.id = sub['IDSubtitle']['IDSubtitle']
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
                 if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
@@ -299,8 +296,9 @@ class SearchByName(object):
                     temp_movie = Movie(sub)
                     for movie in result_entries:
                         if movie.MovieId == temp_movie.MovieId:
-                            result_entries.pop(result_entries.index(movie))
-                    if hasattr(sub_obj, "_extraInfo"):
+                            already_movie = result_entries.pop(result_entries.index(movie))
+                            temp_movie.subtitles = already_movie.subtitles
+                    if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
                         temp_movie.subtitles.append(sub_obj)
                     result_entries.append(temp_movie)
                     

@@ -47,6 +47,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     self.selectedNode = None
     self.languageFilter = None
     self.videoResultsBackup = None
+    self.moviesResultsBackup = None
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults,filter = None):
@@ -61,13 +62,17 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                    
   def setMovies(self,moviesResults,filter = None):
         self.moviesResultsBackup = moviesResults
+            
         if moviesResults:
             for movie in moviesResults:
                movieNode = self.root.addChild(movie)
+               if len(movie.subtitles): 
+                    movieNode.data.totalSubs = 0 #We'll recount the number of subtitles after filtering
                for sub in movie.subtitles:
                    sub_lang_xxx =  sub.getLanguageXXX()
                    if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
                        movieNode.addChild(sub)
+                       movieNode.data.totalSubs +=  1
     
   def clearTree(self):
      log.debug("Clearing VideoTree")
@@ -79,21 +84,22 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
      
   def selectMostRatedSubtitles(self):
     for video in self.root.children:
-          print  video.data.getFilePath()
           if len(video.children):
               subtitle = video.children[0] #We suppossed that the first subtitle is the most rated one
               subtitle.checked = True
               
   def unselectSubtitles(self):
       for video in self.root.children:
-          print  video.data.getFilePath()
           for subtitle in video.children:
               subtitle.checked = False
 
   def setLanguageFilter(self, lang):
       #self.clearTree()
       self.languageFilter = lang
-      self.setVideos(self.videoResultsBackup, lang)
+      if self.videoResultsBackup:
+        self.setVideos(self.videoResultsBackup, lang)
+      elif self.moviesResultsBackup:
+        self.setMovies(self.moviesResultsBackup, lang)
 
   def columnCount(self, parent):
     if parent.isValid():
@@ -138,7 +144,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             elif hasattr(sub, "_filename"): #Subtitle found from hash
                 return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
             else: #Subtitle found from movie name
-                return QVariant("[%s]\t Rate: %s\t Format: %s\t Downloaded: %d\t Cds = %d\tUploader: %s" % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format'),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
+                return QVariant("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s" % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
         return QVariant()
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
@@ -181,9 +187,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             
         if role == QtCore.Qt.DisplayRole:
             movieName = movie.MovieName
-            info = "%s [%s] [IMDB rate=%s]" %(movie.MovieName,  movie.MovieYear, movie.IMDBRating)
+            info = "%s [%s] - [IMDB rate=%s]  - (%d subs)" %(movie.MovieName,  movie.MovieYear, movie.IMDBRating, int(movie.totalSubs))
             if not len(movie.subtitles):
-                info += " (Click here to expand subtitles)"
+                pass #TODO: Show the PLUS icon to expand #info += " (Double Click here)"
             return QVariant(info)
            
         return QVariant()

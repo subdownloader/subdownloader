@@ -207,25 +207,29 @@
          <attribute name="title" >
           <string>Search by Movie Name</string>
          </attribute>
-         <layout class="QVBoxLayout" >
+         <layout class="QVBoxLayout" name="verticalLayout_2" >
           <item>
-           <layout class="QHBoxLayout" >
+           <layout class="QHBoxLayout" name="horizontalLayout_2" >
             <item>
-             <widget class="QLineEdit" name="movieNameText" >
-              <property name="sizePolicy" >
-               <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="buttonSearchByName" >
-              <property name="text" >
-               <string>Search</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout" >
+              <item>
+               <widget class="QLineEdit" name="movieNameText" >
+                <property name="sizePolicy" >
+                 <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonSearchByName" >
+                <property name="text" >
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <spacer>
@@ -237,8 +241,8 @@
               </property>
               <property name="sizeHint" stdset="0" >
                <size>
-                <width>29</width>
-                <height>20</height>
+                <width>26</width>
+                <height>26</height>
                </size>
               </property>
              </spacer>

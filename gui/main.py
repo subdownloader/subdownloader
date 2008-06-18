@@ -306,6 +306,7 @@ class Main(QObject, Ui_MainWindow):
        
         
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
+        QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
         
 
@@ -830,13 +831,23 @@ class Main(QObject, Ui_MainWindow):
         self.moviesView.expandAll() #This was a solution found to refresh the treeView
         QCoreApplication.processEvents()
         s = SearchByName()
+        selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
         search_text = str(self.movieNameText.text().toUtf8())
-        movies = s.search_movie(search_text, 'all')
-        self.moviesModel.setMovies(movies)
+        movies = s.search_movie(search_text,'all')
+        self.moviesModel.setMovies(movies, selectedLanguageXXX)
+
         self.moviesView.expandAll() 
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
-
+        
+    def onFilterLanguageSearchName(self, index):
+        selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(index).toString())
+        log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
+        self.moviesView.clearSelection()
+        self.moviesModel.clearTree()
+        self.moviesModel.setLanguageFilter(selectedLanguageXXX)
+        self.moviesView.expandAll()
+        
 def main(options):
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)
