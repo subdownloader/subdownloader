@@ -220,6 +220,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="text" >
+                 <string/>
+                </property>
                </widget>
               </item>
               <item>
@@ -274,7 +277,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3" >
             <item>
-             <widget class="QPushButton" name="buttonDownloadbyTitle" >
+             <widget class="QPushButton" name="buttonDownloadByTitle" >
               <property name="enabled" >
                <bool>false</bool>
               </property>
@@ -300,7 +303,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonIMDBbyTitle" >
+             <widget class="QPushButton" name="buttonIMDBByTitle" >
               <property name="enabled" >
                <bool>false</bool>
               </property>

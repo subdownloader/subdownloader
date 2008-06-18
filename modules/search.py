@@ -29,17 +29,11 @@ except ImportError:
 
 class Movie(object):
     def __init__(self, movieInfo):
-#        print str(movieInfo['MovieName'])
-#        print str(movieInfo['MovieID']['Link'])
-#        print str(movieInfo['MovieID']['LinkImdb'])
-#        print str(movieInfo['MovieImdbRating'])
-#        print str(movieInfo['MovieYear'])
-#        print int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
-#        print int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
         #movieInfo is a dict 
         self.MovieName = movieInfo['MovieName']
         self.MovieSiteLink = str(movieInfo['MovieID']['Link'])
         self.IMDBLink = str(movieInfo['MovieID']['LinkImdb'])
+        self.IMDBId = "000000" #TODO: Using regexp, get the ID from the linkimdb
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
         self.MovieYear = str(movieInfo['MovieYear'])
         self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
@@ -263,6 +257,7 @@ class SearchByName(object):
                                                 }
                     sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
                     sub_obj.id = sub['IDSubtitle']['IDSubtitle']
+                    sub_obj.setExtraInfo('downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.id) 
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
                 if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:

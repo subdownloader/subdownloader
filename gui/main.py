@@ -20,6 +20,7 @@
 import sys, re, os, traceback, tempfile
 import time, thread
 import webbrowser
+import urllib2
 import base64, zlib
 import commands
 import platform
@@ -162,9 +163,16 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
         
         #Search by Name
-        QObject.connect(self.buttonSearchByName, SIGNAL("clicked(bool)"), self.onButtonSearchByName)
+        QObject.connect(self.buttonSearchByName, SIGNAL("clicked(bool)"), self.onButtonSearchByTitle)
         self.moviesModel = VideoTreeModel(window)
         self.moviesView.setModel(self.moviesModel)
+        
+        QObject.connect(self.moviesView, SIGNAL("activated(QModelIndex)"), self.onClickMovieTreeView)
+        QObject.connect(self.moviesView, SIGNAL("clicked(QModelIndex)"), self.onClickMovieTreeView)
+        QObject.connect(self.moviesModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesMovieCheckedChanged)
+        
+        QObject.connect(self.buttonDownloadByTitle, SIGNAL("clicked(bool)"), self.onButtonDownloadByTitle)
+        QObject.connect(self.buttonIMDBByTitle, SIGNAL("clicked(bool)"), self.onButtonIMDBByTitle)
         
         #Menu options
         QObject.connect(self.action_Quit, SIGNAL("triggered()"), self.onMenuQuit)
@@ -339,12 +347,7 @@ class Main(QObject, Ui_MainWindow):
            self.buttonDownload.setEnabled(False)
            self.buttonPlay.setEnabled(False)
            
-    def videoSelectedChanged(self):
-       subs = self.videoModel.getSelected()
-       if subs:
-           self.buttonIMDB.setEnabled(True)
-       else:
-           self.buttonDownload.setEnabled(False)
+
     
     def SearchVideos(self, path):
         #Scan recursively the selected directory finding subtitles and videos
@@ -405,6 +408,17 @@ class Main(QObject, Ui_MainWindow):
             treeItem.checked = not(treeItem.checked)
             self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
             self.buttonIMDB.setEnabled(False)
+            
+    def onClickMovieTreeView(self, index):
+        treeItem = self.moviesModel.getSelectedItem(index)
+        if type(treeItem.data) == Movie:
+            movie = treeItem.data
+            if movie.IMDBId:
+                self.buttonIMDBByTitle.setEnabled(True)
+        else:
+            treeItem.checked = not(treeItem.checked)
+            self.moviesModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+            self.buttonIMDBByTitle.setEnabled(False)
         
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
@@ -540,7 +554,7 @@ class Main(QObject, Ui_MainWindow):
                 if not destinationPath:
                     break
                 log.debug("Trying to download subtitle '%s'" % destinationPath)
-                self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i, total_subs))
+                self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
                 #Check if we have write permissions, otherwise show warning window
                 while True: 
                     #If the file and the folder don't have writte access.
@@ -825,7 +839,7 @@ class Main(QObject, Ui_MainWindow):
         defaultVideoApp = predefinedVideoPlayers[0]
         settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
 
-    def onButtonSearchByName(self):
+    def onButtonSearchByTitle(self):
         self.window.setCursor(Qt.WaitCursor)
         self.moviesModel.clearTree()
         self.moviesView.expandAll() #This was a solution found to refresh the treeView
@@ -847,6 +861,55 @@ class Main(QObject, Ui_MainWindow):
         self.moviesModel.clearTree()
         self.moviesModel.setLanguageFilter(selectedLanguageXXX)
         self.moviesView.expandAll()
+        
+    def subtitlesMovieCheckedChanged(self):
+       subs = self.moviesModel.getCheckedSubtitles()
+       if subs:
+           self.buttonDownloadByTitle.setEnabled(True)
+       else:
+           self.buttonDownloadByTitle.setEnabled(False)
+           
+    def onButtonDownloadByTitle(self, checked):
+        subs = self.moviesModel.getCheckedSubtitles()
+        total_subs = len(subs)
+        percentage = 100/total_subs
+        count = 0
+        answer = None
+        success_downloaded = 0
+        for i, sub in enumerate(subs):
+            folderPath = QSettings().value("mainwindow/workingDirectory", QVariant(QDir.temp().absolutePath()))
+            dir = QDir(folderPath.toString())
+            destinationPath = dir.absoluteFilePath(QString("example.zip"))
+            destinationPath = QFileDialog.getSaveFileName(None, "Save Subtitle", destinationPath, "")
+            if not destinationPath:
+                break
+            
+            url = sub.getExtraInfo("downloadLink")
+            log.debug("Trying to download subtitle '%s' from %s" % (str(destinationPath.toUtf8()), url))
+            self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
+            #Check if we have write permissions, otherwise show warning window
+            #Downloading the file
+            try:
+                    webFile = urllib2.urlopen(url)
+                    localFile = open(str(destinationPath.toUtf8()), 'w')
+                    localFile.write(webFile.read())
+                    webFile.close()
+                    localFile.close()
+                    success_downloaded += 1
+                    log.debug("%s succesfully downloaded." % str(destinationPath.toUtf8()))
+            except Exception, e: 
+                    traceback.print_exc(e)
+                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
+            finally:
+                    count += percentage
+
+        self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
+        self.progress(100)
+
+    def onButtonIMDBByTitle(self, checked):
+        movie = self.moviesModel.getSelectedItem().data
+        if movie.IMDBId:
+            webbrowser.open( "http://www.imdb.com/title/tt%s"% movie.IMDBId, new=2, autoraise=1)
         
 def main(options):
     log.debug("Building main dialog")
