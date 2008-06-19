@@ -102,6 +102,8 @@ class SubtitleFile(object):
         return self.getLanguageXXX()
     
     def setLanguageXX(self,xx):
+        if xx == 'gr': #greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
+            xx = 'el'
         self._languageXX = xx
         self._languageXXX = languages.xx2xxx(xx)
         self._languageName= languages.xx2name(xx)

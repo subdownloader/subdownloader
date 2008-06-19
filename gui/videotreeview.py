@@ -206,6 +206,18 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     elif type(data)  == Movie: #It's a Movie  treeitem.
         return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
 
+  def getTopNodes(self):
+      return [self.index(parentItem.row(), 0) for parentItem in self.root.children]
+      
+  def updateMovie(self, index, filter = None):
+        movie = index.internalPointer().data
+        movieNode = index.internalPointer()
+        movieNode.children = []
+        for sub in movie.subtitles:
+            sub_lang_xxx =  sub.getLanguageXXX()
+            if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
+                   movieNode.addChild(sub)
+
   def getSelectedItem(self, index = None):
       if index == None: #We want to know the current Selected Item
         return self.selectedNode
@@ -238,7 +250,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
       parentItem = self.root
     else:
       parentItem = parent.internalPointer()
-
+    
+    if row > len(parentItem.children) -1 :
+      return QtCore.QModelIndex()
+      
     childItem = parentItem.children[row]
     if childItem:
         return self.createIndex(row, column, childItem)
@@ -272,7 +287,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         movie = parentItem.data
         if not len(movie.subtitles):
             if movie.totalSubs > 1: #To put a 0 in the future, the 1 is just to show it's working
-                return movie.totalSubs
+                return 1 #movie.totalSubs (that way the scrollbar doesn't expand also)
             else:
                 return 0
         return len(movie.subtitles)

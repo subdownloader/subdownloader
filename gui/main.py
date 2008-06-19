@@ -169,12 +169,14 @@ class Main(QObject, Ui_MainWindow):
         self.moviesModel = VideoTreeModel(window)
         self.moviesView.setModel(self.moviesModel)
         
-        QObject.connect(self.moviesView, SIGNAL("activated(QModelIndex)"), self.onClickMovieTreeView)
         QObject.connect(self.moviesView, SIGNAL("clicked(QModelIndex)"), self.onClickMovieTreeView)
         QObject.connect(self.moviesModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesMovieCheckedChanged)
+        QObject.connect(self.moviesView, SIGNAL("expanded(QModelIndex)"), self.onExpandMovie)
         
         QObject.connect(self.buttonDownloadByTitle, SIGNAL("clicked(bool)"), self.onButtonDownloadByTitle)
         QObject.connect(self.buttonIMDBByTitle, SIGNAL("clicked(bool)"), self.onButtonIMDBByTitle)
+        
+        
         
         #Menu options
         QObject.connect(self.action_Quit, SIGNAL("triggered()"), self.onMenuQuit)
@@ -399,6 +401,7 @@ class Main(QObject, Ui_MainWindow):
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: CHECK if our local subtitles are already in the server.
         #self.OSDBServer.CheckSubHash(sub_hashes) 
+    
         
     def onClickVideoTreeView(self, index):
         treeItem = self.videoModel.getSelectedItem(index)
@@ -410,17 +413,8 @@ class Main(QObject, Ui_MainWindow):
             treeItem.checked = not(treeItem.checked)
             self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
             self.buttonIMDB.setEnabled(False)
-            
-    def onClickMovieTreeView(self, index):
-        treeItem = self.moviesModel.getSelectedItem(index)
-        if type(treeItem.data) == Movie:
-            movie = treeItem.data
-            if movie.IMDBId:
-                self.buttonIMDBByTitle.setEnabled(True)
-        else:
-            treeItem.checked = not(treeItem.checked)
-            self.moviesModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
-            self.buttonIMDBByTitle.setEnabled(False)
+    
+
         
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
@@ -840,7 +834,18 @@ class Main(QObject, Ui_MainWindow):
         
         defaultVideoApp = predefinedVideoPlayers[0]
         settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
-
+    
+    def onClickMovieTreeView(self, index):
+        treeItem = self.moviesModel.getSelectedItem(index)
+        if type(treeItem.data) == Movie:
+            movie = treeItem.data
+            if movie.IMDBId:
+                self.buttonIMDBByTitle.setEnabled(True)
+        else:
+            treeItem.checked = not(treeItem.checked)
+            self.moviesModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+            self.buttonIMDBByTitle.setEnabled(False)
+            
     def onButtonSearchByTitle(self):
         self.window.setCursor(Qt.WaitCursor)
         self.moviesModel.clearTree()
@@ -864,6 +869,7 @@ class Main(QObject, Ui_MainWindow):
         self.moviesView.clearSelection()
         self.moviesModel.clearTree()
         self.moviesModel.setLanguageFilter(selectedLanguageXXX)
+
         self.moviesView.expandAll()
         
     def subtitlesMovieCheckedChanged(self):
@@ -892,6 +898,23 @@ class Main(QObject, Ui_MainWindow):
         movie = self.moviesModel.getSelectedItem().data
         if movie.IMDBId:
             webbrowser.open( "http://www.imdb.com/title/tt%s"% movie.IMDBId, new=2, autoraise=1)
+            
+    def onExpandMovie(self, index):
+        movie = index.internalPointer().data
+        if not movie.subtitles and movie.totalSubs:
+            self.progress(0,"Searching subtitles")
+            self.window.setCursor(Qt.WaitCursor)
+            s = SearchByName()
+            selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
+            temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
+            #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
+            movie.subtitles =  temp_movie[0].subtitles 
+            self.moviesModel.updateMovie(index, selectedLanguageXXX) #The treeview is filtered by language
+            self.moviesView.collapse(index)
+            self.moviesView.expand(index)
+            self.progress(100)
+            QCoreApplication.processEvents()
+            self.window.setCursor(Qt.ArrowCursor)
         
 def main(options):
     log.debug("Building main dialog")
