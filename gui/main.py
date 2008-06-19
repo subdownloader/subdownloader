@@ -847,6 +847,7 @@ class Main(QObject, Ui_MainWindow):
             self.buttonIMDBByTitle.setEnabled(False)
             
     def onButtonSearchByTitle(self):
+        self.progress(0,"Searching movies")
         self.window.setCursor(Qt.WaitCursor)
         self.moviesModel.clearTree()
         self.moviesView.expandAll() #This was a solution found to refresh the treeView
@@ -862,6 +863,7 @@ class Main(QObject, Ui_MainWindow):
             self.moviesView.collapseAll() 
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
+        self.progress(100)
         
     def onFilterLanguageSearchName(self, index):
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(index).toString())
