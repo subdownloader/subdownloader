@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Wed May 14 22:27:32 2008
-#      by: PyQt4 UI code generator 4.3.1
+# Created: Tue Jun 24 23:55:15 2008
+#      by: PyQt4 UI code generator 4.3.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,37 +13,29 @@ class Ui_IMDBSearchDialog(object):
     def setupUi(self, IMDBSearchDialog):
         IMDBSearchDialog.setObjectName("IMDBSearchDialog")
         IMDBSearchDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        IMDBSearchDialog.resize(QtCore.QSize(QtCore.QRect(0,0,522,406).size()).expandedTo(IMDBSearchDialog.minimumSizeHint()))
+        IMDBSearchDialog.resize(522, 406)
         IMDBSearchDialog.setModal(True)
-
         self.vboxlayout = QtGui.QVBoxLayout(IMDBSearchDialog)
-
 
         self.label = QtGui.QLabel(IMDBSearchDialog)
         self.label.setObjectName("label")
         self.vboxlayout.addWidget(self.label)
-
         self.hboxlayout = QtGui.QHBoxLayout()
 
-
         self.movieSearch = QtGui.QLineEdit(IMDBSearchDialog)
-
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Fixed)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.movieSearch.sizePolicy().hasHeightForWidth())
         self.movieSearch.setSizePolicy(sizePolicy)
         self.movieSearch.setObjectName("movieSearch")
         self.hboxlayout.addWidget(self.movieSearch)
-
         self.searchMovieButton = QtGui.QPushButton(IMDBSearchDialog)
         self.searchMovieButton.setObjectName("searchMovieButton")
         self.hboxlayout.addWidget(self.searchMovieButton)
         self.vboxlayout.addLayout(self.hboxlayout)
-
         self.searchResultsView = ImdbListView(IMDBSearchDialog)
-
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Expanding)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.searchResultsView.sizePolicy().hasHeightForWidth())
@@ -56,25 +48,22 @@ class Ui_IMDBSearchDialog(object):
         self.searchResultsView.setGridStyle(QtCore.Qt.DotLine)
         self.searchResultsView.setObjectName("searchResultsView")
         self.vboxlayout.addWidget(self.searchResultsView)
-
         self.hboxlayout1 = QtGui.QHBoxLayout()
         self.hboxlayout1.setObjectName("hboxlayout1")
-
         self.movieInfoButton = QtGui.QPushButton(IMDBSearchDialog)
         self.movieInfoButton.setEnabled(False)
-        self.movieInfoButton.setIcon(QtGui.QIcon(":/images/imdb.jpg"))
-        self.movieInfoButton.setIconSize(QtCore.QSize(32,16))
+        icon = QtGui.QIcon()
+        icon.addFile(":/images/imdb.jpg")
+        self.movieInfoButton.setIcon(icon)
+        self.movieInfoButton.setIconSize(QtCore.QSize(32, 16))
         self.movieInfoButton.setObjectName("movieInfoButton")
         self.hboxlayout1.addWidget(self.movieInfoButton)
-
-        spacerItem = QtGui.QSpacerItem(40,20,QtGui.QSizePolicy.Expanding,QtGui.QSizePolicy.Minimum)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.hboxlayout1.addItem(spacerItem)
-
         self.okButton = QtGui.QPushButton(IMDBSearchDialog)
         self.okButton.setEnabled(False)
         self.okButton.setObjectName("okButton")
         self.hboxlayout1.addWidget(self.okButton)
-
         self.cancelButton = QtGui.QPushButton(IMDBSearchDialog)
         self.cancelButton.setObjectName("cancelButton")
         self.hboxlayout1.addWidget(self.cancelButton)

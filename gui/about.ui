@@ -130,7 +130,7 @@ p, li { white-space: pre-wrap; }
       <enum>Qt::WheelFocus</enum>
      </property>
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
       <property name="geometry" >
@@ -159,10 +159,10 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Homepage:&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="http://code.google.com/p/subdownloader/">&lt;span style=" text-decoration: underline; color:#0057ae;">http://code.google.com/p/subdownloader/&lt;/span>&lt;/a>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="http://www.subdownloader.net/">&lt;span style=" text-decoration: underline; color:#0057ae;">http://www.subdownloader.net/&lt;/span>&lt;/a>&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline; color:#0057ae;">&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;">&lt;span style=" text-decoration:none;">Bugs and new requests:&lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="http://code.google.com/p/subdownloader/issues">&lt;span style=" text-decoration: underline; color:#0057ae;">http://code.google.com/p/subdownloader/issues&lt;/span>&lt;/a>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="https://bugs.launchpad.net/subdownloader">&lt;span style=" text-decoration: underline; color:#0057ae;">https://bugs.launchpad.net/subdownloader&lt;/span>&lt;/a>&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline; color:#0057ae;">&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;">&lt;span style=" text-decoration:none;">Donate us:&lt;/span>&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=donations%40subdownloader%2enet&amp;no_shipping=0&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=PT&amp;bn=PP%2dDonationsBF&amp;charset=UTF%2d8">&lt;span style=" text-decoration: underline; color:#0057ae;">Our paypal account&lt;/span>&lt;/a>&lt;/p>&lt;/body>&lt;/html></string>
