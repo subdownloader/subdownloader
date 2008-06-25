@@ -163,7 +163,7 @@ class RecursiveParser:
             if len(extensions) > 0:
                 for item in os.listdir(basedir):
                     if os.path.isfile(os.path.join(basedir, item)):
-                        if extensions.count(item[item.rfind('.') + 1:]) > 0:
+                        if extensions.count(item[item.rfind('.') + 1:].lower()) > 0:
                             filelist.append(os.path.join(basedir, item))
                     else:
                         subdirlist.append(os.path.join(basedir, item))

@@ -45,7 +45,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
     try:
         # it's a file
         open(folderpath, 'r')
-        if get_extension(folderpath) in videofile.VIDEOS_EXT:
+        if get_extension(folderpath).lower() in videofile.VIDEOS_EXT:
             files_found.append(folderpath)
         folderpath = os.path.dirname(folderpath)
     except IOError:

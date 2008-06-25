@@ -63,7 +63,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     for filename in search_list:
         for ext in subtitlefile.SUBTITLES_EXT:
             try:
-                if filename.endswith("."+ext):
+                if filename.lower().endswith("."+ext):
                     filesfound.append(filename)
                     cleaned_found = clear_string(without_extension(filename.lower()))
                     if "srt" in subtitlefile.SUBTITLES_EXT and cleaned_found.find(cleaned_file) != -1:
@@ -170,6 +170,6 @@ def subtitle_name_gen(video_filename, extension=".srt"):
         return ""
         
 def isSubtitle(filepath):
-    if get_extension(filepath) in subtitlefile.SUBTITLES_EXT:
+    if get_extension(filepath).lower() in subtitlefile.SUBTITLES_EXT:
         return True
     return False
