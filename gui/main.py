@@ -681,13 +681,14 @@ class Main(QObject, Ui_MainWindow):
             self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
-
     def onUploadButton(self, clicked):
         result = self.uploadModel.verify()
         if not result["ok"]:
             QMessageBox.about(self.window,"Error",result["error_msg"])
             return
         else:
+            self.progress(0)
+            self.window.setCursor(Qt.WaitCursor)
             log.debug("Compressing subtitle...")
             details = {}
             imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
@@ -709,7 +710,7 @@ class Main(QObject, Ui_MainWindow):
                     curr_sub = self.uploadModel._subs[i]
                     curr_video = self.uploadModel._videos[i]
                     if curr_sub : #Make sure is not an empty row with None
-                        buf = open(curr_sub.getFilePath()).read()
+                        buf = open(curr_sub.getFilePath(), mode='rb').read()
                         curr_sub_content = base64.encodestring(zlib.compress(buf))
                         cd = "cd" + str(i)
                         movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
@@ -718,6 +719,8 @@ class Main(QObject, Ui_MainWindow):
                     QMessageBox.about(self.window,"Success","Subtitles succesfully uploaded. Thanks.")
                 else:
                     QMessageBox.about(self.window,"Error","Problem while uploading...")
+                self.progress(100)
+                self.window.setCursor(Qt.ArrowCursor)
     
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())

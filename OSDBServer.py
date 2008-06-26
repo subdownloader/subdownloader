@@ -17,7 +17,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from xmlrpclib import Transport,ServerProxy
-import base64, httplib, os, signal
+import base64, httplib, os
 import StringIO, gzip, zlib
 import logging
 import threading 
@@ -490,7 +490,7 @@ class OSDBServer(object):
         self.log.debug("----------------")
         self.log.debug("UploadSubtitles RPC method starting...")
         self.log.info("Uploading subtitle...")
-        
+        self.log.debug("Sending info: %s"% movie_info)
         info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
         self.log.debug("Upload finished in %s with status %s."% (info['seconds'], info['status']))
         if info['status'] == "200 OK":

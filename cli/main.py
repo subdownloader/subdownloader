@@ -273,7 +273,7 @@ class Main(OSDBServer.OSDBServer):
                         
                     # cook subtitle content
                     self.log.debug("Compressing subtitle...")
-                    buf = open(curr_sub.getFilePath()).read()
+                    buf = open(curr_sub.getFilePath(), mode='rb').read()
                     curr_sub_content = base64.encodestring(zlib.compress(buf))
                     
                     # transfer info
