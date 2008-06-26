@@ -831,9 +831,9 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("parameters", QVariant( videoapp['parameters']))
             settings.setValue("name", QVariant( videoapp['name']))
         settings.endArray()
-        
-        defaultVideoApp = predefinedVideoPlayers[0]
-        settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
+        if len(predefinedVideoPlayers):
+            defaultVideoApp = predefinedVideoPlayers[0]
+            settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
     
     def onClickMovieTreeView(self, index):
         treeItem = self.moviesModel.getSelectedItem(index)

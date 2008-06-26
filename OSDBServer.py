@@ -20,7 +20,7 @@ from xmlrpclib import Transport,ServerProxy
 import base64, httplib, os, signal
 import StringIO, gzip, zlib
 import logging
-
+import threading 
 log = logging.getLogger("subdownloader.OSDBServer")
     
 from subdownloader import APP_TITLE, APP_VERSION
@@ -65,13 +65,18 @@ class TimeoutFunction:
         raise TimeoutFunctionException()
 
     def __call__(self, *args): 
-        old = signal.signal(signal.SIGALRM, self.handle_timeout) 
-        signal.alarm(self.timeout) 
+        #old = signal.alarm(signal.SIGALRM, self.handle_timeout) 
+        #signal.alarm(self.timeout) 
+        t = threading.Timer(self.timeout, self.handle_timeout)
         try: 
+            t.start()
             result = self.function(*args)
         finally: 
-            signal.signal(signal.SIGALRM, old)
-        signal.alarm(0)
+            #signal.signal(signal.SIGALRM, old)
+            t.cancel()
+            pass
+        #signal.alarm(0)
+        del t
         return result 
     
 """The XMLRPC can use a Proxy, this class is need for that."""
@@ -139,18 +144,22 @@ class OSDBServer(object):
         return self.connect(server, proxy)
         
     def connect(self, server, proxy):
-        connect = TimeoutFunction(self._connect)
         try:
+            self.log.debug("connect(self, %r, %r)" %(server, proxy))
+            connect = TimeoutFunction(self._connect)
             return connect(server, proxy)
+        except Exception, e:
+            import sys
+            print "Unexpected error:", sys.exc_info()
         except TimeoutFunctionException:
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise
 
     def _connect(self, server, proxy):
         if proxy:
+            self.log.debug("Trying proxied connection... (%r)"% proxy)
             self.proxied_transport = ProxiedTransport()
             self.proxied_transport.set_proxy(proxy)
-            self.log.debug("Trying proxied connection... (%r)"% proxy)
             self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
             self.ServerInfo()
             self.log.debug("...connected")
