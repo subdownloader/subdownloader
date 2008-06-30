@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Icon=/usr/share/subdownloader/gui/images/subdownloader.png
+Name=SubDownloader
+Comment=Application to download subtitles for your movies.
+Exec=python /usr/share/subdownloader/run.py
+Terminal=False
+Type=Application
+Categories=KDE;QT;AudioVideo;Video;Network
+StartupNotify=false
