@@ -1,14 +1,17 @@
 __license__   = 'GPL v3'
-__copyright__ = '2008, Kovid Goyal <kovid at kovidgoyal.net>'
+__copyright__ = '2008, Ivan Garcia <capiscuas@gmail.com>'
 ''' Create a windows installer '''
+
 import sys, re, os, shutil, subprocess, zipfile
-from setup import VERSION, APPNAME, entry_points, scripts, basenames
+sys.path.append(os.path.dirname(os.getcwd()))
+sys.argv.append ( "--verbose" ) 
+from subdownloader import APP_TITLE, APP_VERSION
+#from setup import VERSION, APPNAME, entry_points, scripts, basenames
 from distutils.core import setup
 from distutils.filelist import FileList
 import py2exe, glob
 from py2exe.build_exe import py2exe as build_exe
-from calibre import __version__ as VERSION
-from calibre import __appname__ as APPNAME
+
 
 PY2EXE_DIR = os.path.join('build','py2exe')
 if os.path.exists(PY2EXE_DIR):
@@ -409,7 +412,7 @@ SectionEnd
     '''
     def __init__(self, name, py2exe_dir, output_dir):
         self.installer = self.__class__.TEMPLATE % dict(name=name, py2exe_dir=py2exe_dir,
-                                                   version=VERSION, 
+                                                   version=APP_VERSION, 
                                                    outpath=os.path.abspath(output_dir))
         
     def build(self):
@@ -427,7 +430,7 @@ SectionEnd
 
 class BuildEXE(build_exe):
     manifest_resource_id = 0
-    QT_PREFIX = r'C:\\Qt\\4.4.0' 
+    QT_PREFIX = r'C:\\Python25\PyQt4' 
     MANIFEST_TEMPLATE = '''
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0"> 
@@ -453,7 +456,7 @@ class BuildEXE(build_exe):
         cwd = os.getcwd()
         dd = os.path.join(cwd, self.dist_dir)
         try:
-            os.chdir(os.path.join('src', 'calibre', 'gui2', 'pictureflow'))
+            #os.chdir(os.path.join('src', 'calibre', 'gui2', 'pictureflow'))
             if os.path.exists('.build'):
                 shutil.rmtree('.build')
             os.mkdir('.build')
@@ -479,7 +482,7 @@ class BuildEXE(build_exe):
         if not os.path.exists(self.dist_dir):
             os.makedirs(self.dist_dir)
         print 'Building custom plugins...'
-        self.build_plugins()
+        #self.build_plugins()
         build_exe.run(self)
         qtsvgdll = None
         for other in self.other_depends:
@@ -511,8 +514,8 @@ class BuildEXE(build_exe):
         print 
         print 'Adding main scripts'
         f = zipfile.ZipFile(os.path.join('build', 'py2exe', 'library.zip'), 'a', zipfile.ZIP_DEFLATED)
-        for i in scripts['console'] + scripts['gui']:
-            f.write(i, i.partition('\\')[-1])
+       #for i in scripts['console'] + scripts['gui']:
+          #  f.write(i, i.partition('\\')[-1])
         f.close()
         
         print 
@@ -524,51 +527,48 @@ class BuildEXE(build_exe):
         print
         print
         print 'Building Installer'
-        installer = NSISInstaller(APPNAME, self.dist_dir, 'dist')
+        installer = NSISInstaller(APP_TITLE, self.dist_dir, 'dist')
         installer.build()
         
     @classmethod
     def manifest(cls, prog):
         cls.manifest_resource_id += 1
         return (24, cls.manifest_resource_id, 
-                cls.MANIFEST_TEMPLATE % dict(prog=prog, version=VERSION+'.0'))
+                cls.MANIFEST_TEMPLATE % dict(prog=prog, version=APP_VERSION+'.0'))
 
 
     
 def main():
     sys.argv[1:2] = ['py2exe']
+    sys.argv.append ( "--verbose" ) 
+    print sys.argv
     
-    console = [dict(dest_base=basenames['console'][i], script=scripts['console'][i])
-               for i in range(len(scripts['console']))]# if not 'parallel.py' in scripts['console'][i] ]
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+    #console = [dict(dest_base=basenames['console'][i], script=scripts['console'][i])
+    #           for i in range(len(scripts['console']))]# if not 'parallel.py' in scripts['console'][i] ]
+    #sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+    print sys.path
     setup(
           cmdclass = {'py2exe': BuildEXE},
           windows = [
-                     {'script'          : scripts['gui'][0],
-                      'dest_base'       : APPNAME,
-                      'icon_resources'  : [(1, 'icons/library.ico')],
-                      'other_resources' : [BuildEXE.manifest(APPNAME)],
-                      },
-                      {'script'         : scripts['gui'][1],
-                      'dest_base'       : 'lrfviewer',
-                      'icon_resources'  : [(1, 'icons/viewer.ico')],
-                      'other_resources' : [BuildEXE.manifest('lrfviewer')],
-                      },
-                      ],
-          console = console,
+                     {'script'          : 'run.py',
+                      'dest_base'       : APP_TITLE,
+                      'icon_resources'  : [(1, 'gui/images/icon32.ico')],
+                      'other_resources' : [BuildEXE.manifest(APP_TITLE)],
+                      }],
+          console = 'run.py --cli',
+          verbose = True, 
           options = { 'py2exe' : {'compressed': 1,
                                   'optimize'  : 2,
                                   'dist_dir'  : PY2EXE_DIR,
                                   'includes'  : [
-                                             'sip', 'pkg_resources', 'PyQt4.QtSvg',
-                                             'mechanize', 'ClientForm', 'wmi',
-                                             'win32file', 'pythoncom', 'rtf2xml',
-                                             'win32process', 'win32api', 'msvcrt',
-                                             'win32event', 'calibre.ebooks.lrf.any.*',
-                                             'calibre.ebooks.lrf.feeds.*',
-                                             'lxml', 'lxml._elementpath', 'genshi',
-                                             'path', 'pydoc', 'IPython.Extensions.*',
-                                             'calibre.web.feeds.recipes.*', 'PyQt4.QtWebKit',
+                                             'sip',
+#                                             'pkg_resources', 'PyQt4.QtSvg',
+#                                             'ClientForm', 'wmi',
+#                                             'win32file', 'pythoncom', 'rtf2xml',
+#                                             'win32process', 'win32api', 'msvcrt',
+#                                             'win32event', 
+#                                             'lxml', 'lxml._elementpath', 'genshi',
+#                                             'path', 'pydoc', 'IPython.Extensions.*','PyQt4.QtWebKit',
                                              ],
                                   'packages'  : ['PIL'],
                                   'excludes'  : ["Tkconstants", "Tkinter", "tcl",

@@ -73,21 +73,19 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     return zipFile
     
 def get_svn_revision():
-    commands.getoutput("svn update")
-    for line in commands.getoutput("svn info").split("\n"):
-        if re.search("^Revision: \d+$", line): 
-            return re.search("\d+$", line).group(0)
-    return None
+    commands.getoutput("bzr update")
+    version = commands.getoutput('bzr version-info --custom --template="{revno}"')
+    return version
 
 
 if __name__ == "__main__":
     svn_revision = get_svn_revision()
-    zipName = "subdownloader-SVN_r%s.zip"% svn_revision
+    zipName = "subdownloader-revision_%s.zip"% svn_revision
     # create the tarball directory tree
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
-            zipName = "subdownloader_CLI-SVN_r%s.zip"% svn_revision
+            zipName = "subdownloader_CLI-revision_%s.zip"% svn_revision
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code

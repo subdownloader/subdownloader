@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-06-16, 14:16:18 -->
+<!-- Saved: 2008-06-29, 23:18:50 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -155,6 +155,9 @@
       <Dir>gui</Dir>
       <Name>preferences.py</Name>
     </Source>
+    <Source>
+      <Name>windows_installer.py</Name>
+    </Source>
   </Sources>
   <Forms>
     <Form>
@@ -190,7 +193,7 @@
     <Name>run.py</Name>
   </MainScript>
   <Vcs>
-    <VcsType>Subversion</VcsType>
+    <VcsType>None</VcsType>
     <VcsOptions>
       <dict>
         <key>
