@@ -61,7 +61,7 @@ class TimeoutFunction:
         self.timeout = timeout 
         self.function = function 
 
-    def handle_timeout(self, signum, frame): 
+    def handle_timeout(self): 
         raise TimeoutFunctionException()
 
     def __call__(self, *args): 
@@ -150,7 +150,7 @@ class OSDBServer(object):
             return connect(server, proxy)
         except Exception, e:
             import sys
-            print "Unexpected error:", sys.exc_info()
+            self.log.error("Unexpected error: %s", sys.exc_info())
         except TimeoutFunctionException:
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise
