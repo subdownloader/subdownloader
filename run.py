@@ -16,7 +16,9 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import sys, os
+import sys, os, platform
+if platform.system() == "Windows":
+    sys.stderr = open("stderr.log", "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
 import logging
 from optparse import OptionParser
 # this will allow logic imports
@@ -71,8 +73,8 @@ log = logging.getLogger("subdownloader.run")
 if __name__ == "__main__": 
     log.info('Subdownloader started')
     
-        
     if options.mode == 'gui':
+        
         gui.main.main(options)
     elif options.mode == 'cli':
         cli = cli.main.Main(options)

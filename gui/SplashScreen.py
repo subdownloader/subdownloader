@@ -33,7 +33,7 @@ class SplashScreen(QSplashScreen):
         """
         Constructor
         """
-        img_path = os.path.join(os.getcwd(), 'gui', 'images', 'subd_splash.gif')
+        img_path = os.path.join(os.getcwd(), 'gui', 'images', 'splash.png')
         pixmap = QPixmap(img_path)
         self.labelAlignment = Qt.Alignment(Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute)
         QSplashScreen.__init__(self, pixmap)

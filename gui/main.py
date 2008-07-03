@@ -107,7 +107,7 @@ class Main(QObject, Ui_MainWindow):
         
         settings = QSettings()
         
-        self.folderView.setRootIndex(model.index(QDir.rootPath()))
+        #self.folderView.setRootIndex(model.index(QDir.rootPath()))
         #index = model.index(QDir.rootPath())
 
         self.folderView.header().hide()
@@ -351,7 +351,6 @@ class Main(QObject, Ui_MainWindow):
            self.buttonDownload.setEnabled(False)
            self.buttonPlay.setEnabled(False)
            
-
     
     def SearchVideos(self, path):
         #Scan recursively the selected directory finding subtitles and videos
@@ -743,8 +742,6 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("imdbId", QVariant(id))
             settings.setValue("title", QVariant(title))
             settings.endArray()
-
-
 
             #imdbHistoryList = settings.value("upload/imdbHistory", QVariant([])).toList()
             #print imdbHistoryList

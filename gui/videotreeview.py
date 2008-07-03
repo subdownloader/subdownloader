@@ -118,9 +118,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         sub = data
         if role == QtCore.Qt.DecorationRole:
             if sub.isLocal():
-                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Disabled))
+                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Disabled))
             else:
-                return QVariant(QIcon(':/images/flags/%s.gif' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
+                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
         
         if role == QtCore.Qt.ForegroundRole:
             if sub.isLocal():
@@ -155,7 +155,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         if role == QtCore.Qt.DecorationRole:
             if movie_info :
                 #TODO: Show this icon bigger.
-                return QVariant(QIcon(':/images/imdb.jpg'))
+                return QVariant(QIcon(':/images/imdb.png'))
             else:
                 return QVariant()
         
@@ -181,7 +181,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         
         movie = data
         if role == QtCore.Qt.DecorationRole:
-                return QVariant(QIcon(':/images/imdb.jpg'))
+                return QVariant(QIcon(':/images/imdb.png'))
         
         if role == QtCore.Qt.FontRole:
             return QVariant(QFont('Arial', 10, QFont.Bold)) 

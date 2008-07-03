@@ -12,6 +12,10 @@
   <property name="windowTitle" >
    <string>SubDownloader</string>
   </property>
+  <property name="windowIcon" >
+   <iconset resource="images.qrc" >
+    <normaloff>:/images/icon32.ico</normaloff>:/images/icon32.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
     <rect>
@@ -111,7 +115,7 @@
               </property>
               <property name="icon" >
                <iconset resource="images.qrc" >
-                <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
+                <normaloff>:/images/imdb.png</normaloff>:/images/imdb.png</iconset>
               </property>
               <property name="iconSize" >
                <size>
@@ -317,7 +321,7 @@
                <string>Movie Info</string>
               </property>
               <property name="icon" >
-               <iconset resource="images.qrc" >
+               <iconset>
                 <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
               </property>
               <property name="iconSize" >

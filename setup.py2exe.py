@@ -16,15 +16,23 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import os, sys
+(parent, current) = os.path.split(os.path.dirname(os.getcwd()))
+sys.path.append(os.path.dirname(parent))
+sys.path.insert(0, 'Z:\\')
+
 from distutils.core import setup
+from distutils.core import Distribution
 import py2exe
-import sys
 import glob
 
-sys.path.insert(0, 'Z:\\')
-print sys.path
-setup(name='SubDownloader',
-    version='2.0.1',
+
+
+
+from subdownloader import APP_TITLE, APP_VERSION
+print sys.path 
+setup(name=APP_TITLE,
+    version=APP_VERSION,
     description='Find Subtitles for your Videos',
     author='Ivan Garcia',
     author_email='contact@ivangarcia.org',
@@ -33,20 +41,23 @@ setup(name='SubDownloader',
     package_dir={'subdownloader':'.'},
     #icon='psctrl/data/pyslovar/icon.ico',
     data_files=[
-                ('gui/images', glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
-                ('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
+                ('gui/images', ['gui/images/splash.png']),#glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
+                #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
                 ('languages/lm', glob.glob('languages/lm/*.lm')),
                 ('', ['README'])
     ],
     windows=[{
                     'script':'run.py', 
                     'icon_resources':[(1, 'gui/images/icon32.ico')]}], 
+    console=[{'script':'build_tarball.py'}], 
     options = { 'py2exe' : {'compressed': 1,
                                   'optimize'  : 2, 
                                   'includes'  : [
                                              'sip', 
-                                             'subdownloader.modules.configuration.*',
-                                            'PyQt4.QtWebKit',
-                                             ],}
+                                             'subdownloader.modules.configuration.*'
+                                             ],
+                                  'excludes'  : ["Tkconstants", "Tkinter", "tcl",
+                                                 "_imagingtk", "ImageTk", "FixTk"
+                                                ],}
                     }
     )
