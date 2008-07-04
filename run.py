@@ -22,7 +22,7 @@ if platform.system() == "Windows":
 import logging
 from optparse import OptionParser
 # this will allow logic imports
-sys.path.append(os.path.dirname(os.getcwd()))
+sys.path.append(os.path[0])
 # simple aplication starter
 import subdownloader.modules.configuration as conf
 
