@@ -1,413 +1,144 @@
-__license__   = 'GPL v3'
-__copyright__ = '2008, Ivan Garcia <capiscuas@gmail.com>'
-''' Create a windows installer '''
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
 
-import sys, re, os, shutil, subprocess, zipfile
-sys.path.append(os.path.dirname(os.getcwd()))
-sys.argv.append ( "--verbose" ) 
-from subdownloader import APP_TITLE, APP_VERSION
-#from setup import VERSION, APPNAME, entry_points, scripts, basenames
+##    Copyright (C) 2007 Ivan Garcia contact@ivangarcia.org
+##    This program is free software; you can redistribute it and/or modify
+##    it under the terms of the GNU General Public License as published by
+##    the Free Software Foundation; either version 2 of the License, or
+##    (at your option) any later version.
+##
+##    This program is distributed in the hope that it will be useful,
+##    but WITHOUT ANY WARRANTY; without even the implied warranty of
+##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##    GNU General Public License for more details.
+##
+##    You should have received a copy of the GNU General Public License along
+##    with this program; if not, write to the Free Software Foundation, Inc.,
+##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+import os, sys
+(parent, current) = os.path.split(os.path.dirname(os.getcwd()))
+sys.path.insert(0, os.path.dirname(parent))
+
 from distutils.core import setup
-from distutils.filelist import FileList
-import py2exe, glob
-from py2exe.build_exe import py2exe as build_exe
+import py2exe
+import glob
+import traceback, subprocess
+
+if len(sys.argv) == 1:
+    sys.argv.append("py2exe")
+
+from subdownloader import APP_TITLE, APP_VERSION
+print sys.path
 
 
-PY2EXE_DIR = os.path.join('build','py2exe')
-if os.path.exists(PY2EXE_DIR):
-    shutil.rmtree(PY2EXE_DIR)
 
+def py2exe():
+    sys.argv[1:2] = ['py2exe']
+    sys.argv.append ( "--verbose" ) 
+    print sys.argv
+    
+    setup(name=APP_TITLE,
+        version=APP_VERSION,
+        description='Find Subtitles for your Videos',
+        author='Ivan Garcia',
+        author_email='contact@ivangarcia.org',
+        url='http://www.subdownloader.net',
+        #includes=['FileManagement', 'cli', 'gui', 'languages', 'modules'],
+        package_dir={'subdownloader':'.'},
+        zipfile = None, 
+        #icon='psctrl/data/pyslovar/icon.ico',
+        data_files=[
+                    ('gui/images', ['gui/images/splash.png']),#glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
+                    #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
+                    ('languages/lm', glob.glob('languages/lm/*.lm')),
+                    ('', ['README'])
+        ],
+        windows=[{
+                        'script':'run.py', 
+                        'icon_resources':[(1, 'gui/images/icon32.ico')]}], 
+        console=[{'script':'build_tarball.py'}], 
+        options = { 'py2exe' : {'compressed': 1,
+                                      'optimize'  : 2, 
+                                      'includes'  : [
+                                                 'sip', 
+                                                 'subdownloader.modules.configuration.*'
+                                                 ],
+                                      'excludes'  : ["Tkconstants", "Tkinter", "tcl",
+                                                     "_imagingtk", "ImageTk", "FixTk"
+                                                    ],
+                                       #'bundle_files': 1, 
+                                       }
+                        }
+        )
 
 class NSISInstaller(object):
     TEMPLATE = r'''
-; Do a Cyclic Redundancy Check to make sure the installer
-; was not corrupted by the download.  
-CRCCheck on
-
-SetCompressor     lzma
-ShowInstDetails   show
-ShowUnInstDetails show
-
-;------------------------------------------------------------------------------------------------------
-;Include Modern UI
-  !include "MUI2.nsh"
-  !include "WinMessages.nsh"
-  
-;------------------------------------------------------------------------------------------------------
-;Variables
-Var STARTMENU_FOLDER
-Var MUI_TEMP
+; The name of the installer
 
 !define PRODUCT_NAME "%(name)s"
-BrandingText "${PRODUCT_NAME} created by Kovid Goyal"
 !define PRODUCT_VERSION "%(version)s"
-!define WEBSITE "https://calibre.kovidgoyal.net"
-!define DEVCON  "C:\devcon\i386\devcon.exe"
-!define PY2EXE_DIR "%(py2exe_dir)s"
-!define LIBUSB_DIR "C:\libusb"
-!define LIBUNRAR_DIR "C:\Program Files\UnrarDLL"
-!define CLIT         "C:\clit\clit.exe"
-!define PDFTOHTML    "C:\pdftohtml\pdftohtml.exe"
-!define IMAGEMAGICK  "C:\ImageMagick"
-!DEFINE FONTCONFIG   "C:\fontconfig"
+Name "${PRODUCT_NAME}"
+; The file to write
+OutFile "%(outpath)s\${PRODUCT_NAME}-${PRODUCT_VERSION}.exe"
 
+; The default installation directory
+InstallDir $PROGRAMFILES\${PRODUCT_NAME}
 
-; ---------------PATH manipulation -----------------------------------------------------------------
-; Registry key for changing the environment variables for all users on both XP and Vista
-!define WriteEnvStr_RegKey 'HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"'
+; Registry key to check for directory (so if you install again, it will 
+; overwrite the old one automatically)
+InstallDirRegKey HKLM "Software\${PRODUCT_NAME}" "Install_Dir"
 
-Function Trim ; Added by Pelaca
-        Exch $R1
-        Push $R2
-Loop:
-        StrCpy $R2 "$R1" 1 -1
-        StrCmp "$R2" " " RTrim
-        StrCmp "$R2" "$\n" RTrim
-        StrCmp "$R2" "$\r" RTrim
-        StrCmp "$R2" ";" RTrim
-        GoTo Done
-RTrim:  
-        StrCpy $R1 "$R1" -1
-        Goto Loop
-Done:
-        Pop $R2
-        Exch $R1
-FunctionEnd
+;--------------------------------
+; Pages
+Page components
+Page directory
+Page instfiles
+UninstPage uninstConfirm
+UninstPage instfiles
+;--------------------------------
+; The stuff to install
+Section "${PRODUCT_NAME} (required)"
+  SectionIn RO
 
-; input, top of stack = string to search for
-;        top of stack-1 = string to search in
-; output, top of stack (replaces with the portion of the string remaining)
-; modifies no other variables.
-;
-; Usage:
-;   Push "this is a long ass string"
-;   Push "ass"
-;   Call StrStr
-;   Pop $R0
-;  ($R0 at this point is "ass string")
- 
-!macro StrStr un
-Function ${un}StrStr
-Exch $R1 ; st=haystack,old$R1, $R1=needle
-  Exch    ; st=old$R1,haystack
-  Exch $R2 ; st=old$R1,old$R2, $R2=haystack
-  Push $R3
-  Push $R4
-  Push $R5
-  StrLen $R3 $R1
-  StrCpy $R4 0
-  ; $R1=needle
-  ; $R2=haystack
-  ; $R3=len(needle)
-  ; $R4=cnt
-  ; $R5=tmp
-  loop:
-    StrCpy $R5 $R2 $R3 $R4
-    StrCmp $R5 $R1 done
-    StrCmp $R5 "" done
-    IntOp $R4 $R4 + 1
-    Goto loop
-done:
-  StrCpy $R1 $R2 "" $R4
-  Pop $R5
-  Pop $R4
-  Pop $R3
-  Pop $R2
-  Exch $R1
-FunctionEnd
-!macroend
-!insertmacro StrStr ""
-!insertmacro StrStr "un."
-
-Function AddToPath
-  Exch $0
-  Push $1
-  Push $2
-  Push $3
-  ; don't add if the path doesn't exist
-  IfFileExists "$0\*.*" "" AddToPath_done
+  ; Set output path to the installation directory.
+  SetOutPath $INSTDIR
+  ; Put file there
+  File /r dist\*.*
   
-  ReadEnvStr $1 PATH
-  Push "$1;"
-  Push "$0;"
-  Call StrStr
-  Pop $2
-  StrCmp $2 "" "" AddToPath_done
-  Push "$1;"
-  Push "$0\;"
-  Call StrStr
-  Pop $2
-  StrCmp $2 "" "" AddToPath_done
-  GetFullPathName /SHORT $3 $0
-  Push "$1;"
-  Push "$3;"
-  Call StrStr
-  Pop $2
-  StrCmp $2 "" "" AddToPath_done
-  Push "$1;"
-  Push "$3\;"
-  Call StrStr
-  Pop $2
-  StrCmp $2 "" "" AddToPath_done
+  ; Write the installation path into the registry
+  WriteRegStr HKLM SOFTWARE\${PRODUCT_NAME} "Install_Dir" "$INSTDIR"
   
-  ReadRegStr $1 ${WriteEnvStr_RegKey} "PATH"
-    StrCmp $1 "" AddToPath_NTdoIt
-      Push $1
-      Call Trim
-      Pop $1
-      StrCpy $0 "$1;$0"
-    AddToPath_NTdoIt:
-      WriteRegExpandStr ${WriteEnvStr_RegKey} "PATH" $0
-      SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
-      
-  AddToPath_done:
-    Pop $3
-    Pop $2
-    Pop $1
-    Pop $0
-FunctionEnd
-
-Function un.RemoveFromPath
-  Exch $0
-  Push $1
-  Push $2
-  Push $3
-  Push $4
-  Push $5
-  Push $6
- 
-  IntFmt $6 "%%c" 26 # DOS EOF
-  
-  ReadRegStr $1 ${WriteEnvStr_RegKey} "PATH"
-    StrCpy $5 $1 1 -1 # copy last char
-    StrCmp $5 ";" +2 # if last char != ;
-      StrCpy $1 "$1;" # append ;
-    Push $1
-    Push "$0;"
-    Call un.StrStr ; Find `$0;` in $1
-    Pop $2 ; pos of our dir
-    StrCmp $2 "" unRemoveFromPath_done
-      ; else, it is in path
-      # $0 - path to add
-      # $1 - path var
-      StrLen $3 "$0;"
-      StrLen $4 $2
-      StrCpy $5 $1 -$4 # $5 is now the part before the path to remove
-      StrCpy $6 $2 "" $3 # $6 is now the part after the path to remove
-      StrCpy $3 $5$6
- 
-      StrCpy $5 $3 1 -1 # copy last char
-      StrCmp $5 ";" 0 +2 # if last char == ;
-        StrCpy $3 $3 -1 # remove last char
- 
-      WriteRegExpandStr ${WriteEnvStr_RegKey} "PATH" $3
-      SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
- 
-  unRemoveFromPath_done:
-    Pop $6
-    Pop $5
-    Pop $4
-    Pop $3
-    Pop $2
-    Pop $1
-    Pop $0
-FunctionEnd
-
-;------------------------------------------------------------------------------------------------------
-;General
-
-  ;Name and file
-  Name "${PRODUCT_NAME}"
-  OutFile "%(outpath)s\${PRODUCT_NAME}-${PRODUCT_VERSION}.exe"
-
-  ;Default installation folder
-  InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
-  
-  ;Get installation folder from registry if available
-  InstallDirRegKey HKCU "Software\${PRODUCT_NAME}" ""
-  
-  ;Vista redirects $SMPROGRAMS to all users without this
-  RequestExecutionLevel admin
-  
-;------------------------------------------------------------------------------------------------------
-;Interface Settings
-
-  !define MUI_HEADERIMAGE
-  !define MUI_HEADERIMAGE_BITMAP "icons\library.ico"
-  !define MUI_ABORTWARNING
-
-;------------------------------------------------------------------------------------------------------
-;Pages
-
-  !insertmacro MUI_PAGE_WELCOME
-  !insertmacro MUI_PAGE_LICENSE "${PY2EXE_DIR}\LICENSE"
-  !insertmacro MUI_PAGE_COMPONENTS
-  !insertmacro MUI_PAGE_DIRECTORY
-  ;Start Menu Folder Page Configuration
-  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU" 
-  !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\${PRODUCT_NAME}"
-  !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
-  
-  !insertmacro MUI_PAGE_STARTMENU Application $STARTMENU_FOLDER
-  !insertmacro MUI_PAGE_INSTFILES
-  
-  ; Finish page with option to run program
-  ; Disabled as GUI requires PATH and working directory to be set correctly
-  ;!define MUI_FINISHPAGE_RUN "$INSTDIR\${PRODUCT_NAME}.exe"
-  ;!define MUI_FINISHPAGE_NOAUTOCLOSE
-  ;!insertmacro MUI_PAGE_FINISH
-  
-  !insertmacro MUI_UNPAGE_CONFIRM
-  !insertmacro MUI_UNPAGE_INSTFILES
-  !insertmacro MUI_UNPAGE_FINISH
-;------------------------------------------------------------------------------------------------------
-;Languages
- 
-  !insertmacro MUI_LANGUAGE "English"
-;------------------------------------------------------------------------------------------------------
-;Installer Sections
-
-Function .onInit
-    ; Prevent multiple instances of the installer from running
-    System::Call 'kernel32::CreateMutexA(i 0, i 0, t "${PRODUCT_NAME}-setup") i .r1 ?e'
-        Pop $R0
- 
-    StrCmp $R0 0 +3
-        MessageBox MB_OK|MB_ICONEXCLAMATION "The installer is already running."
-        Abort
-
-FunctionEnd
-
-
-Section "Main" "secmain"
-
-  SetOutPath "$INSTDIR"
-  
-  ;ADD YOUR OWN FILES HERE...
-  File /r "${PY2EXE_DIR}\*"
-  File "${CLIT}"
-  File "${PDFTOHTML}"
-  File /r "${FONTCONFIG}\*"
-  
-  SetOutPath "$INSTDIR\ImageMagick"
-  File /r "${IMAGEMAGICK}\*"
-  
-    
-  SetOutPath "$SYSDIR"
-  File "${LIBUNRAR_DIR}\unrar.dll"
-  DetailPrint " "
-  
-  ;Store installation folder
-  WriteRegStr HKCU "Software\${PRODUCT_NAME}" "" $INSTDIR
-  
-  ;Create uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
-                   "DisplayName" "${PRODUCT_NAME} -- E-book management software"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" \
-                   "UninstallString" "$INSTDIR\Uninstall.exe"
-
-  SetOutPath "$INSTDIR"
-  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    
-    ;Create shortcuts
-    WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${WEBSITE}"
-    CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
-    CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\calibre.lnk" "$INSTDIR\${PRODUCT_NAME}.exe"
-    CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\lrfviewer.lnk" "$INSTDIR\lrfviewer.exe"
-    CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
-    CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-    CreateShortCut  "$DESKTOP\${PRODUCT_NAME}.lnk" "$INSTDIR\calibre.exe"
-
-  !insertmacro MUI_STARTMENU_WRITE_END
-  
-  ;Add the installation directory to PATH for the commandline tools
-  Push "$INSTDIR"
-  Call AddToPath
+  ; Write the uninstall keys for Windows
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "DisplayName" "${PRODUCT_NAME}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "UninstallString" '"$INSTDIR\uninstall.exe"'
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "NoRepair" 1
+  WriteUninstaller "uninstall.exe"
   
 SectionEnd
 
-Section /o "Device Drivers (only needed for PRS500)" "secdd"
-  SetOutPath "$INSTDIR\driver"
-  File "${LIBUSB_DIR}\*.dll"
-  File "${LIBUSB_DIR}\*.sys"
-  File "${LIBUSB_DIR}\*.cat"
-  File "${LIBUSB_DIR}\*.inf"
-  File "${LIBUSB_DIR}\testlibusb-win.exe"
-  File "${DEVCON}"
-
-  SetOutPath "$SYSDIR"
-  File "${LIBUSB_DIR}\libusb0.dll"
-  File "${LIBUSB_DIR}\libusb0.sys"
-  ;File "${LIBUSB_DIR}\libusb0_x64.dll"
-  ;File "${LIBUSB_DIR}\libusb0_x64.sys"
-    
-  ; Uninstall USB drivers
-  DetailPrint "Uninstalling any existing device drivers"
-  ExecWait '"$INSTDIR\driver\devcon.exe" remove "USB\VID_054C&PID_029B"' $0
-  DetailPrint "devcon returned exit code $0"
-  
-  
-  DetailPrint "Installing USB driver for prs500..."
-  ExecWait '"$INSTDIR\driver\devcon.exe" install "$INSTDIR\driver\prs500.inf" "USB\VID_054C&PID_029B"' $0
-  DetailPrint "devcon returned exit code $0"
-  IfErrors 0 +3
-          MessageBox MB_OK|MB_ICONINFORMATION|MB_TOPMOST "Failed to install USB driver. devcon exit code: $0"
-          Goto +2
-  MessageBox MB_OK '1. If you have the SONY Connect Reader software installed: $\nGoto Add Remove Programs and uninstall the entry "Windows Driver Package - Sony Corporation (PRSUSB)". $\n$\n2. If your reader is connected to the computer, disconnect and reconnect it now.'
-  DetailPrint " "
-  
-  
-  
-  
+; Optional section (can be disabled by the user)
+Section "Start Menu Shortcuts"
+  CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
+  CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk" "$INSTDIR\run.exe" "" "$INSTDIR\run.exe" 0
 SectionEnd
 
-;------------------------------------------------------------------------------------------------------
-;Descriptions
-
-  ;Language strings
-  LangString DESC_secmain ${LANG_ENGLISH} "The GUI and command-line tools for working with ebooks."
-  LangString DESC_secdd   ${LANG_ENGLISH} "The device drivers to talk to the Sony PRS500. You only need this if you plan to transfer books to the Sony PRS500 with ${PRODUCT_NAME}. It is not required for the PRS 505."
-
-  ;Assign language strings to sections
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${secmain} $(DESC_secmain)
-    !insertmacro MUI_DESCRIPTION_TEXT ${secdd} $(DESC_secdd)
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
-;------------------------------------------------------------------------------------------------------
-;Uninstaller Section
-
-Section "un.DeviceDrivers"
-  ; Uninstall USB drivers
-  ExecWait '"$INSTDIR\driver\devcon.exe" remove "USB\VID_054C&PID_029B"' $0
-  DetailPrint "devcon returned exit code $0"
-SectionEnd
-
+; Uninstaller
 Section "Uninstall"
   
-  ;ADD YOUR OWN FILES HERE...
-  RMDir /r "$INSTDIR"
-  !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
-  RMDir /r "$SMPROGRAMS\$MUI_TEMP"
-  ;Delete empty start menu parent diretories
-  StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
-
-  startMenuDeleteLoop:
-    ClearErrors
-    RMDir $MUI_TEMP
-    GetFullPathName $MUI_TEMP "$MUI_TEMP\.."
-
-    IfErrors startMenuDeleteLoopDone
-
-    StrCmp $MUI_TEMP $SMPROGRAMS startMenuDeleteLoopDone startMenuDeleteLoop
-  startMenuDeleteLoopDone:
-  Delete "$DESKTOP\${PRODUCT_NAME}.lnk"
-
-  DeleteRegKey /ifempty HKCU "Software\${PRODUCT_NAME}"
+  ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
-  ; Remove installation directory from PATH
-  Push "$INSTDIR"
-  Call un.RemoveFromPath  
+  DeleteRegKey HKLM SOFTWARE\${PRODUCT_NAME}
+
+  ; Remove shortcuts, if any
+  Delete "$SMPROGRAMS\${PRODUCT_NAME}\*.*"
+
+  ; Remove directories used
+  RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
+  RMDir /r "$INSTDIR"
+
 SectionEnd
     '''
     def __init__(self, name, py2exe_dir, output_dir):
@@ -421,165 +152,23 @@ SectionEnd
         f.write(self.installer)
         f.close()
         try:
-            subprocess.check_call('"C:\Program Files\NSIS\makensis.exe" /V2 ' + path, shell=True)
-        except:
+            subprocess.call('"C:\Program Files\NSIS\makensis.exe" /V2 ' + path, shell=True)
+        except Exception, e:
             print path
+            traceback.print_exc(e)
         else:
             os.remove(path)
 
-
-class BuildEXE(build_exe):
-    manifest_resource_id = 0
-    QT_PREFIX = r'C:\\Python25\PyQt4' 
-    MANIFEST_TEMPLATE = '''
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0"> 
-  <assemblyIdentity version="%(version)s"
-     processorArchitecture="x86"
-     name="net.kovidgoyal.%(prog)s"
-     type="win32"
-     /> 
-  <description>Ebook management application</description> 
-  <!-- Identify the application security requirements. -->
-  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
-    <security>
-      <requestedPrivileges>
-        <requestedExecutionLevel
-          level="asInvoker"
-          uiAccess="false"/>
-        </requestedPrivileges>
-       </security>
-  </trustInfo>
-</assembly>
-'''
-    def build_plugins(self):
-        cwd = os.getcwd()
-        dd = os.path.join(cwd, self.dist_dir)
-        try:
-            #os.chdir(os.path.join('src', 'calibre', 'gui2', 'pictureflow'))
-            if os.path.exists('.build'):
-                shutil.rmtree('.build')
-            os.mkdir('.build')
-            os.chdir('.build')
-            subprocess.check_call(['qmake', '../pictureflow.pro'])
-            subprocess.check_call(['mingw32-make', '-f', 'Makefile.Release'])
-            shutil.copyfile('release\\pictureflow0.dll', os.path.join(dd, 'pictureflow0.dll'))
-            os.chdir('..\\PyQt')
-            if not os.path.exists('.build'):
-                os.mkdir('.build')
-            os.chdir('.build')
-            subprocess.check_call(['python', '..\\configure.py'])
-            subprocess.check_call(['mingw32-make', '-f', 'Makefile'])
-            shutil.copyfile('pictureflow.pyd', os.path.join(dd, 'pictureflow.pyd'))
-            os.chdir('..')
-            shutil.rmtree('.build', True)
-            os.chdir('..')
-            shutil.rmtree('.build', True)
-        finally:
-            os.chdir(cwd)
-    
-    def run(self):
-        if not os.path.exists(self.dist_dir):
-            os.makedirs(self.dist_dir)
-        print 'Building custom plugins...'
-        #self.build_plugins()
-        build_exe.run(self)
-        qtsvgdll = None
-        for other in self.other_depends:
-            if 'qtsvg4.dll' in other.lower():
-                qtsvgdll = other
-                break
-        shutil.copyfile('LICENSE', os.path.join(self.dist_dir, 'LICENSE'))
-        print
-        if qtsvgdll:
-            print 'Adding', qtsvgdll
-            shutil.copyfile(qtsvgdll, os.path.join(self.dist_dir, os.path.basename(qtsvgdll)))
-            qtxmldll = os.path.join(os.path.dirname(qtsvgdll), 'QtXml4.dll')
-            print 'Adding', qtxmldll
-            shutil.copyfile(qtxmldll, 
-                            os.path.join(self.dist_dir, os.path.basename(qtxmldll)))
-        print 'Adding plugins...',
-        qt_prefix = self.QT_PREFIX
-        if qtsvgdll:
-            qt_prefix = os.path.dirname(os.path.dirname(qtsvgdll))
-        plugdir = os.path.join(qt_prefix, 'plugins')
-        for d in ('imageformats', 'codecs', 'iconengines'):
-            print d,
-            imfd = os.path.join(plugdir, d)
-            tg = os.path.join(self.dist_dir, d)        
-            if os.path.exists(tg):
-                shutil.rmtree(tg)
-            shutil.copytree(imfd, tg)
-            
-        print 
-        print 'Adding main scripts'
-        f = zipfile.ZipFile(os.path.join('build', 'py2exe', 'library.zip'), 'a', zipfile.ZIP_DEFLATED)
-       #for i in scripts['console'] + scripts['gui']:
-          #  f.write(i, i.partition('\\')[-1])
-        f.close()
-        
-        print 
-        print 'Doing DLL redirection' # See http://msdn.microsoft.com/en-us/library/ms682600(VS.85).aspx
-        for f in glob.glob(os.path.join('build', 'py2exe', '*.exe')):
-            open(f + '.local', 'wb').write('\n')
-        
-        
-        print
-        print
-        print 'Building Installer'
-        installer = NSISInstaller(APP_TITLE, self.dist_dir, 'dist')
-        installer.build()
-        
-    @classmethod
-    def manifest(cls, prog):
-        cls.manifest_resource_id += 1
-        return (24, cls.manifest_resource_id, 
-                cls.MANIFEST_TEMPLATE % dict(prog=prog, version=APP_VERSION+'.0'))
-
-
-    
-def main():
-    sys.argv[1:2] = ['py2exe']
-    sys.argv.append ( "--verbose" ) 
-    print sys.argv
-    
-    #console = [dict(dest_base=basenames['console'][i], script=scripts['console'][i])
-    #           for i in range(len(scripts['console']))]# if not 'parallel.py' in scripts['console'][i] ]
-    #sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-    print sys.path
-    setup(
-          cmdclass = {'py2exe': BuildEXE},
-          windows = [
-                     {'script'          : 'run.py',
-                      'dest_base'       : APP_TITLE,
-                      'icon_resources'  : [(1, 'gui/images/icon32.ico')],
-                      'other_resources' : [BuildEXE.manifest(APP_TITLE)],
-                      }],
-          console = 'run.py --cli',
-          verbose = True, 
-          options = { 'py2exe' : {'compressed': 1,
-                                  'optimize'  : 2,
-                                  'dist_dir'  : PY2EXE_DIR,
-                                  'includes'  : [
-                                             'sip',
-#                                             'pkg_resources', 'PyQt4.QtSvg',
-#                                             'ClientForm', 'wmi',
-#                                             'win32file', 'pythoncom', 'rtf2xml',
-#                                             'win32process', 'win32api', 'msvcrt',
-#                                             'win32event', 
-#                                             'lxml', 'lxml._elementpath', 'genshi',
-#                                             'path', 'pydoc', 'IPython.Extensions.*','PyQt4.QtWebKit',
-                                             ],
-                                  'packages'  : ['PIL'],
-                                  'excludes'  : ["Tkconstants", "Tkinter", "tcl",
-                                                 "_imagingtk", "ImageTk", "FixTk"
-                                                ],
-                                  'dll_excludes' : ['mswsock.dll'],
-                                 },
-                    },
-          
-          )
-    return 0
-
 if __name__ == '__main__':
-    sys.exit(main())
+    
+        print 'Create EXE'
+        PY2EXE_BUILD = os.path.join('build','py2exe')
+        PY2EXE_DIST = os.path.join('dist','py2exe')
+        #if os.path.exists(PY2EXE_BUILD):
+           # shutil.rmtree(PY2EXE_BUILD)
+        #if os.path.exists(PY2EXE_DIST):
+           # shutil.rmtree(PY2EXE_DIST)
+        #py2exe()
+        print 'Building Installer'
+        installer = NSISInstaller(APP_TITLE,'dist', 'packages')
+        installer.build()

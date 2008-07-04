@@ -14,7 +14,7 @@
   </property>
   <property name="windowIcon" >
    <iconset resource="images.qrc" >
-    <normaloff>:/images/icon32.ico</normaloff>:/images/icon32.ico</iconset>
+    <normaloff>:/images/subdownloader.png</normaloff>:/images/subdownloader.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >

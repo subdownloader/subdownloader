@@ -1,10 +1,20 @@
 [Desktop Entry]
-Encoding=UTF-8
-Icon=/usr/share/subdownloader/gui/images/subdownloader.png
-Name=SubDownloader
-Comment=Application to download subtitles for your movies.
-Exec=python /usr/share/subdownloader/run.py
-Terminal=False
-Type=Application
 Categories=KDE;QT;AudioVideo;Video;Network
+Comment=Application to download subtitles for your movies.
+Comment[en_US]=Application to download subtitles for your movies.
+Encoding=UTF-8
+Exec[$e]=python /usr/share/subdownloader/run.py
+GenericName=
+GenericName[en_US]=
+Icon=/usr/share/subdownloader/gui/images/subdownloader.png
+MimeType=video/avi
+Name=SubDownloader
+Name[en_US]=SubDownloader
+Path[$e]=
 StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DCOP-ServiceType=unique
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/" >
     <file>images/icon32.ico</file>
+    <file>images/subdownloader.png</file>
     <file>images/flags/ar.png</file>
     <file>images/flags/ay.png</file>
     <file>images/flags/bg.png</file>

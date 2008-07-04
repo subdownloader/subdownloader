@@ -35,7 +35,6 @@ DEBUG       10
 NOTSET       0
 """
 
-
 #TODO: change conf.VERSION to subdownloader.APP_VERSION
 parser = OptionParser(description=conf.General.description, version=conf.General.version, option_list=conf.Terminal.option_list)
 (options, args) = parser.parse_args()
