@@ -8,14 +8,14 @@ import shutil
 import zipfile
 import commands
 
-exclude_dirs = [".svn", "firesubtitles", "Subdownloader"]
+exclude_dirs = [".svn", "firesubtitles", "Subdownloader","build","dist","packages"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py", "subdownloader.1"]
 
 def copy_to_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write("Copying current path contents to '%s'..."% temp_path)
     sys.stdout.flush()
     #os.mkdir("subdownloader_cli")
-    shutil.copytree(".", os.path.join(".", temp_path))
+    shutil.copytree("..", os.path.join("..", temp_path))
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
@@ -73,7 +73,7 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     return zipFile
     
 def get_svn_revision():
-    commands.getoutput("bzr update")
+    commands.getoutput("cd ..;bzr update")
     version = commands.getoutput('bzr version-info --custom --template="{revno}"')
     return version
 
