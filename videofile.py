@@ -39,6 +39,7 @@ class VideoFile(object):
         try:
             video = mmpython.parse(filepath)
             self._fps = video.video[0].fps
+            self._timeMS = video.length * 1000
         except NameError:
             self._fps = 0
         self._osdb_info = {}
@@ -71,7 +72,7 @@ class VideoFile(object):
         return self._fps
         
     def getTimeMS(self):
-        return 0
+        return self._timeMS
     
     def setOsdbInfo(self,info):
         self._osdb_info = info

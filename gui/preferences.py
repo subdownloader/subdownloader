@@ -10,7 +10,7 @@ from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 from subdownloader.gui.preferences_ui import Ui_PreferencesDialog
 import webbrowser
 import subdownloader.languages.Languages as languages
-import time, thread
+import time, thread, platform
 import logging
 log = logging.getLogger("subdownloader.gui.preferences")
 
@@ -107,6 +107,18 @@ class preferencesDialog(QtGui.QDialog):
             self.ui.optionVideoAppCombo.addItem("%s" % (name), QVariant(name))
         settings.endArray()
         
+        #Context menu for Explorer
+        if platform.system() == "Linux":
+            self.ui.optionIntegrationExplorer.setText("Enable in your Konqueror/Dolphin/Nautilus")
+            self.ui.optionIntegrationExplorer.setEnabled(True)
+        elif platform.system() == "Windows":
+            self.ui.optionIntegrationExplorer.setText("Enable in your Windows Explorer")
+            self.ui.optionIntegrationExplorer.setEnabled(True)
+        else:
+            self.ui.optionIntegrationExplorer.setText("Enable in your Explorer")
+            self.ui.optionIntegrationExplorer.setEnabled(False)
+
+        
         if totalVideoPlayers: 
             QObject.connect(self.ui.optionVideoAppCombo, SIGNAL("currentIndexChanged(int)"), self.onOptionVideoAppCombo)
         selectedVideoApp = settings.value("options/selectedVideoPlayer", QVariant()).toString()
@@ -160,16 +172,17 @@ class preferencesDialog(QtGui.QDialog):
         optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(self.ui.optionInterfaceLanguage.currentIndex())
         settings.setValue("options/interfaceLanguage", optionInterfaceLanguage)
         
-            
         IEoldValue = settings.value("options/IntegrationExplorer", QVariant(False)).toBool()
         IEnewValue = self.ui.optionIntegrationExplorer.isChecked()
         if  IEoldValue != IEnewValue:
-           settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
            if IEnewValue:
                log.debug('Installing the Integration Explorer feature') 
-               #TODO: install and uninstall
+               ok = self.actionContextMenu("install",platform.system())
            else:
                log.debug('Uninstalling the Integration Explorer feature')
+               ok = self.actionContextMenu("uninstall",platform.system())
+           if ok:
+                settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
         
         newUsername =  self.ui.optionLoginUsername.text()
         newPassword = self.ui.optionLoginPassword.text()
@@ -200,7 +213,8 @@ class preferencesDialog(QtGui.QDialog):
         #Closing the Preferences window
         self.reject()
 
-
+    def actionContextMenu(self, action,os):
+        pass
     def onOptionsButtonCancel(self):
         self.reject()
 

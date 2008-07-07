@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-07-04, 20:02:34 -->
+<!-- Saved: 2008-07-07, 01:46:30 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -134,9 +134,6 @@
       <Name>main.ui</Name>
     </Source>
     <Source>
-      <Name>build_tarball.py</Name>
-    </Source>
-    <Source>
       <Dir>gui</Dir>
       <Name>about.py</Name>
     </Source>
@@ -151,12 +148,6 @@
     <Source>
       <Dir>gui</Dir>
       <Name>preferences.py</Name>
-    </Source>
-    <Source>
-      <Name>windows_installer.py.delete</Name>
-    </Source>
-    <Source>
-      <Name>windows_installer.py</Name>
     </Source>
   </Sources>
   <Forms>

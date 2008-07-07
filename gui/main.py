@@ -235,8 +235,6 @@ class Main(QObject, Ui_MainWindow):
         if not totalVideoPlayers:
             self.initializeVideoPlayers(settings)
         
-
-        #self.readOptionsSettings(settings) #Initialized Settings for the OPTIONS tab
     
     def write_settings(self):
         settings = QSettings()
