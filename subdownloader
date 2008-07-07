@@ -1,4 +1,4 @@
 #!/bin/sh
 
-python /usr/share/subdownloader/run.py
+python /usr/share/subdownloader/run.py $*
 
