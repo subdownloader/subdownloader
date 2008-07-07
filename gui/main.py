@@ -185,7 +185,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.action_HelpBug, SIGNAL("triggered()"), self.onMenuHelpBug)
         QObject.connect(self.action_HelpDonation, SIGNAL("triggered()"), self.onMenuHelpDonation)
         QObject.connect(self.action_ShowPreferences, SIGNAL("triggered()"), self.onMenuPreferences)
-
+        QObject.connect(self.window, SIGNAL("updateTitleApp(QString)"), self.onChangeTitleBarText)
+        
         self.status_progress = QtGui.QProgressBar(self.statusbar)
         self.status_progress.setProperty("value",QVariant(0))
         
@@ -205,7 +206,7 @@ class Main(QObject, Ui_MainWindow):
                 settings = QSettings()
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
-                thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,))
+                thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
@@ -217,8 +218,7 @@ class Main(QObject, Ui_MainWindow):
             self.tabs.setCurrentIndex(3)
             pass
     
-    def setTitleBarText(self, text):
-        self.window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION + " - %s" %text, None, QtGui.QApplication.UnicodeUTF8))
+
         
     def read_settings(self):
         settings = QSettings()
@@ -255,24 +255,29 @@ class Main(QObject, Ui_MainWindow):
                 self.status_label.setText("Users online: ERROR")
             time.sleep(sleeptime)
 
-    def login_user(self, username, password):
-        # WARNING: to be used by a thread
-        self.setTitleBarText("Trying to login...")
+    def login_user(self, username, password, window):
+        window.emit(SIGNAL('updateTitleApp(QString)'),"Trying to login...")
         try:
             if self.OSDBServer._login(username, password) :
                 if not username: username = 'Anonymous'
-                self.setTitleBarText("Logged as: %s" % username)
+                window.emit(SIGNAL('updateTitleApp(QString)'),"Logged as: %s" % username)
             elif username: #We try anonymous login in case the normal user login has failed
-                self.setTitleBarText("Error logging as: %s. Logging anonymously..." % username)
+                window.emit(SIGNAL('updateTitleApp(QString)'),"Error logging as: %s. Logging anonymously..." % username)
                 if self.OSDBServer._login("", "") :
-                    self.setTitleBarText("Logged as: Anonymous")
+                    window.emit(SIGNAL('updateTitleApp(QString)'),"Logged as: Anonymous")
                 else:
-                    self.setTitleBarText("Login: Cannot login.")
+                    window.emit(SIGNAL('updateTitleApp(QString)'),"Login: Cannot login.")
         except:
-            self.setTitleBarText("Login: ERROR")
+            window.emit(SIGNAL('updateTitleApp(QString)'),"Login: ERROR")
 
     def onMenuQuit(self):
         self.window.close()
+    
+    def setTitleBarText(self, text):
+        self.window.setWindowTitle("SubDownloader "+APP_VERSION + " - %s" %text)
+        
+    def onChangeTitleBarText(self, title):
+        self.setTitleBarText(title)
     
     def onMenuHelpAbout(self):
         dialog = aboutDialog(self)
@@ -318,6 +323,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
+
         
 
     def onFilterLanguageVideo(self, index):
