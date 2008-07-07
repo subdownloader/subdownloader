@@ -8,7 +8,7 @@ import shutil
 import zipfile
 import commands
 
-exclude_dirs = [".svn", "firesubtitles", "Subdownloader","build","dist","packages"]
+exclude_dirs = [".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py", "subdownloader.1"]
 
 def copy_to_temp(temp_path="/tmp/subdownloader"):
