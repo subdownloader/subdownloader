@@ -19,10 +19,10 @@
 
 import os.path
 import struct
-try:
-    import mmpython
-except ImportError:
-    print "Failed to import mmpython module. This means you will be unable to upload your videos with all details."
+#try:
+import mmpython
+#except ImportError:
+#    print "Failed to import mmpython module. This means you will be unable to upload your videos with all details."
 
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "mp4", "mpv"," swf"]
 SELECT_VIDEOS = "Video Files (*.%s)"% " *.".join(VIDEOS_EXT)

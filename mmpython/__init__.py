@@ -117,10 +117,10 @@ def gettype(mimetype,extensions):
 import sys
 import os
 import mediainfo
-import audio.ogginfo
-import audio.pcminfo
-import audio.m4ainfo
-import audio.ac3info
+#import audio.ogginfo
+#import audio.pcminfo
+#import audio.m4ainfo
+#import audio.ac3info
 import video.riffinfo
 import video.mpeginfo
 import video.asfinfo
@@ -160,10 +160,10 @@ try:
 except ImportError:
     pass
 
-import audio.eyed3info
-import audio.mp3info
-import audio.webradioinfo
-import audio.flacinfo
+#import audio.eyed3info
+#import audio.mp3info
+#import audio.webradioinfo
+#import audio.flacinfo
 
 
 
