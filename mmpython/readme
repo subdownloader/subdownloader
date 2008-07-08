@@ -1,0 +1,7 @@
+To install just run 'python setup.py install' as root. For more
+options like build only and making tarballs please run 
+'python setup.py --help' for more commands.
+
+If you have questions, please contact the Freevo mailing list
+(http://freevo.sf.net)
+
