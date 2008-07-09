@@ -301,8 +301,8 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def InitializeFilterLanguages(self):
-        self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
-        self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All", None, QtGui.QApplication.UnicodeUTF8))
+        self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8))
+        self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8))
         for lang in languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
