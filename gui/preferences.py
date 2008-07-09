@@ -26,6 +26,7 @@ class preferencesDialog(QtGui.QDialog):
         QObject.connect(self.ui.optionsButtonCancel, SIGNAL("clicked(bool)"), self.onOptionsButtonCancel)
         QObject.connect(self.ui.optionButtonChooseFolder, SIGNAL("clicked(bool)"), self.onOptionButtonChooseFolder)
         QObject.connect(self.ui.optionDownloadFolderPredefined, SIGNAL("toggled(bool)"), self.onOptionDownloadFolderPredefined)
+        QObject.connect(self.ui.optionVideoAppChooseLocation, SIGNAL("clicked(bool)"), self.onOptionVideoAppChooseLocation)
         
         self.onOptionDownloadFolderPredefined()
         
@@ -45,6 +46,14 @@ class preferencesDialog(QtGui.QDialog):
         if directory:
             self.ui.optionPredefinedFolderText.setText(directory)
             
+    def onOptionVideoAppChooseLocation(self):
+        extensions = ""
+        if platform.system == "Windows":
+            extensions  = "*.exe"
+            
+        fileName = QFileDialog.getOpenFileName(None, "Select the Video Player executable file", "", extensions)
+        if fileName:
+            self.ui.optionVideoAppLocation.setText(fileName)
     def onOptionInterfaceLanguage(self, option):
         QMessageBox.about(self,"Alert","The new language will be displayed after restarting the application")
         
@@ -98,14 +107,10 @@ class preferencesDialog(QtGui.QDialog):
         self.ui.optionProxyHost.setText(settings.value("options/ProxyHost", QVariant()).toString())
         self.ui.optionProxyPort.setValue(settings.value("options/ProxyPort", QVariant(8080)).toInt()[0])
         
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        for i in range(totalVideoPlayers):
-            settings.setArrayIndex(i)
-            programPath = settings.value("programPath").toString()
-            parameters = settings.value("parameters").toString()
-            name = settings.value("name").toString()
-            self.ui.optionVideoAppCombo.addItem("%s" % (name), QVariant(name))
-        settings.endArray()
+        programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
+        parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
+        self.ui.optionVideoAppLocation.setText(programPath)
+        self.ui.optionVideoAppParams.setText(parameters)
         
         #Context menu for Explorer
         if platform.system() == "Linux":
@@ -118,26 +123,6 @@ class preferencesDialog(QtGui.QDialog):
             self.ui.optionIntegrationExplorer.setText("Enable in your Explorer")
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
-        
-        if totalVideoPlayers: 
-            QObject.connect(self.ui.optionVideoAppCombo, SIGNAL("currentIndexChanged(int)"), self.onOptionVideoAppCombo)
-        selectedVideoApp = settings.value("options/selectedVideoPlayer", QVariant()).toString()
-        if selectedVideoApp != QString():
-            index = self.ui.optionVideoAppCombo.findData(QVariant(selectedVideoApp))
-            if index != -1 : 
-                self.ui.optionVideoAppCombo.setCurrentIndex (index)
-                self.onOptionVideoAppCombo(index)
-        
-    def onOptionVideoAppCombo(self, index):
-        settings = QSettings()
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        settings.setArrayIndex(index)
-        programPath = settings.value("programPath").toString()
-        parameters = settings.value("parameters").toString()
-        name = settings.value("name").toString()
-        self.ui.optionVideoAppLocation.setText(programPath)
-        self.ui.optionVideoAppParams.setText(parameters)
-        settings.endArray()
         
     def onOptionsButtonApplyChanges(self):
         log.debug("Saving Options Settings")
@@ -202,13 +187,11 @@ class preferencesDialog(QtGui.QDialog):
             settings.setValue("options/ProxyHost",QVariant(newProxyHost))
             settings.setValue("options/ProxyPort", QVariant(newProxyPort))
             QMessageBox.about(self,"Alert","Modified proxy settings will take effect after restarting the program")
-            
         
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        settings.endArray()
-        if totalVideoPlayers:
-            name = self.ui.optionVideoAppCombo.itemData(self.ui.optionVideoAppCombo.currentIndex())
-            settings.setValue("options/selectedVideoPlayer", QVariant(name))
+        programPath =  self.ui.optionVideoAppLocation.text()
+        parameters =  self.ui.optionVideoAppParams.text()
+        settings.setValue("options/VideoPlayerPath",QVariant(programPath))
+        settings.setValue("options/VideoPlayerParameters",QVariant(parameters))
         
         #Closing the Preferences window
         self.reject()

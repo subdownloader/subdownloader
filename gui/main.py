@@ -217,7 +217,6 @@ class Main(QObject, Ui_MainWindow):
             #self.SearchVideos('/media/xp/pelis/')
             self.tabs.setCurrentIndex(3)
             pass
-    
 
         
     def read_settings(self):
@@ -230,10 +229,9 @@ class Main(QObject, Ui_MainWindow):
             title = settings.value("title").toString()
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        settings.endArray()
-        if not totalVideoPlayers:
-            self.initializeVideoPlayers(settings)
+        programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
+        if not programPath == QVariant(): #If not found videoplayer
+            self.initializeVideoPlayer(settings)
         
     
     def write_settings(self):
@@ -437,30 +435,11 @@ class Main(QObject, Ui_MainWindow):
         else:
             QMessageBox.about(self.window,"Error","You are not logged in")
 
-    
-    def GetDefaultVideoPlayer(self):
-        settings = QSettings()
-        totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-        settings.endArray()
-        if totalVideoPlayers: 
-            selectedVideoApp = settings.value("options/selectedVideoPlayer", QVariant()).toString()
-            if selectedVideoApp == QString(): 
-                return {}
-            else:
-                totalVideoPlayers = settings.beginReadArray("options/videoPlayers")
-                for i in range(totalVideoPlayers):
-                    settings.setArrayIndex(i)
-                    programPath = settings.value("programPath").toString()
-                    parameters = settings.value("parameters").toString()
-                    name = settings.value("name").toString()
-                    if name == selectedVideoApp:
-                        return {'name': name, 'programPath': programPath,  'parameters': parameters}
-                settings.endArray()
-        return {}
-        
     def onButtonPlay(self, checked):
-        videoPlayer = self.GetDefaultVideoPlayer()
-        if not videoPlayer.has_key("programPath"):
+        settings = QSettings()
+        programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
+        parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
+        if programPath == QString(): 
             QMessageBox.about(self.window,"Error","No default video player has been defined in Options")
             return
         else:
@@ -473,6 +452,8 @@ class Main(QObject, Ui_MainWindow):
             self.progress(0,"Downloading subtitle ... "+subtitle.getFileName())
             try:
                 ok = self.OSDBServer.DownloadSubtitles({subtitleID:tempSubFilePath})
+                if not ok:
+                    QMessageBox.about(self.window,"Error","Unable to download subtitle "+subtitle.getFileName())
             except Exception, e: 
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,"Error","Unable to download subtitle "+subtitle.getFileName())
@@ -480,8 +461,8 @@ class Main(QObject, Ui_MainWindow):
                 self.progress(100)
             
             params = []
-            programPath = str(videoPlayer['programPath'].toUtf8()) 
-            parameters = str(videoPlayer['parameters'].toUtf8()) 
+            programPath = str(programPath.toUtf8()) 
+            parameters = str(parameters.toUtf8()) 
 
             for param in parameters.split(" "):
                 param = param.replace('{0}', moviePath  )
@@ -815,29 +796,24 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 self.uploadModel.update_lang_upload()
 
-        
-    def initializeVideoPlayers(self, settings):
-        predefinedVideoPlayers = []
+    def initializeVideoPlayer(self, settings):
+        predefinedVideoPlayer = {}
         if platform.system() == "Linux":
-            status, path = commands.getstatusoutput("which mplayer")
+            status, path = commands.getstatusoutput("which mplayer") #1st video player to find
             if status == 0: 
-                predefinedVideoPlayers.append({'name': 'MPLAYER', 'programPath': path,  'parameters': '{0} -sub {1}'})
-            status, path = commands.getstatusoutput("which vlc")
-            if status == 0:
-                predefinedVideoPlayers.append({'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'})
+                predefinedVideoPlayer = {'name': 'MPLAYER', 'programPath': path,  'parameters': '{0} -sub {1}'}
+            else:
+                status, path = commands.getstatusoutput("which vlc") #2nd video player to find
+                if status == 0:
+                    predefinedVideoPlayer = {'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'}
+
         elif platform.system() == "Windows":
             pass #TODO: Detect from Registry the path of the Mplayer and VLC programs.
 
-        settings.beginWriteArray("options/videoPlayers")
-        for i, videoapp in enumerate(predefinedVideoPlayers):
-            settings.setArrayIndex(i)
-            settings.setValue("programPath",  QVariant(videoapp['programPath']))
-            settings.setValue("parameters", QVariant( videoapp['parameters']))
-            settings.setValue("name", QVariant( videoapp['name']))
-        settings.endArray()
-        if len(predefinedVideoPlayers):
-            defaultVideoApp = predefinedVideoPlayers[0]
-            settings.setValue("options/selectedVideoPlayer", QVariant(defaultVideoApp['name']))
+        if predefinedVideoPlayer:
+            settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))
+            settings.setValue("options/VideoPlayerParameters", QVariant( predefinedVideoPlayer['parameters']))
+
     
     def onClickMovieTreeView(self, index):
         treeItem = self.moviesModel.getSelectedItem(index)

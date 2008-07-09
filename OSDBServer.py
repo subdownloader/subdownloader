@@ -339,7 +339,11 @@ class OSDBServer(object):
             self.log.debug("Communicating with server...")
             answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
             self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
+            print answer
             if answer.has_key("data"):
+                if answer['data'] == False:  #TODO support passing the reason of the erorr to be shown in the GUI
+                    self.log.info("Error downloading subtitle.")
+                    return False
                 self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
                     #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))

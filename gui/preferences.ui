@@ -486,25 +486,12 @@
       <string>External application for video playback</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_64" >
-     <property name="geometry" >
-      <rect>
-       <x>31</x>
-       <y>101</y>
-       <width>122</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string>Video application:</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="optionVideoAppParams" >
      <property name="geometry" >
       <rect>
-       <x>112</x>
-       <y>161</y>
-       <width>278</width>
+       <x>128</x>
+       <y>130</y>
+       <width>261</width>
        <height>23</height>
       </rect>
      </property>
@@ -512,8 +499,8 @@
     <widget class="QPushButton" name="optionVideoAppChooseLocation" >
      <property name="geometry" >
       <rect>
-       <x>400</x>
-       <y>130</y>
+       <x>399</x>
+       <y>99</y>
        <width>83</width>
        <height>27</height>
       </rect>
@@ -525,9 +512,9 @@
     <widget class="QLineEdit" name="optionVideoAppLocation" >
      <property name="geometry" >
       <rect>
-       <x>112</x>
-       <y>131</y>
-       <width>278</width>
+       <x>128</x>
+       <y>100</y>
+       <width>261</width>
        <height>23</height>
       </rect>
      </property>
@@ -535,8 +522,8 @@
     <widget class="QLabel" name="label_65" >
      <property name="geometry" >
       <rect>
-       <x>120</x>
-       <y>190</y>
+       <x>119</x>
+       <y>159</y>
        <width>271</width>
        <height>18</height>
       </rect>
@@ -548,9 +535,9 @@
     <widget class="QLabel" name="label_66" >
      <property name="geometry" >
       <rect>
-       <x>31</x>
-       <y>161</y>
-       <width>76</width>
+       <x>30</x>
+       <y>130</y>
+       <width>81</width>
        <height>23</height>
       </rect>
      </property>
@@ -561,24 +548,14 @@
     <widget class="QLabel" name="label_67" >
      <property name="geometry" >
       <rect>
-       <x>31</x>
-       <y>131</y>
-       <width>76</width>
+       <x>30</x>
+       <y>100</y>
+       <width>91</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text" >
-      <string>Location:</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="optionVideoAppCombo" >
-     <property name="geometry" >
-      <rect>
-       <x>158</x>
-       <y>104</y>
-       <width>122</width>
-       <height>22</height>
-      </rect>
+      <string>Video Player:</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="optionIntegrationExplorer" >

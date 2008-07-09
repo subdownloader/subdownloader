@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Sun Jul  6 22:58:29 2008
+# Created: Thu Jul 10 01:53:11 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080705
 #
 # WARNING! All changes made in this file will be lost!
@@ -177,30 +177,24 @@ class Ui_PreferencesDialog(object):
         font.setBold(True)
         self.label_63.setFont(font)
         self.label_63.setObjectName("label_63")
-        self.label_64 = QtGui.QLabel(self.tab_7)
-        self.label_64.setGeometry(QtCore.QRect(31, 101, 122, 29))
-        self.label_64.setObjectName("label_64")
         self.optionVideoAppParams = QtGui.QLineEdit(self.tab_7)
-        self.optionVideoAppParams.setGeometry(QtCore.QRect(112, 161, 278, 23))
+        self.optionVideoAppParams.setGeometry(QtCore.QRect(128, 130, 261, 23))
         self.optionVideoAppParams.setObjectName("optionVideoAppParams")
         self.optionVideoAppChooseLocation = QtGui.QPushButton(self.tab_7)
-        self.optionVideoAppChooseLocation.setGeometry(QtCore.QRect(400, 130, 83, 27))
+        self.optionVideoAppChooseLocation.setGeometry(QtCore.QRect(399, 99, 83, 27))
         self.optionVideoAppChooseLocation.setObjectName("optionVideoAppChooseLocation")
         self.optionVideoAppLocation = QtGui.QLineEdit(self.tab_7)
-        self.optionVideoAppLocation.setGeometry(QtCore.QRect(112, 131, 278, 23))
+        self.optionVideoAppLocation.setGeometry(QtCore.QRect(128, 100, 261, 23))
         self.optionVideoAppLocation.setObjectName("optionVideoAppLocation")
         self.label_65 = QtGui.QLabel(self.tab_7)
-        self.label_65.setGeometry(QtCore.QRect(120, 190, 271, 18))
+        self.label_65.setGeometry(QtCore.QRect(119, 159, 271, 18))
         self.label_65.setObjectName("label_65")
         self.label_66 = QtGui.QLabel(self.tab_7)
-        self.label_66.setGeometry(QtCore.QRect(31, 161, 76, 23))
+        self.label_66.setGeometry(QtCore.QRect(30, 130, 81, 23))
         self.label_66.setObjectName("label_66")
         self.label_67 = QtGui.QLabel(self.tab_7)
-        self.label_67.setGeometry(QtCore.QRect(31, 131, 76, 23))
+        self.label_67.setGeometry(QtCore.QRect(30, 100, 91, 23))
         self.label_67.setObjectName("label_67")
-        self.optionVideoAppCombo = QtGui.QComboBox(self.tab_7)
-        self.optionVideoAppCombo.setGeometry(QtCore.QRect(158, 104, 122, 22))
-        self.optionVideoAppCombo.setObjectName("optionVideoAppCombo")
         self.optionIntegrationExplorer = QtGui.QCheckBox(self.tab_7)
         self.optionIntegrationExplorer.setEnabled(False)
         self.optionIntegrationExplorer.setGeometry(QtCore.QRect(50, 50, 277, 31))
@@ -254,11 +248,10 @@ class Ui_PreferencesDialog(object):
         self.label_61.setText(QtGui.QApplication.translate("PreferencesDialog", "Interface Language:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_62.setText(QtGui.QApplication.translate("PreferencesDialog", "Context Menu:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_63.setText(QtGui.QApplication.translate("PreferencesDialog", "External application for video playback", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_64.setText(QtGui.QApplication.translate("PreferencesDialog", "Video application:", None, QtGui.QApplication.UnicodeUTF8))
         self.optionVideoAppChooseLocation.setText(QtGui.QApplication.translate("PreferencesDialog", "Choose...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_65.setText(QtGui.QApplication.translate("PreferencesDialog", "{0} = video file path; {1} = subtitle path", None, QtGui.QApplication.UnicodeUTF8))
         self.label_66.setText(QtGui.QApplication.translate("PreferencesDialog", "Parameters:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_67.setText(QtGui.QApplication.translate("PreferencesDialog", "Location:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_67.setText(QtGui.QApplication.translate("PreferencesDialog", "Video Player:", None, QtGui.QApplication.UnicodeUTF8))
         self.optionIntegrationExplorer.setText(QtGui.QApplication.translate("PreferencesDialog", "Enable in your explorer", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), QtGui.QApplication.translate("PreferencesDialog", "Others", None, QtGui.QApplication.UnicodeUTF8))
         self.optionsButtonApplyChanges.setText(QtGui.QApplication.translate("PreferencesDialog", "Save", None, QtGui.QApplication.UnicodeUTF8))
