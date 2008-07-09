@@ -107,7 +107,8 @@ Section "${PRODUCT_NAME} (required)"
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   ; Put file there
-  File /r dist\*.*
+  !define PY2EXE_DIR "%(py2exe_dir)s"
+  File /r "${PY2EXE_DIR}\*"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\${PRODUCT_NAME} "Install_Dir" "$INSTDIR"
@@ -144,9 +145,9 @@ Section "Uninstall"
 
 SectionEnd
     '''
-    def __init__(self, name, py2exe_dir, output_dir):
+    def __init__(self, name, version, py2exe_dir, output_dir):
         self.installer = self.__class__.TEMPLATE % dict(name=name, py2exe_dir=py2exe_dir,
-                                                   version=APP_VERSION, 
+                                                   version=version, 
                                                    outpath=os.path.abspath(output_dir))
         
     def build(self):
@@ -177,5 +178,5 @@ if __name__ == '__main__':
         if os.path.exists(PY2EXE_BUILD):
            shutil.rmtree(PY2EXE_BUILD)
         print 'Building Installer'
-        installer = NSISInstaller(APP_TITLE,PY2EXE_DIST, 'distribution')
+        installer = NSISInstaller(APP_TITLE,APP_VERSION, PY2EXE_DIST, 'distribution')
         installer.build()
