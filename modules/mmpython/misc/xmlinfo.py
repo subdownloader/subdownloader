@@ -1,8 +1,8 @@
 #if 0
 # -----------------------------------------------------------------------
-# $Id: xmlinfo.py,v 1.2 2004/05/24 10:50:48 dischi Exp $
+# $Id: xmlinfo.py 337 2004-05-24 10:50:48Z dischi $
 # -----------------------------------------------------------------------
-# $Log: xmlinfo.py,v $
+# $Log$
 # Revision 1.2  2004/05/24 10:50:48  dischi
 # bugfix
 #
@@ -39,7 +39,9 @@ DEBUG = mediainfo.DEBUG
 
 try:
     # XML support
-    from xml.utils import qp_xml
+    from sys import path, version
+    path.append('/usr/lib/python%s/site-packages/oldxml' % version[:3])
+    from _xmlplus.utils import qp_xml
 except:
     if DEBUG:
         print 'Python XML not found'

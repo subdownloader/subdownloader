@@ -23,6 +23,7 @@ import logging
 from optparse import OptionParser
 # this will allow logic imports
 sys.path.append(os.path.dirname(sys.path[0]))
+sys.path.append(os.path.join(sys.path[0], 'modules') )
 # simple aplication starter
 import subdownloader.modules.configuration as conf
 

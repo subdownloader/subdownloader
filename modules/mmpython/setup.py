@@ -2,7 +2,7 @@
 
 """Setup script for the mmpython distribution."""
 
-__revision__ = "$Id: setup.py,v 1.12 2004/05/25 14:10:19 the_krow Exp $"
+__revision__ = "$Id: setup.py 341 2004-05-25 14:10:19Z the_krow $"
 
 from distutils.core import setup, Extension
 import popen2

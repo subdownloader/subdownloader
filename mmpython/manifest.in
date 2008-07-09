@@ -1,4 +1,0 @@
-include audio/*.py  audio/eyeD3/*.py image/*.py video/*.py disc/*.py disc/*.c misc/*.py
-include doc/* 
-recursive-include i18n  *
-include *.py COPYING CREDITS MANIFEST.in mminfo

@@ -1,6 +1,6 @@
 #if 0
-# $Id: asfinfo.py,v 1.18 2004/01/31 12:37:25 dischi Exp $
-# $Log: asfinfo.py,v $
+# $Id: asfinfo.py 291 2004-01-31 12:37:25Z dischi $
+# $Log$
 # Revision 1.18  2004/01/31 12:37:25  dischi
 # remove bad chars
 #

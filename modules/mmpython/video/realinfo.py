@@ -1,6 +1,6 @@
 #if 0
-# $Id: realinfo.py,v 1.6 2003/07/02 09:09:41 the_krow Exp $
-# $Log: realinfo.py,v $
+# $Id: realinfo.py 169 2003-07-02 09:09:41Z the_krow $
+# $Log$
 # Revision 1.6  2003/07/02 09:09:41  the_krow
 # i18n stuff added to AVI
 # some debug outputs removed

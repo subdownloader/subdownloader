@@ -38,9 +38,7 @@ class VideoFile(object):
         self._size = os.path.getsize(filepath)
         self._hash = self.calculateOSDBHash()
         try:
-            print filepath
             video = mmpython.parse(filepath)
-            print video 
             self._fps = video.video[0].fps
             self._timeMS = video.length * 1000
         except Exception, e:

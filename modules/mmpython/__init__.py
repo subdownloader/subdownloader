@@ -1,9 +1,9 @@
 #!/usr/bin/python
 #if 0
 # -----------------------------------------------------------------------
-# $Id: __init__.py,v 1.35 2004/10/15 09:02:11 dischi Exp $
+# $Id: __init__.py 382 2004-10-15 09:02:11Z dischi $
 # -----------------------------------------------------------------------
-# $Log: __init__.py,v $
+# $Log$
 # Revision 1.35  2004/10/15 09:02:11  dischi
 # add ac3 parser
 #
@@ -92,25 +92,33 @@ import factory
 
 from synchronizedobject import SynchronizedObject
 
-_factory = None
+_factory = SynchronizedObject(factory.Factory())
 
-def Factory():
-    global _factory
-
-    # One-time init
-    if _factory == None:
-        _factory = SynchronizedObject(factory.Factory())
-        
-    return _factory
+#def Factory():
+#    global _factory
+#
+#    print _factory
+#    # One-time init
+#    if _factory == None:
+#        _factory = SynchronizedObject(factory.Factory())
+#        
+#    return _factory
 
 def registertype(mimetype,extensions,type,c):
-    f = Factory()
-    f.register(mimetype,extensions,type,c)    
+    #f = _factory
+    _factory.register(mimetype,extensions,type,c)    
 
 def gettype(mimetype,extensions):
-    f = Factory()
-    return f.get(mimetype,extensions)    
+    #f = _factory
+    return _factory.get(mimetype,extensions)    
     
+USE_NETWORK     = 1
+
+def parse(filename, ext_only = 0):
+    """
+    parse the file
+    """
+    return _factory.create(filename, ext_only)
 
 # Okay Regular imports and code follow
 
@@ -135,44 +143,34 @@ import video.ogminfo
 import video.mkvinfo
 import misc.xmlinfo
 
-# import some disc modules (may fail)
-try:
-    #import disc.discinfo
-    import disc.vcdinfo
-    import disc.audioinfo
-except ImportError:
-    pass
-
-# find the best working DVD module
-try:
-    import disc.lsdvd
-except ImportError:
-    pass
-
-try:
-    import disc.dvdinfo
-except ImportError:
-    pass
-
-# use fallback disc module
-try:
-    import disc.datainfo
-except ImportError:
-    pass
+## import some disc modules (may fail)
+#try:
+#    import disc.discinfo
+#    import disc.vcdinfo
+#    import disc.audioinfo
+#except ImportError:
+#    pass
+#
+## find the best working DVD module
+#try:
+#    import disc.lsdvd
+#except ImportError:
+#    pass
+#
+#try:
+#    import disc.dvdinfo
+#except ImportError:
+#    pass
+#
+## use fallback disc module
+#try:
+#    import disc.datainfo
+#except ImportError:
+#    pass
 
 #import audio.eyed3info
 #import audio.mp3info
 #import audio.webradioinfo
 #import audio.flacinfo
 
-
-
-USE_NETWORK     = 1
-
-
-def parse(filename, ext_only = 0):
-    """
-    parse the file
-    """
-    return Factory().create(filename, ext_only)
 

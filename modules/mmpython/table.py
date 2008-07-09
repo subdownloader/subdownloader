@@ -1,8 +1,8 @@
 #if 0
 # -----------------------------------------------------------------------
-# $Id: table.py,v 1.9 2004/05/28 12:26:24 dischi Exp $
+# $Id: table.py 345 2004-05-28 12:26:24Z dischi $
 # -----------------------------------------------------------------------
-# $Log: table.py,v $
+# $Log$
 # Revision 1.9  2004/05/28 12:26:24  dischi
 # Replace __str__ with unicode to avoid bad transformations. Everything
 # inside mmpython should be handled as unicode object.

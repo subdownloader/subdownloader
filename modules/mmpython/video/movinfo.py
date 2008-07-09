@@ -1,6 +1,6 @@
 #if 0
-# $Id: movinfo.py,v 1.24 2004/07/14 13:42:57 dischi Exp $
-# $Log: movinfo.py,v $
+# $Id: movinfo.py 363 2004-07-14 13:42:57Z dischi $
+# $Log$
 # Revision 1.24  2004/07/14 13:42:57  dischi
 # small debug updates
 #
