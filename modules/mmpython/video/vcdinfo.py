@@ -2,9 +2,9 @@
 # -----------------------------------------------------------------------
 # vcdinfo.py - parse vcd track informations from cue/bin files
 # -----------------------------------------------------------------------
-# $Id: vcdinfo.py,v 1.7 2004/06/25 13:20:34 dischi Exp $
+# $Id: vcdinfo.py 355 2004-06-25 13:20:35Z dischi $
 #
-# $Log: vcdinfo.py,v $
+# $Log$
 # Revision 1.7  2004/06/25 13:20:34  dischi
 # FreeBSD patches
 #

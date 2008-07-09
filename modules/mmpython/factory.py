@@ -1,8 +1,8 @@
 #if 0
 # -----------------------------------------------------------------------
-# $Id: factory.py,v 1.20.2.1 2005/05/07 11:37:08 dischi Exp $
+# $Id: factory.py 412 2005-05-07 11:37:08Z dischi $
 # -----------------------------------------------------------------------
-# $Log: factory.py,v $
+# $Log$
 # Revision 1.20.2.1  2005/05/07 11:37:08  dischi
 # make sure all strings are unicode
 #
@@ -92,7 +92,6 @@ except:
     pass
 
 
-
 def isurl(url):
     return url.find('://') > 0
 
@@ -146,8 +145,7 @@ class Factory:
                     traceback.print_exc()
         if DEBUG: print 'not found'
         return None
-
-
+    
     def create_from_url(self,url):
         """
         Create information for urls. This includes file:// and cd://
@@ -187,8 +185,7 @@ class Factory:
                 if t.valid: return t
             # XXX Todo: Try other types
         pass
-
-
+    
     def create_from_filename(self, filename, ext_only=0):
         """
         Create information for the given filename
@@ -209,7 +206,6 @@ class Factory:
                 return r
         return None
     
-
     def create_from_device(self,devicename):
         """
         Create information from the device. Currently only rom drives
@@ -222,8 +218,7 @@ class Factory:
                 t.url = 'file://%s' % os.path.abspath(devicename)
                 return t
         return None
-            
-
+    
     def create_from_directory(self, dirname):
         """
         Create information from the directory.
@@ -234,8 +229,7 @@ class Factory:
             if t.valid:
                 return t
         return None
-            
-
+    
     def create(self, name, ext_only=0):
         """
         Global 'create' function. This function calls the different
@@ -262,9 +256,7 @@ class Factory:
             print
             print 'Please report this bug to the Freevo mailing list'
             return None
-
-
-        
+    
     def register(self,mimetype,extensions,type,c):
         """
         register the parser to mmpython
@@ -284,8 +276,7 @@ class Factory:
             for e in extensions:
                 self.extmap[e] = tuple
             self.mimemap[mimetype] = tuple
-
-
+    
     def get(self, mimetype, extensions):
         """
         return the object for mimetype/extensions or None

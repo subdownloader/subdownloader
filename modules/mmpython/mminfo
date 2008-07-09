@@ -1,9 +1,9 @@
-
+#!/usr/bin/python
 #if 0
 # -----------------------------------------------------------------------
-# $Id: mminfo,v 1.4 2004/05/28 12:26:24 dischi Exp $
+# $Id: mminfo 345 2004-05-28 12:26:24Z dischi $
 # -----------------------------------------------------------------------
-# $Log: mminfo,v $
+# $Log$
 # Revision 1.4  2004/05/28 12:26:24  dischi
 # Replace __str__ with unicode to avoid bad transformations. Everything
 # inside mmpython should be handled as unicode object.
@@ -49,33 +49,32 @@ sys.path = ['..'] + sys.path
 
 print 'mmpython media info'
 
-#if len(sys.argv) < 2 or sys.argv[1] in ('-h', '--help'):
-    #print
-    #print 'usage: mminfo [options] files'
-    #print
-    #print 'options:'
-    #print '  -d   turn on debug information. For complete debug set -d 2'
-    #print
-    #print 'A file can be a normal file, a device for VCD/VCD/AudioCD'
-    #print
-    #print 'Examples:'
-    #print '  mminfo foo.avi bar.mpg'
-    #print '  mminfo /dev/dvd'
-    #print
-    #sys.exit(0)
+if len(sys.argv) < 2 or sys.argv[1] in ('-h', '--help'):
+    print
+    print 'usage: mminfo [options] files'
+    print
+    print 'options:'
+    print '  -d   turn on debug information. For complete debug set -d 2'
+    print
+    print 'A file can be a normal file, a device for VCD/VCD/AudioCD'
+    print
+    print 'Examples:'
+    print '  mminfo foo.avi bar.mpg'
+    print '  mminfo /dev/dvd'
+    print
+    sys.exit(0)
 
-## turn on debug
-#if sys.argv[1] == '-d':
-    #try:
-        #int(sys.argv[2])
-        #os.environ['MMPYTHON_DEBUG'] = sys.argv[2]
-        #sys.argv = sys.argv[2:]
-    #except:
-        #os.environ['MMPYTHON_DEBUG'] = '1'
-        #sys.argv = sys.argv[1:]
+# turn on debug
+if sys.argv[1] == '-d':
+    try:
+        int(sys.argv[2])
+        os.environ['MMPYTHON_DEBUG'] = sys.argv[2]
+        sys.argv = sys.argv[2:]
+    except:
+        os.environ['MMPYTHON_DEBUG'] = '1'
+        sys.argv = sys.argv[1:]
     
 from mmpython import *
-#sys.argv[1] = "D:\divx\Al.Sur.De.Granada.avi"
 
 for file in sys.argv[1:]:
     medium = parse(file)

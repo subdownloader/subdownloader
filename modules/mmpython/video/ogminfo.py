@@ -2,9 +2,9 @@
 # -----------------------------------------------------------------------
 # ogminfo.py - Ogg Streaming Video Files
 # -----------------------------------------------------------------------
-# $Id: ogminfo.py,v 1.16 2004/05/20 19:54:52 dischi Exp $
+# $Id: ogminfo.py 336 2004-05-20 19:54:52Z dischi $
 #
-# $Log: ogminfo.py,v $
+# $Log$
 # Revision 1.16  2004/05/20 19:54:52  dischi
 # more ogm fixes
 #

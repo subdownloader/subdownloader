@@ -2,9 +2,9 @@
 # -----------------------------------------------------------------------
 # mkvinfo.py - Matroska Streaming Video Files
 # -----------------------------------------------------------------------
-# $Id: mkvinfo.py,v 1.3 2004/04/18 17:55:26 dischi Exp $
+# $Id: mkvinfo.py 309 2004-04-18 17:55:26Z dischi $
 #
-# $Log: mkvinfo.py,v $
+# $Log$
 # Revision 1.3  2004/04/18 17:55:26  dischi
 # update, including subtitle support
 #

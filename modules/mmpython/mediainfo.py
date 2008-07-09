@@ -1,6 +1,6 @@
 #if 0
 # -----------------------------------------------------------------------
-# $Id: mediainfo.py,v 1.68.2.1 2005/05/07 11:37:08 dischi Exp $
+# $Id: mediainfo.py 1923 2006-10-17 05:31:52Z duncan $
 # -----------------------------------------------------------------------
 # $Log: mediainfo.py,v $
 # Revision 1.68.2.1  2005/05/07 11:37:08  dischi
@@ -90,13 +90,15 @@ MEDIACORE = ['title', 'caption', 'comment', 'artist', 'size', 'type', 'subtype',
              'date', 'keywords', 'country', 'language', 'url']
 
 AUDIOCORE = ['channels', 'samplerate', 'length', 'encoder', 'codec', 'samplebits',
-             'bitrate', 'language']
+             'bitrate', 'language', 'languagedesc', 'id']
+
+SUBTITLECORE = ['language', 'languagedesc', 'content', 'id']
 
 VIDEOCORE = ['length', 'encoder', 'bitrate', 'samplerate', 'codec', 'samplebits',
              'width', 'height', 'fps', 'aspect']
 
 IMAGECORE = ['description', 'people', 'location', 'event',
-             'width','height','thumbnail','software','hardware', 'dpi']
+             'width','height','thumbnail','software','hardware', 'dpi', 'orientation']
 
 MUSICCORE = ['trackno', 'trackof', 'album', 'genre','discs']
 
@@ -276,6 +278,17 @@ class AudioInfo(MediaInfo):
     def __init__(self):
         self.keys = []
         for k in AUDIOCORE:
+            setattr(self,k,None)
+            self.keys.append(k)
+
+
+class SubtitleInfo(MediaInfo):
+    """
+    Subtitle Tracks in a Multiplexed Container.
+    """
+    def __init__(self):
+        self.keys = []
+        for k in SUBTITLECORE:
             setattr(self,k,None)
             self.keys.append(k)
 

@@ -1,0 +1,95 @@
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-09-10 14:09+CET\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+msgid "cpy"
+msgstr "Copyright statement"
+
+msgid "aut"
+msgstr "Author"
+
+msgid "nam"
+msgstr "Title"
+
+msgid "day"
+msgstr "Date the movie content was created"
+
+msgid "dir" 
+msgstr "Name of movie’s director"
+
+msgid "ed1" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed2" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed3" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed4" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed5" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed6" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed7" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed8" 
+msgstr "Edit dates and descriptions"
+
+msgid "ed9" 
+msgstr "Edit dates and descriptions"
+
+msgid "fmt" 
+msgstr "Indication of movie format (computer-generated, digitized, and so on)"
+
+msgid "inf" 
+msgstr "Information about the movie"
+
+msgid "prd" 
+msgstr "Name of movie’s producer"
+
+msgid "prf" 
+msgstr "Names of performers"
+
+msgid "req" 
+msgstr "Special hardware and software requirements"
+
+msgid "src" 
+msgstr "Credits for those who provided movie source content"
+
+msgid "wrt" 
+msgstr "Name of movie’s writer"
+
+msgid "name" 
+msgstr "Name of object"
+
+msgid "WLOC" 
+msgstr "Default window location for movie. Two 16-bit values, {x,y}"
+
+msgid "LOOP" 
+msgstr "Looping. This atom is not present unless the movie is set to loop. Long integer indicating looping style. 0 for normal looping, 21 for palindromic looping"
+
+msgid "SelO" 
+msgstr "Play selection only. Byte indicating that only the selected area of the movie should be played"
+
+msgid "AllF" 
+msgstr "Play all frames. Byte indicating that all frames of video should be played, regardless of timing"
+
+msgid "ptv " 
+msgstr "Print to video. Display movie in full screen mode. This atom contains a 16-byte structure, described in “Print to Video (Full Screen Mode)” (page 46)"
+
+msgid "hnti" 
+msgstr "Hint info atom. Data used for real-time streaming of a movie or a track. For more information, see “Movie Hint Info Atom” (page 188) and “Hint Track User Data Atom” (page 188)"
+
+msgid "hinf"
+msgstr "Hint track information. Statistical data for real-time streaming of a particular track. For more information, see “Hint Track User Data Atom” (page 188)"

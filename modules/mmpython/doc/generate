@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# doc.sh 
+#
+# Dirk Meyer  <dmeyer@tzi.de>
+# $Id: generate 68 2003-06-08 17:33:59Z dischi $
+
+cd `dirname $0`
+
+export PYTHONPATH=../..:$PYTHONPATH
+
+files=`find .. -name \*.py | sed 's/\.py//' | sed 's/^..\//mmpython\//' |\
+     sed 's/\//./g' | sed 's/\.$//' | egrep -v '(build\.|setup|mediatest|cachedir)'`
+
+dirs=`find .. -name __init__.py | grep -v build | sed 's/.__init__.py//' |\
+    sed 's/^..\//mmpython\//' | sed 's/\//./g' | grep -v \\.\\.`
+
+pydoc -w mmpython $files $dirs
+
+# end of doc.sh 

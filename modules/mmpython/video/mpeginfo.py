@@ -1,6 +1,6 @@
 #if 0
-# $Id: mpeginfo.py,v 1.33 2005/02/15 18:52:51 dischi Exp $
-# $Log: mpeginfo.py,v $
+# $Id: mpeginfo.py 398 2005-02-15 18:52:51Z dischi $
+# $Log$
 # Revision 1.33  2005/02/15 18:52:51  dischi
 # some strange bugfix (what is this doing?)
 #

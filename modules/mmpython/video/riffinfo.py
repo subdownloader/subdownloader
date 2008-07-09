@@ -1,6 +1,6 @@
 #if 0
-# $Id: riffinfo.py,v 1.33 2005/03/15 17:50:45 dischi Exp $
-# $Log: riffinfo.py,v $
+# $Id: riffinfo.py 401 2005-03-15 17:50:45Z dischi $
+# $Log$
 # Revision 1.33  2005/03/15 17:50:45  dischi
 # check for corrupt avi
 #
@@ -118,7 +118,6 @@ import fourcc
 
 import mmpython
 from mmpython import mediainfo
-
 
 # List of tags
 # http://kibus1.narod.ru/frames_eng.htm?sof/abcavi/infotags.htm

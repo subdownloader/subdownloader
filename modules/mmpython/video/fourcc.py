@@ -1,6 +1,6 @@
 #if 0
-# $Id: fourcc.py,v 1.3 2003/05/13 12:31:43 the_krow Exp $
-# $Log: fourcc.py,v $
+# $Id: fourcc.py 18 2003-05-13 12:31:43Z the_krow $
+# $Log$
 # Revision 1.3  2003/05/13 12:31:43  the_krow
 # + Copyright Notice
 #
