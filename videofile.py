@@ -47,6 +47,7 @@ class VideoFile(object):
             print filepath
             traceback.print_exc(e)
             self._fps = 0
+            self._timeMS = 0
         self._osdb_info = {}
         self._movie_info = {}
         self._subs = []
