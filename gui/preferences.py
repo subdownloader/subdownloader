@@ -192,7 +192,7 @@ class preferencesDialog(QtGui.QDialog):
             settings.setValue("options/LoginUsername",QVariant(newUsername))
             settings.setValue("options/LoginPassword", QVariant(newPassword))
             log.debug('Login credentials has changed. Trying to login.')
-            thread.start_new_thread(self._main.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),))
+            thread.start_new_thread(self._main.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),self._main.window, ))
             
         newProxyHost =  self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()
