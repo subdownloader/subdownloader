@@ -17,13 +17,16 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import os, sys
+os.chdir("..") #We are in the distribution subfolder, we want to be in subdownloader folder.
 (parent, current) = os.path.split(os.path.dirname(os.getcwd()))
 sys.path.insert(0, os.path.dirname(parent))
+sys.path.insert(0, os.getcwd())
 
 from distutils.core import setup
 import py2exe
 import glob
 import traceback, subprocess
+import shutil
 
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
@@ -33,7 +36,7 @@ print sys.path
 
 
 
-def py2exe():
+def py2exe(dist_dir, dist_build):
     sys.argv[1:2] = ['py2exe']
     sys.argv.append ( "--verbose" ) 
     print sys.argv
@@ -47,7 +50,6 @@ def py2exe():
         #includes=['FileManagement', 'cli', 'gui', 'languages', 'modules'],
         package_dir={'subdownloader':'.'},
         zipfile = None, 
-        #icon='psctrl/data/pyslovar/icon.ico',
         data_files=[
                     ('gui/images', ['gui/images/splash.png']),#glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
                     #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
@@ -57,16 +59,17 @@ def py2exe():
         windows=[{
                         'script':'run.py', 
                         'icon_resources':[(1, 'gui/images/icon32.ico')]}], 
-        console=[{'script':'build_tarball.py'}], 
+        #console=[{'script':'run.py -cli'}], 
         options = { 'py2exe' : {'compressed': 1,
                                       'optimize'  : 2, 
                                       'includes'  : [
                                                  'sip', 
-                                                 'subdownloader.modules.configuration.*'
+                                                 'subdownloader.modules.configuration.*', 
                                                  ],
                                       'excludes'  : ["Tkconstants", "Tkinter", "tcl",
                                                      "_imagingtk", "ImageTk", "FixTk"
                                                     ],
+                                        'dist_dir' :  dist_dir, 
                                        #'bundle_files': 1, 
                                        }
                         }
@@ -162,13 +165,17 @@ SectionEnd
 if __name__ == '__main__':
     
         print 'Create EXE'
-        PY2EXE_BUILD = os.path.join('build','py2exe')
-        PY2EXE_DIST = os.path.join('dist','py2exe')
-        #if os.path.exists(PY2EXE_BUILD):
-           # shutil.rmtree(PY2EXE_BUILD)
-        #if os.path.exists(PY2EXE_DIST):
-           # shutil.rmtree(PY2EXE_DIST)
-        #py2exe()
+        print 'Deleting build and distribution/dist'
+        PY2EXE_BUILD = os.path.join('build')
+        PY2EXE_DIST = os.path.join('distribution','dist')
+        if os.path.exists(PY2EXE_BUILD):
+           shutil.rmtree(PY2EXE_BUILD)
+        if os.path.exists(PY2EXE_DIST):
+            shutil.rmtree(PY2EXE_DIST)
+        py2exe(PY2EXE_DIST, PY2EXE_BUILD)
+        print 'Deleting build'
+        if os.path.exists(PY2EXE_BUILD):
+           shutil.rmtree(PY2EXE_BUILD)
         print 'Building Installer'
-        installer = NSISInstaller(APP_TITLE,'dist', 'packages')
+        installer = NSISInstaller(APP_TITLE,PY2EXE_DIST, 'distribution')
         installer.build()
