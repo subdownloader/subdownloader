@@ -115,12 +115,12 @@ class preferencesDialog(QtGui.QDialog):
         #Context menu for Explorer
         if platform.system() == "Linux":
             self.ui.optionIntegrationExplorer.setText("Enable in your Konqueror/Dolphin/Nautilus")
-            self.ui.optionIntegrationExplorer.setEnabled(True)
+            self.ui.optionIntegrationExplorer.setEnabled(False)
         elif platform.system() == "Windows":
             self.ui.optionIntegrationExplorer.setText("Enable in your Windows Explorer")
-            self.ui.optionIntegrationExplorer.setEnabled(True)
+            self.ui.optionIntegrationExplorer.setEnabled(False)
         else:
-            self.ui.optionIntegrationExplorer.setText("Enable in your Explorer")
+            self.ui.optionIntegrationExplorer.setText("Enable in your File Manager")
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
         

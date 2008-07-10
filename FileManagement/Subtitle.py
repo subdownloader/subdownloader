@@ -36,7 +36,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
         log.debug("AutoDetectSubtitle argument must be a complete video path")
         return ""
  
-    #1st METHOD
+    #1st METHOD , EXACT FILENAME THAN THE VIDEO WITHOUT EXTENSION
     log.debug("1st method starting...")
     for ext in subtitlefile.SUBTITLES_EXT:
         possiblefilenamesrt = filename1_noextension + "." + ext
@@ -79,7 +79,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
             except AttributeError, e:
                 log.error(e)
     
-    #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list)
+    #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list) (by searching the filename of the video in the content of the subtitle)
     if sub_list:
         log.debug("3rd method starting...")
         sub_scores = score_subtitles(pathvideofile, sub_list)
