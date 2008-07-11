@@ -20,10 +20,12 @@
 import os.path
 import struct
 import traceback
-#try:
-import mmpython
-#except ImportError:
-#    print "Failed to import mmpython module. This means you will be unable to upload your videos with all details."
+try:
+    import mmpython as metadata
+except ImportError:
+    import kaa.metadata as metadata
+else:
+    print "Failed to import metadata module. This means you will be unable to upload your videos with all details."
 
 VIDEOS_EXT = ["avi","mpg","mpeg","wmv","divx","mkv","ogm","asf", "mov", "rm", "vob", "dv", "mp4", "mpv"," swf", "bin", "cue"]
 SELECT_VIDEOS = "Video Files (*.%s)"% " *.".join(VIDEOS_EXT)
@@ -38,7 +40,7 @@ class VideoFile(object):
         self._size = os.path.getsize(filepath)
         self._hash = self.calculateOSDBHash()
         try:
-            video = mmpython.parse(filepath)
+            video = metadata.parse(filepath)
             self._fps = video.video[0].fps
             self._timeMS = video.length * 1000
         except Exception, e:
