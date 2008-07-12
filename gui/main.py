@@ -666,9 +666,9 @@ class Main(QObject, Ui_MainWindow):
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
 
     def onUploadButton(self, clicked):
-        result = self.uploadModel.verify()
-        if not result["ok"]:
-            QMessageBox.about(self.window,"Error",result["error_msg"])
+        ok, error = self.uploadModel.validate()
+        if not ok:
+            QMessageBox.about(self.window,"Error",error)
             return
         else:
             self.progress(0)
@@ -685,7 +685,12 @@ class Main(QObject, Ui_MainWindow):
                 details['sublanguageid'] = str(lang_xxx.toString().toUtf8()) 
                 details['movieaka'] = ''
                 details['moviereleasename'] = str(self.uploadReleaseText.text().toUtf8()) 
-                details['subauthorcomment'] = str(self.uploadComments.toPlainText().toUtf8()) 
+                comments = str(self.uploadComments.toPlainText().toUtf8()) 
+                if comments:
+                    comments += "<br>"
+                #Adding advertising to increase the Google Rank of Subdownloader
+                comments += 'Uploaded with <a href="http://www.subdownloader.net/">Subdownloader2</a>' 
+                details['subauthorcomment'] =  comments
                 
                 movie_info = {}
                 movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details['movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
@@ -698,17 +703,42 @@ class Main(QObject, Ui_MainWindow):
                         curr_sub_content = base64.encodestring(zlib.compress(buf))
                         cd = "cd" + str(i)
                         movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                
+                try:
+                    info = self.OSDBServer.UploadSubtitles(movie_info)
+                    if info['status'] == "200 OK":
+                        successBox = QMessageBox("Success", 
+                                                                        "Subtitles succesfully uploaded. \nMany Thanks!." , 
+                                                                        QMessageBox.Information, 
+                                                                        QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
+                                                                        QMessageBox.NoButton,
+                                                                        QMessageBox.NoButton, 
+                                                                        self.window)
 
-                if self.OSDBServer.UploadSubtitles(movie_info):
-                    QMessageBox.about(self.window,"Success","Subtitles succesfully uploaded. Thanks.")
-                    self.cleanUploadWindow()
-                else:
-                    QMessageBox.about(self.window,"Error","Problem while uploading...")
+                        saveAsButton = successBox.addButton(QString("View Subtitle Info"), QMessageBox.ActionRole)
+                        answer = successBox.exec_()
+                        if answer ==  QMessageBox.NoButton:
+                            webbrowser.open( info['data'], new=2, autoraise=1)
+                        self.cleanUploadWindow()
+                    else:
+                        QMessageBox.about(self.window,"Error","Problem while uploading...\nError: %s" % info['status'])
+                except:
+                    QMessageBox.about(self.window,"Error","Error contacting with the server.\nPlease restart or try later.")
                 self.progress(100)
                 self.window.setCursor(Qt.ArrowCursor)
     
     def cleanUploadWindow(self):
-        pass
+        self.uploadReleaseText.setText("")
+        self.uploadComments.setText("")
+        self.progress(0)
+        #Note: We don't reset the language
+        self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.uploadModel.removeAll()
+        self.uploadModel.emit(SIGNAL("layoutChanged()"))
+        index = self.uploadIMDB.findData(QVariant())
+        if index != -1 :
+            self.uploadIMDB.setCurrentIndex (index)
+            
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())
         
@@ -765,6 +795,7 @@ class Main(QObject, Ui_MainWindow):
             self.buttonUploadDownRow.setEnabled(False)
             self.buttonUploadUpRow.setEnabled(False)
             self.buttonUploadMinusRow.setEnabled(False)
+
             
     def onUploadChangeSelection(self, selected, unselected):
         self.updateButtonsUpload()
@@ -812,6 +843,7 @@ class Main(QObject, Ui_MainWindow):
 
         elif platform.system() == "Windows":
             pass #TODO: Detect from Registry the path of the Mplayer and VLC programs.
+            'HKEY_LOCAL_MACHINE\SOFTWARE\Gabest\Media Player Classic'
 
         if predefinedVideoPlayer:
             settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))

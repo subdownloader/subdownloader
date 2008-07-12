@@ -489,6 +489,7 @@ class OSDBServer(object):
             return UploadSubtitles(movie_info)
         except TimeoutFunctionException:
             self.log.error("UploadSubtitles timed out")
+            raise
         
     def _UploadSubtitles(self, movie_info):
         self.log.debug("----------------")
@@ -497,12 +498,8 @@ class OSDBServer(object):
         self.log.debug("Sending info: %s"% movie_info)
         info = self.xmlrpc_server.UploadSubtitles(self._token, movie_info)
         self.log.debug("Upload finished in %s with status %s."% (info['seconds'], info['status']))
-        if info['status'] == "200 OK":
-            self.log.info("Subtitle download URL: %s"% info['data'])
-            self.log.debug("----------------")
-            return info['data']
+        return info
         self.log.debug("----------------")
-        return False
         
     def getBestImdbInfo(self, subs ):
             movies_imdb = []

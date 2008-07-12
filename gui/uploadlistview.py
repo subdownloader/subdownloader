@@ -55,21 +55,21 @@ class UploadListModel(QAbstractTableModel):
                     self._subs[index] = sub
                 index += 1
                 
-    def verify(self):
+    def validate(self):
         if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
-            return {'ok': False ,  'error_msg':'The list of video/subtitle is empty'}
+            return False ,'The list of video/subtitle is empty'
 
         for i in range(self.getTotalRows()):
             if not self._subs[i] and not self._videos[i] :
                if i != self.getTotalRows()-1:
-                    return {'ok': False ,  'error_msg':'Some of the upload rows are empty'}
+                    False ,'Some of the upload rows are empty'
                else:
-                   return {'ok': True}
+                   return True, ""
                 
             if not self._subs[i] or not self._videos[i]  and i != self.getTotalRows()-1:
-                return {'ok': False ,  'error_msg':'Some of the video/subtitles are empty'}
+                return False ,'Some of the video/subtitles are empty'
                 
-        return {'ok': True}
+        return True, ""
         
     def update_lang_upload(self):
         ##Trying to autodetect the language
@@ -190,6 +190,10 @@ class UploadListModel(QAbstractTableModel):
             nextRowSelection = QItemSelection(self.index(self.rowSelected +1 , UploadListView.COL_VIDEO),self.index(self.rowSelected +1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(nextRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
         self._main.updateButtonsUpload() 
+        
+    def removeAll(self):
+         self._videos = [None, None]
+         self._subs = [None, None]
 
 class UploadListView(QTableView):
     COL_VIDEO = 0

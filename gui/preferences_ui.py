@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Thu Jul 10 01:53:11 2008
+# Created: Sat Jul 12 18:35:11 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080705
 #
 # WARNING! All changes made in this file will be lost!
@@ -221,7 +221,7 @@ class Ui_PreferencesDialog(object):
         self.horizontalLayout_3.addWidget(self.optionsButtonCancel)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):

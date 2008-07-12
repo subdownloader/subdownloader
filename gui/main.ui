@@ -273,6 +273,10 @@
                <property name="text" >
                 <string>OpenSubtitles.org</string>
                </property>
+               <property name="icon" >
+                <iconset resource="images.qrc" >
+                 <normaloff>:/images/sites/opensubtitles.png</normaloff>:/images/sites/opensubtitles.png</iconset>
+               </property>
               </item>
              </widget>
             </item>
