@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sat Jul 12 19:07:54 2008
+# Created: Sun Jul 13 00:48:38 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080705
 #
 # WARNING! All changes made in this file will be lost!
@@ -422,8 +422,6 @@ class Ui_MainWindow(object):
         self.menuBar.setObjectName("menuBar")
         self.menuMain = QtGui.QMenu(self.menuBar)
         self.menuMain.setObjectName("menuMain")
-        self.menuOptions = QtGui.QMenu(self.menuBar)
-        self.menuOptions.setObjectName("menuOptions")
         self.menu_Help = QtGui.QMenu(self.menuBar)
         self.menu_Help.setObjectName("menu_Help")
         MainWindow.setMenuBar(self.menuBar)
@@ -439,15 +437,15 @@ class Ui_MainWindow(object):
         self.action_HelpDonation.setObjectName("action_HelpDonation")
         self.action_ShowPreferences = QtGui.QAction(MainWindow)
         self.action_ShowPreferences.setObjectName("action_ShowPreferences")
+        self.menuMain.addAction(self.action_ShowPreferences)
+        self.menuMain.addSeparator()
         self.menuMain.addAction(self.action_Quit)
-        self.menuOptions.addAction(self.action_ShowPreferences)
         self.menu_Help.addAction(self.action_HelpHomepage)
         self.menu_Help.addAction(self.action_HelpDonation)
         self.menu_Help.addAction(self.action_HelpBug)
         self.menu_Help.addSeparator()
         self.menu_Help.addAction(self.action_HelpAbout)
         self.menuBar.addAction(self.menuMain.menuAction())
-        self.menuBar.addAction(self.menuOptions.menuAction())
         self.menuBar.addAction(self.menu_Help.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -495,7 +493,6 @@ class Ui_MainWindow(object):
         self.label_7.setText(QtGui.QApplication.translate("MainWindow", "Comments:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "Upload subtitles", None, QtGui.QApplication.UnicodeUTF8))
         self.menuMain.setTitle(QtGui.QApplication.translate("MainWindow", "&Main", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuOptions.setTitle(QtGui.QApplication.translate("MainWindow", "&Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_Help.setTitle(QtGui.QApplication.translate("MainWindow", "&Help", None, QtGui.QApplication.UnicodeUTF8))
         self.action_Quit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.action_HelpHomepage.setText(QtGui.QApplication.translate("MainWindow", "Visit our &Site", None, QtGui.QApplication.UnicodeUTF8))

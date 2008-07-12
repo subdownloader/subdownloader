@@ -834,13 +834,9 @@ p, li { white-space: pre-wrap; }
     <property name="title" >
      <string>&amp;Main</string>
     </property>
-    <addaction name="action_Quit" />
-   </widget>
-   <widget class="QMenu" name="menuOptions" >
-    <property name="title" >
-     <string>&amp;Tools</string>
-    </property>
     <addaction name="action_ShowPreferences" />
+    <addaction name="separator" />
+    <addaction name="action_Quit" />
    </widget>
    <widget class="QMenu" name="menu_Help" >
     <property name="title" >
@@ -853,7 +849,6 @@ p, li { white-space: pre-wrap; }
     <addaction name="action_HelpAbout" />
    </widget>
    <addaction name="menuMain" />
-   <addaction name="menuOptions" />
    <addaction name="menu_Help" />
   </widget>
   <action name="action_Quit" >
