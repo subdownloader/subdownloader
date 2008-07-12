@@ -57,7 +57,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=30): 
+    def __init__(self, function, timeout=20): 
         self.timeout = timeout 
         self.function = function 
 
@@ -610,8 +610,12 @@ class OSDBServer(object):
         SearchMoviesOnIMDB = TimeoutFunction(self._SearchMoviesOnIMDB)
         try:
             return SearchMoviesOnIMDB(query)
-        except TimeoutFunctionException:
+        except TimeoutFunctionException,  e:
             self.log.error("SearchMoviesOnIMDB timed out")
+            raise
+        except Exception, e:
+            traceback.print_exc(e)
+            raise
         
     def _SearchMoviesOnIMDB(self, query):
         """Returns a list of found movies in IMDB
@@ -633,6 +637,10 @@ class OSDBServer(object):
             return GetIMDBMovieDetails(imdb_id)
         except TimeoutFunctionException:
             self.log.error("GetIMDBMovieDetails timed out")
+            return False
+        except Exception, e:
+            traceback.print_exc(e)
+            return False
         
     def _GetIMDBMovieDetails(self, imdb_id):
         """Returns video details from IMDB if available

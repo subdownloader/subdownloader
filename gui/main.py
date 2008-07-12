@@ -701,11 +701,14 @@ class Main(QObject, Ui_MainWindow):
 
                 if self.OSDBServer.UploadSubtitles(movie_info):
                     QMessageBox.about(self.window,"Success","Subtitles succesfully uploaded. Thanks.")
+                    self.cleanUploadWindow()
                 else:
                     QMessageBox.about(self.window,"Error","Problem while uploading...")
                 self.progress(100)
                 self.window.setCursor(Qt.ArrowCursor)
     
+    def cleanUploadWindow(self):
+        pass
     def onUploadIMDBNewSelection(self, id, title):
         id = str(id.toUtf8())
         
