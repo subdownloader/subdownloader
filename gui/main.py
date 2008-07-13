@@ -138,6 +138,12 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.buttonPlay, SIGNAL("clicked(bool)"), self.onButtonPlay)
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onButtonIMDB)
         
+        self.videoView.__class__.dragEnterEvent = self.dragEnterEvent
+        self.videoView.__class__.dragMoveEvent = self.dragEnterEvent
+        self.videoView.__class__.dropEvent = self.dropEvent
+        self.videoView.setAcceptDrops(1)
+
+        
         #SETTING UP UPLOAD_VIEW
         self.uploadModel = UploadListModel(window)
         self.uploadView.setModel(self.uploadModel)
@@ -218,7 +224,20 @@ class Main(QObject, Ui_MainWindow):
             self.tabs.setCurrentIndex(3)
             pass
 
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
+                event.accept()
+        else:
+                event.ignore()
         
+    def dropEvent(self, event):
+        if event.mimeData().hasFormat('text/uri-list'):
+            urls = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
+            print urls
+        else:
+            url =event.mimeData().text()
+            print url
+                
     def read_settings(self):
         settings = QSettings()
         self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
@@ -230,7 +249,7 @@ class Main(QObject, Ui_MainWindow):
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
-        if not programPath == QVariant(): #If not found videoplayer
+        if programPath == QVariant(): #If not found videoplayer
             self.initializeVideoPlayer(settings)
         
     

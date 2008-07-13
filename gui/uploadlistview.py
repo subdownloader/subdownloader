@@ -200,8 +200,26 @@ class UploadListView(QTableView):
     COL_SUB = 1
     def __init__(self, parent):    
         QTableView.__init__(self, parent)
-        self.setAcceptDrops(1)
-             
+        self.setAcceptDrops(True)
+        
+        def dragMoveEvent(self, event):
+            print 1
+            if event.mimeData().hasFormat("text/plain"):
+                        event.accept()
+            else:
+                        event.ignore()
+        def dragEnterEvent(self, event):
+            print 2
+            if event.mimeData().hasFormat("text/plain"):
+                    event.accept()
+            else:
+                    event.ignore()
+
+        def dropEvent(self, event):
+            print 3
+            link=event.mimeData().text()
+            print link
+
 #    def dragMoveEvent(self, event):
 #        md = event.mimeData()
 #        if md.hasFormat('application/x-subdownloader-video-id'):
