@@ -831,19 +831,24 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadModel.update_lang_upload()
 
     def initializeVideoPlayer(self, settings):
-        predefinedVideoPlayer = {}
+        predefinedVideoPlayer = None
         if platform.system() == "Linux":
-            status, path = commands.getstatusoutput("which mplayer") #1st video player to find
-            if status == 0: 
-                predefinedVideoPlayer = {'name': 'MPLAYER', 'programPath': path,  'parameters': '{0} -sub {1}'}
-            else:
-                status, path = commands.getstatusoutput("which vlc") #2nd video player to find
-                if status == 0:
-                    predefinedVideoPlayer = {'name': 'VLC', 'programPath': path,  'parameters': '{0} --sub-file {1}'}
+            linux_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'}, 
+                                    {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'}, 
+                                    {'executable': 'totem', 'parameters': 'file:///{0}#subtitle:{1}'},
+                                    {'executable': 'xine', 'parameters': '{0}#subtitle:{1}'}] 
+            for player in linux_players:
+                status, path = commands.getstatusoutput("which %s" %player["executable"]) #1st video player to find
+                if status == 0: 
+                    predefinedVideoPlayer = {'programPath': path,  'parameters': '{0} -sub {1}'}
+                    break
 
         elif platform.system() == "Windows":
-            pass #TODO: Detect from Registry the path of the Mplayer and VLC programs.
-            'HKEY_LOCAL_MACHINE\SOFTWARE\Gabest\Media Player Classic'
+            windows_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'}, 
+                                    {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'}]
+            for player in windows_players:
+                pass
+            #'HKEY_LOCAL_MACHINE\SOFTWARE\Gabest\Media Player Classic'
 
         if predefinedVideoPlayer:
             settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))
