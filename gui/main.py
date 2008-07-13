@@ -440,7 +440,7 @@ class Main(QObject, Ui_MainWindow):
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
         parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
         if programPath == QString(): 
-            QMessageBox.about(self.window,"Error","No default video player has been defined in Options")
+            QMessageBox.about(self.window,"Error","No default video player has been defined in Main->Preferences")
             return
         else:
             subtitle = self.videoModel.getSelectedItem().data
@@ -834,21 +834,29 @@ class Main(QObject, Ui_MainWindow):
         predefinedVideoPlayer = None
         if platform.system() == "Linux":
             linux_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'}, 
-                                    {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'}, 
-                                    {'executable': 'totem', 'parameters': 'file:///{0}#subtitle:{1}'},
+                                    {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'},
                                     {'executable': 'xine', 'parameters': '{0}#subtitle:{1}'}] 
             for player in linux_players:
                 status, path = commands.getstatusoutput("which %s" %player["executable"]) #1st video player to find
                 if status == 0: 
-                    predefinedVideoPlayer = {'programPath': path,  'parameters': '{0} -sub {1}'}
+                    predefinedVideoPlayer = {'programPath': path,  'parameters': player['parameters']}
                     break
 
         elif platform.system() == "Windows":
-            windows_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'}, 
-                                    {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'}]
+            import _winreg
+            windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey':'','parameters': '{0} -sub {1}'}, 
+                                            {'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey':'ExePath','parameters': '{0} /sub {1}'}]
+
             for player in windows_players:
-                pass
-            #'HKEY_LOCAL_MACHINE\SOFTWARE\Gabest\Media Player Classic'
+                try:
+                    registry = _winreg.OpenKey(player['regRoot'],  player["regFolder"])
+                    path, type = _winreg.QueryValueEx(registry, player["regKey"])
+                    print "Video Player found at: ", repr(path)
+                    predefinedVideoPlayer = {'programPath': path,  'parameters': player['parameters']}
+                    break
+                except WindowsError:
+                    print "Cannot find registry for %s" % player['regRoot']
+
 
         if predefinedVideoPlayer:
             settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))
