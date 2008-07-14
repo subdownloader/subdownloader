@@ -225,7 +225,7 @@ class Main(QObject, Ui_MainWindow):
             pass
 
     def dragEnterEvent(self, event):
-        print event.mimeData()
+        #print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
                 event.accept()
         else:
@@ -233,11 +233,8 @@ class Main(QObject, Ui_MainWindow):
         
     def dropEvent(self, event):
         if event.mimeData().hasFormat('text/uri-list'):
-            urls = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
-            print urls
-        else:
-            url =event.mimeData().text()
-            print url
+            paths = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
+            self.SearchVideos(paths)
                 
     def read_settings(self):
         settings = QSettings()
@@ -376,8 +373,11 @@ class Main(QObject, Ui_MainWindow):
     
     def SearchVideos(self, path):
         #Scan recursively the selected directory finding subtitles and videos
-        videos_found,subs_found = FileScan.ScanFolder(path,recursively = True,report_progress = self.progress)
-
+        if not type(path) == list:
+            path = [path]
+        videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
+        print videos_found
+        print subs_found
         #Populating the items in the VideoListView
         self.videoModel.clearTree()
         self.videoView.expandAll()
@@ -691,15 +691,15 @@ class Main(QObject, Ui_MainWindow):
             QMessageBox.about(self.window,"Error",error)
             return
         else:
-            self.progress(0)
-            self.window.setCursor(Qt.WaitCursor)
-            log.debug("Compressing subtitle...")
-            details = {}
             imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
             if imdb_id == QVariant(): #No IMDB
                 QMessageBox.about(self.window,"Error","Please select an IMDB movie.")
                 return
             else:
+                self.progress(0)
+                self.window.setCursor(Qt.WaitCursor)
+                log.debug("Compressing subtitle...")
+                details = {}
                 details['IDMovieImdb'] = str(imdb_id.toString().toUtf8())
                 lang_xxx = self.uploadLanguages.itemData(self.uploadLanguages.currentIndex())
                 details['sublanguageid'] = str(lang_xxx.toString().toUtf8()) 

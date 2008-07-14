@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop
+from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop, QSettings
 from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QVariant, QAbstractTableModel, QTableView, QListView, \
                      QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
@@ -12,7 +12,14 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      
 from PyQt4.QtGui import QItemSelection
 
+from subdownloader.FileManagement import get_extension, clear_string, without_extension
+import subdownloader.FileManagement.VideoTools as VideoTools
+import subdownloader.FileManagement.Subtitle as Subtitle
 import subdownloader.languages.Languages as languages
+
+from subdownloader.videofile import  *
+from subdownloader.subtitlefile import *
+
 import logging
 log = logging.getLogger("subdownloader.gui.uploadlistview")
 
@@ -58,11 +65,17 @@ class UploadListModel(QAbstractTableModel):
     def validate(self):
         if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
             return False ,'The list of video/subtitle is empty'
-
+            
         for i in range(self.getTotalRows()):
+            if [sub.getFilePath() for sub in self._subs].count(self._subs[i].getFilePath()) > 1:
+                return False ,'Subtitle %s is repeated' % str(i +1)
+            
+            if [video.getFilePath() for video in self._videos].count(self._videos[i].getFilePath()) > 1:
+                return False ,'Videofie %s is repeated' % str(i +1)
+                
             if not self._subs[i] and not self._videos[i] :
                if i != self.getTotalRows()-1:
-                    False ,'Some of the upload rows are empty'
+                    return False ,'Some of the upload rows are empty'
                else:
                    return True, ""
                 
@@ -202,23 +215,47 @@ class UploadListView(QTableView):
         QTableView.__init__(self, parent)
         self.setAcceptDrops(True)
         
-        def dragMoveEvent(self, event):
-            print 1
-            if event.mimeData().hasFormat("text/plain"):
-                        event.accept()
-            else:
-                        event.ignore()
-        def dragEnterEvent(self, event):
-            print 2
-            if event.mimeData().hasFormat("text/plain"):
-                    event.accept()
-            else:
-                    event.ignore()
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
+                event.accept()
+        else:
+                event.ignore()
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
+                event.accept()
+        else:
+                event.ignore()
 
-        def dropEvent(self, event):
-            print 3
-            link=event.mimeData().text()
-            print link
+    def dropEvent(self, event):
+        if event.mimeData().hasFormat('text/uri-list'):
+            paths = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
+            fileName = paths[0] #If we drop many files, only the first one will be take into acount
+            index = self.indexAt(event.pos())
+            row, col = index.row(), index.column()
+            settings = QSettings()
+            if col == UploadListView.COL_VIDEO:
+                if(VideoTools.isVideofile(fileName)): 
+                    settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
+                    video = VideoFile(fileName) 
+                    self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
+                    self.model().addVideos(row, [video])
+                    subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                    if subtitle:
+                        sub = SubtitleFile(False,subtitle) 
+                        self.model().addSubs(row, [sub])
+                        self.model().update_lang_upload()
+                    self.resizeRowsToContents()
+                    self.model().emit(SIGNAL("layoutChanged()"))
+            else: #if it's the column in SUBTITLES
+                print fileName
+                if(Subtitle.isSubtitle(fileName)): 
+                    settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
+                    sub = SubtitleFile(False, fileName) 
+                    self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
+                    self.model().addSubs(row, [sub])
+                    self.resizeRowsToContents()
+                    self.model().emit(SIGNAL("layoutChanged()"))
+                    self.model().update_lang_upload()
 
 #    def dragMoveEvent(self, event):
 #        md = event.mimeData()

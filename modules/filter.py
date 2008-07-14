@@ -53,7 +53,7 @@ class Filter(object):
                     self.log.info("Looks like \"%s\" has more than one subtitle candidate."% video.getFileName())
                     choices = ['auto']
                     for i, sub in enumerate(video.getOnlineSubtitles()):
-                        self.log.info("[%i] %s"% (i, sub.getFileName()))
+                        self.log.info("[%i] %s (rate: %s)"% (i, sub.getFileName(), sub.getRating()))
                         choices += [str(i)]
                     self.log.info("[auto] Subdownloader will select one for you.")
                     while choice not in choices:

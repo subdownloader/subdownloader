@@ -29,6 +29,23 @@ log = logging.getLogger("subdownloader.FileManagement.FileScan")
 def FakeProgress(count,msg=""):
     pass
 
+def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
+    all_videos_found = []
+    all_subs_found = []
+    print filepaths
+    for path in filepaths:
+        print path
+        if os.path.isdir(path):
+            videos_found, subs_found = ScanFolder(path,recursively = True,report_progress=report_progress, progress_end=progress_end)
+            all_videos_found += videos_found
+            all_subs_found += subs_found
+        else:
+            if get_extension(path).lower() in videofile.VIDEOS_EXT:
+                all_videos_found.append(videofile.VideoFile(path))
+            tmp_videos, subs_found = ScanFolder(os.path.dirname(path),recursively = False,report_progress=report_progress, progress_end=progress_end) 
+            all_subs_found += subs_found #Interested to know which subtitles we have in the same folder
+    return all_videos_found, all_subs_found
+
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
 def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=None):
     #Let's reset the progress bar to 0%
