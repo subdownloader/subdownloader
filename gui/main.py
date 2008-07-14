@@ -225,6 +225,7 @@ class Main(QObject, Ui_MainWindow):
             pass
 
     def dragEnterEvent(self, event):
+        print event.mimeData()
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
                 event.accept()
         else:
