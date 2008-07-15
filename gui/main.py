@@ -24,7 +24,7 @@ import urllib2
 import base64, zlib
 import commands
 import platform
-
+import os.path
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
@@ -708,7 +708,6 @@ class Main(QObject, Ui_MainWindow):
                 comments = str(self.uploadComments.toPlainText().toUtf8()) 
                 if comments:
                     comments += "<br>"
-                #Adding advertising to increase the Google Rank of Subdownloader
                 comments += 'Uploaded with <a href="http://www.subdownloader.net/">Subdownloader2</a>' 
                 details['subauthorcomment'] =  comments
                 
@@ -864,7 +863,7 @@ class Main(QObject, Ui_MainWindow):
 
         elif platform.system() == "Windows":
             import _winreg
-            windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey':'','parameters': '{0} -sub {1}'}, 
+            windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey':'','parameters': '{0} --sub-file {1}'}, 
                                             {'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey':'ExePath','parameters': '{0} /sub {1}'}]
 
             for player in windows_players:
@@ -876,7 +875,13 @@ class Main(QObject, Ui_MainWindow):
                     break
                 except WindowsError:
                     print "Cannot find registry for %s" % player['regRoot']
-
+        elif platform.system() == "Darwin": #MACOSX
+            macos_players = [{'path': '/Applications/VLC.app/Contents/MacOS/VLC', 'parameters': '{0} --sub-file {1}'}, 
+                                        {'path': '/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX', 'parameters': '{0} -sub {1}'}, 
+                                        {'path': '/Applications/MPlayer OS X 2.app/Contents/MacOS/MPlayer OS X 2', 'parameters': '{0} -sub {1}'} ]
+            for player in macos_players:
+                if os.path.exists(player['path']):
+                    predefinedVideoPlayer =  {'programPath': player['path'],  'parameters': player['parameters']}
 
         if predefinedVideoPlayer:
             settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))
