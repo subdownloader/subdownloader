@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-##    Copyright (C) 2007 Ivan Garcia contact@ivangarcia.org
+##    Copyright (C) 2007 Ivan Garcia capiscuas@gmail.com
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation; either version 2 of the License, or
@@ -18,6 +18,7 @@
 
 from xmlrpclib import Transport,ServerProxy
 import base64, httplib, os
+import simplejson,urllib2
 import StringIO, gzip, zlib
 import logging
 import threading 
@@ -100,7 +101,15 @@ class ProxiedTransport(Transport):
     def send_host(self, connection, host):
         connection.putheader('Host', self.realhost)
 
+def sendHash(hash_list, filename):
+    args = simplejson.dumps({'hash_list': hash_list, 'sd_version': filename})
+    enc = base64.b64encode(args)
+    #print enc
+    url = "http://dbserver.subdownloader.net/OSDBServer?function=store_hash&args=%s" %enc
+    print urllib2.urlopen(url).read()
 
+def sendLogin():
+    pass
 class OSDBServer(object):
     """
     Contains the class that represents the OSDB Server.

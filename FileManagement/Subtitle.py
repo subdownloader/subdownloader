@@ -31,7 +31,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     
     if os.path.isfile(pathvideofile):
         videofolder = os.path.dirname(pathvideofile)
-        filename1_noextension = without_extension(pathvideofile)
+        filename1_noextension = without_extension(os.path.basename(pathvideofile))
     else:
         log.debug("AutoDetectSubtitle argument must be a complete video path")
         return ""
@@ -64,7 +64,8 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
         for ext in subtitlefile.SUBTITLES_EXT:
             try:
                 if filename.lower().endswith("."+ext):
-                    filesfound.append(filename)
+                    filesfound.append(filename) #To be used in the 4th method
+                    print filename
                     cleaned_found = clear_string(without_extension(filename.lower()))
                     if "srt" in subtitlefile.SUBTITLES_EXT and cleaned_found.find(cleaned_file) != -1:
                         if sub_list:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-##    Copyright (C) 2007 Ivan Garcia contact@ivangarcia.org
+##    Copyright (C) 2007 Ivan Garcia capiscuas@gmail.com
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation; either version 2 of the License, or
@@ -137,6 +137,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
         QObject.connect(self.buttonPlay, SIGNAL("clicked(bool)"), self.onButtonPlay)
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onButtonIMDB)
+        self.videoView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu) 
+        QObject.connect(self.videoView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
         
         self.videoView.__class__.dragEnterEvent = self.dragEnterEvent
         self.videoView.__class__.dragMoveEvent = self.dragEnterEvent
@@ -235,7 +237,33 @@ class Main(QObject, Ui_MainWindow):
         if event.mimeData().hasFormat('text/uri-list'):
             paths = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
             self.SearchVideos(paths)
-                
+            
+    def onContext(self, point): # Create a menu 
+            menu = QtGui.QMenu("Menu", self.window) 
+            self.downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "&Download", self)
+            self.downloadAction.setShortcut("Alt+D")
+            self.downloadAction.setStatusTip("Download the selected subtitle(s)")
+            QObject.connect(self.downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
+            menu.addAction(self.downloadAction) 
+            
+            self.playAction = QtGui.QAction("&Play", self)
+            self.playAction.setShortcut("Alt+P")
+            self.playAction.setStatusTip("Play video with this subtitle")
+            QObject.connect(self.playAction, SIGNAL("triggered()"), self.onButtonPlay)
+            menu.addAction(self.playAction) 
+            
+            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/sites/opensubtitles.png"),"&View online info", self)
+            self.subWebsiteAction.setShortcut("Alt+P")
+            self.subWebsiteAction.setStatusTip("Play video with this subtitle")
+            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo())
+            menu.addAction(self.subWebsiteAction) 
+            # Show the context menu. 
+            menu.exec_(self.videoView.mapToGlobal(point)) 
+    
+    def onViewOnlineInfo(self):
+        index = self.videoView.currentIndex()
+        print index
+            
     def read_settings(self):
         settings = QSettings()
         self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
@@ -455,7 +483,7 @@ class Main(QObject, Ui_MainWindow):
         else:
             QMessageBox.about(self.window,"Error","You are not logged in")
 
-    def onButtonPlay(self, checked):
+    def onButtonPlay(self):
         settings = QSettings()
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
         parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
@@ -540,7 +568,7 @@ class Main(QObject, Ui_MainWindow):
             downloadFullPath = dir.filePath(QString(subFileName))
 
         return downloadFullPath
-    def onButtonDownload(self, checked):
+    def onButtonDownload(self):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
             replace_all  = False
