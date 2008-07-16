@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/" >
+    <file>images/play.png</file>
     <file>images/sites/opensubtitles.png</file>
     <file>images/icon32.ico</file>
     <file>images/subdownloader.png</file>

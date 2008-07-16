@@ -71,7 +71,7 @@ class SubtitleFile(object):
         return self._uploader
     
     def setIdOnline(self,_id_online):
-        self._path = _id_online
+        self._onlineId = _id_online
     
     def getIdOnline(self):
         return self._onlineId

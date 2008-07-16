@@ -416,7 +416,7 @@ class OSDBServer(object):
                         subtitles = []
                         self.log.debug("- %s"% video.getHash())
                         for i in osdb_info:
-                            sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitleFile"])
+                            sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitle"])
                             sub.setHash(i["SubHash"])
                             sub.setFileName(i["SubFileName"])
                             sub.setLanguageXXX(i["SubLanguageID"])  #This method will autogenerate the XX and the LanguageName 

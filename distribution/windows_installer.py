@@ -178,5 +178,5 @@ if __name__ == '__main__':
         if os.path.exists(PY2EXE_BUILD):
            shutil.rmtree(PY2EXE_BUILD)
         print 'Building Installer'
-        installer = NSISInstaller(APP_TITLE,APP_VERSION, PY2EXE_DIST, 'distribution')
+        installer = NSISInstaller("SubDownloader2",APP_VERSION, PY2EXE_DIST, 'distribution')
         installer.build()

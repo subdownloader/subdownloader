@@ -240,29 +240,55 @@ class Main(QObject, Ui_MainWindow):
             
     def onContext(self, point): # Create a menu 
             menu = QtGui.QMenu("Menu", self.window) 
-            self.downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "&Download", self)
-            self.downloadAction.setShortcut("Alt+D")
-            self.downloadAction.setStatusTip("Download the selected subtitle(s)")
-            QObject.connect(self.downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
-            menu.addAction(self.downloadAction) 
+            index = self.videoView.currentIndex()
+            treeItem = self.videoModel.getSelectedItem(index)
+            if treeItem != None:
+                if type(treeItem.data) == VideoFile:
+                        video = treeItem.data
+                        movie_info = video.getMovieInfo()
+                        if movie_info:
+                            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"View IMDB info", self)
+                            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                        else:
+                            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"Set IMDB info...", self)
+                            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onSetIMDBInfo)
+                        menu.addAction(self.subWebsiteAction) 
+                else: #Subtitle
+                    self.playAction = QtGui.QAction(QIcon(":/images/play.png"),"Play video + subtitle", self)
+                    QObject.connect(self.playAction, SIGNAL("triggered()"), self.onButtonPlay)
+                    menu.addAction(self.playAction) 
+                    self.subWebsiteAction = QtGui.QAction(QIcon(":/images/sites/opensubtitles.png"),"View online info", self)
+                    self.downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "Download", self)
+                    QObject.connect(self.downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
+                    menu.addAction(self.downloadAction) 
+                    QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                    menu.addAction(self.subWebsiteAction) 
+                
             
-            self.playAction = QtGui.QAction("&Play", self)
-            self.playAction.setShortcut("Alt+P")
-            self.playAction.setStatusTip("Play video with this subtitle")
-            QObject.connect(self.playAction, SIGNAL("triggered()"), self.onButtonPlay)
-            menu.addAction(self.playAction) 
             
-            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/sites/opensubtitles.png"),"&View online info", self)
-            self.subWebsiteAction.setShortcut("Alt+P")
-            self.subWebsiteAction.setStatusTip("Play video with this subtitle")
-            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo())
-            menu.addAction(self.subWebsiteAction) 
             # Show the context menu. 
             menu.exec_(self.videoView.mapToGlobal(point)) 
     
+    def onSetIMDBInfo(self):
+        QMessageBox.about(self.window,"Info","Not implemented yet. Please donate.")
     def onViewOnlineInfo(self):
         index = self.videoView.currentIndex()
-        print index
+        treeItem = self.videoModel.getSelectedItem(index)
+        if type(treeItem.data) == VideoFile:
+            print self.videoModel.getSelectedItem().data
+            video = treeItem.data
+            movie_info = video.getMovieInfo()
+            if movie_info:
+                webbrowser.open( "http://www.imdb.com/title/tt%s"% movie_info["IDMovieImdb"], new=2, autoraise=1)
+
+        else:
+            sub = treeItem.data
+            print sub.getFileName()
+            if sub.isOnline():
+                webbrowser.open( "http://www.opensubtitles.org/en/subtitles/%s/"% sub.getIdOnline(), new=2, autoraise=1)
+            #treeItem.checked = not(treeItem.checked)
+            #self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
+            #self.buttonIMDB.setEnabled(False)
             
     def read_settings(self):
         settings = QSettings()
