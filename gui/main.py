@@ -262,6 +262,8 @@ class Main(QObject, Ui_MainWindow):
                             QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onSetIMDBInfo)
                         menu.addAction(subWebsiteAction) 
                 elif type(treeItem.data) == SubtitleFile: #Subtitle
+                    treeItem.checked = True
+                    self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
                     downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "Download", self)
                     if self.tabs.currentIndex() == 0: #Video tab, TODO:Replace me with a enum
                         QObject.connect(downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
@@ -302,9 +304,7 @@ class Main(QObject, Ui_MainWindow):
             print  sub.isOnline()
             if sub.isOnline():
                 webbrowser.open( "http://www.opensubtitles.org/en/subtitles/%s/"% sub.getIdOnline(), new=2, autoraise=1)
-            #treeItem.checked = not(treeItem.checked)
-            #self.videoModel.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),index, index)
-            #self.buttonIMDB.setEnabled(False)
+
         elif type(treeItem.data) == Movie:
                 self.onButtonIMDB()
             
