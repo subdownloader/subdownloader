@@ -1,7 +1,7 @@
 Changelog Subdownloader:
 
 Changes in 2.0.3:
-    FEATURE: Context menu in videos and subtitles
+    FEATURE: Context menu in videos and subtitles and movies
     FEATURE: Autodetection of Media Players crossplatform
     BUGFIX: Many.
     FEATURE: Drag and drop into Search and Upload working crossplatform.

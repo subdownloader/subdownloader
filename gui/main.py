@@ -43,6 +43,7 @@ splash.showMessage(QApplication.translate("subdownloader", "Loading modules...")
 QCoreApplication.flush()
 from subdownloader import * 
 from subdownloader.OSDBServer import OSDBServer
+from subdownloader.modules.SDDBServer import SDDBServer
 from subdownloader.gui import installErrorHandler, Error, _Warning, extension
 
 from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
@@ -229,14 +230,14 @@ class Main(QObject, Ui_MainWindow):
             #self.SearchVideos('/media/xp/pelis/')
             self.tabs.setCurrentIndex(3)
             pass
-
+            
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
                 event.accept()
         else:
                 event.ignore()
-        
+
     def dropEvent(self, event):
         if event.mimeData().hasFormat('text/uri-list'):
             paths = [str(u.toLocalFile().toUtf8()) for u in event.mimeData().urls()]
@@ -490,11 +491,14 @@ class Main(QObject, Ui_MainWindow):
         else:
             self.progress(100)
             self.status_progress.setFormat("No videos found")
+        
+        video_hashes = [video.calculateOSDBHash() for video in videos_found]
+        video_filenames = [video.getFileName() for video in videos_found]
+        thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes, video_filenames[0], ))
     
         self.window.setCursor(Qt.ArrowCursor)
-        #TODO: CHECK if our local subtitles are already in the server.
-        #self.OSDBServer.CheckSubHash(sub_hashes) 
-    
+        #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
+        #self.OSDBServer.CheckSubHash(sub_hashes)
         
     def onClickVideoTreeView(self, index):
         treeItem = self.videoModel.getSelectedItem(index)
@@ -728,6 +732,7 @@ class Main(QObject, Ui_MainWindow):
         
         try:
             self.OSDBServer = OSDBServer(self.options) 
+            self.SDDBServer = SDDBServer()
             self.setTitleBarText("Connected succesfully")
             self.progress(100)
             return True
