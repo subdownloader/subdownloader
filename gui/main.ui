@@ -71,6 +71,10 @@
               <property name="text" >
                <string>Play</string>
               </property>
+              <property name="icon" >
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
+              </property>
              </widget>
             </item>
             <item>
@@ -234,6 +238,9 @@
                 <property name="text" >
                  <string>Search</string>
                 </property>
+                <property name="flat" >
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
              </layout>
@@ -325,8 +332,8 @@
                <string>Movie Info</string>
               </property>
               <property name="icon" >
-               <iconset>
-                <normaloff>:/images/imdb.jpg</normaloff>:/images/imdb.jpg</iconset>
+               <iconset resource="images.qrc" >
+                <normaloff>:/images/imdb.png</normaloff>:/images/imdb.png</iconset>
               </property>
               <property name="iconSize" >
                <size>
