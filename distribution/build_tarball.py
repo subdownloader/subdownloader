@@ -8,6 +8,7 @@ import shutil
 import zipfile
 import commands
 
+
 exclude_dirs = [".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py", "subdownloader.1"]
 
@@ -77,15 +78,17 @@ def get_svn_revision():
     version = commands.getoutput('bzr version-info --custom --template="{revno}"')
     return version
 
+def get_version():
+    return "2.0.3" #TODO: get from SD
 
 if __name__ == "__main__":
     svn_revision = get_svn_revision()
-    zipName = "subdownloader-revision_%s.zip"% svn_revision
+    zipName = "subdownloader-%s.tar.gz"% svn_revision
     # create the tarball directory tree
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
-            zipName = "subdownloader_CLI-revision_%s.zip"% svn_revision
+            zipName = "subdownloader_CLI-%s.tar.gz"% svn_revision
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code
