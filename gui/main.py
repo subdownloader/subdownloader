@@ -132,7 +132,7 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.setModel(self.videoModel)
         QObject.connect(self.videoView, SIGNAL("activated(QModelIndex)"), self.onClickVideoTreeView)
         QObject.connect(self.videoView, SIGNAL("clicked(QModelIndex)"), self.onClickVideoTreeView)
-        #QObject.connect(self.videoView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
+        QObject.connect(self.videoView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
         QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
         
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
@@ -182,9 +182,10 @@ class Main(QObject, Ui_MainWindow):
         self.moviesView.setModel(self.moviesModel)
         
         
-        #QObject.connect(self.moviesView, SIGNAL("clicked(QModelIndex)"), self.onClickMovieTreeView)
+        QObject.connect(self.moviesView, SIGNAL("clicked(QModelIndex)"), self.onClickMovieTreeView)
         QObject.connect(self.moviesModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesMovieCheckedChanged)
-        #QObject.connect(self.moviesView, SIGNAL("expanded(QModelIndex)"), self.onExpandMovie)
+        QObject.connect(self.moviesView, SIGNAL("expanded(QModelIndex)"), self.onExpandMovie)
+        self.moviesView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu) 
         QObject.connect(self.moviesView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
         
 
@@ -243,11 +244,10 @@ class Main(QObject, Ui_MainWindow):
             
     def onContext(self, point): # Create a menu 
             menu = QtGui.QMenu("Menu", self.window) 
-            print self.tabs.currentIndex()
-            if self.tabs.currentIndex() == 0: #Tab for SearchByHash
+            if self.tabs.currentIndex() == 0: #Tab for SearchByHash TODO:replace this 0 by an ENUM value
                 listview = self.videoView
             else:
-                listview = self.movieView
+                listview = self.moviesView
             index = listview.currentIndex()
             treeItem = listview.model().getSelectedItem(index)
             if treeItem != None:
@@ -255,40 +255,51 @@ class Main(QObject, Ui_MainWindow):
                         video = treeItem.data
                         movie_info = video.getMovieInfo()
                         if movie_info:
-                            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"View IMDB info", self)
-                            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                            subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"View IMDB info", self)
+                            QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
                         else:
-                            self.subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"Set IMDB info...", self)
-                            QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onSetIMDBInfo)
-                        menu.addAction(self.subWebsiteAction) 
+                            subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"Set IMDB info...", self)
+                            QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onSetIMDBInfo)
+                        menu.addAction(subWebsiteAction) 
                 elif type(treeItem.data) == SubtitleFile: #Subtitle
-                    self.playAction = QtGui.QAction(QIcon(":/images/play.png"),"Play video + subtitle", self)
-                    QObject.connect(self.playAction, SIGNAL("triggered()"), self.onButtonPlay)
-                    menu.addAction(self.playAction) 
-                    self.subWebsiteAction = QtGui.QAction(QIcon(":/images/sites/opensubtitles.png"),"View online info", self)
-                    self.downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "Download", self)
-                    QObject.connect(self.downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
-                    menu.addAction(self.downloadAction) 
-                    QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
-                    menu.addAction(self.subWebsiteAction) 
+                    downloadAction = QtGui.QAction(QIcon(":/images/download.png"), "Download", self)
+                    if self.tabs.currentIndex() == 0: #Video tab, TODO:Replace me with a enum
+                        QObject.connect(downloadAction, SIGNAL("triggered()"), self.onButtonDownload)
+                        playAction = QtGui.QAction(QIcon(":/images/play.png"),"Play video + subtitle", self)
+                        QObject.connect(playAction, SIGNAL("triggered()"), self.onButtonPlay)
+                        menu.addAction(playAction) 
+                    else:
+                        QObject.connect(downloadAction, SIGNAL("triggered()"), self.onButtonDownloadByTitle)
+                    subWebsiteAction = QtGui.QAction(QIcon(":/images/sites/opensubtitles.png"),"View online info", self)
+                    
+                    menu.addAction(downloadAction) 
+                    QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                    menu.addAction(subWebsiteAction) 
                 elif type(treeItem.data) == Movie:
                     movie = treeItem.data
-                    self.subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"View IMDB info", self)
-                    QObject.connect(self.subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                    subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),"View IMDB info", self)
+                    QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
+                    menu.addAction(subWebsiteAction) 
 
             # Show the context menu. 
             menu.exec_(listview.mapToGlobal(point)) 
     
     def onSetIMDBInfo(self):
         QMessageBox.about(self.window,"Info","Not implemented yet. Please donate.")
+        
     def onViewOnlineInfo(self):
-        index = self.videoView.currentIndex()
-        treeItem = self.videoModel.getSelectedItem(index)
+        if self.tabs.currentIndex() == 0: #Tab for SearchByHash TODO:replace this 0 by an ENUM value
+                listview = self.videoView
+        else:
+                listview = self.moviesView
+        index = listview.currentIndex()
+        treeItem = listview.model().getSelectedItem(index)
+        
         if type(treeItem.data) == VideoFile:
             self.onButtonIMDB()
         elif type(treeItem.data) == SubtitleFile: #Subtitle
             sub = treeItem.data
-            #print sub.getFileName()
+            print  sub.isOnline()
             if sub.isOnline():
                 webbrowser.open( "http://www.opensubtitles.org/en/subtitles/%s/"% sub.getIdOnline(), new=2, autoraise=1)
             #treeItem.checked = not(treeItem.checked)
@@ -572,7 +583,7 @@ class Main(QObject, Ui_MainWindow):
                 imdb = movie_info["IDMovieImdb"]
         else:
             movie = self.moviesModel.getSelectedItem().data
-            imdb = movie_info["IDMovieImdb"]
+            imdb = movie.IMDBId
         
         if imdb:
             webbrowser.open( "http://www.imdb.com/title/tt%s"% imdb , new=2, autoraise=1)
@@ -612,6 +623,9 @@ class Main(QObject, Ui_MainWindow):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
             replace_all  = False
+            if not subs:
+                QMessageBox.about(self.window,"Error","No subtitles selected to be downloaded")
+                return
             total_subs = len(subs)
             percentage = 100/total_subs
             count = 0
@@ -1002,9 +1016,13 @@ class Main(QObject, Ui_MainWindow):
        else:
            self.buttonDownloadByTitle.setEnabled(False)
            
-    def onButtonDownloadByTitle(self, checked):
+    def onButtonDownloadByTitle(self):
+        print "dddddddd"
         subs = self.moviesModel.getCheckedSubtitles()
         total_subs = len(subs)
+        if not subs:
+                QMessageBox.about(self.window,"Error","No subtitles selected to be downloaded")
+                return
         percentage = 100/total_subs
         count = 0
         answer = None

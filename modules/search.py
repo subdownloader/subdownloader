@@ -256,8 +256,8 @@ class SearchByName(object):
                                                 'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
                                                 }
                     sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
-                    sub_obj.id = sub['IDSubtitle']['IDSubtitle']
-                    sub_obj.setExtraInfo('downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.id) 
+                    sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
+                    sub_obj.setExtraInfo('downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.getIdOnline()) 
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
                 if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
