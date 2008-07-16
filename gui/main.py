@@ -220,6 +220,7 @@ class Main(QObject, Ui_MainWindow):
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
+                thread.start_new_thread(self.SDDBServer.sendLogin, (settingsUsername,  ))
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
@@ -492,9 +493,11 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
             self.status_progress.setFormat("No videos found")
         
-        video_hashes = [video.calculateOSDBHash() for video in videos_found]
-        video_filenames = [video.getFileName() for video in videos_found]
-        thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes, video_filenames[0], ))
+        video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+        video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
+        video_movienames = [video.getMovieName() for video in videoSearchResults]
+
+        thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
     
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload

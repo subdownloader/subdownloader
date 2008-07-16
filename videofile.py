@@ -93,12 +93,15 @@ class VideoFile(object):
     
     def hasMovieName(self):
         try:
-            return self._osdb_info["MovieName"] != ""
-        except NameError:
+            return self._movie_info["MovieName"] != ""
+        except :
             return False
     
     def getMovieName(self):
-        return self._osdb_info["MovieName"]
+        try:
+            return self._movie_info["MovieName"]
+        except :
+            return ""
     
     def hasMovieNameEng(self):
         try:
