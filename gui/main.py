@@ -220,7 +220,6 @@ class Main(QObject, Ui_MainWindow):
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
-                thread.start_new_thread(self.SDDBServer.sendLogin, (settingsUsername,  ))
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)

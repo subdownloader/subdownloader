@@ -18,7 +18,9 @@
 
 import logging, os.path
 import base64, zlib
+import thread
 from subdownloader import OSDBServer
+from subdownloader.modules.SDDBServer import SDDBServer
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.modules import filter, progressbar
 import subdownloader.modules.configuration as conf
@@ -89,7 +91,7 @@ class Main(OSDBServer.OSDBServer):
                                 self.log.debug("Not on server - %s - jailing..."% nos_sub.getFileName())
                                 video.setNOSSubtitle(nos_sub)
                 
-            self.SearchSubtitles(language=lang_id, videos=self.videos)
+            videoSearchResults = self.SearchSubtitles(language=lang_id, videos=self.videos)
             if self.options.test:
                 for (i, video) in enumerate(self.videos):
                     #details = check_result['data'][0]
@@ -119,6 +121,12 @@ class Main(OSDBServer.OSDBServer):
                             
             else:
                 self.handle_operation(self.options.operation)
+                
+            video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+            video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
+            video_movienames = [video.getMovieName() for video in videoSearchResults]
+
+            thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
             
             self.logout()
                 
