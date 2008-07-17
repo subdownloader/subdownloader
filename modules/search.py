@@ -257,6 +257,7 @@ class SearchByName(object):
                                                 }
                     sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
                     sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
+                    #It does require the Subtitle ID to downlad, not the Subtitle File Id
                     sub_obj.setExtraInfo('downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.getIdOnline()) 
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data

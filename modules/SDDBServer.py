@@ -11,8 +11,6 @@ class SDDBServer(object):
     
     def sendHash(self, hash_list,movienames ,  filesizes ):
         args = str({'hash_list': hash_list, 'movie_list': movienames,'size_list': filesizes , 'sd_version': APP_VERSION})
-        print args
         enc = base64.b64encode(args)
-        #print enc
         url = "http://dbserver.subdownloader.net/OSDBServer?function=store_hash&args=%s" %enc
         urllib2.urlopen(url).read()

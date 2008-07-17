@@ -34,6 +34,7 @@ class SubtitleFile(object):
         self._online = online
         self._path = ""
         self._onlineId = ""
+        self._id_file_online = ""
         self._extraInfo = {}
         if online:
             self._onlineId = id
@@ -75,6 +76,12 @@ class SubtitleFile(object):
     
     def getIdOnline(self):
         return self._onlineId
+        
+    def setIdFileOnline(self,_id_file_online):
+        self._onlineFileId = _id_file_online
+    
+    def getIdFileOnline(self):
+        return self._onlineFileId
     
     def getFilePath(self):
         return self._path
@@ -147,7 +154,3 @@ class SubtitleFile(object):
         
     def getExtraInfo(self, info):
         return self._extraInfo[info]
-
-        
-    
-    

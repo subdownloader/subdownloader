@@ -66,12 +66,19 @@ class UploadListModel(QAbstractTableModel):
         if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
             return False ,'The list of video/subtitle is empty'
             
+        valid_subs = []
+        valid_videos = []
         for i in range(self.getTotalRows()):
-            if [sub.getFilePath() for sub in self._subs].count(self._subs[i].getFilePath()) > 1:
-                return False ,'Subtitle %s is repeated' % str(i +1)
-            
-            if [video.getFilePath() for video in self._videos].count(self._videos[i].getFilePath()) > 1:
-                return False ,'Videofie %s is repeated' % str(i +1)
+            if self._subs[i]: 
+                if valid_subs.count(self._subs[i].getFilePath()) > 0:
+                    return False ,'Subtitle %s is repeated' % str(i +1)
+                else:
+                    valid_subs.append(self._subs[i].getFilePath())
+            if self._videos[i]: 
+                if valid_videos.count(self._videos[i].getFilePath()) > 0:
+                    return False ,'Videofie %s is repeated' % str(i +1)
+                else:
+                    valid_videos.append(self._videos[i].getFilePath())
                 
             if not self._subs[i] and not self._videos[i] :
                if i != self.getTotalRows()-1:

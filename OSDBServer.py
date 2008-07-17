@@ -223,7 +223,7 @@ class OSDBServer(object):
         Returns True if login sucessful, and False if not.
         """ 
         self.log.debug("----------------")
-        self.log.debug("Logging in (username:%r, password:%r)..."% (username, password))
+        self.log.debug("Logging in (username:%r)..."% username)
         info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
         if info['status'] == "200 OK":
@@ -337,6 +337,7 @@ class OSDBServer(object):
         
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
+            print " self.xmlrpc_server.DownloadSubtitles(%s,%r)" %(self._token, subtitles_to_download.keys())
             answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
             self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
             
@@ -409,6 +410,7 @@ class OSDBServer(object):
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitle"])
                             sub.setHash(i["SubHash"])
+                            sub.setIdFileOnline(i["IDSubtitleFile"])
                             sub.setFileName(i["SubFileName"])
                             sub.setLanguageXXX(i["SubLanguageID"])  #This method will autogenerate the XX and the LanguageName 
                             #sub.setLanguageXX(i["ISO639"])  

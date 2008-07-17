@@ -544,13 +544,13 @@ class Main(QObject, Ui_MainWindow):
         else:
             subtitle = self.videoModel.getSelectedItem().data
             moviePath = subtitle.getVideo().getFilePath()
-            subtitleID= subtitle.getIdOnline()
+            subtitleFileID= subtitle.getIdFileOnline()
             #This should work in all the OS, creating a temporary file 
             tempSubFilePath = str(QDir.temp().absoluteFilePath("subdownloader.tmp.srt"))
             log.debug("Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
             self.progress(0,"Downloading subtitle ... "+subtitle.getFileName())
             try:
-                ok = self.OSDBServer.DownloadSubtitles({subtitleID:tempSubFilePath})
+                ok = self.OSDBServer.DownloadSubtitles({subtitleFileID:tempSubFilePath})
                 if not ok:
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+subtitle.getFileName())
             except Exception, e: 
@@ -687,7 +687,7 @@ class Main(QObject, Ui_MainWindow):
                 
                 try:
                    log.debug("Downloading subtitle '%s'" % destinationPath)
-                   if self.OSDBServer.DownloadSubtitles({sub.getIdOnline():destinationPath}):
+                   if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
                        success_downloaded += 1
                    else:
                      QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
@@ -1025,7 +1025,6 @@ class Main(QObject, Ui_MainWindow):
            self.buttonDownloadByTitle.setEnabled(False)
            
     def onButtonDownloadByTitle(self):
-        print "dddddddd"
         subs = self.moviesModel.getCheckedSubtitles()
         total_subs = len(subs)
         if not subs:
