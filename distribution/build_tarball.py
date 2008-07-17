@@ -62,7 +62,7 @@ def remove_temp(temp_path="/tmp/subdownloader"):
 def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, zipFile))
     sys.stdout.flush()
-    z = compress_lib.ZipFile(zipFile, 'w', compression=zipfile.ZIP_DEFLATED)
+    z = compress_lib.ZipFile("%s.zip" % zipFile, 'w', compression=zipfile.ZIP_DEFLATED)
     for root, dirs, fileNames in os.walk(directory):
         for fileName in fileNames:
             if fileName is not zipFile: #avoid self compress
@@ -72,6 +72,29 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     return zipFile
+    
+def toTarGz( filename_noext, directory="/tmp/subdownloader"):
+    compressedFileName = "%s.tar.gz" % filename_noext
+    sys.stdout.write("Compressing '%s' to '%s'..."% (directory, compressedFileName))
+    sys.stdout.flush()
+   
+    import tarfile
+    tar = tarfile.open(compressedFileName, "w:gz")
+    for root, dirs, fileNames in os.walk(directory):
+        for fileName in fileNames:
+            if fileName is not compressedFileName: #avoid self compress
+                    filePath = os.path.join(root, fileName)
+                    tarinfo = tar.gettarinfo(filePath, os.path.join(filePath.lstrip("/tmp/")))
+                    tarinfo.uid = 123
+                    tarinfo.gid = 456
+                    #tarinfo.uname = "johndoe"
+                    #tarinfo.gname = "fake"
+                    tar.addfile(tarinfo, file(filePath))
+    tar.close()
+
+    sys.stdout.write(" done\n")
+    sys.stdout.flush()
+    return compressedFileName
     
 def get_svn_revision():
     commands.getoutput("cd ..;bzr update")
@@ -83,12 +106,13 @@ def get_version():
 
 if __name__ == "__main__":
     svn_revision = get_svn_revision()
-    zipName = "subdownloader-%s.tar.gz"% svn_revision
+    sd_version = get_version()
+    fileName = "SubDownloader-%s"% sd_version
     # create the tarball directory tree
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
-            zipName = "subdownloader_CLI-%s.tar.gz"% svn_revision
+            fileName = "SubDownloader_CLI-%s"% sd_version
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code
@@ -98,6 +122,7 @@ if __name__ == "__main__":
     else:
         clean_temp()
     # create the tarball and delete the source directory
-    toZip(zipName)
+    #toZip(compressedFileName)
+    toTarGz(fileName)
     # delete temporary directory
     remove_temp()
