@@ -771,6 +771,9 @@ class Main(QObject, Ui_MainWindow):
                 if subtitle:
                     sub = SubtitleFile(False,subtitle) 
                     self.uploadModel.addSubs(row, [sub])
+            if not len(videos_found):
+                for row, sub in enumerate(subs_found):
+                    self.uploadModel.addSubs(row, [sub])
             self.uploadView.resizeRowsToContents()
             self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))

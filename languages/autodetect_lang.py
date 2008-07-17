@@ -94,6 +94,7 @@ class _NGram:
                 d += nb_ngrams
         return d
 
+#The LM class were obtained from the  libtextcat project, get the latest one from there.
 class NGram:
     def __init__ (self,folder,ext='.lm'):
         self.ngrams = dict()

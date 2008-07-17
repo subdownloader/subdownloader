@@ -20,6 +20,8 @@
 import subdownloader.languages.autodetect_lang as autodetect_lang
 import re
 import os.path
+import logging
+log = logging.getLogger("subdownloader.languages.Languages")
 
 LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': 'Albanian'},
  {'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': 'Arabic'},
@@ -115,18 +117,22 @@ def name2xxx(name):
         if lang['LanguageName'].lower() == name.lower():
             return lang['SubLanguageID']
         
-def CleanTagsFile(texto):
+def CleanTagsFile(text):
     p = re.compile( '<.*?>')
-    return p.sub('',texto)
+    return p.sub('',text)
 
 def AutoDetectLang(filepath):
     if filepath.endswith("sub") or filepath.endswith("srt") or filepath.endswith("txt"):
         subtitle_content = file(filepath,mode='rb').read()
-        CleanTagsFile(subtitle_content)
+        
+        subtitle_content = CleanTagsFile(subtitle_content)
+        
         n = autodetect_lang._NGram()
         #FIXME: The LM path should depend the subdownloader path, not from the CWD 
         l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
+        #print subtitle_content
         percentage, lang = l.classify(subtitle_content)
+        log.debug('Autodetected file %s: %s, value: %s'% (filepath, lang, percentage))
         pos = lang.rfind("-")
         if pos != -1:
             return lang[:pos]
