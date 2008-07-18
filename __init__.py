@@ -18,6 +18,3 @@
 '''
 src package
 '''
-
-APP_TITLE     = "SubDownloader"
-APP_VERSION   = "2.0.3"

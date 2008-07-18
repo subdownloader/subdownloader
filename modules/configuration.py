@@ -19,7 +19,7 @@
 from optparse import make_option
 import logging
 import os.path
-from subdownloader.modules import progressbar
+from modules import progressbar
 
 """
 Logging levels:

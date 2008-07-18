@@ -7,9 +7,9 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-from subdownloader.gui.preferences_ui import Ui_PreferencesDialog
+from gui.preferences_ui import Ui_PreferencesDialog
 import webbrowser
-import subdownloader.languages.Languages as languages
+import languages.Languages as languages
 import time, thread, platform
 import logging
 log = logging.getLogger("subdownloader.gui.preferences")

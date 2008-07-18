@@ -18,7 +18,7 @@
 
 import logging
 import os.path
-from subdownloader.FileManagement import Subtitle
+from FileManagement import Subtitle
 
 class Filter(object):
     """Filter object to returned filtered information on given videos

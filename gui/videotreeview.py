@@ -11,11 +11,11 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect      
 
-from subdownloader.videofile import  VideoFile
-from subdownloader.subtitlefile import SubtitleFile
-from subdownloader.modules.search import Movie
+from modules.videofile import  VideoFile
+from modules.subtitlefile import SubtitleFile
+from modules.search import Movie
 
-import subdownloader.languages.Languages as languages
+import languages.Languages as languages
 
 import images_rc
 import logging

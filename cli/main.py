@@ -19,12 +19,12 @@
 import logging, os.path
 import base64, zlib
 import thread
-from subdownloader import OSDBServer
-from subdownloader.modules.SDDBServer import SDDBServer
-from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader.modules import filter, progressbar
-import subdownloader.modules.configuration as conf
-import subdownloader.languages.Languages as Languages
+from modules import OSDBServer
+from modules.SDDBServer import SDDBServer
+from FileManagement import FileScan, Subtitle
+from modules import filter, progressbar
+import modules.configuration as conf
+import languages.Languages as Languages
 
 class Main(OSDBServer.OSDBServer):
     

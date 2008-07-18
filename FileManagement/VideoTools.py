@@ -17,10 +17,10 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import re, os, logging
-import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
-from subdownloader.FileManagement import get_extension, clear_string, without_extension
-from subdownloader.languages import Languages, autodetect_lang
+import modules.videofile as videofile
+import modules.subtitlefile as subtitlefile
+from FileManagement import get_extension, clear_string, without_extension
+from languages import Languages, autodetect_lang
 
 log = logging.getLogger("subdownloader.FileManagement.Video")
 
