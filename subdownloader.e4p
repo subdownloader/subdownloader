@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-07-17, 01:44:45 -->
+<!-- Saved: 2008-07-18, 13:31:24 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -59,19 +59,7 @@
       <Name>__init__.py</Name>
     </Source>
     <Source>
-      <Name>subtitlefile.py</Name>
-    </Source>
-    <Source>
-      <Name>OSDBServer.py</Name>
-    </Source>
-    <Source>
-      <Name>videofile.py</Name>
-    </Source>
-    <Source>
       <Name>run.py</Name>
-    </Source>
-    <Source>
-      <Name>notes.py</Name>
     </Source>
     <Source>
       <Dir>cli</Dir>
@@ -171,6 +159,18 @@
     <Source>
       <Dir>modules</Dir>
       <Name>SDDBServer.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>subtitlefile.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>OSDBServer.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>videofile.py</Name>
     </Source>
   </Sources>
   <Forms>
