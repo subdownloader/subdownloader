@@ -237,7 +237,6 @@ class Factory:
         """
         try:
             if isurl(name):
-                print "create_from_url"
                 return self.create_from_url(name)
             if not os.path.exists(name):
                 return None
@@ -245,14 +244,11 @@ class Factory:
                 if (os.uname()[0] == 'FreeBSD' and \
                     stat.S_ISCHR(os.stat(name)[stat.ST_MODE])) \
                     or stat.S_ISBLK(os.stat(name)[stat.ST_MODE]):
-                    print "create_from_device"
                     return self.create_from_device(name)
             except AttributeError:
                 pass            
             if os.path.isdir(name):
-                print "create_from_directory"
                 return self.create_from_directory(name)
-            print "create_from_filename"
             return self.create_from_filename(name, ext_only)
         except:
             print 'mmpython.create error:'

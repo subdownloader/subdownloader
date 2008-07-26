@@ -449,8 +449,8 @@ class Main(QObject, Ui_MainWindow):
         if not type(path) == list:
             path = [path]
         videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
-        print videos_found
-        print subs_found
+        log.debug("Videos found: %s"% videos_found)
+        log.debug("Subtitles found: %s"% subs_found)
         #Populating the items in the VideoListView
         self.videoModel.clearTree()
         self.videoView.expandAll()

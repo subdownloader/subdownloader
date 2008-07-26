@@ -33,9 +33,8 @@ def FakeProgress(count,msg=""):
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
-    print filepaths
     for path in filepaths:
-        print path
+        log.debug("Scanning: %s"% path)
         if os.path.isdir(path):
             videos_found, subs_found = ScanFolder(path,recursively = True,report_progress=report_progress, progress_end=progress_end)
             all_videos_found += videos_found
