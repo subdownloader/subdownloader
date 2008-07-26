@@ -36,8 +36,8 @@
 #endif
 
 
-from mmpython import mediainfo
-import mmpython
+from modules.mmpython import mediainfo
+#import mmpython
 import struct
 import re
 import stat
@@ -329,4 +329,4 @@ class MkvInfo(mediainfo.AVInfo):
 
         #_print("Found %d elem for this track" % len(tabelem) )
 
-mmpython.registertype( 'application/mkv', ('mkv', 'mka',), mediainfo.TYPE_AV, MkvInfo )
+#mmpython.registertype( 'application/mkv', ('mkv', 'mka',), mediainfo.TYPE_AV, MkvInfo )

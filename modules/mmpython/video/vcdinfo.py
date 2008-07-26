@@ -59,8 +59,8 @@
 #endif
 
 
-from mmpython import mediainfo
-import mmpython
+from modules.mmpython import mediainfo
+#import mmpython
 import os
 
 class VCDInfo(mediainfo.CollectionInfo):
@@ -119,4 +119,4 @@ class VCDInfo(mediainfo.CollectionInfo):
                     self.tracks.append(vi)
 
 
-mmpython.registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, VCDInfo )
+#mmpython.registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, VCDInfo )

@@ -16,15 +16,15 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import logging
-log = logging.getLogger("subdownloader.modules.metadata")
+#import logging
+#log = logging.getLogger("subdownloader.modules.metadata")
 try:
     import kaa.metadata as metadata
 except ImportError:
     try:
-        import modules.mmpython as metadata
+        import mmpython as metadata
     except ImportError:
-        log.warning("Failed to import metadata module. This means you will be unable to upload your videos with all details.")
+        print "Failed to import metadata module. This means you will be unable to upload your videos with all details."
 
 # expose metadata parsing method for global usage
 def parse(filepath):

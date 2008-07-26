@@ -77,6 +77,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         percentage = 100 / len(files_found)
         count = 0
         for i, filepath in enumerate(files_found):
+            log.debug("Parsing %s ..."% filepath)
             if metadata.parse(filepath):
                 videos_found.append(videofile.VideoFile(filepath))
             count += percentage

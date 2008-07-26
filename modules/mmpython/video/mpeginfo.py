@@ -76,8 +76,8 @@ import struct
 import string
 import fourcc
 
-from mmpython import mediainfo
-import mmpython
+from modules.mmpython import mediainfo
+#import mmpython
 import stat
 
 ##------------------------------------------------------------------------
@@ -336,35 +336,35 @@ class MpegInfo(mediainfo.AVInfo):
         """
         read SCR (timestamp) for MPEG2 at the buffer beginning (6 Bytes)
         """
-	highbit = (ord(buffer[0])&0x20)>>5
+        highbit = (ord(buffer[0])&0x20)>>5
 
-	low4Bytes= ((long(ord(buffer[0])) & 0x18) >> 3) << 30
-	low4Bytes |= (ord(buffer[0]) & 0x03) << 28
-	low4Bytes |= ord(buffer[1]) << 20
-	low4Bytes |= (ord(buffer[2]) & 0xF8) << 12
-	low4Bytes |= (ord(buffer[2]) & 0x03) << 13
-	low4Bytes |= ord(buffer[3]) << 5
-	low4Bytes |= (ord(buffer[4])) >> 3
+        low4Bytes= ((long(ord(buffer[0])) & 0x18) >> 3) << 30
+        low4Bytes |= (ord(buffer[0]) & 0x03) << 28
+        low4Bytes |= ord(buffer[1]) << 20
+        low4Bytes |= (ord(buffer[2]) & 0xF8) << 12
+        low4Bytes |= (ord(buffer[2]) & 0x03) << 13
+        low4Bytes |= ord(buffer[3]) << 5
+        low4Bytes |= (ord(buffer[4])) >> 3
 
-	sys_clock_ref=(ord(buffer[4]) & 0x3) << 7
-	sys_clock_ref|=(ord(buffer[5]) >> 1)
+        sys_clock_ref=(ord(buffer[4]) & 0x3) << 7
+        sys_clock_ref|=(ord(buffer[5]) >> 1)
 
- 	return (long(highbit * (1<<16) * (1<<16)) + low4Bytes) / 90000
+        return (long(highbit * (1<<16) * (1<<16)) + low4Bytes) / 90000
 
 
     def ReadSCRMpeg1(self, buffer):
         """
         read SCR (timestamp) for MPEG1 at the buffer beginning (5 Bytes)
         """
-	highbit = (ord(buffer[0]) >> 3) & 0x01
+        highbit = (ord(buffer[0]) >> 3) & 0x01
 
-	low4Bytes = ((long(ord(buffer[0])) >> 1) & 0x03) << 30
-	low4Bytes |= ord(buffer[1]) << 22;
-	low4Bytes |= (ord(buffer[2]) >> 1) << 15;
-	low4Bytes |= ord(buffer[3]) << 7;
-	low4Bytes |= ord(buffer[4]) >> 1;
+        low4Bytes = ((long(ord(buffer[0])) >> 1) & 0x03) << 30
+        low4Bytes |= ord(buffer[1]) << 22;
+        low4Bytes |= (ord(buffer[2]) >> 1) << 15;
+        low4Bytes |= ord(buffer[3]) << 7;
+        low4Bytes |= ord(buffer[4]) >> 1;
 
-	return (long(highbit) * (1<<16) * (1<<16) + low4Bytes) / 90000;
+        return (long(highbit) * (1<<16) * (1<<16) + low4Bytes) / 90000;
 
 
     def ReadPTS(self, buffer):
@@ -894,4 +894,4 @@ class MpegInfo(mediainfo.AVInfo):
 
     
     
-mmpython.registertype( 'video/mpeg', ('mpeg','mpg','mp4', 'ts'), mediainfo.TYPE_AV, MpegInfo )
+#mmpython.registertype( 'video/mpeg', ('mpeg','mpg','mp4', 'ts'), mediainfo.TYPE_AV, MpegInfo )

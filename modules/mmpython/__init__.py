@@ -89,7 +89,6 @@
 # depend on this function
 
 import factory
-
 from synchronizedobject import SynchronizedObject
 
 _factory = SynchronizedObject(factory.Factory())
@@ -112,7 +111,7 @@ def gettype(mimetype,extensions):
     #f = _factory
     return _factory.get(mimetype,extensions)    
     
-USE_NETWORK     = 1
+USE_NETWORK = 1
 
 def parse(filename, ext_only = 0):
     """
@@ -125,23 +124,31 @@ def parse(filename, ext_only = 0):
 import sys
 import os
 import mediainfo
-#import audio.ogginfo
-#import audio.pcminfo
-#import audio.m4ainfo
-#import audio.ac3info
 import video.riffinfo
 import video.mpeginfo
 import video.asfinfo
 import video.movinfo
-#import image.jpginfo
-#import image.pnginfo
-#import image.tiffinfo
-#import image.ImageInfo
 import video.vcdinfo
 import video.realinfo
 import video.ogminfo
 import video.mkvinfo
 import misc.xmlinfo
+registertype( 'video/asf', ('asf','wmv','wma'), mediainfo.TYPE_AV, video.asfinfo.AsfInfo )
+registertype( 'application/mkv', ('mkv', 'mka',), mediainfo.TYPE_AV, video.mkvinfo.MkvInfo )
+registertype( 'video/quicktime', ('mov', 'qt'), mediainfo.TYPE_AV, video.movinfo.MovInfo )
+registertype( 'video/mpeg', ('mpeg','mpg','mp4', 'ts'), mediainfo.TYPE_AV, video.mpeginfo.MpegInfo )
+registertype( 'application/ogg', ('ogm', 'ogg',), mediainfo.TYPE_AV, video.ogminfo.OgmInfo )
+registertype( 'video/real', ('rm', 'ra', 'ram'), mediainfo.TYPE_AV, video.realinfo.RealInfo )
+registertype( 'video/avi', ('avi',), mediainfo.TYPE_AV, video.riffinfo.RiffInfo )
+registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, video.vcdinfo.VCDInfo )
+#import audio.ogginfo
+#import audio.pcminfo
+#import audio.m4ainfo
+#import audio.ac3info
+#import image.jpginfo
+#import image.pnginfo
+#import image.tiffinfo
+#import image.ImageInfo
 
 ## import some disc modules (may fail)
 #try:
