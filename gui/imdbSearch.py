@@ -7,8 +7,8 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-from subdownloader.gui.imdb_ui import Ui_IMDBSearchDialog
-from subdownloader.gui.imdblistview import ImdbListModel, ImdbListView
+from gui.imdb_ui import Ui_IMDBSearchDialog
+from gui.imdblistview import ImdbListModel, ImdbListView
 import webbrowser
 
 class imdbSearchDialog(QtGui.QDialog): 

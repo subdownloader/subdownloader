@@ -17,7 +17,7 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-import subdownloader.languages.autodetect_lang as autodetect_lang
+import languages.autodetect_lang as autodetect_lang
 import re
 import os.path
 import logging

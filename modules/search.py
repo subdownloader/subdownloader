@@ -20,11 +20,11 @@ import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
 try:
-    from subdownloader import subtitlefile
+    from modules import subtitlefile
 except ImportError:
     import sys, os
     sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
-    from subdownloader import subtitlefile
+    from modules import subtitlefile
     
 
 class Movie(object):

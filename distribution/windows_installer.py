@@ -31,7 +31,7 @@ import shutil
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
 
-from subdownloader import APP_TITLE, APP_VERSION
+from modules import APP_TITLE, APP_VERSION
 print sys.path
 
 

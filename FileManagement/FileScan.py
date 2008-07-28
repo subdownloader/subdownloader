@@ -19,10 +19,10 @@
 
 import os.path
 import logging
-from subdownloader.FileManagement import get_extension
+from FileManagement import get_extension
 import RecursiveParser
-import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
+import modules.videofile as videofile
+import modules.subtitlefile as subtitlefile
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 

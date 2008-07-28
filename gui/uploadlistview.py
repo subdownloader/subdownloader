@@ -12,13 +12,13 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      
 from PyQt4.QtGui import QItemSelection
 
-from subdownloader.FileManagement import get_extension, clear_string, without_extension
-import subdownloader.FileManagement.VideoTools as VideoTools
-import subdownloader.FileManagement.Subtitle as Subtitle
-import subdownloader.languages.Languages as languages
+from FileManagement import get_extension, clear_string, without_extension
+import FileManagement.VideoTools as VideoTools
+import FileManagement.Subtitle as Subtitle
+import languages.Languages as languages
 
-from subdownloader.videofile import  *
-from subdownloader.subtitlefile import *
+from modules.videofile import  *
+from modules.subtitlefile import *
 
 import logging
 log = logging.getLogger("subdownloader.gui.uploadlistview")

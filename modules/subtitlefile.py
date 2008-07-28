@@ -19,7 +19,7 @@
 
 import os
 import md5
-import subdownloader.languages.Languages as languages
+import languages.Languages as languages
 
 SUBTITLES_EXT = ["srt","sub","txt","ssa", "smi", "ass", "mpl"]
 SELECT_SUBTITLES = "Subtitle Files (*.%s)"% " *.".join(SUBTITLES_EXT)

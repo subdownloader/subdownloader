@@ -1,6 +1,6 @@
 import base64, urllib2
 import platform
-from subdownloader import APP_TITLE, APP_VERSION
+from modules import APP_TITLE, APP_VERSION
 
 class SDDBServer(object):
     def sendLogin(self, username):

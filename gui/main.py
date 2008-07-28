@@ -33,32 +33,32 @@ from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
 
-from subdownloader.gui.SplashScreen import SplashScreen, NoneSplashScreen
-from subdownloader.FileManagement import get_extension, clear_string, without_extension
+from gui.SplashScreen import SplashScreen, NoneSplashScreen
+from FileManagement import get_extension, clear_string, without_extension
 
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
 splash = SplashScreen()
 splash.showMessage(QApplication.translate("subdownloader", "Loading modules..."))
 QCoreApplication.flush()
-from subdownloader import * 
-from subdownloader.OSDBServer import OSDBServer
-from subdownloader.modules.SDDBServer import SDDBServer
-from subdownloader.gui import installErrorHandler, Error, _Warning, extension
+from modules import * 
+from modules.OSDBServer import OSDBServer
+from modules.SDDBServer import SDDBServer
+from gui import installErrorHandler, Error, _Warning, extension
 
-from subdownloader.gui.uploadlistview import UploadListModel, UploadListView
-from subdownloader.gui.videotreeview import VideoTreeModel
+from gui.uploadlistview import UploadListModel, UploadListView
+from gui.videotreeview import VideoTreeModel
 
-from subdownloader.gui.main_ui import Ui_MainWindow
-from subdownloader.gui.imdbSearch import imdbSearchDialog
-from subdownloader.gui.preferences import preferencesDialog
-from subdownloader.gui.about import aboutDialog
-from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader.videofile import  *
-from subdownloader.subtitlefile import *
-from subdownloader.modules.search import *
+from gui.main_ui import Ui_MainWindow
+from gui.imdbSearch import imdbSearchDialog
+from gui.preferences import preferencesDialog
+from gui.about import aboutDialog
+from FileManagement import FileScan, Subtitle
+from modules.videofile import  *
+from modules.subtitlefile import *
+from modules.search import *
 
-import subdownloader.languages.Languages as languages
+import languages.Languages as languages
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
@@ -220,7 +220,6 @@ class Main(QObject, Ui_MainWindow):
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
-                thread.start_new_thread(self.SDDBServer.sendLogin, (settingsUsername,  ))
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)

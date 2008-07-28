@@ -20,13 +20,14 @@ from xmlrpclib import Transport,ServerProxy
 import base64, httplib, os
 import StringIO, gzip, zlib
 import logging
-import threading 
+import threading, thread
 log = logging.getLogger("subdownloader.OSDBServer")
     
-from subdownloader import APP_TITLE, APP_VERSION
-import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
-from subdownloader.FileManagement import Subtitle
+from modules import APP_TITLE, APP_VERSION
+import modules.videofile as videofile
+import modules.subtitlefile as subtitlefile
+from FileManagement import Subtitle
+from modules.SDDBServer import SDDBServer
 
 #SERVER_ADDRESS = "http://dev.opensubtitles.org/xml-rpc"
 DEFAULT_SERVER = "http://www.opensubtitles.org/xml-rpc"
@@ -113,6 +114,7 @@ class OSDBServer(object):
     """
     def __init__(self, options):
         self.log = logging.getLogger("subdownloader.OSDBServer.OSDBServer")
+        self.SDDBServer = SDDBServer()
         self.log.debug("Creating OSDBServer with options= %s",  options)
         # for proxied connections
 #        ProxiedTransport.__init__(self)
@@ -225,6 +227,8 @@ class OSDBServer(object):
         self.log.debug("----------------")
         self.log.debug("Logging in (username:%r)..."% username)
         info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
+        if username: 
+            thread.start_new_thread(self.SDDBServer.sendLogin, (username,  ))
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
         if info['status'] == "200 OK":
             self.log.debug("Session ID: %s"% info['token'])
