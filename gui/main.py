@@ -449,8 +449,8 @@ class Main(QObject, Ui_MainWindow):
         if not type(path) == list:
             path = [path]
         videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
-        print videos_found
-        print subs_found
+        log.debug("Videos found: %s"% videos_found)
+        log.debug("Subtitles found: %s"% subs_found)
         #Populating the items in the VideoListView
         self.videoModel.clearTree()
         self.videoView.expandAll()
@@ -492,11 +492,11 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
             self.status_progress.setFormat("No videos found")
         
-        video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-        video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
-        video_movienames = [video.getMovieName() for video in videoSearchResults]
-
-        thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
+        if locals().has_key('videoSearchResults'):
+            video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+            video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
+            video_movienames = [video.getMovieName() for video in videoSearchResults]
+            thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
     
         self.window.setCursor(Qt.ArrowCursor)
         #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload

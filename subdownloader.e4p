@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.2.dtd">
 <!-- eric4 project file for project subdownloader -->
-<!-- Saved: 2008-07-17, 01:44:45 -->
+<!-- Saved: 2008-07-23, 01:22:43 -->
 <!-- Copyright (C) 2008 Ivan Garcia, capiscuas@gmail.com -->
 <Project version="4.2">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -59,19 +59,7 @@
       <Name>__init__.py</Name>
     </Source>
     <Source>
-      <Name>subtitlefile.py</Name>
-    </Source>
-    <Source>
-      <Name>OSDBServer.py</Name>
-    </Source>
-    <Source>
-      <Name>videofile.py</Name>
-    </Source>
-    <Source>
       <Name>run.py</Name>
-    </Source>
-    <Source>
-      <Name>notes.py</Name>
     </Source>
     <Source>
       <Dir>cli</Dir>
@@ -171,6 +159,135 @@
     <Source>
       <Dir>modules</Dir>
       <Name>SDDBServer.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>subtitlefile.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>OSDBServer.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>videofile.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Name>metadata.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>factory.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>mediainfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>setup.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>synchronizedobject.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>table.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Name>version.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>misc</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>misc</Dir>
+      <Name>xmlinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>__init__.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>asfinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>fourcc.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>mkvinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>movinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>movlanguages.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>mpeginfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>ogminfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>realinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>riffinfo.py</Name>
+    </Source>
+    <Source>
+      <Dir>modules</Dir>
+      <Dir>mmpython</Dir>
+      <Dir>video</Dir>
+      <Name>vcdinfo.py</Name>
     </Source>
   </Sources>
   <Forms>

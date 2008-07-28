@@ -1,5 +1,9 @@
 Changelog Subdownloader:
 
+Changes in 2.0.4:
+    FEATURE: Media files are also checked by their metadata
+    BUGFIX: Fixed mmpython package
+
 Changes in 2.0.3:
     FEATURE: Context menu in videos and subtitles and movies
     FEATURE: Autodetection of Media Players crossplatform

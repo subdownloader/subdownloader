@@ -40,7 +40,7 @@ USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 #        user_agent = "Subdownloader " + APP_VERSION 
     
 
-def test_connection(url, timeout=5):
+def test_connection(url, timeout=15):
     import socket, urllib2
     defTimeOut=socket.getdefaulttimeout()
     socket.setdefaulttimeout(timeout)

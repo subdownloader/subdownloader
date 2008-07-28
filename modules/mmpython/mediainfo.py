@@ -116,7 +116,7 @@ AVCORE    = ['length', 'encoder', 'trackno', 'trackof', 'copyright', 'product',
 UNPRINTABLE_KEYS = [ 'thumbnail', ]
 
 import table
-import mmpython
+#import mmpython
 
 EXTENSION_DEVICE    = 'device'
 EXTENSION_DIRECTORY = 'directory'
@@ -437,8 +437,8 @@ class CollectionInfo(MediaInfo):
         self.tracks.append(track)
 
 
-def get_singleton():
-    print "This function is deprecated. Please use 'mmpython.Factory' instead."
-    return mmpython.Factory()
+#def get_singleton():
+#    print "This function is deprecated. Please use 'mmpython.Factory' instead."
+#    return mmpython.Factory()
 
     

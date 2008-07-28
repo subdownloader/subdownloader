@@ -54,8 +54,8 @@
 import struct
 import string
 
-from mmpython import mediainfo
-import mmpython
+from modules.mmpython import mediainfo
+#import mmpython
 
 # http://www.pcisys.net/~melanson/codecs/rmff.htm
 # http://www.pcisys.net/~melanson/codecs/
@@ -126,4 +126,4 @@ class RealInfo(mediainfo.AVInfo):
             (comment_len,) = struct.unpack('>H', s[pos:pos+2])
             self.comment = s[pos+2:pos+comment_len+2]
 
-mmpython.registertype( 'video/real', ('rm', 'ra', 'ram'), mediainfo.TYPE_AV, RealInfo )
+#mmpython.registertype( 'video/real', ('rm', 'ra', 'ram'), mediainfo.TYPE_AV, RealInfo )

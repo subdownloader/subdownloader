@@ -112,8 +112,8 @@ import string
 import time
 import zlib
 import fourcc
-import mmpython
-from mmpython import mediainfo
+#import mmpython
+from modules.mmpython import mediainfo
 from movlanguages import *
 
 # http://developer.apple.com/documentation/QuickTime/QTFF/index.html
@@ -369,7 +369,7 @@ class MovInfo(mediainfo.AVInfo):
 
         return atomsize
         
-mmpython.registertype( 'video/quicktime', ('mov', 'qt'), mediainfo.TYPE_AV, MovInfo )
+#mmpython.registertype( 'video/quicktime', ('mov', 'qt'), mediainfo.TYPE_AV, MovInfo )
 
 # doc links:
 # [1] http://developer.apple.com/documentation/QuickTime/QTFF/QTFFChap4/chapter_5_section_2.html#//apple_ref/doc/uid/TP40000939-CH206-BBCBIICE

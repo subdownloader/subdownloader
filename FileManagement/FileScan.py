@@ -23,6 +23,7 @@ from FileManagement import get_extension
 import RecursiveParser
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
+import modules.metadata as metadata
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
@@ -32,9 +33,8 @@ def FakeProgress(count,msg=""):
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
-    print filepaths
     for path in filepaths:
-        print path
+        log.debug("Scanning: %s"% path)
         if os.path.isdir(path):
             videos_found, subs_found = ScanFolder(path,recursively = True,report_progress=report_progress, progress_end=progress_end)
             all_videos_found += videos_found
@@ -76,9 +76,11 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         percentage = 100 / len(files_found)
         count = 0
         for i, filepath in enumerate(files_found):
-            videos_found.append(videofile.VideoFile(filepath))
+            log.debug("Parsing %s ..."% filepath)
+            if metadata.parse(filepath):
+                videos_found.append(videofile.VideoFile(filepath))
             count += percentage
-            report_progress(count,"Hashing video: %s"% os.path.basename(filepath))
+            report_progress(count,"Parsing video: %s"% os.path.basename(filepath))
     report_progress(0)
     
     #Scanning Subs
@@ -91,7 +93,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         for i, filepath in enumerate(files_found):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
-            report_progress(count,"Hashing sub: " + os.path.basename(filepath))
+            report_progress(count,"Parsing sub: " + os.path.basename(filepath))
     report_progress(100,"Finished hashing")
     if progress_end:
         progress_end()

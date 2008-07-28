@@ -77,8 +77,8 @@
 #endif
 
 
-from mmpython import mediainfo
-import mmpython
+from modules.mmpython import mediainfo
+#import mmpython
 import struct
 import re
 import stat
@@ -359,4 +359,4 @@ class OgmInfo(mediainfo.AVInfo):
             return (len+4,None)
 
 
-mmpython.registertype( 'application/ogg', ('ogm', 'ogg',), mediainfo.TYPE_AV, OgmInfo )
+#mmpython.registertype( 'application/ogg', ('ogm', 'ogg',), mediainfo.TYPE_AV, OgmInfo )

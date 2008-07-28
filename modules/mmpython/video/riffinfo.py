@@ -116,8 +116,8 @@ import string
 import fourcc
 # import factory
 
-import mmpython
-from mmpython import mediainfo
+#import mmpython
+from modules.mmpython import mediainfo
 
 # List of tags
 # http://kibus1.narod.ru/frames_eng.htm?sof/abcavi/infotags.htm
@@ -535,4 +535,4 @@ class RiffInfo(mediainfo.AVInfo):
         
 
 
-mmpython.registertype( 'video/avi', ('avi',), mediainfo.TYPE_AV, RiffInfo )
+#mmpython.registertype( 'video/avi', ('avi',), mediainfo.TYPE_AV, RiffInfo )

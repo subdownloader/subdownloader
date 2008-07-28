@@ -32,8 +32,8 @@
 #endif
 
 import os
-import mmpython
-from mmpython import mediainfo
+#import modules.mmpython
+from modules.mmpython import mediainfo
 
 DEBUG = mediainfo.DEBUG
 
@@ -76,4 +76,4 @@ class XMLInfo(mediainfo.MediaInfo):
         self.valid = 1
         
 
-mmpython.registertype( 'text/xml', ('xml', 'fxd'), mediainfo.TYPE_MISC, XMLInfo )
+#modules.mmpython.registertype( 'text/xml', ('xml', 'fxd'), mediainfo.TYPE_MISC, XMLInfo )

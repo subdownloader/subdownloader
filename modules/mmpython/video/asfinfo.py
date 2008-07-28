@@ -87,9 +87,9 @@ import re
 import struct
 import string
 import fourcc
-import mmpython
+#import mmpython
 
-from mmpython import mediainfo
+from modules.mmpython import mediainfo
 
 def _guid(input):
     # Remove any '-'
@@ -371,4 +371,4 @@ class AsfInfo(mediainfo.AVInfo):
                 _print("unknown: %s [%d]" % (self._printguid(guid), objsize))
         return r
         
-mmpython.registertype( 'video/asf', ('asf','wmv','wma'), mediainfo.TYPE_AV, AsfInfo )
+#mmpython.registertype( 'video/asf', ('asf','wmv','wma'), mediainfo.TYPE_AV, AsfInfo )
