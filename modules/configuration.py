@@ -19,6 +19,7 @@
 from optparse import make_option
 import logging
 import os.path
+import user
 from modules import progressbar
 
 """
@@ -95,7 +96,7 @@ class General(object):
 class Logging(object):
     log_level = logging.DEBUG
     log_format = "[%(asctime)s] %(levelname)s::%(name)s # %(message)s"
-    log_dir = "" # leave blank to use current path
+    log_dir = user.home # leave blank to use current path
     log_name = "%s.log"% General.name.lower()
     log_path = os.path.join(log_dir, log_name)
     log_mode = "a"
