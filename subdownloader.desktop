@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Categories=KDE;X-QT;AudioVideo;Video;Network;
+Categories=KDE;X-QT;AudioVideo;Video;
 Comment=Application to download subtitles for your movies.
 Comment[en_US]=Application to download subtitles for your movies.
-Exec=/usr/bin/subdownloader
+Exec=subdownloader
 GenericName=
 GenericName[en_US]=
 Icon=/usr/share/subdownloader/gui/images/subdownloader.png
