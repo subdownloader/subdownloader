@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Wed Jul 30 15:09:54 2008
+# Created: Wed Jul 30 16:54:32 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080705
 #
 # WARNING! All changes made in this file will be lost!
@@ -467,7 +467,7 @@ class Ui_MainWindow(object):
         self.buttonPlay.setText(QtGui.QApplication.translate("MainWindow", "Play", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonDownload.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDB.setText(QtGui.QApplication.translate("MainWindow", "Movie Info", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Filter by :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_folderselect.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonFind.setToolTip(QtGui.QApplication.translate("MainWindow", "Click here to Search the subtitles of the movies in that folder", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_videosFound.setTitle(QtGui.QApplication.translate("MainWindow", "Videos/Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
@@ -477,7 +477,7 @@ class Ui_MainWindow(object):
         self.searchSitesCombo.setItemText(0, QtGui.QApplication.translate("MainWindow", "OpenSubtitles.org", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonDownloadByTitle.setText(QtGui.QApplication.translate("MainWindow", "Download", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDBByTitle.setText(QtGui.QApplication.translate("MainWindow", "Movie Info", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Show :", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Filter by :", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_4.setTitle(QtGui.QApplication.translate("MainWindow", "Subtitles found:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Search by Movie Name", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Select Folder with Videos / Subtitles: ", None, QtGui.QApplication.UnicodeUTF8))
