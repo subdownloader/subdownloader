@@ -99,7 +99,7 @@ class Main(QObject, Ui_MainWindow):
         
         #self.treeView.reset()
         window.show()
-        self.splitter.setSizes([400, 1000])
+        self.splitter.setSizes([600, 1000])
 
         #SETTING UP FOLDERVIEW
         model = QDirModel(window)        
@@ -127,6 +127,7 @@ class Main(QObject, Ui_MainWindow):
         
         self.folderView.scrollTo(model.index(lastDir.toString()))
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
+        QObject.connect(self.buttonFind, SIGNAL("clicked(bool)"), self.onButtonFind)
         
         #SETTING UP SEARCH_VIDEO_VIEW
         self.videoModel = VideoTreeModel(window)
@@ -514,24 +515,30 @@ class Main(QObject, Ui_MainWindow):
             self.buttonIMDB.setEnabled(False)
     
 
+    def onButtonFind(self):
+        folder_path = None
+        for index in self.folderView.selectedIndexes():
+            folder_path = str(self.folderView.model().filePath(index).toUtf8())
+        
+        if not folder_path:
+            QMessageBox.about(self.window,"Alert","You must select a folder first")
+        else:
+            settings = QSettings()
+            settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+            self.SearchVideos(folder_path) 
         
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
-        if hasattr(self,"OSDBServer") and self.OSDBServer.is_connected():
             if index.isValid():
-                #QObject.disconnect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
                 now = QTime.currentTime()
-                if now > self.timeLastSearch.addMSecs(500) :
-                    settings = QSettings()
-                    data = self.folderView.model().filePath(index)
-                    folder_path = unicode(data, 'utf-8')
-                    settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
-                    self.SearchVideos(folder_path) 
-                    self.timeLastSearch = QTime.currentTime()
-                    #QCoreApplication.sendPostedEvents()
-                    #QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
-        else:
-            QMessageBox.about(self.window,"Error","You are not logged in")
+                if now > self.timeLastSearch.addMSecs(500):
+                    if not self.folderView.model().hasChildren(index):
+                        settings = QSettings()
+                        folder_path = str(self.folderView.model().filePath(index).toUtf8())
+                        settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+                        self.SearchVideos(folder_path) 
+                        self.timeLastSearch = QTime.currentTime()
+
 
     def onButtonPlay(self):
         settings = QSettings()
