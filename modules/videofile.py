@@ -184,9 +184,9 @@ class VideoFile(object):
     
     def calculateOSDBHash(self):
         try:
-            longlongformat = 'q'  # long long
+            longlongformat = '<q'  # long long little endian
             bytesize = struct.calcsize(longlongformat)
-
+	    
             filesize = os.path.getsize(self._filepath)
             hash = filesize
             f = file(self._filepath, "rb")
