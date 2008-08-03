@@ -55,6 +55,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         report_progress = FakeProgress
     
     #Let's reset the progress bar to 0%
+    print 
     report_progress(0)
 
     parser = RecursiveParser.RecursiveParser()
@@ -80,6 +81,9 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
             if metadata.parse(filepath):
                 videos_found.append(videofile.VideoFile(filepath))
             count += percentage
+
+            if not report_progress(): #If it has been canceled
+                return [], []
             report_progress(count,"Parsing video: %s"% os.path.basename(filepath))
     report_progress(0)
     

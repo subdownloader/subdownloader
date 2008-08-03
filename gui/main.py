@@ -29,7 +29,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
                          QBuffer, QIODevice, QModelIndex,QDir, QFileInfo, QTime, QFile
-from PyQt4.QtGui import QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
+from PyQt4.QtGui import QProgressDialog, QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
 
@@ -457,7 +457,18 @@ class Main(QObject, Ui_MainWindow):
         #Scan recursively the selected directory finding subtitles and videos
         if not type(path) == list:
             path = [path]
+        
+        progressWindow = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
+        import time
+        progressWindow.forceShow()
+        self.status_progress = progressWindow
+        #try:
         videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
+            #progressWindow.destroy()
+        #except:
+        if videos_found == None:
+            print "user canceled"
+            return 
         log.debug("Videos found: %s"% videos_found)
         log.debug("Subtitles found: %s"% subs_found)
         #Populating the items in the VideoListView
@@ -470,9 +481,10 @@ class Main(QObject, Ui_MainWindow):
         #Searching our videohashes in the OSDB database
         QCoreApplication.processEvents()
         if(videos_found):
-            self.status("Asking Database...")
-            self.progress(20)
+            self.progress(0,"Asking Database...")
+            self.progress(-1)
             self.window.setCursor(Qt.WaitCursor)
+            QCoreApplication.processEvents()
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
                 
             if(videoSearchResults and subs_found):
@@ -496,10 +508,10 @@ class Main(QObject, Ui_MainWindow):
             elif videoSearchResults == None :
                 QMessageBox.about(self.window,"Error","Server is not responding. Please try again later")
             self.progress(100)
-            self.status_progress.setFormat("Search finished")
+            self.status_progress.setLabelText("Search finished")
         else:
             self.progress(100)
-            self.status_progress.setFormat("No videos found")
+            self.status_progress.setLabelText("No videos found")
         
         if locals().has_key('videoSearchResults'):
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
@@ -558,7 +570,6 @@ class Main(QObject, Ui_MainWindow):
         currentDir = settings.value("mainwindow/workingDirectory", QVariant())
         fileNames = QFileDialog.getOpenFileNames(None, "Select the video(s) that need subtitles", currentDir.toString(), videofile.SELECT_VIDEOS)
         fileNames = [str(file.toUtf8()) for file in fileNames]
-        print fileNames
         if fileNames:
             settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileNames[0]).absolutePath()))
             self.SearchVideos(fileNames) 
@@ -633,21 +644,6 @@ class Main(QObject, Ui_MainWindow):
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,"Error","Unable to launch videoplayer")
 
-#delete this
-#    def onButtonIMDB(self):
-#        imdb = ""
-#        if self.tabs.currentIndex() == 0: #Search by HASH tabs
-#            video = self.videoModel.getSelectedItem().data
-#            movie_info = video.getMovieInfo()
-#            if movie_info:
-#                imdb = movie_info["IDMovieImdb"]
-#        else:
-#            movie = self.moviesModel.getSelectedItem().data
-#            imdb = movie.IMDBId
-#        
-#        if imdb:
-#            webbrowser.open( "http://www.imdb.com/title/tt%s"% imdb , new=2, autoraise=1)
-    
     def getDownloadPath(self, video, subtitle):
         downloadFullPath = ""
         settings = QSettings()
@@ -754,24 +750,29 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
 
     """Control the STATUS BAR PROGRESS"""
-    def progress(self, val,msg = None):
-        self.status_progress.setMaximum(100)
-        self.status_progress.reset()
+    def progress(self, val = None,msg = None):
+        #self.status_progress.setMaximum(100)
+        #self.status_progress.reset()
+        print val, msg
+        if (val == None and msg == None ):
+            print "ask if it was canceled"
+            return not self.status_progress.wasCanceled()
+            
         if msg != None:
-            self.status_progress.setFormat(msg) # + ": %p%")
+            self.status_progress.setLabelText(msg)
         if val < 0:
             self.status_progress.setMaximum(0)
         else: 
             self.status_progress.setValue(val)
-        
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+            
+        QCoreApplication.processEvents()
     
     def status(self, msg):
         self.status_progress.setMaximum(100)
         self.status_progress.reset()
-        self.status_progress.setFormat(msg) #+ ": %p%")
-        self.progress(0)
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        #self.status_progress.setLabelText(msg)
+        self.progress(100)
+        QCoreApplication.processEvents()
     
     def establish_connection(self):
         settings = QSettings()

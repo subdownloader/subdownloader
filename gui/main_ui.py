@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Aug  3 16:47:29 2008
+# Created: Sun Aug  3 18:16:43 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
@@ -127,11 +127,6 @@ class Ui_MainWindow(object):
         self.buttonSearchSelectVideos.setIconSize(QtCore.QSize(24, 24))
         self.buttonSearchSelectVideos.setObjectName("buttonSearchSelectVideos")
         self.horizontalLayout_6.addWidget(self.buttonSearchSelectVideos)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem1)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
-        self.horizontalLayout_7 = QtGui.QHBoxLayout()
-        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.buttonSearchSelectFolder = QtGui.QPushButton(self.groupBox_folderselect)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -143,10 +138,10 @@ class Ui_MainWindow(object):
         self.buttonSearchSelectFolder.setIcon(icon5)
         self.buttonSearchSelectFolder.setIconSize(QtCore.QSize(24, 24))
         self.buttonSearchSelectFolder.setObjectName("buttonSearchSelectFolder")
-        self.horizontalLayout_7.addWidget(self.buttonSearchSelectFolder)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem2)
-        self.verticalLayout_3.addLayout(self.horizontalLayout_7)
+        self.horizontalLayout_6.addWidget(self.buttonSearchSelectFolder)
+        spacerItem1 = QtGui.QSpacerItem(88, 31, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem1)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
         self.line_4 = QtGui.QFrame(self.groupBox_folderselect)
         self.line_4.setFrameShape(QtGui.QFrame.HLine)
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
@@ -200,8 +195,8 @@ class Ui_MainWindow(object):
         self.buttonSearchByName.setObjectName("buttonSearchByName")
         self.horizontalLayout.addWidget(self.buttonSearchByName)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
-        spacerItem3 = QtGui.QSpacerItem(26, 26, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem3)
+        spacerItem2 = QtGui.QSpacerItem(26, 26, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem2)
         self.label_3 = QtGui.QLabel(self.tab_3)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
@@ -244,8 +239,8 @@ class Ui_MainWindow(object):
         self.buttonIMDBByTitle.setIconSize(QtCore.QSize(32, 16))
         self.buttonIMDBByTitle.setObjectName("buttonIMDBByTitle")
         self.horizontalLayout_3.addWidget(self.buttonIMDBByTitle)
-        spacerItem4 = QtGui.QSpacerItem(328, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem4)
+        spacerItem3 = QtGui.QSpacerItem(328, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem3)
         self.label_10 = QtGui.QLabel(self.tab_3)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -355,8 +350,8 @@ class Ui_MainWindow(object):
         self.buttonUploadDownRow.setIconSize(QtCore.QSize(24, 24))
         self.buttonUploadDownRow.setObjectName("buttonUploadDownRow")
         self.horizontalLayout_5.addWidget(self.buttonUploadDownRow)
-        spacerItem5 = QtGui.QSpacerItem(401, 33, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem5)
+        spacerItem4 = QtGui.QSpacerItem(401, 33, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem4)
         self.buttonUpload = QtGui.QPushButton(self.groupBox_2)
         self.buttonUpload.setEnabled(True)
         font = QtGui.QFont()
