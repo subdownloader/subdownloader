@@ -174,8 +174,12 @@ class UploadListModel(QAbstractTableModel):
             except:
                 pass
             self.emit(SIGNAL("layoutChanged()"))
-            previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
-            self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
+            if self.rowSelected > 0: 
+                previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
+                self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
+            #elif not len(self._videos):
+                #print "last row"
+            
             self._main.updateButtonsUpload() 
         
     def onUploadButtonUpRow(self, clicked):
@@ -195,6 +199,10 @@ class UploadListModel(QAbstractTableModel):
             
         self._main.updateButtonsUpload() 
 
+    def onUploadButtonDeleteAllRow(self):
+        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.removeAll()
+        self.emit(SIGNAL("layoutChanged()"))
     def onUploadButtonDownRow(self, clicked):
         if self.rowSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))

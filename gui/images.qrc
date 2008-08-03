@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="/" >
+    <file>images/open_video.png</file>
+    <file>images/open_folder.png</file>
+    <file>images/delete_all.png</file>
     <file>images/play.png</file>
     <file>images/sites/opensubtitles.png</file>
     <file>images/icon32.ico</file>
@@ -52,7 +55,6 @@
     <file>images/flags/zh.png</file>
     <file>images/imdb.png</file>
     <file>images/clear.png</file>
-    <file>images/clear_list.png</file>
     <file>images/down.png</file>
     <file>images/download.png</file>
     <file>images/info.png</file>

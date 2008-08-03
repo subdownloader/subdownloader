@@ -137,6 +137,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.videoView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
         QObject.connect(self.videoModel, SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.subtitlesCheckedChanged)
         
+        QObject.connect(self.buttonSearchSelectVideos, SIGNAL("clicked(bool)"), self.onButtonSearchSelectVideos)
+        QObject.connect(self.buttonSearchSelectFolder, SIGNAL("clicked(bool)"), self.onButtonSearchSelectFolder)
         QObject.connect(self.buttonDownload, SIGNAL("clicked(bool)"), self.onButtonDownload)
         QObject.connect(self.buttonPlay, SIGNAL("clicked(bool)"), self.onButtonPlay)
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onViewOnlineInfo)
@@ -163,10 +165,12 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onClickUploadViewCell)
         
         QObject.connect(self.buttonUpload, SIGNAL("clicked(bool)"), self.onUploadButton)
+        
         QObject.connect(self.buttonUploadUpRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonUpRow)
         QObject.connect(self.buttonUploadDownRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonDownRow)
         QObject.connect(self.buttonUploadPlusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonPlusRow)
         QObject.connect(self.buttonUploadMinusRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonMinusRow)
+        QObject.connect(self.buttonUploadDeleteAllRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonDeleteAllRow)
         
         QObject.connect(self.buttonUploadFindIMDB, SIGNAL("clicked(bool)"), self.onButtonUploadFindIMDB)
         
@@ -414,14 +418,10 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
-
-       
         
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
-
-        
 
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
@@ -552,6 +552,25 @@ class Main(QObject, Ui_MainWindow):
             settings = QSettings()
             settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
             self.SearchVideos(folder_path) 
+            
+    def onButtonSearchSelectVideos(self):
+        settings = QSettings()
+        currentDir = settings.value("mainwindow/workingDirectory", QVariant())
+        fileNames = QFileDialog.getOpenFileNames(None, "Select the video(s) that need subtitles", currentDir.toString(), videofile.SELECT_VIDEOS)
+        fileNames = [str(file.toUtf8()) for file in fileNames]
+        print fileNames
+        if fileNames:
+            settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileNames[0]).absolutePath()))
+            self.SearchVideos(fileNames) 
+    def onButtonSearchSelectFolder(self):
+        settings = QSettings()
+        path = settings.value("mainwindow/workingDirectory", QVariant())
+        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory that contains your videos",path.toString())
+        if directory:
+            settings.setValue("mainwindow/workingDirectory", QVariant(directory))
+            folder_path =  str(directory.toUtf8())
+            self.SearchVideos(folder_path) 
+        
         
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
@@ -564,6 +583,7 @@ class Main(QObject, Ui_MainWindow):
                         settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
                         self.SearchVideos(folder_path) 
                         self.timeLastSearch = QTime.currentTime()
+                    self.buttonFind.setEnabled(True)
 
 
     def onButtonPlay(self):

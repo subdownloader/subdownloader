@@ -18,11 +18,12 @@
 
 import sys, os, platform
 if platform.system() == "Windows":
-    sys.stderr = open("stderr.log", "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
+    sys.stderr = open(os.path.join(os.path.dirname(sys.path[0]),"stderr.log"), "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
 import logging
 from optparse import OptionParser
 # this will allow logic imports
 #sys.path.append(os.path.dirname(sys.path[0]))
+print sys.path[0]
 sys.path.append(os.path.join(sys.path[0], 'modules') )
 # simple aplication starter
 import modules.configuration as conf
@@ -52,6 +53,7 @@ logging.basicConfig(level=options.logging,
                     filename=conf.Logging.log_path,
                     filemode=conf.Logging.log_mode,
                     )
+                    
 # add a console logging handler if verbosity is turned on
 if options.verbose:
     # define a Handler which writes INFO messages or higher to the sys.stderr
