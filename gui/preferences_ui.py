@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Sat Jul 12 18:35:11 2008
-#      by: PyQt4 UI code generator 4.4.3-snapshot-20080705
+# Created: Mon Aug  4 18:44:24 2008
+#      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -225,7 +225,7 @@ class Ui_PreferencesDialog(object):
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):
-        PreferencesDialog.setWindowTitle(QtGui.QApplication.translate("PreferencesDialog", "Preferences", None, QtGui.QApplication.UnicodeUTF8))
+        PreferencesDialog.setWindowTitle(QtGui.QApplication.translate("PreferencesDialog", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.label_54.setText(QtGui.QApplication.translate("PreferencesDialog", "Destination folder:", None, QtGui.QApplication.UnicodeUTF8))
         self.optionDownloadFolderAsk.setText(QtGui.QApplication.translate("PreferencesDialog", "Always ask user", None, QtGui.QApplication.UnicodeUTF8))
         self.optionDownloadFolderSame.setText(QtGui.QApplication.translate("PreferencesDialog", "Same folder as video file", None, QtGui.QApplication.UnicodeUTF8))

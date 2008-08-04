@@ -376,6 +376,10 @@
                 <property name="text" >
                  <string>Search</string>
                 </property>
+                <property name="icon" >
+                 <iconset resource="images.qrc" >
+                  <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
+                </property>
                 <property name="flat" >
                  <bool>false</bool>
                 </property>
@@ -1004,7 +1008,8 @@ p, li { white-space: pre-wrap; }
     <property name="title" >
      <string>&amp;Main</string>
     </property>
-    <addaction name="action_ShowPreferences" />
+    <addaction name="action_Login" />
+    <addaction name="action_LogOut" />
     <addaction name="separator" />
     <addaction name="action_Quit" />
    </widget>
@@ -1018,7 +1023,22 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator" />
     <addaction name="action_HelpAbout" />
    </widget>
+   <widget class="QMenu" name="menu_Preferences" >
+    <property name="title" >
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="action_ShowPreferences" />
+   </widget>
+   <widget class="QMenu" name="menuView" >
+    <property name="title" >
+     <string>&amp;View</string>
+    </property>
+    <addaction name="action_LogMessages" />
+    <addaction name="action_ShowHideTreeFolder" />
+   </widget>
    <addaction name="menuMain" />
+   <addaction name="menuView" />
+   <addaction name="menu_Preferences" />
    <addaction name="menu_Help" />
   </widget>
   <action name="action_Quit" >
@@ -1043,12 +1063,52 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_HelpDonation" >
    <property name="text" >
-    <string>Make a &amp;Donation</string>
+    <string>&amp;Donate us 5$</string>
    </property>
   </action>
   <action name="action_ShowPreferences" >
    <property name="text" >
-    <string>&amp;Preferences</string>
+    <string>Configure &amp;Subdownloader</string>
+   </property>
+  </action>
+  <action name="actionConfigure_SubDownloader" >
+   <property name="text" >
+    <string>Configure &amp;SubDownloader</string>
+   </property>
+  </action>
+  <action name="action_Login" >
+   <property name="text" >
+    <string>LogIn</string>
+   </property>
+  </action>
+  <action name="action_LogMessages" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>&amp;Log Messages</string>
+   </property>
+  </action>
+  <action name="action_ShowHideTreeFolder" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Show/Hide Tree Folder</string>
+   </property>
+  </action>
+  <action name="action_LogOut" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>LogOut</string>
    </property>
   </action>
  </widget>

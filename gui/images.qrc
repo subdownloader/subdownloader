@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/" >
     <file>images/open_video.png</file>
+    <file>images/paypal.png</file>
     <file>images/open_folder.png</file>
     <file>images/delete_all.png</file>
     <file>images/play.png</file>
@@ -50,7 +51,6 @@
     <file>images/flags/sv.png</file>
     <file>images/flags/th.png</file>
     <file>images/flags/tr.png</file>
-    <file>images/flags/uk.png</file>
     <file>images/flags/vi.png</file>
     <file>images/flags/zh.png</file>
     <file>images/imdb.png</file>

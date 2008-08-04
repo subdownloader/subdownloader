@@ -202,19 +202,30 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.action_HelpAbout, SIGNAL("triggered()"), self.onMenuHelpAbout)
         QObject.connect(self.action_HelpBug, SIGNAL("triggered()"), self.onMenuHelpBug)
         QObject.connect(self.action_HelpDonation, SIGNAL("triggered()"), self.onMenuHelpDonation)
+        
         QObject.connect(self.action_ShowPreferences, SIGNAL("triggered()"), self.onMenuPreferences)
-        QObject.connect(self.window, SIGNAL("updateTitleApp(QString)"), self.onChangeTitleBarText)
+        QObject.connect(self.window, SIGNAL("setLoginStatus(QString)"), self.onChangeLoginStatus)
         
-        self.status_progress = QtGui.QProgressBar(self.statusbar)
-        self.status_progress.setProperty("value",QVariant(0))
-        
-        self.status_progress.setOrientation(QtCore.Qt.Horizontal)
+        self.status_progress = None #QtGui.QProgressBar(self.statusbar)
+        #self.status_progress.setProperty("value",QVariant(0))
+        self.login_button = QtGui.QPushButton("Not logged yet")
+        QObject.connect(self.action_Login, SIGNAL("triggered()"), self.onButtonLogin)
+        QObject.connect(self.login_button, SIGNAL("clicked(bool)"), self.onButtonLogin)
+        #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
-        self.setTitleBarText("Connecting...")
+        self.donate_button = QtGui.QPushButton("Donate 5$")
+        iconpaypal = QtGui.QIcon()
+        iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.donate_button.setIcon(iconpaypal)
+        self.donate_button.setIconSize(QtCore.QSize(50, 24))
+        QObject.connect(self.donate_button, SIGNAL("clicked(bool)"), self.onMenuHelpDonation)
         
         self.statusbar.insertWidget(0,self.status_label)
-        self.statusbar.addPermanentWidget(self.status_progress,2)
-        self.status("")
+        self.statusbar.insertWidget(1,self.login_button)
+        self.statusbar.addPermanentWidget(self.donate_button, 0)
+        #self.statusbar.addPermanentWidget(self.login_button,0)
+        #self.statusbar.addPermanentItem(horizontalLayout_4,2)
+        #self.status("")
         if not options.test:
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
@@ -224,11 +235,19 @@ class Main(QObject, Ui_MainWindow):
                 settings = QSettings()
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
-                thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
+                #thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
+                
+                self.status_progress = QProgressDialog("Logging in server...", "&Cancel", 0,0, self.window)
+                self.status_progress.setCancelButton(None)
+                self.status_progress.forceShow()
+                QCoreApplication.processEvents()
+        
+                self.login_user(settingsUsername,settingsPassword,window)
+                self.status_progress.close()
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        QCoreApplication.processEvents()
 
         #FOR TESTING
         if options.test:
@@ -355,21 +374,30 @@ class Main(QObject, Ui_MainWindow):
             except:
                 self.status_label.setText("Users online: ERROR")
             time.sleep(sleeptime)
-
+    
+    def onButtonLogin(self):
+        QMessageBox.about(self.window,"Info","Not implemented yet. Please donate.")
+        
     def login_user(self, username, password, window):
-        window.emit(SIGNAL('updateTitleApp(QString)'),"Trying to login...")
+        #window.emit(SIGNAL('setLoginStatus(QString)'),"Trying to login...")
+        self.login_button.setText("Trying to login...")
+        QCoreApplication.processEvents()
         try:
-            if self.OSDBServer._login(username, password) :
+            if self.OSDBServer._login(username, password):
                 if not username: username = 'Anonymous'
-                window.emit(SIGNAL('updateTitleApp(QString)'),"Logged as: %s" % username)
+                #window.emit(SIGNAL('setLoginStatus(QString)'),"Logged as: %s" % username)
+                self.login_button.setText("Logged as: %s" % username)
             elif username: #We try anonymous login in case the normal user login has failed
-                window.emit(SIGNAL('updateTitleApp(QString)'),"Error logging as: %s. Logging anonymously..." % username)
-                if self.OSDBServer._login("", "") :
-                    window.emit(SIGNAL('updateTitleApp(QString)'),"Logged as: Anonymous")
-                else:
-                    window.emit(SIGNAL('updateTitleApp(QString)'),"Login: Cannot login.")
+                #window.emit(SIGNAL('setLoginStatus(QString)'),"Login as %s: ERROR" % username)
+                self.login_button.setText("Login as %s: ERROR" % username)
+                #if self.OSDBServer._login("", "") :
+                    #window.emit(SIGNAL('setLoginStatus(QString)'),"Logged as: Anonymous")
+                #else:
+                    #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
         except:
-            window.emit(SIGNAL('updateTitleApp(QString)'),"Login: ERROR")
+            self.login_button.setText("Login: ERROR")
+            #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
+            
 
     def onMenuQuit(self):
         self.window.close()
@@ -379,9 +407,14 @@ class Main(QObject, Ui_MainWindow):
         
     def onChangeTitleBarText(self, title):
         self.setTitleBarText(title)
+        
+    def onChangeLoginStatus(self, statusMsg):
+        self.login_button.setText(statusMsg)
+        QCoreApplication.processEvents()
     
     def onMenuHelpAbout(self):
         dialog = aboutDialog(self)
+        dialog.ui.label_version.setText(APP_VERSION)
         dialog.show()
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
@@ -459,7 +492,6 @@ class Main(QObject, Ui_MainWindow):
             path = [path]
         
         progressWindow = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
-        import time
         progressWindow.forceShow()
         self.status_progress = progressWindow
         #try:
@@ -769,12 +801,17 @@ class Main(QObject, Ui_MainWindow):
     
     def status(self, msg):
         self.status_progress.setMaximum(100)
-        self.status_progress.reset()
+        #self.status_progress.reset()
         #self.status_progress.setLabelText(msg)
         self.progress(100)
         QCoreApplication.processEvents()
     
     def establish_connection(self):
+        self.status_progress = QProgressDialog("Connecting to Server...", "&Cancel", 0,0, self.window)
+        self.status_progress.setCancelButton(None)
+        self.status_progress.forceShow()
+        QCoreApplication.processEvents()
+        
         settings = QSettings()
         settingsProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
         settingsProxyPort = settings.value("options/ProxyPort", QVariant("8080")).toInt()[0]
@@ -782,25 +819,27 @@ class Main(QObject, Ui_MainWindow):
             if settingsProxyHost: #Let's see if we have defined a proxy in our Settings
                 self.options.proxy = str(settingsProxyHost + ":" + str(settingsProxyPort))
             else:
-                self.setTitleBarText("Connecting to server") 
+                self.progress(0,"Connecting to server") 
                 
         if self.options.proxy:
-            self.setTitleBarText("Connecting to server using proxy %s" % self.options.proxy) 
-        
+            self.progress(0,"Connecting to server using proxy %s" % self.options.proxy) 
+            
         try:
             self.OSDBServer = OSDBServer(self.options) 
             self.SDDBServer = SDDBServer()
-            self.setTitleBarText("Connected succesfully")
-            self.progress(100)
+            self.progress(100, "Connected succesfully")
+            QCoreApplication.processEvents()
+            self.status_progress.close()
             return True
         except Exception, e: 
             #traceback.print_exc(e)
-            self.setTitleBarText("Error connecting to server") 
-            self.progress(0)
+            #self.progress(0, "Error connecting to server")
+            self.status_progress.close()
+            #replace by a dialog with button.
+            QCoreApplication.processEvents()
             return False
             #qFatal("Unable to connect to server. Please try again later")
 
-        
     #UPLOAD METHODS
     
     def onButtonUploadFindIMDB(self):

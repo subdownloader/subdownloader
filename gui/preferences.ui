@@ -16,7 +16,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>Preferences</string>
+   <string>Settings</string>
   </property>
   <property name="sizeGripEnabled" >
    <bool>false</bool>

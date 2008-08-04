@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Aug  3 18:16:43 2008
+# Created: Mon Aug  4 19:26:17 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
@@ -191,6 +191,7 @@ class Ui_MainWindow(object):
         self.movieNameText.setObjectName("movieNameText")
         self.horizontalLayout.addWidget(self.movieNameText)
         self.buttonSearchByName = QtGui.QPushButton(self.tab_3)
+        self.buttonSearchByName.setIcon(icon6)
         self.buttonSearchByName.setFlat(False)
         self.buttonSearchByName.setObjectName("buttonSearchByName")
         self.horizontalLayout.addWidget(self.buttonSearchByName)
@@ -492,6 +493,10 @@ class Ui_MainWindow(object):
         self.menuMain.setObjectName("menuMain")
         self.menu_Help = QtGui.QMenu(self.menuBar)
         self.menu_Help.setObjectName("menu_Help")
+        self.menu_Preferences = QtGui.QMenu(self.menuBar)
+        self.menu_Preferences.setObjectName("menu_Preferences")
+        self.menuView = QtGui.QMenu(self.menuBar)
+        self.menuView.setObjectName("menuView")
         MainWindow.setMenuBar(self.menuBar)
         self.action_Quit = QtGui.QAction(MainWindow)
         self.action_Quit.setObjectName("action_Quit")
@@ -505,7 +510,23 @@ class Ui_MainWindow(object):
         self.action_HelpDonation.setObjectName("action_HelpDonation")
         self.action_ShowPreferences = QtGui.QAction(MainWindow)
         self.action_ShowPreferences.setObjectName("action_ShowPreferences")
-        self.menuMain.addAction(self.action_ShowPreferences)
+        self.actionConfigure_SubDownloader = QtGui.QAction(MainWindow)
+        self.actionConfigure_SubDownloader.setObjectName("actionConfigure_SubDownloader")
+        self.action_Login = QtGui.QAction(MainWindow)
+        self.action_Login.setObjectName("action_Login")
+        self.action_LogMessages = QtGui.QAction(MainWindow)
+        self.action_LogMessages.setEnabled(False)
+        self.action_LogMessages.setObjectName("action_LogMessages")
+        self.action_ShowHideTreeFolder = QtGui.QAction(MainWindow)
+        self.action_ShowHideTreeFolder.setCheckable(True)
+        self.action_ShowHideTreeFolder.setChecked(True)
+        self.action_ShowHideTreeFolder.setEnabled(False)
+        self.action_ShowHideTreeFolder.setObjectName("action_ShowHideTreeFolder")
+        self.action_LogOut = QtGui.QAction(MainWindow)
+        self.action_LogOut.setEnabled(False)
+        self.action_LogOut.setObjectName("action_LogOut")
+        self.menuMain.addAction(self.action_Login)
+        self.menuMain.addAction(self.action_LogOut)
         self.menuMain.addSeparator()
         self.menuMain.addAction(self.action_Quit)
         self.menu_Help.addAction(self.action_HelpHomepage)
@@ -513,7 +534,12 @@ class Ui_MainWindow(object):
         self.menu_Help.addAction(self.action_HelpBug)
         self.menu_Help.addSeparator()
         self.menu_Help.addAction(self.action_HelpAbout)
+        self.menu_Preferences.addAction(self.action_ShowPreferences)
+        self.menuView.addAction(self.action_LogMessages)
+        self.menuView.addAction(self.action_ShowHideTreeFolder)
         self.menuBar.addAction(self.menuMain.menuAction())
+        self.menuBar.addAction(self.menuView.menuAction())
+        self.menuBar.addAction(self.menu_Preferences.menuAction())
         self.menuBar.addAction(self.menu_Help.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -570,12 +596,19 @@ class Ui_MainWindow(object):
         self.tabs.setTabText(self.tabs.indexOf(self.tab_4), QtGui.QApplication.translate("MainWindow", "Upload subtitles", None, QtGui.QApplication.UnicodeUTF8))
         self.menuMain.setTitle(QtGui.QApplication.translate("MainWindow", "&Main", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_Help.setTitle(QtGui.QApplication.translate("MainWindow", "&Help", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_Preferences.setTitle(QtGui.QApplication.translate("MainWindow", "&Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuView.setTitle(QtGui.QApplication.translate("MainWindow", "&View", None, QtGui.QApplication.UnicodeUTF8))
         self.action_Quit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.action_HelpHomepage.setText(QtGui.QApplication.translate("MainWindow", "Visit our &Site", None, QtGui.QApplication.UnicodeUTF8))
         self.action_HelpAbout.setText(QtGui.QApplication.translate("MainWindow", "&About Subdownloader", None, QtGui.QApplication.UnicodeUTF8))
         self.action_HelpBug.setText(QtGui.QApplication.translate("MainWindow", "I found a &bug/error", None, QtGui.QApplication.UnicodeUTF8))
-        self.action_HelpDonation.setText(QtGui.QApplication.translate("MainWindow", "Make a &Donation", None, QtGui.QApplication.UnicodeUTF8))
-        self.action_ShowPreferences.setText(QtGui.QApplication.translate("MainWindow", "&Preferences", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_HelpDonation.setText(QtGui.QApplication.translate("MainWindow", "&Donate us 5$", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_ShowPreferences.setText(QtGui.QApplication.translate("MainWindow", "Configure &Subdownloader", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionConfigure_SubDownloader.setText(QtGui.QApplication.translate("MainWindow", "Configure &SubDownloader", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_Login.setText(QtGui.QApplication.translate("MainWindow", "LogIn", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_LogMessages.setText(QtGui.QApplication.translate("MainWindow", "&Log Messages", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_ShowHideTreeFolder.setText(QtGui.QApplication.translate("MainWindow", "Show/Hide Tree Folder", None, QtGui.QApplication.UnicodeUTF8))
+        self.action_LogOut.setText(QtGui.QApplication.translate("MainWindow", "LogOut", None, QtGui.QApplication.UnicodeUTF8))
 
 from uploadlistview import UploadListView
 import images_rc
