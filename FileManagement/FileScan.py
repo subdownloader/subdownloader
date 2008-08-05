@@ -55,7 +55,6 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         report_progress = FakeProgress
     
     #Let's reset the progress bar to 0%
-    print 
     report_progress(0)
 
     parser = RecursiveParser.RecursiveParser()

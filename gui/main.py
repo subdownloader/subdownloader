@@ -144,7 +144,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.buttonIMDB, SIGNAL("clicked(bool)"), self.onViewOnlineInfo)
         self.videoView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu) 
         
-        
+        #Drag and Drop files to the videoView enabled
         self.videoView.__class__.dragEnterEvent = self.dragEnterEvent
         self.videoView.__class__.dragMoveEvent = self.dragEnterEvent
         self.videoView.__class__.dropEvent = self.dropEvent
@@ -213,7 +213,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.login_button, SIGNAL("clicked(bool)"), self.onButtonLogin)
         #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
-        self.donate_button = QtGui.QPushButton("Donate 5$")
+        self.status_label.setIndent(10)
+        self.donate_button = QtGui.QPushButton("Donate 5 USD/EUR")
         iconpaypal = QtGui.QIcon()
         iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.donate_button.setIcon(iconpaypal)
@@ -237,7 +238,7 @@ class Main(QObject, Ui_MainWindow):
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 #thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
                 
-                self.status_progress = QProgressDialog("Logging in server...", "&Cancel", 0,0, self.window)
+                self.status_progress = QProgressDialog("Logging in...", "&Cancel", 0,0, self.window)
                 self.status_progress.setCancelButton(None)
                 self.status_progress.forceShow()
                 QCoreApplication.processEvents()
@@ -491,9 +492,8 @@ class Main(QObject, Ui_MainWindow):
         if not type(path) == list:
             path = [path]
         
-        progressWindow = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
-        progressWindow.forceShow()
-        self.status_progress = progressWindow
+        self.status_progress = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
+        self.status_progress.forceShow()
         #try:
         videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
             #progressWindow.destroy()
@@ -512,9 +512,14 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.expandAll() #This was a solution found to refresh the treeView
         #Searching our videohashes in the OSDB database
         QCoreApplication.processEvents()
-        if(videos_found):
-            self.progress(0,"Asking Database...")
+        if not videos_found:
+            QMessageBox.about(self.window,"Scan Results","No video has been found.")
+        else:
+            self.status_progress.forceShow()
             self.progress(-1)
+            self.progress(0,"Searching subtitles...")
+            
+            QCoreApplication.processEvents()
             self.window.setCursor(Qt.WaitCursor)
             QCoreApplication.processEvents()
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
@@ -539,11 +544,9 @@ class Main(QObject, Ui_MainWindow):
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
             elif videoSearchResults == None :
                 QMessageBox.about(self.window,"Error","Server is not responding. Please try again later")
-            self.progress(100)
             self.status_progress.setLabelText("Search finished")
-        else:
-            self.progress(100)
-            self.status_progress.setLabelText("No videos found")
+            
+        self.status_progress.close()
         
         if locals().has_key('videoSearchResults'):
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
@@ -719,6 +722,9 @@ class Main(QObject, Ui_MainWindow):
             count = 0
             answer = None
             success_downloaded = 0
+            
+            self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
+            self.status_progress.forceShow()
             for i, sub in enumerate(subs):
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 if not destinationPath:
@@ -783,12 +789,10 @@ class Main(QObject, Ui_MainWindow):
 
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val = None,msg = None):
-        #self.status_progress.setMaximum(100)
-        #self.status_progress.reset()
-        print val, msg
+        
+        #by calling progres(), it will return False if it has been canceled
         if (val == None and msg == None ):
-            print "ask if it was canceled"
-            return not self.status_progress.wasCanceled()
+            return not self.status_progress.wasCanceled() 
             
         if msg != None:
             self.status_progress.setLabelText(msg)
@@ -818,8 +822,6 @@ class Main(QObject, Ui_MainWindow):
         if not self.options.proxy:  #If we are not defining the proxy from command line 
             if settingsProxyHost: #Let's see if we have defined a proxy in our Settings
                 self.options.proxy = str(settingsProxyHost + ":" + str(settingsProxyPort))
-            else:
-                self.progress(0,"Connecting to server") 
                 
         if self.options.proxy:
             self.progress(0,"Connecting to server using proxy %s" % self.options.proxy) 
@@ -832,7 +834,7 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.close()
             return True
         except Exception, e: 
-            #traceback.print_exc(e)
+            traceback.print_exc(e)
             #self.progress(0, "Error connecting to server")
             self.status_progress.close()
             #replace by a dialog with button.
@@ -882,7 +884,8 @@ class Main(QObject, Ui_MainWindow):
                 QMessageBox.about(self.window,"Error","Please select an IMDB movie.")
                 return
             else:
-                self.progress(0)
+                self.status_progress = QProgressDialog("Uploading subtitles...", "&Abort", 0, 0, self.window)
+                self.status_progress.forceShow()
                 self.window.setCursor(Qt.WaitCursor)
                 log.debug("Compressing subtitle...")
                 details = {}
@@ -911,6 +914,7 @@ class Main(QObject, Ui_MainWindow):
                 
                 try:
                     info = self.OSDBServer.UploadSubtitles(movie_info)
+                    self.status_progress.close()
                     if info['status'] == "200 OK":
                         successBox = QMessageBox("Success", 
                                                                         "Subtitles succesfully uploaded. \nMany Thanks!." , 
@@ -928,8 +932,8 @@ class Main(QObject, Ui_MainWindow):
                     else:
                         QMessageBox.about(self.window,"Error","Problem while uploading...\nError: %s" % info['status'])
                 except:
+                    self.status_progress.close()
                     QMessageBox.about(self.window,"Error","Error contacting with the server.\nPlease restart or try later.")
-                self.progress(100)
                 self.window.setCursor(Qt.ArrowCursor)
     
     def cleanUploadWindow(self):
@@ -1120,6 +1124,9 @@ class Main(QObject, Ui_MainWindow):
         count = 0
         answer = None
         success_downloaded = 0
+        self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
+        self.status_progress.forceShow()
+            
         for i, sub in enumerate(subs):
             url = sub.getExtraInfo("downloadLink")
             webbrowser.open( url, new=2, autoraise=1)
@@ -1127,6 +1134,7 @@ class Main(QObject, Ui_MainWindow):
             count += percentage
             self.progress(count,"Opening Link %s" % url)
         self.progress(100)
+        self.status_progress.close()
 
     def onExpandMovie(self, index):
         movie = index.internalPointer().data

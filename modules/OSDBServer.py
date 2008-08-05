@@ -58,7 +58,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=20): 
+    def __init__(self, function, timeout=30): 
         self.timeout = timeout 
         self.function = function 
 
