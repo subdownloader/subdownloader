@@ -58,7 +58,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=30): 
+    def __init__(self, function, timeout=1): 
         self.timeout = timeout 
         self.function = function 
 
@@ -83,7 +83,6 @@ class TimeoutFunction:
 """The XMLRPC can use a Proxy, this class is need for that."""
 class ProxiedTransport(Transport):
     """ Used for proxied connections to the XMLRPC server
-        When
     """
     def __init__(self):
         #self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
@@ -137,50 +136,56 @@ class OSDBServer(object):
         self._token = None
         #Let's connect with the server XMLRPC
         #OSConnection.__init__(self)
-        self.create_xmlrpcserver(self.server, self.proxy)
+        try:
+            self.create_xmlrpcserver(self.server, self.proxy)
+        except Exception, e:
+            raise e
         #self.login(self.username, self.passwd)
             #self.logout()
             
     def create_xmlrpcserver(self, server, proxy):
         self.log.debug("Creating XMLRPC server connection...")
-        return self.connect(server, proxy)
+        try:
+            return self.connect(server, proxy)
+        except Exception, e:
+            raise e
         
     def connect(self, server, proxy):
         try:
-            self.log.debug("connect(self, %r, %r)" %(server, proxy))
+            self.log.debug("Connecting with parameters (%r, %r)" %(server, proxy))
             connect = TimeoutFunction(self._connect)
             return connect(server, proxy)
-        except Exception, e:
-            import sys
-            self.log.error("Unexpected error: %s", sys.exc_info())
-        except TimeoutFunctionException:
+        except TimeoutFunctionException, e:
             self.log.error("Connection timed out. Maybe you need a proxy.")
-            raise
+            raise e
+        #except Exception, e:
+            #import sys
+            #self.log.error("Unexpected error: %s", sys.exc_info())
 
     def _connect(self, server, proxy):
-        if proxy:
-            self.log.debug("Trying proxied connection... (%r)"% proxy)
-            self.proxied_transport = ProxiedTransport()
-            self.proxied_transport.set_proxy(proxy)
-            self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
-            self.ServerInfo()
-            self.log.debug("...connected")
-            return True
-            
-        elif test_connection(server):
-            self.log.debug("Trying direct connection...")
-            try:
-                self.xmlrpc_server = ServerProxy(server)
+        try:
+            if proxy:
+                self.log.debug("Trying proxied connection... (%r)"% proxy)
+                self.proxied_transport = ProxiedTransport()
+                self.proxied_transport.set_proxy(proxy)
+                self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
                 self.ServerInfo()
                 self.log.debug("...connected")
                 return True
-            except Exception,e:
-                self.log.debug("Connection to the server failed")
-                raise e
-        else:
-            self.log.debug("...failed")
-            self.log.error("Unable to connect. Try setting a proxy.")
-            return False
+                
+            elif test_connection(server):
+                    self.log.debug("Trying direct connection...")
+                    self.xmlrpc_server = ServerProxy(server)
+                    self.ServerInfo()
+                    self.log.debug("...connected")
+                    return True
+            else:
+                self.log.debug("...failed")
+                self.log.error("Unable to connect. Try setting a proxy.")
+                return False
+        except Exception,e:
+                    self.log.debug("Connection to the server failed")
+                    raise e
         
     def is_connected(self):
         """ 
@@ -193,23 +198,27 @@ class OSDBServer(object):
     def ServerInfo(self):
         ServerInfo = TimeoutFunction(self._ServerInfo)
         try:
-            return ServerInfo()
+            a = ServerInfo()
+            return a
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
+            
         except Exception, e:
-            print type(e)     # the exception instance
-            print e.args      # arguments stored in .args
-            print e           # __str__ allows args to printed directly
-            raise e
+            #print type(e)     # the exception instance
+            #print e.args      # arguments stored in .args
+            #print e           # __str__ allows args to printed directly
             self.log.error("ServerInfo error connection.")
-    
+            raise e
+
     """This simple function returns basic server info, 
     it could be used for ping or telling server info to client"""    
     def _ServerInfo(self):
         try: 
             return self.xmlrpc_server.ServerInfo()
-        except Exception, e:
-            raise e
+        except TimeoutFunctionException:
+            print "aaaaaaaaaaaaaaaaaaa"
+            raise
+        print "bbbb"
 
             
     def login(self, username="", password=""):
@@ -465,7 +474,7 @@ class OSDBServer(object):
             if video.getTotalLocalSubtitles() > 0:
                 cd = 'cd%i'% (i+1)
                 subtitle = video.getSubtitles()[0]
-                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
+                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': str(video.getSize()), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
                 self.log.debug(" - adding %s: %s"% (cd, array_))
                 array[cd] = array_
             else:

@@ -150,7 +150,6 @@ class Main(QObject, Ui_MainWindow):
         self.videoView.__class__.dropEvent = self.dropEvent
         self.videoView.setAcceptDrops(1)
 
-        
         #SETTING UP UPLOAD_VIEW
         self.uploadModel = UploadListModel(window)
         self.uploadView.setModel(self.uploadModel)
@@ -230,9 +229,10 @@ class Main(QObject, Ui_MainWindow):
         if not options.test:
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
-        
-            if self.establish_connection():# and self.OSDBServer.is_connected():
+            
+            if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (60, ))
+                
                 settings = QSettings()
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
@@ -240,11 +240,15 @@ class Main(QObject, Ui_MainWindow):
                 
                 self.status_progress = QProgressDialog("Logging in...", "&Cancel", 0,0, self.window)
                 self.status_progress.setCancelButton(None)
-                self.status_progress.forceShow()
+                self.status_progress.show()
+                self.status_progress.repaint()
                 QCoreApplication.processEvents()
-        
-                self.login_user(settingsUsername,settingsPassword,window)
-                self.status_progress.close()
+                try:
+                    self.login_user(settingsUsername,settingsPassword,window)
+                    self.status_progress.close()
+                except Exception, e: 
+                    traceback.print_exc(e)
+                    self.status_progress.close()
             else:
                 QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
@@ -397,6 +401,7 @@ class Main(QObject, Ui_MainWindow):
                     #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
         except:
             self.login_button.setText("Login: ERROR")
+            raise
             #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
             
 
@@ -494,6 +499,8 @@ class Main(QObject, Ui_MainWindow):
         
         self.status_progress = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
         self.status_progress.forceShow()
+        QCoreApplication.processEvents()
+        self.progress()
         #try:
         videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
             #progressWindow.destroy()
@@ -518,8 +525,8 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.forceShow()
             self.progress(-1)
             self.progress(0,"Searching subtitles...")
+            self.progress()
             
-            QCoreApplication.processEvents()
             self.window.setCursor(Qt.WaitCursor)
             QCoreApplication.processEvents()
             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
@@ -547,6 +554,7 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.setLabelText("Search finished")
             
         self.status_progress.close()
+        self.window.setCursor(Qt.ArrowCursor)
         
         if locals().has_key('videoSearchResults'):
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
@@ -554,7 +562,7 @@ class Main(QObject, Ui_MainWindow):
             video_movienames = [video.getMovieName() for video in videoSearchResults]
             thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
     
-        self.window.setCursor(Qt.ArrowCursor)
+        
         #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
         #self.OSDBServer.CheckSubHash(sub_hashes)
         
@@ -726,11 +734,14 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
             self.status_progress.forceShow()
             for i, sub in enumerate(subs):
+                if not self.progress():
+                    break
                 destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
                 if not destinationPath:
                     break
                 log.debug("Trying to download subtitle '%s'" % destinationPath)
                 self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
+                
                 #Check if we have write permissions, otherwise show warning window
                 while True: 
                     #If the file and the folder don't have writte access.
@@ -770,8 +781,8 @@ class Main(QObject, Ui_MainWindow):
                     elif answer == QMessageBox.No:
                         count += percentage
                         continue
-                QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-                
+                QCoreApplication.processEvents()
+                self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
                 try:
                    log.debug("Downloading subtitle '%s'" % destinationPath)
                    if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
@@ -787,6 +798,20 @@ class Main(QObject, Ui_MainWindow):
             self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
             self.progress(100)
 
+    def showErrorConnection(self):
+        warningBox = QMessageBox("Error write permission", 
+                                    "%s cannot be saved.\nCheck that the folder exists and user has write-access permissions." %destinationPath , 
+                                    QMessageBox.Warning, 
+                                    QMessageBox.Retry | QMessageBox.Default ,
+                                    QMessageBox.Discard | QMessageBox.Escape, 
+                                    QMessageBox.NoButton, 
+                                    self.window)
+        answer = warningBox.exec_()
+        if answer == QMessageBox.Retry:
+            pass #Try to create connection + login
+        elif answer == QMessageBox.Discard :
+            return
+        
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val = None,msg = None):
         
@@ -800,8 +825,10 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.setMaximum(0)
         else: 
             self.status_progress.setValue(val)
-            
-        QCoreApplication.processEvents()
+        
+        for i in range(1000):
+            i = i * 5
+            QCoreApplication.processEvents()
     
     def status(self, msg):
         self.status_progress.setMaximum(100)
@@ -810,11 +837,14 @@ class Main(QObject, Ui_MainWindow):
         self.progress(100)
         QCoreApplication.processEvents()
     
-    def establish_connection(self):
+    def establishServerConnection(self):
         self.status_progress = QProgressDialog("Connecting to Server...", "&Cancel", 0,0, self.window)
         self.status_progress.setCancelButton(None)
-        self.status_progress.forceShow()
+        self.status_progress.show()
+        #self.status_progress.repaint()
         QCoreApplication.processEvents()
+        QCoreApplication.processEvents()
+        
         
         settings = QSettings()
         settingsProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
@@ -828,11 +858,15 @@ class Main(QObject, Ui_MainWindow):
             
         try:
             self.OSDBServer = OSDBServer(self.options) 
-            self.SDDBServer = SDDBServer()
+            #self.SDDBServer = SDDBServer()
             self.progress(100, "Connected succesfully")
             QCoreApplication.processEvents()
             self.status_progress.close()
             return True
+        except TimeoutFunctionException:
+            self.status_progress.close()
+            self.showErrorConnection()
+            
         except Exception, e: 
             traceback.print_exc(e)
             #self.progress(0, "Error connecting to server")
@@ -886,6 +920,8 @@ class Main(QObject, Ui_MainWindow):
             else:
                 self.status_progress = QProgressDialog("Uploading subtitles...", "&Abort", 0, 0, self.window)
                 self.status_progress.forceShow()
+                self.progress(0)
+                QCoreApplication.processEvents()
                 self.window.setCursor(Qt.WaitCursor)
                 log.debug("Compressing subtitle...")
                 details = {}
