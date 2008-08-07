@@ -858,7 +858,7 @@ class Main(QObject, Ui_MainWindow):
             
         try:
             self.OSDBServer = OSDBServer(self.options) 
-            #self.SDDBServer = SDDBServer()
+            self.SDDBServer = SDDBServer()
             self.progress(100, "Connected succesfully")
             QCoreApplication.processEvents()
             self.status_progress.close()

@@ -99,7 +99,7 @@ class UploadListModel(QAbstractTableModel):
             if sub:
                 lang = sub.getLanguage()
                 if lang == None:
-                    lang = languages.AutoDetectLang(sub.getFilePath())
+                    lang = Subtitle.AutoDetectLang(sub.getFilePath())
                     sub.setLanguage(lang)
                 all_langs.append(lang)
 #FIXME: Clean this code here and put it in a shared script for also CLI to use
