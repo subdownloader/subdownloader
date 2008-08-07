@@ -118,16 +118,15 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         sub = data
         if role == QtCore.Qt.DecorationRole:
             if sub.isLocal():
-                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Disabled))
+                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Disabled))
             else:
-                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(18, 12), QIcon.Normal))
+                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Normal))
         
         if role == QtCore.Qt.ForegroundRole:
             if sub.isLocal():
                 return QVariant(QColor(Qt.red))
         
         if role == QtCore.Qt.FontRole:
-            if not sub.isLocal():
                 return QVariant(QFont('Arial', 10, QFont.Bold)) 
             
         if role == QtCore.Qt.CheckStateRole:
