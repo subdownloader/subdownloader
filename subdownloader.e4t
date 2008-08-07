@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-4.1.dtd">
 <!-- eric4 tasks file for project subdownloader -->
-<!-- Saved: 2008-08-07, 17:48:08 -->
+<!-- Saved: 2008-08-07, 18:00:35 -->
 <Tasks version="4.1">
   <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: Show this icon bigger.</Summary>
@@ -181,17 +181,6 @@
       <Linenumber>105</Linenumber>
     </Resource>
   </Task>
-  <Task priority="1" completed="False" bugfix="False">
-    <Summary>TODO: change conf.VERSION to subdownloader.APP_VERSION</Summary>
-    <Description></Description>
-    <Created>2008-08-07, 15:32:54</Created>
-    <Resource>
-      <Filename>
-        <Name>run.py</Name>
-      </Filename>
-      <Linenumber>40</Linenumber>
-    </Resource>
-  </Task>
   <Task priority="1" completed="False" bugfix="True">
     <Summary>FIXME: The LM path should depend the subdownloader path, not from the CWD</Summary>
     <Description></Description>
@@ -217,9 +206,20 @@
     </Resource>
   </Task>
   <Task priority="1" completed="False" bugfix="False">
+    <Summary>TODO: change conf.VERSION to subdownloader.APP_VERSION</Summary>
+    <Description></Description>
+    <Created>2008-08-07, 17:57:27</Created>
+    <Resource>
+      <Filename>
+        <Name>run.py</Name>
+      </Filename>
+      <Linenumber>40</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" bugfix="False">
     <Summary>TODO: make this to work with non-hashed subtitles (no 'data' to handle)</Summary>
     <Description></Description>
-    <Created>2008-08-07, 17:34:47</Created>
+    <Created>2008-08-07, 17:57:32</Created>
     <Resource>
       <Filename>
         <Dir>cli</Dir>
