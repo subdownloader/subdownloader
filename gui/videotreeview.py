@@ -154,7 +154,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         if role == QtCore.Qt.DecorationRole:
             if movie_info :
                 #TODO: Show this icon bigger.
-                return QVariant(QIcon(':/images/imdb.png'))
+                return QVariant(QIcon(':/images/imdb.png').pixmap(QSize(24, 24), QIcon.Normal))
             else:
                 return QVariant()
         
