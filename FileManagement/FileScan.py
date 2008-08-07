@@ -27,7 +27,9 @@ import modules.metadata as metadata
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
-def FakeProgress(count,msg=""):
+def FakeProgress(count=None,msg=""):
+    if not count:
+        return -1
     pass
 
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):

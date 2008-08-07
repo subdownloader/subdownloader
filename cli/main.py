@@ -179,13 +179,15 @@ class Main(OSDBServer.OSDBServer):
     def check_directory(self):
         """ search for videos and subtitles in the given path """
         self.log.info("Scanning %s ..."% self.options.videofile)
-        if self.options.verbose:
+        if self.options.logging == logging.DEBUG or not self.options.verbose:
+            report_progress = progress_end = None
+        elif self.options.verbose:
             #for cli progressbar
             progress = progressbar.ProgressBar(widgets=conf.Terminal.progress_bar_style).start()
             report_progress = progress.update
             progress_end = progress.finish
-        else:
-            report_progress = progress_end = None
+#        else:
+#            report_progress = progress_end = None
         (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, report_progress=report_progress, progress_end=progress_end)
         self.log.info("Videos found: %i Subtitles found: %i"%(len(self.videos), len(self.subs)))
         if len(self.videos):

@@ -274,7 +274,9 @@ class ProgressBar(object):
     def _need_update(self):
         return int(self.percentage()) != int(self.prev_percentage)
 
-    def update(self, value, *k):
+    def update(self, value=None, *k):
+        if not value:
+            return -1
         "Updates the progress bar to a new value."
         assert 0 <= value <= self.maxval
         self.currval = value

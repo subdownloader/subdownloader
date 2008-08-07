@@ -16,7 +16,7 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import re, os, logging
+import re, sys, os, logging
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 from FileManagement import FileScan,get_extension, clear_string, without_extension
@@ -142,7 +142,8 @@ def AutoDetectLang(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         Languages.CleanTagsFile(subtitle_content)
         n = autodetect_lang._NGram()
-        l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
+        #l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
+        l = autodetect_lang.NGram(os.path.join(sys.path[0],'languages','lm'))
         percentage, lang = l.classify(subtitle_content)
         pos = lang.rfind("-") #for example belarus-windows1251.lm we only need belarus
         if pos != -1:
