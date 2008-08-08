@@ -27,7 +27,7 @@ LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': 'Albanian'
  {'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': 'Arabic'},
  {'ISO639': 'hy', 'SubLanguageID': 'arm', 'LanguageName': 'Armenian'},
  {'ISO639': 'ay', 'SubLanguageID': 'ass', 'LanguageName': 'Assyrian'},
- {'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': 'Bahasa Melayu'},
+ {'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': 'Malay'},
  {'ISO639': 'bs', 'SubLanguageID': 'bos', 'LanguageName': 'Bosnian'},
  {'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': 'Brazilian'},
  {'ISO639': 'bg', 'SubLanguageID': 'bul', 'LanguageName': 'Bulgarian'},
