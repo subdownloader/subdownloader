@@ -432,7 +432,7 @@ class Main(QObject, Ui_MainWindow):
         webbrowser.open( "https://bugs.launchpad.net/subdownloader", new=2, autoraise=1)
 
     def onMenuHelpDonation(self):
-        webbrowser.open( "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donations%40subdownloader%2enet&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=PT&bn=PP%2dDonationsBF&charset=UTF%2d8", new=2, autoraise=1)
+        webbrowser.open( "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donations%40subdownloader%2enet&item_name=SubDownloader%20Open%20Source%20Software%20Donation&no_shipping=1&no_note=1&tax=0&currency_code=EUR&lc=PT&bn=PP%2dDonationsBF&charset=UTF%2d8", new=2, autoraise=1)
         
     def onMenuPreferences(self):
         dialog = preferencesDialog(self)

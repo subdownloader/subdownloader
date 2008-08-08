@@ -23,7 +23,7 @@
 
 
 from exceptions import KeyboardInterrupt
-import os, re
+import os, re, sys
 import glob
 
 nb_ngrams = 400
@@ -96,7 +96,13 @@ class _NGram:
 
 #The LM class were obtained from the  libtextcat project, get the latest one from there.
 class NGram:
-    def __init__ (self,folder,ext='.lm'):
+    def __init__ (self):
+        if os.path.isdir(sys.path[0]): #for Linux is /program_folder/
+            program_folder =  sys.path[0]
+        else: #for Windows is the /program_folder/run.py
+            program_folder =  os.path.dirname(sys.path[0])
+        folder = os.path.join(program_folder,'languages','lm')
+        ext='.lm'
         self.ngrams = dict()
         folder = os.path.join(folder,'*'+ext)
         size = len(ext) 
@@ -171,16 +177,4 @@ class Generate:
                 file.write("%s\t %d\n" % (k,v))
             file.close()
 
-#if __name__ == '__main__':
-    #import sys
-    #import globals
-    ## Should you want to generate your own .lm files
-    ##conf = Generate('/tmp')
-    ##conf.save('/tmp')
 
-    #text = file(os.path.join(globals.sourcefolder,'tests_subs/english_tags.srt'),mode='rb').read()
-    #text = globals.CleanTagsFile(text)
-    #n = _NGram()
-    #l = NGram(os.path.join(globals.sourcefolder,'lm'))
-    #percentage, lang = l.classify(text)
-    #print percentage,lang

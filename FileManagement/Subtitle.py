@@ -141,9 +141,9 @@ def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         Languages.CleanTagsFile(subtitle_content)
+        #Initializing the Language Detector 
         n = autodetect_lang._NGram()
-        #l = autodetect_lang.NGram(os.path.join(os.getcwd(),'languages','lm'))
-        l = autodetect_lang.NGram(os.path.join(sys.path[0],'languages','lm'))
+        l = autodetect_lang.NGram()
         percentage, lang = l.classify(subtitle_content)
         pos = lang.rfind("-") #for example belarus-windows1251.lm we only need belarus
         if pos != -1:
