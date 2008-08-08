@@ -47,7 +47,7 @@ class imdbSearchDialog(QtGui.QDialog):
                 if not results or not len(results) or not results[0].has_key("id"): #In case of empty results 
                     results = []
             except:
-                QMessageBox.about(self,"Error","Error connecting to the server.\nPlease restart or try later.")
+                QMessageBox.about(self,"Error","Error contacting the server.\nPlease restart or try later.")
                 results = []
             
             self.imdbModel.emit(SIGNAL("layoutAboutToBeChanged()"))

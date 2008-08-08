@@ -250,7 +250,7 @@ class Main(QObject, Ui_MainWindow):
                     traceback.print_exc(e)
                     self.status_progress.close()
             else:
-                QMessageBox.about(self.window,"Error","Cannot connect to server. Please try again later")
+                QMessageBox.about(self.window,"Error","Error contacting the server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
 
@@ -550,7 +550,7 @@ class Main(QObject, Ui_MainWindow):
                 self.onFilterLanguageVideo(self.filterLanguageForVideo.currentIndex())
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
             elif videoSearchResults == None :
-                QMessageBox.about(self.window,"Error","Server is not responding. Please try again later")
+                QMessageBox.about(self.window,"Error","Error contacting the server. Please try again later")
             self.status_progress.setLabelText("Search finished")
             
         self.status_progress.close()
@@ -869,7 +869,7 @@ class Main(QObject, Ui_MainWindow):
             
         except Exception, e: 
             traceback.print_exc(e)
-            #self.progress(0, "Error connecting to server")
+            #self.progress(0, "Error contacting the server")
             self.status_progress.close()
             #replace by a dialog with button.
             QCoreApplication.processEvents()
@@ -969,7 +969,7 @@ class Main(QObject, Ui_MainWindow):
                         QMessageBox.about(self.window,"Error","Problem while uploading...\nError: %s" % info['status'])
                 except:
                     self.status_progress.close()
-                    QMessageBox.about(self.window,"Error","Error contacting with the server.\nPlease restart or try later.")
+                    QMessageBox.about(self.window,"Error","Error contacting the server.\nPlease restart or try later.")
                 self.window.setCursor(Qt.ArrowCursor)
     
     def cleanUploadWindow(self):
