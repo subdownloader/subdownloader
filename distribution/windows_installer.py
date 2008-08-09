@@ -83,7 +83,7 @@ class NSISInstaller(object):
 !define PRODUCT_VERSION "%(version)s"
 Name "${PRODUCT_NAME}"
 ; The file to write
-OutFile "%(outpath)s\${PRODUCT_NAME}-${PRODUCT_VERSION}.exe"
+OutFile "%(outpath)s\SubDownloader-${PRODUCT_VERSION}.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\${PRODUCT_NAME}

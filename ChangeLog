@@ -1,5 +1,22 @@
 Changelog Subdownloader:
 
+Changes in 2.0.5:
+    FIXED:  254685, 
+    FIXED: added malay language
+    FIXED: path correction, cli progressbar and removed progress bar on debug mode
+    FIXED: updated flags to show 24x24 size
+    FEATURE: added improved thread
+    FEATURE: added paypal icon in statusbar
+          added login button in statusbar
+          added qprogressdialog for connection/login
+          now the About dialog shows the version of the app
+          added more menu items
+          Added button of Delete All in upload.
+          Added button to selected video files or folder in Search tab.
+    FIXED: Forced the hash algorythm to use LITTLE ENDIAN, so it will work with other processors like PPC
+    FEATURE: Added the Search Button in the middle.
+                    Now SD will only do a search of the videos if the folder clicked doesn't have any children.
+    
 Changes in 2.0.4:
     FEATURE: Media files are also checked by their metadata
     BUGFIX: Fixed mmpython package
