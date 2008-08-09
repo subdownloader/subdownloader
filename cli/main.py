@@ -123,7 +123,7 @@ class Main(OSDBServer.OSDBServer):
                 self.handle_operation(self.options.operation)
                 
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-            video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
+            video_filesizes =  [video.getSize() for video in videoSearchResults]
             video_movienames = [video.getMovieName() for video in videoSearchResults]
             #thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
             

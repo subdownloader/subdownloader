@@ -390,7 +390,7 @@ class OSDBServer(object):
         if videos:
             self.log.debug("Building search array with video objects info")
             for video in videos:
-                array = {'sublanguageid': language,'moviehash': video.getHash(),'moviebytesize': str(video.getSize())}
+                array = {'sublanguageid': language,'moviehash': video.getHash(),'moviebytesize': video.getSize()}
                 self.log.debug(" - adding: %s"% array)
                 search_array.append(array)
         elif imdb_ids:
@@ -474,7 +474,7 @@ class OSDBServer(object):
             if video.getTotalLocalSubtitles() > 0:
                 cd = 'cd%i'% (i+1)
                 subtitle = video.getSubtitles()[0]
-                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': str(video.getSize()), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
+                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
                 self.log.debug(" - adding %s: %s"% (cd, array_))
                 array[cd] = array_
             else:

@@ -558,7 +558,7 @@ class Main(QObject, Ui_MainWindow):
         
         if locals().has_key('videoSearchResults'):
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-            video_filesizes =  [str(video.getSize()) for video in videoSearchResults]
+            video_filesizes =  [video.getSize() for video in videoSearchResults]
             video_movienames = [video.getMovieName() for video in videoSearchResults]
             thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
     

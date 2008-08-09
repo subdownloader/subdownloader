@@ -71,7 +71,7 @@ class VideoFile(object):
         return os.path.basename(self._filepath)
     
     def getSize(self):
-        return self._size
+        return str(self._size)
     
     def getHash(self):
         return self._hash
@@ -186,7 +186,7 @@ class VideoFile(object):
         try:
             longlongformat = '<q'  # long long little endian
             bytesize = struct.calcsize(longlongformat)
-	    
+        
             filesize = os.path.getsize(self._filepath)
             hash = filesize
             f = file(self._filepath, "rb")
