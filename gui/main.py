@@ -796,7 +796,6 @@ class Main(QObject, Ui_MainWindow):
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
                 finally:
                     count += percentage
-
             self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
             self.progress(100)
 
@@ -1172,7 +1171,10 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.forceShow()
 
 
-# Download and unzip files automatically. We might want to move this to an external module, perhaps?            
+# Download and unzip files automatically. We might want to move this to an external module, perhaps?
+        unzipedOK = 0
+        dlOK = False
+ 
         for i, sub in enumerate(subs):
             if not self.status_progress.wasCanceled(): #Skip rest of loop if Abort was pushed in progress bar
 
@@ -1220,13 +1222,15 @@ class Main(QObject, Ui_MainWindow):
                                 outfile.close()
                         zipf.close()
                         os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
+                        unzipedOK += 1
                     except Exception, e:
                         log.debug(e)
                         QMessageBox.critical(self.window,"Error","An error occured unziping %s:\r\n%s" % (zipDestFile, e), QMessageBox.Abort)
 
         self.progress(100)
         self.status_progress.close()
-        QMessageBox.about(self.window,"Info","The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\r\n\r\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!")
+        if (unzipedOK > 0):
+            QMessageBox.about(self.window,"%s subtitles downloaded successfully" % (unzipedOK), "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\r\n\r\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!")
 
     def onExpandMovie(self, index):
         movie = index.internalPointer().data
