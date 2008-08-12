@@ -1124,6 +1124,9 @@ class Main(QObject, Ui_MainWindow):
         s = SearchByName()
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
         search_text = str(self.movieNameText.text().toUtf8())
+        # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
+        # like a string of forbidden chars (pr the other way around, string of good chars)
+        search_text = re.sub('\'', '', search_text)
         self.progress(0)
         #This should be in a thread to be able to Cancel
         movies = s.search_movie(search_text,'all')
