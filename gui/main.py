@@ -1195,32 +1195,33 @@ class Main(QObject, Ui_MainWindow):
                     oFile = open(zipDestFile, 'wb')
                     oFile.write(subDlStream)
                     oFile.close()
+                    subSocket.close()
                     dlOK = True
                 except Exception, e:
                     dlkOK = False
                     log.debug(e)
                     QMessageBox.critical(self.window,"Error","An error occured downloading %s:\r\n%s" % (url, e), QMessageBox.Abort)
-            QCoreApplication.processEvents()
+                QCoreApplication.processEvents()
 
-            # Only try unziping if download was succesful
-            if (dlOK) and (not self.status_progress.wasCanceled()):
-                try:
-                    zipf = zipfile.ZipFile(zipDestFile, "r")
-                    for fname in zipf.namelist():
-                        if (fname.endswith('/')) or (fname.endswith('\\')):
-                            os.mkdir(os.path.join(str(zipDestDir), fname))
-                        else: # Prefix file with <subID-> if it already exists for uniqeness
-                            if not os.path.exists(os.path.join(str(zipDestDir), fname)):
-                                outfile = open(os.path.join(str(zipDestDir), fname), 'wb')
-                            else:
-                                outfile = open(os.path.join(str(zipDestDir),  zipFileID + '-' + fname), 'wb')
-                            outfile.write(zipf.read(fname))
-                            outfile.close()
-                    zipf.close()
-                    os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
-                except Exception, e:
-                    log.debug(e)
-                    QMessageBox.critical(self.window,"Error","An error occured unziping %s:\r\n%s" % (zipDestFile, e), QMessageBox.Abort)
+                # Only try unziping if download was succesful
+                if dlOK:
+                    try:
+                        zipf = zipfile.ZipFile(zipDestFile, "r")
+                        for fname in zipf.namelist():
+                            if (fname.endswith('/')) or (fname.endswith('\\')):
+                                os.mkdir(os.path.join(str(zipDestDir), fname))
+                            else: # Prefix file with <subID-> if it already exists for uniqeness
+                                if not os.path.exists(os.path.join(str(zipDestDir), fname)):
+                                    outfile = open(os.path.join(str(zipDestDir), fname), 'wb')
+                                else:
+                                    outfile = open(os.path.join(str(zipDestDir),  zipFileID + '-' + fname), 'wb')
+                                outfile.write(zipf.read(fname))
+                                outfile.close()
+                        zipf.close()
+                        os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
+                    except Exception, e:
+                        log.debug(e)
+                        QMessageBox.critical(self.window,"Error","An error occured unziping %s:\r\n%s" % (zipDestFile, e), QMessageBox.Abort)
 
         self.progress(100)
         self.status_progress.close()
