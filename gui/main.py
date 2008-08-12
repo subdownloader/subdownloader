@@ -1166,6 +1166,8 @@ class Main(QObject, Ui_MainWindow):
         settings = QSettings()
         path = settings.value("mainwindow/workingDirectory", QVariant())
         zipDestDir=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory to save subtitle(s) to",path.toString())
+        if zipDestDir:
+            settings.setValue("mainwindow/workingDirectory", QVariant(zipDestDir))
 
         self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
         self.status_progress.forceShow()
