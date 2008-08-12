@@ -285,7 +285,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     if type(parentItem.data)  == Movie:
         movie = parentItem.data
         if not len(movie.subtitles):
-            if movie.totalSubs > 1: #To put a 0 in the future, the 1 is just to show it's working
+            if movie.totalSubs > 0: #To put a 0 in the future, the 1 is just to show it's working
                 return 1 #movie.totalSubs (that way the scrollbar doesn't expand also)
             else:
                 return 0
