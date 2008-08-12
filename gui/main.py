@@ -1115,10 +1115,9 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("options/VideoPlayerPath",  QVariant(predefinedVideoPlayer['programPath']))
             settings.setValue("options/VideoPlayerParameters", QVariant( predefinedVideoPlayer['parameters']))
 
-    
-
     def onButtonSearchByTitle(self):
-        self.progress(0,"Searching movies")
+        self.status_progress = QProgressDialog("Searching...", "&Abort", 0, 0, self.window)
+        self.status_progress.forceShow()
         self.window.setCursor(Qt.WaitCursor)
         self.moviesModel.clearTree()
         self.moviesView.expandAll() #This was a solution found to refresh the treeView
@@ -1126,6 +1125,8 @@ class Main(QObject, Ui_MainWindow):
         s = SearchByName()
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
         search_text = str(self.movieNameText.text().toUtf8())
+        self.progress(0)
+        #This should be in a thread to be able to Cancel
         movies = s.search_movie(search_text,'all')
         self.moviesModel.setMovies(movies, selectedLanguageXXX)
         if len(movies) == 1:
@@ -1134,7 +1135,7 @@ class Main(QObject, Ui_MainWindow):
             self.moviesView.collapseAll() 
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
-        self.progress(100)
+        self.status_progress.close()
         
     def onFilterLanguageSearchName(self, index):
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(index).toString())
