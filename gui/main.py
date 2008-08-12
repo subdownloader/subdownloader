@@ -1231,17 +1231,19 @@ class Main(QObject, Ui_MainWindow):
     def onExpandMovie(self, index):
         movie = index.internalPointer().data
         if not movie.subtitles and movie.totalSubs:
-            self.progress(0,"Searching subtitles")
+            self.status_progress = QProgressDialog("Searching...", "&Abort", 0, 0, self.window)
+            self.status_progress.forceShow()
             self.window.setCursor(Qt.WaitCursor)
             s = SearchByName()
             selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
+            self.progress(0)
             temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
             #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
             movie.subtitles =  temp_movie[0].subtitles 
             self.moviesModel.updateMovie(index, selectedLanguageXXX) #The treeview is filtered by language
             self.moviesView.collapse(index)
             self.moviesView.expand(index)
-            self.progress(100)
+            self.status_progress.close()
             QCoreApplication.processEvents()
             self.window.setCursor(Qt.ArrowCursor)
         
