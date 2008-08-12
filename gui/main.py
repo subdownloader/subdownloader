@@ -25,6 +25,8 @@ import base64, zlib
 import commands
 import platform
 import os.path
+import zipfile
+
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
@@ -1160,17 +1162,69 @@ class Main(QObject, Ui_MainWindow):
         count = 0
         answer = None
         success_downloaded = 0
+
+        settings = QSettings()
+        path = settings.value("mainwindow/workingDirectory", QVariant())
+        zipDestDir=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory to save subtitle(s) to",path.toString())
+
         self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
         self.status_progress.forceShow()
-            
+
+
+# Download and unzip files automatically. We might want to move this to an external module, perhaps?            
         for i, sub in enumerate(subs):
-            url = sub.getExtraInfo("downloadLink")
-            webbrowser.open( url, new=2, autoraise=1)
-            log.debug("Opening link %s" % (url))
-            count += percentage
-            self.progress(count,"Opening Link %s" % url)
+            if not self.status_progress.wasCanceled(): #Skip rest of loop if Abort was pushed in progress bar
+
+                url = sub.getExtraInfo("downloadLink")
+#                webbrowser.open( url, new=2, autoraise=1)
+                zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
+                zipFileName = "sub-" + zipFileID + ".zip"
+
+                zipDestFile = os.path.join(str(zipDestDir), zipFileName)
+
+                log.debug("About to DL %s to %s" % (url, zipDestFile))
+                count += percentage
+                self.progress(count, "Downloading %s to %s" % (url, zipDestFile))
+
+                # Download the file from opensubtitles.org
+                # Note that we take for granted it will be in .zip format! Might not be so for other sites
+                # This should be tested for when more sites are added or find true filename like browser does FIXME
+                try:
+                    subSocket = urllib2.urlopen(url)
+                    subDlStream = subSocket.read()
+                    oFile = open(zipDestFile, 'wb')
+                    oFile.write(subDlStream)
+                    oFile.close()
+                    dlOK = True
+                except Exception, e:
+                    dlkOK = False
+                    log.debug(e)
+                    QMessageBox.critical(self.window,"Error","An error occured downloading %s:\r\n%s" % (url, e), QMessageBox.Abort)
+            QCoreApplication.processEvents()
+
+            # Only try unziping if download was succesful
+            if (dlOK) and (not self.status_progress.wasCanceled()):
+                try:
+                    zipf = zipfile.ZipFile(zipDestFile, "r")
+                    for fname in zipf.namelist():
+                        if (fname.endswith('/')) or (fname.endswith('\\')):
+                            os.mkdir(os.path.join(str(zipDestDir), fname))
+                        else: # Prefix file with <subID-> if it already exists for uniqeness
+                            if not os.path.exists(os.path.join(str(zipDestDir), fname)):
+                                outfile = open(os.path.join(str(zipDestDir), fname), 'wb')
+                            else:
+                                outfile = open(os.path.join(str(zipDestDir),  zipFileID + '-' + fname), 'wb')
+                            outfile.write(zipf.read(fname))
+                            outfile.close()
+                    zipf.close()
+                    os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
+                except Exception, e:
+                    log.debug(e)
+                    QMessageBox.critical(self.window,"Error","An error occured unziping %s:\r\n%s" % (zipDestFile, e), QMessageBox.Abort)
+
         self.progress(100)
         self.status_progress.close()
+        QMessageBox.about(self.window,"Info","The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\r\n\r\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!")
 
     def onExpandMovie(self, index):
         movie = index.internalPointer().data
