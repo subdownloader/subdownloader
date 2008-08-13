@@ -796,7 +796,6 @@ class Main(QObject, Ui_MainWindow):
                     QMessageBox.about(self.window,"Error","Unable to download subtitle "+sub.getFileName())
                 finally:
                     count += percentage
-
             self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
             self.progress(100)
 
@@ -1125,6 +1124,9 @@ class Main(QObject, Ui_MainWindow):
         s = SearchByName()
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
         search_text = str(self.movieNameText.text().toUtf8())
+        # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
+        # like a string of forbidden chars (pr the other way around, string of good chars)
+        search_text = re.sub('\'', '', search_text)
         self.progress(0)
         #This should be in a thread to be able to Cancel
         movies = s.search_movie(search_text,'all')
@@ -1167,12 +1169,17 @@ class Main(QObject, Ui_MainWindow):
         settings = QSettings()
         path = settings.value("mainwindow/workingDirectory", QVariant())
         zipDestDir=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory to save subtitle(s) to",path.toString())
+        if zipDestDir:
+            settings.setValue("mainwindow/workingDirectory", QVariant(zipDestDir))
 
         self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
         self.status_progress.forceShow()
 
 
-# Download and unzip files automatically. We might want to move this to an external module, perhaps?            
+# Download and unzip files automatically. We might want to move this to an external module, perhaps?
+        unzipedOK = 0
+        dlOK = False
+ 
         for i, sub in enumerate(subs):
             if not self.status_progress.wasCanceled(): #Skip rest of loop if Abort was pushed in progress bar
 
@@ -1220,13 +1227,15 @@ class Main(QObject, Ui_MainWindow):
                                 outfile.close()
                         zipf.close()
                         os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
+                        unzipedOK += 1
                     except Exception, e:
                         log.debug(e)
                         QMessageBox.critical(self.window,"Error","An error occured unziping %s:\r\n%s" % (zipDestFile, e), QMessageBox.Abort)
 
         self.progress(100)
         self.status_progress.close()
-        QMessageBox.about(self.window,"Info","The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\r\n\r\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!")
+        if (unzipedOK > 0):
+            QMessageBox.about(self.window,"%s subtitles downloaded successfully" % (unzipedOK), "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\r\n\r\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!")
 
     def onExpandMovie(self, index):
         movie = index.internalPointer().data
