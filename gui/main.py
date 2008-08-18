@@ -775,14 +775,41 @@ class Main(QObject, Ui_MainWindow):
                     continue #Continue the next subtitle
                     
                 optionWhereToDownload =  QSettings().value("options/whereToDownload", QVariant("SAME_FOLDER"))
-                #Check if doesn't exists already, otherwise show replace window
+                #Check if doesn't exists already, otherwise show fileExistsBox dialog
                 if QFileInfo(destinationPath).exists() and not replace_all and optionWhereToDownload != QVariant("ASK_FOLDER"):
-                    answer = QMessageBox.warning(self.window,"Replace subtitle","%s already exists.\nWould you like to replace it?" %destinationPath, QMessageBox.Yes | QMessageBox.Default, QMessageBox.YesAll, QMessageBox.No |QMessageBox.Escape)
-                    if answer == QMessageBox.YesAll:
-                        replace_all = True
-                    elif answer == QMessageBox.No:
+                    # The "remote filename" below is actually not the real filename. Real name could be confusing
+                    # since we always rename downloaded sub to match movie filename. 
+                    fileExistsBox = QMessageBox("File already exists","Local: %s \r\n\r\nRemote: %s\r\n\r\nHow would you like to proceed?\r\n" % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
+                    skipButton = fileExistsBox.addButton(QString("Skip"), QMessageBox.ActionRole)
+                    replaceButton = fileExistsBox.addButton(QString("Replace"), QMessageBox.ActionRole)
+                    replaceAllButton = fileExistsBox.addButton(QString("Replace all"), QMessageBox.ActionRole)
+                    saveAsButton = fileExistsBox.addButton(QString("Save as..."), QMessageBox.ActionRole)
+                    cancelButton = fileExistsBox.addButton(QString("Cancel"), QMessageBox.ActionRole)
+                    fileExistsBox.exec_()
+                    answer = fileExistsBox.clickedButton()
+                    if answer == replaceAllButton:
+                        replace_all = True # Don't ask us again (for this batch of files)
+                    elif answer == saveAsButton:
+                        # We will find a uniqiue filename and suggest this to user.
+                        # add .<lang> to (inside) the filename. If that is not enough, start adding numbers.
+                        # There should also be a preferences setting "Autorename files" or similar ( =never ask) FIXME
+                        suggBaseName, suggFileExt = os.path.splitext(destinationPath)
+                        fNameCtr = 0 # Counter used to generate a unique filename
+                        suggestedFileName = suggBaseName + '.' + sub.getLanguageXXX() + suggFileExt
+                        while (os.path.exists(suggestedFileName)):
+                            fNameCtr += 1
+                            suggestedFileName = suggBaseName + '.' + sub.getLanguageXXX() + '-' + str(fNameCtr) + suggFileExt
+                        fileName = QFileDialog.getSaveFileName(None, "Save subtitle as...", suggestedFileName, 'All (*.*)')
+                        if fileName: 
+                            destinationPath = fileName
+                        else:
+                            count += percentage
+                            continue # Skip this particular file if no filename chosen
+                    elif answer == skipButton:
                         count += percentage
-                        continue
+                        continue # Skip this particular file
+                    elif answer == cancelButton:
+                        break # Break out of DL loop - cancel was pushed
                 QCoreApplication.processEvents()
                 self.progress(count,"Downloading subtitle %s (%d/%d)" % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
                 try:
