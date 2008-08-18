@@ -44,7 +44,7 @@ splash = SplashScreen()
 splash.showMessage(QApplication.translate("subdownloader", "Loading modules..."))
 QCoreApplication.flush()
 from modules import * 
-from modules.OSDBServer import OSDBServer
+from modules.OSDBServer import OSDBServer, TimeoutFunctionException
 from modules.SDDBServer import SDDBServer
 from gui import installErrorHandler, Error, _Warning, extension
 
