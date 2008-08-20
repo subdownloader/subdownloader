@@ -113,7 +113,7 @@ class UploadListModel(QAbstractTableModel):
         xxx_lang = languages.name2xxx(max_lang)
         log.debug("Majoritary Language Autodetected for Upload subtitles = " + str(xxx_lang))
         if xxx_lang:
-            self._main.uploadLanguages.emit(SIGNAL('language_updated(QString)'),xxx_lang)
+            self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "content")
   
     def getTotalRows(self):
         return self.rowCount(None)

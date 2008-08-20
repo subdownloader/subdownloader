@@ -178,7 +178,11 @@ class Main(QObject, Ui_MainWindow):
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
-        QObject.connect(self, SIGNAL("imdbDetected(QString,QString)"), self.onUploadIMDBNewSelection)
+        QObject.connect(self, SIGNAL("imdbDetected(QString,QString,QString)"), self.onUploadIMDBNewSelection)
+        
+        #self.label_autodetect_imdb.setText(u'↓ Language autodetected from content')
+        self.label_autodetect_imdb.hide()
+        self.label_autodetect_lang.hide()
         
         #Search by Name
         QObject.connect(self.buttonSearchByName, SIGNAL("clicked(bool)"), self.onButtonSearchByTitle)
@@ -462,7 +466,8 @@ class Main(QObject, Ui_MainWindow):
         
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
-        QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString)"), self.onUploadLanguageDetection)
+        QObject.connect(self.uploadLanguages, SIGNAL("activated(int)"), self.onFilterUploadLanguage)
+        QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString,QString)"), self.onUploadLanguageDetection)
 
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
@@ -1012,9 +1017,18 @@ class Main(QObject, Ui_MainWindow):
         if index != -1 :
             self.uploadIMDB.setCurrentIndex (index)
             
-    def onUploadIMDBNewSelection(self, id, title):
+    def onUploadIMDBNewSelection(self, id, title, origin = ""):
         id = str(id.toUtf8())
         
+        if origin == "database":
+            self.label_autodetect_imdb.setText(u'↓ Movie autodetected from database')
+            self.label_autodetect_imdb.show()
+        elif origin == "nfo":
+            self.label_autodetect_imdb.setText(u'↓ Movie autodetected from .nfo file')
+            self.label_autodetect_imdb.show()
+        else:
+            self.label_autodetect_imdb.hide()
+            
         #Let's select the item with that id.
         index = self.uploadIMDB.findData(QVariant(id))
         if index != -1 :
@@ -1041,8 +1055,16 @@ class Main(QObject, Ui_MainWindow):
             #print id
             #print title
             
-    def onUploadLanguageDetection(self, lang_xxx):
-        #Let's select the item with that id.
+    def onUploadLanguageDetection(self, lang_xxx, origin = ""):
+        if origin == "content":
+            self.label_autodetect_lang.show()
+            self.label_autodetect_lang.setText(u"↑ Language autodetected from subtitle's content")
+        elif origin == "database":
+            self.label_autodetect_lang.show()
+            self.label_autodetect_lang.setText(u'↑ Language autodetected from database')
+        elif not origin:
+            self.label_autodetect_lang.hide()
+        #Let's select the item with that id. 
         index = self.uploadLanguages.findData(QVariant(lang_xxx))
         if index != -1:
             self.uploadLanguages.setCurrentIndex (index)
@@ -1174,7 +1196,11 @@ class Main(QObject, Ui_MainWindow):
         self.moviesModel.setLanguageFilter(selectedLanguageXXX)
 
         self.moviesView.expandAll()
-        
+    
+    def onFilterUploadLanguage(self, index):
+        #selectedLanguageXXX = str(self.uploadLanguages.itemData(index).toString())
+        self.label_autodetect_lang.hide()
+    
     def subtitlesMovieCheckedChanged(self):
        subs = self.moviesModel.getCheckedSubtitles()
        if subs:
