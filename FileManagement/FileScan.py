@@ -18,6 +18,7 @@
 
 
 import os.path
+import re #To extract the imdb regexp from the NFO files
 import logging
 from FileManagement import get_extension
 import RecursiveParser
@@ -27,11 +28,26 @@ import modules.metadata as metadata
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
+class UserActionCanceled(Exception): 
+    pass 
+    
 def FakeProgress(count=None,msg=""):
     if not count:
         return -1
     pass
 
+def AutoDetectNFOfile(videofolder):
+    if os.path.isdir(videofolder):
+            for filename in os.listdir(videofolder):
+                    if filename.endswith(".nfo"):
+                            nfo_content = file(os.path.join(videofolder,filename)).read()
+                            result = re.search('imdb\.\w+\/title\/tt(\d+)', nfo_content.lower())
+                            if result:
+                                    found_imdb_id = result.group(1)
+                                    log.debug("Found Imdb from NFO file , IMDB = %s" % found_imdb_id)
+                                    return found_imdb_id
+    return None
+        
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
@@ -71,6 +87,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         # it's a directory
         #Scanning VIDEOS
         files_found = parser.getRecursiveFileList(folderpath, videofile.VIDEOS_EXT)
+
         
     videos_found = []
     # only work the video files if any were found
@@ -84,7 +101,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
             count += percentage
 
             if not report_progress(): #If it has been canceled
-                return [], []
+                raise UserActionCanceled()
             report_progress(count,"Parsing video: %s"% os.path.basename(filepath))
     report_progress(0)
     

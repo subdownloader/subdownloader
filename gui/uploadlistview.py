@@ -90,9 +90,25 @@ class UploadListModel(QAbstractTableModel):
                 return False ,'Some of the video/subtitles are empty'
                 
         return True, ""
-        
+    
+    def update_imdb_upload(self):
+        #Trying to autodetect the imdb from the server
+        all_langs = []
+        videos = []
+        for i, video in enumerate(self._videos):
+            if self._videos[i] != None and self._subs[i] != None:
+                tmp_video = VideoFile(video.getFilePath())
+                tmp_video.setSubtitles([self._subs[i]])
+                videos.append(tmp_video)
+        if videos:
+            results = self._main.OSDBServer.TryUploadSubtitles(videos, no_update = True)
+            if results['data']:
+                video_imdb =  self._main.OSDBServer.getBestImdbInfo(results['data'])
+                if video_imdb:
+                     self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'),video_imdb["IDMovieImdb"], video_imdb["MovieName"], "database")
+                     
     def update_lang_upload(self):
-        ##Trying to autodetect the language
+        #Trying to autodetect the language
 
         all_langs = []
         for sub in self._subs:

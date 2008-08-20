@@ -452,14 +452,14 @@ class OSDBServer(object):
             return []
         
         
-    def TryUploadSubtitles(self, videos):
+    def TryUploadSubtitles(self, videos, no_update=False):
         TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)
         try:
-            return TryUploadSubtitles(videos)
+            return TryUploadSubtitles(videos, no_update)
         except TimeoutFunctionException:
             self.log.error("TryUploadSubtitles timed out")
         
-    def _TryUploadSubtitles(self, videos):
+    def _TryUploadSubtitles(self, videos, no_update):
         """Check for subtitle existence in server database for one or more videos
         
         @videos: video objects - list
@@ -485,8 +485,16 @@ class OSDBServer(object):
                 return False
             
         self.log.debug("Communicating with server...")
-        result = self.xmlrpc_server.TryUploadSubtitles(self._token, array)
+        #import pprint
+        #print "parameters:"
+        #pprint.pprint(array)
+        
+        #If no_update is 1, then the server won't try to update the hash of the movie for that subtitle, 
+        #that is useful if we just want to get online info about the videos and the subtitles
+        result = self.xmlrpc_server.TryUploadSubtitles(self._token, array, str(int(no_update)))
         self.log.debug("Search took %ss"% result['seconds'])
+        
+        #pprint.pprint(result)
 #        print result.keys()
         result.pop('seconds')
 #        import pprint

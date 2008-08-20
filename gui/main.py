@@ -162,8 +162,8 @@ class Main(QObject, Ui_MainWindow):
         header.setResizeMode(QtGui.QHeaderView.Stretch)
         
         QObject.connect(self.buttonUploadBrowseFolder, SIGNAL("clicked(bool)"), self.onUploadBrowseFolder)
-        QObject.connect(self.uploadView, SIGNAL("activated(QModelIndex)"), self.onClickUploadViewCell)
-        QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onClickUploadViewCell)
+        QObject.connect(self.uploadView, SIGNAL("activated(QModelIndex)"), self.onUploadClickViewCell)
+        QObject.connect(self.uploadView, SIGNAL("clicked(QModelIndex)"), self.onUploadClickViewCell)
         
         QObject.connect(self.buttonUpload, SIGNAL("clicked(bool)"), self.onUploadButton)
         
@@ -174,6 +174,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.buttonUploadDeleteAllRow, SIGNAL("clicked(bool)"), self.uploadModel.onUploadButtonDeleteAllRow)
         
         QObject.connect(self.buttonUploadFindIMDB, SIGNAL("clicked(bool)"), self.onButtonUploadFindIMDB)
+        QObject.connect(self.uploadIMDB, SIGNAL("activated(int)"), self.onUploadSelectImdb)
         
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.uploadView.setSelectionModel(self.uploadSelectionModel)
@@ -466,7 +467,7 @@ class Main(QObject, Ui_MainWindow):
         
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
-        QObject.connect(self.uploadLanguages, SIGNAL("activated(int)"), self.onFilterUploadLanguage)
+        QObject.connect(self.uploadLanguages, SIGNAL("activated(int)"), self.onUploadSelectLanguage)
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString,QString)"), self.onUploadLanguageDetection)
 
     def onFilterLanguageVideo(self, index):
@@ -508,11 +509,10 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.forceShow()
         QCoreApplication.processEvents()
         self.progress()
-        #try:
-        videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
+        try:
+            videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
             #progressWindow.destroy()
-        #except:
-        if videos_found == None:
+        except FileScan.UserActionCanceled:
             print "user canceled"
             return 
         log.debug("Videos found: %s"% videos_found)
@@ -924,7 +924,7 @@ class Main(QObject, Ui_MainWindow):
         if directory:
             settings.setValue("mainwindow/workingDirectory", QVariant(directory))
             directory =  str(directory.toUtf8())
-            videos_found,subs_found = FileScan.ScanFolder(directory,recursively = False,report_progress = self.progress)
+            videos_found,subs_found = FileScan.ScanFolder(directory,recursively = False,report_progress = None)
             log.info("Videos found: %i Subtitles found: %i"%(len(videos_found), len(subs_found)))
             self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
             for row, video in enumerate(videos_found):
@@ -939,6 +939,18 @@ class Main(QObject, Ui_MainWindow):
             self.uploadView.resizeRowsToContents()
             self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
+            thread.start_new_thread(self.AutoDetectNFOfile, (directory, ))
+            thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
+            
+
+    def AutoDetectNFOfile(self, folder):
+        print folder 
+        imdb_id = FileScan.AutoDetectNFOfile(folder)
+        print imdb_id
+        if imdb_id:
+            results = self.OSDBServer.GetIMDBMovieDetails(imdb_id)
+            if results['title']:
+                self.emit(SIGNAL('imdbDetected(QString,QString,QString)'), imdb_id,results['title'],  "nfo")
 
     def onUploadButton(self, clicked):
         ok, error = self.uploadModel.validate()
@@ -997,7 +1009,7 @@ class Main(QObject, Ui_MainWindow):
                         answer = successBox.exec_()
                         if answer ==  QMessageBox.NoButton:
                             webbrowser.open( info['data'], new=2, autoraise=1)
-                        self.cleanUploadWindow()
+                        self.uploadCleanWindow()
                     else:
                         QMessageBox.about(self.window,"Error","Problem while uploading...\nError: %s" % info['status'])
                 except:
@@ -1005,7 +1017,7 @@ class Main(QObject, Ui_MainWindow):
                     QMessageBox.about(self.window,"Error","Error contacting the server.\nPlease restart or try later.")
                 self.window.setCursor(Qt.ArrowCursor)
     
-    def cleanUploadWindow(self):
+    def uploadCleanWindow(self):
         self.uploadReleaseText.setText("")
         self.uploadComments.setText("")
         self.progress(0)
@@ -1013,13 +1025,15 @@ class Main(QObject, Ui_MainWindow):
         self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.uploadModel.removeAll()
         self.uploadModel.emit(SIGNAL("layoutChanged()"))
+        self.label_autodetect_imdb.hide()
+        self.label_autodetect_lang.hide()
         index = self.uploadIMDB.findData(QVariant())
         if index != -1 :
             self.uploadIMDB.setCurrentIndex (index)
             
     def onUploadIMDBNewSelection(self, id, title, origin = ""):
         id = str(id.toUtf8())
-        
+        log.debug("onUploadIMDBNewSelection, id: %s, title: %s, origin: %s" %(id, title, origin))
         if origin == "database":
             self.label_autodetect_imdb.setText(u'↓ Movie autodetected from database')
             self.label_autodetect_imdb.show()
@@ -1095,7 +1109,7 @@ class Main(QObject, Ui_MainWindow):
     def onUploadChangeSelection(self, selected, unselected):
         self.updateButtonsUpload()
         
-    def onClickUploadViewCell(self, index):
+    def onUploadClickViewCell(self, index):
         row, col = index.row(), index.column()
         settings = QSettings()
         currentDir = settings.value("mainwindow/workingDirectory", QVariant())
@@ -1112,8 +1126,12 @@ class Main(QObject, Ui_MainWindow):
                     sub = SubtitleFile(False,subtitle) 
                     self.uploadModel.addSubs(row, [sub])
                     self.uploadModel.update_lang_upload()
+                    thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
+                fileName = str(fileName.toUtf8())
+                thread.start_new_thread(self.AutoDetectNFOfile, (os.path.dirname(fileName), ))
+                
         else:
             fileName = QFileDialog.getOpenFileName(None, "Select Subtitle", currentDir.toString(), subtitlefile.SELECT_SUBTITLES)
             if fileName:
@@ -1124,6 +1142,7 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 self.uploadModel.update_lang_upload()
+                thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
 
     def initializeVideoPlayer(self, settings):
         predefinedVideoPlayer = None
@@ -1197,9 +1216,12 @@ class Main(QObject, Ui_MainWindow):
 
         self.moviesView.expandAll()
     
-    def onFilterUploadLanguage(self, index):
+    def onUploadSelectLanguage(self, index):
         #selectedLanguageXXX = str(self.uploadLanguages.itemData(index).toString())
         self.label_autodetect_lang.hide()
+        
+    def onUploadSelectImdb(self, index):
+        self.label_autodetect_imdb.hide()
     
     def subtitlesMovieCheckedChanged(self):
        subs = self.moviesModel.getCheckedSubtitles()
