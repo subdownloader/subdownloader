@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Mon Aug  4 18:44:24 2008
+# Created: Fri Aug 22 15:44:32 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
@@ -99,31 +99,6 @@ class Ui_PreferencesDialog(object):
         self.optionDefaultUploadLanguage = QtGui.QComboBox(self.tab_8)
         self.optionDefaultUploadLanguage.setGeometry(QtCore.QRect(330, 20, 161, 22))
         self.optionDefaultUploadLanguage.setObjectName("optionDefaultUploadLanguage")
-        self.label_56 = QtGui.QLabel(self.tab_8)
-        self.label_56.setGeometry(QtCore.QRect(20, 60, 271, 18))
-        font = QtGui.QFont()
-        font.setWeight(75)
-        font.setBold(True)
-        self.label_56.setFont(font)
-        self.label_56.setObjectName("label_56")
-        self.label_58 = QtGui.QLabel(self.tab_8)
-        self.label_58.setGeometry(QtCore.QRect(37, 110, 68, 23))
-        self.label_58.setObjectName("label_58")
-        self.optionLoginUsername = QtGui.QLineEdit(self.tab_8)
-        self.optionLoginUsername.setGeometry(QtCore.QRect(110, 80, 110, 23))
-        self.optionLoginUsername.setObjectName("optionLoginUsername")
-        self.label_57 = QtGui.QLabel(self.tab_8)
-        self.label_57.setGeometry(QtCore.QRect(37, 80, 68, 23))
-        self.label_57.setObjectName("label_57")
-        self.optionLoginPassword = QtGui.QLineEdit(self.tab_8)
-        self.optionLoginPassword.setGeometry(QtCore.QRect(110, 110, 110, 23))
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.optionLoginPassword.sizePolicy().hasHeightForWidth())
-        self.optionLoginPassword.setSizePolicy(sizePolicy)
-        self.optionLoginPassword.setEchoMode(QtGui.QLineEdit.Password)
-        self.optionLoginPassword.setObjectName("optionLoginPassword")
         self.tabWidget.addTab(self.tab_8, "")
         self.tab_9 = QtGui.QWidget()
         self.tab_9.setGeometry(QtCore.QRect(0, 0, 527, 288))
@@ -237,9 +212,6 @@ class Ui_PreferencesDialog(object):
         self.optionDownloadOnlineSubName.setText(QtGui.QApplication.translate("PreferencesDialog", "Same name as the online subtitle", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QtGui.QApplication.translate("PreferencesDialog", "Downloads", None, QtGui.QApplication.UnicodeUTF8))
         self.label_55.setText(QtGui.QApplication.translate("PreferencesDialog", "Default language of uploaded subtitles", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_56.setText(QtGui.QApplication.translate("PreferencesDialog", "Upload files as OpenSubtitles user:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_58.setText(QtGui.QApplication.translate("PreferencesDialog", "Password:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_57.setText(QtGui.QApplication.translate("PreferencesDialog", "Username:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QtGui.QApplication.translate("PreferencesDialog", "Upload", None, QtGui.QApplication.UnicodeUTF8))
         self.label_52.setText(QtGui.QApplication.translate("PreferencesDialog", "Network Proxy", None, QtGui.QApplication.UnicodeUTF8))
         self.label_60.setText(QtGui.QApplication.translate("PreferencesDialog", "Host:", None, QtGui.QApplication.UnicodeUTF8))

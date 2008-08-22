@@ -100,10 +100,7 @@ class preferencesDialog(QtGui.QDialog):
             
         optionIntegrationExplorer = settings.value("options/IntegrationExplorer", QVariant(False))
         self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer.toBool())
-        
-        self.ui.optionLoginUsername.setText(settings.value("options/LoginUsername", QVariant()).toString())
-        self.ui.optionLoginPassword.setText(settings.value("options/LoginPassword", QVariant()).toString())
-        
+
         self.ui.optionProxyHost.setText(settings.value("options/ProxyHost", QVariant()).toString())
         self.ui.optionProxyPort.setValue(settings.value("options/ProxyPort", QVariant(8080)).toInt()[0])
         
@@ -169,15 +166,7 @@ class preferencesDialog(QtGui.QDialog):
            if ok:
                 settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
         
-        newUsername =  self.ui.optionLoginUsername.text()
-        newPassword = self.ui.optionLoginPassword.text()
-        oldUsername = settings.value("options/LoginUsername", QVariant())
-        oldPassword = settings.value("options/LoginPassword", QVariant())
-        if newUsername != oldUsername.toString() or newPassword != oldPassword.toString():
-            settings.setValue("options/LoginUsername",QVariant(newUsername))
-            settings.setValue("options/LoginPassword", QVariant(newPassword))
-            log.debug('Login credentials has changed. Trying to login.')
-            thread.start_new_thread(self._main.login_user, (str(newUsername.toUtf8()),str(newPassword.toUtf8()),self._main.window, ))
+        
             
         newProxyHost =  self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()

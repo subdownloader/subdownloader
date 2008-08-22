@@ -8,11 +8,8 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
 from gui.about_ui import Ui_AboutDialog
-import webbrowser
-import languages.Languages as languages
-import time, thread
 import logging
-log = logging.getLogger("subdownloader.gui.preferences")
+log = logging.getLogger("subdownloader.gui.about")
 
 class aboutDialog(QtGui.QDialog): 
     def __init__(self, parent):
@@ -21,7 +18,6 @@ class aboutDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self._main  = parent
         settings = QSettings()
-        #OPTIONS events
         QObject.connect(self.ui.buttonClose, SIGNAL("clicked(bool)"), self.onButtonClose)
 
     def onButtonClose(self):

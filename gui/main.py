@@ -55,6 +55,7 @@ from gui.main_ui import Ui_MainWindow
 from gui.imdbSearch import imdbSearchDialog
 from gui.preferences import preferencesDialog
 from gui.about import aboutDialog
+from gui.login import loginDialog
 from FileManagement import FileScan, Subtitle
 from modules.videofile import  *
 from modules.subtitlefile import *
@@ -244,18 +245,7 @@ class Main(QObject, Ui_MainWindow):
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                 settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 #thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
-                
-                self.status_progress = QProgressDialog("Logging in...", "&Cancel", 0,0, self.window)
-                self.status_progress.setCancelButton(None)
-                self.status_progress.show()
-                self.status_progress.repaint()
-                QCoreApplication.processEvents()
-                try:
-                    self.login_user(settingsUsername,settingsPassword,window)
-                    self.status_progress.close()
-                except Exception, e: 
-                    traceback.print_exc(e)
-                    self.status_progress.close()
+                self.login_user(settingsUsername,settingsPassword,self.window)
             else:
                 QMessageBox.about(self.window,"Error","Error contacting the server. Please try again later")
             self.window.setCursor(Qt.ArrowCursor)
@@ -388,29 +378,36 @@ class Main(QObject, Ui_MainWindow):
             time.sleep(sleeptime)
     
     def onButtonLogin(self):
-        QMessageBox.about(self.window,"Info","Not implemented yet. Please donate.")
+        dialog = loginDialog(self)
+        dialog.show()
+        ok = dialog.exec_()
         
     def login_user(self, username, password, window):
         #window.emit(SIGNAL('setLoginStatus(QString)'),"Trying to login...")
+        self.status_progress = QProgressDialog("Logging in...", "&Cancel", 0,0, window)
+        self.status_progress.setWindowTitle('Login')
+        self.status_progress.setCancelButton(None)
+        self.status_progress.show()
         self.login_button.setText("Trying to login...")
+        self.progress(0)
+        
         QCoreApplication.processEvents()
         try:
             if self.OSDBServer._login(username, password):
-                if not username: username = 'Anonymous'
-                #window.emit(SIGNAL('setLoginStatus(QString)'),"Logged as: %s" % username)
+                if not username: 
+                    username = 'Anonymous'
                 self.login_button.setText("Logged as: %s" % username)
+                self.status_progress.close()
+                return True
             elif username: #We try anonymous login in case the normal user login has failed
-                #window.emit(SIGNAL('setLoginStatus(QString)'),"Login as %s: ERROR" % username)
                 self.login_button.setText("Login as %s: ERROR" % username)
-                #if self.OSDBServer._login("", "") :
-                    #window.emit(SIGNAL('setLoginStatus(QString)'),"Logged as: Anonymous")
-                #else:
-                    #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
-        except:
+                self.status_progress.close()
+                return False
+        except Exception, e:
             self.login_button.setText("Login: ERROR")
+            traceback.print_exc(e)
+            self.status_progress.close()
             raise
-            #window.emit(SIGNAL('setLoginStatus(QString)'),"Login: ERROR")
-            
 
     def onMenuQuit(self):
         self.window.close()
@@ -506,6 +503,7 @@ class Main(QObject, Ui_MainWindow):
             path = [path]
         
         self.status_progress = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
+        self.status_progress.setWindowTitle('Scanning files')
         self.status_progress.forceShow()
         QCoreApplication.processEvents()
         self.progress()
@@ -739,6 +737,7 @@ class Main(QObject, Ui_MainWindow):
             success_downloaded = 0
             
             self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
+            self.status_progress.setWindowTitle('Download')
             self.status_progress.forceShow()
             for i, sub in enumerate(subs):
                 if not self.progress():
@@ -872,11 +871,10 @@ class Main(QObject, Ui_MainWindow):
     
     def establishServerConnection(self):
         self.status_progress = QProgressDialog("Connecting to Server...", "&Cancel", 0,0, self.window)
+        self.status_progress.setWindowTitle('Connection')
         self.status_progress.setCancelButton(None)
         self.status_progress.show()
-        #self.status_progress.repaint()
-        QCoreApplication.processEvents()
-        QCoreApplication.processEvents()
+        self.progress(0)
         
         
         settings = QSettings()
@@ -964,6 +962,7 @@ class Main(QObject, Ui_MainWindow):
                 return
             else:
                 self.status_progress = QProgressDialog("Uploading subtitles...", "&Abort", 0, 0, self.window)
+                self.status_progress.setWindowTitle('Uploading')
                 self.status_progress.forceShow()
                 self.progress(0)
                 QCoreApplication.processEvents()
@@ -1184,6 +1183,7 @@ class Main(QObject, Ui_MainWindow):
 
     def onButtonSearchByTitle(self):
         self.status_progress = QProgressDialog("Searching...", "&Abort", 0, 0, self.window)
+        self.status_progress.setWindowTitle('Searching')
         self.status_progress.forceShow()
         self.window.setCursor(Qt.WaitCursor)
         self.moviesModel.clearTree()
@@ -1248,7 +1248,9 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("mainwindow/workingDirectory", QVariant(zipDestDir))
 
         self.status_progress = QProgressDialog("Downloading files...", "&Abort", 0, 100, self.window)
-        self.status_progress.forceShow()
+        self.status_progress.setWindowTitle('Download')
+        self.status_progress.show()
+        self.progress(0)
 
 
 # Download and unzip files automatically. We might want to move this to an external module, perhaps?
@@ -1316,11 +1318,13 @@ class Main(QObject, Ui_MainWindow):
         movie = index.internalPointer().data
         if not movie.subtitles and movie.totalSubs:
             self.status_progress = QProgressDialog("Searching...", "&Abort", 0, 0, self.window)
+            self.status_progress.setWindowTitle('Search')
             self.status_progress.forceShow()
             self.window.setCursor(Qt.WaitCursor)
+
             s = SearchByName()
             selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
-            self.progress(0)
+            self.progress(0) #To view/refresh the qprogressdialog
             temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
             #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
             print temp_movie
