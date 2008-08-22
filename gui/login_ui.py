@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'login.ui'
 #
-# Created: Fri Aug 22 17:52:16 2008
+# Created: Fri Aug 22 22:27:56 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
@@ -64,7 +64,7 @@ class Ui_LoginDialog(object):
         QtCore.QMetaObject.connectSlotsByName(LoginDialog)
 
     def retranslateUi(self, LoginDialog):
-        LoginDialog.setWindowTitle(QtGui.QApplication.translate("LoginDialog", "Login", None, QtGui.QApplication.UnicodeUTF8))
+        LoginDialog.setWindowTitle(QtGui.QApplication.translate("LoginDialog", "Login Form", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("LoginDialog", "Login into OpenSubtitles.org", None, QtGui.QApplication.UnicodeUTF8))
         self.label_57.setText(QtGui.QApplication.translate("LoginDialog", "Username:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_58.setText(QtGui.QApplication.translate("LoginDialog", "Password:", None, QtGui.QApplication.UnicodeUTF8))

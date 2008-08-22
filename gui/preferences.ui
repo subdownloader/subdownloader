@@ -1,6 +1,9 @@
 <ui version="4.0" >
  <class>PreferencesDialog</class>
  <widget class="QDialog" name="PreferencesDialog" >
+  <property name="windowModality" >
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -25,6 +28,9 @@
    <bool>true</bool>
   </property>
   <widget class="QTabWidget" name="tabWidget" >
+   <property name="windowModality" >
+    <enum>Qt::NonModal</enum>
+   </property>
    <property name="geometry" >
     <rect>
      <x>0</x>

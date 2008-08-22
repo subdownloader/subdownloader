@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Fri Aug 22 00:08:06 2008
+# Created: Fri Aug 22 22:27:55 2008
 #      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
 #
 # WARNING! All changes made in this file will be lost!
@@ -546,6 +546,9 @@ class Ui_MainWindow(object):
         self.menuView.setObjectName("menuView")
         MainWindow.setMenuBar(self.menuBar)
         self.action_Quit = QtGui.QAction(MainWindow)
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap(":/images/application-exit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_Quit.setIcon(icon15)
         self.action_Quit.setObjectName("action_Quit")
         self.action_HelpHomepage = QtGui.QAction(MainWindow)
         self.action_HelpHomepage.setObjectName("action_HelpHomepage")
@@ -556,6 +559,9 @@ class Ui_MainWindow(object):
         self.action_HelpDonation = QtGui.QAction(MainWindow)
         self.action_HelpDonation.setObjectName("action_HelpDonation")
         self.action_ShowPreferences = QtGui.QAction(MainWindow)
+        icon16 = QtGui.QIcon()
+        icon16.addPixmap(QtGui.QPixmap(":/images/configure.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_ShowPreferences.setIcon(icon16)
         self.action_ShowPreferences.setObjectName("action_ShowPreferences")
         self.actionConfigure_SubDownloader = QtGui.QAction(MainWindow)
         self.actionConfigure_SubDownloader.setObjectName("actionConfigure_SubDownloader")

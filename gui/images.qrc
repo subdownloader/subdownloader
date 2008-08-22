@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/" >
+    <file>images/application-exit.png</file>
     <file>images/flags/hi.png</file>
     <file>images/flags/ms.png</file>
     <file>images/flags/is.png</file>
@@ -64,8 +65,10 @@
     <file>images/minus.png</file>
     <file>images/openfolder.png</file>
     <file>images/plus.png</file>
-    <file>images/preferences.png</file>
     <file>images/search.png</file>
+    <file>images/clear-right.png</file>
+    <file>images/configure.png</file>
+    <file>images/download.png</file>
     <file>images/up.png</file>
     <file>images/upload.png</file>
   </qresource>

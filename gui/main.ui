@@ -1162,6 +1162,10 @@ p, li { white-space: pre-wrap; }
    <addaction name="menu_Help" />
   </widget>
   <action name="action_Quit" >
+   <property name="icon" >
+    <iconset resource="images.qrc" >
+     <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
+   </property>
    <property name="text" >
     <string>&amp;Quit</string>
    </property>
@@ -1187,6 +1191,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="action_ShowPreferences" >
+   <property name="icon" >
+    <iconset resource="images.qrc" >
+     <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
+   </property>
    <property name="text" >
     <string>Configure &amp;Subdownloader</string>
    </property>

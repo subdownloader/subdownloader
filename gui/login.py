@@ -32,7 +32,7 @@ class loginDialog(QtGui.QDialog):
         if not username: 
             username = 'Anonymous'
             
-        if hasattr(self, 'OSDBServer') and self._main.OSDBServer.is_connected():
+        if hasattr(self._main, 'OSDBServer') and self._main.OSDBServer.is_connected():
             self.ui.loginLabelStatus.setText("Succesfully logged as: %s" % username)
         else:
             self.ui.loginLabelStatus.setText("Not connected to the server" % username)
