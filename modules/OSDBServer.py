@@ -497,8 +497,7 @@ class OSDBServer(object):
         pprint.pprint(result)
 #        print result.keys()
         result.pop('seconds')
-#        import pprint
-#        pprint.pprint(result)
+        
         if result['alreadyindb']:
             self.log.debug("Subtitle already exists in server database")
         else:

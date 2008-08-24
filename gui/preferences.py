@@ -29,11 +29,23 @@ class preferencesDialog(QtGui.QDialog):
         QObject.connect(self.ui.optionVideoAppChooseLocation, SIGNAL("clicked(bool)"), self.onOptionVideoAppChooseLocation)
         
         self.onOptionDownloadFolderPredefined()
-        
-        for lang in languages.LANGUAGES:
-            self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
-            if lang["SubLanguageID"] == "eng": #For the moment interface is only in English
-                self.ui.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
+        self.filterLanguages = {}
+        for num, lang in enumerate(languages.LANGUAGES):
+            lang_xxx = lang["SubLanguageID"]
+            self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang_xxx))
+            #Adding checkboxes for the Search...Filter by ...
+            self.filterLanguages[lang_xxx] = QtGui.QCheckBox(lang["LanguageName"], self.ui.scrollAreaWidgetContents)
+            if num % 4 == 1:
+                self.ui.optionFilterLangLayout_1.addWidget(self.filterLanguages[lang_xxx] )
+            elif num % 4 == 2:
+                self.ui.optionFilterLangLayout_2.addWidget(self.filterLanguages[lang_xxx] )
+            elif num % 4 == 3:
+                self.ui.optionFilterLangLayout_3.addWidget(self.filterLanguages[lang_xxx] )
+            else:
+                self.ui.optionFilterLangLayout_4.addWidget(self.filterLanguages[lang_xxx] )
+            
+            if lang_xxx == "eng": #For the moment interface is only in English
+                self.ui.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang_xxx))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
@@ -87,7 +99,13 @@ class preferencesDialog(QtGui.QDialog):
         elif optionSubtitleName == QVariant("SAME_ONLINE"):
             self.ui.optionDownloadOnlineSubName.setChecked(True)
             
-        
+        #Search
+        optionFilterSearchLang = str(settings.value("options/filterSearchLang", QVariant("")).toString())
+        for lang_xxx in optionFilterSearchLang.split(','):
+            if self.filterLanguages.has_key(lang_xxx):
+                self.filterLanguages[lang_xxx].setChecked(True)
+            
+        #Upload 
         optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
         index = self.ui.optionDefaultUploadLanguage.findData(optionUploadLanguage)
         if index != -1 :
@@ -145,6 +163,14 @@ class preferencesDialog(QtGui.QDialog):
         elif self.ui.optionDownloadOnlineSubName.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_ONLINE"))
         
+        #Search tab
+        checked_languages = []
+        for lang,checkbox in self.filterLanguages.items():
+            if checkbox.isChecked():
+                checked_languages.append(lang)
+        settings.setValue("options/filterSearchLang", QVariant(",".join(checked_languages)))
+        
+        #Upload tab
         optionUploadLanguage = self.ui.optionDefaultUploadLanguage.itemData(self.ui.optionDefaultUploadLanguage.currentIndex())
         settings.setValue("options/uploadLanguage", optionUploadLanguage)
         index = self._main.uploadLanguages.findData(optionUploadLanguage)
@@ -166,8 +192,6 @@ class preferencesDialog(QtGui.QDialog):
            if ok:
                 settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
         
-        
-            
         newProxyHost =  self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()
         oldProxyHost = settings.value("options/ProxyHost", QVariant()).toString()

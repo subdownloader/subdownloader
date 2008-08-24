@@ -102,9 +102,11 @@ class UploadListModel(QAbstractTableModel):
                 videos.append(tmp_video)
         if videos:
             results = self._main.OSDBServer.TryUploadSubtitles(videos, no_update = True)
-            if results['data']:
+            if results['alreadyindb'] == 0 and results['data']:
                 video_imdb =  self._main.OSDBServer.getBestImdbInfo(results['data'])
-                if video_imdb:
+            elif results['alreadyindb'] == 1:
+                video_imdb = {"IDMovieImdb": results['data']["IDMovieImdb"], "MovieName": results['data']["MovieName"]}
+            if video_imdb:
                      self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'),video_imdb["IDMovieImdb"], video_imdb["MovieName"], "database")
                      
     def update_lang_upload(self):

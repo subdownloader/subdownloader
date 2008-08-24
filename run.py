@@ -72,11 +72,10 @@ if options.verbose:
 # consequent ones should follow its parent as. 'subdownloader.package.foo'
 log = logging.getLogger("run")
     
-if __name__ == "__main__": 
+if __name__ == "__main__":   
     log.info('Subdownloader started')
     
     if options.mode == 'gui':
-        
         gui.main.main(options)
     elif options.mode == 'cli':
         cli = cli.main.Main(options)
