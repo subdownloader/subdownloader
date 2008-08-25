@@ -93,7 +93,6 @@ class UploadListModel(QAbstractTableModel):
     
     def update_imdb_upload(self):
         #Trying to autodetect the imdb from the server
-        all_langs = []
         videos = []
         for i, video in enumerate(self._videos):
             if self._videos[i] != None and self._subs[i] != None:

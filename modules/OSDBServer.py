@@ -485,16 +485,16 @@ class OSDBServer(object):
                 return False
             
         self.log.debug("Communicating with server...")
-        import pprint
-        print "parameters:"
-        pprint.pprint(array)
+        #import pprint
+        #print "parameters:"
+        #pprint.pprint(array)
         
         #If no_update is 1, then the server won't try to update the hash of the movie for that subtitle, 
         #that is useful if we just want to get online info about the videos and the subtitles
         result = self.xmlrpc_server.TryUploadSubtitles(self._token, array, str(int(no_update)))
         self.log.debug("Search took %ss"% result['seconds'])
        
-        pprint.pprint(result)
+        #pprint.pprint(result)
 #        print result.keys()
         result.pop('seconds')
         
