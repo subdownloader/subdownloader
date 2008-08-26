@@ -40,9 +40,17 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex" >
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>540</width>
+        <height>279</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Search</string>
       </attribute>

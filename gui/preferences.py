@@ -169,6 +169,7 @@ class preferencesDialog(QtGui.QDialog):
             if checkbox.isChecked():
                 checked_languages.append(lang)
         settings.setValue("options/filterSearchLang", QVariant(",".join(checked_languages)))
+        self._main.emit(SIGNAL('filterLangChangedPermanent(QString)'),",".join(checked_languages))
         
         #Upload tab
         optionUploadLanguage = self.ui.optionDefaultUploadLanguage.itemData(self.ui.optionDefaultUploadLanguage.currentIndex())

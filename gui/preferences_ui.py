@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Sun Aug 24 17:34:48 2008
+# Created: Wed Aug 27 01:44:36 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,6 +29,7 @@ class Ui_PreferencesDialog(object):
         self.tabWidget.setTabShape(QtGui.QTabWidget.Triangular)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtGui.QWidget()
+        self.tab.setGeometry(QtCore.QRect(0, 0, 540, 279))
         self.tab.setObjectName("tab")
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.tab)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
@@ -250,7 +251,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):

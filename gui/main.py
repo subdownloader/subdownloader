@@ -97,6 +97,7 @@ class Main(QObject, Ui_MainWindow):
         window.closeEvent = self.close_event
         window.setWindowTitle(QtGui.QApplication.translate("MainWindow", "SubDownloader "+APP_VERSION, None, QtGui.QApplication.UnicodeUTF8))
         #Fill Out the Filters Language SelectBoxes
+        QObject.connect(self, SIGNAL("filterLangChangedPermanent(QString)"), self.onFilterLangChangedPermanent)
         self.InitializeFilterLanguages()
         self.read_settings()
         
@@ -182,6 +183,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadSelectionModel, SIGNAL("selectionChanged(QItemSelection, QItemSelection)"), self.onUploadChangeSelection)
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString,QString)"), self.onUploadIMDBNewSelection)
         
+        
+        
         #self.label_autodetect_imdb.setText(u'↓ Language autodetected from content')
         self.label_autodetect_imdb.hide()
         self.label_autodetect_lang.hide()
@@ -239,7 +242,7 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.WaitCursor)
             
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
-                thread.start_new_thread(self.update_users, (60, ))
+                thread.start_new_thread(self.update_users, (180, ))
                 
                 settings = QSettings()
                 settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
@@ -445,8 +448,8 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def InitializeFilterLanguages(self):
-        self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8))
-        self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8))
+        self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8), QVariant(''))
+        self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", "All languages", None, QtGui.QApplication.UnicodeUTF8), QVariant(''))
         for lang in languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
             self.filterLanguageForTitle.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang["SubLanguageID"]))
@@ -461,6 +464,10 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForVideo.adjustSize()
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
+        
+        optionFilterLanguage = str(settings.value("options/filterSearchLang", QVariant("")).toString())
+        
+        self.emit(SIGNAL('filterLangChangedPermanent(QString)'),optionFilterLanguage)
         
         QObject.connect(self.filterLanguageForVideo, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageVideo)
         QObject.connect(self.filterLanguageForTitle, SIGNAL("currentIndexChanged(int)"), self.onFilterLanguageSearchName)
@@ -875,8 +882,7 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setCancelButton(None)
         self.status_progress.show()
         self.progress(0)
-        
-        
+                
         settings = QSettings()
         settingsProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
         settingsProxyPort = settings.value("options/ProxyPort", QVariant("8080")).toInt()[0]
@@ -942,9 +948,7 @@ class Main(QObject, Ui_MainWindow):
             
 
     def AutoDetectNFOfile(self, folder):
-        print folder 
         imdb_id = FileScan.AutoDetectNFOfile(folder)
-        print imdb_id
         if imdb_id:
             results = self.OSDBServer.GetIMDBMovieDetails(imdb_id)
             if results['title']:
@@ -1206,7 +1210,24 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents()
         self.window.setCursor(Qt.ArrowCursor)
         self.status_progress.close()
-        
+    
+    def onFilterLangChangedPermanent(self, languages):
+        languages = str(languages.toUtf8())
+        languages_array = languages.split(",")
+
+        if len(languages_array) > 1:
+            index = self.filterLanguageForTitle.findData(QVariant(languages))
+            if index == -1 :
+                    self.filterLanguageForVideo.addItem(languages, QVariant(languages))
+                    self.filterLanguageForTitle.addItem(languages, QVariant(languages))
+        index = self.filterLanguageForTitle.findData(QVariant(languages))
+        if index != -1 :
+            self.filterLanguageForTitle.setCurrentIndex (index)
+
+        index = self.filterLanguageForVideo.findData(QVariant(languages))
+        if index != -1 :
+            self.filterLanguageForVideo.setCurrentIndex (index)
+
     def onFilterLanguageSearchName(self, index):
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(index).toString())
         log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
