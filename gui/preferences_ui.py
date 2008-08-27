@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Wed Aug 27 01:44:36 2008
+# Created: Thu Aug 28 01:09:51 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,7 +34,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.tab)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.label_56 = QtGui.QLabel(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_56.sizePolicy().hasHeightForWidth())
@@ -46,17 +46,16 @@ class Ui_PreferencesDialog(object):
         self.label_56.setObjectName("label_56")
         self.verticalLayout_4.addWidget(self.label_56)
         self.scrollArea = QtGui.QScrollArea(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
         self.scrollArea.setSizePolicy(sizePolicy)
         self.scrollArea.setMinimumSize(QtCore.QSize(0, 150))
-        self.scrollArea.setMaximumSize(QtCore.QSize(16777215, 150))
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget(self.scrollArea)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 526, 144))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 526, 241))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -78,8 +77,6 @@ class Ui_PreferencesDialog(object):
         self.horizontalLayout_2.addLayout(self.optionFilterLangLayout_4)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_4.addWidget(self.scrollArea)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem)
         self.tabWidget.addTab(self.tab, "")
         self.tab_6 = QtGui.QWidget()
         self.tab_6.setGeometry(QtCore.QRect(0, 0, 540, 279))
@@ -240,8 +237,8 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addWidget(self.tabWidget)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem1 = QtGui.QSpacerItem(498, 36, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem1)
+        spacerItem = QtGui.QSpacerItem(498, 36, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
         self.optionsButtonApplyChanges = QtGui.QPushButton(PreferencesDialog)
         self.optionsButtonApplyChanges.setObjectName("optionsButtonApplyChanges")
         self.horizontalLayout_3.addWidget(self.optionsButtonApplyChanges)
