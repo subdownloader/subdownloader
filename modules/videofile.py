@@ -183,33 +183,34 @@ class VideoFile(object):
         return len(self.nos_subs) != 0
     
     def calculateOSDBHash(self):
-        try:
-            longlongformat = '<q'  # long long little endian
-            bytesize = struct.calcsize(longlongformat)
+        try: 
+            longlongformat = 'Q'  # unsigned long long 
+            bytesize = struct.calcsize(longlongformat) 
+            format= "%d%s" % (65536//bytesize, longlongformat)
+
+            f = open(self._filepath, "rb") 
+                    
+            filesize = os.fstat(f.fileno()).st_size
+            hash = filesize 
+                        
+            if filesize < 65536 * 2: 
+               return "SizeError" 
+                 
+            buffer= f.read(65536)
+            longlongs= struct.unpack(format, buffer)
+            hash+= sum(longlongs)
+                 
+
+            f.seek(-65536, os.SEEK_END) # size is always > 131072
+            buffer= f.read(65536)
+            longlongs= struct.unpack(format, buffer)
+            hash+= sum(longlongs)
+            hash&= 0xFFFFFFFFFFFFFFFF
+                     
+            f.close() 
+            returnedhash =  "%016x" % hash 
+            return returnedhash 
         
-            filesize = os.path.getsize(self._filepath)
-            hash = filesize
-            f = file(self._filepath, "rb")
-            #print struct.calcsize(longlongformat)
-            if filesize < 65536 * 2:
-                return "SizeError"
-            
-            for x in range(65536/bytesize):
-                buffer = f.read(bytesize)
-                (l_value,)= struct.unpack(longlongformat, buffer)  
-                hash += l_value
-                hash = hash & 0xFFFFFFFFFFFFFFFF #to remain as 64bit number
-            
-            f.seek(max(0,filesize-65536),0)
-            for x in range(65536/bytesize):
-                buffer = f.read(bytesize)
-                (l_value,)= struct.unpack(longlongformat, buffer)  
-                hash += l_value
-                hash = hash & 0xFFFFFFFFFFFFFFFF
-            
-            f.close()
-            returnedhash =  "%016x" % hash
-            return returnedhash
-            
-        except(IOError):
+        except(IOError): 
             return "IOError"
+
