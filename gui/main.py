@@ -412,7 +412,7 @@ class Main(QObject, Ui_MainWindow):
             self.login_button.setText("Login: ERROR")
             traceback.print_exc(e)
             self.status_progress.close()
-            raise
+            return False
 
     def onMenuQuit(self):
         self.window.close()
