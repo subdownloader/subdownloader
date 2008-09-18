@@ -30,6 +30,7 @@ class preferencesDialog(QtGui.QDialog):
         
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
+        self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", "<AutoDetect>", None, QtGui.QApplication.UnicodeUTF8), QVariant())
         for num, lang in enumerate(languages.LANGUAGES):
             lang_xxx = lang["SubLanguageID"]
             self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang_xxx))
@@ -174,9 +175,7 @@ class preferencesDialog(QtGui.QDialog):
         #Upload tab
         optionUploadLanguage = self.ui.optionDefaultUploadLanguage.itemData(self.ui.optionDefaultUploadLanguage.currentIndex())
         settings.setValue("options/uploadLanguage", optionUploadLanguage)
-        index = self._main.uploadLanguages.findData(optionUploadLanguage)
-        if index != -1 :
-            self._main.uploadLanguages.setCurrentIndex (index)    
+        self._main.emit(SIGNAL('language_updated(QString,QString)'),optionUploadLanguage, "")
             
         optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(self.ui.optionInterfaceLanguage.currentIndex())
         settings.setValue("options/interfaceLanguage", optionInterfaceLanguage)

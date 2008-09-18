@@ -80,13 +80,13 @@ def ListAll_xx():
 def ListAll_xxx():
     temp = []
     for lang in LANGUAGES:
-        temp.append(lang['ISO639'])
+        temp.append(lang['SubLanguageID'])
     return temp
 
 def ListAll_names():
     temp = []
     for lang in LANGUAGES:
-        temp.append(lang['ISO639'])
+        temp.append(lang['LanguageName'])
     return temp
 
 def xx2xxx(xx):

@@ -136,6 +136,14 @@ def score_subtitles(video, subtitle_list):
     # return scored subtitles
     return sub_dict
 
+
+def GetLangFromFilename(filepath):
+        filepath = os.path.basename(filepath)
+        if filepath.count('.') >= 2:
+            return get_extension(without_extension(filepath))
+        else:
+            return ""
+    
 #FIXME: when language is 'Brazlian' wrong value is returned: 'Bra' instead of 'pob')
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):

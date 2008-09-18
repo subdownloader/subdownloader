@@ -91,8 +91,8 @@ class UploadListModel(QAbstractTableModel):
                 
         return True, ""
     
-    def update_imdb_upload(self):
-        #Trying to autodetect the imdb from the server
+    def ObtainUploadInfo(self):
+        #Trying to autodetect the imdb fro m the server
         videos = []
         for i, video in enumerate(self._videos):
             if self._videos[i] != None and self._subs[i] != None:
@@ -104,13 +104,46 @@ class UploadListModel(QAbstractTableModel):
             if results['alreadyindb'] == 0 and results['data']:
                 video_imdb =  self._main.OSDBServer.getBestImdbInfo(results['data'])
             elif results['alreadyindb'] == 1:
+                import pprint
+                pprint.pprint(results)
                 video_imdb = {"IDMovieImdb": results['data']["IDMovieImdb"], "MovieName": results['data']["MovieName"]}
+                if results['data'].has_key('SubLanguageID'):
+                    xxx_lang = results['data']['SubLanguageID']
+                    self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "database")
             if video_imdb:
                      self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'),video_imdb["IDMovieImdb"], video_imdb["MovieName"], "database")
-                     
-    def update_lang_upload(self):
-        #Trying to autodetect the language
+            
+        self.AutoDetectLangFromFileName()
+        self.AutoDetectLangFromContent()
+     
+    def AutoDetectLangFromFileName(self):
+        all_langs = []
+        xxx_lang = ""
+        for sub in self._subs:
+            if sub:
+                lang = sub.getLanguage()
+                if lang == None:
+                    lang = Subtitle.GetLangFromFilename(sub.getFilePath())
+                    if len(lang)  == 2 and lang in languages.ListAll_xx():
+                        all_langs.append(languages.xx2xxx(lang))
+                    elif len(lang) == 3 and lang in languages.ListAll_xxx():
+                        all_langs.append(lang)
+                else:
+                    all_langs.append(lang)
 
+        max = 0
+        max_lang = ""
+        for lang in all_langs:
+            if all_langs.count(lang) > max:
+                max = all_langs.count(lang)
+                max_lang = lang
+        
+        xxx_lang = max_lang
+        log.debug("Majoritary Language Autodetected by filename = " + str(xxx_lang))
+        if xxx_lang:
+            self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "filename")
+
+    def AutoDetectLangFromContent(self):
         all_langs = []
         for sub in self._subs:
             if sub:
@@ -128,7 +161,7 @@ class UploadListModel(QAbstractTableModel):
                 max_lang = lang
         
         xxx_lang = languages.name2xxx(max_lang)
-        log.debug("Majoritary Language Autodetected for Upload subtitles = " + str(xxx_lang))
+        log.debug("Majoritary Language Autodetected by content = " + str(xxx_lang))
         if xxx_lang:
             self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "content")
   
@@ -276,7 +309,7 @@ class UploadListView(QTableView):
                     if subtitle:
                         sub = SubtitleFile(False,subtitle) 
                         self.model().addSubs(row, [sub])
-                        self.model().update_lang_upload()
+                        thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
                     self.resizeRowsToContents()
                     self.model().emit(SIGNAL("layoutChanged()"))
             else: #if it's the column in SUBTITLES
@@ -288,4 +321,4 @@ class UploadListView(QTableView):
                     self.model().addSubs(row, [sub])
                     self.resizeRowsToContents()
                     self.model().emit(SIGNAL("layoutChanged()"))
-                    self.model().update_lang_upload()
+                    thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())

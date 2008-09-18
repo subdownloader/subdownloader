@@ -91,6 +91,8 @@ class Main(QObject, Ui_MainWindow):
         self.key = '-1'
         self.log_packets = log_packets
         self.options = options
+        self.upload_autodetected_lang = ""
+        self.upload_autodetected_imdb = ""
         self.setupUi(window)
         self.card = None
         self.window = window
@@ -941,10 +943,9 @@ class Main(QObject, Ui_MainWindow):
                 for row, sub in enumerate(subs_found):
                     self.uploadModel.addSubs(row, [sub])
             self.uploadView.resizeRowsToContents()
-            self.uploadModel.update_lang_upload()
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
             thread.start_new_thread(self.AutoDetectNFOfile, (directory, ))
-            thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
+            thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
             
 
     def AutoDetectNFOfile(self, folder):
@@ -1024,6 +1025,8 @@ class Main(QObject, Ui_MainWindow):
         self.uploadReleaseText.setText("")
         self.uploadComments.setText("")
         self.progress(0)
+        self.upload_autodetected_lang = ""
+        self.upload_autodetected_imdb = ""
         #Note: We don't reset the language
         self.uploadModel.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.uploadModel.removeAll()
@@ -1037,11 +1040,11 @@ class Main(QObject, Ui_MainWindow):
     def onUploadIMDBNewSelection(self, id, title, origin = ""):
         id = str(id.toUtf8())
         log.debug("onUploadIMDBNewSelection, id: %s, title: %s, origin: %s" %(id, title, origin))
-        if origin == "database":
-            self.label_autodetect_imdb.setText(u'↓ Movie autodetected from database')
-            self.label_autodetect_imdb.show()
-        elif origin == "nfo":
+        if origin == "nfo" and not self.upload_autodetected_imdb or self.upload_autodetected_imdb == "nfo":
             self.label_autodetect_imdb.setText(u'↓ Movie autodetected from .nfo file')
+            self.label_autodetect_imdb.show()
+        elif origin == "database" and not self.upload_autodetected_imdb:
+            self.label_autodetect_imdb.setText(u'↓ Movie autodetected from database')
             self.label_autodetect_imdb.show()
         else:
             self.label_autodetect_imdb.hide()
@@ -1073,19 +1076,31 @@ class Main(QObject, Ui_MainWindow):
             #print title
             
     def onUploadLanguageDetection(self, lang_xxx, origin = ""):
-        if origin == "content":
-            self.label_autodetect_lang.show()
-            self.label_autodetect_lang.setText(u"↑ Language autodetected from subtitle's content")
-        elif origin == "database":
-            self.label_autodetect_lang.show()
-            self.label_autodetect_lang.setText(u'↑ Language autodetected from database')
-        elif not origin:
+        settings = QSettings()
+        origin = str(origin.toUtf8())
+        optionUploadLanguage = settings.value("options/uploadLanguage", QVariant())
+        if optionUploadLanguage != QVariant():
             self.label_autodetect_lang.hide()
-        #Let's select the item with that id. 
-        index = self.uploadLanguages.findData(QVariant(lang_xxx))
-        if index != -1:
-            self.uploadLanguages.setCurrentIndex (index)
-            return
+        else: #if we have selected <Autodetect> in preferences
+            if origin == "database" and self.upload_autodetected_lang != "filename" and self.upload_autodetected_lang != "selected":
+                self.label_autodetect_lang.setText(u'↑ Language autodetected from database')
+                self.label_autodetect_lang.show()
+                self.upload_autodetected_lang = origin
+            elif origin == "filename" and self.upload_autodetected_lang != "selected":
+                self.label_autodetect_lang.setText(u"↑ Language autodetected from subtitle's filename")
+                self.label_autodetect_lang.show()
+                self.upload_autodetected_lang = origin
+            elif origin == "content" and not self.upload_autodetected_lang or self.upload_autodetected_lang == "content":
+                self.label_autodetect_lang.setText(u"↑ Language autodetected from subtitle's content")
+                self.label_autodetect_lang.show()
+                self.upload_autodetected_lang = origin
+            elif not origin:
+                self.label_autodetect_lang.hide()
+            #Let's select the item with that id. 
+            index = self.uploadLanguages.findData(QVariant(lang_xxx))
+            if index != -1:
+                self.uploadLanguages.setCurrentIndex (index)
+                return
             
     def updateButtonsUpload(self):
         self.uploadView.resizeRowsToContents()
@@ -1128,8 +1143,7 @@ class Main(QObject, Ui_MainWindow):
                 if subtitle:
                     sub = SubtitleFile(False,subtitle) 
                     self.uploadModel.addSubs(row, [sub])
-                    self.uploadModel.update_lang_upload()
-                    thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
+                    thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 fileName = str(fileName.toUtf8())
@@ -1144,8 +1158,7 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadModel.addSubs(row, [sub])
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
-                self.uploadModel.update_lang_upload()
-                thread.start_new_thread(self.uploadModel.update_imdb_upload, ())
+                thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
 
     def initializeVideoPlayer(self, settings):
         predefinedVideoPlayer = None
@@ -1238,10 +1251,11 @@ class Main(QObject, Ui_MainWindow):
         self.moviesView.expandAll()
     
     def onUploadSelectLanguage(self, index):
-        #selectedLanguageXXX = str(self.uploadLanguages.itemData(index).toString())
+        self.upload_autodetected_lang = "selected"
         self.label_autodetect_lang.hide()
         
     def onUploadSelectImdb(self, index):
+        self.upload_autodetected_imdb = "selected"
         self.label_autodetect_imdb.hide()
     
     def subtitlesMovieCheckedChanged(self):
