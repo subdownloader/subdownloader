@@ -668,7 +668,11 @@ class Main(QObject, Ui_MainWindow):
             #This should work in all the OS, creating a temporary file 
             tempSubFilePath = str(QDir.temp().absoluteFilePath("subdownloader.tmp.srt"))
             log.debug("Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
-            self.progress(0,"Downloading subtitle ... "+subtitle.getFileName())
+            self.status_progress = QProgressDialog("Downloading...", "&Abort", 0, 0, self.window)
+            self.status_progress.setWindowTitle('Playing video + sub')
+            self.window.setCursor(Qt.BusyCursor)
+            self.status_progress.show()
+            self.progress(-1)
             try:
                 ok = self.OSDBServer.DownloadSubtitles({subtitleFileID:tempSubFilePath})
                 if not ok:
@@ -677,14 +681,18 @@ class Main(QObject, Ui_MainWindow):
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,"Error","Unable to download subtitle "+subtitle.getFileName())
             finally:
-                self.progress(100)
+                self.status_progress.close()
+                self.window.setCursor(Qt.ArrowCursor)
             
             params = []
             programPath = str(programPath.toUtf8()) 
             parameters = str(parameters.toUtf8()) 
 
             for param in parameters.split(" "):
-                param = param.replace('{0}', moviePath  )
+                if platform.system() == "Windows":
+                    param = param.replace('{0}', '"' + moviePath + '"'  )
+                else:
+                    param = param.replace('{0}', moviePath)
                 param = param.replace('{1}',  tempSubFilePath )
                 params.append(param)
                 
