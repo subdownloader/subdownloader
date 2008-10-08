@@ -51,6 +51,7 @@ def AutoDetectNFOfile(videofolder):
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
+    print filepaths
     for path in filepaths:
         log.debug("Scanning: %s"% path)
         if os.path.isdir(path):
@@ -60,8 +61,8 @@ def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress
         else:
             if get_extension(path).lower() in videofile.VIDEOS_EXT:
                 all_videos_found.append(videofile.VideoFile(path))
-            tmp_videos, subs_found = ScanFolder(os.path.dirname(path),recursively = False,report_progress=report_progress, progress_end=progress_end) 
-            all_subs_found += subs_found #Interested to know which subtitles we have in the same folder
+             #Interested to know which subtitles we have in the same folder
+            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path),recursively = False,report_progress=report_progress, progress_end=progress_end) 
     return all_videos_found, all_subs_found
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
@@ -123,4 +124,33 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
     return videos_found,subs_found
     
 
-
+def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, progress_end=None):
+    if report_progress == None:
+        report_progress = FakeProgress
+    
+    #Let's reset the progress bar to 0%
+    report_progress(0)
+    #Scanning Subs
+    if recursively:
+        files_found = parser.getRecursiveFileList(folderpath,subtitlefile.SUBTITLES_EXT)
+    else:
+        files_found =[]
+        for filename in os.listdir(folderpath):
+            if os.path.isfile(os.path.join(folderpath, filename)) and get_extension(filename).lower() in subtitlefile.SUBTITLES_EXT:
+                files_found.append(os.path.join(folderpath, filename))
+    
+    print files_found
+    subs_found = []
+    # only work the subtitles if any were found
+    if len(files_found):
+        percentage = 100 / len(files_found)
+        count = 0
+        for i, filepath in enumerate(files_found):
+            subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
+            count += percentage
+            report_progress(count,"Parsing sub: " + os.path.basename(filepath))
+    report_progress(100,"Finished hashing")
+    if progress_end:
+        progress_end()
+        
+    return subs_found
