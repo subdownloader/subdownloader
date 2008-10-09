@@ -507,79 +507,81 @@ class Main(QObject, Ui_MainWindow):
            
     
     def SearchVideos(self, path):
-        #Scan recursively the selected directory finding subtitles and videos
-        if not type(path) == list:
-            path = [path]
-        
-        self.status_progress = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
-        self.status_progress.setWindowTitle('Scanning files')
-        self.status_progress.forceShow()
-        QCoreApplication.processEvents()
-        self.progress()
-        try:
-            videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
-            #progressWindow.destroy()
-        except FileScan.UserActionCanceled:
-            print "user canceled"
-            return 
-        log.debug("Videos found: %s"% videos_found)
-        log.debug("Subtitles found: %s"% subs_found)
-        #Populating the items in the VideoListView
-        self.videoModel.clearTree()
-        self.videoView.expandAll()
-        self.videoModel.setVideos(videos_found)
-        self.videoView.setModel(self.videoModel)
-        
-        self.videoView.expandAll() #This was a solution found to refresh the treeView
-        #Searching our videohashes in the OSDB database
-        QCoreApplication.processEvents()
-        if not videos_found:
-            QMessageBox.about(self.window,"Scan Results","No video has been found.")
+        if not hasattr(self, 'OSDBServer') or not self.OSDBServer.is_connected():
+                QMessageBox.about(self.window,"Error","You are not connected to the server. Please reconnect first.")
         else:
-            self.status_progress.forceShow()
-            self.progress(-1)
-            self.progress(0,"Searching subtitles...")
-            self.progress()
-            
-            self.window.setCursor(Qt.WaitCursor)
-            QCoreApplication.processEvents()
-            videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+                #Scan recursively the selected directory finding subtitles and videos
+                if not type(path) == list:
+                    path = [path]
                 
-            if(videoSearchResults and subs_found):
-                hashes_subs_found = {}
-                #Hashes of the local subtitles
-                for sub in subs_found:
-                    hashes_subs_found[sub.getHash()] = sub.getFilePath()
-                    
-                #are the online subtitles already in our folder?
-                for video in videoSearchResults:
-                   for sub in video._subs:
-                       if sub.getHash() in hashes_subs_found:
-                           sub._path = hashes_subs_found[sub.getHash()]
-                           sub._online = False
-                
-            if(videoSearchResults):
+                self.status_progress = QProgressDialog("Scanning files...", "&Abort", 0, 100, self.window)
+                self.status_progress.setWindowTitle('Scanning files')
+                self.status_progress.forceShow()
+                QCoreApplication.processEvents()
+                self.progress()
+                try:
+                    videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
+                    #progressWindow.destroy()
+                except FileScan.UserActionCanceled:
+                    print "user canceled"
+                    return 
+                log.debug("Videos found: %s"% videos_found)
+                log.debug("Subtitles found: %s"% subs_found)
+                #Populating the items in the VideoListView
                 self.videoModel.clearTree()
-                self.videoModel.setVideos(videoSearchResults)
-                self.onFilterLanguageVideo(self.filterLanguageForVideo.currentIndex())
+                self.videoView.expandAll()
+                self.videoModel.setVideos(videos_found)
+                self.videoView.setModel(self.videoModel)
+                
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
-            elif videoSearchResults == None :
-                QMessageBox.about(self.window,"Error","Error contacting the server. Please try again later")
-            self.status_progress.setLabelText("Search finished")
+                #Searching our videohashes in the OSDB database
+                QCoreApplication.processEvents()
+                if not videos_found:
+                    QMessageBox.about(self.window,"Scan Results","No video has been found.")
+                else:
+                    self.status_progress.forceShow()
+                    self.progress(0,"Searching subtitles...")
+                    self.progress(-1)
+                    
+                    self.window.setCursor(Qt.WaitCursor)
+                    QCoreApplication.processEvents()
+                    videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_found)
+                        
+                    if(videoSearchResults and subs_found):
+                        hashes_subs_found = {}
+                        #Hashes of the local subtitles
+                        for sub in subs_found:
+                            hashes_subs_found[sub.getHash()] = sub.getFilePath()
+                            
+                        #are the online subtitles already in our folder?
+                        for video in videoSearchResults:
+                           for sub in video._subs:
+                               if sub.getHash() in hashes_subs_found:
+                                   sub._path = hashes_subs_found[sub.getHash()]
+                                   sub._online = False
+                        
+                    if(videoSearchResults):
+                        self.videoModel.clearTree()
+                        self.videoModel.setVideos(videoSearchResults)
+                        self.onFilterLanguageVideo(self.filterLanguageForVideo.currentIndex())
+                        self.videoView.expandAll() #This was a solution found to refresh the treeView
+                    elif videoSearchResults == None :
+                        QMessageBox.about(self.window,"Error","Error contacting the server. Please try again later")
+                    self.status_progress.setLabelText("Search finished")
+                    
+                self.status_progress.close()
+                self.window.setCursor(Qt.ArrowCursor)
+                
+                if locals().has_key('videoSearchResults'):
+                    video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+                    video_filesizes =  [video.getSize() for video in videoSearchResults]
+                    video_movienames = [video.getMovieName() for video in videoSearchResults]
+                    thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
             
-        self.status_progress.close()
-        self.window.setCursor(Qt.ArrowCursor)
-        
-        if locals().has_key('videoSearchResults'):
-            video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-            video_filesizes =  [video.getSize() for video in videoSearchResults]
-            video_movienames = [video.getMovieName() for video in videoSearchResults]
-            thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
-    
-        
-        #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
-        #self.OSDBServer.CheckSubHash(sub_hashes)
-        
+                
+                #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
+                #self.OSDBServer.CheckSubHash(sub_hashes)
+                
     def onClickVideoTreeView(self, index):
         treeItem = self.videoModel.getSelectedItem(index)
         if type(treeItem.data) == VideoFile:
@@ -623,21 +625,27 @@ class Main(QObject, Ui_MainWindow):
             self.SearchVideos(folder_path) 
             
     def onButtonSearchSelectVideos(self):
-        settings = QSettings()
-        currentDir = settings.value("mainwindow/workingDirectory", QVariant())
-        fileNames = QFileDialog.getOpenFileNames(None, "Select the video(s) that need subtitles", currentDir.toString(), videofile.SELECT_VIDEOS)
-        fileNames = [str(file.toUtf8()) for file in fileNames]
-        if fileNames:
-            settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileNames[0]).absolutePath()))
-            self.SearchVideos(fileNames) 
+        if not hasattr(self, 'OSDBServer') or not self.OSDBServer.is_connected():
+            QMessageBox.about(self.window,"Error","You are not connected to the server. Please reconnect first.")
+        else:
+            settings = QSettings()
+            currentDir = settings.value("mainwindow/workingDirectory", QVariant())
+            fileNames = QFileDialog.getOpenFileNames(None, "Select the video(s) that need subtitles", currentDir.toString(), videofile.SELECT_VIDEOS)
+            fileNames = [str(file.toUtf8()) for file in fileNames]
+            if fileNames:
+                settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileNames[0]).absolutePath()))
+                self.SearchVideos(fileNames) 
     def onButtonSearchSelectFolder(self):
-        settings = QSettings()
-        path = settings.value("mainwindow/workingDirectory", QVariant())
-        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory that contains your videos",path.toString())
-        if directory:
-            settings.setValue("mainwindow/workingDirectory", QVariant(directory))
-            folder_path =  str(directory.toUtf8())
-            self.SearchVideos(folder_path) 
+        if not hasattr(self, 'OSDBServer') or not self.OSDBServer.is_connected():
+            QMessageBox.about(self.window,"Error","You are not connected to the server. Please reconnect first.")
+        else:
+            settings = QSettings()
+            path = settings.value("mainwindow/workingDirectory", QVariant())
+            directory=QtGui.QFileDialog.getExistingDirectory(None,"Select the directory that contains your videos",path.toString())
+            if directory:
+                settings.setValue("mainwindow/workingDirectory", QVariant(directory))
+                folder_path =  str(directory.toUtf8())
+                self.SearchVideos(folder_path) 
         
         
     """What to do when a Folder in the tree is clicked"""
@@ -1211,6 +1219,7 @@ class Main(QObject, Ui_MainWindow):
         self.status_progress.setWindowTitle('Searching')
         self.status_progress.forceShow()
         self.window.setCursor(Qt.WaitCursor)
+        self.progress(-1)
         self.moviesModel.clearTree()
         self.moviesView.expandAll() #This was a solution found to refresh the treeView
         QCoreApplication.processEvents()
