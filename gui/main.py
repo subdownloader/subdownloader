@@ -737,15 +737,19 @@ class Main(QObject, Ui_MainWindow):
             folderPath = video.getFolderPath()
             dir = QDir(QString(folderPath))
             downloadFullPath = dir.filePath(QString(subFileName))
-            downloadFullPath = QFileDialog.getSaveFileName(None, "Save Subtitle", downloadFullPath, sub_extension)
+            downloadFullPath = QFileDialog.getSaveFileName(None, "Save Subtitle", downloadFullPath, sub_extension).__str__()
+            log.debug("Downloading to: %r"% downloadFullPath)
         elif optionWhereToDownload == QVariant("SAME_FOLDER"):
             folderPath = video.getFolderPath()
             dir = QDir(QString(folderPath))
-            downloadFullPath = dir.filePath(QString(subFileName))
+            #downloadFullPath = dir.filePath(QString(subFileName)).__str__()
+            downloadFullPath = os.path.join(folderPath, subFileName).decode('utf8')
+            log.debug("Downloading to: %r"% downloadFullPath)
         elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
             folderPath = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
             dir = QDir(QString(folderPath)) 
-            downloadFullPath = dir.filePath(QString(subFileName))
+            downloadFullPath = dir.filePath(QString(subFileName)).__str__()
+            log.debug("Downloading to: %r"% downloadFullPath)
 
         return downloadFullPath
     def onButtonDownload(self):
@@ -767,7 +771,7 @@ class Main(QObject, Ui_MainWindow):
             for i, sub in enumerate(subs):
                 if not self.progress():
                     break
-                destinationPath = str(self.getDownloadPath(sub.getVideo(), sub).toUtf8())
+                destinationPath = self.getDownloadPath(sub.getVideo(), sub)
                 if not destinationPath:
                     break
                 log.debug("Trying to download subtitle '%s'" % destinationPath)

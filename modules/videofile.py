@@ -192,21 +192,20 @@ class VideoFile(object):
                     
             filesize = os.fstat(f.fileno()).st_size
             hash = filesize 
-                        
+            
             if filesize < 65536 * 2: 
                return "SizeError" 
-                 
+            
             buffer= f.read(65536)
             longlongs= struct.unpack(format, buffer)
             hash+= sum(longlongs)
-                 
-
+            
             f.seek(-65536, os.SEEK_END) # size is always > 131072
             buffer= f.read(65536)
             longlongs= struct.unpack(format, buffer)
             hash+= sum(longlongs)
             hash&= 0xFFFFFFFFFFFFFFFF
-                     
+            
             f.close() 
             returnedhash =  "%016x" % hash 
             return returnedhash 
