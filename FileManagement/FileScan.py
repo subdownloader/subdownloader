@@ -51,7 +51,6 @@ def AutoDetectNFOfile(videofolder):
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
-    print filepaths
     for path in filepaths:
         log.debug("Scanning: %s"% path)
         if os.path.isdir(path):
@@ -139,7 +138,6 @@ def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, prog
             if os.path.isfile(os.path.join(folderpath, filename)) and get_extension(filename).lower() in subtitlefile.SUBTITLES_EXT:
                 files_found.append(os.path.join(folderpath, filename))
     
-    print files_found
     subs_found = []
     # only work the subtitles if any were found
     if len(files_found):

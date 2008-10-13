@@ -51,8 +51,22 @@ class UploadListModel(QAbstractTableModel):
                         self._subs.insert(index, None)
                 else:
                         self._videos[index] = video
+                        
+                if index == 0:
+                        self._main.emit(SIGNAL('release_updated(QString)'),self.calculateReleaseName(video.getFilePath()))
+                        
                 index += 1
 
+    def calculateReleaseName(self, filepath):
+        try:
+            releaseName = os.path.split(os.path.dirname(filepath))[-1]
+            if len(releaseName) > 9: # this way we avoid short names like CD1 or Videos, but we accept names like DVDRIP-aXXo , etc
+                return releaseName
+            else:
+                return ""
+        except:
+            return ""
+        
     def addSubs(self,index,subs ):
         for sub in subs:
                 if len(self._subs) <= index:

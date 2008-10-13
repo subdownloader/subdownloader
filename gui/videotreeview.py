@@ -50,16 +50,22 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     self.moviesResultsBackup = None
     #self.setupTree(self.root)
 
-  def setVideos(self,videoResults,filter = None):
-    self.videoResultsBackup = videoResults
-    if videoResults:
-        for video in videoResults:
-           videoNode = self.root.addChild(video)
-           for sub in video._subs:
-               sub_lang_xxx =  sub.getLanguageXXX()
-               if (not filter) or (sub_lang_xxx in filter ) :    #Filter subtitles by Language
-                   videoNode.addChild(sub)
-                   
+  def setVideos(self,videoResults,filter = None, append=False):
+        log.debug("videotreeview::setVideos , len(videoResults) = %d " % len(videoResults))
+        if append:
+                self.videoResultsBackup += videoResults
+        else:
+                self.videoResultsBackup = videoResults
+                
+        if videoResults:
+            for video in videoResults:
+               videoNode = self.root.addChild(video)
+               for sub in video._subs:
+                   sub_lang_xxx =  sub.getLanguageXXX()
+                   if (not filter) or (sub_lang_xxx in filter ) :    #Filter subtitles by Language
+                       videoNode.addChild(sub)
+                       
+                       
   def setMovies(self,moviesResults,filter = None):
         self.moviesResultsBackup = moviesResults
             

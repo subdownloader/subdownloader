@@ -216,9 +216,8 @@ class OSDBServer(object):
         try: 
             return self.xmlrpc_server.ServerInfo()
         except TimeoutFunctionException:
-            print "aaaaaaaaaaaaaaaaaaa"
             raise
-        print "bbbb"
+        
 
             
     def login(self, username="", password=""):
