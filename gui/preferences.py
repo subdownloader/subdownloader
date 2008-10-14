@@ -68,7 +68,7 @@ class preferencesDialog(QtGui.QDialog):
         if fileName:
             self.ui.optionVideoAppLocation.setText(fileName)
     def onOptionInterfaceLanguage(self, option):
-        QMessageBox.about(self,"Alert","The new language will be displayed after restarting the application")
+        QMessageBox.about(self,"Alert","The new language will be displayed after restarting the program.")
         
     def onOptionDownloadFolderPredefined(self):
         if self.ui.optionDownloadFolderPredefined.isChecked():
