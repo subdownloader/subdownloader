@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1270</width>
     <height>727</height>
    </rect>
   </property>
@@ -17,14 +17,6 @@
     <normaloff>:/images/subdownloader.png</normaloff>:/images/subdownloader.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>27</y>
-     <width>1280</width>
-     <height>676</height>
-    </rect>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout_5" >
     <item>
      <layout class="QVBoxLayout" >
@@ -43,14 +35,6 @@
          <number>0</number>
         </property>
         <widget class="QWidget" name="tab" >
-         <property name="geometry" >
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>1258</width>
-           <height>626</height>
-          </rect>
-         </property>
          <attribute name="title" >
           <string>Search from Video file(s)</string>
          </attribute>
@@ -418,14 +402,6 @@
          </layout>
         </widget>
         <widget class="QWidget" name="tab_3" >
-         <property name="geometry" >
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>1258</width>
-           <height>626</height>
-          </rect>
-         </property>
          <attribute name="title" >
           <string>Search by Movie Name</string>
          </attribute>
@@ -647,14 +623,6 @@
          </layout>
         </widget>
         <widget class="QWidget" name="tab_4" >
-         <property name="geometry" >
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>1258</width>
-           <height>626</height>
-          </rect>
-         </property>
          <attribute name="title" >
           <string>Upload subtitles</string>
          </attribute>
@@ -667,7 +635,7 @@
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="title" >
-               <string>Select the videos and subtitles  (videos won't be uploaded, we just need their hash fingerprint)</string>
+               <string>Select the videos and subtitles  (only subtitles will be uploaded):</string>
               </property>
               <property name="alignment" >
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -883,7 +851,7 @@
                </size>
               </property>
               <property name="title" >
-               <string>Details</string>
+               <string>Details:</string>
               </property>
               <layout class="QGridLayout" name="gridLayout" >
                <item rowspan="2" row="1" column="0" >
@@ -917,7 +885,7 @@ p, li { white-space: pre-wrap; }
                   </sizepolicy>
                  </property>
                  <property name="text" >
-                  <string>IMDB: </string>
+                  <string>Movie Title:</string>
                  </property>
                 </widget>
                </item>
@@ -990,7 +958,7 @@ p, li { white-space: pre-wrap; }
                   </sizepolicy>
                  </property>
                  <property name="text" >
-                  <string>Language:</string>
+                  <string>Subtitle Language:</string>
                  </property>
                 </widget>
                </item>
@@ -1006,7 +974,7 @@ p, li { white-space: pre-wrap; }
                   </sizepolicy>
                  </property>
                  <property name="text" >
-                  <string>Release:</string>
+                  <string>Release name:</string>
                  </property>
                 </widget>
                </item>
@@ -1096,7 +1064,7 @@ p, li { white-space: pre-wrap; }
                   </font>
                  </property>
                  <property name="text" >
-                  <string>↓ Movie autodetected from database</string>
+                  <string>...</string>
                  </property>
                  <property name="textFormat" >
                   <enum>Qt::PlainText</enum>
@@ -1155,7 +1123,7 @@ p, li { white-space: pre-wrap; }
                   </font>
                  </property>
                  <property name="text" >
-                  <string>↑ Language autodetected from content</string>
+                  <string>...</string>
                  </property>
                  <property name="textFormat" >
                   <enum>Qt::PlainText</enum>
@@ -1201,22 +1169,13 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>703</y>
-     <width>1280</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QStatusBar" name="statusbar" />
   <widget class="QMenuBar" name="menuBar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>1270</width>
      <height>27</height>
     </rect>
    </property>
@@ -1263,7 +1222,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Quit</string>
+    <string>Quit</string>
    </property>
   </action>
   <action name="action_HelpHomepage" >
@@ -1278,12 +1237,12 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_HelpBug" >
    <property name="text" >
-    <string>I found a &amp;bug/error</string>
+    <string>Reporting errors</string>
    </property>
   </action>
   <action name="action_HelpDonation" >
    <property name="text" >
-    <string>&amp;Donate us 5$</string>
+    <string>Donate 5 USD/EUR</string>
    </property>
   </action>
   <action name="action_ShowPreferences" >
@@ -1292,12 +1251,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
    </property>
    <property name="text" >
-    <string>Configure &amp;Subdownloader</string>
-   </property>
-  </action>
-  <action name="actionConfigure_SubDownloader" >
-   <property name="text" >
-    <string>Configure &amp;SubDownloader</string>
+    <string>&amp;Configure Subdownloader</string>
    </property>
   </action>
   <action name="action_Login" >
@@ -1310,7 +1264,7 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
    <property name="text" >
-    <string>&amp;Log Messages</string>
+    <string>Log Messages</string>
    </property>
   </action>
   <action name="action_ShowHideTreeFolder" >

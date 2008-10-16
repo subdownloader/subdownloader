@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created: Mon Aug  4 19:07:49 2008
-#      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
+# Created: Thu Oct 16 18:13:53 2008
+#      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -59,7 +59,6 @@ class Ui_AboutDialog(object):
         self.lblIcon.setObjectName("lblIcon")
         self.verticalLayout.addWidget(self.lblIcon)
         self.tabs = QtGui.QTabWidget(AboutDialog)
-        self.tabs.setWindowModality(QtCore.Qt.NonModal)
         self.tabs.setEnabled(True)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -70,7 +69,6 @@ class Ui_AboutDialog(object):
         self.tabs.setFocusPolicy(QtCore.Qt.WheelFocus)
         self.tabs.setObjectName("tabs")
         self.tab = QtGui.QWidget()
-        self.tab.setGeometry(QtCore.QRect(0, 0, 378, 241))
         self.tab.setObjectName("tab")
         self.gridlayout = QtGui.QGridLayout(self.tab)
         self.gridlayout.setObjectName("gridlayout")
@@ -82,7 +80,6 @@ class Ui_AboutDialog(object):
         self.gridlayout.addWidget(self.txtAbout, 0, 0, 1, 1)
         self.tabs.addTab(self.tab, "")
         self.tab_2 = QtGui.QWidget()
-        self.tab_2.setGeometry(QtCore.QRect(0, 0, 378, 241))
         self.tab_2.setObjectName("tab_2")
         self.gridlayout1 = QtGui.QGridLayout(self.tab_2)
         self.gridlayout1.setObjectName("gridlayout1")
@@ -93,7 +90,6 @@ class Ui_AboutDialog(object):
         self.gridlayout1.addWidget(self.txtAuthors, 0, 0, 1, 1)
         self.tabs.addTab(self.tab_2, "")
         self.tab_3 = QtGui.QWidget()
-        self.tab_3.setGeometry(QtCore.QRect(0, 0, 378, 241))
         self.tab_3.setObjectName("tab_3")
         self.gridlayout2 = QtGui.QGridLayout(self.tab_3)
         self.gridlayout2.setObjectName("gridlayout2")
@@ -121,7 +117,7 @@ class Ui_AboutDialog(object):
         QtCore.QMetaObject.connectSlotsByName(AboutDialog)
 
     def retranslateUi(self, AboutDialog):
-        AboutDialog.setWindowTitle(_("About"))
+        AboutDialog.setWindowTitle(_("About Subdownloader"))
         self.label_sd.setText(QtGui.QApplication.translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -144,14 +140,14 @@ class Ui_AboutDialog(object):
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">IRC: <span style=\" font-weight:600;\">FREENODE</span> server , <span style=\" font-weight:600;\">#subdownloader</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;\"><span style=\" font-weight:600; text-decoration:none;\">Donate us</span><span style=\" text-decoration:none;\">:</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donations%40subdownloader%2enet&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=PT&bn=PP%2dDonationsBF&charset=UTF%2d8\"><span style=\" text-decoration: underline; color:#0057ae;\">Our paypal account</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab), QtGui.QApplication.translate("AboutDialog", "&About", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab), _("About"))
         self.txtAuthors.setHtml(QtGui.QApplication.translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'DejaVu Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\'; font-size:9pt;\">Ivan Garcia &lt;<a href=\"mailto:ivangarcia@subdownloader.net\"><span style=\" text-decoration: underline; color:#0057ae;\">ivangarcia@subdownloader.net</span></a>&gt;</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\'; font-size:9pt;\">Marco Ferreira &lt;<a href=\"mailto:mferreira@subdownloader.net\"><span style=\" text-decoration: underline; color:#0057ae;\">mferreira@subdownloader.net</span></a>&gt;</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_2), QtGui.QApplication.translate("AboutDialog", "A&uthors", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_2), _("Authors"))
         self.txtLicense.setHtml(QtGui.QApplication.translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -167,6 +163,7 @@ class Ui_AboutDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\'; font-size:9pt;\">You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc.,</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\'; font-size:9pt;\">59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.  </p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\'; font-size:9pt;\"></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_3), QtGui.QApplication.translate("AboutDialog", "&License Agreement", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonClose.setText(QtGui.QApplication.translate("AboutDialog", "&Close", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_3), _("License Agreement"))
+        self.buttonClose.setText(_("Close"))
+
 

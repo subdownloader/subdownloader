@@ -148,11 +148,11 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             if not uploader : 
                 uploader = 'Anonymous'
             if sub.isLocal():
-                return QVariant("[%s]\t Rate: %s\t %s - (Already downloaded)" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
+                return QVariant(_("[%s]\t Rate: %s\t %s - (Already downloaded)") % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
             elif hasattr(sub, "_filename"): #Subtitle found from hash
-                return QVariant("[%s]\t Rate: %s\t %s    - Uploader: %s" % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
+                return QVariant(_("[%s]\t Rate: %s\t %s    - Uploader: %s") % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
             else: #Subtitle found from movie name
-                return QVariant("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s" % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
+                return QVariant(_("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s") % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
         return QVariant()
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
@@ -176,7 +176,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     movieName = movie_info["MovieNameEng"]
                 else:
                     movieName = movie_info["MovieName"]
-                info = "%s [%s] [IMDB rate=%s] - File: %s" %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"], data.getFileName())
+                info = _("%s [%s] [IMDB rate=%s] - File: %s") %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"], data.getFileName())
                 return QVariant(info)
             else:
                  return QVariant(data.getFileName())

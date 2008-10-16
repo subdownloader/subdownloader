@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Mon Oct 13 20:11:53 2008
+# Created: Thu Oct 16 17:26:10 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -73,12 +73,13 @@ class Ui_IMDBSearchDialog(object):
         QtCore.QMetaObject.connectSlotsByName(IMDBSearchDialog)
 
     def retranslateUi(self, IMDBSearchDialog):
-        IMDBSearchDialog.setWindowTitle(QtGui.QApplication.translate("IMDBSearchDialog", "Search the IMDB movie", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Enter the Movie Title or IMDB id:", None, QtGui.QApplication.UnicodeUTF8))
-        self.searchMovieButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Search Movie", None, QtGui.QApplication.UnicodeUTF8))
-        self.movieInfoButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Movie Info", None, QtGui.QApplication.UnicodeUTF8))
-        self.okButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "OK", None, QtGui.QApplication.UnicodeUTF8))
-        self.cancelButton.setText(QtGui.QApplication.translate("IMDBSearchDialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+        IMDBSearchDialog.setWindowTitle(_("IMDB search dialog:"))
+        self.label.setText(_("Enter the Movie Title or IMDB id:"))
+        self.searchMovieButton.setText(_("Search Movie"))
+        self.movieInfoButton.setText(_("Movie Info"))
+        self.okButton.setText(_("OK"))
+        self.cancelButton.setText(_("Cancel"))
 
 from imdblistview import ImdbListView
 import images_rc
+

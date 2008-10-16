@@ -78,30 +78,30 @@ class UploadListModel(QAbstractTableModel):
                 
     def validate(self):
         if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
-            return False ,'The list of video/subtitle is empty'
+            return False ,_('The list of video/subtitle is empty')
             
         valid_subs = []
         valid_videos = []
         for i in range(self.getTotalRows()):
             if self._subs[i]: 
                 if valid_subs.count(self._subs[i].getFilePath()) > 0:
-                    return False ,'Subtitle %s is repeated' % str(i +1)
+                    return False ,_('Subtitle %s is repeated') % str(i +1)
                 else:
                     valid_subs.append(self._subs[i].getFilePath())
             if self._videos[i]: 
                 if valid_videos.count(self._videos[i].getFilePath()) > 0:
-                    return False ,'Videofie %s is repeated' % str(i +1)
+                    return False ,_('Videofie %s is repeated') % str(i +1)
                 else:
                     valid_videos.append(self._videos[i].getFilePath())
                 
             if not self._subs[i] and not self._videos[i] :
                if i != self.getTotalRows()-1:
-                    return False ,'Some of the upload rows are empty'
+                    return False ,_('Some of the upload rows are empty')
                else:
                    return True, ""
                 
             if not self._subs[i] or not self._videos[i]  and i != self.getTotalRows()-1:
-                return False ,'Some of the video/subtitles are empty'
+                return False ,_('Some of the video/subtitles are empty')
                 
         return True, ""
     
@@ -205,12 +205,12 @@ class UploadListModel(QAbstractTableModel):
             text = None
             if   col == UploadListView.COL_VIDEO: 
                 if self._videos[row] == None:
-                    text = "Click here to select video..."
+                    text = _("Click here to select video...")
                 else:
                         text = self._videos[row].getFileName()
             elif col == UploadListView.COL_SUB: 
                 if self._subs[row] == None:
-                    text = "Click here to select subtitle..."
+                    text = _("Click here to select subtitle...")
                 else:
                         text = self._subs[row].getFileName()
             if text == None: 
@@ -268,6 +268,7 @@ class UploadListModel(QAbstractTableModel):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.removeAll()
         self.emit(SIGNAL("layoutChanged()"))
+        
     def onUploadButtonDownRow(self, clicked):
         if self.rowSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))

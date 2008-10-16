@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Search the IMDB movie</string>
+   <string>IMDB search dialog:</string>
   </property>
   <property name="modal" >
    <bool>true</bool>

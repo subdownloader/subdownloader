@@ -118,9 +118,6 @@ p, li { white-space: pre-wrap; }
    </item>
    <item>
     <widget class="QTabWidget" name="tabs" >
-     <property name="windowModality" >
-      <enum>Qt::NonModal</enum>
-     </property>
      <property name="enabled" >
       <bool>true</bool>
      </property>
@@ -143,16 +140,8 @@ p, li { white-space: pre-wrap; }
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>378</width>
-        <height>241</height>
-       </rect>
-      </property>
       <attribute name="title" >
-       <string>&amp;About</string>
+       <string>About</string>
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
@@ -185,16 +174,8 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>378</width>
-        <height>241</height>
-       </rect>
-      </property>
       <attribute name="title" >
-       <string>A&amp;uthors</string>
+       <string>Authors</string>
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
@@ -218,16 +199,8 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_3" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>378</width>
-        <height>241</height>
-       </rect>
-      </property>
       <attribute name="title" >
-       <string>&amp;License Agreement</string>
+       <string>License Agreement</string>
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
@@ -288,7 +261,7 @@ p, li { white-space: pre-wrap; }
         <string notr="true" />
        </property>
        <property name="text" >
-        <string>&amp;Close</string>
+        <string>Close</string>
        </property>
       </widget>
      </item>

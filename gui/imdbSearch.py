@@ -38,7 +38,7 @@ class imdbSearchDialog(QtGui.QDialog):
 
     def onSearchMovieButton(self):
         if not self.ui.movieSearch.text():
-            QMessageBox.about(self,"Error","Please fill out the search title")
+            QMessageBox.about(self,_("Error"),_("Please fill out the search title"))
         else:
             self.setCursor(Qt.WaitCursor)
             text = self.ui.movieSearch.text()
@@ -47,7 +47,7 @@ class imdbSearchDialog(QtGui.QDialog):
                 if not results or not len(results) or not results[0].has_key("id"): #In case of empty results 
                     results = []
             except:
-                QMessageBox.about(self,"Error","Error contacting the server.\nPlease restart or try later.")
+                QMessageBox.about(self,_("Error"),_("Error contacting the server.\nPlease restart or try later."))
                 results = []
             
             self.imdbModel.emit(SIGNAL("layoutAboutToBeChanged()"))
@@ -74,13 +74,13 @@ class imdbSearchDialog(QtGui.QDialog):
         
     def onMovieInfoButton(self):
         if self.imdbModel.rowSelected == None:
-            QMessageBox.about(self,"Error","Please search and select a movie from the list")
+            QMessageBox.about(self,_("Error"),_("Please search and select a movie from the list"))
         else: 
             imdbID = self.imdbModel.getSelectedImdb()["id"]
             webbrowser.open( "http://www.imdb.com/title/tt%s"% imdbID, new=2, autoraise=1)
     def onOkButton(self):
         if self.imdbModel.rowSelected == None:
-            QMessageBox.about(self,"Error","Please search and select a movie from the list")
+            QMessageBox.about(self,_("Error"),_("Please search and select a movie from the list"))
         else:
             selection = self.imdbModel.getSelectedImdb()
             self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'),selection["id"], selection["title"], "search")

@@ -30,10 +30,10 @@ class preferencesDialog(QtGui.QDialog):
         
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
-        self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", "<AutoDetect>", None, QtGui.QApplication.UnicodeUTF8), QVariant())
+        self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), QVariant())
         for num, lang in enumerate(languages.LANGUAGES):
             lang_xxx = lang["SubLanguageID"]
-            self.ui.optionDefaultUploadLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang_xxx))
+            self.ui.optionDefaultUploadLanguage.addItem(lang["LanguageName"], QVariant(lang_xxx))
             #Adding checkboxes for the Search...Filter by ...
             self.filterLanguages[lang_xxx] = QtGui.QCheckBox(lang["LanguageName"], self.ui.scrollAreaWidgetContents)
             if num % 4 == 1:
@@ -45,8 +45,9 @@ class preferencesDialog(QtGui.QDialog):
             else:
                 self.ui.optionFilterLangLayout_4.addWidget(self.filterLanguages[lang_xxx] )
             
+        for lang in locale_langs:
             if lang_xxx == "eng": #For the moment interface is only in English
-                self.ui.optionInterfaceLanguage.addItem(QtGui.QApplication.translate("MainWindow", lang["LanguageName"], None, QtGui.QApplication.UnicodeUTF8), QVariant(lang_xxx))
+                self.ui.optionInterfaceLanguage.addItem(lang["LanguageName"], QVariant(lang_xxx))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
@@ -55,7 +56,7 @@ class preferencesDialog(QtGui.QDialog):
         QObject.connect(self.ui.optionInterfaceLanguage, SIGNAL("currentIndexChanged(int)"), self.onOptionInterfaceLanguage)
         
     def onOptionButtonChooseFolder(self):
-        directory=QtGui.QFileDialog.getExistingDirectory(None,"Select a directory",QString())
+        directory=QtGui.QFileDialog.getExistingDirectory(None,_("Select a directory"),QString())
         if directory:
             self.ui.optionPredefinedFolderText.setText(directory)
             
@@ -64,11 +65,12 @@ class preferencesDialog(QtGui.QDialog):
         if platform.system == "Windows":
             extensions  = "*.exe"
             
-        fileName = QFileDialog.getOpenFileName(None, "Select the Video Player executable file", "", extensions)
+        fileName = QFileDialog.getOpenFileName(None, _("Select the Video Player executable file"), "", extensions)
         if fileName:
             self.ui.optionVideoAppLocation.setText(fileName)
+            
     def onOptionInterfaceLanguage(self, option):
-        QMessageBox.about(self,"Alert","The new language will be displayed after restarting the program.")
+        QMessageBox.about(self,_("Alert"),_("The new language will be displayed after restarting the program."))
         
     def onOptionDownloadFolderPredefined(self):
         if self.ui.optionDownloadFolderPredefined.isChecked():
@@ -130,13 +132,13 @@ class preferencesDialog(QtGui.QDialog):
         
         #Context menu for Explorer
         if platform.system() == "Linux":
-            self.ui.optionIntegrationExplorer.setText("Enable in your Konqueror/Dolphin/Nautilus")
+            self.ui.optionIntegrationExplorer.setText(_("Enable in your Konqueror/Dolphin/Nautilus"))
             self.ui.optionIntegrationExplorer.setEnabled(False)
         elif platform.system() == "Windows":
-            self.ui.optionIntegrationExplorer.setText("Enable in your Windows Explorer")
+            self.ui.optionIntegrationExplorer.setText(_("Enable in your Windows Explorer"))
             self.ui.optionIntegrationExplorer.setEnabled(False)
         else:
-            self.ui.optionIntegrationExplorer.setText("Enable in your File Manager")
+            self.ui.optionIntegrationExplorer.setText(_("Enable in your File Manager"))
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
         
@@ -144,7 +146,7 @@ class preferencesDialog(QtGui.QDialog):
         log.debug("Saving Options Settings")
         #Fields validation
         if self.ui.optionDownloadFolderPredefined.isChecked() and self.ui.optionPredefinedFolderText.text() == QString():
-            QMessageBox.about(self,"Error","Predefined Folder cannot be empty")
+            QMessageBox.about(self,_("Error"),_("Predefined Folder cannot be empty"))
             return
         #Writting settings
         settings = QSettings()
@@ -199,7 +201,7 @@ class preferencesDialog(QtGui.QDialog):
         if newProxyHost != oldProxyHost or newProxyPort != oldProxyPort:
             settings.setValue("options/ProxyHost",QVariant(newProxyHost))
             settings.setValue("options/ProxyPort", QVariant(newProxyPort))
-            QMessageBox.about(self,"Alert","Modified proxy settings will take effect after restarting the program")
+            QMessageBox.about(self,_("Alert"),_("Modified proxy settings will take effect after restarting the program"))
         
         programPath =  self.ui.optionVideoAppLocation.text()
         parameters =  self.ui.optionVideoAppParams.text()

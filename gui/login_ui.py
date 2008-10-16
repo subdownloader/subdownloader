@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'login.ui'
 #
-# Created: Fri Aug 22 22:27:56 2008
-#      by: PyQt4 UI code generator 4.4.3-snapshot-20080731
+# Created: Thu Oct 16 17:25:32 2008
+#      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -64,10 +64,11 @@ class Ui_LoginDialog(object):
         QtCore.QMetaObject.connectSlotsByName(LoginDialog)
 
     def retranslateUi(self, LoginDialog):
-        LoginDialog.setWindowTitle(QtGui.QApplication.translate("LoginDialog", "Login Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox.setTitle(QtGui.QApplication.translate("LoginDialog", "Login into OpenSubtitles.org", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_57.setText(QtGui.QApplication.translate("LoginDialog", "Username:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_58.setText(QtGui.QApplication.translate("LoginDialog", "Password:", None, QtGui.QApplication.UnicodeUTF8))
-        self.loginLabelStatus.setText(QtGui.QApplication.translate("LoginDialog", "Currently logged as :", None, QtGui.QApplication.UnicodeUTF8))
-        self.loginConnectButton.setText(QtGui.QApplication.translate("LoginDialog", "Connect", None, QtGui.QApplication.UnicodeUTF8))
+        LoginDialog.setWindowTitle(_("Login:"))
+        self.groupBox.setTitle(_("Login into OpenSubtitles.org"))
+        self.label_57.setText(_("Username:"))
+        self.label_58.setText(_("Password:"))
+        self.loginLabelStatus.setText(_("Currently logged as :"))
+        self.loginConnectButton.setText(_("Connect"))
+
 

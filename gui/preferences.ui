@@ -30,9 +30,6 @@
   <layout class="QVBoxLayout" name="verticalLayout_5" >
    <item>
     <widget class="QTabWidget" name="tabWidget" >
-     <property name="windowModality" >
-      <enum>Qt::NonModal</enum>
-     </property>
      <property name="tabPosition" >
       <enum>QTabWidget::North</enum>
      </property>
@@ -43,14 +40,6 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>540</width>
-        <height>279</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Search</string>
       </attribute>
@@ -136,14 +125,6 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_6" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>540</width>
-        <height>279</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Download</string>
       </attribute>
@@ -257,7 +238,7 @@
         </rect>
        </property>
        <property name="text" >
-        <string>Choose...</string>
+        <string>Browse...</string>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget" >
@@ -301,14 +282,6 @@
       </widget>
      </widget>
      <widget class="QWidget" name="tab_8" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>540</width>
-        <height>279</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Upload</string>
       </attribute>
@@ -343,14 +316,6 @@
       </widget>
      </widget>
      <widget class="QWidget" name="tab_9" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>540</width>
-        <height>279</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Network</string>
       </attribute>
@@ -427,14 +392,6 @@
       </widget>
      </widget>
      <widget class="QWidget" name="tab_7" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>540</width>
-        <height>279</height>
-       </rect>
-      </property>
       <attribute name="title" >
        <string>Others</string>
       </attribute>
@@ -525,7 +482,7 @@
         </rect>
        </property>
        <property name="text" >
-        <string>Choose...</string>
+        <string>Browse...</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="optionVideoAppLocation" >

@@ -33,9 +33,9 @@ class loginDialog(QtGui.QDialog):
             username = 'Anonymous'
             
         if hasattr(self._main, 'OSDBServer') and self._main.OSDBServer.is_connected():
-            self.ui.loginLabelStatus.setText("Succesfully logged as: %s" % username)
+            self.ui.loginLabelStatus.setText(_("Succesfully logged as: %s") % username)
         else:
-            self.ui.loginLabelStatus.setText("Not connected to the server" % username)
+            self.ui.loginLabelStatus.setText(_("Not Connected"))
 
     def onButtonClose(self):
         self.reject()
@@ -64,7 +64,7 @@ class loginDialog(QtGui.QDialog):
         if not hasattr(self, 'OSDBServer'):
             if not self._main.establishServerConnection():# and self.OSDBServer.is_connected():
                 self._main.window.setCursor(Qt.ArrowCursor)
-                QMessageBox.about(self._main.window,"Error","Error contacting the server. Please try again later")
+                QMessageBox.about(self._main.window,_("Error"),_("Error contacting the server. Please try again later"))
                 return
         
         if not username: 
@@ -73,9 +73,9 @@ class loginDialog(QtGui.QDialog):
             displayUsername = username
                 
         if self._main.login_user(str(username.toUtf8()),str(password.toUtf8()),self._main.window):
-            self.ui.loginLabelStatus.setText("Succesfully logged as: %s" % displayUsername)
+            self.ui.loginLabelStatus.setText(_("Succesfully logged as: %s") % displayUsername)
         else:
-            self.ui.loginLabelStatus.setText("Cannot loggin as: %s" % displayUsername)
+            self.ui.loginLabelStatus.setText(_("Cannot loggin as: %s") % displayUsername)
         self._main.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
 
