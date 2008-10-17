@@ -395,40 +395,11 @@
       <attribute name="title" >
        <string>Others</string>
       </attribute>
-      <widget class="QComboBox" name="optionInterfaceLanguage" >
-       <property name="geometry" >
-        <rect>
-         <x>202</x>
-         <y>3</y>
-         <width>177</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_61" >
-       <property name="geometry" >
-        <rect>
-         <x>20</x>
-         <y>0</y>
-         <width>177</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font" >
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text" >
-        <string>Interface Language:</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_62" >
        <property name="geometry" >
         <rect>
-         <x>20</x>
-         <y>30</y>
+         <x>12</x>
+         <y>40</y>
          <width>177</width>
          <height>29</height>
         </rect>
@@ -446,8 +417,8 @@
       <widget class="QLabel" name="label_63" >
        <property name="geometry" >
         <rect>
-         <x>20</x>
-         <y>80</y>
+         <x>12</x>
+         <y>90</y>
          <width>311</width>
          <height>18</height>
         </rect>
@@ -465,8 +436,8 @@
       <widget class="QLineEdit" name="optionVideoAppParams" >
        <property name="geometry" >
         <rect>
-         <x>128</x>
-         <y>130</y>
+         <x>120</x>
+         <y>140</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -475,8 +446,8 @@
       <widget class="QPushButton" name="optionVideoAppChooseLocation" >
        <property name="geometry" >
         <rect>
-         <x>399</x>
-         <y>99</y>
+         <x>391</x>
+         <y>109</y>
          <width>83</width>
          <height>31</height>
         </rect>
@@ -488,8 +459,8 @@
       <widget class="QLineEdit" name="optionVideoAppLocation" >
        <property name="geometry" >
         <rect>
-         <x>128</x>
-         <y>100</y>
+         <x>120</x>
+         <y>110</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -498,8 +469,8 @@
       <widget class="QLabel" name="label_65" >
        <property name="geometry" >
         <rect>
-         <x>119</x>
-         <y>159</y>
+         <x>111</x>
+         <y>169</y>
          <width>301</width>
          <height>18</height>
         </rect>
@@ -511,8 +482,8 @@
       <widget class="QLabel" name="label_66" >
        <property name="geometry" >
         <rect>
-         <x>30</x>
-         <y>130</y>
+         <x>22</x>
+         <y>140</y>
          <width>81</width>
          <height>23</height>
         </rect>
@@ -524,8 +495,8 @@
       <widget class="QLabel" name="label_67" >
        <property name="geometry" >
         <rect>
-         <x>30</x>
-         <y>100</y>
+         <x>22</x>
+         <y>110</y>
          <width>91</width>
          <height>23</height>
         </rect>
@@ -540,8 +511,8 @@
        </property>
        <property name="geometry" >
         <rect>
-         <x>50</x>
-         <y>50</y>
+         <x>42</x>
+         <y>60</y>
          <width>277</width>
          <height>31</height>
         </rect>
@@ -561,6 +532,41 @@
        <property name="text" >
         <string>Enable in your explorer</string>
        </property>
+      </widget>
+      <widget class="QWidget" name="" >
+       <property name="geometry" >
+        <rect>
+         <x>12</x>
+         <y>10</y>
+         <width>501</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout" >
+        <item>
+         <widget class="QLabel" name="label_61" >
+          <property name="font" >
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text" >
+           <string>Interface Language:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="optionInterfaceLanguage" />
+        </item>
+        <item>
+         <widget class="QPushButton" name="helpTranslateButton" >
+          <property name="text" >
+           <string>Help to translate</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>

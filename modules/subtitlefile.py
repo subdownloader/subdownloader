@@ -134,7 +134,7 @@ class SubtitleFile(object):
     
     def getLanguageName(self): 
         if self._languageName:
-            return self._languageName.lower()
+            return self._languageName
         else:
             return None
     

@@ -103,12 +103,12 @@ def xxx2xx(xxx):
 def xxx2name(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
-            return lang['LanguageName'].lower()
+            return lang['LanguageName']
             
 def xx2name(xx):
     for lang in LANGUAGES:
         if lang['ISO639'] == xx:
-            return lang['LanguageName'].lower()
+            return lang['LanguageName']
     
 def name2xx(name):
     for lang in LANGUAGES:

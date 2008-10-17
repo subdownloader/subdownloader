@@ -59,6 +59,7 @@ from gui.main_ui import Ui_MainWindow
 from gui.imdbSearch import imdbSearchDialog
 from gui.preferences import preferencesDialog
 from gui.about import aboutDialog
+from gui.chooseLanguage import chooseLanguageDialog
 from gui.login import loginDialog
 from FileManagement import FileScan, Subtitle
 from modules.videofile import  *
@@ -69,7 +70,6 @@ import languages.Languages as languages
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
-
 splash.showMessage(_("Building main dialog..."))
 
 class Main(QObject, Ui_MainWindow): 
@@ -265,7 +265,6 @@ class Main(QObject, Ui_MainWindow):
             self.tabs.setCurrentIndex(3)
             pass
     
-    
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
                 localedir = '/usr/share/locale/'
@@ -275,22 +274,31 @@ class Main(QObject, Ui_MainWindow):
                 #local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
                 #print local_path
             
-        #Translation stuff
+        localedir = 'locale' #remove
         
         # Init the list of languages to support
-        langs = []
+        self.interface_langs = [] #['en', 'es', 'pt']
+        
+        for root, dirs, files in os.walk(localedir):
+                if re.search(".*locale$", os.path.split(root)[0]):
+                        _lang = os.path.split(root)[-1]
+                
+                if 'subdownloader.mo' in files:
+                        self.interface_langs.append(_lang)
+                
         #Check the default locale
         lc, encoding = locale.getdefaultlocale()
         if not lc:
-            lc = 'en'
+            user_locale = 'en'
+        else:
+            user_locale = lc.split('_')[0]
 
-        interface_lang = QVariant() #QSettings().value("options/interfaceLanguage", QVariant())
+        interface_lang = QSettings().value("options/interfaceLanguage", QVariant())
         if interface_lang == QVariant():
-            print 22222222
-            interface_lang = self.chooseInterfaceLanguage()
+                interface_lang = self.chooseInterfaceLanguage(user_locale)
+        else:
+                interface_lang = str(interface_lang.toString().toUtf8())
         
-        #interface_lang = str(interface_lang.toString().toUtf8())
-        interface_lang = 'es'
         log.debug('Interface language: %s' % interface_lang)
         try:
             isTrans = gettext.translation(domain = "subdownloader",localedir = localedir ,languages=[interface_lang],fallback=True)
@@ -303,8 +311,14 @@ class Main(QObject, Ui_MainWindow):
         else:
                 __builtin__._ = lambda x : x
                 
-    def chooseInterfaceLanguage(self):
-        QMessageBox.about(self.window,_("Info"),"Not implemented yet. Please donate.")
+    def chooseInterfaceLanguage(self, user_locale):
+        self.choosenLanguage = 'en' #By default
+        dialog = chooseLanguageDialog(self, user_locale)
+        dialog.show()
+        ok = dialog.exec_()
+        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        return self.choosenLanguage
+
 
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
