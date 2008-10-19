@@ -90,7 +90,7 @@ class UploadListModel(QAbstractTableModel):
                     valid_subs.append(self._subs[i].getFilePath())
             if self._videos[i]: 
                 if valid_videos.count(self._videos[i].getFilePath()) > 0:
-                    return False ,_('Videofie %s is repeated') % str(i +1)
+                    return False ,_('Videofile %s is repeated') % str(i +1)
                 else:
                     valid_videos.append(self._videos[i].getFilePath())
                 
@@ -101,7 +101,7 @@ class UploadListModel(QAbstractTableModel):
                    return True, ""
                 
             if not self._subs[i] or not self._videos[i]  and i != self.getTotalRows()-1:
-                return False ,_('Some of the video/subtitles are empty')
+                return False ,_('Some of the video/subtitles fields are empty')
                 
         return True, ""
     

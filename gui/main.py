@@ -1062,7 +1062,7 @@ class Main(QObject, Ui_MainWindow):
         else:
             imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
             if imdb_id == QVariant(): #No IMDB
-                QMessageBox.about(self.window,_("Error"),_("Please select an IMDB movie."))
+                QMessageBox.about(self.window,_("Error"),_("Please identify the movie."))
                 return
             else:
                 self.status_progress = QProgressDialog(_("Uploading subtitle"), _("&Abort"), 0, 0, self.window)
@@ -1099,7 +1099,7 @@ class Main(QObject, Ui_MainWindow):
                     self.status_progress.close()
                     if info['status'] == "200 OK":
                         successBox = QMessageBox(_("Successful Upload"), 
-                                                                        _("Subtitles succesfully uploaded. \nMany Thanks!") , 
+                                                                        _("Subtitles succesfully uploaded.\nMany Thanks!") , 
                                                                         QMessageBox.Information, 
                                                                         QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
                                                                         QMessageBox.NoButton,
@@ -1420,7 +1420,7 @@ class Main(QObject, Ui_MainWindow):
                 except Exception, e:
                     dlkOK = False
                     log.debug(e)
-                    QMessageBox.critical(self.window,_("Error"),_("An error occured downloading %s:\n%s") % (url, e), QMessageBox.Abort)
+                    QMessageBox.critical(self.window,_("Error"),_("An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
                 QCoreApplication.processEvents()
 
                 # Only try unziping if download was succesful
@@ -1442,7 +1442,7 @@ class Main(QObject, Ui_MainWindow):
                         unzipedOK += 1
                     except Exception, e:
                         log.debug(e)
-                        QMessageBox.critical(self.window,_("Error"),_("An error occured unziping %s:n%s") % (zipDestFile, e), QMessageBox.Abort)
+                        QMessageBox.critical(self.window,_("Error"),_("An error occured unziping %s:\nError: %s") % (zipDestFile, e), QMessageBox.Abort)
 
         self.progress(100)
         self.status_progress.close()
