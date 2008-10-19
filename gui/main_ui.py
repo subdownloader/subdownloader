@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Fri Oct 17 03:35:39 2008
+# Created: Sun Oct 19 17:38:43 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -623,7 +623,7 @@ class Ui_MainWindow(object):
         self.buttonSearchSelectVideos.setToolTip(_("Select videos that need subtitles"))
         self.buttonSearchSelectVideos.setText(_("Select videos..."))
         self.buttonSearchSelectFolder.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
-        self.buttonSearchSelectFolder.setText(_("Select folder...  "))
+        self.buttonSearchSelectFolder.setText(_("Select folder..."))
         self.buttonFind.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
         self.buttonFind.setText(_("Search subtitles"))
         self.label_2.setText(_("Videos/Subtitles found:"))
@@ -654,7 +654,7 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(_("Movie Title:"))
-        self.uploadIMDB.setItemText(0, _("Click on FIND button to choose the IMDB link"))
+        self.uploadIMDB.setItemText(0, _("Click on the Find button to identify the movie"))
         self.buttonUploadFindIMDB.setText(_("Find"))
         self.label_8.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -672,8 +672,8 @@ class Ui_MainWindow(object):
         self.menu_Preferences.setTitle(_("&Settings"))
         self.menuView.setTitle(_("&View"))
         self.action_Quit.setText(_("Quit"))
-        self.action_HelpHomepage.setText(_("Visit our &Site"))
-        self.action_HelpAbout.setText(_("&About Subdownloader"))
+        self.action_HelpHomepage.setText(_("Visit our Site"))
+        self.action_HelpAbout.setText(_("About Subdownloader"))
         self.action_HelpBug.setText(_("Reporting errors"))
         self.action_HelpDonation.setText(_("Donate 5 USD/EUR"))
         self.action_ShowPreferences.setText(_("&Configure Subdownloader"))

@@ -28,8 +28,7 @@ __builtin__._ = lambda x : x
 LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': _('Albanian')},
  {'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': _('Arabic')},
  {'ISO639': 'hy', 'SubLanguageID': 'arm', 'LanguageName': _('Armenian')},
- {'ISO639': 'ay', 'SubLanguageID': 'ass', 'LanguageName': _('Assyrian')},
- {'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': _('Malayalam')},
+ {'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': _('Malay')},
  {'ISO639': 'bs', 'SubLanguageID': 'bos', 'LanguageName': _('Bosnian')},
  {'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': _('Brazilian')}, #TODO: some ISO639 call it 'bp', check, maybe local pt_BR
  {'ISO639': 'bg', 'SubLanguageID': 'bul', 'LanguageName': _('Bulgarian')},

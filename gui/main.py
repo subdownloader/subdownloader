@@ -276,15 +276,16 @@ class Main(QObject, Ui_MainWindow):
             
         localedir = 'locale' #remove
         
-        # Init the list of languages to support
-        self.interface_langs = [] #['en', 'es', 'pt']
-        
+        log.debug('Scanning translation files .mo')
+        self.interface_langs = [] 
         for root, dirs, files in os.walk(localedir):
                 if re.search(".*locale$", os.path.split(root)[0]):
                         _lang = os.path.split(root)[-1]
                 
                 if 'subdownloader.mo' in files:
                         self.interface_langs.append(_lang)
+        
+        log.debug('Found these translations languages: %r' % self.interface_langs)
                 
         #Check the default locale
         lc, encoding = locale.getdefaultlocale()
@@ -292,12 +293,17 @@ class Main(QObject, Ui_MainWindow):
             user_locale = 'en'
         else:
             user_locale = lc.split('_')[0]
-
-        interface_lang = QSettings().value("options/interfaceLanguage", QVariant())
-        if interface_lang == QVariant():
-                interface_lang = self.chooseInterfaceLanguage(user_locale)
+        
+        settings = QSettings()
+        interface_lang = settings.value("options/interfaceLanguage", QVariant())
+        if not len(self.interface_langs):
+                interface_lang = 'en'
         else:
-                interface_lang = str(interface_lang.toString().toUtf8())
+                if interface_lang == QVariant():
+                        interface_lang = self.chooseInterfaceLanguage(user_locale)
+                        settings.setValue("options/interfaceLanguage", QVariant(interface_lang))
+                else:
+                        interface_lang = str(interface_lang.toString().toUtf8())
         
         log.debug('Interface language: %s' % interface_lang)
         try:
@@ -740,7 +746,7 @@ class Main(QObject, Ui_MainWindow):
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
         parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
         if programPath == QString(): 
-            QMessageBox.about(self.window,_("Error"),_("No default video player has been defined in Main->Preferences"))
+            QMessageBox.about(self.window,_("Error"),_("No default video player has been defined in Main->Settings"))
             return
         else:
             subtitle = self.videoModel.getSelectedItem().data
@@ -855,7 +861,7 @@ class Main(QObject, Ui_MainWindow):
                     #If the file and the folder don't have writte access.
                     if not QFileInfo(destinationPath).isWritable() and not QFileInfo(QFileInfo(destinationPath).absoluteDir().path()).isWritable() :
                         warningBox = QMessageBox(_("Error write permission"), 
-                                                                    _("%s cannot be saved.\nCheck that the folder exists and user has write-access permissions.") %destinationPath , 
+                                                                    _("%s cannot be saved.\nCheck that the folder exists and you have write-access permissions.") %destinationPath , 
                                                                     QMessageBox.Warning, 
                                                                     QMessageBox.Retry | QMessageBox.Default ,
                                                                     QMessageBox.Discard | QMessageBox.Escape, 
@@ -885,7 +891,7 @@ class Main(QObject, Ui_MainWindow):
                 if QFileInfo(destinationPath).exists() and not replace_all and optionWhereToDownload != QVariant("ASK_FOLDER"):
                     # The "remote filename" below is actually not the real filename. Real name could be confusing
                     # since we always rename downloaded sub to match movie filename. 
-                    fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s \n\nRemote: %s\n\nHow would you like to proceed?\n") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
+                    fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s \n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
                     skipButton = fileExistsBox.addButton(QString(_("Skip")), QMessageBox.ActionRole)
                     replaceButton = fileExistsBox.addButton(QString(_("Replace")), QMessageBox.ActionRole)
                     replaceAllButton = fileExistsBox.addButton(QString(_("Replace all")), QMessageBox.ActionRole)
@@ -1109,7 +1115,7 @@ class Main(QObject, Ui_MainWindow):
                         QMessageBox.about(self.window,_("Error"),_("Problem while uploading...\nError: %s") % info['status'])
                 except:
                     self.status_progress.close()
-                    QMessageBox.about(self.window,_("Error"),_("Error contacting the server.\nPlease restart or try later."))
+                    QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please restart or try later"))
                 self.window.setCursor(Qt.ArrowCursor)
     
     def uploadCleanWindow(self):

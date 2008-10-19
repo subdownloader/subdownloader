@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Fri Oct 17 18:56:30 2008
+# Created: Sun Oct 19 15:32:15 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -217,22 +217,22 @@ class Ui_PreferencesDialog(object):
         self.optionIntegrationExplorer.setSizePolicy(sizePolicy)
         self.optionIntegrationExplorer.setMinimumSize(QtCore.QSize(0, 22))
         self.optionIntegrationExplorer.setObjectName("optionIntegrationExplorer")
-        self.widget = QtGui.QWidget(self.tab_7)
-        self.widget.setGeometry(QtCore.QRect(12, 10, 501, 32))
-        self.widget.setObjectName("widget")
-        self.horizontalLayout = QtGui.QHBoxLayout(self.widget)
+        self.layoutWidget1 = QtGui.QWidget(self.tab_7)
+        self.layoutWidget1.setGeometry(QtCore.QRect(12, 10, 501, 32))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.horizontalLayout = QtGui.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label_61 = QtGui.QLabel(self.widget)
+        self.label_61 = QtGui.QLabel(self.layoutWidget1)
         font = QtGui.QFont()
         font.setWeight(75)
         font.setBold(True)
         self.label_61.setFont(font)
         self.label_61.setObjectName("label_61")
         self.horizontalLayout.addWidget(self.label_61)
-        self.optionInterfaceLanguage = QtGui.QComboBox(self.widget)
+        self.optionInterfaceLanguage = QtGui.QComboBox(self.layoutWidget1)
         self.optionInterfaceLanguage.setObjectName("optionInterfaceLanguage")
         self.horizontalLayout.addWidget(self.optionInterfaceLanguage)
-        self.helpTranslateButton = QtGui.QPushButton(self.widget)
+        self.helpTranslateButton = QtGui.QPushButton(self.layoutWidget1)
         self.helpTranslateButton.setObjectName("helpTranslateButton")
         self.horizontalLayout.addWidget(self.helpTranslateButton)
         self.tabWidget.addTab(self.tab_7, "")
@@ -264,7 +264,7 @@ class Ui_PreferencesDialog(object):
         self.label_53.setText(_("Filename of the Subtitle:"))
         self.optionButtonChooseFolder.setText(_("Browse..."))
         self.optionDownloadSameFilename.setText(_("Same name as video file"))
-        self.optionDownloadSameFilenamePlusLang.setText(_("Same name as video file + language code (ex: StarwardsCD1.eng.srt)"))
+        self.optionDownloadSameFilenamePlusLang.setText(_("Same name as video file + language code (ex: StarWarsCD1.eng.srt)"))
         self.optionDownloadOnlineSubName.setText(_("Same name as the online subtitle"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _("Download"))
         self.label_55.setText(_("Default language of uploaded subtitles"))

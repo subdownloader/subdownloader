@@ -264,7 +264,7 @@
         <item>
          <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang" >
           <property name="text" >
-           <string>Same name as video file + language code (ex: StarwardsCD1.eng.srt)</string>
+           <string>Same name as video file + language code (ex: StarWarsCD1.eng.srt)</string>
           </property>
           <property name="checked" >
            <bool>false</bool>
@@ -533,7 +533,7 @@
         <string>Enable in your explorer</string>
        </property>
       </widget>
-      <widget class="QWidget" name="" >
+      <widget class="QWidget" name="layoutWidget" >
        <property name="geometry" >
         <rect>
          <x>12</x>

@@ -45,9 +45,8 @@ class preferencesDialog(QtGui.QDialog):
             else:
                 self.ui.optionFilterLangLayout_4.addWidget(self.filterLanguages[lang_xxx] )
             
-        for lang in locale_langs:
-            if lang_xxx == "eng": #For the moment interface is only in English
-                self.ui.optionInterfaceLanguage.addItem(lang["LanguageName"], QVariant(lang_xxx))
+        for lang_xx in self._main.interface_langs:
+                self.ui.optionInterfaceLanguage.addItem(languages.xx2name(lang_xx), QVariant(lang_xx))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
@@ -114,7 +113,7 @@ class preferencesDialog(QtGui.QDialog):
         if index != -1 :
             self.ui.optionDefaultUploadLanguage.setCurrentIndex (index)
             
-        optionInterfaceLanguage = settings.value("options/interfaceLanguage", QVariant("eng"))
+        optionInterfaceLanguage = settings.value("options/interfaceLanguage", QVariant("en"))
         index = self.ui.optionInterfaceLanguage.findData(optionInterfaceLanguage)
         if index != -1 :
             self.ui.optionInterfaceLanguage.setCurrentIndex (index)

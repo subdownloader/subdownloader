@@ -19,7 +19,8 @@ class chooseLanguageDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self._main  = parent
         settings = QSettings()
-        QObject.connect(self.ui.OKButton, SIGNAL("clicked(bool)"), self.onButtonClose)
+        QObject.connect(self.ui.languagesList, SIGNAL("activated(QModelIndex)"), self.onOkButton)
+        QObject.connect(self.ui.OKButton, SIGNAL("clicked(bool)"), self.onOkButton)
         
         for lang_xx in self._main.interface_langs:
                 item = QListWidgetItem(Languages.xx2name(lang_xx))
@@ -28,7 +29,7 @@ class chooseLanguageDialog(QtGui.QDialog):
                 if lang_xx == user_locale:
                         self.ui.languagesList.setCurrentItem(item,QItemSelectionModel.ClearAndSelect)
 
-    def onButtonClose(self):
+    def onOkButton(self):
         if not self.ui.languagesList.currentItem():
                 QMessageBox.about(self,"Alert","Please select a language")
         else:

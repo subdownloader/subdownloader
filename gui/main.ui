@@ -141,7 +141,7 @@
                       <string>Click here to Search the subtitles of the movies in that folder</string>
                      </property>
                      <property name="text" >
-                      <string>Select folder...  </string>
+                      <string>Select folder...</string>
                      </property>
                      <property name="icon" >
                       <iconset resource="images.qrc" >
@@ -893,7 +893,7 @@ p, li { white-space: pre-wrap; }
                 <widget class="QComboBox" name="uploadIMDB" >
                  <item>
                   <property name="text" >
-                   <string>Click on FIND button to choose the IMDB link</string>
+                   <string>Click on the Find button to identify the movie</string>
                   </property>
                  </item>
                 </widget>
@@ -1227,12 +1227,12 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_HelpHomepage" >
    <property name="text" >
-    <string>Visit our &amp;Site</string>
+    <string>Visit our Site</string>
    </property>
   </action>
   <action name="action_HelpAbout" >
    <property name="text" >
-    <string>&amp;About Subdownloader</string>
+    <string>About Subdownloader</string>
    </property>
   </action>
   <action name="action_HelpBug" >
