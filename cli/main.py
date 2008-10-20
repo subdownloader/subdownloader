@@ -133,6 +133,9 @@ class Main(OSDBServer.OSDBServer):
         """Check for minimum parameters integrity"""
         # check if user set a video file name
         self.log.debug("Checking video file parameter...")
+        if not self.options.videofile:  #in GUI this value needs to empty, but for CLI we replace by currentDir
+            self.options.videofile = os.path.abspath(os.path.curdir)
+            
         if self.options.videofile == os.path.abspath(os.path.curdir) and self.options.interactive:
             # confirm with user if he wants to use default directory
             self.options.videofile = raw_input("Enter your video(s) directory [%s]: "% self.options.videofile) or self.options.videofile

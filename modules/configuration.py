@@ -59,7 +59,7 @@ class Terminal(object):
                                 default="download", help="Upload a subtitle"), 
         make_option("-L", "--list", dest="operation", action="store_const", const="list", 
                                 default="download", help="List available subtitles without downloading"), 
-        make_option("-V", "--video", dest="videofile", metavar="FILE/DIR", default=os.path.abspath(os.path.curdir), 
+        make_option("-V", "--video", dest="videofile", metavar="FILE/DIR", default=None, 
                                 help="Full path to your video(s). Don't use '~'"), 
         make_option("-l", "--lang", dest="language", default='all', 
                                 help="Used in subtitle download and upload preferences"), 
@@ -72,7 +72,7 @@ class Terminal(object):
                                 
         make_option("-u", "--user", dest="username", default='', 
                                 help="Opensubtitles.com username. Must be set in upload mode. Default is blank (anonymous)"), 
-        make_option("-p", "--passwd", dest="password", default='', 
+        make_option("-p", "--password", dest="password", default='', 
                                 help="Opensubtitles.com password. Must be set in upload mode. Default is blank (anonymous)"), 
         # misc options
         make_option("-s", "--server", dest="server", default=None,

@@ -229,7 +229,8 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         self.status_label.setIndent(10)
-        self.donate_button = QtGui.QPushButton(_("Donate 5 USD/EUR"))
+        self.donate_button = QtGui.QPushButton("   " + _("Help us with 5 USD/EUR"))
+        #self.donate_button.setIndent(10)
         iconpaypal = QtGui.QIcon()
         iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.donate_button.setIcon(iconpaypal)
@@ -245,25 +246,29 @@ class Main(QObject, Ui_MainWindow):
         if not options.test:
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
-            
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
                 
                 settings = QSettings()
-                settingsUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
-                settingsPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
+                if options.username:
+                    loginUsername = options.username
+                    loginPassword = options.password
+                else:
+                    loginUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
+                    loginPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 #thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
-                self.login_user(settingsUsername,settingsPassword,self.window)
+                self.login_user(loginUsername,loginPassword,self.window)
             else:
                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
             self.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
-
-        #FOR TESTING
-        if options.test:
-            #self.SearchVideos('/media/xp/pelis/')
-            self.tabs.setCurrentIndex(3)
-            pass
+        
+        if options.videofile:
+                if os.path.exists(options.videofile):
+                        self.SearchVideos(options.videofile)
+                else:
+                        QMessageBox.about(self.window,_("Error"),_("Unable to find %s") % options.videofile)
+            
     
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
@@ -517,9 +522,9 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForVideo.addItem(_("All languages"), QVariant(''))
         self.filterLanguageForTitle.addItem(_("All languages"), QVariant(''))
         for lang in languages.LANGUAGES:
-            self.filterLanguageForVideo.addItem(lang["LanguageName"],  QVariant(lang["SubLanguageID"]))
-            self.filterLanguageForTitle.addItem(lang["LanguageName"], QVariant(lang["SubLanguageID"]))
-            self.uploadLanguages.addItem(lang["LanguageName"], QVariant(lang["SubLanguageID"]))
+            self.filterLanguageForVideo.addItem(_(lang["LanguageName"]),  QVariant(lang["SubLanguageID"]))
+            self.filterLanguageForTitle.addItem(_(lang["LanguageName"]), QVariant(lang["SubLanguageID"]))
+            self.uploadLanguages.addItem(_(lang["LanguageName"]), QVariant(lang["SubLanguageID"]))
         
         settings = QSettings()
         optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))

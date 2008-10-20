@@ -33,9 +33,9 @@ class preferencesDialog(QtGui.QDialog):
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), QVariant())
         for num, lang in enumerate(languages.LANGUAGES):
             lang_xxx = lang["SubLanguageID"]
-            self.ui.optionDefaultUploadLanguage.addItem(lang["LanguageName"], QVariant(lang_xxx))
+            self.ui.optionDefaultUploadLanguage.addItem(_(lang["LanguageName"]), QVariant(lang_xxx))
             #Adding checkboxes for the Search...Filter by ...
-            self.filterLanguages[lang_xxx] = QtGui.QCheckBox(lang["LanguageName"], self.ui.scrollAreaWidgetContents)
+            self.filterLanguages[lang_xxx] = QtGui.QCheckBox(_(lang["LanguageName"]), self.ui.scrollAreaWidgetContents)
             if num % 4 == 1:
                 self.ui.optionFilterLangLayout_1.addWidget(self.filterLanguages[lang_xxx] )
             elif num % 4 == 2:
@@ -46,7 +46,10 @@ class preferencesDialog(QtGui.QDialog):
                 self.ui.optionFilterLangLayout_4.addWidget(self.filterLanguages[lang_xxx] )
             
         for lang_xx in self._main.interface_langs:
-                self.ui.optionInterfaceLanguage.addItem(languages.xx2name(lang_xx), QVariant(lang_xx))
+                languageName = languages.xx2name(lang_xx)
+                if not languageName:
+                    languageName = lang_xx
+                self.ui.optionInterfaceLanguage.addItem(_(languageName), QVariant(lang_xx))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()

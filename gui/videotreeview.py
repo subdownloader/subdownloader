@@ -148,11 +148,11 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             if not uploader : 
                 uploader = 'Anonymous'
             if sub.isLocal():
-                return QVariant(_("[%s]\t Rate: %s\t %s - (Already downloaded)") % (data.getLanguageName() ,str(data.getRating()),   data.getFileName()))
+                return QVariant(_("[%s]\t Rate: %s\t %s - (Already downloaded)") % (_(data.getLanguageName()) ,str(data.getRating()),   data.getFileName()))
             elif hasattr(sub, "_filename"): #Subtitle found from hash
-                return QVariant(_("[%s]\t Rate: %s\t %s    - Uploader: %s") % (data.getLanguageName() ,str(data.getRating()),   data.getFileName(), uploader))
+                return QVariant(_("[%s]\t Rate: %s\t %s    - Uploader: %s") % (_(data.getLanguageName()) ,str(data.getRating()),   data.getFileName(), uploader))
             else: #Subtitle found from movie name
-                return QVariant(_("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s") % (sub.getLanguageName() ,str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
+                return QVariant(_("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s") % (_(sub.getLanguageName()),str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
         return QVariant()
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
@@ -176,6 +176,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     movieName = movie_info["MovieNameEng"]
                 else:
                     movieName = movie_info["MovieName"]
+                    
                 info = _("%s [%s] [IMDB rate=%s] - File: %s") %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"], data.getFileName())
                 return QVariant(info)
             else:
@@ -195,7 +196,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             
         if role == QtCore.Qt.DisplayRole:
             movieName = movie.MovieName
-            info = "%s [%s] - [IMDB rate=%s]  - (%d subs)" %(movie.MovieName,  movie.MovieYear, movie.IMDBRating, int(movie.totalSubs))
+            info = _("%s [%s] - [IMDB rate=%s]  - (%d subs)") %(movie.MovieName,  movie.MovieYear, movie.IMDBRating, int(movie.totalSubs))
             if not len(movie.subtitles):
                 pass #TODO: Show the PLUS icon to expand #info += " (Double Click here)"
             return QVariant(info)
