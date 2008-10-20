@@ -17,8 +17,15 @@
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import sys, os, platform
+
+#calculating the folder of SubDownloader src (or .exe)
+if os.path.isfile(sys.path[0]):
+        subdownloader_folder = os.path.dirname(sys.path[0])
+else:
+        subdownloader_folder = sys.path[0]
+        
 if platform.system() == "Windows":
-    sys.stderr = open(os.path.join(os.path.dirname(sys.path[0]),"stderr.log"), "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
+    sys.stderr = open(os.path.join(subdownloader_folder,"subdownloader.log"), "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
 import logging
 from optparse import OptionParser
 # this will allow logic imports
@@ -28,7 +35,6 @@ sys.path.append(os.path.join(sys.path[0], 'modules') )
 # simple aplication starter
 import modules.configuration as conf
 
-
 """
 CRITICAL    50
 ERROR        40
@@ -37,7 +43,6 @@ INFO            20
 DEBUG       10
 NOTSET       0
 """
-
 #TODO: change conf.VERSION to subdownloader.APP_VERSION
 parser = OptionParser(description=conf.General.description, version=conf.General.version, option_list=conf.Terminal.option_list)
 (options, args) = parser.parse_args()
@@ -51,12 +56,13 @@ logging.basicConfig(level=options.logging,
                     format=conf.Logging.log_format,
                     datefmt='%y-%m-%d %H:%M',
                     #uncomment next two lines if we want logging into a file
-                    filename=conf.Logging.log_path,
-                    filemode=conf.Logging.log_mode,
+                    #filename=conf.Logging.log_path,
+                    #filemode=conf.Logging.log_mode,
                     )
-                    
+
+"""
 # add a console logging handler if verbosity is turned on
-if options.verbose:
+if not options.verbose:
     # define a Handler which writes INFO messages or higher to the sys.stderr
     console = logging.StreamHandler()
     console.setLevel(options.logging)
@@ -69,8 +75,8 @@ if options.verbose:
     console.setFormatter(formatter)
     # add the handler to the root logger
     logging.getLogger('').addHandler(console)
+"""
 # create a logger named 'subdownloader.run' 
-# consequent ones should follow its parent as. 'subdownloader.package.foo'
 log = logging.getLogger("run")
     
 if __name__ == "__main__":   

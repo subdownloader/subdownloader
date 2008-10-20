@@ -560,7 +560,7 @@ class Main(QObject, Ui_MainWindow):
             self.subtitlesCheckedChanged()
         else:
             self.videoModel.setLanguageFilter(None)
-            self.videoModel.unselectSubtitles() #Let's select by default the most rated subtitle for each video 
+            self.videoModel.unselectSubtitles()
             self.subtitlesCheckedChanged()
         
         self.videoView.expandAll()

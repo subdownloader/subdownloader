@@ -51,7 +51,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     #self.setupTree(self.root)
 
   def setVideos(self,videoResults,filter = None, append=False):
-        log.debug("videotreeview::setVideos , len(videoResults) = %d " % len(videoResults))
+        log.debug("setVideos-> len(videoResults) = %d " % len(videoResults))
         if append:
                 self.videoResultsBackup += videoResults
         else:
@@ -92,7 +92,8 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     for video in self.root.children:
           if len(video.children):
               subtitle = video.children[0] #We suppossed that the first subtitle is the most rated one
-              subtitle.checked = True
+              if not (subtitle.data).isLocal():
+                    subtitle.checked = True
               
   def unselectSubtitles(self):
       for video in self.root.children:
@@ -115,8 +116,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else:
       # header
       return 1 #len(self.root.data) 
-      
-    
+
   def data(self, index, role):
     if not index.isValid():
       return QVariant()
