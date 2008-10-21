@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Oct 19 17:38:43 2008
+# Created: Wed Oct 22 02:36:48 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,10 +35,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.tab)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.frame = QtGui.QFrame(self.tab)
-        self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame.setFrameShape(QtGui.QFrame.NoFrame)
         self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setLineWidth(0)
         self.frame.setObjectName("frame")
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.frame)
+
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.splitter = QtGui.QSplitter(self.frame)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
