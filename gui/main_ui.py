@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Wed Oct 22 02:36:48 2008
+# Created: Wed Oct 22 03:00:43 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,10 +33,13 @@ class Ui_MainWindow(object):
         self.tab = QtGui.QWidget()
         self.tab.setObjectName("tab")
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.tab)
+        self.verticalLayout_4.setSpacing(6)
+        self.verticalLayout_4.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
+
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.frame = QtGui.QFrame(self.tab)
         self.frame.setFrameShape(QtGui.QFrame.NoFrame)
-        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setFrameShadow(QtGui.QFrame.Plain)
         self.frame.setLineWidth(0)
         self.frame.setObjectName("frame")
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.frame)
