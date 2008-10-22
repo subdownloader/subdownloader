@@ -188,11 +188,14 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString,QString)"), self.onUploadIMDBNewSelection)
         QObject.connect(self, SIGNAL("release_updated(QString)"), self.OnChangeReleaseName)
         
-        
-        
-        #self.label_autodetect_imdb.setText(u'↓ Language autodetected from content')
         self.label_autodetect_imdb.hide()
         self.label_autodetect_lang.hide()
+        #print self.uploadView.sizeHint ()
+        self.uploadView.resize(QSize(0, 100))
+        #self.uploadView.adjustSize()
+        self.groupBox_2.adjustSize()
+        self.uploadDetailsGroupBox.adjustSize()
+        #self.window.adjustSize()
         
         #Search by Name
         QObject.connect(self.buttonSearchByName, SIGNAL("clicked(bool)"), self.onButtonSearchByTitle)
@@ -419,7 +422,11 @@ class Main(QObject, Ui_MainWindow):
             
     def read_settings(self):
         settings = QSettings()
-        self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 700))).toSize())
+        self.window.resize(settings.value("mainwindow/size", QVariant(QSize(1000, 400))).toSize())
+        pos = settings.value("mainwindow/pos", QVariant())
+        if pos != QVariant():
+                self.window.move(pos.toPoint())
+            
         size = settings.beginReadArray("upload/imdbHistory")
         for i in range(size):
             settings.setArrayIndex(i)
@@ -435,6 +442,7 @@ class Main(QObject, Ui_MainWindow):
     def write_settings(self):
         settings = QSettings()
         settings.setValue("mainwindow/size", QVariant(self.window.size()))
+        settings.setValue("mainwindow/pos", QVariant(self.window.pos()))
     
     def close_event(self, e):
         self.write_settings()
@@ -1207,28 +1215,38 @@ class Main(QObject, Ui_MainWindow):
     def updateButtonsUpload(self):
         self.uploadView.resizeRowsToContents()
         selected = self.uploadSelectionModel.selection()
-        if selected.count():
-            self.uploadModel.rowSelected = selected.last().bottomRight().row()
+        total_selected = selected.count()
+        if  total_selected== 1:
+            self.uploadModel.rowsSelected = [selected.last().bottomRight().row()]
             self.buttonUploadMinusRow.setEnabled(True)
-            if self.uploadModel.rowSelected != self.uploadModel.getTotalRows() -1:
+            if self.uploadModel.rowsSelected[0] != self.uploadModel.getTotalRows() -1:
                 self.buttonUploadDownRow.setEnabled(True)
             else:
                 self.buttonUploadDownRow.setEnabled(False)
                 
-            if self.uploadModel.rowSelected != 0:
+            if self.uploadModel.rowsSelected[0] != 0:
                 self.buttonUploadUpRow.setEnabled(True)
             else:
                 self.buttonUploadUpRow.setEnabled(False)
-        else:
-            self.uploadModel.rowSelected = None
-            self.buttonUploadDownRow.setEnabled(False)
-            self.buttonUploadUpRow.setEnabled(False)
-            self.buttonUploadMinusRow.setEnabled(False)
+                
+        elif total_selected > 1:
+                self.buttonUploadDownRow.setEnabled(False)
+                self.buttonUploadUpRow.setEnabled(False)
+                self.buttonUploadMinusRow.setEnabled(True)
+                self.uploadModel.rowsSelected = []
+                for range in selected:
+                    self.uploadModel.rowsSelected.append(range.bottomRight().row())
+        else: #nothing selected 
+                self.uploadModel.rowsSelected = None
+                self.buttonUploadDownRow.setEnabled(False)
+                self.buttonUploadUpRow.setEnabled(False)
+                self.buttonUploadMinusRow.setEnabled(False)
 
     def onUploadChangeSelection(self, selected, unselected):
         self.updateButtonsUpload()
         
     def onUploadClickViewCell(self, index):
+        print 3333
         row, col = index.row(), index.column()
         settings = QSettings()
         currentDir = settings.value("mainwindow/workingDirectory", QVariant())

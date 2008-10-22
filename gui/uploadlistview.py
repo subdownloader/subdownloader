@@ -30,9 +30,9 @@ class UploadListModel(QAbstractTableModel):
         self._data = None
         self._subs = [None, None]
         self._videos = [None, None]
-        self._headers = ["VideoFile", "SubTitle"]
+        self._headers = [_("Videofile"), _("Subtitle")]
         self._main = None
-        self.rowSelected = None
+        self.rowsSelected = None
     
     def dropMimeData(self, data, action, row, column, parent):
         print row,column
@@ -221,9 +221,9 @@ class UploadListModel(QAbstractTableModel):
     
     def onUploadButtonPlusRow(self, clicked):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        if(self.rowSelected != None):
-             self._videos.insert(self.rowSelected +1, None)
-             self._subs.insert(self.rowSelected +1, None)
+        if(self.rowsSelected != None):
+             self._videos.insert(self.rowsSelected[0] +1, None)
+             self._subs.insert(self.rowsSelected[0] +1, None)
         else:
             self._videos.append(None)
             self._subs.append(None)
@@ -231,16 +231,21 @@ class UploadListModel(QAbstractTableModel):
         self._main.updateButtonsUpload() 
         
     def onUploadButtonMinusRow(self, clicked):
-         if self.rowSelected != None:
+         if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
-            try:
-                del self._videos[self.rowSelected]
-                del self._subs[self.rowSelected]
-            except:
-                pass
+            
+            rowsSelected = self.rowsSelected
+            rowsSelected.sort(reverse=True)
+
+            for row in rowsSelected:
+                    try:
+                        del self._videos[row]
+                        del self._subs[row]
+                    except:
+                        pass
             self.emit(SIGNAL("layoutChanged()"))
-            if self.rowSelected > 0: 
-                previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
+            if self.rowsSelected[0] > 0: 
+                previousRowSelection = QItemSelection(self.createIndex(self.rowsSelected[0] -1, UploadListView.COL_VIDEO),self.createIndex(self.rowsSelected[0] -1, UploadListView.COL_SUB))
                 self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
             #elif not len(self._videos):
                 #print "last row"
@@ -248,18 +253,19 @@ class UploadListModel(QAbstractTableModel):
             self._main.updateButtonsUpload() 
         
     def onUploadButtonUpRow(self, clicked):
-        if self.rowSelected != None:
+        if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
-            if self.rowSelected != 0:
-                temp = self._videos[self.rowSelected]
-                self._videos[self.rowSelected] = self._videos[self.rowSelected -1]
-                self._videos[self.rowSelected - 1] = temp
+            rowSelected = self.rowsSelected[0]
+            if rowSelected != 0:
+                temp = self._videos[rowSelected]
+                self._videos[rowSelected] = self._videos[rowSelected -1]
+                self._videos[rowSelected - 1] = temp
                 
-                temp = self._subs[self.rowSelected]
-                self._subs[self.rowSelected] = self._subs[self.rowSelected -1]
-                self._subs[self.rowSelected - 1] = temp
+                temp = self._subs[rowSelected]
+                self._subs[rowSelected] = self._subs[rowSelected -1]
+                self._subs[rowSelected - 1] = temp
             self.emit(SIGNAL("layoutChanged()"))
-            previousRowSelection = QItemSelection(self.createIndex(self.rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(self.rowSelected-1, UploadListView.COL_SUB))
+            previousRowSelection = QItemSelection(self.createIndex(rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(rowSelected-1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
             
         self._main.updateButtonsUpload() 
@@ -270,19 +276,20 @@ class UploadListModel(QAbstractTableModel):
         self.emit(SIGNAL("layoutChanged()"))
         
     def onUploadButtonDownRow(self, clicked):
-        if self.rowSelected != None:
+        if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
-            if self.rowSelected != self.getTotalRows() -1:
-                temp = self._videos[self.rowSelected]
-                self._videos[self.rowSelected] = self._videos[self.rowSelected +1]
-                self._videos[self.rowSelected + 1] = temp
+            rowSelected = self.rowsSelected[0]
+            if rowSelected != self.getTotalRows() -1:
+                temp = self._videos[rowSelected]
+                self._videos[rowSelected] = self._videos[rowSelected +1]
+                self._videos[rowSelected + 1] = temp
                 
-                temp = self._subs[self.rowSelected]
-                self._subs[self.rowSelected] = self._subs[self.rowSelected +1]
-                self._subs[self.rowSelected + 1] = temp
+                temp = self._subs[rowSelected]
+                self._subs[rowSelected] = self._subs[rowSelected +1]
+                self._subs[rowSelected + 1] = temp
 
             self.emit(SIGNAL("layoutChanged()"))
-            nextRowSelection = QItemSelection(self.index(self.rowSelected +1 , UploadListView.COL_VIDEO),self.index(self.rowSelected +1, UploadListView.COL_SUB))
+            nextRowSelection = QItemSelection(self.index(rowSelected +1 , UploadListView.COL_VIDEO),self.index(rowSelected +1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(nextRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
         self._main.updateButtonsUpload() 
         
