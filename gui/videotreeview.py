@@ -135,7 +135,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return QVariant(QColor(Qt.red))
         
         if role == QtCore.Qt.FontRole:
-                return QVariant(QFont('Arial', 10, QFont.Bold)) 
+                return QVariant(QFont('Arial', 9, QFont.Bold)) 
             
         if role == QtCore.Qt.CheckStateRole:
             if index.internalPointer().checked:
@@ -144,15 +144,31 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return  QVariant(Qt.Unchecked)
             
         if role == QtCore.Qt.DisplayRole:
-            uploader = data.getUploader()
-            if not uploader : 
-                uploader = 'Anonymous'
-            if sub.isLocal():
-                return QVariant(_("[%s]\t Rate: %s\t %s - (Already downloaded)") % (_(data.getLanguageName()) ,str(data.getRating()),   data.getFileName()))
-            elif hasattr(sub, "_filename"): #Subtitle found from hash
-                return QVariant(_("[%s]\t Rate: %s\t %s    - Uploader: %s") % (_(data.getLanguageName()) ,str(data.getRating()),   data.getFileName(), uploader))
-            else: #Subtitle found from movie name
-                return QVariant(_("[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s") % (_(sub.getLanguageName()),str(sub.getRating()),   sub.getExtraInfo('format').upper(),int(sub.getExtraInfo('totalDownloads')),int(sub.getExtraInfo('totalCDs')),  uploader))
+                uploader = sub.getUploader()
+                if not uploader : 
+                        uploader = _('Anonymous')
+                    
+                #Constructing the row text to show in the TreeView
+                line = "[%s]" % _(sub.getLanguageName()) 
+                line += "    %s  " % sub.getFileName()
+                if sub.getRating() != '0.0': #if the rate is not 0
+                        line += _("[Rate: %s]") % str(sub.getRating())
+                        
+                if sub.isLocal():
+                        line += "  " + _("(Already downloaded)") % str(sub.getRating())
+                        return QVariant(line)
+                elif hasattr(sub, "_filename"): #Subtitle found from hash
+                        line += "  " + _("Uploader: %s") % uploader
+                        return QVariant(line)
+                else: #Subtitle found from movie name
+                        line = "[%s]    " % _(sub.getLanguageName())
+                        if sub.getRating() != '0.0': #if the rate is not 0
+                                line += _("Rate: %s") % str(sub.getRating())
+                        line += "  " + _("Format: %s") % sub.getExtraInfo('format').upper()
+                        line += "  " + _("Downloads: %d") % int(sub.getExtraInfo('totalDownloads'))
+                        line += "  " + _("CDs: %d") % int(sub.getExtraInfo('totalCDs'))
+                        line += "  " + _("Uploader: %s") % uploader
+                        return QVariant(line)
         return QVariant()
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
@@ -171,14 +187,17 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             
         if role == QtCore.Qt.DisplayRole:
             if movie_info :
-                #The ENGLISH Movie Name is priority, if not shown, then we show the original name.
-                if movie_info["MovieNameEng"]:
-                    movieName = movie_info["MovieNameEng"]
-                else:
-                    movieName = movie_info["MovieName"]
+                    #The ENGLISH Movie Name is priority, if not shown, then we show the original name.
+                    if movie_info["MovieNameEng"]:
+                        movieName = movie_info["MovieNameEng"]
+                    else:
+                        movieName = movie_info["MovieName"]
                     
-                info = _("%s [%s] [IMDB rate=%s] - File: %s") %(movieName,  movie_info["MovieYear"], movie_info["MovieImdbRating"], data.getFileName())
-                return QVariant(info)
+                    info = "%s [%s]"%(movieName,  movie_info["MovieYear"])
+                    if movie_info["MovieImdbRating"]:
+                            info +=  " " + _("[IMDB Rate: %s]") % movie_info["MovieImdbRating"]
+                    info +=  " <%s>" % data.getFileName()
+                    return QVariant(info)
             else:
                  return QVariant(data.getFileName())
                  
@@ -196,7 +215,11 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             
         if role == QtCore.Qt.DisplayRole:
             movieName = movie.MovieName
-            info = _("%s [%s] - [IMDB rate=%s]  - (%d subs)") %(movie.MovieName,  movie.MovieYear, movie.IMDBRating, int(movie.totalSubs))
+            info = "%s [%s]" %(movie.MovieName,  movie.MovieYear)
+            if movie.IMDBRating:
+                    info +=  " " + _("[IMDB Rate: %s]") % movie.IMDBRating
+            info += _("(%d subtitles)") % int(movie.totalSubs)
+            
             if not len(movie.subtitles):
                 pass #TODO: Show the PLUS icon to expand #info += " (Double Click here)"
             return QVariant(info)

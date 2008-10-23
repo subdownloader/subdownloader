@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Thu Oct 23 20:03:23 2008
+# Created: Fri Oct 24 02:49:00 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -142,23 +142,23 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
 
         self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.horizontalLayout_9 = QtGui.QHBoxLayout()
-        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        self.label_2 = QtGui.QLabel(self.groupBox_videosFound)
-        self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label_2.setObjectName("label_2")
-        self.horizontalLayout_9.addWidget(self.label_2)
+        self.layoutTopVideos = QtGui.QHBoxLayout()
+        self.layoutTopVideos.setObjectName("layoutTopVideos")
+        self.label_videosFound = QtGui.QLabel(self.groupBox_videosFound)
+        self.label_videosFound.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_videosFound.setObjectName("label_videosFound")
+        self.layoutTopVideos.addWidget(self.label_videosFound)
         spacerItem3 = QtGui.QSpacerItem(88, 13, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_9.addItem(spacerItem3)
-        self.label_9 = QtGui.QLabel(self.groupBox_videosFound)
-        self.label_9.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.layoutTopVideos.addItem(spacerItem3)
+        self.label_filterBy = QtGui.QLabel(self.groupBox_videosFound)
+        self.label_filterBy.setMaximumSize(QtCore.QSize(16777215, 30))
         font = QtGui.QFont()
         font.setWeight(75)
         font.setBold(True)
-        self.label_9.setFont(font)
-        self.label_9.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.label_9.setObjectName("label_9")
-        self.horizontalLayout_9.addWidget(self.label_9)
+        self.label_filterBy.setFont(font)
+        self.label_filterBy.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label_filterBy.setObjectName("label_filterBy")
+        self.layoutTopVideos.addWidget(self.label_filterBy)
         self.filterLanguageForVideo = QtGui.QComboBox(self.groupBox_videosFound)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -167,14 +167,17 @@ class Ui_MainWindow(object):
         self.filterLanguageForVideo.setSizePolicy(sizePolicy)
         self.filterLanguageForVideo.setMinimumSize(QtCore.QSize(100, 0))
         self.filterLanguageForVideo.setObjectName("filterLanguageForVideo")
-        self.horizontalLayout_9.addWidget(self.filterLanguageForVideo)
-        self.verticalLayout_8.addLayout(self.horizontalLayout_9)
+        self.layoutTopVideos.addWidget(self.filterLanguageForVideo)
+        self.verticalLayout_8.addLayout(self.layoutTopVideos)
         self.videoView = QtGui.QTreeView(self.groupBox_videosFound)
         self.videoView.setAlternatingRowColors(True)
         self.videoView.setObjectName("videoView")
         self.verticalLayout_8.addWidget(self.videoView)
-        self.horizontalLayout_7 = QtGui.QHBoxLayout()
-        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.introductionHelp = QtGui.QTextBrowser(self.groupBox_videosFound)
+        self.introductionHelp.setObjectName("introductionHelp")
+        self.verticalLayout_8.addWidget(self.introductionHelp)
+        self.layoutBottomVideos = QtGui.QHBoxLayout()
+        self.layoutBottomVideos.setObjectName("layoutBottomVideos")
         self.buttonIMDB = QtGui.QPushButton(self.groupBox_videosFound)
         self.buttonIMDB.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
@@ -187,9 +190,9 @@ class Ui_MainWindow(object):
         self.buttonIMDB.setIcon(icon4)
         self.buttonIMDB.setIconSize(QtCore.QSize(32, 16))
         self.buttonIMDB.setObjectName("buttonIMDB")
-        self.horizontalLayout_7.addWidget(self.buttonIMDB)
+        self.layoutBottomVideos.addWidget(self.buttonIMDB)
         spacerItem4 = QtGui.QSpacerItem(13, 27, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem4)
+        self.layoutBottomVideos.addItem(spacerItem4)
         self.buttonPlay = QtGui.QPushButton(self.groupBox_videosFound)
         self.buttonPlay.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
@@ -201,7 +204,7 @@ class Ui_MainWindow(object):
         icon5.addPixmap(QtGui.QPixmap(":/images/play.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.buttonPlay.setIcon(icon5)
         self.buttonPlay.setObjectName("buttonPlay")
-        self.horizontalLayout_7.addWidget(self.buttonPlay)
+        self.layoutBottomVideos.addWidget(self.buttonPlay)
         self.buttonDownload = QtGui.QPushButton(self.groupBox_videosFound)
         self.buttonDownload.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
@@ -217,8 +220,8 @@ class Ui_MainWindow(object):
         icon6.addPixmap(QtGui.QPixmap(":/images/download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.buttonDownload.setIcon(icon6)
         self.buttonDownload.setObjectName("buttonDownload")
-        self.horizontalLayout_7.addWidget(self.buttonDownload)
-        self.verticalLayout_8.addLayout(self.horizontalLayout_7)
+        self.layoutBottomVideos.addWidget(self.buttonDownload)
+        self.verticalLayout_8.addLayout(self.layoutBottomVideos)
         self.verticalLayout_6.addWidget(self.splitter)
         self.verticalLayout_4.addWidget(self.frame)
         self.tabs.addTab(self.tab, "")
@@ -669,8 +672,17 @@ class Ui_MainWindow(object):
         self.buttonSearchSelectFolder.setText(_("Select folder..."))
         self.buttonFind.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
         self.buttonFind.setText(_("Search subtitles"))
-        self.label_2.setText(_("Videos/Subtitles found:"))
-        self.label_9.setText(_("Filter by :"))
+        self.label_videosFound.setText(_("Videos/Subtitles found:"))
+        self.label_filterBy.setText(_("Filter by :"))
+        self.introductionHelp.setHtml(QtGui.QApplication.translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'DejaVu Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">How To Use SubDownloader</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">-1st: ssdadadsadada</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">-2nd: dsdadadadas</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDB.setText(_("Movie Info"))
         self.buttonPlay.setText(_("Play"))
         self.buttonDownload.setText(_("Download"))

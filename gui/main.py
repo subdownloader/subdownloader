@@ -126,6 +126,8 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.hideColumn(1)
         self.folderView.show()
         
+        self.showInstructions()
+        
         #Loop to expand the current directory in the folderview.
         lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.rootPath()))
         log.debug('Current directory: %s' % lastDir.toString())
@@ -336,7 +338,25 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         return self.choosenLanguage
 
-
+    def showInstructions(self):
+            self.videoView.hide()
+            self.label_filterBy.hide()
+            self.label_videosFound.hide()
+            self.filterLanguageForVideo.hide()
+            self.buttonDownload.hide()
+            self.buttonIMDB.hide()
+            self.buttonPlay.hide()
+            
+    def hideInstructions(self):
+            self.videoView.show()
+            self.label_filterBy.show()
+            self.label_videosFound.show()
+            self.filterLanguageForVideo.show()
+            self.buttonDownload.show()
+            self.buttonIMDB.show()
+            self.buttonPlay.show()
+            self.introductionHelp.hide()
+            
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
@@ -631,6 +651,9 @@ class Main(QObject, Ui_MainWindow):
                 log.debug("Videos found: %s"% videos_found)
                 log.debug("Subtitles found: %s"% subs_found)
                 self.status_progress.close()
+                
+                self.hideInstructions()
+                
                 self.window.setCursor(Qt.ArrowCursor)
                 #Populating the items in the VideoListView
                 self.videoModel.clearTree()
