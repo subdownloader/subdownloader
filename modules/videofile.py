@@ -44,6 +44,8 @@ class VideoFile(object):
         try:
             video = metadata.parse(filepath)
             self._fps = video.video[0].fps
+            if not self._fps:
+                self._fps = 0
             self._timeMS = video.length * 1000
         except Exception, e:
             print filepath

@@ -1246,7 +1246,6 @@ class Main(QObject, Ui_MainWindow):
         self.updateButtonsUpload()
         
     def onUploadClickViewCell(self, index):
-        print 3333
         row, col = index.row(), index.column()
         settings = QSettings()
         currentDir = settings.value("mainwindow/workingDirectory", QVariant())
