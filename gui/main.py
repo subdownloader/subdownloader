@@ -65,6 +65,7 @@ from FileManagement import FileScan, Subtitle
 from modules.videofile import  *
 from modules.subtitlefile import *
 from modules.search import *
+import modules.utils as utils
 
 import languages.Languages as languages
 
@@ -193,10 +194,9 @@ class Main(QObject, Ui_MainWindow):
         self.label_autodetect_imdb.hide()
         self.label_autodetect_lang.hide()
         #print self.uploadView.sizeHint ()
-        self.uploadView.resize(QSize(0, 100))
         #self.uploadView.adjustSize()
-        self.groupBox_2.adjustSize()
-        self.uploadDetailsGroupBox.adjustSize()
+        #self.groupBox_2.adjustSize()
+        #self.uploadDetailsGroupBox.adjustSize()
         #self.window.adjustSize()
         
         #Search by Name
@@ -453,8 +453,8 @@ class Main(QObject, Ui_MainWindow):
     
     def OnSoftwareUpdateDetected(self, new_version, update_link):
         warningBox = QMessageBox(_("New Version Detected"), 
-                                    _("A new version of SubDownloader has been released\nNew Version: %s\nCurrent Version: %s\n" \
-                                    "Would you like to upgrade version?") %(new_version, APP_VERSION) , 
+                                    _("A new version of SubDownloader has been released.\n\nNew Version: %s\nCurrent Version: %s\n\n" \
+                                    "Would you like to download the new version now?") %(new_version, APP_VERSION) , 
                                     QMessageBox.Information, 
                                     QMessageBox.Yes | QMessageBox.Default ,
                                     QMessageBox.Cancel | QMessageBox.Escape, 
@@ -469,9 +469,8 @@ class Main(QObject, Ui_MainWindow):
     def detect_software_updates(self):
         # REMARK: to be used by a thread
         #try:
-                print self.SDDBServer
                 result = self.SDDBServer.CheckSoftwareUpdates('SubDownloader')
-                if result['latest_version']:
+                if utils.compVer(APP_VERSION, result['latest_version']) == 0:  #if APP_VERSION is < than latest_version 
                         self.emit(SIGNAL("SoftwareUpdateDetected(QString,QString)"),result['latest_version'], result['link'])
         #except:
            #     log.debug('Error while asking server CheckSoftwareUpdates()')
@@ -1040,7 +1039,7 @@ class Main(QObject, Ui_MainWindow):
         try:
             self.OSDBServer = SDService('osdb',proxy = self.options.proxy) 
             self.SDDBServer = SDService('sddb', self.options.server, self.options.proxy)
-            print self.SDDBServer
+
             self.progress(100, _("Connected succesfully"))
             QCoreApplication.processEvents()
             self.status_progress.close()
@@ -1334,11 +1333,11 @@ class Main(QObject, Ui_MainWindow):
                 try:
                     registry = _winreg.OpenKey(player['regRoot'],  player["regFolder"])
                     path, type = _winreg.QueryValueEx(registry, player["regKey"])
-                    print "Video Player found at: ", repr(path)
+                    log.debug("Video Player found at: %s" %  repr(path))
                     predefinedVideoPlayer = {'programPath': path,  'parameters': player['parameters']}
                     break
                 except WindowsError:
-                    print "Cannot find registry for %s" % player['regRoot']
+                    log.debug("Cannot find registry for %s" % player['regRoot'])
         elif platform.system() == "Darwin": #MACOSX
             macos_players = [{'path': '/Applications/VLC.app/Contents/MacOS/VLC', 'parameters': '{0} --sub-file {1}'}, 
                                         {'path': '/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX', 'parameters': '{0} -sub {1}'}, 
@@ -1515,7 +1514,7 @@ class Main(QObject, Ui_MainWindow):
             self.progress(0) #To view/refresh the qprogressdialog
             temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
             #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
-            print temp_movie
+            #print temp_movie
             movie.subtitles =  temp_movie[0].subtitles 
             self.moviesModel.updateMovie(index, selectedLanguageXXX) #The treeview is filtered by language
             self.moviesView.collapse(index)
