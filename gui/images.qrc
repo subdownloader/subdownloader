@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/" >
+    <file>images/bug.png</file>
     <file>images/application-exit.png</file>
     <file>images/flags/hi.png</file>
     <file>images/flags/ms.png</file>

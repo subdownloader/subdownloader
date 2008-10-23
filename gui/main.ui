@@ -1371,6 +1371,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="action_HelpBug" >
+   <property name="icon" >
+    <iconset resource="images.qrc" >
+     <normaloff>:/images/bug.png</normaloff>:/images/bug.png</iconset>
+   </property>
    <property name="text" >
     <string>Report A Problem</string>
    </property>

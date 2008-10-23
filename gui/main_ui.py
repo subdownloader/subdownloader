@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Fri Oct 24 02:49:00 2008
+# Created: Fri Oct 24 03:09:27 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -617,13 +617,16 @@ class Ui_MainWindow(object):
         self.action_HelpAbout = QtGui.QAction(MainWindow)
         self.action_HelpAbout.setObjectName("action_HelpAbout")
         self.action_HelpBug = QtGui.QAction(MainWindow)
+        icon16 = QtGui.QIcon()
+        icon16.addPixmap(QtGui.QPixmap(":/images/bug.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_HelpBug.setIcon(icon16)
         self.action_HelpBug.setObjectName("action_HelpBug")
         self.action_HelpDonation = QtGui.QAction(MainWindow)
         self.action_HelpDonation.setObjectName("action_HelpDonation")
         self.action_ShowPreferences = QtGui.QAction(MainWindow)
-        icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/images/configure.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.action_ShowPreferences.setIcon(icon16)
+        icon17 = QtGui.QIcon()
+        icon17.addPixmap(QtGui.QPixmap(":/images/configure.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.action_ShowPreferences.setIcon(icon17)
         self.action_ShowPreferences.setObjectName("action_ShowPreferences")
         self.action_Login = QtGui.QAction(MainWindow)
         self.action_Login.setObjectName("action_Login")
@@ -678,7 +681,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'DejaVu Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">How To Use SubDownloader</span></p>\n"
+"<p align=\"center\" style=\" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:x-large; font-weight:600;\"><span style=\" font-size:x-large;\">How To Use SubDownloader</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">-1st: ssdadadsadada</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></p>\n"
