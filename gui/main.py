@@ -48,7 +48,7 @@ splash = SplashScreen()
 splash.showMessage(_("Loading modules..."))
 QCoreApplication.flush()
 from modules import * 
-from modules.OSDBServer import OSDBServer, TimeoutFunctionException
+from modules.SDService import SDService, TimeoutFunctionException
 from modules.SDDBServer import SDDBServer
 from gui import installErrorHandler, Error, _Warning, extension
 
@@ -453,8 +453,8 @@ class Main(QObject, Ui_MainWindow):
         while 1:
             self.status_label.setText(_("Users online: Updating..."))
             try:
-                data = self.OSDBServer._ServerInfo() # we cant use the timeout class inherited in OSDBServer
-                self.status_label.setText(_("Users online: %s" % str(data["users_online_program"])))
+                data = self.SDDBServer._ServerInfo()['result'] # we cant use the timeout class inherited in OSDBServer
+                self.status_label.setText(_("Users online: %s" % str(data["total_users_online_program"])))
             except:
                 self.status_label.setText(_("Users online: ERROR"))
             time.sleep(sleeptime)
@@ -659,11 +659,11 @@ class Main(QObject, Ui_MainWindow):
                                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
                                 return
                         
-                            if locals().has_key('videoSearchResults'):
-                                video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-                                video_filesizes =  [video.getSize() for video in videoSearchResults]
-                                video_movienames = [video.getMovieName() for video in videoSearchResults]
-                                thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
+#                            if locals().has_key('videoSearchResults'):
+#                                video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+#                                video_filesizes =  [video.getSize() for video in videoSearchResults]
+#                                video_movienames = [video.getMovieName() for video in videoSearchResults]
+#                                thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
                     
                     self.status_progress.setLabelText(_("Search finished"))
                     self.progress(-1)
@@ -1008,8 +1008,9 @@ class Main(QObject, Ui_MainWindow):
             self.progress(0,_("Connecting to server using proxy %s") % self.options.proxy) 
             
         try:
-            self.OSDBServer = OSDBServer(self.options) 
-            self.SDDBServer = SDDBServer()
+            self.OSDBServer = SDService('osdb',proxy = self.options.proxy) 
+            self.SDDBServer = SDService('sddb', self.options.server, self.options.proxy)
+            print self.SDDBServer
             self.progress(100, _("Connected succesfully"))
             QCoreApplication.processEvents()
             self.status_progress.close()
