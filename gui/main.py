@@ -188,6 +188,8 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self, SIGNAL("imdbDetected(QString,QString,QString)"), self.onUploadIMDBNewSelection)
         QObject.connect(self, SIGNAL("release_updated(QString)"), self.OnChangeReleaseName)
         
+        QObject.connect(self, SIGNAL("SoftwareUpdateDetected(QString,QString)"), self.OnSoftwareUpdateDetected)
+        
         self.label_autodetect_imdb.hide()
         self.label_autodetect_lang.hide()
         #print self.uploadView.sizeHint ()
@@ -232,7 +234,7 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         self.status_label.setIndent(10)
-        self.donate_button = QtGui.QPushButton("   " + _("Help us with 5 USD/EUR"))
+        self.donate_button = QtGui.QPushButton("   " + _("Help Us With 5 USD/EUR"))
         #self.donate_button.setIndent(10)
         iconpaypal = QtGui.QIcon()
         iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
@@ -251,6 +253,7 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.WaitCursor)
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
+                thread.start_new_thread(self.detect_software_updates, ())
                 
                 settings = QSettings()
                 if options.username:
@@ -447,13 +450,38 @@ class Main(QObject, Ui_MainWindow):
     def close_event(self, e):
         self.write_settings()
         e.accept()
-        
+    
+    def OnSoftwareUpdateDetected(self, new_version, update_link):
+        warningBox = QMessageBox(_("New Version Detected"), 
+                                    _("A new version of SubDownloader has been released\nNew Version: %s\nCurrent Version: %s\n" \
+                                    "Would you like to upgrade version?") %(new_version, APP_VERSION) , 
+                                    QMessageBox.Information, 
+                                    QMessageBox.Yes | QMessageBox.Default ,
+                                    QMessageBox.Cancel | QMessageBox.Escape, 
+                                    QMessageBox.NoButton, 
+                                    self.window)
+        answer = warningBox.exec_()
+        if answer == QMessageBox.Yes:
+            webbrowser.open( update_link, new=2, autoraise=1)
+        elif answer == QMessageBox.Cancel :
+            return
+            
+    def detect_software_updates(self):
+        # REMARK: to be used by a thread
+        #try:
+                print self.SDDBServer
+                result = self.SDDBServer.CheckSoftwareUpdates('SubDownloader')
+                if result['latest_version']:
+                        self.emit(SIGNAL("SoftwareUpdateDetected(QString,QString)"),result['latest_version'], result['link'])
+        #except:
+           #     log.debug('Error while asking server CheckSoftwareUpdates()')
+                
     def update_users(self, sleeptime=60):
-        # WARNING: to be used by a thread
+        # REMARK: to be used by a thread
         while 1:
             self.status_label.setText(_("Users online: Updating..."))
             try:
-                data = self.SDDBServer._ServerInfo()['result'] # we cant use the timeout class inherited in OSDBServer
+                data = self.SDDBServer.ServerInfo() # we cant use the timeout class inherited in OSDBServer
                 self.status_label.setText(_("Users online: %s" % str(data["total_users_online_program"])))
             except:
                 self.status_label.setText(_("Users online: ERROR"))
@@ -989,6 +1017,8 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setLabelText(msg)
         self.progress(100)
         QCoreApplication.processEvents()
+        
+
     
     def establishServerConnection(self):
         self.status_progress = QProgressDialog(_("Connecting to server..."), _("&Cancel"), 0,0, self.window)

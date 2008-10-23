@@ -213,9 +213,6 @@
                    <property name="verticalScrollBarPolicy" >
                     <enum>Qt::ScrollBarAsNeeded</enum>
                    </property>
-                   <property name="headerHidden" >
-                    <bool>true</bool>
-                   </property>
                   </widget>
                  </item>
                  <item>
@@ -1315,7 +1312,9 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="action_HelpHomepage" />
     <addaction name="action_HelpDonation" />
+    <addaction name="separator" />
     <addaction name="action_HelpBug" />
+    <addaction name="actionHelp_To_Translate_This_Application" />
     <addaction name="separator" />
     <addaction name="action_HelpAbout" />
    </widget>
@@ -1348,22 +1347,22 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_HelpHomepage" >
    <property name="text" >
-    <string>Visit our Site</string>
+    <string>Visit HomePage</string>
    </property>
   </action>
   <action name="action_HelpAbout" >
    <property name="text" >
-    <string>About Subdownloader</string>
+    <string>About</string>
    </property>
   </action>
   <action name="action_HelpBug" >
    <property name="text" >
-    <string>Reporting errors</string>
+    <string>Report A Problem</string>
    </property>
   </action>
   <action name="action_HelpDonation" >
    <property name="text" >
-    <string>Donate 5 USD/EUR</string>
+    <string>Help Us With 5 USD/EUR</string>
    </property>
   </action>
   <action name="action_ShowPreferences" >
@@ -1408,6 +1407,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text" >
     <string>LogOut</string>
+   </property>
+  </action>
+  <action name="actionHelp_To_Translate_This_Application" >
+   <property name="text" >
+    <string>Translate This Application...</string>
    </property>
   </action>
  </widget>

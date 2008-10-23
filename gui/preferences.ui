@@ -37,7 +37,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex" >
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -85,8 +85,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>526</width>
-            <height>241</height>
+            <width>516</width>
+            <height>236</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2" >
@@ -371,7 +371,7 @@
          <item>
           <widget class="QPushButton" name="helpTranslateButton" >
            <property name="text" >
-            <string>Help to translate</string>
+            <string>Translate This Application...</string>
            </property>
           </widget>
          </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Thu Oct 23 02:22:10 2008
+# Created: Thu Oct 23 20:03:23 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -113,7 +113,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.folderView.sizePolicy().hasHeightForWidth())
         self.folderView.setSizePolicy(sizePolicy)
         self.folderView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.folderView.setHeaderHidden(True)
         self.folderView.setObjectName("folderView")
         self.verticalLayout_3.addWidget(self.folderView)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
@@ -636,13 +635,17 @@ class Ui_MainWindow(object):
         self.action_LogOut = QtGui.QAction(MainWindow)
         self.action_LogOut.setEnabled(False)
         self.action_LogOut.setObjectName("action_LogOut")
+        self.actionHelp_To_Translate_This_Application = QtGui.QAction(MainWindow)
+        self.actionHelp_To_Translate_This_Application.setObjectName("actionHelp_To_Translate_This_Application")
         self.menuMain.addAction(self.action_Login)
         self.menuMain.addAction(self.action_LogOut)
         self.menuMain.addSeparator()
         self.menuMain.addAction(self.action_Quit)
         self.menu_Help.addAction(self.action_HelpHomepage)
         self.menu_Help.addAction(self.action_HelpDonation)
+        self.menu_Help.addSeparator()
         self.menu_Help.addAction(self.action_HelpBug)
+        self.menu_Help.addAction(self.actionHelp_To_Translate_This_Application)
         self.menu_Help.addSeparator()
         self.menu_Help.addAction(self.action_HelpAbout)
         self.menu_Preferences.addAction(self.action_ShowPreferences)
@@ -712,15 +715,16 @@ class Ui_MainWindow(object):
         self.menu_Preferences.setTitle(_("&Settings"))
         self.menuView.setTitle(_("&View"))
         self.action_Quit.setText(_("Quit"))
-        self.action_HelpHomepage.setText(_("Visit our Site"))
-        self.action_HelpAbout.setText(_("About Subdownloader"))
-        self.action_HelpBug.setText(_("Reporting errors"))
-        self.action_HelpDonation.setText(_("Donate 5 USD/EUR"))
+        self.action_HelpHomepage.setText(_("Visit HomePage"))
+        self.action_HelpAbout.setText(_("About"))
+        self.action_HelpBug.setText(_("Report A Problem"))
+        self.action_HelpDonation.setText(_("Help Us With 5 USD/EUR"))
         self.action_ShowPreferences.setText(_("&Configure Subdownloader"))
         self.action_Login.setText(_("LogIn"))
         self.action_LogMessages.setText(_("Log Messages"))
         self.action_ShowHideTreeFolder.setText(_("Show/Hide Tree Folder"))
         self.action_LogOut.setText(_("LogOut"))
+        self.actionHelp_To_Translate_This_Application.setText(_("Translate This Application..."))
 
 from uploadlistview import UploadListView
 import images_rc

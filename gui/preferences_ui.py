@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Wed Oct 22 02:36:48 2008
+# Created: Thu Oct 23 19:14:01 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,7 +53,7 @@ class Ui_PreferencesDialog(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtGui.QWidget(self.scrollArea)
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 526, 241))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 516, 236))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -277,7 +277,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):
@@ -301,7 +301,7 @@ class Ui_PreferencesDialog(object):
         self.label_59.setText(_("Port:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), _("Network"))
         self.label_61.setText(_("Interface Language:"))
-        self.helpTranslateButton.setText(_("Help to translate"))
+        self.helpTranslateButton.setText(_("Translate This Application..."))
         self.label_62.setText(_("Context Menu:"))
         self.optionIntegrationExplorer.setText(_("Enable in your explorer"))
         self.label_63.setText(_("External application for video playback"))

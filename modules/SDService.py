@@ -195,7 +195,7 @@ class SDService(object):
     def ServerInfo(self):
         ServerInfo = TimeoutFunction(self._ServerInfo)
         try:
-            a = ServerInfo()
+            a = ServerInfo()['result']
             return a
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
@@ -667,31 +667,23 @@ class SDService(object):
         self.log.debug("GetIMDBMovieDetails finished in %s with status %s."% (info['seconds'], info['status']))
         return info['data']
         
-    def AutoUpdate(self, app=None):
-        AutoUpdate = TimeoutFunction(self._AutoUpdate)
+    def CheckSoftwareUpdates(self, app=None):
+        CheckSoftwareUpdates = TimeoutFunction(self._CheckSoftwareUpdates)
         try:
-            return AutoUpdate(app)
+            return CheckSoftwareUpdates(app)
         except TimeoutFunctionException:
-            self.log.error("AutoUpdate timed out")
+            self.log.error("CheckSoftwareUpdates timed out")
         
-    def _AutoUpdate(self, app=None):
+    def _CheckSoftwareUpdates(self, app=None):
         """Returns latest info on the given application if available
         """
         self.log.debug("----------------")
-        self.log.debug("AutoUpdate RPC method starting...")
+        self.log.debug("CheckSoftwareUpdates RPC method starting...")
         if not app: app = APP_TITLE.lower()
-        info = self.xmlrpc_server.AutoUpdate(app)
-        self.log.debug("CheckMovieHash finished with status %s"% info['status'])
-        # no info about this program
-        if info['status'] != "200 OK":
-            self.log.info("Invalid application name provided.")
-            return False
+        info = self.xmlrpc_server.CheckSoftwareUpdates(app)['result']
+
         # we have something to show
-        self.log.info("Last version details for %s:"% app)
-        self.log.info("Version: %s"% info['version'])
-        self.log.info("Linux url: %s"% info['url_linux'])
-        self.log.info("Windows url: %s"% info['url_windows'])
-        self.log.info("Comments: %s"% info['comments'])
+        self.log.info("Latest SubDownloader Version Found: %s"% info['latest_version'])
         return info
         
     def NoOperation(self):
