@@ -183,7 +183,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return QVariant()
         
         if role == QtCore.Qt.FontRole:
-            return QVariant(QFont('Arial', 10, QFont.Bold)) 
+            return QVariant(QFont('Arial',9, QFont.Bold)) 
             
         if role == QtCore.Qt.DisplayRole:
             if movie_info :
@@ -211,14 +211,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 return QVariant(QIcon(':/images/imdb.png'))
         
         if role == QtCore.Qt.FontRole:
-            return QVariant(QFont('Arial', 10, QFont.Bold)) 
+            return QVariant(QFont('Arial', 9, QFont.Bold)) 
             
         if role == QtCore.Qt.DisplayRole:
             movieName = movie.MovieName
             info = "%s [%s]" %(movie.MovieName,  movie.MovieYear)
             if movie.IMDBRating:
-                    info +=  " " + _("[IMDB Rate: %s]") % movie.IMDBRating
-            info += _("(%d subtitles)") % int(movie.totalSubs)
+                    info +=  "  " + _("[IMDB Rate: %s]") % movie.IMDBRating
+            info += "  "  + _("(%d subtitles)") % int(movie.totalSubs)
             
             if not len(movie.subtitles):
                 pass #TODO: Show the PLUS icon to expand #info += " (Double Click here)"

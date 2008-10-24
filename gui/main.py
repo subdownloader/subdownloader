@@ -339,6 +339,15 @@ class Main(QObject, Ui_MainWindow):
         return self.choosenLanguage
 
     def showInstructions(self):
+            introduction = '<p align="center"><h2>%s</h2></p>' \
+                                    '<p><b>%s</b><br>%s</p>' \
+                                    '<p><b>%s</b><br>%s</p>'\
+                                    '<p><b>%s</b><br>%s</p>' % (_("How To Use SubDownloader"), \
+                                     _("1st tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."), \
+                                     _("2nd tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
+                                    _("3rd tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database,please upload those subtitles so next users will be able to find them more easily.") )
+            
+            self.introductionHelp.setHtml(introduction)
             self.videoView.hide()
             self.label_filterBy.hide()
             self.label_videosFound.hide()
@@ -992,10 +1001,10 @@ class Main(QObject, Ui_MainWindow):
                    if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
                        success_downloaded += 1
                    else:
-                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle")+sub.getFileName())
+                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") %sub.getFileName())
                 except Exception, e: 
                     traceback.print_exc(e)
-                    QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle")+sub.getFileName())
+                    QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % sub.getFileName())
                 finally:
                     count += percentage
             self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
