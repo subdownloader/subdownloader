@@ -193,7 +193,7 @@ class UploadListModel(QAbstractTableModel):
             return QVariant()
         text = ""
         if orientation == Qt.Horizontal:      
-            text = self._headers[section]
+            text = str(self._headers[section])
             return QVariant(self.trUtf8(text))
         else: 
             return QVariant("CD"+str(1+section))
