@@ -1,0 +1,1602 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-10-17 21:06+0700\n"
+"PO-Revision-Date: 2008-10-19 16:56+0000\n"
+"Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-10-20 06:32+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:28
+msgid "Albanian"
+msgstr "Albanés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:29
+msgid "Arabic"
+msgstr "Árabe"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:30
+msgid "Armenian"
+msgstr "Armenio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:31
+msgid "Assyrian"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:32
+msgid "Malayalam"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:33
+msgid "Bosnian"
+msgstr "Bosnio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:34
+msgid "Brazilian"
+msgstr "Brasileño"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:35
+msgid "Bulgarian"
+msgstr "Búlgaro"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:36
+msgid "Catalan"
+msgstr "Catalán"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:37
+msgid "Chinese"
+msgstr "Chino"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:38
+msgid "Croatian"
+msgstr "Croata"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:39
+msgid "Czech"
+msgstr "Checo"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:40
+msgid "Danish"
+msgstr "Danés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:41
+msgid "Dutch"
+msgstr "Holandés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:42
+msgid "English"
+msgstr "Inglés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:43
+msgid "Estonian"
+msgstr "Estonio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:44
+msgid "Finnish"
+msgstr "Finés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:45
+msgid "French"
+msgstr "Francés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:46
+msgid "Georgian"
+msgstr "Georgiano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:47
+msgid "German"
+msgstr "Alemán"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:48
+msgid "Greek"
+msgstr "Griego"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:49
+msgid "Hebrew"
+msgstr "Hebreo"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:50
+msgid "Hungarian"
+msgstr "Húngaro"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:51
+msgid "Indonesian"
+msgstr "Indonesio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:52
+msgid "Italian"
+msgstr "Italiano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:53
+msgid "Japanese"
+msgstr "Japonés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:54
+msgid "Kazakh"
+msgstr "Kazajo"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:55
+msgid "Korean"
+msgstr "Coreano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:56
+msgid "Latvian"
+msgstr "Latvio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:57
+msgid "Lithuanian"
+msgstr "Lituano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:58
+msgid "Luxembourgish"
+msgstr "Luxemburgués"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:59
+msgid "Macedonian"
+msgstr "Macedonio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:60
+msgid "Norwegian"
+msgstr "Noruego"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:61
+msgid "Persian"
+msgstr "Persa"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:62
+msgid "Polish"
+msgstr "Polaco"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:63
+msgid "Portuguese"
+msgstr "Portugués"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:64
+msgid "Romanian"
+msgstr "Rumano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:65
+msgid "Russian"
+msgstr "Ruso"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:66
+msgid "Serbian"
+msgstr "Serbio"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:67
+msgid "Slovak"
+msgstr "Eslovaco"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:68
+msgid "Slovenian"
+msgstr "Esloveno"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:69
+msgid "Spanish"
+msgstr "Español"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:70
+msgid "Swedish"
+msgstr "Sueco"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:71
+msgid "Thai"
+msgstr "Tailandés"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:72
+msgid "Turkish"
+msgstr "Turco"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:73
+msgid "Ukrainian"
+msgstr "Ucraniano"
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:74
+msgid "Vietnamese"
+msgstr "Vietnamita"
+
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:41
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:50
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:77
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:83
+#: /home/yen/workspace/subdownloader/gui/login.py:67
+#: /home/yen/workspace/subdownloader/gui/preferences.py:149
+#: /home/yen/workspace/subdownloader/gui/main.py:258
+#: /home/yen/workspace/subdownloader/gui/main.py:569
+#: /home/yen/workspace/subdownloader/gui/main.py:640
+#: /home/yen/workspace/subdownloader/gui/main.py:702
+#: /home/yen/workspace/subdownloader/gui/main.py:713
+#: /home/yen/workspace/subdownloader/gui/main.py:743
+#: /home/yen/workspace/subdownloader/gui/main.py:760
+#: /home/yen/workspace/subdownloader/gui/main.py:763
+#: /home/yen/workspace/subdownloader/gui/main.py:791
+#: /home/yen/workspace/subdownloader/gui/main.py:833
+#: /home/yen/workspace/subdownloader/gui/main.py:926
+#: /home/yen/workspace/subdownloader/gui/main.py:929
+#: /home/yen/workspace/subdownloader/gui/main.py:1054
+#: /home/yen/workspace/subdownloader/gui/main.py:1059
+#: /home/yen/workspace/subdownloader/gui/main.py:1109
+#: /home/yen/workspace/subdownloader/gui/main.py:1112
+#: /home/yen/workspace/subdownloader/gui/main.py:1367
+#: /home/yen/workspace/subdownloader/gui/main.py:1417
+#: /home/yen/workspace/subdownloader/gui/main.py:1439
+msgid "Error"
+msgstr "Error"
+
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:41
+msgid "Please fill out the search title"
+msgstr "Por favor introduzca el título a buscar"
+
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:50
+#: /home/yen/workspace/subdownloader/gui/main.py:1112
+msgid ""
+"Error contacting the server.\n"
+"Please restart or try later."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:77
+#: /home/yen/workspace/subdownloader/gui/imdbSearch.py:83
+msgid "Please search and select a movie from the list"
+msgstr "Busque y seleccione una película de la lista"
+
+#: /home/yen/workspace/subdownloader/gui/about_ui.py:120
+msgid "About Subdownloader"
+msgstr "Acerca de Subdownloader"
+
+#: /home/yen/workspace/subdownloader/gui/about_ui.py:143
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:124
+msgid "About"
+msgstr "Acerca de"
+
+#: /home/yen/workspace/subdownloader/gui/about_ui.py:150
+msgid "Authors"
+msgstr "Autores"
+
+#: /home/yen/workspace/subdownloader/gui/about_ui.py:166
+msgid "License Agreement"
+msgstr "Acuerdo de licencia"
+
+#: /home/yen/workspace/subdownloader/gui/about_ui.py:167
+msgid "Close"
+msgstr "Cerrar"
+
+#: /home/yen/workspace/subdownloader/gui/login.py:36
+#: /home/yen/workspace/subdownloader/gui/login.py:76
+#, python-format
+msgid "Succesfully logged as: %s"
+msgstr "Acceso con éxito como: %s"
+
+#: /home/yen/workspace/subdownloader/gui/login.py:38
+msgid "Not Connected"
+msgstr "No conectado"
+
+#: /home/yen/workspace/subdownloader/gui/login.py:67
+#: /home/yen/workspace/subdownloader/gui/main.py:258
+#: /home/yen/workspace/subdownloader/gui/main.py:640
+msgid "Error contacting the server. Please try again later"
+msgstr "Error contactando con el servidor. Inténtelo más tarde"
+
+#: /home/yen/workspace/subdownloader/gui/login.py:78
+#, python-format
+msgid "Cannot loggin as: %s"
+msgstr "No se puede acceder como: %s"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:257
+msgid "Settings"
+msgstr "Configuración"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:258
+msgid "Filter search results by these languages:"
+msgstr "Filtrar los resultados de búsqueda con estos idiomas:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:259
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:635
+#: /home/yen/workspace/subdownloader/gui/main.py:1450
+msgid "Search"
+msgstr "Buscar"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:260
+msgid "Destination folder:"
+msgstr "Carpeta de destino:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:261
+msgid "Always ask user"
+msgstr "Siempre preguntar"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:262
+msgid "Same folder as video file"
+msgstr "Misma carpeta que el fichero de video"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:263
+msgid "Predefined folder:"
+msgstr "Carpeta por defecto:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:264
+msgid "Filename of the Subtitle:"
+msgstr "Nombre del archivo del subítulo:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:265
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:278
+msgid "Browse..."
+msgstr "Examinar..."
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:266
+msgid "Same name as video file"
+msgstr "Mismo nombre que el archivo de video"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:267
+msgid "Same name as video file + language code (ex: StarwardsCD1.eng.srt)"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:268
+msgid "Same name as the online subtitle"
+msgstr "Mismo nombre que el subtítulo en línea"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:269
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:633
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:641
+#: /home/yen/workspace/subdownloader/gui/main.py:357
+msgid "Download"
+msgstr "Descargar"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:270
+msgid "Default language of uploaded subtitles"
+msgstr "Idioma por defecto de los subtítulos subidos"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:271
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:668
+msgid "Upload"
+msgstr "Subir"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:272
+msgid "Network Proxy"
+msgstr "Proxy de la red"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:273
+msgid "Host:"
+msgstr "Servidor:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:274
+msgid "Port:"
+msgstr "Puerto:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:275
+msgid "Network"
+msgstr "Red"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:276
+msgid "Context Menu:"
+msgstr "Menú contextual:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:277
+msgid "External application for video playback"
+msgstr "Aplicación externa para reproducir video"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:279
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0} = ruta del video; {1} = ruta del subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:280
+msgid "Parameters:"
+msgstr "Parámetros:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:281
+msgid "Video Player:"
+msgstr "Reproductor de Video:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:282
+msgid "Enable in your explorer"
+msgstr "Activar en el explorador"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:283
+msgid "Interface Language:"
+msgstr "Idioma de la interfaz:"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:284
+msgid "Help to translate"
+msgstr "Ayuda a traducir"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:285
+msgid "Others"
+msgstr "Otros"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:286
+msgid "Save"
+msgstr "Guardar"
+
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:287
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:81
+#: /home/yen/workspace/subdownloader/gui/main.py:893
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:33
+msgid "<AutoDetect>"
+msgstr "<AutoDetectar>"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:59
+#: /home/yen/workspace/subdownloader/gui/main.py:1022
+msgid "Select a directory"
+msgstr "Seleccione un directorio"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:68
+msgid "Select the Video Player executable file"
+msgstr "Seleccione el binario del reproductor de video"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:73
+#: /home/yen/workspace/subdownloader/gui/preferences.py:204
+msgid "Alert"
+msgstr "Alerta"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:73
+msgid "The new language will be displayed after restarting the program."
+msgstr "EL nuevo idioma tendrá efecto cuando vuelva a abrir el programa."
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:135
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "Activar en su Konqueror/Dolphin/Nautilus"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:138
+msgid "Enable in your Windows Explorer"
+msgstr "Activar en su Explorador de Windows"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:141
+msgid "Enable in your File Manager"
+msgstr "Activar en su Explorador de Archvos"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:149
+msgid "Predefined Folder cannot be empty"
+msgstr "La carpeta por defecto no puede estar en blanco"
+
+#: /home/yen/workspace/subdownloader/gui/preferences.py:204
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+"Los cambios en la configuración del proxy se harán efectivos al reiniciar el "
+"programa"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:621
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:622
+msgid "Select the video/folder that needs subtitles:"
+msgstr "Elija el video o carpeta que necesita subtítulos:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:623
+msgid "Select videos that need subtitles"
+msgstr "Elija los videos que necesitan subtítulos"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:624
+msgid "Select videos..."
+msgstr "Elegir videos..."
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:625
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:627
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr ""
+"Haga click aquí para buscar los subtítulos de los videos en esa carpeta"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:626
+msgid "Select folder...  "
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:628
+msgid "Search subtitles"
+msgstr "Buscar subtítulos"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:629
+msgid "Videos/Subtitles found:"
+msgstr "Videos/Subtítulos encontrados"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:630
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:639
+msgid "Filter by :"
+msgstr "Filtrar por :"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:631
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:640
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:79
+#: /home/yen/workspace/subdownloader/gui/main.py:665
+#: /home/yen/workspace/subdownloader/gui/main.py:680
+msgid "Movie Info"
+msgstr "Información de la película"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:632
+msgid "Play"
+msgstr "Reproducir"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:634
+msgid "Search from Video file(s)"
+msgstr "Buscar a partir de los ficheros de video"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:636
+msgid "Site:"
+msgstr "Página web:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:637
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:638
+msgid "Subtitles found:"
+msgstr "Subtítulos encontrados:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:642
+msgid "Search by Movie Name"
+msgstr "Buscar por el título de la película"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:643
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr ""
+"Elija los videos y subítulos (únicamente los subítulos serán subidos):"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:644
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:645
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:646
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:648
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:649
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:650
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:666
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:667
+msgid "..."
+msgstr "..."
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:647
+msgid "Empty the list"
+msgstr "Vaciar la lista"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:651
+msgid "Details:"
+msgstr "Detalles:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:656
+msgid "Movie Title:"
+msgstr "Título del Film:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:657
+msgid "Click on FIND button to choose the IMDB link"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:658
+msgid "Find"
+msgstr "Buscar"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:663
+msgid "Subtitle Language:"
+msgstr "Idioma del subtítulo:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:664
+msgid "Release name:"
+msgstr "Nombre del Release:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:665
+msgid "Comments:"
+msgstr "Comentarios:"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:669
+msgid "Upload subtitles"
+msgstr "Subir subítulos"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:670
+msgid "&Main"
+msgstr "&Principal"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:671
+msgid "&Help"
+msgstr "Ay&uda"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:672
+msgid "&Settings"
+msgstr "&Configuración"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:673
+msgid "&View"
+msgstr "&Ver"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:674
+msgid "Quit"
+msgstr "Salir"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:675
+msgid "Visit our &Site"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:676
+msgid "&About Subdownloader"
+msgstr "&Acerca de Subdownloader"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:677
+msgid "Reporting errors"
+msgstr "Reportando errores"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:678
+#: /home/yen/workspace/subdownloader/gui/main.py:232
+msgid "Donate 5 USD/EUR"
+msgstr "Done 5 Euros"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:679
+msgid "&Configure Subdownloader"
+msgstr "&Configurar  Subdownloader"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:680
+msgid "LogIn"
+msgstr "Iniciar sesión"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:681
+msgid "Log Messages"
+msgstr "Registro de mensajes"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:682
+msgid "Show/Hide Tree Folder"
+msgstr "Mostrar/Ocultar el árbol de carpetas"
+
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:683
+msgid "LogOut"
+msgstr "Cerrar sesión"
+
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "Búsqueda de IMDB:"
+
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "Introduzca el título de la película o el número IMDB"
+
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "Buscar Película"
+
+#: /home/yen/workspace/subdownloader/gui/imdb_ui.py:80
+msgid "OK"
+msgstr "OK"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:48
+msgid "Loading modules..."
+msgstr "Cargando Modulos..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:73
+msgid "Building main dialog..."
+msgstr "Construyendo diálogo principal..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:102
+#, python-format
+msgid "SubDownloader %s"
+msgstr "SubDownloader %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:226
+msgid "Not logged yet"
+msgstr "Sesión sin iniciar"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:348
+#: /home/yen/workspace/subdownloader/gui/main.py:372
+msgid "View IMDB info"
+msgstr "Ver información IMDB"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:351
+msgid "Set IMDB info..."
+msgstr "Establecer información IMDB..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:360
+msgid "Play video + subtitle"
+msgstr "Reproducir video + subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:365
+msgid "View online info"
+msgstr "Ver información en línea"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:380
+#: /home/yen/workspace/subdownloader/gui/main.py:694
+msgid "Info"
+msgstr "Información"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:435
+msgid "Users online: Updating..."
+msgstr "Usuarios conectados: Actualizando..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:438
+#, python-format
+msgid "Users online: %s"
+msgstr "Usuarios conectados: %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:440
+msgid "Users online: ERROR"
+msgstr "Usuarios conectados: ERROR"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:450
+#: /home/yen/workspace/subdownloader/gui/main.py:451
+#: /home/yen/workspace/subdownloader/gui/main.py:454
+msgid "Logging in..."
+msgstr "Iniciando sesión..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:450
+#: /home/yen/workspace/subdownloader/gui/main.py:975
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:461
+msgid "Anonymous"
+msgstr "Anónimo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:462
+#, python-format
+msgid "Logged as %s"
+msgstr "Sesión iniciada como %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:466
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "Sesión iniciada como %s: ERROR"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:470
+msgid "Login: ERROR"
+msgstr "Sesión: ERROR"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:479
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "SubDownloader %s - %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:511
+#: /home/yen/workspace/subdownloader/gui/main.py:512
+msgid "All languages"
+msgstr "Todos los idiomas"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:569
+#: /home/yen/workspace/subdownloader/gui/main.py:702
+#: /home/yen/workspace/subdownloader/gui/main.py:713
+msgid "You are not connected to the server. Please reconnect first."
+msgstr "No está conectado al servidor. Por favor intente reconectar."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:575
+msgid "Scanning files"
+msgstr "Scaneando ficheros"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:575
+#: /home/yen/workspace/subdownloader/gui/main.py:603
+#: /home/yen/workspace/subdownloader/gui/main.py:752
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:1062
+#: /home/yen/workspace/subdownloader/gui/main.py:1380
+#: /home/yen/workspace/subdownloader/gui/main.py:1449
+msgid "&Abort"
+msgstr "&Interrumpir"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:600
+msgid "Scan Results"
+msgstr "Resultados de la búsqueda"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:600
+msgid "No video has been found"
+msgstr "No se ha encontrado ningún video"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:603
+msgid "Searching subtitles..."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:613
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:649
+msgid "Search finished"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:671
+#: /home/yen/workspace/subdownloader/gui/main.py:686
+msgid "Sub Info"
+msgstr "Información del subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:694
+msgid "You must select a folder first"
+msgstr "Primero debe elegir una carpeta"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:706
+msgid "Select the video(s) that need subtitles"
+msgstr "Elija los videos que necesitan subtítulos"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:717
+msgid "Select the directory that contains your videos"
+msgstr "Elija el directorio que contiene sus videos"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:743
+msgid "No default video player has been defined in Main->Preferences"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:752
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:842
+#: /home/yen/workspace/subdownloader/gui/main.py:1380
+msgid "Downloading files..."
+msgstr "Descargando ficheros..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:753
+msgid "Playing video + sub"
+msgstr "Reproduciendo video + subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:760
+#: /home/yen/workspace/subdownloader/gui/main.py:763
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "No se pudo descargar el subtítulo %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:791
+msgid "Unable to launch videoplayer"
+msgstr "No se pudo abrir el reproductor de video"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:813
+#: /home/yen/workspace/subdownloader/gui/main.py:865
+#: /home/yen/workspace/subdownloader/gui/main.py:892
+msgid "Save as..."
+msgstr "Guardar como..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:833
+#: /home/yen/workspace/subdownloader/gui/main.py:1367
+msgid "No subtitles selected to be downloaded"
+msgstr "Ningún subtítulo fue seleccionado para descarga"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:851
+#: /home/yen/workspace/subdownloader/gui/main.py:920
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "Descargando subtítulo %s (%d/%d)"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:857
+#: /home/yen/workspace/subdownloader/gui/main.py:936
+msgid "Error write permission"
+msgstr "Error de permiso de escritura"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:858
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and user has write-access permissions."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:872
+#: /home/yen/workspace/subdownloader/gui/main.py:908
+msgid "Save subtitle as..."
+msgstr "Guardar subtítulo como..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:888
+msgid "File already exists"
+msgstr "El fichero ya existe"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:888
+#, python-format
+msgid ""
+"Local: %s \n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?\n"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:889
+msgid "Skip"
+msgstr "Omitir"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:890
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:891
+msgid "Replace all"
+msgstr "Reemplazar todo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:926
+#: /home/yen/workspace/subdownloader/gui/main.py:929
+msgid "Unable to download subtitle"
+msgstr "Incapaz de descargar el subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:937
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s no puede ser guardado.\n"
+"Compruebe que la carpeta existe y usted tiene permiso de escritura."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:975
+msgid "Connecting to server..."
+msgstr "Conectando al servidor..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:976
+msgid "Connecting"
+msgstr "Conectando"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:989
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "Conectando al servidor usando proxy %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:994
+msgid "Connected succesfully"
+msgstr "Conectado con éxito"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1059
+msgid "Please select an IMDB movie."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1062
+msgid "Uploading subtitle"
+msgstr "Subiendo subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1063
+msgid "Uploading..."
+msgstr "Subiendo..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1095
+msgid "Successful Upload"
+msgstr "Subida satisfactoria"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1096
+msgid ""
+"Subtitles succesfully uploaded. \n"
+"Many Thanks!"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1103
+msgid "View Subtitle Info"
+msgstr "Ver información del subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1109
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"Ocurrió un error al subir el subtítulo...\n"
+"Error: %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1135
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "↓ Película autodetectada a partir del fichero .nfo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1138
+msgid "↓ Movie autodetected from database"
+msgstr "↓ Película autodetectada a partir de la base de datos"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1177
+msgid "↑ Language autodetected from database"
+msgstr "↑ Idioma autodetectado a partir de la base de datos"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1181
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "↑ Idioma autodetectado a partir del nombre del fichero del subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1185
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "↑ Idioma autodetectado a partir del contenido del subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1226
+msgid "Browse video..."
+msgstr "Seleccionar video..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1243
+msgid "Browse subtitle..."
+msgstr "Seleccionar subtítulo..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1296
+#: /home/yen/workspace/subdownloader/gui/main.py:1297
+#: /home/yen/workspace/subdownloader/gui/main.py:1449
+msgid "Searching..."
+msgstr "Buscando..."
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1376
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "Elija la carpeta donde guardar los subtítulos"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1381
+msgid "Downloading"
+msgstr "Descargando"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1401
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "Descargando %s como %s"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1417
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"%s"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1439
+#, python-format
+msgid "An error occured unziping %s:n%s"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1444
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "%d subtítulos descargados con éxito"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1444
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"Puede que los subtítulos descargados no estén sincronizados con sus videos, "
+"por favor compruébelo manualmente.\n"
+"Si no hay problema de sincronización, considere subir los subtítulos usando "
+"subdownloader. De esa forma automatizará la búsqueda para los siguientes "
+"usuarios! Muchas gracias!"
+
+#: /home/yen/workspace/subdownloader/gui/main.py:1469
+msgid "A new version of SubDownloader has been released."
+msgstr "Una nueva versión de SubDownloader ha sido publicada."
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:67
+msgid "Login:"
+msgstr "Iniciar Sesión:"
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:68
+msgid "Login into OpenSubtitles.org"
+msgstr "Iniciar sesión en OpenSubtitles.org"
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:69
+msgid "Username:"
+msgstr "Usuario:"
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:70
+msgid "Password:"
+msgstr "Contraseña:"
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:71
+msgid "Currently logged as :"
+msgstr "Sesión iniciada como :"
+
+#: /home/yen/workspace/subdownloader/gui/login_ui.py:72
+msgid "Connect"
+msgstr "Conectar"
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "La lista de videos/subtítulos está vacía"
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "Subtítulo %s está repetido"
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:93
+#, python-format
+msgid "Videofie %s is repeated"
+msgstr "El video %s está repetido"
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "Algunas de las filas de ficheros a subir están vacías"
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:104
+msgid "Some of the video/subtitles are empty"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "Click para elegir video..."
+
+#: /home/yen/workspace/subdownloader/gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "Click para elegir subtítulo"
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:151
+#, python-format
+msgid "[%s]\t Rate: %s\t %s - (Already downloaded)"
+msgstr "[%s]\t Puntos: %s\t %s - (Ya descargado)"
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:153
+#, python-format
+msgid "[%s]\t Rate: %s\t %s    - Uploader: %s"
+msgstr "[%s]\t Puntos: %s\t %s - Usuario: %s"
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:155
+#, python-format
+msgid "[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s"
+msgstr "[%s]\t Puntos: %s\t Tipo: %s\t Descargas: %d\t Cds = %d\tUsuario: %s"
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:179
+#, python-format
+msgid "%s [%s] [IMDB rate=%s] - File: %s"
+msgstr "%s [%s] [Puntos IMDB=%s] - Archivo: %s"
+
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:105
+#, python-format
+msgid "Parsing video: %s"
+msgstr "Analizando video: %s"
+
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:118
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:149
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "Analizando subtítulo: %s"
+
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:119
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:150
+msgid "Finished hashing"
+msgstr "Análisis terminado"
+
+#~ msgid "Retrieving info from IMDB server, please wait..."
+#~ msgstr "Obteniendo datos desde el servidor IMDB, espere..."
+
+#~ msgid "CD1 subtitle file:"
+#~ msgstr "Subtítulo del CD1:"
+
+#~ msgid "Yes, there is an CD2 file."
+#~ msgstr "Sí, tengo un video CD2."
+
+#~ msgid "CD2 AVI file:"
+#~ msgstr "Video del CD2:"
+
+#~ msgid "CD2 subtitle file:"
+#~ msgstr "Subtítulo del CD2:"
+
+#~ msgid "Add more Cds"
+#~ msgstr "Añadir más Cds"
+
+#~ msgid "Confirm..."
+#~ msgstr "Confirmar..."
+
+#~ msgid "Movie IMDB ID:"
+#~ msgstr "Id IMDB de la Película"
+
+#~ msgid "Search ID..."
+#~ msgstr "Buscar IMDB Id..."
+
+#~ msgid "Error requesting Title in IMDB Server"
+#~ msgstr "Error obteniendo el Título en el Servidor IMDB"
+
+#~ msgid "Alternative Movie title (AKA): "
+#~ msgstr "Título del film en tu idioma: "
+
+#~ msgid "Serials/Seasons/Episodes"
+#~ msgstr "Series/Temporadas/Episodios"
+
+#~ msgid "Errors found:"
+#~ msgstr "Errores encontrados:"
+
+#~ msgid "Upload More Cds"
+#~ msgstr "Subir Más Cds"
+
+#~ msgid "%d extra CDs added."
+#~ msgstr "%d CDs extra añadidos."
+
+#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
+#~ msgstr "Tamaño muy pequeño del video CD%(cd_number)s : %(videopath)s"
+
+#~ msgid "Size of subtitle %s bigger than 300Kb"
+#~ msgstr "Tamaño del subtítulo %s excede de 300kb"
+
+#~ msgid "Error: video CD %d = video CD %d"
+#~ msgstr "Error: video CD %d = video CD %d"
+
+#~ msgid "Error: sub CD %d = sub CD %d"
+#~ msgstr "Error: sub CD %d = sub CD %d"
+
+#~ msgid "Checking videofiles and subs, please wait..."
+#~ msgstr "Comprobando videos y subtítulos, un momento..."
+
+#~ msgid "Checking subtitles in server, please wait..."
+#~ msgstr "Comprobando subtítulos en el servidor, un momento..."
+
+#~ msgid "Error Checking Subtitles in server, possible causes:"
+#~ msgstr "Error comprobando subtítulos en el servidor, posibles causas:"
+
+#~ msgid "The connection with the server is off"
+#~ msgstr "Se perdió la conexión con el servidor"
+
+#~ msgid "Error getting the IMDB info of %s"
+#~ msgstr "Error obteniendo la información IMDB de %s"
+
+#~ msgid "Your subtitle name has some special characters you should remove."
+#~ msgstr ""
+#~ "El nombre del archivo tiene algun caracter especial que deberías corregir"
+
+#~ msgid "Subtitle Found..."
+#~ msgstr "Subtítulo Encontrado..."
+
+#~ msgid "Detected .nfo file, please wait..."
+#~ msgstr "Detectado archivo .nfo, analizando..."
+
+#~ msgid "Error retrieving IMDB ID from .NFO file"
+#~ msgstr "Error obteniendo Id IMDB del archivo .nfo"
+
+#~ msgid "IMDB Search"
+#~ msgstr "Búsqueda IMDB"
+
+#~ msgid "Error: The IMDB ID field is required."
+#~ msgstr "Error: El campo IMDB id es requerido."
+
+#~ msgid "Upload Progress"
+#~ msgstr "Progreso de Subida"
+
+#~ msgid "Uploading, it can take a while..."
+#~ msgstr "Subiendo, espere unos momentos..."
+
+#~ msgid "The number %s is the ID of the movie?"
+#~ msgstr "El número %s es el Id IMDB de la película?"
+
+#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
+#~ msgstr "Le gustaría ver la página online del subtítulo recien subido?"
+
+#~ msgid "The server returned some errors"
+#~ msgstr "El servidor devolvió varios errores"
+
+#~ msgid "Error Uploading Subtitles in server, possible causes:"
+#~ msgstr "Error subiendo subtítulos en el servidor, posibles causas:"
+
+#~ msgid "No subtitles found. Please upload it."
+#~ msgstr "Ningún subtítulo encontrado. Por favor súbelo."
+
+#~ msgid "log-in"
+#~ msgstr "Acceder"
+
+#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
+#~ msgstr "Clarificación : Id IMDB o Título"
+
+#~ msgid "Exit"
+#~ msgstr "Salir"
+
+#~ msgid "Donate"
+#~ msgstr "Enviar donación"
+
+#~ msgid "Options"
+#~ msgstr "Opciones"
+
+#~ msgid "Help us"
+#~ msgstr "Ayuda"
+
+#~ msgid "You must search the movie title and select an IMDB ID"
+#~ msgstr "Debe buscar por título y seleccionar un Id IMDB"
+
+#~ msgid ""
+#~ "The application found some errors. Would you like to report them to be "
+#~ "corrected?"
+#~ msgstr ""
+#~ "La última sesión generó errores. Le gustaría enviarlos para que sean "
+#~ "corregidos?"
+
+#~ msgid "Error sending bug. Thank you anyway"
+#~ msgstr "Error enviando el bug. Gracias de todas formas"
+
+#~ msgid "Please Login"
+#~ msgstr "Por favor Registrese"
+
+#~ msgid "We strongly recommend to log-in before uploading files"
+#~ msgstr "Recomendamos que se registre antes de subir cualquier subtítulo"
+
+#~ msgid "Connecting, please wait..."
+#~ msgstr "Conectando, un momento..."
+
+#~ msgid "Error XMLRPC creating server connection to : %s"
+#~ msgstr "Error XMLRPC creando conexión con el servidor: %s"
+
+#~ msgid "Error opening link"
+#~ msgstr "Error abriendo enlace"
+
+#~ msgid "Connected anonymously"
+#~ msgstr "Conectado anónimamente"
+
+#~ msgid "NEW VERSION: "
+#~ msgstr "NUEVA VERSION: "
+
+#~ msgid "UNKNOWN"
+#~ msgstr "DESCONOCIDO"
+
+#~ msgid "CURRENT VERSION:"
+#~ msgstr "ACTUAL VERSION:"
+
+#~ msgid "Changes in the new version:"
+#~ msgstr "Cambios en la nueva versión:"
+
+#~ msgid "Update"
+#~ msgstr "Actualizar"
+
+#~ msgid "New Update"
+#~ msgstr "Nueva actualización"
+
+#~ msgid "Movie hash of"
+#~ msgstr "El HASH del video"
+
+#~ msgid "Accept"
+#~ msgstr "Aceptar"
+
+#~ msgid " has been updated."
+#~ msgstr " ha sido actualizado."
+
+#~ msgid "Thank you very much for your collaboration  :-)"
+#~ msgstr "Muchas gracias por vuestra colaboración :-)"
+
+#~ msgid "Report wrong info"
+#~ msgstr "Avisar información incorrecta"
+
+#~ msgid "extra CDs added."
+#~ msgstr "CDs extra añadidos"
+
+#~ msgid "The video %(videopath) doesn't exist."
+#~ msgstr "El video %(videopath) no existe."
+
+#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
+#~ msgstr ""
+#~ "Encontrado un error interno en el video CD%(cd_number) : %(videopath)"
+
+#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
+#~ msgstr "Tamaño muy pequeño del video CD%(cd_number) : %(videopath)"
+
+#~ msgid "The subtitle %(subpath) doesn't exist."
+#~ msgstr "El subtítulo %(subpath) no existe."
+
+#~ msgid "Size of subtitle %(subpath)"
+#~ msgstr "Tamaño del subtítulo %(subpath)"
+
+#~ msgid "Error occurred while autodetecting language"
+#~ msgstr "Error ocurrido durante la autodetección del idioma"
+
+#~ msgid "Autodecteded language"
+#~ msgstr "Idioma autodetectado"
+
+#~ msgid "Subtitle download directory:"
+#~ msgstr "Directorio de descarga de los subtítulos:"
+
+#~ msgid "Please choose directory"
+#~ msgstr "Por favor elija un directorio"
+
+#~ msgid "If you don't have a user account, please"
+#~ msgstr "Si todavía no tiene una cuenta, por favor"
+
+#~ msgid "Register for free"
+#~ msgstr "Regístrese gratis"
+
+#~ msgid "MOVIE TITLE or IMDB ID: "
+#~ msgstr "Título de la Película o IMDB Id: "
+
+#~ msgid "File"
+#~ msgstr "Archivo"
+
+#~ msgid "Choose interface language here ..."
+#~ msgstr "Elija el idioma de la interfaz ..."
+
+#~ msgid "Autodetect Language in Upload"
+#~ msgstr "Autodetectar Idioma al Subir subtítulos"
+
+#~ msgid "Default Upload Language:"
+#~ msgstr "Idioma de subtítulos subidos por defecto:"
+
+#~ msgid "Servers configuration:"
+#~ msgstr "Configuración del Servidor"
+
+#~ msgid "OSDB protocol:"
+#~ msgstr "Protocolo OSDB:"
+
+#~ msgid "The file for AVI CD%d is required"
+#~ msgstr "Se requiere el archivo para el AVI CD%d"
+
+#~ msgid "Host address: "
+#~ msgstr "Dirección del Servidor: "
+
+#~ msgid "Get server info"
+#~ msgstr "Obtener Info"
+
+#~ msgid "Server:"
+#~ msgstr "Servidor:"
+
+#~ msgid "User:"
+#~ msgstr "Usuario:"
+
+#~ msgid "%s is not a valid http:// address"
+#~ msgstr "%s no es una dirección http:// válida"
+
+#~ msgid "OSDB Server Info"
+#~ msgstr "Info del Servidor OSDB"
+
+#~ msgid "The OSDB server address is unreacheable"
+#~ msgstr "No se puede acceder al servidor OSDB"
+
+#~ msgid "The file for Sub CD%d is required"
+#~ msgstr "Se requiere el archivo para el Sub CD%d"
+
+#~ msgid "AVI File CD%d"
+#~ msgstr "Archivo AVI del CD%d"
+
+#~ msgid "Clear content"
+#~ msgstr "Vaciar contenido"
+
+#~ msgid "Add videofile"
+#~ msgstr "Añadir archivo de video"
+
+#~ msgid "Add directory"
+#~ msgstr "Añadir directorio"
+
+#~ msgid "Clear List"
+#~ msgstr "Vaciar lista"
+
+#~ msgid "SEARCH"
+#~ msgstr "BUSCAR"
+
+#~ msgid "Select / Unselect ALL"
+#~ msgstr "Seleccionar / Deseleccionar TODOS"
+
+#~ msgid "Add film's directory"
+#~ msgstr "Añadir directorio de películas"
+
+#~ msgid "Add videos from folder (recursive)"
+#~ msgstr "Añadir directorio con videos (recursivo)"
+
+#~ msgid "Download Subtitles"
+#~ msgstr "Descargar subtítulos"
+
+#~ msgid "View Details and Rate Subtitle"
+#~ msgstr "Ver Detalles y Puntuar al Subtítulo"
+
+#~ msgid "This SUBTITLE is not for this AVI"
+#~ msgstr "Este SUBTITULO no es para este VIDEO"
+
+#~ msgid "The MOVIE IMDB is not for this AVI"
+#~ msgstr "El Id IMDB no corresponde a este AVI"
+
+#~ msgid "The subtitle LANGUAGE is not correct"
+#~ msgstr "El IDIOMA del subtítulo no es correcto"
+
+#~ msgid "Report us Wrong Info"
+#~ msgstr "Avísenos de Informacion INCORRECTA"
+
+#~ msgid "Search other subs for this Movie"
+#~ msgstr "Buscar otros subtítulos para esta Película"
+
+#~ msgid "Download this programs: %s to watch movies + subtitles."
+#~ msgstr ""
+#~ "Descargar estos programas: %s para reproducir películas + subtítulos."
+
+#~ msgid ""
+#~ "(It means subtitles are for this movie, but are not well-synchronized)"
+#~ msgstr ""
+#~ "(Significa que los subtítulos son para esta película, pero están mal "
+#~ "sincronizados)"
+
+#~ msgid "Are you sure these subtitles are not good for your video file?"
+#~ msgstr "Está seguro que estos subtítulos no son adecuados para este video?"
+
+#~ msgid "The report has been noted. Thank you very much."
+#~ msgstr "El aviso ha sido anotado. Muchas gracias."
+
+#~ msgid "Choose directory..."
+#~ msgstr "Elegir directorio..."
+
+#~ msgid "Downloading, it can take a while..."
+#~ msgstr "Descargando, espere unos momentos..."
+
+#~ msgid "Some errors found:"
+#~ msgstr "Errores encontrados:"
+
+#~ msgid "Search Progress"
+#~ msgstr "Progreso de Búsqueda"
+
+#~ msgid "Searching using OSDB protocol"
+#~ msgstr "Buscando usando el protocolo OSDB"
+
+#~ msgid "Searching, it can take a while..."
+#~ msgstr "Buscando, espere unos momentos..."
+
+#~ msgid "Error connecting to the OSDB server"
+#~ msgstr "Error conectando al servidor OSDB"
+
+#~ msgid "New Version Detected"
+#~ msgstr "Nueva Versión Detectada"
+
+#~ msgid "Calculating Hash"
+#~ msgstr "Calculando Hash"
+
+#~ msgid "Found error in the file %s"
+#~ msgstr "Encontrado error en el archivo %s"
+
+#~ msgid "Size error in the file %s"
+#~ msgstr "Error de tamaño en el archivo %s"
+
+#~ msgid "The file <%s> can't be found"
+#~ msgstr "No se peude encotnrar el archivo <%s>"
+
+#~ msgid ""
+#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
+#~ msgstr ""
+#~ "Necesitamos vuestro ánimo para seguir desarrollando Subdownloader, puede "
+#~ "ayudarnos de muchas formas:"
+
+#~ msgid "IMDB ID"
+#~ msgstr "Id IMDB"
+
+#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
+#~ msgstr ""
+#~ "- Subiendo muchos subtítulos para hacer crecer nuestra base de datos "
+#~ "rápidamente"
+
+#~ msgid "- Contact us to translate the program in your language"
+#~ msgstr "- Contactar nos para traducir el programa a tu idioma"
+
+#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
+#~ msgstr ""
+#~ "- Hacer una DONACION para a veces poder comprar algún kebap o comida china :-"
+#~ ")"
+
+#~ msgid "- Send us some FEEDBACK"
+#~ msgstr "- Envíenos COMENTARIOS"
+
+#~ msgid "Send Feedback"
+#~ msgstr "Enviar Comentarios"
+
+#~ msgid "    - Chat with us:"
+#~ msgstr "    - Chatea con nosotros:"
+
+#~ msgid "   capiscuas@gmail.com"
+#~ msgstr "   capiscuas@gmail.com"
+
+#~ msgid "Thank you very much"
+#~ msgstr "Muchas gracias"
+
+#~ msgid "Apply Changes"
+#~ msgstr "Aplicar Cambios"
+
+#~ msgid "Cancel Changes"
+#~ msgstr "Cancelar Cambios"
+
+#~ msgid "Servers"
+#~ msgstr "Servidores"
+
+#~ msgid "Language"
+#~ msgstr "Idioma"
+
+#~ msgid "Directories"
+#~ msgstr "Directorios"
+
+#~ msgid "Downloading Language"
+#~ msgstr "Descargando Idioma"
+
+#~ msgid "Downloading %s language, it can take a while..."
+#~ msgstr "Descargando el idioma %s, espere unos momentos..."
+
+#~ msgid "Error retrieving new language from server."
+#~ msgstr "Error descargando nuevo idioma desde el servidor."
+
+#~ msgid "No translation available in %s. Please contact %s to help us."
+#~ msgstr ""
+#~ "Ninguna traducción disponible para %s. Por favor contacte %s para ayudarnos."
+
+#~ msgid "Error trying to save preferences in '%s'"
+#~ msgstr "Error guardando Opciones en '%s'"
+
+#~ msgid "2nd Step: CD2 files"
+#~ msgstr "2ndo Paso: Archivos del CD2"
+
+#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
+#~ msgstr "3er Paso: Veamos si ya tenemos esos subtítulos"
+
+#~ msgid "4th Step: Required Information"
+#~ msgstr "4o Paso: Información Requerida"
+
+#~ msgid "5th Step: Optional Information"
+#~ msgstr "5o Paso: Información Opcional"
+
+#~ msgid "6th Step: Uploading the subtitle"
+#~ msgstr "6o Paso: Subiendo los subtítulos"
+
+#~ msgid "1st Step: CD1 files"
+#~ msgstr "1er Paso: Archivos del CD1"
+
+#~ msgid "CD1 AVI file:"
+#~ msgstr "Video del CD1:"
+
+#~ msgid "Browse avi..."
+#~ msgstr "Seleccionar avi..."
+
+#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
+#~ msgstr "Español por Ivan Garcia - capiscuas@gmail.com"

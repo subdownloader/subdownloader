@@ -342,10 +342,13 @@ class Main(QObject, Ui_MainWindow):
             introduction = '<p align="center"><h2>%s</h2></p>' \
                                     '<p><b>%s</b><br>%s</p>' \
                                     '<p><b>%s</b><br>%s</p>'\
+                                    '<p><b>%s</b><br>%s</p>' \
                                     '<p><b>%s</b><br>%s</p>' % (_("How To Use SubDownloader"), \
-                                     _("1st tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."), \
-                                     _("2nd tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
-                                    _("3rd tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database,please upload those subtitles so next users will be able to find them more easily.") )
+                                     _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."), \
+                                     _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
+                                    _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database,please upload those subtitles so next users will be able to find them more easily."), \
+                                    _("Quid Pro Quo:"),_("SubDownloader is an free open source software with no commercial purposes." \
+                                    "If you think this program has saved you plenty of time, please help us by donating a few euros."))
             
             self.introductionHelp.setHtml(introduction)
             self.videoView.hide()
@@ -509,8 +512,8 @@ class Main(QObject, Ui_MainWindow):
         while 1:
             self.status_label.setText(_("Users online: Updating..."))
             try:
-                data = self.SDDBServer.ServerInfo() # we cant use the timeout class inherited in OSDBServer
-                self.status_label.setText(_("Users online: %s" % str(data["total_users_online_program"])))
+                data = self.OSDBServer.ServerInfo() # we cant use the timeout class inherited in OSDBServer
+                self.status_label.setText(_("Users online: %s" % str(data["users_online_program"])))
             except:
                 self.status_label.setText(_("Users online: ERROR"))
             time.sleep(sleeptime)
@@ -804,13 +807,13 @@ class Main(QObject, Ui_MainWindow):
             if index.isValid():
                 now = QTime.currentTime()
                 if now > self.timeLastSearch.addMSecs(500):
-                    if not self.folderView.model().hasChildren(index):
-                        settings = QSettings()
-                        folder_path = str(self.folderView.model().filePath(index).toUtf8())
-                        settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
-                        self.SearchVideos(folder_path) 
-                        self.timeLastSearch = QTime.currentTime()
-                    self.buttonFind.setEnabled(True)
+                        if not self.folderView.model().hasChildren(index):
+                                settings = QSettings()
+                                folder_path = unicode(self.folderView.model().filePath(index))
+                                settings.setValue("mainwindow/workingDirectory", QVariant(folder_path))
+                                self.SearchVideos(folder_path) 
+                                self.timeLastSearch = QTime.currentTime()
+                        self.buttonFind.setEnabled(True)
 
 
     def onButtonPlay(self):

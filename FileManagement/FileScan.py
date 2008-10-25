@@ -53,6 +53,7 @@ def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress
     all_subs_found = []
     for path in filepaths:
         log.debug("Scanning: %s"% path)
+
         if os.path.isdir(path):
             videos_found, subs_found = ScanFolder(path,recursively = True,report_progress=report_progress, progress_end=progress_end)
             all_videos_found += videos_found

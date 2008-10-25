@@ -195,7 +195,7 @@ class SDService(object):
     def ServerInfo(self):
         ServerInfo = TimeoutFunction(self._ServerInfo)
         try:
-            a = ServerInfo()['result']
+            a = ServerInfo()
             return a
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")

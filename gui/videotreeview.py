@@ -150,12 +150,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     
                 #Constructing the row text to show in the TreeView
                 line = "[%s]" % _(sub.getLanguageName()) 
-                line += "    %s  " % sub.getFileName()
-                if sub.getRating() != '0.0': #if the rate is not 0
-                        line += _("[Rate: %s]") % str(sub.getRating())
+                
+                if hasattr(sub, "_filename"): #if hash searching
+                    line += "    %s  " % sub.getFileName()
+                    if sub.getRating() != '0.0': #if the rate is not 0
+                            line += _("[Rate: %s]") % str(sub.getRating())
                         
                 if sub.isLocal():
-                        line += "  " + _("(Already downloaded)") % str(sub.getRating())
+                        line += "  " + _("(Already downloaded)")
                         return QVariant(line)
                 elif hasattr(sub, "_filename"): #Subtitle found from hash
                         line += "  " + _("Uploader: %s") % uploader
