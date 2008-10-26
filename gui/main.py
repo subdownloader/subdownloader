@@ -344,11 +344,11 @@ class Main(QObject, Ui_MainWindow):
                                     '<p><b>%s</b><br>%s</p>'\
                                     '<p><b>%s</b><br>%s</p>' \
                                     '<p><b>%s</b><br>%s</p>' % (_("How To Use SubDownloader"), \
-                                     _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."), \
+                                     _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."), \
                                      _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
-                                    _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database,please upload those subtitles so next users will be able to find them more easily."), \
+                                    _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."), \
                                     _("Quid Pro Quo:"),_("SubDownloader is an free open source software with no commercial purposes." \
-                                    "If you think this program has saved you plenty of time, please help us by donating a few euros."))
+                                    " If you think this program has saved you plenty of time, please help us by donating a few euros."))
             
             self.introductionHelp.setHtml(introduction)
             self.videoView.hide()
@@ -821,7 +821,7 @@ class Main(QObject, Ui_MainWindow):
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
         parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
         if programPath == QString(): 
-            QMessageBox.about(self.window,_("Error"),_("No default video player has been defined in Main->Settings"))
+            QMessageBox.about(self.window,_("Error"),_("No default video player has been defined in Settings."))
             return
         else:
             subtitle = self.videoModel.getSelectedItem().data
@@ -966,7 +966,7 @@ class Main(QObject, Ui_MainWindow):
                 if QFileInfo(destinationPath).exists() and not replace_all and optionWhereToDownload != QVariant("ASK_FOLDER"):
                     # The "remote filename" below is actually not the real filename. Real name could be confusing
                     # since we always rename downloaded sub to match movie filename. 
-                    fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s \n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
+                    fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s\n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
                     skipButton = fileExistsBox.addButton(QString(_("Skip")), QMessageBox.ActionRole)
                     replaceButton = fileExistsBox.addButton(QString(_("Replace")), QMessageBox.ActionRole)
                     replaceAllButton = fileExistsBox.addButton(QString(_("Replace all")), QMessageBox.ActionRole)

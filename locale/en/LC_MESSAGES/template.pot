@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SubDownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-23 21:12+0700\n"
-"PO-Revision-Date: 2008-10-23 21:13+0700\n"
+"POT-Creation-Date: 2008-10-25 18:58+0700\n"
+"PO-Revision-Date: 2008-10-25 18:58+0700\n"
 "Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -203,26 +203,26 @@ msgstr ""
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:83
 #: /home/yen/workspace/subdownloader/gui/login.py:67
 #: /home/yen/workspace/subdownloader/gui/preferences.py:151
-#: /home/yen/workspace/subdownloader/gui/main.py:268
-#: /home/yen/workspace/subdownloader/gui/main.py:276
-#: /home/yen/workspace/subdownloader/gui/main.py:615
-#: /home/yen/workspace/subdownloader/gui/main.py:686
-#: /home/yen/workspace/subdownloader/gui/main.py:748
-#: /home/yen/workspace/subdownloader/gui/main.py:759
-#: /home/yen/workspace/subdownloader/gui/main.py:789
-#: /home/yen/workspace/subdownloader/gui/main.py:806
-#: /home/yen/workspace/subdownloader/gui/main.py:809
-#: /home/yen/workspace/subdownloader/gui/main.py:837
-#: /home/yen/workspace/subdownloader/gui/main.py:879
-#: /home/yen/workspace/subdownloader/gui/main.py:972
-#: /home/yen/workspace/subdownloader/gui/main.py:975
-#: /home/yen/workspace/subdownloader/gui/main.py:1103
-#: /home/yen/workspace/subdownloader/gui/main.py:1108
-#: /home/yen/workspace/subdownloader/gui/main.py:1158
-#: /home/yen/workspace/subdownloader/gui/main.py:1161
-#: /home/yen/workspace/subdownloader/gui/main.py:1425
-#: /home/yen/workspace/subdownloader/gui/main.py:1475
-#: /home/yen/workspace/subdownloader/gui/main.py:1497
+#: /home/yen/workspace/subdownloader/gui/main.py:270
+#: /home/yen/workspace/subdownloader/gui/main.py:278
+#: /home/yen/workspace/subdownloader/gui/main.py:647
+#: /home/yen/workspace/subdownloader/gui/main.py:721
+#: /home/yen/workspace/subdownloader/gui/main.py:783
+#: /home/yen/workspace/subdownloader/gui/main.py:794
+#: /home/yen/workspace/subdownloader/gui/main.py:824
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:844
+#: /home/yen/workspace/subdownloader/gui/main.py:872
+#: /home/yen/workspace/subdownloader/gui/main.py:914
+#: /home/yen/workspace/subdownloader/gui/main.py:1007
+#: /home/yen/workspace/subdownloader/gui/main.py:1010
+#: /home/yen/workspace/subdownloader/gui/main.py:1138
+#: /home/yen/workspace/subdownloader/gui/main.py:1143
+#: /home/yen/workspace/subdownloader/gui/main.py:1193
+#: /home/yen/workspace/subdownloader/gui/main.py:1196
+#: /home/yen/workspace/subdownloader/gui/main.py:1460
+#: /home/yen/workspace/subdownloader/gui/main.py:1510
+#: /home/yen/workspace/subdownloader/gui/main.py:1532
 msgid "Error"
 msgstr ""
 
@@ -232,8 +232,8 @@ msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:50
 #: /home/yen/workspace/subdownloader/gui/login.py:67
-#: /home/yen/workspace/subdownloader/gui/main.py:268
-#: /home/yen/workspace/subdownloader/gui/main.py:686
+#: /home/yen/workspace/subdownloader/gui/main.py:270
+#: /home/yen/workspace/subdownloader/gui/main.py:721
 msgid "Error contacting the server. Please try again later"
 msgstr ""
 
@@ -247,7 +247,7 @@ msgid "About Subdownloader"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:143
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:719
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:730
 #: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:124
 msgid "About"
 msgstr ""
@@ -262,6 +262,13 @@ msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:167
 msgid "Close"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/login.py:33
+#: /home/yen/workspace/subdownloader/gui/login.py:71
+#: /home/yen/workspace/subdownloader/gui/main.py:539
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:149
+msgid "Anonymous"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login.py:36
@@ -288,8 +295,8 @@ msgid "Filter search results by these languages:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences_ui.py:286
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:678
-#: /home/yen/workspace/subdownloader/gui/main.py:1508
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:689
+#: /home/yen/workspace/subdownloader/gui/main.py:1543
 msgid "Search"
 msgstr ""
 
@@ -331,9 +338,9 @@ msgid "Same name as the online subtitle"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences_ui.py:296
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:676
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:684
-#: /home/yen/workspace/subdownloader/gui/main.py:374
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:687
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:695
+#: /home/yen/workspace/subdownloader/gui/main.py:406
 msgid "Download"
 msgstr ""
 
@@ -342,7 +349,7 @@ msgid "Default language of uploaded subtitles"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences_ui.py:298
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:711
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:722
 msgid "Upload"
 msgstr ""
 
@@ -367,7 +374,7 @@ msgid "Interface Language:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences_ui.py:304
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:727
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:738
 msgid "Translate This Application..."
 msgstr ""
 
@@ -405,7 +412,7 @@ msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences_ui.py:314
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:81
-#: /home/yen/workspace/subdownloader/gui/main.py:939
+#: /home/yen/workspace/subdownloader/gui/main.py:974
 msgid "Cancel"
 msgstr ""
 
@@ -415,14 +422,14 @@ msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences.py:36
 #: /home/yen/workspace/subdownloader/gui/preferences.py:38
-#: /home/yen/workspace/subdownloader/gui/main.py:560
-#: /home/yen/workspace/subdownloader/gui/main.py:561
-#: /home/yen/workspace/subdownloader/gui/main.py:562
+#: /home/yen/workspace/subdownloader/gui/main.py:592
+#: /home/yen/workspace/subdownloader/gui/main.py:593
+#: /home/yen/workspace/subdownloader/gui/main.py:594
 msgid "LanguageName"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/preferences.py:61
-#: /home/yen/workspace/subdownloader/gui/main.py:1071
+#: /home/yen/workspace/subdownloader/gui/main.py:1106
 msgid "Select a directory"
 msgstr ""
 
@@ -459,177 +466,177 @@ msgstr ""
 msgid "Modified proxy settings will take effect after restarting the program"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:664
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:670
 msgid "SubDownloader"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:665
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:671
 msgid "Select the video/folder that needs subtitles:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:666
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:672
 msgid "Select videos that need subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:667
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:673
 msgid "Select videos..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:668
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:670
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:674
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:676
 msgid "Click here to Search the subtitles of the movies in that folder"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:669
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:675
 msgid "Select folder..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:671
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:677
 msgid "Search subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:672
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:678
 msgid "Videos/Subtitles found:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:673
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:682
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:679
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:693
 msgid "Filter by :"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:674
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:683
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:685
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:694
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:79
-#: /home/yen/workspace/subdownloader/gui/main.py:711
-#: /home/yen/workspace/subdownloader/gui/main.py:726
+#: /home/yen/workspace/subdownloader/gui/main.py:746
+#: /home/yen/workspace/subdownloader/gui/main.py:761
 msgid "Movie Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:675
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:686
 msgid "Play"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:677
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:688
 msgid "Search from Video file(s)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:679
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:690
 msgid "Site:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:680
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:691
 msgid "OpenSubtitles.org"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:681
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:692
 msgid "Subtitles found:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:685
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:696
 msgid "Search by Movie Name"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:686
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:697
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:687
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:688
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:689
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:691
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:692
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:693
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:706
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:707
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:698
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:699
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:700
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:702
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:703
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:704
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:717
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:718
 msgid "..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:690
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:701
 msgid "Empty the list"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:694
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:705
 msgid "Details:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:699
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:710
 msgid "Movie Title:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:700
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:711
 msgid "Click on the Find button to identify the movie"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:701
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:712
 msgid "Find"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:708
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:719
 msgid "Release name:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:709
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:720
 msgid "Comments:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:710
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:721
 msgid "Subtitle Language:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:712
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:723
 msgid "Upload subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:713
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:724
 msgid "&Main"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:714
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:725
 msgid "&Help"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:715
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:726
 msgid "&Settings"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:716
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:727
 msgid "&View"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:717
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:728
 msgid "Quit"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:718
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:729
 msgid "Visit HomePage"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:720
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:731
 msgid "Report A Problem"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:721
-#: /home/yen/workspace/subdownloader/gui/main.py:237
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:732
+#: /home/yen/workspace/subdownloader/gui/main.py:239
 msgid "Help Us With 5 USD/EUR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:722
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:733
 msgid "&Configure Subdownloader"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:723
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:734
 msgid "LogIn"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:724
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:735
 msgid "Log Messages"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:725
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:736
 msgid "Show/Hide Tree Folder"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main_ui.py:726
+#: /home/yen/workspace/subdownloader/gui/main_ui.py:737
 msgid "LogOut"
 msgstr ""
 
@@ -662,42 +669,78 @@ msgstr ""
 msgid "SubDownloader %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:231
+#: /home/yen/workspace/subdownloader/gui/main.py:233
 msgid "Not logged yet"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:276
+#: /home/yen/workspace/subdownloader/gui/main.py:278
 #, python-format
 msgid "Unable to find %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:365
-#: /home/yen/workspace/subdownloader/gui/main.py:389
-msgid "View IMDB info"
+#: /home/yen/workspace/subdownloader/gui/main.py:346
+msgid "How To Use SubDownloader"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:368
-msgid "Set IMDB info..."
+#: /home/yen/workspace/subdownloader/gui/main.py:347
+msgid "1st Tab:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:377
-msgid "Play video + subtitle"
+#: /home/yen/workspace/subdownloader/gui/main.py:347
+msgid "Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:382
-msgid "View online info"
+#: /home/yen/workspace/subdownloader/gui/main.py:348
+msgid "2nd Tab:"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:348
+msgid "If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:349
+msgid "3rd Tab:"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:349
+msgid "If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:350
+msgid "Quid Pro Quo:"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:350
+msgid "SubDownloader is an free open source software with no commercial purposes. If you think this program has saved you plenty of time, please help us by donating a few euros."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:397
-#: /home/yen/workspace/subdownloader/gui/main.py:740
+#: /home/yen/workspace/subdownloader/gui/main.py:421
+msgid "View IMDB info"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:400
+msgid "Set IMDB info..."
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:409
+msgid "Play video + subtitle"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:414
+msgid "View online info"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/main.py:429
+#: /home/yen/workspace/subdownloader/gui/main.py:775
 msgid "Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:455
+#: /home/yen/workspace/subdownloader/gui/main.py:487
 msgid "New Version Detected"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:456
+#: /home/yen/workspace/subdownloader/gui/main.py:488
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -708,181 +751,179 @@ msgid ""
 "Would you like to download the new version now?"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:481
+#: /home/yen/workspace/subdownloader/gui/main.py:513
 msgid "Users online: Updating..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:484
+#: /home/yen/workspace/subdownloader/gui/main.py:516
 #, python-format
 msgid "Users online: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:486
+#: /home/yen/workspace/subdownloader/gui/main.py:518
 msgid "Users online: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:496
-#: /home/yen/workspace/subdownloader/gui/main.py:497
-#: /home/yen/workspace/subdownloader/gui/main.py:500
+#: /home/yen/workspace/subdownloader/gui/main.py:528
+#: /home/yen/workspace/subdownloader/gui/main.py:529
+#: /home/yen/workspace/subdownloader/gui/main.py:532
 msgid "Logging in..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:496
-#: /home/yen/workspace/subdownloader/gui/main.py:1023
+#: /home/yen/workspace/subdownloader/gui/main.py:528
+#: /home/yen/workspace/subdownloader/gui/main.py:1058
 msgid "&Cancel"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:507
-msgid "Anonymous"
-msgstr ""
-
-#: /home/yen/workspace/subdownloader/gui/main.py:508
+#: /home/yen/workspace/subdownloader/gui/main.py:540
 #, python-format
 msgid "Logged as %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:512
+#: /home/yen/workspace/subdownloader/gui/main.py:544
 #, python-format
 msgid "Login as %s: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:516
+#: /home/yen/workspace/subdownloader/gui/main.py:548
 msgid "Login: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:525
+#: /home/yen/workspace/subdownloader/gui/main.py:557
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:557
-#: /home/yen/workspace/subdownloader/gui/main.py:558
+#: /home/yen/workspace/subdownloader/gui/main.py:589
+#: /home/yen/workspace/subdownloader/gui/main.py:590
 msgid "All languages"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:615
-#: /home/yen/workspace/subdownloader/gui/main.py:748
-#: /home/yen/workspace/subdownloader/gui/main.py:759
+#: /home/yen/workspace/subdownloader/gui/main.py:647
+#: /home/yen/workspace/subdownloader/gui/main.py:783
+#: /home/yen/workspace/subdownloader/gui/main.py:794
 msgid "You are not connected to the server. Please reconnect first."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:621
+#: /home/yen/workspace/subdownloader/gui/main.py:653
 msgid "Scanning files"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:621
-#: /home/yen/workspace/subdownloader/gui/main.py:649
-#: /home/yen/workspace/subdownloader/gui/main.py:798
-#: /home/yen/workspace/subdownloader/gui/main.py:887
-#: /home/yen/workspace/subdownloader/gui/main.py:1111
-#: /home/yen/workspace/subdownloader/gui/main.py:1438
-#: /home/yen/workspace/subdownloader/gui/main.py:1507
+#: /home/yen/workspace/subdownloader/gui/main.py:653
+#: /home/yen/workspace/subdownloader/gui/main.py:684
+#: /home/yen/workspace/subdownloader/gui/main.py:833
+#: /home/yen/workspace/subdownloader/gui/main.py:922
+#: /home/yen/workspace/subdownloader/gui/main.py:1146
+#: /home/yen/workspace/subdownloader/gui/main.py:1473
+#: /home/yen/workspace/subdownloader/gui/main.py:1542
 msgid "&Abort"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:646
+#: /home/yen/workspace/subdownloader/gui/main.py:681
 msgid "Scan Results"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:646
+#: /home/yen/workspace/subdownloader/gui/main.py:681
 msgid "No video has been found"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:649
+#: /home/yen/workspace/subdownloader/gui/main.py:684
 msgid "Searching subtitles..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:659
+#: /home/yen/workspace/subdownloader/gui/main.py:694
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:695
+#: /home/yen/workspace/subdownloader/gui/main.py:730
 msgid "Search finished"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:717
-#: /home/yen/workspace/subdownloader/gui/main.py:732
+#: /home/yen/workspace/subdownloader/gui/main.py:752
+#: /home/yen/workspace/subdownloader/gui/main.py:767
 msgid "Sub Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:740
+#: /home/yen/workspace/subdownloader/gui/main.py:775
 msgid "You must select a folder first"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:752
+#: /home/yen/workspace/subdownloader/gui/main.py:787
 msgid "Select the video(s) that need subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:763
+#: /home/yen/workspace/subdownloader/gui/main.py:798
 msgid "Select the directory that contains your videos"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:789
+#: /home/yen/workspace/subdownloader/gui/main.py:824
 msgid "No default video player has been defined in Main->Settings"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:798
-#: /home/yen/workspace/subdownloader/gui/main.py:887
-#: /home/yen/workspace/subdownloader/gui/main.py:888
-#: /home/yen/workspace/subdownloader/gui/main.py:1438
+#: /home/yen/workspace/subdownloader/gui/main.py:833
+#: /home/yen/workspace/subdownloader/gui/main.py:922
+#: /home/yen/workspace/subdownloader/gui/main.py:923
+#: /home/yen/workspace/subdownloader/gui/main.py:1473
 msgid "Downloading files..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:799
+#: /home/yen/workspace/subdownloader/gui/main.py:834
 msgid "Playing video + sub"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:806
-#: /home/yen/workspace/subdownloader/gui/main.py:809
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:844
+#: /home/yen/workspace/subdownloader/gui/main.py:1007
+#: /home/yen/workspace/subdownloader/gui/main.py:1010
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:837
+#: /home/yen/workspace/subdownloader/gui/main.py:872
 msgid "Unable to launch videoplayer"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:859
-#: /home/yen/workspace/subdownloader/gui/main.py:911
-#: /home/yen/workspace/subdownloader/gui/main.py:938
+#: /home/yen/workspace/subdownloader/gui/main.py:894
+#: /home/yen/workspace/subdownloader/gui/main.py:946
+#: /home/yen/workspace/subdownloader/gui/main.py:973
 msgid "Save as..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:879
-#: /home/yen/workspace/subdownloader/gui/main.py:1425
+#: /home/yen/workspace/subdownloader/gui/main.py:914
+#: /home/yen/workspace/subdownloader/gui/main.py:1460
 msgid "No subtitles selected to be downloaded"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:897
-#: /home/yen/workspace/subdownloader/gui/main.py:966
+#: /home/yen/workspace/subdownloader/gui/main.py:932
+#: /home/yen/workspace/subdownloader/gui/main.py:1001
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:903
-#: /home/yen/workspace/subdownloader/gui/main.py:982
+#: /home/yen/workspace/subdownloader/gui/main.py:938
+#: /home/yen/workspace/subdownloader/gui/main.py:1017
 msgid "Error write permission"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:904
-#: /home/yen/workspace/subdownloader/gui/main.py:983
+#: /home/yen/workspace/subdownloader/gui/main.py:939
+#: /home/yen/workspace/subdownloader/gui/main.py:1018
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
 "Check that the folder exists and you have write-access permissions."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:918
-#: /home/yen/workspace/subdownloader/gui/main.py:954
+#: /home/yen/workspace/subdownloader/gui/main.py:953
+#: /home/yen/workspace/subdownloader/gui/main.py:989
 msgid "Save subtitle as..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:934
+#: /home/yen/workspace/subdownloader/gui/main.py:969
 msgid "File already exists"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:934
+#: /home/yen/workspace/subdownloader/gui/main.py:969
 #, python-format
 msgid ""
 "Local: %s \n"
@@ -892,151 +933,146 @@ msgid ""
 "How would you like to proceed?"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:935
+#: /home/yen/workspace/subdownloader/gui/main.py:970
 msgid "Skip"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:936
+#: /home/yen/workspace/subdownloader/gui/main.py:971
 msgid "Replace"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:937
+#: /home/yen/workspace/subdownloader/gui/main.py:972
 msgid "Replace all"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:972
-#: /home/yen/workspace/subdownloader/gui/main.py:975
-msgid "Unable to download subtitle"
-msgstr ""
-
-#: /home/yen/workspace/subdownloader/gui/main.py:1023
+#: /home/yen/workspace/subdownloader/gui/main.py:1058
 msgid "Connecting to server..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1024
+#: /home/yen/workspace/subdownloader/gui/main.py:1059
 msgid "Connecting"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1037
+#: /home/yen/workspace/subdownloader/gui/main.py:1072
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1043
+#: /home/yen/workspace/subdownloader/gui/main.py:1078
 msgid "Connected succesfully"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1108
+#: /home/yen/workspace/subdownloader/gui/main.py:1143
 msgid "Please identify the movie."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1111
+#: /home/yen/workspace/subdownloader/gui/main.py:1146
 msgid "Uploading subtitle"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1112
+#: /home/yen/workspace/subdownloader/gui/main.py:1147
 msgid "Uploading..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1144
+#: /home/yen/workspace/subdownloader/gui/main.py:1179
 msgid "Successful Upload"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1145
+#: /home/yen/workspace/subdownloader/gui/main.py:1180
 msgid ""
 "Subtitles succesfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1152
+#: /home/yen/workspace/subdownloader/gui/main.py:1187
 msgid "View Subtitle Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1158
+#: /home/yen/workspace/subdownloader/gui/main.py:1193
 #, python-format
 msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1161
+#: /home/yen/workspace/subdownloader/gui/main.py:1196
 msgid "Error contacting the server. Please restart or try later"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1184
+#: /home/yen/workspace/subdownloader/gui/main.py:1219
 msgid "↓ Movie autodetected from .nfo file"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1187
+#: /home/yen/workspace/subdownloader/gui/main.py:1222
 msgid "↓ Movie autodetected from database"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1226
+#: /home/yen/workspace/subdownloader/gui/main.py:1261
 msgid "↑ Language autodetected from database"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1230
+#: /home/yen/workspace/subdownloader/gui/main.py:1265
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1234
+#: /home/yen/workspace/subdownloader/gui/main.py:1269
 msgid "↑ Language autodetected from subtitle's content"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1284
+#: /home/yen/workspace/subdownloader/gui/main.py:1319
 msgid "Browse video..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1301
+#: /home/yen/workspace/subdownloader/gui/main.py:1336
 msgid "Browse subtitle..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1354
-#: /home/yen/workspace/subdownloader/gui/main.py:1355
-#: /home/yen/workspace/subdownloader/gui/main.py:1507
+#: /home/yen/workspace/subdownloader/gui/main.py:1389
+#: /home/yen/workspace/subdownloader/gui/main.py:1390
+#: /home/yen/workspace/subdownloader/gui/main.py:1542
 msgid "Searching..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1434
+#: /home/yen/workspace/subdownloader/gui/main.py:1469
 msgid "Select the directory where to save the subtitle(s)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1439
+#: /home/yen/workspace/subdownloader/gui/main.py:1474
 msgid "Downloading"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1459
+#: /home/yen/workspace/subdownloader/gui/main.py:1494
 #, python-format
 msgid "Downloading %s to %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1475
+#: /home/yen/workspace/subdownloader/gui/main.py:1510
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
 "Error:%s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1497
+#: /home/yen/workspace/subdownloader/gui/main.py:1532
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
 "Error: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1502
+#: /home/yen/workspace/subdownloader/gui/main.py:1537
 #, python-format
 msgid "%d subtitles downloaded successfully"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1502
+#: /home/yen/workspace/subdownloader/gui/main.py:1537
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n"
 "\n"
 "If there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1527
+#: /home/yen/workspace/subdownloader/gui/main.py:1562
 msgid "A new version of SubDownloader has been released."
 msgstr ""
 
@@ -1102,44 +1138,65 @@ msgstr ""
 msgid "Click here to select subtitle..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/videotreeview.py:151
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:157
 #, python-format
-msgid "[%s]\t Rate: %s\t %s - (Already downloaded)"
+msgid "[Rate: %s]"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/videotreeview.py:153
-#, python-format
-msgid "[%s]\t Rate: %s\t %s    - Uploader: %s"
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:160
+msgid "(Already downloaded)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/videotreeview.py:155
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:163
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:172
 #, python-format
-msgid "[%s]\t Rate: %s\t Type: %s\t downloads: %d\t Cds = %d\tUploader: %s"
+msgid "Uploader: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/videotreeview.py:180
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:168
 #, python-format
-msgid "%s [%s] [IMDB rate=%s] - File: %s"
+msgid "Rate: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/videotreeview.py:199
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:169
 #, python-format
-msgid "%s [%s] - [IMDB rate=%s]  - (%d subs)"
+msgid "Format: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:105
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:170
+#, python-format
+msgid "Downloads: %d"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:171
+#, python-format
+msgid "CDs: %d"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:200
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:222
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/gui/videotreeview.py:223
+#, python-format
+msgid "(%d subtitles)"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:106
 #, python-format
 msgid "Parsing video: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:118
-#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:149
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:119
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:150
 #, python-format
 msgid "Parsing sub: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:119
-#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:150
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:120
+#: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:151
 msgid "Finished hashing"
 msgstr ""
 
