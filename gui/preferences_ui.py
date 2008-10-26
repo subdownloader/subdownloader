@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Thu Oct 23 19:14:01 2008
+# Created: Sun Oct 26 15:25:38 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -147,7 +147,7 @@ class Ui_PreferencesDialog(object):
         self.tab_8 = QtGui.QWidget()
         self.tab_8.setObjectName("tab_8")
         self.layoutWidget = QtGui.QWidget(self.tab_8)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 20, 521, 32))
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 20, 521, 52))
         self.layoutWidget.setObjectName("layoutWidget")
         self.horizontalLayout_4 = QtGui.QHBoxLayout(self.layoutWidget)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -159,6 +159,7 @@ class Ui_PreferencesDialog(object):
         self.label_55.setObjectName("label_55")
         self.horizontalLayout_4.addWidget(self.label_55)
         self.optionDefaultUploadLanguage = QtGui.QComboBox(self.layoutWidget)
+        self.optionDefaultUploadLanguage.setMinimumSize(QtCore.QSize(0, 20))
         self.optionDefaultUploadLanguage.setObjectName("optionDefaultUploadLanguage")
         self.horizontalLayout_4.addWidget(self.optionDefaultUploadLanguage)
         self.tabWidget.addTab(self.tab_8, "")
@@ -277,7 +278,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):

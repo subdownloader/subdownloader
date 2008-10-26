@@ -27,6 +27,8 @@ class preferencesDialog(QtGui.QDialog):
         QObject.connect(self.ui.optionButtonChooseFolder, SIGNAL("clicked(bool)"), self.onOptionButtonChooseFolder)
         QObject.connect(self.ui.optionDownloadFolderPredefined, SIGNAL("toggled(bool)"), self.onOptionDownloadFolderPredefined)
         QObject.connect(self.ui.optionVideoAppChooseLocation, SIGNAL("clicked(bool)"), self.onOptionVideoAppChooseLocation)
+        QObject.connect(self.ui.helpTranslateButton, SIGNAL("clicked(bool)"), self.onOptionHelpTranslateButton)
+        
         
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
@@ -56,6 +58,9 @@ class preferencesDialog(QtGui.QDialog):
         self.readOptionsSettings(settings)
         
         QObject.connect(self.ui.optionInterfaceLanguage, SIGNAL("currentIndexChanged(int)"), self.onOptionInterfaceLanguage)
+        
+    def onOptionHelpTranslateButton(self):
+        webbrowser.open( "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
         
     def onOptionButtonChooseFolder(self):
         directory=QtGui.QFileDialog.getExistingDirectory(None,_("Select a directory"),QString())

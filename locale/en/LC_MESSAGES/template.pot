@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SubDownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-25 18:58+0700\n"
-"PO-Revision-Date: 2008-10-25 18:58+0700\n"
+"POT-Creation-Date: 2008-10-26 15:11+0700\n"
+"PO-Revision-Date: 2008-10-26 15:12+0700\n"
 "Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -687,7 +687,7 @@ msgid "1st Tab:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:347
-msgid "Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles and SubDownloader will try to automatically find available subtitles."
+msgid "Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:348
@@ -858,7 +858,7 @@ msgid "Select the directory that contains your videos"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:824
-msgid "No default video player has been defined in Main->Settings"
+msgid "No default video player has been defined in Settings."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:833
@@ -926,7 +926,7 @@ msgstr ""
 #: /home/yen/workspace/subdownloader/gui/main.py:969
 #, python-format
 msgid ""
-"Local: %s \n"
+"Local: %s\n"
 "\n"
 "Remote: %s\n"
 "\n"
@@ -1072,7 +1072,7 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1562
+#: /home/yen/workspace/subdownloader/gui/main.py:1566
 msgid "A new version of SubDownloader has been released."
 msgstr ""
 
