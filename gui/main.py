@@ -1550,7 +1550,11 @@ class Main(QObject, Ui_MainWindow):
             temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
             #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
             #print temp_movie
-            movie.subtitles =  temp_movie[0].subtitles 
+            try:
+                movie.subtitles = temp_movie[0].subtitles 
+            except AttributeError:
+                # this means only one subtitle was returned
+                movie.subtitles = [temp_movie[1]]
             self.moviesModel.updateMovie(index, selectedLanguageXXX) #The treeview is filtered by language
             self.moviesView.collapse(index)
             self.moviesView.expand(index)

@@ -16,6 +16,7 @@
 ##    with this program; if not, write to the Free Software Foundation, Inc.,
 ##    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+import logging
 import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
@@ -37,7 +38,7 @@ class Movie(object):
         self.IMDBRating = str(movieInfo['MovieImdbRating'])
         self.MovieYear = str(movieInfo['MovieYear'])
         self.MovieId = int(movieInfo['MovieID']['MovieID']) #this ID will be used when calling the 2nd step function to get the Subtitle Details
-        self.subtitles = [] #this is an list of Subtitle objects
+        self.subtitles = [] #this is a list of Subtitle objects
         try:
             self.totalSubs = int(movieInfo['TotalSubs']) #Sometimes we get the TotalSubs in the 1st step before we get the details of the subtitles
         except KeyError:
@@ -53,7 +54,7 @@ class Movie(object):
 class SearchByName(object):
     
     def __init__(self):
-        pass
+        self.log = logging.getLogger("subdownloader.modules.search")
         
     def search_movie(self, moviename=None, sublanguageid="eng", MovieID_link=None):
         #xml_url = configuration.General.search_url % (sublanguageid, moviename)
@@ -66,16 +67,20 @@ class SearchByName(object):
             xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
         xml_page = urllib2.urlopen(xml_url)
         try:
-            print "Getting data from '%s'"% xml_url
+            self.log.debug("Getting data from '%s'"% xml_url)
             search = self.parse_results(xml_page.read())
         except xml.parsers.expat.ExpatError: # this will happen when only one result is found
-            print "Getting data from '%s%s'"% (xml_page.url, "/xml")
-            search = self.parse_results(urllib2.urlopen(xml_page.url + "/xml").read())
+            self.log.debug("Getting data from '%s/xml'"% xml_page.url)
+            xml_page = urllib2.urlopen("%s/xml"% xml_page.url)
+            search = self.parse_results(xml_page.read())
             
         if search:
+            self.log.debug("Returning data")
             movies = search
         else:
-            movies = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
+            self.log.debug("No data found. Trying '%s'"% xml_page.url)
+            xml_page = urllib2.urlopen("%s"% xml_page.url)
+            movies = self.subtitle_info(xml_page.read())
             
         return movies
         
@@ -105,6 +110,7 @@ class SearchByName(object):
             return []
         # catch subtitle information
         for entry in data:
+            sub_obj = subtitlefile.SubtitleFile(online=True)
             sub = {}
             if entry.getElementsByTagName('LinkDetails') and entry.getElementsByTagName('LinkDetails')[0].firstChild:
                 sub['LinkDetails'] = entry.getElementsByTagName('LinkDetails')[0].firstChild.data
@@ -112,12 +118,15 @@ class SearchByName(object):
                 sub['IDSubtitle'] = { 'IDSubtitle': entry.getElementsByTagName('IDSubtitle')[0].firstChild.data, 
                                                     'Link': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('Link'), 
                                                 }
+                sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
             if entry.getElementsByTagName('MovieReleaseName') and entry.getElementsByTagName('MovieReleaseName')[0].firstChild:
                 sub['MovieReleaseName'] = entry.getElementsByTagName('MovieReleaseName')[0].firstChild.data
             if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
                 sub['SubFormat'] = entry.getElementsByTagName('SubFormat')[0].firstChild.data
+                sub_obj.setExtraInfo('format', sub['SubFormat'])
             if entry.getElementsByTagName('SubSumCD') and entry.getElementsByTagName('SubSumCD')[0].firstChild:
                 sub['SubSumCD'] = entry.getElementsByTagName('SubSumCD')[0].firstChild.data
+                sub_obj.setExtraInfo('totalCDs', sub['SubSumCD'])
             if entry.getElementsByTagName('SubAuthorComment') and entry.getElementsByTagName('SubAuthorComment')[0].firstChild:
                 sub['SubAuthorComment'] = entry.getElementsByTagName('SubAuthorComment')[0].firstChild.data
             if entry.getElementsByTagName('SubAddDate') and entry.getElementsByTagName('SubAddDate')[0].firstChild:
@@ -126,13 +135,16 @@ class SearchByName(object):
                 sub['SubSumVotes'] = entry.getElementsByTagName('SubSumVotes')[0].firstChild.data
             if entry.getElementsByTagName('SubRating') and entry.getElementsByTagName('SubRating')[0].firstChild:
                 sub['SubRating'] = entry.getElementsByTagName('SubRating')[0].firstChild.data
+                sub_obj.setRating(sub['SubRating'])
             if entry.getElementsByTagName('SubDownloadsCnt') and entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild:
                 sub['SubDownloadsCnt'] = entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild.data
+                sub_obj.setExtraInfo('totalDownloads', sub['SubDownloadsCnt'])
             if entry.getElementsByTagName('UserNickName') and entry.getElementsByTagName('UserNickName')[0].firstChild:
                 sub['UserNickName'] = entry.getElementsByTagName('UserNickName')[0].firstChild.data
+                sub_obj._uploader = sub['UserNickName']
             if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                 sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
-                
+                sub_obj.setLanguageXX(entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639'))
             if entry.getElementsByTagName('SubtitleFile'):
                 SubtitleFile = {}
                 _SubtitleFile = entry.getElementsByTagName('SubtitleFile')[0]
@@ -170,7 +182,7 @@ class SearchByName(object):
             sub['DownloadLink'] = sub['SubtitleFile']['File']['SubActualCD']['DownloadLink']
             if sub:
                 subtitle_entries.append(sub)
-        return subtitle_entries
+        return (subtitle_entries, sub_obj)
             
     def parse_results(self, raw_xml):
         """Parse the xml and return a list of dictionaries like:
@@ -213,7 +225,7 @@ class SearchByName(object):
                                                         'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'), 
                                                         'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'), 
                                                     }
-                    
+                    sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
                 if entry.getElementsByTagName('UserID'):
                     sub['UserID'] = { 'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data, 
                                                 'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'), 
@@ -256,7 +268,7 @@ class SearchByName(object):
                                                 'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'), 
                                                 }
                     sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
-                    sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
+                    #sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
                     #It does require the Subtitle ID to downlad, not the Subtitle File Id
                     sub_obj.setExtraInfo('downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.getIdOnline()) 
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
