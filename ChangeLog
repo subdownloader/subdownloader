@@ -1,4 +1,102 @@
 Changelog Subdownloader:
+Changes in 2.0.8:
+
+421: Ivan Garcia 2008-10-26 changed the interface a bit  
+420: Ivan Garcia 2008-10-26 fixed bug when the headers of the Upload contains a non-ascii character(when using trnaslations)
+419: Marco Ferreira 2008-10-26 Fixes bug when search by title returned only one result. Closes #288699                      
+418: Ivan Garcia 2008-10-25 fixed bug about searching in folders with non-ascii characters in XP                            
+417: Ivan Garcia 2008-10-24 Showing the HOW TO USE SUBDOWNLOADER message                                                    
+416: Marco Ferreira 2008-10-24 Fixed 'TypeError: argument 1 of QObject.trUtf8() has an invalid type'                        
+415: Ivan Garcia 2008-10-24 added flags folder (needed cause otherwise I cannot recreate the images_rc.py again.            
+414: Ivan Garcia 2008-10-24 added a Intructions Text in the main tab for the beggining                                      
+413: Ivan Garcia 2008-10-23 comparing versions function working, for the Upgrade Versions Dialog                            
+412: Ivan Garcia 2008-10-23 update message is working now                                                                   
+411: Ivan Garcia 2008-10-23 replaced OSDBServer by SDService.py                                                             
+410: Ivan Garcia 2008-10-23 - fix bug of vista not running bcs cannot write log file                                        
+409: Ivan Garcia 2008-10-23 fixed bug when video.fps = None                                                                 
+408: Ivan Garcia 2008-10-23 minor change interface                                                                          
+407: Ivan Garcia 2008-10-23 fixed 2 low priority bugs, for fun, sometimes is good not to think too much :-) and "relax".    
+406: Ivan Garcia 2008-10-22 shortened the margins in the main tab                                                           
+405: Ivan Garcia 2008-10-22 hide main frame in the first tab, it was looking quite ugly                                     
+404: Ivan Garcia 2008-10-20 fixed bug of the logging                                                                        
+403: Ivan Garcia 2008-10-20 now GUI takes care of --video , --user and --password options                                   
+402: Ivan Garcia 2008-10-20 if the locale name is not in our languageNames list, just show the locale string                
+401: Ivan Garcia 2008-10-20 some strings changed.                                                                           
+400: Ivan Garcia 2008-10-19 fix bug https://bugs.launchpad.net/bugs/285940                                                  
+399: Ivan Garcia 2008-10-17 Showing a "Choose Language" window at the beggining of the app.                                 
+398: Ivan Garcia 2008-10-17 almost done with the localization code                                                          
+397: Ivan Garcia 2008-10-14 migrating the translation phrases into _("") to be used by gettext                              
+396: Marco Ferreira 2008-10-13 Closes #282357                                                                               
+395: Ivan Garcia 2008-10-13 -version changed to 2.0.7                                                                       
+
+Changes in 2.0.7:
+
+394: Marco Ferreira 2008-10-10 Closes #255704                                                                               
+393: Ivan Garcia 2008-10-09 showing error when we are not connected and user try to search.                                 
+392: Ivan Garcia 2008-10-08 removed -x permission some files                                                                
+391: Ivan Garcia 2008-10-08 fixed https://bugs.launchpad.net/subdownloader/+bug/267659                                      
+390: Ivan Garcia 2008-10-08 fixed error with playing videos with spaces.                                                    
+389: Ivan Garcia 2008-10-08 the icon property is now FDO (freedesktop.org) compliant                                        
+388: Ivan Garcia 2008-10-08 Fixed https://bugs.launchpad.net/subdownloader/+bug/277773                                      
+387: Ivan Garcia 2008-10-08 removed the +x permission in the PNG that made throwing some warnings in the litian command.    
+386: Ivan Garcia 2008-09-18 raise an error when login error                                                                 
+385: Ivan Garcia 2008-09-18 fixed bug https://bugs.launchpad.net/subdownloader/+bug/247061                                  
+384: Marco Ferreira 2008-09-12 Hash code fixed to support little endian                                                     
+383: Marco Ferreira 2008-09-12 Hash generator code changed                                                                  
+382: Marco Ferreira 2008-09-02 Removed shell script                                                                         
+381: Ivan Garcia 2008-08-28 improved interface                                                                              
+380: Ivan Garcia 2008-08-28 -moved some buttons to the bottom, upload, download and movie info                              
+379: Ivan Garcia 2008-08-27 the options of filter search by language is working.                                            
+378: Ivan Garcia 2008-08-25 improvements in the tryupload trigger                                                           
+377: Ivan Garcia 2008-08-24 - fixed the tryupload  in case the subtitle already in database                                 
+376: Ivan Garcia 2008-08-22 added few icons and fixbug in login dialog                                                      
+375: Ivan Garcia 2008-08-22 added the Login dialog                                                                          
+374: Ivan Garcia 2008-08-22 fixbug for:                                                                                     
+373: Ivan Garcia 2008-08-21 code for autodetection of IMDB is implemented, from database (by using TryUpload) and by NFO file
+372: Ivan Garcia 2008-08-20 added blue labels to show autodetection of IMDB and Language during Upload                       
+371: thorwak 2008-08-18 Bugfix: NameError: global name 'TimeoutFunctionException' is not defined                             
+370: thorwak 2008-08-18 Address Bug 257534. GUI, rewrote replace-dialog for auto-dl subs completely.                         
+369: Ivan Garcia 2008-08-13 changes from thorwak.                                                                            
+368: Ivan Garcia 2008-08-12 those movies with 1 subtitle now they can expand. still some error when crawling 1 page in xml   
+367: Ivan Garcia 2008-08-12 fixbug when expand button in Search by title                                                     
+366: Ivan Garcia 2008-08-12 fixbug progressbar for search by title.                                                          
+365: thorwak 2008-08-12 Realized I forgot to close a socket properly + edited DL loop to be more logical                     
+364: thorwak 2008-08-12 GUI: Added internal DL+Unzip for files found by "Search by Movie Name"                               
+363: Marco Ferreira 2008-08-10 Changed VideoFile.getSize() return type from 'int' to 'str'. This should fix some upload issues both in CLI and GUI mode.
+
+Changes in 2.0.6:
+
+361: Ivan Garcia 2008-08-09 fixed english messages error connection                                                                                     
+360: Ivan Garcia 2008-08-08 fixbug 254685                                                                                                               
+359: Ivan Garcia 2008-08-08 added malay language                                                                                                        
+358: Marco Ferreira 2008-08-08 Removed eric project files                                                                                               
+357: Marco Ferreira 2008-08-08 Removed eric project file                                                                                                
+356: Marco Ferreira 2008-08-07 Bugfixes: path correction, cli progressbar and removed progress bar on debug mode                                        
+355: Ivan Garcia 2008-08-07 bugfix                                                                                                                      
+354: Ivan Garcia 2008-08-07 updated flags to show 24x24 size.                                                                                           
+353: Ivan Garcia 2008-08-07 eric4 project added                                                                                                         
+352: Ivan Garcia 2008-08-07 added improved thread                                                                                                       
+351: Ivan Garcia 2008-08-07 updated project                                                                                                             
+350: Ivan Garcia 2008-08-06 fixed the timeout back to 30s                                                                                               
+349: Ivan Garcia 2008-08-06 improved the QProgressDialog windows.                                                                                       
+348: Ivan Garcia 2008-08-06 added progressbardialog for Download and Upload.                                                                            
+347: Ivan Garcia 2008-08-04 added few flags more                                                                                                        
+346: Ivan Garcia 2008-08-04 added paypal icon in statusbar                                                                                              
+345: Ivan Garcia 2008-08-04 new flags from eduardo.                                                                                                     
+344: Ivan Garcia 2008-08-03 Added button of Delete All in upload.                                                                                       
+343: Ivan Garcia 2008-07-31 Forced the hash algorythm to use LITTLE ENDIAN, so it will work with other processors like PPC                              
+342: Ivan Garcia 2008-07-30 The IMDB button will change into Sub info in case of a subtitle                                                             
+341: Ivan Garcia 2008-07-30 Added the Search Button in the middle.                                                                                      
+340: Ivan Garcia 2008-07-30 changes from marco                                                                                                          
+339: Ivan Garcia 2008-07-28 trying to merge again, this bzr is kind of stupid.                                                                          
+338: Ivan Garcia 2008-07-28 merging changes from marco                                                                                                  
+337: Ivan Garcia 2008-07-18 modified the build_tarball to be able to compress .tar.gz                                                                   
+336: Ivan Garcia 2008-07-17 Upload improvements                                                                                                         
+335: Ivan Garcia 2008-07-17 fix bug in the download                                                                                                     
+334: Ivan Garcia 2008-07-17 trying to create .tar.gz from build_tarball.py                                                                              
+333: Ivan Garcia 2008-07-16 login method in sddbserver                                                                                                  
+332: Ivan Garcia 2008-07-16 sddbserver                                                                                                                  
+331: Ivan Garcia 2008-07-16 fixbugs                                                                                                                     
 
 Changes in 2.0.5:
     FIXED:  254685, 

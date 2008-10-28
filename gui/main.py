@@ -721,10 +721,13 @@ class Main(QObject, Ui_MainWindow):
                                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
                                 return
                         
-#                            if locals().has_key('videoSearchResults'):
-#                                video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
-#                                video_filesizes =  [video.getSize() for video in videoSearchResults]
-#                                video_movienames = [video.getMovieName() for video in videoSearchResults]
+                            if locals().has_key('videoSearchResults'):
+                                video_osdb_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
+                                
+                                video_filesizes =  [video.getSize() for video in videoSearchResults]
+                                video_movienames = [video.getMovieName() for video in videoSearchResults]
+                                
+                                
 #                                thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
                     
                     self.status_progress.setLabelText(_("Search finished"))
