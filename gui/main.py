@@ -287,7 +287,7 @@ class Main(QObject, Ui_MainWindow):
                 #local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
                 #print local_path
             
-        localedir = 'locale' #remove
+        #localedir = 'locale' #remove
         
         log.debug('Scanning translation files .mo')
         self.interface_langs = [] 
@@ -308,13 +308,13 @@ class Main(QObject, Ui_MainWindow):
             user_locale = lc.split('_')[0]
         
         settings = QSettings()
-        interface_lang = settings.value("options/interfaceLanguage", QVariant())
+        interface_lang = settings.value("options/interfaceLang", QVariant())
         if not len(self.interface_langs):
                 interface_lang = 'en'
         else:
                 if interface_lang == QVariant():
                         interface_lang = self.chooseInterfaceLanguage(user_locale)
-                        settings.setValue("options/interfaceLanguage", QVariant(interface_lang))
+                        settings.setValue("options/interfaceLang", QVariant(interface_lang))
                 else:
                         interface_lang = str(interface_lang.toString().toUtf8())
         

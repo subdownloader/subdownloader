@@ -121,7 +121,7 @@ class preferencesDialog(QtGui.QDialog):
         if index != -1 :
             self.ui.optionDefaultUploadLanguage.setCurrentIndex (index)
             
-        optionInterfaceLanguage = settings.value("options/interfaceLanguage", QVariant("en"))
+        optionInterfaceLanguage = settings.value("options/interfaceLang", QVariant("en"))
         index = self.ui.optionInterfaceLanguage.findData(optionInterfaceLanguage)
         if index != -1 :
             self.ui.optionInterfaceLanguage.setCurrentIndex (index)
@@ -187,7 +187,7 @@ class preferencesDialog(QtGui.QDialog):
         self._main.emit(SIGNAL('language_updated(QString,QString)'),optionUploadLanguage, "")
             
         optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(self.ui.optionInterfaceLanguage.currentIndex())
-        settings.setValue("options/interfaceLanguage", optionInterfaceLanguage)
+        settings.setValue("options/interfaceLang", optionInterfaceLanguage)
         
         IEoldValue = settings.value("options/IntegrationExplorer", QVariant(False)).toBool()
         IEnewValue = self.ui.optionIntegrationExplorer.isChecked()
