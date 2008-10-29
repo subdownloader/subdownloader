@@ -25,52 +25,55 @@ log = logging.getLogger("subdownloader.languages.Languages")
 import  __builtin__
 __builtin__._ = lambda x : x
 
-LANGUAGES = [{'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': _('Albanian')},
- {'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': _('Arabic')},
- {'ISO639': 'hy', 'SubLanguageID': 'arm', 'LanguageName': _('Armenian')},
- {'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': _('Malay')},
- {'ISO639': 'bs', 'SubLanguageID': 'bos', 'LanguageName': _('Bosnian')},
- {'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': _('Brazilian')}, #TODO: some ISO639 call it 'bp', check, maybe local pt_BR
- {'ISO639': 'bg', 'SubLanguageID': 'bul', 'LanguageName': _('Bulgarian')},
- {'ISO639': 'ca', 'SubLanguageID': 'cat', 'LanguageName': _('Catalan')},
- {'ISO639': 'zh', 'SubLanguageID': 'chi', 'LanguageName': _('Chinese')},
- {'ISO639': 'hr', 'SubLanguageID': 'hrv', 'LanguageName': _('Croatian')},
- {'ISO639': 'cs', 'SubLanguageID': 'cze', 'LanguageName': _('Czech')},
- {'ISO639': 'da', 'SubLanguageID': 'dan', 'LanguageName': _('Danish')},
- {'ISO639': 'nl', 'SubLanguageID': 'dut', 'LanguageName': _('Dutch')},
- {'ISO639': 'en', 'SubLanguageID': 'eng', 'LanguageName': _('English')},
- {'ISO639': 'et', 'SubLanguageID': 'est', 'LanguageName': _('Estonian')},
- {'ISO639': 'fi', 'SubLanguageID': 'fin', 'LanguageName': _('Finnish')},
- {'ISO639': 'fr', 'SubLanguageID': 'fre', 'LanguageName': _('French')},
- {'ISO639': 'ka', 'SubLanguageID': 'geo', 'LanguageName': _('Georgian')},
- {'ISO639': 'de', 'SubLanguageID': 'ger', 'LanguageName': _('German')},
- {'ISO639': 'el', 'SubLanguageID': 'ell', 'LanguageName': _('Greek')},
- {'ISO639': 'he', 'SubLanguageID': 'heb', 'LanguageName': _('Hebrew')},
- {'ISO639': 'hu', 'SubLanguageID': 'hun', 'LanguageName': _('Hungarian')},
- {'ISO639': 'id', 'SubLanguageID': 'ind', 'LanguageName': _('Indonesian')},
- {'ISO639': 'it', 'SubLanguageID': 'ita', 'LanguageName': _('Italian')},
- {'ISO639': 'ja', 'SubLanguageID': 'jpn', 'LanguageName': _('Japanese')},
- {'ISO639': 'kk', 'SubLanguageID': 'kaz', 'LanguageName': _('Kazakh')},
- {'ISO639': 'ko', 'SubLanguageID': 'kor', 'LanguageName': _('Korean')},
- {'ISO639': 'lv', 'SubLanguageID': 'lav', 'LanguageName': _('Latvian')},
- {'ISO639': 'lt', 'SubLanguageID': 'lit', 'LanguageName': _('Lithuanian')},
- {'ISO639': 'lb', 'SubLanguageID': 'ltz', 'LanguageName': _('Luxembourgish')},
- {'ISO639': 'mk', 'SubLanguageID': 'mac', 'LanguageName': _('Macedonian')},
- {'ISO639': 'no', 'SubLanguageID': 'nor', 'LanguageName': _('Norwegian')},
- {'ISO639': 'fa', 'SubLanguageID': 'per', 'LanguageName': _('Persian')},
- {'ISO639': 'pl', 'SubLanguageID': 'pol', 'LanguageName': _('Polish')},
- {'ISO639': 'pt', 'SubLanguageID': 'por', 'LanguageName': _('Portuguese')},
- {'ISO639': 'ro', 'SubLanguageID': 'rum', 'LanguageName': _('Romanian')},
- {'ISO639': 'ru', 'SubLanguageID': 'rus', 'LanguageName': _('Russian')},
- {'ISO639': 'sr', 'SubLanguageID': 'scc', 'LanguageName': _('Serbian')},
- {'ISO639': 'sk', 'SubLanguageID': 'slo', 'LanguageName': _('Slovak')},
- {'ISO639': 'sl', 'SubLanguageID': 'slv', 'LanguageName': _('Slovenian')},
- {'ISO639': 'es', 'SubLanguageID': 'spa', 'LanguageName': _('Spanish')},
- {'ISO639': 'sv', 'SubLanguageID': 'swe', 'LanguageName': _('Swedish')},
- {'ISO639': 'th', 'SubLanguageID': 'tha', 'LanguageName': _('Thai')},
- {'ISO639': 'tr', 'SubLanguageID': 'tur', 'LanguageName': _('Turkish')},
- {'ISO639': 'uk', 'SubLanguageID': 'ukr', 'LanguageName': _('Ukrainian')},
- {'ISO639': 'vi', 'SubLanguageID': 'vie', 'LanguageName': _('Vietnamese')}]
+LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': _('Albanian')},
+ {'locale':'ar', 'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': _('Arabic')},
+ {'locale':'hy', 'ISO639': 'hy', 'SubLanguageID': 'arm', 'LanguageName': _('Armenian')},
+ {'locale':'ms', 'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': _('Malay')},
+ {'locale':'bs', 'ISO639': 'bs', 'SubLanguageID': 'bos', 'LanguageName': _('Bosnian')},
+ {'locale':'pt_BR', 'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': _('Brazilian')}, 
+ {'locale':'bg', 'ISO639': 'bg', 'SubLanguageID': 'bul', 'LanguageName': _('Bulgarian')},
+ {'locale':'ca', 'ISO639': 'ca', 'SubLanguageID': 'cat', 'LanguageName': _('Catalan')},
+ {'locale':'eu', 'ISO639': 'eu', 'SubLanguageID': 'eus', 'LanguageName': _('Basque')},
+ {'locale':'zh_CN', 'ISO639': 'zh', 'SubLanguageID': 'chi', 'LanguageName': _('Chinese')},
+ {'locale':'hr', 'ISO639': 'hr', 'SubLanguageID': 'hrv', 'LanguageName': _('Croatian')},
+ {'locale':'cs', 'ISO639': 'cs', 'SubLanguageID': 'cze', 'LanguageName': _('Czech')},
+ {'locale':'da', 'ISO639': 'da', 'SubLanguageID': 'dan', 'LanguageName': _('Danish')},
+ {'locale':'nl', 'ISO639': 'nl', 'SubLanguageID': 'dut', 'LanguageName': _('Dutch')},
+ {'locale':'en', 'ISO639': 'en', 'SubLanguageID': 'eng', 'LanguageName': _('English')},
+ {'locale':'en_GB', 'ISO639': 'en', 'SubLanguageID': 'eng', 'LanguageName': _('British English')},
+ {'locale':'eo', 'ISO639': 'eo', 'SubLanguageID': 'epo', 'LanguageName': _('Esperanto')},
+ {'locale':'et', 'ISO639': 'et', 'SubLanguageID': 'est', 'LanguageName': _('Estonian')},
+ {'locale':'fi', 'ISO639': 'fi', 'SubLanguageID': 'fin', 'LanguageName': _('Finnish')},
+ {'locale':'fr', 'ISO639': 'fr', 'SubLanguageID': 'fre', 'LanguageName': _('French')},
+ {'locale':'ka', 'ISO639': 'ka', 'SubLanguageID': 'geo', 'LanguageName': _('Georgian')},
+ {'locale':'de', 'ISO639': 'de', 'SubLanguageID': 'ger', 'LanguageName': _('German')},
+ {'locale':'el', 'ISO639': 'el', 'SubLanguageID': 'ell', 'LanguageName': _('Greek')},
+ {'locale':'he', 'ISO639': 'he', 'SubLanguageID': 'heb', 'LanguageName': _('Hebrew')},
+ {'locale':'hu', 'ISO639': 'hu', 'SubLanguageID': 'hun', 'LanguageName': _('Hungarian')},
+ {'locale':'id', 'ISO639': 'id', 'SubLanguageID': 'ind', 'LanguageName': _('Indonesian')},
+ {'locale':'it', 'ISO639': 'it', 'SubLanguageID': 'ita', 'LanguageName': _('Italian')},
+ {'locale':'ja', 'ISO639': 'ja', 'SubLanguageID': 'jpn', 'LanguageName': _('Japanese')},
+ {'locale':'kk', 'ISO639': 'kk', 'SubLanguageID': 'kaz', 'LanguageName': _('Kazakh')},
+ {'locale':'ko', 'ISO639': 'ko', 'SubLanguageID': 'kor', 'LanguageName': _('Korean')},
+ {'locale':'lv', 'ISO639': 'lv', 'SubLanguageID': 'lav', 'LanguageName': _('Latvian')},
+ {'locale':'lt', 'ISO639': 'lt', 'SubLanguageID': 'lit', 'LanguageName': _('Lithuanian')},
+ {'locale':'lb', 'ISO639': 'lb', 'SubLanguageID': 'ltz', 'LanguageName': _('Luxembourgish')},
+ {'locale':'mk', 'ISO639': 'mk', 'SubLanguageID': 'mac', 'LanguageName': _('Macedonian')},
+ {'locale':'no', 'ISO639': 'no', 'SubLanguageID': 'nor', 'LanguageName': _('Norwegian')},
+ {'locale':'fa', 'ISO639': 'fa', 'SubLanguageID': 'per', 'LanguageName': _('Persian')},
+ {'locale':'pl', 'ISO639': 'pl', 'SubLanguageID': 'pol', 'LanguageName': _('Polish')},
+ {'locale':'pt', 'ISO639': 'pt', 'SubLanguageID': 'por', 'LanguageName': _('Portuguese')},
+ {'locale':'ro', 'ISO639': 'ro', 'SubLanguageID': 'rum', 'LanguageName': _('Romanian')},
+ {'locale':'ru', 'ISO639': 'ru', 'SubLanguageID': 'rus', 'LanguageName': _('Russian')},
+ {'locale':'sr', 'ISO639': 'sr', 'SubLanguageID': 'scc', 'LanguageName': _('Serbian')},
+ {'locale':'sk', 'ISO639': 'sk', 'SubLanguageID': 'slo', 'LanguageName': _('Slovak')},
+ {'locale':'sl', 'ISO639': 'sl', 'SubLanguageID': 'slv', 'LanguageName': _('Slovenian')},
+ {'locale':'es', 'ISO639': 'es', 'SubLanguageID': 'spa', 'LanguageName': _('Spanish')},
+ {'locale':'sv', 'ISO639': 'sv', 'SubLanguageID': 'swe', 'LanguageName': _('Swedish')},
+ {'locale':'th', 'ISO639': 'th', 'SubLanguageID': 'tha', 'LanguageName': _('Thai')},
+ {'locale':'tr', 'ISO639': 'tr', 'SubLanguageID': 'tur', 'LanguageName': _('Turkish')},
+ {'locale':'uk', 'ISO639': 'uk', 'SubLanguageID': 'ukr', 'LanguageName': _('Ukrainian')},
+ {'locale':'vi', 'ISO639': 'vi', 'SubLanguageID': 'vie', 'LanguageName': _('Vietnamese')}]
 
 def ListAll_xx():
     temp = []
@@ -84,6 +87,12 @@ def ListAll_xxx():
         temp.append(lang['SubLanguageID'])
     return temp
 
+def ListAll_locale():
+    temp = []
+    for lang in LANGUAGES:
+        temp.append(lang['locale'])
+    return temp
+    
 def ListAll_names():
     temp = []
     for lang in LANGUAGES:
@@ -102,6 +111,11 @@ def xxx2xx(xxx):
 def xxx2name(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
+            return lang['LanguageName']
+            
+def locale2name(locale):
+    for lang in LANGUAGES:
+        if lang['locale'] == locale:
             return lang['LanguageName']
             
 def xx2name(xx):

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SubDownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-26 15:11+0700\n"
-"PO-Revision-Date: 2008-10-26 15:12+0700\n"
+"POT-Creation-Date: 2008-10-29 23:22+0700\n"
+"PO-Revision-Date: 2008-10-29 23:23+0700\n"
 "Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,186 +14,244 @@ msgstr ""
 "X-Poedit-SearchPath-0: /home/yen/workspace/subdownloader\n"
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:28
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:28
 msgid "Albanian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:29
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:29
 msgid "Arabic"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:30
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:30
 msgid "Armenian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:31
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:31
 msgid "Malay"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:32
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:32
 msgid "Bosnian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:33
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:33
 msgid "Brazilian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:34
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:34
 msgid "Bulgarian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:35
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:35
 msgid "Catalan"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:36
-msgid "Chinese"
+msgid "Basque"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:37
-msgid "Croatian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:36
+msgid "Chinese"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:38
-msgid "Czech"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:37
+msgid "Croatian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:39
-msgid "Danish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:38
+msgid "Czech"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:40
-msgid "Dutch"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:39
+msgid "Danish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:41
-msgid "English"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:40
+msgid "Dutch"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:42
-msgid "Estonian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:41
+msgid "English"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:43
-msgid "Finnish"
+msgid "British English"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:44
-msgid "French"
+msgid "Esperanto"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:45
-msgid "Georgian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:42
+msgid "Estonian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:46
-msgid "German"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:43
+msgid "Finnish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:47
-msgid "Greek"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:44
+msgid "French"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:48
-msgid "Hebrew"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:45
+msgid "Georgian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:49
-msgid "Hungarian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:46
+msgid "German"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:50
-msgid "Indonesian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:47
+msgid "Greek"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:51
-msgid "Italian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:48
+msgid "Hebrew"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:52
-msgid "Japanese"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:49
+msgid "Hungarian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:53
-msgid "Kazakh"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:50
+msgid "Indonesian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:54
-msgid "Korean"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:51
+msgid "Italian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:55
-msgid "Latvian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:52
+msgid "Japanese"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:56
-msgid "Lithuanian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:53
+msgid "Kazakh"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:57
-msgid "Luxembourgish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:54
+msgid "Korean"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:58
-msgid "Macedonian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:55
+msgid "Latvian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:59
-msgid "Norwegian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:56
+msgid "Lithuanian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:60
-msgid "Persian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:57
+msgid "Luxembourgish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:61
-msgid "Polish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:58
+msgid "Macedonian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:62
-msgid "Portuguese"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:59
+msgid "Norwegian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:63
-msgid "Romanian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:60
+msgid "Persian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:64
-msgid "Russian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:61
+msgid "Polish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:65
-msgid "Serbian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:62
+msgid "Portuguese"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:66
-msgid "Slovak"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:63
+msgid "Romanian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:67
-msgid "Slovenian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:64
+msgid "Russian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:68
-msgid "Spanish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:65
+msgid "Serbian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:69
-msgid "Swedish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:66
+msgid "Slovak"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:70
-msgid "Thai"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:67
+msgid "Slovenian"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:71
-msgid "Turkish"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:68
+msgid "Spanish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:72
-msgid "Ukrainian"
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:69
+msgid "Swedish"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/languages/Languages.py:73
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:70
+msgid "Thai"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:74
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:71
+msgid "Turkish"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:75
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:72
+msgid "Ukrainian"
+msgstr ""
+
+#: /home/yen/workspace/subdownloader/languages/Languages.py:76
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:73
 msgid "Vietnamese"
 msgstr ""
 
@@ -202,341 +260,467 @@ msgstr ""
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:77
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:83
 #: /home/yen/workspace/subdownloader/gui/login.py:67
-#: /home/yen/workspace/subdownloader/gui/preferences.py:151
+#: /home/yen/workspace/subdownloader/gui/preferences.py:156
 #: /home/yen/workspace/subdownloader/gui/main.py:270
 #: /home/yen/workspace/subdownloader/gui/main.py:278
-#: /home/yen/workspace/subdownloader/gui/main.py:647
-#: /home/yen/workspace/subdownloader/gui/main.py:721
-#: /home/yen/workspace/subdownloader/gui/main.py:783
-#: /home/yen/workspace/subdownloader/gui/main.py:794
-#: /home/yen/workspace/subdownloader/gui/main.py:824
-#: /home/yen/workspace/subdownloader/gui/main.py:841
-#: /home/yen/workspace/subdownloader/gui/main.py:844
-#: /home/yen/workspace/subdownloader/gui/main.py:872
-#: /home/yen/workspace/subdownloader/gui/main.py:914
-#: /home/yen/workspace/subdownloader/gui/main.py:1007
-#: /home/yen/workspace/subdownloader/gui/main.py:1010
-#: /home/yen/workspace/subdownloader/gui/main.py:1138
-#: /home/yen/workspace/subdownloader/gui/main.py:1143
-#: /home/yen/workspace/subdownloader/gui/main.py:1193
-#: /home/yen/workspace/subdownloader/gui/main.py:1196
-#: /home/yen/workspace/subdownloader/gui/main.py:1460
-#: /home/yen/workspace/subdownloader/gui/main.py:1510
-#: /home/yen/workspace/subdownloader/gui/main.py:1532
+#: /home/yen/workspace/subdownloader/gui/main.py:650
+#: /home/yen/workspace/subdownloader/gui/main.py:726
+#: /home/yen/workspace/subdownloader/gui/main.py:791
+#: /home/yen/workspace/subdownloader/gui/main.py:802
+#: /home/yen/workspace/subdownloader/gui/main.py:832
+#: /home/yen/workspace/subdownloader/gui/main.py:849
+#: /home/yen/workspace/subdownloader/gui/main.py:852
+#: /home/yen/workspace/subdownloader/gui/main.py:880
+#: /home/yen/workspace/subdownloader/gui/main.py:922
+#: /home/yen/workspace/subdownloader/gui/main.py:1015
+#: /home/yen/workspace/subdownloader/gui/main.py:1018
+#: /home/yen/workspace/subdownloader/gui/main.py:1146
+#: /home/yen/workspace/subdownloader/gui/main.py:1151
+#: /home/yen/workspace/subdownloader/gui/main.py:1201
+#: /home/yen/workspace/subdownloader/gui/main.py:1204
+#: /home/yen/workspace/subdownloader/gui/main.py:1468
+#: /home/yen/workspace/subdownloader/gui/main.py:1518
+#: /home/yen/workspace/subdownloader/gui/main.py:1540
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:50
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:77
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:83
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:67
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:270
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:278
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:647
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:721
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:786
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:797
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:827
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:844
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:847
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:875
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:917
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1010
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1013
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1141
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1146
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1196
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1199
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1463
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1513
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1535
 msgid "Error"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:41
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
 msgid "Please fill out the search title"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:50
 #: /home/yen/workspace/subdownloader/gui/login.py:67
 #: /home/yen/workspace/subdownloader/gui/main.py:270
-#: /home/yen/workspace/subdownloader/gui/main.py:721
+#: /home/yen/workspace/subdownloader/gui/main.py:726
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:50
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:67
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:270
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:721
 msgid "Error contacting the server. Please try again later"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:77
 #: /home/yen/workspace/subdownloader/gui/imdbSearch.py:83
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:77
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:83
 msgid "Please search and select a movie from the list"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:120
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:120
 msgid "About Subdownloader"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:143
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:730
-#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:124
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:143
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:730
 msgid "About"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:150
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:150
 msgid "Authors"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:166
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:166
 msgid "License Agreement"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/about_ui.py:167
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:167
 msgid "Close"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login.py:33
 #: /home/yen/workspace/subdownloader/gui/login.py:71
-#: /home/yen/workspace/subdownloader/gui/main.py:539
+#: /home/yen/workspace/subdownloader/gui/main.py:542
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:149
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:33
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:71
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:539
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:149
 msgid "Anonymous"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login.py:36
 #: /home/yen/workspace/subdownloader/gui/login.py:76
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:36
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:76
 #, python-format
 msgid "Succesfully logged as: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login.py:38
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:38
 msgid "Not Connected"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login.py:78
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:78
 #, python-format
 msgid "Cannot loggin as: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:284
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:285
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:285
 msgid "Settings"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:285
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:286
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:286
 msgid "Filter search results by these languages:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:286
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:287
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:689
-#: /home/yen/workspace/subdownloader/gui/main.py:1543
+#: /home/yen/workspace/subdownloader/gui/main.py:1551
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:287
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:689
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1546
 msgid "Search"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:287
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:288
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:288
 msgid "Destination folder:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:288
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:289
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:289
 msgid "Always ask user"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:289
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:290
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:290
 msgid "Same folder as video file"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:290
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:291
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:291
 msgid "Predefined folder:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:291
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:309
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:292
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:310
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:292
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:310
 msgid "Browse..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:292
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:293
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:293
 msgid "Filename of the Subtitle:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:293
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:294
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:294
 msgid "Same name as video file"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:294
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:295
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:295
 msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:295
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:296
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:296
 msgid "Same name as the online subtitle"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:296
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:297
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:687
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:695
-#: /home/yen/workspace/subdownloader/gui/main.py:406
+#: /home/yen/workspace/subdownloader/gui/main.py:409
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:297
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:687
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:695
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:406
 msgid "Download"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:297
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:298
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:298
 msgid "Default language of uploaded subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:298
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:299
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:722
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:299
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:722
 msgid "Upload"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:299
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:300
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:300
 msgid "Network Proxy"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:300
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:301
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:301
 msgid "Host:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:301
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:302
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:302
 msgid "Port:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:302
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:303
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:303
 msgid "Network"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:303
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:304
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:304
 msgid "Interface Language:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:304
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:305
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:738
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:305
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:738
 msgid "Translate This Application..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:305
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:306
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:306
 msgid "Context Menu:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:306
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:307
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:307
 msgid "Enable in your explorer"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:307
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:308
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:308
 msgid "External application for video playback"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:308
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:309
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:309
 msgid "Video Player:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:310
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:311
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:311
 msgid "Parameters:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:311
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:312
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:312
 msgid "{0} = video file path; {1} = subtitle path"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:312
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:313
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:313
 msgid "Others"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:313
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:314
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:314
 msgid "Save"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:314
+#: /home/yen/workspace/subdownloader/gui/preferences_ui.py:315
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:81
-#: /home/yen/workspace/subdownloader/gui/main.py:974
+#: /home/yen/workspace/subdownloader/gui/main.py:982
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:315
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:81
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:977
 msgid "Cancel"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:33
+#: /home/yen/workspace/subdownloader/gui/preferences.py:35
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:35
 msgid "<AutoDetect>"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:36
 #: /home/yen/workspace/subdownloader/gui/preferences.py:38
-#: /home/yen/workspace/subdownloader/gui/main.py:592
-#: /home/yen/workspace/subdownloader/gui/main.py:593
-#: /home/yen/workspace/subdownloader/gui/main.py:594
+#: /home/yen/workspace/subdownloader/gui/preferences.py:40
+#: /home/yen/workspace/subdownloader/gui/main.py:595
+#: /home/yen/workspace/subdownloader/gui/main.py:596
+#: /home/yen/workspace/subdownloader/gui/main.py:597
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:38
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:40
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:592
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:593
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:594
 msgid "LanguageName"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:61
-#: /home/yen/workspace/subdownloader/gui/main.py:1106
+#: /home/yen/workspace/subdownloader/gui/preferences.py:66
+#: /home/yen/workspace/subdownloader/gui/main.py:1114
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:66
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1109
 msgid "Select a directory"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:70
+#: /home/yen/workspace/subdownloader/gui/preferences.py:75
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:75
 msgid "Select the Video Player executable file"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:75
-#: /home/yen/workspace/subdownloader/gui/preferences.py:206
+#: /home/yen/workspace/subdownloader/gui/preferences.py:80
+#: /home/yen/workspace/subdownloader/gui/preferences.py:211
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:211
 msgid "Alert"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:75
+#: /home/yen/workspace/subdownloader/gui/preferences.py:80
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
 msgid "The new language will be displayed after restarting the program."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:137
+#: /home/yen/workspace/subdownloader/gui/preferences.py:142
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:142
 msgid "Enable in your Konqueror/Dolphin/Nautilus"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:140
+#: /home/yen/workspace/subdownloader/gui/preferences.py:145
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:145
 msgid "Enable in your Windows Explorer"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:143
+#: /home/yen/workspace/subdownloader/gui/preferences.py:148
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:148
 msgid "Enable in your File Manager"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:151
+#: /home/yen/workspace/subdownloader/gui/preferences.py:156
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
 msgid "Predefined Folder cannot be empty"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/preferences.py:206
+#: /home/yen/workspace/subdownloader/gui/preferences.py:211
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:211
 msgid "Modified proxy settings will take effect after restarting the program"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:670
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:670
 msgid "SubDownloader"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:671
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:671
 msgid "Select the video/folder that needs subtitles:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:672
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:672
 msgid "Select videos that need subtitles"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:673
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:673
 msgid "Select videos..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:674
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:676
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:674
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:676
 msgid "Click here to Search the subtitles of the movies in that folder"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:675
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:675
 msgid "Select folder..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:677
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:677
 msgid "Search subtitles"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:678
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:678
 msgid "Videos/Subtitles found:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:679
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:693
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:679
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:693
 msgid "Filter by :"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:685
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:694
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:79
-#: /home/yen/workspace/subdownloader/gui/main.py:746
-#: /home/yen/workspace/subdownloader/gui/main.py:761
+#: /home/yen/workspace/subdownloader/gui/main.py:754
+#: /home/yen/workspace/subdownloader/gui/main.py:769
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:685
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:694
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:79
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:749
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:764
 msgid "Movie Info"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:686
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:686
 msgid "Play"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:688
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:688
 msgid "Search from Video file(s)"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:690
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:690
 msgid "Site:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:691
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:691
 msgid "OpenSubtitles.org"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:692
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:692
 msgid "Subtitles found:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:696
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:696
 msgid "Search by Movie Name"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:697
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:697
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
 msgstr ""
 
@@ -548,199 +732,257 @@ msgstr ""
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:704
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:717
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:718
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:698
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:699
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:700
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:702
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:703
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:704
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:717
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:718
 msgid "..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:701
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:701
 msgid "Empty the list"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:705
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:705
 msgid "Details:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:710
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:710
 msgid "Movie Title:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:711
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:711
 msgid "Click on the Find button to identify the movie"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:712
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:712
 msgid "Find"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:719
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:719
 msgid "Release name:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:720
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:720
 msgid "Comments:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:721
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:721
 msgid "Subtitle Language:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:723
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:723
 msgid "Upload subtitles"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:724
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:724
 msgid "&Main"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:725
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:725
 msgid "&Help"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:726
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:726
 msgid "&Settings"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:727
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:727
 msgid "&View"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:728
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:728
 msgid "Quit"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:729
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:729
 msgid "Visit HomePage"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:731
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:731
 msgid "Report A Problem"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:732
 #: /home/yen/workspace/subdownloader/gui/main.py:239
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:732
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:239
 msgid "Help Us With 5 USD/EUR"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:733
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:733
 msgid "&Configure Subdownloader"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:734
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:734
 msgid "LogIn"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:735
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:735
 msgid "Log Messages"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:736
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:736
 msgid "Show/Hide Tree Folder"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main_ui.py:737
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:737
 msgid "LogOut"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:76
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:76
 msgid "IMDB search dialog:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:77
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:77
 msgid "Enter the Movie Title or IMDB id:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:78
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:78
 msgid "Search Movie"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/imdb_ui.py:80
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:80
 msgid "OK"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:48
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:48
 msgid "Loading modules..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:74
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:74
 msgid "Building main dialog..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:103
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:103
 #, python-format
 msgid "SubDownloader %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:233
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:233
 msgid "Not logged yet"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/main.py:278
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:278
 #, python-format
 msgid "Unable to find %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:346
+#: /home/yen/workspace/subdownloader/gui/main.py:349
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:346
 msgid "How To Use SubDownloader"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:347
+#: /home/yen/workspace/subdownloader/gui/main.py:350
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:347
 msgid "1st Tab:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:347
+#: /home/yen/workspace/subdownloader/gui/main.py:350
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:347
 msgid "Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:348
+#: /home/yen/workspace/subdownloader/gui/main.py:351
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:348
 msgid "2nd Tab:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:348
+#: /home/yen/workspace/subdownloader/gui/main.py:351
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:348
 msgid "If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:349
+#: /home/yen/workspace/subdownloader/gui/main.py:352
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:349
 msgid "3rd Tab:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:349
+#: /home/yen/workspace/subdownloader/gui/main.py:352
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:349
 msgid "If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:350
+#: /home/yen/workspace/subdownloader/gui/main.py:353
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:350
 msgid "Quid Pro Quo:"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:350
+#: /home/yen/workspace/subdownloader/gui/main.py:353
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:350
 msgid "SubDownloader is an free open source software with no commercial purposes. If you think this program has saved you plenty of time, please help us by donating a few euros."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:397
-#: /home/yen/workspace/subdownloader/gui/main.py:421
+#: /home/yen/workspace/subdownloader/gui/main.py:400
+#: /home/yen/workspace/subdownloader/gui/main.py:424
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:397
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:421
 msgid "View IMDB info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:400
+#: /home/yen/workspace/subdownloader/gui/main.py:403
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:400
 msgid "Set IMDB info..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:409
+#: /home/yen/workspace/subdownloader/gui/main.py:412
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:409
 msgid "Play video + subtitle"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:414
+#: /home/yen/workspace/subdownloader/gui/main.py:417
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:414
 msgid "View online info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:429
-#: /home/yen/workspace/subdownloader/gui/main.py:775
+#: /home/yen/workspace/subdownloader/gui/main.py:432
+#: /home/yen/workspace/subdownloader/gui/main.py:783
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:429
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:778
 msgid "Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:487
+#: /home/yen/workspace/subdownloader/gui/main.py:490
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:487
 msgid "New Version Detected"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:488
+#: /home/yen/workspace/subdownloader/gui/main.py:491
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:488
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -751,179 +993,240 @@ msgid ""
 "Would you like to download the new version now?"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:513
+#: /home/yen/workspace/subdownloader/gui/main.py:516
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:513
 msgid "Users online: Updating..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:516
+#: /home/yen/workspace/subdownloader/gui/main.py:519
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:516
 #, python-format
 msgid "Users online: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:518
+#: /home/yen/workspace/subdownloader/gui/main.py:521
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:518
 msgid "Users online: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:528
-#: /home/yen/workspace/subdownloader/gui/main.py:529
+#: /home/yen/workspace/subdownloader/gui/main.py:531
 #: /home/yen/workspace/subdownloader/gui/main.py:532
+#: /home/yen/workspace/subdownloader/gui/main.py:535
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:528
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:529
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:532
 msgid "Logging in..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:528
-#: /home/yen/workspace/subdownloader/gui/main.py:1058
+#: /home/yen/workspace/subdownloader/gui/main.py:531
+#: /home/yen/workspace/subdownloader/gui/main.py:1066
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:528
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1061
 msgid "&Cancel"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:540
+#: /home/yen/workspace/subdownloader/gui/main.py:543
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:540
 #, python-format
 msgid "Logged as %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:544
+#: /home/yen/workspace/subdownloader/gui/main.py:547
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:544
 #, python-format
 msgid "Login as %s: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:548
+#: /home/yen/workspace/subdownloader/gui/main.py:551
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:548
 msgid "Login: ERROR"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:557
+#: /home/yen/workspace/subdownloader/gui/main.py:560
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:557
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:589
-#: /home/yen/workspace/subdownloader/gui/main.py:590
+#: /home/yen/workspace/subdownloader/gui/main.py:592
+#: /home/yen/workspace/subdownloader/gui/main.py:593
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:589
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:590
 msgid "All languages"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:647
-#: /home/yen/workspace/subdownloader/gui/main.py:783
-#: /home/yen/workspace/subdownloader/gui/main.py:794
+#: /home/yen/workspace/subdownloader/gui/main.py:650
+#: /home/yen/workspace/subdownloader/gui/main.py:791
+#: /home/yen/workspace/subdownloader/gui/main.py:802
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:647
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:786
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:797
 msgid "You are not connected to the server. Please reconnect first."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:653
+#: /home/yen/workspace/subdownloader/gui/main.py:656
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:653
 msgid "Scanning files"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:653
-#: /home/yen/workspace/subdownloader/gui/main.py:684
-#: /home/yen/workspace/subdownloader/gui/main.py:833
-#: /home/yen/workspace/subdownloader/gui/main.py:922
-#: /home/yen/workspace/subdownloader/gui/main.py:1146
-#: /home/yen/workspace/subdownloader/gui/main.py:1473
-#: /home/yen/workspace/subdownloader/gui/main.py:1542
+#: /home/yen/workspace/subdownloader/gui/main.py:656
+#: /home/yen/workspace/subdownloader/gui/main.py:687
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:930
+#: /home/yen/workspace/subdownloader/gui/main.py:1154
+#: /home/yen/workspace/subdownloader/gui/main.py:1481
+#: /home/yen/workspace/subdownloader/gui/main.py:1550
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:653
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:684
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:836
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:925
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1149
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1476
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1545
 msgid "&Abort"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:681
+#: /home/yen/workspace/subdownloader/gui/main.py:684
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:681
 msgid "Scan Results"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:681
+#: /home/yen/workspace/subdownloader/gui/main.py:684
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:681
 msgid "No video has been found"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:684
+#: /home/yen/workspace/subdownloader/gui/main.py:687
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:684
 msgid "Searching subtitles..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:694
+#: /home/yen/workspace/subdownloader/gui/main.py:699
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:694
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:730
+#: /home/yen/workspace/subdownloader/gui/main.py:738
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:733
 msgid "Search finished"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:752
-#: /home/yen/workspace/subdownloader/gui/main.py:767
+#: /home/yen/workspace/subdownloader/gui/main.py:760
+#: /home/yen/workspace/subdownloader/gui/main.py:775
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:755
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:770
 msgid "Sub Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:775
+#: /home/yen/workspace/subdownloader/gui/main.py:783
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:778
 msgid "You must select a folder first"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:787
+#: /home/yen/workspace/subdownloader/gui/main.py:795
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:790
 msgid "Select the video(s) that need subtitles"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:798
+#: /home/yen/workspace/subdownloader/gui/main.py:806
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:801
 msgid "Select the directory that contains your videos"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:824
+#: /home/yen/workspace/subdownloader/gui/main.py:832
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:827
 msgid "No default video player has been defined in Settings."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:833
-#: /home/yen/workspace/subdownloader/gui/main.py:922
-#: /home/yen/workspace/subdownloader/gui/main.py:923
-#: /home/yen/workspace/subdownloader/gui/main.py:1473
+#: /home/yen/workspace/subdownloader/gui/main.py:841
+#: /home/yen/workspace/subdownloader/gui/main.py:930
+#: /home/yen/workspace/subdownloader/gui/main.py:931
+#: /home/yen/workspace/subdownloader/gui/main.py:1481
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:836
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:925
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:926
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1476
 msgid "Downloading files..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:834
+#: /home/yen/workspace/subdownloader/gui/main.py:842
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:837
 msgid "Playing video + sub"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:841
-#: /home/yen/workspace/subdownloader/gui/main.py:844
-#: /home/yen/workspace/subdownloader/gui/main.py:1007
-#: /home/yen/workspace/subdownloader/gui/main.py:1010
+#: /home/yen/workspace/subdownloader/gui/main.py:849
+#: /home/yen/workspace/subdownloader/gui/main.py:852
+#: /home/yen/workspace/subdownloader/gui/main.py:1015
+#: /home/yen/workspace/subdownloader/gui/main.py:1018
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:844
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:847
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1010
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1013
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:872
+#: /home/yen/workspace/subdownloader/gui/main.py:880
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:875
 msgid "Unable to launch videoplayer"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:894
-#: /home/yen/workspace/subdownloader/gui/main.py:946
-#: /home/yen/workspace/subdownloader/gui/main.py:973
+#: /home/yen/workspace/subdownloader/gui/main.py:902
+#: /home/yen/workspace/subdownloader/gui/main.py:954
+#: /home/yen/workspace/subdownloader/gui/main.py:981
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:897
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:949
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:976
 msgid "Save as..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:914
-#: /home/yen/workspace/subdownloader/gui/main.py:1460
+#: /home/yen/workspace/subdownloader/gui/main.py:922
+#: /home/yen/workspace/subdownloader/gui/main.py:1468
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:917
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1463
 msgid "No subtitles selected to be downloaded"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:932
-#: /home/yen/workspace/subdownloader/gui/main.py:1001
+#: /home/yen/workspace/subdownloader/gui/main.py:940
+#: /home/yen/workspace/subdownloader/gui/main.py:1009
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:935
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1004
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:938
-#: /home/yen/workspace/subdownloader/gui/main.py:1017
+#: /home/yen/workspace/subdownloader/gui/main.py:946
+#: /home/yen/workspace/subdownloader/gui/main.py:1025
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:941
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1020
 msgid "Error write permission"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:939
-#: /home/yen/workspace/subdownloader/gui/main.py:1018
+#: /home/yen/workspace/subdownloader/gui/main.py:947
+#: /home/yen/workspace/subdownloader/gui/main.py:1026
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:942
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1021
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
 "Check that the folder exists and you have write-access permissions."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:953
-#: /home/yen/workspace/subdownloader/gui/main.py:989
+#: /home/yen/workspace/subdownloader/gui/main.py:961
+#: /home/yen/workspace/subdownloader/gui/main.py:997
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:956
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:992
 msgid "Save subtitle as..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:969
+#: /home/yen/workspace/subdownloader/gui/main.py:977
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:972
 msgid "File already exists"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:969
+#: /home/yen/workspace/subdownloader/gui/main.py:977
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:972
 #, python-format
 msgid ""
 "Local: %s\n"
@@ -933,270 +1236,334 @@ msgid ""
 "How would you like to proceed?"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:970
+#: /home/yen/workspace/subdownloader/gui/main.py:978
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:973
 msgid "Skip"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:971
+#: /home/yen/workspace/subdownloader/gui/main.py:979
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:974
 msgid "Replace"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:972
+#: /home/yen/workspace/subdownloader/gui/main.py:980
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:975
 msgid "Replace all"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1058
+#: /home/yen/workspace/subdownloader/gui/main.py:1066
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1061
 msgid "Connecting to server..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1059
+#: /home/yen/workspace/subdownloader/gui/main.py:1067
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1062
 msgid "Connecting"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1072
+#: /home/yen/workspace/subdownloader/gui/main.py:1080
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1075
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1078
+#: /home/yen/workspace/subdownloader/gui/main.py:1086
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1081
 msgid "Connected succesfully"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1143
+#: /home/yen/workspace/subdownloader/gui/main.py:1151
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1146
 msgid "Please identify the movie."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1146
+#: /home/yen/workspace/subdownloader/gui/main.py:1154
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1149
 msgid "Uploading subtitle"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1147
+#: /home/yen/workspace/subdownloader/gui/main.py:1155
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1150
 msgid "Uploading..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1179
+#: /home/yen/workspace/subdownloader/gui/main.py:1187
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1182
 msgid "Successful Upload"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1180
+#: /home/yen/workspace/subdownloader/gui/main.py:1188
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1183
 msgid ""
 "Subtitles succesfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1187
+#: /home/yen/workspace/subdownloader/gui/main.py:1195
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1190
 msgid "View Subtitle Info"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1193
+#: /home/yen/workspace/subdownloader/gui/main.py:1201
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1196
 #, python-format
 msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1196
+#: /home/yen/workspace/subdownloader/gui/main.py:1204
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1199
 msgid "Error contacting the server. Please restart or try later"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1219
+#: /home/yen/workspace/subdownloader/gui/main.py:1227
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1222
 msgid "↓ Movie autodetected from .nfo file"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1222
+#: /home/yen/workspace/subdownloader/gui/main.py:1230
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1225
 msgid "↓ Movie autodetected from database"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1261
+#: /home/yen/workspace/subdownloader/gui/main.py:1269
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1264
 msgid "↑ Language autodetected from database"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1265
+#: /home/yen/workspace/subdownloader/gui/main.py:1273
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1268
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1269
+#: /home/yen/workspace/subdownloader/gui/main.py:1277
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1272
 msgid "↑ Language autodetected from subtitle's content"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1319
+#: /home/yen/workspace/subdownloader/gui/main.py:1327
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1322
 msgid "Browse video..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1336
+#: /home/yen/workspace/subdownloader/gui/main.py:1344
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1339
 msgid "Browse subtitle..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1389
-#: /home/yen/workspace/subdownloader/gui/main.py:1390
-#: /home/yen/workspace/subdownloader/gui/main.py:1542
+#: /home/yen/workspace/subdownloader/gui/main.py:1397
+#: /home/yen/workspace/subdownloader/gui/main.py:1398
+#: /home/yen/workspace/subdownloader/gui/main.py:1550
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1392
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1393
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1545
 msgid "Searching..."
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1469
+#: /home/yen/workspace/subdownloader/gui/main.py:1477
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1472
 msgid "Select the directory where to save the subtitle(s)"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1474
+#: /home/yen/workspace/subdownloader/gui/main.py:1482
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1477
 msgid "Downloading"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1494
+#: /home/yen/workspace/subdownloader/gui/main.py:1502
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1497
 #, python-format
 msgid "Downloading %s to %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1510
+#: /home/yen/workspace/subdownloader/gui/main.py:1518
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1513
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
 "Error:%s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1532
+#: /home/yen/workspace/subdownloader/gui/main.py:1540
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1535
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
 "Error: %s"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1537
+#: /home/yen/workspace/subdownloader/gui/main.py:1545
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1540
 #, python-format
 msgid "%d subtitles downloaded successfully"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1537
+#: /home/yen/workspace/subdownloader/gui/main.py:1545
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1540
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n"
 "\n"
 "If there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"
 msgstr ""
 
-#: /home/yen/workspace/subdownloader/gui/main.py:1566
+#: /home/yen/workspace/subdownloader/gui/main.py:1574
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1569
 msgid "A new version of SubDownloader has been released."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:67
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:67
 msgid "Login:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:68
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:68
 msgid "Login into OpenSubtitles.org"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:69
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:69
 msgid "Username:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:70
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:70
 msgid "Password:"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:71
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:71
 msgid "Currently logged as :"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/login_ui.py:72
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:72
 msgid "Connect"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:33
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:33
 msgid "Videofile"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:33
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:33
 msgid "Subtitle"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:81
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:88
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:93
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:99
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:99
 msgid "Some of the upload rows are empty"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:104
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:104
 msgid "Some of the video/subtitles fields are empty"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:208
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:208
 msgid "Click here to select video..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/uploadlistview.py:213
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:157
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:157
 #, python-format
 msgid "[Rate: %s]"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:160
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:160
 msgid "(Already downloaded)"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:163
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:172
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:163
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:172
 #, python-format
 msgid "Uploader: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:168
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:168
 #, python-format
 msgid "Rate: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:169
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:169
 #, python-format
 msgid "Format: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:170
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:170
 #, python-format
 msgid "Downloads: %d"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:171
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:171
 #, python-format
 msgid "CDs: %d"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:200
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:222
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:200
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:222
 #, python-format
 msgid "[IMDB Rate: %s]"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/gui/videotreeview.py:223
+#: /home/yen/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:223
 #, python-format
 msgid "(%d subtitles)"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:106
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:106
 #, python-format
 msgid "Parsing video: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:119
 #: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:150
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:119
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:150
 #, python-format
 msgid "Parsing sub: %s"
 msgstr ""
 
 #: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:120
 #: /home/yen/workspace/subdownloader/FileManagement/FileScan.py:151
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:120
+#: /home/yen/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:151
 msgid "Finished hashing"
 msgstr ""
 

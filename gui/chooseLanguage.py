@@ -22,14 +22,14 @@ class chooseLanguageDialog(QtGui.QDialog):
         QObject.connect(self.ui.languagesList, SIGNAL("activated(QModelIndex)"), self.onOkButton)
         QObject.connect(self.ui.OKButton, SIGNAL("clicked(bool)"), self.onOkButton)
         
-        for lang_xx in self._main.interface_langs:
-                languageName = Languages.xx2name(lang_xx)
+        for lang_locale in self._main.interface_langs:
+                languageName = Languages.locale2name(lang_locale)
                 if not languageName:
-                    languageName = lang_xx
+                    languageName = lang_locale
                 item = QListWidgetItem(languageName)
-                item.setData(Qt.UserRole, QVariant(lang_xx))
+                item.setData(Qt.UserRole, QVariant(lang_locale))
                 self.ui.languagesList.addItem(item)
-                if lang_xx == user_locale:
+                if lang_locale == user_locale:
                         self.ui.languagesList.setCurrentItem(item,QItemSelectionModel.ClearAndSelect)
 
     def onOkButton(self):

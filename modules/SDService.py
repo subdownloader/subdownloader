@@ -118,11 +118,12 @@ class SDService(object):
         self.timeout = 30
         self.user_agent = USER_AGENT
         self.language = ''
+        self.type = type
 
         if server: 
                 self.server = server
         else:
-                if type == 'osdb':
+                if self.type == 'osdb':
                     self.server = DEFAULT_OSDB_SERVER
                 else:
                     self.server = DEFAULT_SDDB_SERVER
@@ -366,7 +367,7 @@ class SDService(object):
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         SearchSubtitles = TimeoutFunction(self._SearchSubtitles)
         try:
-            return SearchSubtitles(language, videos, imdb_ids)
+            return SearchSubtitles (language, videos, imdb_ids)
         except TimeoutFunctionException:
             self.log.error("SearchSubtitles timed out")
             return None
@@ -397,7 +398,11 @@ class SDService(object):
                 search_array.append(array)
                 
         self.log.debug("Communicating with server...")
-        result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
+        if self.type == 'osdb':
+            result = self.xmlrpc_server.SearchSubtitles(self._token, search_array)
+        else:
+            self.xmlrpc_server.SearchSubtitles(search_array)
+            return
         
         if result['data'] != False:
             self.log.debug("Collecting downloaded data")
@@ -680,10 +685,10 @@ class SDService(object):
         self.log.debug("----------------")
         self.log.debug("CheckSoftwareUpdates RPC method starting...")
         if not app: app = APP_TITLE.lower()
-        info = self.xmlrpc_server.CheckSoftwareUpdates(app)['result']
+        info = self.xmlrpc_server.CheckSoftwareUpdates(app)
 
         # we have something to show
-        self.log.info("Latest SubDownloader Version Found: %s"% info['latest_version'])
+        self.log.debug("Latest SubDownloader Version Found: %s"% info['latest_version'])
         return info
         
     def NoOperation(self):

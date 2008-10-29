@@ -303,9 +303,12 @@ class Main(QObject, Ui_MainWindow):
         #Check the default locale
         lc, encoding = locale.getdefaultlocale()
         if not lc:
-            user_locale = 'en'
+            user_locale = 'en' #english will be the default locale in case of not found
         else:
-            user_locale = lc.split('_')[0]
+            if lc in languages.ListAll_locale():
+                user_locale = lc
+            else:
+                user_locale = lc.split('_')[0]
         
         settings = QSettings()
         interface_lang = settings.value("options/interfaceLang", QVariant())
@@ -326,7 +329,7 @@ class Main(QObject, Ui_MainWindow):
 
         if isTrans:
                 # needed for the _ in the __init__ plugin (menuentry traduction)
-                __builtin__._ = lambda s : gettext.translation("subdownloader",localedir = "locale",languages=[interface_lang],fallback=True).ugettext(s)
+                __builtin__._ = lambda s : gettext.translation("subdownloader",localedir = localedir,languages=[interface_lang],fallback=True).ugettext(s)
         else:
                 __builtin__._ = lambda x : x
                 
@@ -687,6 +690,10 @@ class Main(QObject, Ui_MainWindow):
                     self.progress(1)
                     i = 0
                     total = len(videos_found)
+                    if self.SDDBServer: #only sending those hashes bigger than 12MB
+                        videos_sddb = [video for video in videos_found if int(video.getSize()) >  12000000]
+                        if videos_sddb:
+                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
                     while i < total :
                             next = min(i+10, total)
                             videos_piece = videos_found[i:next]

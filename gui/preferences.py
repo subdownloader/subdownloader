@@ -47,11 +47,11 @@ class preferencesDialog(QtGui.QDialog):
             else:
                 self.ui.optionFilterLangLayout_4.addWidget(self.filterLanguages[lang_xxx] )
             
-        for lang_xx in self._main.interface_langs:
-                languageName = languages.xx2name(lang_xx)
+        for lang_locale in self._main.interface_langs:
+                languageName = languages.locale2name(lang_locale)
                 if not languageName:
-                    languageName = lang_xx
-                self.ui.optionInterfaceLanguage.addItem(_(languageName), QVariant(lang_xx))
+                    languageName = lang_locale
+                self.ui.optionInterfaceLanguage.addItem(_(languageName), QVariant(lang_locale))
             
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
