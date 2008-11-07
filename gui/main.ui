@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>598</height>
+    <width>726</width>
+    <height>691</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -370,8 +370,8 @@
                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:x-large; font-weight:600;">&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; font-weight:600;">&lt;/p>&lt;/body>&lt;/html></string>
                    </property>
                   </widget>
                  </item>
@@ -1296,6 +1296,27 @@ p, li { white-space: pre-wrap; }
       </item>
      </layout>
     </item>
+    <item>
+     <widget class="QWebView" name="bannerView" >
+      <property name="maximumSize" >
+       <size>
+        <width>16777215</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="cursor" >
+       <cursorShape>ArrowCursor</cursorShape>
+      </property>
+      <property name="acceptDrops" >
+       <bool>false</bool>
+      </property>
+      <property name="url" >
+       <url>
+        <string>http://www.subdownloader.net/banner.html</string>
+       </url>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar" />
@@ -1304,8 +1325,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>742</width>
-     <height>27</height>
+     <width>726</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMain" >
@@ -1431,6 +1452,11 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
   <customwidget>
    <class>UploadListView</class>
    <extends>QTableView</extends>

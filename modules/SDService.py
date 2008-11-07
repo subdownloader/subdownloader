@@ -30,7 +30,7 @@ from FileManagement import Subtitle
 #from modules.SDDBServer import SDDBServer
 
 DEFAULT_OSDB_SERVER = "http://www.opensubtitles.org/xml-rpc"
-DEFAULT_SDDB_SERVER = "https://dev.pyntor.com/xml_rpc_srv/"
+DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 
@@ -107,7 +107,7 @@ class SDService(object):
     Encapsules all the XMLRPC methods.
     
     Consult the OSDB API methods at http://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC
-    Consult the SDDB API methods at https://dev.pyntor.com/xml_rpc_srv/
+    Consult the SDDB API methods at https://sddb.subdownloader.net/xmlrpc/
     
     If it fails to connect directly to the XMLRPC server, it will try to do so through a default proxy.
     Default proxy uses a form to set which URL to open. We will try to change this in later stage.

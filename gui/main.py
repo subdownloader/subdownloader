@@ -37,6 +37,7 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
 from PyQt4.QtGui import QProgressDialog, QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
+from PyQt4 import QtWebKit
 
 from gui.SplashScreen import SplashScreen, NoneSplashScreen
 from FileManagement import get_extension, clear_string, without_extension
@@ -59,6 +60,7 @@ from gui.main_ui import Ui_MainWindow
 from gui.imdbSearch import imdbSearchDialog
 from gui.preferences import preferencesDialog
 from gui.about import aboutDialog
+import gui.expiration as expiration
 from gui.chooseLanguage import chooseLanguageDialog
 from gui.login import loginDialog
 from FileManagement import FileScan, Subtitle
@@ -105,7 +107,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self, SIGNAL("filterLangChangedPermanent(QString)"), self.onFilterLangChangedPermanent)
         self.InitializeFilterLanguages()
         self.read_settings()
-        
+        self.adjustBanner()
         #self.treeView.reset()
         window.show()
         self.splitter.setSizes([600, 1000])
@@ -250,6 +252,7 @@ class Main(QObject, Ui_MainWindow):
         #self.statusbar.addPermanentWidget(self.login_button,0)
         #self.statusbar.addPermanentItem(horizontalLayout_4,2)
         #self.status("")
+        
         if not options.test:
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
@@ -371,7 +374,19 @@ class Main(QObject, Ui_MainWindow):
             self.buttonIMDB.show()
             self.buttonPlay.show()
             self.introductionHelp.hide()
+    
+    def adjustBanner(self):
+        if platform.system() == "Linux":
+            self.bannerView.page().mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff )
+            self.bannerView.page().mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff )
+            self.bannerView.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks);
+            QObject.connect( self.bannerView.page(), SIGNAL("linkClicked(const QUrl &)"), self.openExternalUrl);
+        else:
+            self.bannerView.stop()
+            self.bannerView.hide()
             
+    def openExternalUrl(self, url):
+            webbrowser.open( unicode(url.toString()), new=2, autoraise=1)
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
@@ -566,6 +581,37 @@ class Main(QObject, Ui_MainWindow):
         self.login_button.setText(statusMsg)
         QCoreApplication.processEvents()
     
+    def decideExpiration(self):
+        daysLeft = expiration.calculateDaysLeft(self.SDDBServer)
+        settings = QSettings()
+
+        if daysLeft == 0:
+            expirationDialog = expiration.expirationDialog(self)
+            expirationDialog.ui.label_expiration.setText(_('The program has expired after %d days of usage.') % expiration.DAYS_TRIAL)
+            expirationDialog.ui.buttonCancel.hide()
+            expirationDialog.show()
+            ok = expirationDialog.exec_()
+            QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        elif daysLeft <= 20 and daysLeft > 10 and not settings.value("expiration/reminder20", QVariant(False)).toBool():
+            self.showExpirationWarning(daysLeft)
+            #settings.setValue("expiration/reminder20", QVariant(True))
+        elif daysLeft <= 10  and not settings.value("expiration/reminder10", QVariant(False)).toBool():
+            self.showExpirationWarning(daysLeft)
+            #settings.setValue("expiration/reminder10", QVariant(True))
+        
+    def showExpirationWarning(self, daysLeft):
+        reminderBox = QMessageBox(_("Expiration Reminder"),_("The program will expire in %d days.\nWould you like to activate it now?") % daysLeft, QMessageBox.Warning, QMessageBox.Cancel | QMessageBox.Escape, QMessageBox.NoButton , QMessageBox.NoButton, self.window)
+        activateButton = reminderBox.addButton(QString(_("Activate")), QMessageBox.ActionRole)
+        reminderBox.exec_()
+        answer = reminderBox.clickedButton()
+        if answer == activateButton:
+            expirationDialog = expiration.expirationDialog(self)
+            expirationDialog.ui.label_expiration.setText(_('The program will expire in %d days.') % daysLeft)
+            expirationDialog.setWindowTitle(_('Activate Program'))
+            expirationDialog.show()
+            ok = expirationDialog.exec_()
+            QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+            
     def onMenuHelpAbout(self):
         dialog = aboutDialog(self)
         dialog.ui.label_version.setText(APP_VERSION)
@@ -580,7 +626,7 @@ class Main(QObject, Ui_MainWindow):
         webbrowser.open( "https://bugs.launchpad.net/subdownloader", new=2, autoraise=1)
 
     def onMenuHelpDonation(self):
-        webbrowser.open( "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donations%40subdownloader%2enet&item_name=SubDownloader%20Open%20Source%20Software%20Donation&no_shipping=1&no_note=1&tax=0&currency_code=EUR&lc=PT&bn=PP%2dDonationsBF&charset=UTF%2d8", new=2, autoraise=1)
+        webbrowser.open( "http://www.subdownloader.net/donations.html", new=2, autoraise=1)
         
     def onMenuPreferences(self):
         dialog = preferencesDialog(self)
