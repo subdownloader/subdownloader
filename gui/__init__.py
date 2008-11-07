@@ -20,7 +20,7 @@ __docformat__ = "epytext"
 __author__    = "Ivan Garcia <contact@ivangarcia.org>"
 
 import sys, os, re, StringIO, traceback
-from modules import APP_TITLE, APP_VERSION, SDService, subtitlefile, videofile
+from modules import APP_TITLE, APP_VERSION, SHAREWARE, SDService, subtitlefile, videofile
                                 
 
 error_dialog = None

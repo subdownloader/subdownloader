@@ -107,7 +107,6 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self, SIGNAL("filterLangChangedPermanent(QString)"), self.onFilterLangChangedPermanent)
         self.InitializeFilterLanguages()
         self.read_settings()
-        self.adjustBanner()
         #self.treeView.reset()
         window.show()
         self.splitter.setSizes([600, 1000])
@@ -119,8 +118,22 @@ class Main(QObject, Ui_MainWindow):
         
         settings = QSettings()
         
-        #self.folderView.setRootIndex(model.index(QDir.rootPath()))
-        #index = model.index(QDir.rootPath())
+        #SHAREWARE PART
+        if SHAREWARE:
+            activation_email = settings.value('activation/email', QVariant())
+            activation_licensekey = settings.value('activation/licensekey', QVariant())
+            activation_fullname = settings.value('activation/fullname', QVariant())
+            if activation_email != QVariant() and activation_licensekey != QVariant() and activation_fullname != QVariant():
+                self.shareware_activated = True
+                self.setTitleBarText(_('Program Registered'))
+            else:
+                self.shareware_activated = False
+                self.action_ActivateProgram = QtGui.QAction(self.window)
+                daysLeft = expiration.calculateDaysLeft(time.time())
+                self.action_ActivateProgram.setText(_("%d days to expire. Activate Program.") % daysLeft)
+                QObject.connect(self.action_ActivateProgram, SIGNAL("triggered()"), self.onActivateMenu)
+                self.menu_Help.addAction(self.action_ActivateProgram)
+                QObject.connect(self, SIGNAL("ServerTime(float)"), self.decideExpiration)
 
         self.folderView.header().hide()
         self.folderView.hideColumn(3)
@@ -238,6 +251,7 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         self.status_label.setIndent(10)
+        
         self.donate_button = QtGui.QPushButton("   " + _("Help Us With 5 USD/EUR"))
         #self.donate_button.setIndent(10)
         iconpaypal = QtGui.QIcon()
@@ -259,7 +273,8 @@ class Main(QObject, Ui_MainWindow):
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
                 thread.start_new_thread(self.detect_software_updates, ())
-                
+                if SHAREWARE and not self.shareware_activated:
+                    thread.start_new_thread(self.getServerTime, ())
                 settings = QSettings()
                 if options.username:
                     loginUsername = options.username
@@ -348,12 +363,11 @@ class Main(QObject, Ui_MainWindow):
             introduction = '<p align="center"><h2>%s</h2></p>' \
                                     '<p><b>%s</b><br>%s</p>' \
                                     '<p><b>%s</b><br>%s</p>'\
-                                    '<p><b>%s</b><br>%s</p>' \
-                                    '<p><b>%s</b><br>%s</p>' % (_("How To Use SubDownloader"), \
+                                    '<p><b>%s</b><br>%s</p>'  % (_("How To Use SubDownloader"), \
                                      _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."), \
                                      _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
-                                    _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."), \
-                                    _("Quid Pro Quo:"),_("SubDownloader is an free open source software with no commercial purposes." \
+                                    _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
+            introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("SubDownloader is a free open source software and it always will be." \
                                     " If you think this program has saved you plenty of time, please help us by donating a few euros."))
             
             self.introductionHelp.setHtml(introduction)
@@ -375,15 +389,6 @@ class Main(QObject, Ui_MainWindow):
             self.buttonPlay.show()
             self.introductionHelp.hide()
     
-    def adjustBanner(self):
-        if platform.system() == "Linux":
-            self.bannerView.page().mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff )
-            self.bannerView.page().mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff )
-            self.bannerView.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks);
-            QObject.connect( self.bannerView.page(), SIGNAL("linkClicked(const QUrl &)"), self.openExternalUrl);
-        else:
-            self.bannerView.stop()
-            self.bannerView.hide()
             
     def openExternalUrl(self, url):
             webbrowser.open( unicode(url.toString()), new=2, autoraise=1)
@@ -581,23 +586,37 @@ class Main(QObject, Ui_MainWindow):
         self.login_button.setText(statusMsg)
         QCoreApplication.processEvents()
     
-    def decideExpiration(self):
-        daysLeft = expiration.calculateDaysLeft(self.SDDBServer)
+    def onActivateMenu(self):
+        daysLeft = expiration.calculateDaysLeft(time.time())
+        expirationDialog = expiration.expirationDialog(self, daysLeft)
+        expirationDialog.show()
+        ok = expirationDialog.exec_()
+        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        
+    def getServerTime(self):
+        try:
+            log.debug("Getting time from Server:")
+            server_time = self.SDDBServer.xmlrpc_server.GetTimeStamp()
+            log.debug("Time: %r" % server_time)
+            self.emit(SIGNAL("ServerTime(float)"),server_time)
+        except:
+            pass
+        
+    def decideExpiration(self, server_time):
+        daysLeft = expiration.calculateDaysLeft(server_time)
         settings = QSettings()
 
         if daysLeft == 0:
-            expirationDialog = expiration.expirationDialog(self)
-            expirationDialog.ui.label_expiration.setText(_('The program has expired after %d days of usage.') % expiration.DAYS_TRIAL)
-            expirationDialog.ui.buttonCancel.hide()
-            expirationDialog.show()
-            ok = expirationDialog.exec_()
-            QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+                expirationDialog = expiration.expirationDialog(self, daysLeft)
+                expirationDialog.show()
+                ok = expirationDialog.exec_()
+                QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         elif daysLeft <= 20 and daysLeft > 10 and not settings.value("expiration/reminder20", QVariant(False)).toBool():
-            self.showExpirationWarning(daysLeft)
-            #settings.setValue("expiration/reminder20", QVariant(True))
+                self.showExpirationWarning(daysLeft)
+                #settings.setValue("expiration/reminder20", QVariant(True))
         elif daysLeft <= 10  and not settings.value("expiration/reminder10", QVariant(False)).toBool():
-            self.showExpirationWarning(daysLeft)
-            #settings.setValue("expiration/reminder10", QVariant(True))
+                self.showExpirationWarning(daysLeft)
+                #settings.setValue("expiration/reminder10", QVariant(True))
         
     def showExpirationWarning(self, daysLeft):
         reminderBox = QMessageBox(_("Expiration Reminder"),_("The program will expire in %d days.\nWould you like to activate it now?") % daysLeft, QMessageBox.Warning, QMessageBox.Cancel | QMessageBox.Escape, QMessageBox.NoButton , QMessageBox.NoButton, self.window)
@@ -605,9 +624,7 @@ class Main(QObject, Ui_MainWindow):
         reminderBox.exec_()
         answer = reminderBox.clickedButton()
         if answer == activateButton:
-            expirationDialog = expiration.expirationDialog(self)
-            expirationDialog.ui.label_expiration.setText(_('The program will expire in %d days.') % daysLeft)
-            expirationDialog.setWindowTitle(_('Activate Program'))
+            expirationDialog = expiration.expirationDialog(self, daysLeft)
             expirationDialog.show()
             ok = expirationDialog.exec_()
             QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)

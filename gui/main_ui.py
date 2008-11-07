@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Fri Nov  7 17:21:17 2008
+# Created: Fri Nov  7 23:19:43 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(726, 691)
+        MainWindow.resize(686, 577)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -591,19 +591,12 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.tab_4, "")
         self.vboxlayout.addWidget(self.tabs)
         self.verticalLayout_5.addLayout(self.vboxlayout)
-        self.bannerView = QtWebKit.QWebView(self.centralwidget)
-        self.bannerView.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.bannerView.setCursor(QtCore.Qt.ArrowCursor)
-        self.bannerView.setAcceptDrops(False)
-        self.bannerView.setUrl(QtCore.QUrl("http://www.subdownloader.net/banner.html"))
-        self.bannerView.setObjectName("bannerView")
-        self.verticalLayout_5.addWidget(self.bannerView)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 726, 25))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 686, 25))
         self.menuBar.setObjectName("menuBar")
         self.menuMain = QtGui.QMenu(self.menuBar)
         self.menuMain.setObjectName("menuMain")
@@ -744,7 +737,6 @@ class Ui_MainWindow(object):
         self.action_LogOut.setText(_("LogOut"))
         self.actionHelp_To_Translate_This_Application.setText(_("Translate This Application..."))
 
-from PyQt4 import QtWebKit
 from uploadlistview import UploadListView
 import images_rc
 
