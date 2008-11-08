@@ -13,8 +13,9 @@ sys.path.insert(0, os.path.dirname(os.getcwd()))
 print sys.path
 from modules import APP_TITLE, APP_VERSION
 
-exclude_dirs = [".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution"]
-exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py", "subdownloader.1"]
+exclude_dirs = ["flags",".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution", "debian"]
+exclude_files = ["pyc","po", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", 
+"setup.py2exe.py","expiration.py"]
 
 def copy_to_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write("Copying current path contents to '%s'..."% temp_path)

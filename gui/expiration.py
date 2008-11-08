@@ -25,16 +25,15 @@ def GetFirstRunTime():
     else:
             now = time.time()
             settings.setValue("mainwindow/size2", QVariant(now))
-            return time
+            return now
 
 def calculateDaysLeft(server_time):
         log.debug('Calculating the days left for expiration')
         server_date = date.fromtimestamp(server_time)
         first_run_time = GetFirstRunTime()
-        #print first_run_time
-        
+
         first_run_date = date.fromtimestamp(first_run_time)
-        first_run_date  -= timedelta(days=30)
+        #first_run_date  -= timedelta(days=21)
         daysLeft =  first_run_date + timedelta(days=DAYS_TRIAL) - server_date
 
         #print "Days Left = %d" % daysLeft.days
@@ -83,7 +82,7 @@ class expirationDialog(QtGui.QDialog):
             QMessageBox.about(self,_("Error"),_("Some fields are empty."))
             return
         self.setCursor(Qt.BusyCursor)
-        result = self._main.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey)
+        result = self._main.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey, True)
         self.setCursor(Qt.ArrowCursor)
         if result == "REGISTERED":
             settings = QSettings()
@@ -92,6 +91,7 @@ class expirationDialog(QtGui.QDialog):
             settings.setValue('activation/fullname', QVariant(fullname))
             QMessageBox.about(self,_("Info"),"Program Registered Successfully. Many Thanks")
             self._main.setTitleBarText(_('Program Registered'))
+            self._main.menu_Help.removeAction(self._main.action_ActivateProgram)
             self.accept()
         elif result == "DISABLED_TOO_MANY":
             QMessageBox.about(self,_("Error"),"This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at donation@subdownloader.net")

@@ -175,6 +175,8 @@ if __name__ == '__main__':
             shutil.rmtree(PY2EXE_DIST)
         py2exe(PY2EXE_DIST, PY2EXE_BUILD)
         print 'Deleting build'
+        if os.path.exists('locale'):
+                shutil.copytree('locale', os.path.join(PY2EXE_DIST, 'locale'))
         if os.path.exists(PY2EXE_BUILD):
            shutil.rmtree(PY2EXE_BUILD)
         print 'Building Installer'

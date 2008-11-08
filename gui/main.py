@@ -37,7 +37,7 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
 from PyQt4.QtGui import QProgressDialog, QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWindow
-from PyQt4 import QtWebKit
+
 
 from gui.SplashScreen import SplashScreen, NoneSplashScreen
 from FileManagement import get_extension, clear_string, without_extension
@@ -60,7 +60,7 @@ from gui.main_ui import Ui_MainWindow
 from gui.imdbSearch import imdbSearchDialog
 from gui.preferences import preferencesDialog
 from gui.about import aboutDialog
-import gui.expiration as expiration
+
 from gui.chooseLanguage import chooseLanguageDialog
 from gui.login import loginDialog
 from FileManagement import FileScan, Subtitle
@@ -68,9 +68,11 @@ from modules.videofile import  *
 from modules.subtitlefile import *
 from modules.search import *
 import modules.utils as utils
-
 import languages.Languages as languages
 
+if SHAREWARE:
+    import gui.expiration as expiration
+    
 import logging
 log = logging.getLogger("subdownloader.gui.main")
 splash.showMessage(_("Building main dialog..."))
@@ -124,10 +126,9 @@ class Main(QObject, Ui_MainWindow):
             activation_licensekey = settings.value('activation/licensekey', QVariant())
             activation_fullname = settings.value('activation/fullname', QVariant())
             if activation_email != QVariant() and activation_licensekey != QVariant() and activation_fullname != QVariant():
-                self.shareware_activated = True
-                self.setTitleBarText(_('Program Registered'))
+                self.software_registered = True
             else:
-                self.shareware_activated = False
+                self.software_registered = False
                 self.action_ActivateProgram = QtGui.QAction(self.window)
                 daysLeft = expiration.calculateDaysLeft(time.time())
                 self.action_ActivateProgram.setText(_("%d days to expire. Activate Program.") % daysLeft)
@@ -273,8 +274,16 @@ class Main(QObject, Ui_MainWindow):
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
                 thread.start_new_thread(self.detect_software_updates, ())
-                if SHAREWARE and not self.shareware_activated:
-                    thread.start_new_thread(self.getServerTime, ())
+                if SHAREWARE:
+                   if not self.software_registered:
+                            thread.start_new_thread(self.getServerTime, ())
+                   else:
+                            activation_email = unicode(settings.value('activation/email', QVariant()).toString())
+                            activation_licensekey = unicode(settings.value('activation/licensekey', QVariant()).toString())
+                            activation_fullname = unicode(settings.value('activation/fullname', QVariant()).toString())
+                            QObject.connect(self, SIGNAL("CheckedRegisteredLicense(QString,QString,QString,QString)"), self.onCheckedRegisteredLicense)
+                            thread.start_new_thread(self.checkRegisteredLicense, (activation_email, activation_licensekey, activation_fullname))
+                            
                 settings = QSettings()
                 if options.username:
                     loginUsername = options.username
@@ -368,7 +377,7 @@ class Main(QObject, Ui_MainWindow):
                                      _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
                                     _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
             introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("SubDownloader is a free open source software and it always will be." \
-                                    " If you think this program has saved you plenty of time, please help us by donating a few euros."))
+                                    " If you think this program has saved you plenty of time, please help us by making a donation."))
             
             self.introductionHelp.setHtml(introduction)
             self.videoView.hide()
@@ -388,8 +397,7 @@ class Main(QObject, Ui_MainWindow):
             self.buttonIMDB.show()
             self.buttonPlay.show()
             self.introductionHelp.hide()
-    
-            
+
     def openExternalUrl(self, url):
             webbrowser.open( unicode(url.toString()), new=2, autoraise=1)
     def dragEnterEvent(self, event):
@@ -592,10 +600,35 @@ class Main(QObject, Ui_MainWindow):
         expirationDialog.show()
         ok = expirationDialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-        
+    
+    def onCheckedRegisteredLicense(self, result, email, licensekey, fullname):
+        settings = QSettings()
+        if result == "REGISTERED":
+             self.setTitleBarText(_('Program Registered'))
+        elif result == "DISABLED_TOO_MANY":
+            QMessageBox.about(self.window,_("Error"),"Your License Key has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at donation@subdownloader.net")
+            settings.remove('activation/email')
+            settings.remove('activation/licensekey')
+            settings.remove('activation/fullname')
+            self.window.close()
+            sys.exit(1)
+        else:
+            QMessageBox.about(self.window,_("Error"),"Invalid License Key Registration.")
+            settings.remove('activation/email')
+            settings.remove('activation/licensekey')
+            settings.remove('activation/fullname')
+            self.window.close()
+            sys.exit(1)
+    def checkRegisteredLicense(self, email, licensekey, fullname):
+            log.debug("Checking Registered License: %s - %s - %s" % (email, licensekey, fullname))
+            result =  self.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey, False)
+            log.debug("License Status : %s" % result)
+            self.emit(SIGNAL("CheckedRegisteredLicense(QString,QString,QString,QString)"),result, email, licensekey, fullname)
+            
     def getServerTime(self):
         try:
-            log.debug("Getting time from Server:")
+            time.sleep(5)
+            log.debug("Getting time from Server...")
             server_time = self.SDDBServer.xmlrpc_server.GetTimeStamp()
             log.debug("Time: %r" % server_time)
             self.emit(SIGNAL("ServerTime(float)"),server_time)
@@ -605,18 +638,23 @@ class Main(QObject, Ui_MainWindow):
     def decideExpiration(self, server_time):
         daysLeft = expiration.calculateDaysLeft(server_time)
         settings = QSettings()
-
+        
+        self.setTitleBarText(_("(Unregistered Program, %d days to expire)"% daysLeft))
         if daysLeft == 0:
                 expirationDialog = expiration.expirationDialog(self, daysLeft)
                 expirationDialog.show()
                 ok = expirationDialog.exec_()
                 QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+                if ok == QDialog.Rejected:
+                    self.window.close()
+                    sys.exit(1)
+                    
         elif daysLeft <= 20 and daysLeft > 10 and not settings.value("expiration/reminder20", QVariant(False)).toBool():
                 self.showExpirationWarning(daysLeft)
-                #settings.setValue("expiration/reminder20", QVariant(True))
+                settings.setValue("expiration/reminder20", QVariant(True))
         elif daysLeft <= 10  and not settings.value("expiration/reminder10", QVariant(False)).toBool():
                 self.showExpirationWarning(daysLeft)
-                #settings.setValue("expiration/reminder10", QVariant(True))
+                settings.setValue("expiration/reminder10", QVariant(True))
         
     def showExpirationWarning(self, daysLeft):
         reminderBox = QMessageBox(_("Expiration Reminder"),_("The program will expire in %d days.\nWould you like to activate it now?") % daysLeft, QMessageBox.Warning, QMessageBox.Cancel | QMessageBox.Escape, QMessageBox.NoButton , QMessageBox.NoButton, self.window)
