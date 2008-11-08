@@ -639,7 +639,7 @@ class Main(QObject, Ui_MainWindow):
         daysLeft = expiration.calculateDaysLeft(server_time)
         settings = QSettings()
         
-        self.setTitleBarText(_("(Unregistered Program, %d days to expire)"% daysLeft))
+        self.setTitleBarText(_("(Unregistered Program, %d days to expire)") % daysLeft)
         if daysLeft == 0:
                 expirationDialog = expiration.expirationDialog(self, daysLeft)
                 expirationDialog.show()
