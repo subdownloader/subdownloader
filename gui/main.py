@@ -307,7 +307,10 @@ class Main(QObject, Ui_MainWindow):
     
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
-                localedir = '/usr/share/locale/'
+                if os.path.exists('/usr/share/locale/en/LC_MESSAGES/subdownloader.mo'):
+                        localedir = '/usr/share/locale/'
+                else:
+                        localedir = 'locale'
         else:
                 localedir = 'locale'
                 #Get the local directory since we are not installing anything
@@ -316,7 +319,7 @@ class Main(QObject, Ui_MainWindow):
             
         #localedir = 'locale' #remove
         
-        log.debug('Scanning translation files .mo')
+        log.debug('Scanning translation files .mo in folder: %s' %localedir)
         self.interface_langs = [] 
         for root, dirs, files in os.walk(localedir):
                 if re.search(".*locale$", os.path.split(root)[0]):
@@ -376,7 +379,7 @@ class Main(QObject, Ui_MainWindow):
                                      _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."), \
                                      _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
                                     _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
-            introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("SubDownloader is a free open source software and it always will be." \
+            introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("SubDownloader is an open source software and it always will be." \
                                     " If you think this program has saved you plenty of time, please help us by making a donation."))
             
             self.introductionHelp.setHtml(introduction)
