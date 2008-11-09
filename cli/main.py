@@ -19,14 +19,14 @@
 import logging, os.path
 import base64, zlib
 import thread
-from modules import OSDBServer
+from modules import SDService
 from modules.SDDBServer import SDDBServer
 from FileManagement import FileScan, Subtitle
 from modules import filter, progressbar
 import modules.configuration as conf
 import languages.Languages as Languages
 
-class Main(OSDBServer.OSDBServer):
+class Main(SDService.SDService):
     
     def __init__(self, cli_options):
         self.options = cli_options
@@ -62,7 +62,7 @@ class Main(OSDBServer.OSDBServer):
             self.log.debug(result)
             
         self.log.debug("Starting XMLRPC session...")
-        OSDBServer.OSDBServer.__init__(self, self.options)
+        SDService.SDService.__init__(self, self.options)
         try:
             self.login(self.username, self.passwd)
         except Exception, e:
