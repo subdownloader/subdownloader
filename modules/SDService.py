@@ -27,7 +27,7 @@ from modules import APP_TITLE, APP_VERSION
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 from FileManagement import Subtitle
-#from modules.SDDBServer import SDDBServer
+
 
 DEFAULT_OSDB_SERVER = "http://www.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
@@ -233,8 +233,6 @@ class SDService(object):
         self.log.debug("----------------")
         self.log.debug("Logging in (username:%r)..."% username)
         info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
-        #if username: 
-            #thread.start_new_thread(self.SDDBServer.sendLogin, (username,  ))
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
         if info['status'] == "200 OK":
             self.log.debug("Session ID: %s"% info['token'])

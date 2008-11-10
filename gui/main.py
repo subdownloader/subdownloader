@@ -50,7 +50,7 @@ splash.showMessage(_("Loading modules..."))
 QCoreApplication.flush()
 from modules import * 
 from modules.SDService import SDService, TimeoutFunctionException
-from modules.SDDBServer import SDDBServer
+
 from gui import installErrorHandler, Error, _Warning, extension
 
 from gui.uploadlistview import UploadListModel, UploadListView
