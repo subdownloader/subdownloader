@@ -536,7 +536,7 @@ class Main(QObject, Ui_MainWindow):
         # REMARK: to be used by a thread
         #try:
                 result = self.SDDBServer.CheckSoftwareUpdates('SubDownloader')
-                if utils.compVer(APP_VERSION, result['latest_version']) == 0:  #if APP_VERSION is < than latest_version 
+                if utils.compVer(result['latest_version'], APP_VERSION) == 1:  #if APP_VERSION is < than latest_version 
                         self.emit(SIGNAL("SoftwareUpdateDetected(QString,QString)"),result['latest_version'], result['link'])
         #except:
            #     log.debug('Error while asking server CheckSoftwareUpdates()')
