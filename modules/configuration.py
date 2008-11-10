@@ -21,6 +21,8 @@ import logging
 import os.path
 import user
 from modules import progressbar
+from modules import APP_TITLE
+from modules import APP_VERSION
 
 """
 Logging levels:
@@ -65,6 +67,10 @@ class Terminal(object):
                                 help="Used in subtitle download and upload preferences"), 
         make_option("-i","--interactive", dest="interactive", action="store_true", default=False, 
                                 help="Prompt user when decisions need to be done"), 
+        make_option("--rename-subs", dest="renaming", action="store_true", 
+                                help="Rename subtitles to match movie file name"), 
+        make_option("--keep-names", dest="renaming", action="store_false", default=False, 
+                                help="Keep original subtitle names"), 
         make_option("--sol", dest="overwrite_local", action="store_true", #default=False, 
                                 help="'Server Over Local' overwrites local subtitle with one from server. This is in cases when local subtitle isn't found on server, but server has subtitles for the movie."), 
         make_option("--los", dest="overwrite_local", action="store_false", default=False, 
@@ -87,9 +93,9 @@ class Graphical(object):
     pass
     
 class General(object):
-    name = "Subdownloader"
+    name = APP_TITLE
     description = "%s is a Free Open-Source tool written in PYTHON for automatic download/upload subtitles for videofiles (DIVX,MPEG,AVI,etc) and DVD's using fast hashing."% name
-    version = "%s v2.0"% name
+    version = "%s v%s"% (APP_TITLE, APP_VERSION)
     rpc_server = "http://www.opensubtitles.org/xml-rpc"
     search_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"
     
