@@ -27,3 +27,10 @@ def compVer(ver1,ver2):
                 continue
         elif int(vl1[0]) < int(vl2[0]):
             return 0
+
+def randomSerialKey():
+    import string 
+    from random import Random
+    d = ''.join( Random().sample(string.letters+string.digits, 16) )
+    serialkey =  "-".join([d[0:4], d[4:8], d[8:12], d[12:]]).upper()
+    print serialkey

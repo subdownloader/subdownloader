@@ -609,7 +609,7 @@ class Main(QObject, Ui_MainWindow):
         if result == "REGISTERED":
              self.setTitleBarText(_('Program Registered'))
         elif result == "DISABLED_TOO_MANY":
-            QMessageBox.about(self.window,_("Error"),"Your License Key has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at donation@subdownloader.net")
+            QMessageBox.about(self.window,_("Error"),"Your License Key has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net")
             settings.remove('activation/email')
             settings.remove('activation/licensekey')
             settings.remove('activation/fullname')

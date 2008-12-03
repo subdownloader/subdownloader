@@ -94,7 +94,7 @@ class expirationDialog(QtGui.QDialog):
             self._main.menu_Help.removeAction(self._main.action_ActivateProgram)
             self.accept()
         elif result == "DISABLED_TOO_MANY":
-            QMessageBox.about(self,_("Error"),"This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at donation@subdownloader.net")
+            QMessageBox.about(self,_("Error"),"This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net")
         else:
-            QMessageBox.about(self,_("Error"),"Invalid Registration.\nIf you have paid for the license, you should receive soon an email from donation@subdownloader.net with your License Key")
+            QMessageBox.about(self,_("Error"),"Invalid Registration.\nIf you have paid for the license, you should receive soon an email from licenses@subdownloader.net with your License Key")
 
