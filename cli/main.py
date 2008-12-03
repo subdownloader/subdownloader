@@ -105,7 +105,7 @@ class Main(SDService.SDService):
                                         'sublanguageid': curr_sub.getLanguage(), 
                                         }
                         # interactive mode
-                        if self.usermode == 'cli' and self.interactive:
+                        if self.options.mode == 'cli' and self.interactive:
                             self.log.info("Upload the following information:")
                             for (i, choice) in enumerate(user_choices):
                                 self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
@@ -273,7 +273,7 @@ class Main(SDService.SDService):
                                     'sublanguageid': curr_sub.getLanguage(), 
                                     }
                     # interactive mode
-                    if self.usermode == 'cli' and self.interactive:
+                    if self.options.mode == 'cli' and self.interactive:
                         self.log.info("Upload the following information:")
                         for (i, choice) in enumerate(user_choices):
                             self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
