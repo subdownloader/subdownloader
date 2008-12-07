@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
+    <width>614</width>
     <height>369</height>
    </rect>
   </property>
@@ -85,8 +85,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>516</width>
-            <height>236</height>
+            <width>584</width>
+            <height>252</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2" >
@@ -130,122 +130,98 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
-        <widget class="QLabel" name="label_54" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QGroupBox" name="groupBox" >
          <property name="font" >
           <font>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="title" >
           <string>Destination folder:</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6" >
+          <item>
+           <widget class="QRadioButton" name="optionDownloadFolderAsk" >
+            <property name="text" >
+             <string>Always ask user</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optionDownloadFolderSame" >
+            <property name="text" >
+             <string>Same folder as video file</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6" >
+            <item>
+             <widget class="QRadioButton" name="optionDownloadFolderPredefined" >
+              <property name="text" >
+               <string>Predefined folder:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="optionPredefinedFolderText" >
+              <property name="readOnly" >
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="optionButtonChooseFolder" >
+              <property name="text" >
+               <string>Browse...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2" >
-         <item row="0" column="0" colspan="2" >
-          <widget class="QRadioButton" name="optionDownloadFolderAsk" >
-           <property name="text" >
-            <string>Always ask user</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" colspan="2" >
-          <widget class="QRadioButton" name="optionDownloadFolderSame" >
-           <property name="text" >
-            <string>Same folder as video file</string>
-           </property>
-           <property name="checked" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0" >
-          <widget class="QRadioButton" name="optionDownloadFolderPredefined" >
-           <property name="text" >
-            <string>Predefined folder:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1" >
-          <widget class="QLineEdit" name="optionPredefinedFolderText" >
-           <property name="readOnly" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2" >
-          <widget class="QPushButton" name="optionButtonChooseFolder" >
-           <property name="text" >
-            <string>Browse...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_8" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_53" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font" >
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text" >
+        <widget class="QGroupBox" name="groupBox_2" >
+         <property name="title" >
           <string>Filename of the Subtitle:</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2" >
+          <item>
+           <widget class="QRadioButton" name="optionDownloadSameFilename" >
+            <property name="text" >
+             <string>Same name as video file</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang" >
+            <property name="text" >
+             <string>Same name as video file + language code (ex: StarWarsCD1.eng.srt)</string>
+            </property>
+            <property name="checked" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
+            <property name="text" >
+             <string>Same name as the online subtitle</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2" >
-         <item>
-          <widget class="QRadioButton" name="optionDownloadSameFilename" >
-           <property name="text" >
-            <string>Same name as video file</string>
-           </property>
-           <property name="checked" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang" >
-           <property name="text" >
-            <string>Same name as video file + language code (ex: StarWarsCD1.eng.srt)</string>
-           </property>
-           <property name="checked" >
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
-           <property name="text" >
-            <string>Same name as the online subtitle</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>

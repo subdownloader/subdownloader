@@ -789,7 +789,7 @@ class Main(QObject, Ui_MainWindow):
                 else:
                     self.window.setCursor(Qt.WaitCursor)
                     self.status_progress = QProgressDialog(_("Searching subtitles..."), _("&Abort"), 0, 100, self.window)
-                    self.status_progress.setWindowTitle('Asking server...')
+                    self.status_progress.setWindowTitle(_("Asking Server..."))
                     self.status_progress.forceShow()
                     self.progress(1)
                     i = 0

@@ -353,7 +353,7 @@ class SDService(object):
                 if answer['data'] == False:  #TODO support passing the reason of the erorr to be shown in the GUI
                     self.log.info("Error downloading subtitle.")
                     return False
-                self.log.info("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
+                self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                 for sub in answer['data']:
                     #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
                     self.BaseToFile(sub['data'], subtitles_to_download[sub['idsubtitlefile']])
