@@ -379,8 +379,7 @@ class Main(QObject, Ui_MainWindow):
                                      _("1st Tab:"), _("Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."), \
                                      _("2nd Tab:"),_("If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."), \
                                     _("3rd Tab:"),_("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
-            introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("SubDownloader is an open source software and it always will be." \
-                                    " If you think this program has saved you plenty of time, please help us by making a donation."))
+            introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"),_("If you think this program is useful and has saved you plenty of time, please help us by making a donation."))
             
             self.introductionHelp.setHtml(introduction)
             self.videoView.hide()
