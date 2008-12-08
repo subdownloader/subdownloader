@@ -233,28 +233,28 @@ class RecursiveParser:
 # it will exercise the two main methods of our class and display the results
 # onto the screen (in an albeit ugly way). 
 #if __name__ == '__main__':
-    ## This is how you create an instance of your RecursiveParser class
+    # This is how you create an instance of your RecursiveParser class
     #parser = RecursiveParser()
     
-    ## Replace /home/user/documents with whichever path you wish to search
+    # Replace /home/user/documents with whichever path you wish to search
     #print 'PRINTING DIRECTORIES\n'
     #dirs = parser.getRecursiveDirList('/home/user/documents')
     #print dirs
     
-    ## Replace /home/user/documents with whichever path you wish to extract a list of files from
-    ## Remember that the extensions argument is optional.  If you leave it off the returned list
-    ## contain a list of all the files in the specified directory.
+    # Replace /home/user/documents with whichever path you wish to extract a list of files from
+    # Remember that the extensions argument is optional.  If you leave it off the returned list
+    # contain a list of all the files in the specified directory.
     #print 'PRINTING ALL FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents')
     #print files
     
-    ## Here is an example that specifies some file extensions.
+    # Here is an example that specifies some file extensions.
     #print 'PRINTING ALL HTML, TXT, and DOC FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents', ['html', 'txt', 'doc'])
     #print files
     
-    ## Finally, here is an example that specifies only one file extension.  Note that even
-    ## when there is only one file extension, it still needs to be in a list
+    # Finally, here is an example that specifies only one file extension.  Note that even
+    # when there is only one file extension, it still needs to be in a list
     #print 'PRINTING ALL HTML FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents', ['html'])
     #print files

@@ -70,7 +70,7 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
+# the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but
@@ -150,7 +150,7 @@ registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, video.vcdinfo.VCDInfo )
 #import image.tiffinfo
 #import image.ImageInfo
 
-## import some disc modules (may fail)
+# import some disc modules (may fail)
 #try:
 #    import disc.discinfo
 #    import disc.vcdinfo
@@ -158,7 +158,7 @@ registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, video.vcdinfo.VCDInfo )
 #except ImportError:
 #    pass
 #
-## find the best working DVD module
+# find the best working DVD module
 #try:
 #    import disc.lsdvd
 #except ImportError:
@@ -169,7 +169,7 @@ registertype( 'video/vcd', ('cue',), mediainfo.TYPE_AV, video.vcdinfo.VCDInfo )
 #except ImportError:
 #    pass
 #
-## use fallback disc module
+# use fallback disc module
 #try:
 #    import disc.datainfo
 #except ImportError:

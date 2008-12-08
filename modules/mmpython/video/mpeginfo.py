@@ -55,7 +55,7 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
+# the Free Software Foundation; either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but
@@ -80,11 +80,11 @@ from modules.mmpython import mediainfo
 #import mmpython
 import stat
 
-##------------------------------------------------------------------------
-## START_CODE
-##
-## Start Codes, with 'slice' occupying 0x01..0xAF
-##------------------------------------------------------------------------
+#------------------------------------------------------------------------
+# START_CODE
+#
+# Start Codes, with 'slice' occupying 0x01..0xAF
+#------------------------------------------------------------------------
 START_CODE = {
     0x00 : 'picture_start_code',
     0xB0 : 'reserved',
@@ -100,9 +100,9 @@ START_CODE = {
 for i in range(0x01,0xAF): 
     START_CODE[i] = 'slice_start_code'
 
-##------------------------------------------------------------------------
-## START CODES
-##------------------------------------------------------------------------
+#------------------------------------------------------------------------
+# START CODES
+#------------------------------------------------------------------------
 PICTURE   = 0x00
 USERDATA  = 0xB2
 SEQ_HEAD  = 0xB3
@@ -123,45 +123,45 @@ PRIVATE_STREAM2 = 0xBf
 TS_PACKET_LENGTH = 188
 TS_SYNC          = 0x47
 
-##------------------------------------------------------------------------
-## FRAME_RATE
-##
-## A lookup table of all the standard frame rates.  Some rates adhere to
-## a particular profile that ensures compatibility with VLSI capabilities
-## of the early to mid 1990s.
-##
-## CPB
-##   Constrained Parameters Bitstreams, an MPEG-1 set of sampling and 
-##   bitstream parameters designed to normalize decoder computational 
-##   complexity, buffer size, and memory bandwidth while still addressing 
-##   the widest possible range of applications.
-##
-## Main Level
-##   MPEG-2 Video Main Profile and Main Level is analogous to MPEG-1's 
-##   CPB, with sampling limits at CCIR 601 parameters (720x480x30 Hz or 
-##   720x576x24 Hz). 
-##
-##------------------------------------------------------------------------ 
+#------------------------------------------------------------------------
+# FRAME_RATE
+#
+# A lookup table of all the standard frame rates.  Some rates adhere to
+# a particular profile that ensures compatibility with VLSI capabilities
+# of the early to mid 1990s.
+#
+# CPB
+#   Constrained Parameters Bitstreams, an MPEG-1 set of sampling and 
+#   bitstream parameters designed to normalize decoder computational 
+#   complexity, buffer size, and memory bandwidth while still addressing 
+#   the widest possible range of applications.
+#
+# Main Level
+#   MPEG-2 Video Main Profile and Main Level is analogous to MPEG-1's 
+#   CPB, with sampling limits at CCIR 601 parameters (720x480x30 Hz or 
+#   720x576x24 Hz). 
+#
+#------------------------------------------------------------------------ 
 FRAME_RATE = [ 
       0, 
-      round(24000.0/1001*100)/100, ## 3-2 pulldown NTSC (CPB/Main Level)
-      24,           ## Film (CPB/Main Level)
-      25,           ## PAL/SECAM or 625/60 video
-      round(30000.0/1001*100)/100, ## NTSC (CPB/Main Level)
-      30,           ## drop-frame NTSC or component 525/60  (CPB/Main Level)
-      50,           ## double-rate PAL
-      round(60000.0/1001*100)/100, ## double-rate NTSC
-      60,           ## double-rate, drop-frame NTSC/component 525/60 video
+      round(24000.0/1001*100)/100, # 3-2 pulldown NTSC (CPB/Main Level)
+      24,           # Film (CPB/Main Level)
+      25,           # PAL/SECAM or 625/60 video
+      round(30000.0/1001*100)/100, # NTSC (CPB/Main Level)
+      30,           # drop-frame NTSC or component 525/60  (CPB/Main Level)
+      50,           # double-rate PAL
+      round(60000.0/1001*100)/100, # double-rate NTSC
+      60,           # double-rate, drop-frame NTSC/component 525/60 video
       ]
 
-##------------------------------------------------------------------------
-## ASPECT_RATIO -- INCOMPLETE?
-##
-## This lookup table maps the header aspect ratio index to a common name.
-## These are just the defined ratios for CPB I believe.  As I understand 
-## it, a stream that doesn't adhere to one of these aspect ratios is
-## technically considered non-compliant.
-##------------------------------------------------------------------------ 
+#------------------------------------------------------------------------
+# ASPECT_RATIO -- INCOMPLETE?
+#
+# This lookup table maps the header aspect ratio index to a common name.
+# These are just the defined ratios for CPB I believe.  As I understand 
+# it, a stream that doesn't adhere to one of these aspect ratios is
+# technically considered non-compliant.
+#------------------------------------------------------------------------ 
 ASPECT_RATIO = [ 'Forbidden',
                  '1/1 (VGA)',
                  '4/3 (TV)',
@@ -283,44 +283,44 @@ class MpegInfo(mediainfo.AVInfo):
         return False
     
         
-    ##------------------------------------------------------------------------
-    ## bitrate()
-    ##
-    ## From the MPEG-2.2 spec:
-    ##
-    ##   bit_rate -- This is a 30-bit integer.  The lower 18 bits of the 
-    ##   integer are in bit_rate_value and the upper 12 bits are in 
-    ##   bit_rate_extension.  The 30-bit integer specifies the bitrate of the 
-    ##   bitstream measured in units of 400 bits/second, rounded upwards. 
-    ##   The value zero is forbidden.
-    ##
-    ## So ignoring all the variable bitrate stuff for now, this 30 bit integer
-    ## multiplied times 400 bits/sec should give the rate in bits/sec.
-    ##  
-    ## TODO: Variable bitrates?  I need one that implements this.
-    ## 
-    ## Continued from the MPEG-2.2 spec:
-    ##
-    ##   If the bitstream is a constant bitrate stream, the bitrate specified 
-    ##   is the actual rate of operation of the VBV specified in annex C.  If 
-    ##   the bitstream is a variable bitrate stream, the STD specifications in 
-    ##   ISO/IEC 13818-1 supersede the VBV, and the bitrate specified here is 
-    ##   used to dimension the transport stream STD (2.4.2 in ITU-T Rec. xxx | 
-    ##   ISO/IEC 13818-1), or the program stream STD (2.4.5 in ITU-T Rec. xxx | 
-    ##   ISO/IEC 13818-1).
-    ## 
-    ##   If the bitstream is not a constant rate bitstream the vbv_delay 
-    ##   field shall have the value FFFF in hexadecimal.
-    ##
-    ##   Given the value encoded in the bitrate field, the bitstream shall be 
-    ##   generated so that the video encoding and the worst case multiplex 
-    ##   jitter do not cause STD buffer overflow or underflow.
-    ##
-    ##
-    ##------------------------------------------------------------------------ 
+    #------------------------------------------------------------------------
+    # bitrate()
+    #
+    # From the MPEG-2.2 spec:
+    #
+    #   bit_rate -- This is a 30-bit integer.  The lower 18 bits of the 
+    #   integer are in bit_rate_value and the upper 12 bits are in 
+    #   bit_rate_extension.  The 30-bit integer specifies the bitrate of the 
+    #   bitstream measured in units of 400 bits/second, rounded upwards. 
+    #   The value zero is forbidden.
+    #
+    # So ignoring all the variable bitrate stuff for now, this 30 bit integer
+    # multiplied times 400 bits/sec should give the rate in bits/sec.
+    #  
+    # TODO: Variable bitrates?  I need one that implements this.
+    # 
+    # Continued from the MPEG-2.2 spec:
+    #
+    #   If the bitstream is a constant bitrate stream, the bitrate specified 
+    #   is the actual rate of operation of the VBV specified in annex C.  If 
+    #   the bitstream is a variable bitrate stream, the STD specifications in 
+    #   ISO/IEC 13818-1 supersede the VBV, and the bitrate specified here is 
+    #   used to dimension the transport stream STD (2.4.2 in ITU-T Rec. xxx | 
+    #   ISO/IEC 13818-1), or the program stream STD (2.4.5 in ITU-T Rec. xxx | 
+    #   ISO/IEC 13818-1).
+    # 
+    #   If the bitstream is not a constant rate bitstream the vbv_delay 
+    #   field shall have the value FFFF in hexadecimal.
+    #
+    #   Given the value encoded in the bitrate field, the bitstream shall be 
+    #   generated so that the video encoding and the worst case multiplex 
+    #   jitter do not cause STD buffer overflow or underflow.
+    #
+    #
+    #------------------------------------------------------------------------ 
 
 
-    ## Some parts in the code are based on mpgtx (mpgtx.sf.net)
+    # Some parts in the code are based on mpgtx (mpgtx.sf.net)
     
     def bitrate(self,file):
         """
