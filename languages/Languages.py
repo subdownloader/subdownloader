@@ -40,7 +40,7 @@ LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageNa
  {'locale':'da', 'ISO639': 'da', 'SubLanguageID': 'dan', 'LanguageName': _('Danish')},
  {'locale':'nl', 'ISO639': 'nl', 'SubLanguageID': 'dut', 'LanguageName': _('Dutch')},
  {'locale':'en', 'ISO639': 'en', 'SubLanguageID': 'eng', 'LanguageName': _('English')},
- {'locale':'en_GB', 'ISO639': 'en', 'SubLanguageID': 'eng', 'LanguageName': _('British English')},
+ {'locale':'en_GB', 'ISO639': 'en', 'SubLanguageID': 'bre', 'LanguageName': _('British English')},
  {'locale':'eo', 'ISO639': 'eo', 'SubLanguageID': 'epo', 'LanguageName': _('Esperanto')},
  {'locale':'et', 'ISO639': 'et', 'SubLanguageID': 'est', 'LanguageName': _('Estonian')},
  {'locale':'fi', 'ISO639': 'fi', 'SubLanguageID': 'fin', 'LanguageName': _('Finnish')},
