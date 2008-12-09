@@ -16,7 +16,7 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    see <http://www.gnu.org/licenses/>.
 
-
+import sys
 import os.path
 import re #To extract the imdb regexp from the NFO files
 import logging
@@ -103,7 +103,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
 
             if not report_progress(): #If it has been canceled
                 raise UserActionCanceled()
-            report_progress(count,_("Parsing video: %s")% os.path.basename(filepath))
+            report_progress(count,_("Parsing video: %s")% os.path.basename(filepath).decode(sys.getfilesystemencoding()))
     report_progress(0)
     
     #Scanning Subs
@@ -116,7 +116,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         for i, filepath in enumerate(files_found):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
-            report_progress(count,_("Parsing sub: %s") % os.path.basename(filepath))
+            report_progress(count,_("Parsing sub: %s") % os.path.basename(filepath).decode(sys.getfilesystemencoding()))
     report_progress(100,_("Finished hashing"))
     if progress_end:
         progress_end()
@@ -147,7 +147,7 @@ def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, prog
         for i, filepath in enumerate(files_found):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
-            report_progress(count,_("Parsing sub: %s") % os.path.basename(filepath))
+            report_progress(count,_("Parsing sub: %s") % os.path.basename(filepath).decode(sys.getfilesystemencoding()))
     report_progress(100,_("Finished hashing"))
     if progress_end:
         progress_end()
