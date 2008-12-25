@@ -9,7 +9,7 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
-                     
+
 from PyQt4.QtGui import QItemSelection
 
 class ImdbListView(QTableView):
@@ -53,7 +53,7 @@ class ImdbListModel(QAbstractTableModel):
         if role != Qt.DisplayRole:
             return QVariant()
         text = ""
-        if orientation == Qt.Horizontal:      
+        if orientation == Qt.Horizontal:
             text = self._headers[section]
             return QVariant(self.trUtf8(text))
         else: 

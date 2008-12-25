@@ -1,4 +1,27 @@
 Changelog Subdownloader:
+
+Changes in 2.0.9:
+
+440: Ivan Garcia 2008-12-09 fixed the bug 284206 thanks to ~Kuisathaverat
+439: Ivan Garcia 2008-12-08 changed message in the main dialog           
+438: Ivan Garcia 2008-12-08 bug 303919 fixed                             
+437: Ivan Garcia 2008-12-08 upgraded into GPLv3.                         
+436: Ivan Garcia 2008-12-08 2 bugfixes.                                  
+435: Ivan Garcia 2008-12-03 Marco Ferreira change about CLI              
+434: Ivan Garcia 2008-12-03 utils to generate license                    
+433: Ivan Garcia 2008-11-10 fixed a bug about the Versions comparison.   
+432: Ivan Garcia 2008-11-10 removed import SDDBServer from cli           
+431: Ivan Garcia 2008-11-10 fixed bug https://bugs.launchpad.net/bugs/296184
+430: Ivan Garcia 2008-11-10 changed some message strings                    
+429: Marco Ferreira 2008-11-09 Removed OSDBServer references                
+428: Ivan Garcia 2008-11-09 small fix about a dialog screen                 
+427: Ivan Garcia 2008-11-09 finally changes for the 2.0.8,                  
+426: Ivan Garcia 2008-11-08 preparing the shareware version for windows     
+425: Ivan Garcia 2008-11-07 Added a banner for 2.0.8 without scrollbars pointing to adsense
+424: Ivan Garcia 2008-10-30 added a locale column in the language file                     
+423: Ivan Garcia 2008-10-29 changed the name of the languageInterface preference so everybody will have to choose 1 lang from 2.0.8
+422: Ivan Garcia 2008-10-28 added calculation of ed2k and magnet hashes, it takes long time to calculate, cause it scans the whole file
+
 Changes in 2.0.8:
 
 421: Ivan Garcia 2008-10-26 changed the interface a bit  

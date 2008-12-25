@@ -1,0 +1,29 @@
+README for Subdownloader BZR
+
+    Running
+
+        Whether you want to run in CLI (Command Line Interface) or 
+        GUI (Graphical User Interface), the only file you'll need to call is run.py.
+
+        Common example: python run.py --help
+        
+        
+    Problems on first time run
+
+        Is it complaining about 'subdownloader' existance?
+
+        Traceback (most recent call last):
+          File "run.py", line 40, in <module>
+            import gui.main
+          File "/path/to/subdownloader-read-only/gui/__init__.py", line 20, in <module>
+            from subdownloader import APP_TITLE, APP_VERSION, OSDBServer, subtitlefile, videofile
+        ImportError: No module named subdownloader
+
+        You might have to change subdownloader root directory name. 
+        If you executed "svn checkout http://subdownloader.googlecode.com/svn/trunk/ subdownloader-read-only", do the following:
+
+            * Unix: mv /path/to/subdownloader-read-only /path/to/subdownloader/subdownloader 
+            
+    Can a read this with some coloring and text format, like a wiki?
+    
+        Sure, go to: http://code.google.com/p/subdownloader/wiki/SubDownloader2SVN
