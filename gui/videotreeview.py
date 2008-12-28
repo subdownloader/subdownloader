@@ -180,7 +180,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         if role == QtCore.Qt.DecorationRole:
             if movie_info :
                 #TODO: Show this icon bigger.
-                return QVariant(QIcon(':/images/imdb.png').pixmap(QSize(24, 24), QIcon.Normal))
+                return QVariant(QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal))
             else:
                 return QVariant()
         
@@ -210,7 +210,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         
         movie = data
         if role == QtCore.Qt.DecorationRole:
-                return QVariant(QIcon(':/images/imdb.png'))
+                return QVariant(QIcon(':/images/info.png'))
         
         if role == QtCore.Qt.FontRole:
             return QVariant(QFont('Arial', 9, QFont.Bold)) 

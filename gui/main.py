@@ -255,10 +255,13 @@ class Main(QObject, Ui_MainWindow):
         
         self.donate_button = QtGui.QPushButton("   " + _("Help Us With 5 USD/EUR"))
         #self.donate_button.setIndent(10)
+        
         iconpaypal = QtGui.QIcon()
         iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.donate_button.setIcon(iconpaypal)
-        self.donate_button.setIconSize(QtCore.QSize(50, 24))
+        if platform.system() == "Windows":
+            self.donate_button.setIcon(iconpaypal)
+            self.donate_button.setIconSize(QtCore.QSize(50, 24))
+            
         QObject.connect(self.donate_button, SIGNAL("clicked(bool)"), self.onMenuHelpDonation)
         
         self.statusbar.insertWidget(0,self.status_label)
@@ -427,10 +430,10 @@ class Main(QObject, Ui_MainWindow):
                         video = treeItem.data
                         movie_info = video.getMovieInfo()
                         if movie_info:
-                            subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),_("View IMDB info"), self)
+                            subWebsiteAction = QtGui.QAction(QIcon(":/images/info.png"),_("View IMDB info"), self)
                             QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
                         else:
-                            subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),_("Set IMDB info..."), self)
+                            subWebsiteAction = QtGui.QAction(QIcon(":/images/info.png"),_("Set IMDB info..."), self)
                             QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onSetIMDBInfo)
                         menu.addAction(subWebsiteAction) 
                 elif type(treeItem.data) == SubtitleFile: #Subtitle
@@ -451,7 +454,7 @@ class Main(QObject, Ui_MainWindow):
                     menu.addAction(subWebsiteAction) 
                 elif type(treeItem.data) == Movie:
                     movie = treeItem.data
-                    subWebsiteAction = QtGui.QAction(QIcon(":/images/imdb.png"),_("View IMDB info"), self)
+                    subWebsiteAction = QtGui.QAction(QIcon(":/images/info.png"),_("View IMDB info"), self)
                     QObject.connect(subWebsiteAction, SIGNAL("triggered()"), self.onViewOnlineInfo)
                     menu.addAction(subWebsiteAction) 
 
@@ -855,7 +858,7 @@ class Main(QObject, Ui_MainWindow):
             video = treeItem.data
             if video.getMovieInfo():
                 self.buttonIMDB.setEnabled(True)
-                self.buttonIMDB.setIcon(QIcon(":/images/imdb.png"))
+                self.buttonIMDB.setIcon(QIcon(":/images/info.png"))
                 self.buttonIMDB.setText(_("Movie Info"))
         else:
             treeItem.checked = not(treeItem.checked)
@@ -870,7 +873,7 @@ class Main(QObject, Ui_MainWindow):
             movie = treeItem.data
             if movie.IMDBId:
                 self.buttonIMDBByTitle.setEnabled(True)
-                self.buttonIMDBByTitle.setIcon(QIcon(":/images/imdb.png"))
+                self.buttonIMDBByTitle.setIcon(QIcon(":/images/info.png"))
                 self.buttonIMDBByTitle.setText(_("Movie Info"))
         else:
             treeItem.checked = not(treeItem.checked)

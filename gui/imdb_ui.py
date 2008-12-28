@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imdb.ui'
 #
-# Created: Thu Oct 16 17:26:10 2008
+# Created: Sun Dec 28 17:51:27 2008
 #      by: PyQt4 UI code generator 4.4.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,7 +53,7 @@ class Ui_IMDBSearchDialog(object):
         self.movieInfoButton = QtGui.QPushButton(IMDBSearchDialog)
         self.movieInfoButton.setEnabled(False)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/images/imdb.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/images/info.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.movieInfoButton.setIcon(icon)
         self.movieInfoButton.setIconSize(QtCore.QSize(32, 16))
         self.movieInfoButton.setObjectName("movieInfoButton")
