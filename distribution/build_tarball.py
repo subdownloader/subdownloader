@@ -16,6 +16,20 @@ from modules import APP_TITLE, APP_VERSION
 exclude_dirs = ["flags",".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution", "debian"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py","expiration.py", "paypal.png"]
 
+def checkPoFiles(localedir = "../locale"):
+    error = False
+    for root, dirs, files in os.walk(localedir):
+                if re.search(".*locale$", os.path.split(root)[0]):
+                        _lang = os.path.split(root)[-1]
+                
+                if not 'subdownloader.po' in files and not dirs:
+                        print ".po not found in %s" % _lang
+                        error = True
+    
+    if error:
+        return False
+    return True
+                        
 def copy_to_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write("Copying current path contents to '%s'..."% temp_path)
     sys.stdout.flush()
@@ -111,8 +125,10 @@ def get_version():
 if __name__ == "__main__":
     svn_revision = get_svn_revision()
     sd_version = get_version()
-    fileName = "SubDownloader-%s"% sd_version
+    fileName = "subdownloader-%s"% sd_version
     # create the tarball directory tree
+    if not checkPoFiles():
+        sys.exit(1)
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
