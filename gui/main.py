@@ -310,10 +310,7 @@ class Main(QObject, Ui_MainWindow):
     
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
-                if os.path.exists('/usr/share/locale/en/LC_MESSAGES/subdownloader.mo'):
-                        localedir = '/usr/share/locale/'
-                else:
-                        localedir = 'locale'
+                localedir = '/usr/share/locale/'
         else:
                 localedir = 'locale'
                 #Get the local directory since we are not installing anything
