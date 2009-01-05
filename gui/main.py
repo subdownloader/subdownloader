@@ -316,6 +316,7 @@ class Main(QObject, Ui_MainWindow):
                         localedir = '/usr/share/locale/'
                 else:
                         localedir = 'locale'
+
         else:
                 localedir = 'locale'
                 #Get the local directory since we are not installing anything
