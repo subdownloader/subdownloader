@@ -101,6 +101,8 @@ class Main(QObject, Ui_MainWindow):
         self.upload_autodetected_lang = ""
         self.upload_autodetected_imdb = ""
         self.window = window
+        
+        self.calculateProgramFolder()
         self.SetupInterfaceLang()
         self.setupUi(window)
         window.closeEvent = self.close_event
@@ -310,7 +312,7 @@ class Main(QObject, Ui_MainWindow):
     
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
-                if os.path.exists('/usr/share/locale/en/LC_MESSAGES/subdownloader.mo'):
+                if self.programFolder == '/usr/share/subdownloader':
                         localedir = '/usr/share/locale/'
                 else:
                         localedir = 'locale'
@@ -374,6 +376,12 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
         return self.choosenLanguage
 
+    def calculateProgramFolder(self):
+        if os.path.isdir(sys.path[0]): #for Linux is /program_folder/
+            self.programFolder =  sys.path[0]
+        else: #for Windows is the /program_folder/run.py
+            self.programFolder =  os.path.dirname(sys.path[0])
+            
     def showInstructions(self):
             introduction = '<p align="center"><h2>%s</h2></p>' \
                                     '<p><b>%s</b><br>%s</p>' \
