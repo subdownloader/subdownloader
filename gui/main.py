@@ -312,7 +312,7 @@ class Main(QObject, Ui_MainWindow):
     
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
-                if self.programFolder == '/usr/share/subdownloader':
+        	if self.programFolder == '/usr/share/subdownloader':
                         localedir = '/usr/share/locale/'
                 else:
                         localedir = 'locale'
@@ -323,8 +323,6 @@ class Main(QObject, Ui_MainWindow):
                 #local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
                 #print local_path
             
-        #localedir = 'locale' #remove
-        
         log.debug('Scanning translation files .mo in folder: %s' %localedir)
         self.interface_langs = [] 
         for root, dirs, files in os.walk(localedir):
