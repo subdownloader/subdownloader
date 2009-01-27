@@ -33,6 +33,7 @@ from optparse import OptionParser
 sys.path.append(os.path.join(sys.path[0], 'modules') )
 # simple aplication starter
 import modules.configuration as conf
+from modules import APP_VERSION
 
 """
 CRITICAL    50
@@ -42,8 +43,8 @@ INFO            20
 DEBUG       10
 NOTSET       0
 """
-#TODO: change conf.VERSION to subdownloader.APP_VERSION
-parser = OptionParser(description=conf.General.description, version=conf.General.version, option_list=conf.Terminal.option_list)
+#TODO: Check if APP_VERSION replace really works.
+parser = OptionParser(description=conf.General.description, version=APP_VERSION, option_list=conf.Terminal.option_list)
 (options, args) = parser.parse_args()
 
 if platform.system() == "Windows":

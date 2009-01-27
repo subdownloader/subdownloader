@@ -234,7 +234,6 @@ class Main(QObject, Ui_MainWindow):
         self.moviesView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu) 
         QObject.connect(self.moviesView, SIGNAL("customContextMenuRequested(QPoint)"), self.onContext)
         
-
         
         #Menu options
         QObject.connect(self.action_Quit, SIGNAL("triggered()"), self.onMenuQuit)
@@ -251,6 +250,7 @@ class Main(QObject, Ui_MainWindow):
         self.login_button = QtGui.QPushButton(_("Not logged yet"))
         QObject.connect(self.action_Login, SIGNAL("triggered()"), self.onButtonLogin)
         QObject.connect(self.login_button, SIGNAL("clicked(bool)"), self.onButtonLogin)
+        QObject.connect(self.action_LogOut, SIGNAL("triggered()"), self.onButtonLogOut)
         #self.status_progress.setOrientation(QtCore.Qt.Horizontal)
         self.status_label = QtGui.QLabel("v"+ APP_VERSION,self.statusbar)
         self.status_label.setIndent(10)
@@ -313,9 +313,9 @@ class Main(QObject, Ui_MainWindow):
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
         	if self.programFolder == '/usr/share/subdownloader':
-                        localedir = '/usr/share/locale/'
+                    localedir = '/usr/share/locale/'
                 else:
-                        localedir = 'locale'
+                    localedir = 'locale'
 
         else:
                 localedir = 'locale'
@@ -412,6 +412,7 @@ class Main(QObject, Ui_MainWindow):
 
     def openExternalUrl(self, url):
             webbrowser.open( unicode(url.toString()), new=2, autoraise=1)
+
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
@@ -582,6 +583,9 @@ class Main(QObject, Ui_MainWindow):
                     username = _('Anonymous')
                 self.login_button.setText(_("Logged as %s") % username)
                 self.status_progress.close()
+                self.login_button.setEnabled(False)
+                self.action_Login.setEnabled(False)
+                self.action_LogOut.setEnabled(True)
                 return True
             elif username: #We try anonymous login in case the normal user login has failed
                 self.login_button.setText(_("Login as %s: ERROR") % username)
@@ -592,6 +596,13 @@ class Main(QObject, Ui_MainWindow):
             traceback.print_exc(e)
             self.status_progress.close()
             return False
+
+    def onButtonLogOut(self):
+        self.OSDBServer.logout()
+        self.login_button.setText(_("Not logged yet"))
+        self.login_button.setEnabled(True)
+        self.action_Login.setEnabled(True)
+        self.action_LogOut.setEnabled(False)
 
     def onMenuQuit(self):
         self.window.close()
@@ -1133,7 +1144,7 @@ class Main(QObject, Ui_MainWindow):
                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % sub.getFileName())
                 finally:
                     count += percentage
-            self.status("%d from %d subtitles downloaded succesfully" % (success_downloaded, total_subs))
+            self.status("%d from %d subtitles downloaded successfully" % (success_downloaded, total_subs))
             self.progress(100)
 
     def showErrorConnection(self):
@@ -1198,7 +1209,7 @@ class Main(QObject, Ui_MainWindow):
             self.OSDBServer = SDService('osdb',proxy = self.options.proxy) 
             self.SDDBServer = SDService('sddb', self.options.server, self.options.proxy)
 
-            self.progress(100, _("Connected succesfully"))
+            self.progress(100, _("Connected successfully"))
             QCoreApplication.processEvents()
             self.status_progress.close()
             return True
@@ -1300,7 +1311,7 @@ class Main(QObject, Ui_MainWindow):
                     self.status_progress.close()
                     if info['status'] == "200 OK":
                         successBox = QMessageBox(_("Successful Upload"), 
-                                                                        _("Subtitles succesfully uploaded.\nMany Thanks!") , 
+                                                                        _("Subtitles successfully uploaded.\nMany Thanks!") , 
                                                                         QMessageBox.Information, 
                                                                         QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
                                                                         QMessageBox.NoButton,

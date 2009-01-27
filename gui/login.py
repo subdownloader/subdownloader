@@ -73,7 +73,7 @@ class loginDialog(QtGui.QDialog):
             displayUsername = username
                 
         if self._main.login_user(str(username.toUtf8()),str(password.toUtf8()),self._main.window):
-            self.ui.loginLabelStatus.setText(_("Succesfully logged as: %s") % displayUsername)
+            self.ui.loginLabelStatus.setText(_("Successfully logged as: %s") % displayUsername)
         else:
             self.ui.loginLabelStatus.setText(_("Cannot loggin as: %s") % displayUsername)
         self._main.window.setCursor(Qt.ArrowCursor)
