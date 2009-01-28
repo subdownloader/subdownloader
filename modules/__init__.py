@@ -20,5 +20,5 @@ MODULES package
 '''
 
 APP_TITLE     = "SubDownloader"
-APP_VERSION   = "2.0.9.1"
+APP_VERSION   = "2.0.9.3"
 SHAREWARE = False

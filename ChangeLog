@@ -1,4 +1,26 @@
-Changelog Subdownloader:
+Changelog for SubDownloader:
+
+Changes in 2.0.9.3:
+
+453: Marco Rodrigues 2009-01-27 add Login/Logout functionality; Fix typos for success messages
+452: Marco Rodrigues 2009-01-13 fix typos s/applicatin/application
+451: Marco Rodrigues 2009-01-05 remove commented / not necessary locale line
+450: Ivan Garcia 2009-01-05 resolvo conflict
+449: Ivan Garcia 2009-01-05 now the locales are get from /usr/share/locale in case that we run from /usr/share/subdownloader
+448: Ivan Garcia 2008-12-29 added build_tarball.py checking to see if all the LC_MESSAGES folder has a .po file
+447: Ivan Garcia 2008-12-29 added few po files
+446: Marco Rodrigues 2008-12-29 remove COPYING. not necessary anymore
+
+Changes in 2.0.9.2:
+
+445: Ivan Garcia 2008-12-28 remove image imdb.png
+444: Ivan Garcia 2008-12-28 disabled Paypal logo and replaced Imdb logo for fit debian policy
+443: Ivan Garcia 2008-12-28 updated PO for portuguese
+
+Changes in 2.0.9.1:
+
+442: Ivan Garcia 2008-12-26 shareware = False
+441: Ivan Garcia 2008-12-25 added the latest PO files
 
 Changes in 2.0.9:
 
