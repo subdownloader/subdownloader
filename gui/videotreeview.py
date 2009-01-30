@@ -223,7 +223,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             info += "  "  + _("(%d subtitles)") % int(movie.totalSubs)
             
             if not len(movie.subtitles):
-                pass #TODO: Show the PLUS icon to expand #info += " (Double Click here)"
+                pass #TODO: Clicking to expand (+) no subtitles are displayed (LP: #312689)
+                #info += " (Double Click here)"
+
             return QVariant(info)
            
         return QVariant()
