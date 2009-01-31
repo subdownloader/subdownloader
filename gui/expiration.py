@@ -80,7 +80,7 @@ class expirationDialog(QtGui.QDialog):
         fullname = unicode(self.ui.activation_fullname.text())
         licensekey  = unicode(self.ui.activation_licensekey.text())
         if not email or not fullname or not licensekey:
-            QMessageBox.about(self,_("Error"),_("Some fields are empty, so please fill them."))
+            QMessageBox.about(self,_("Error"),_("Some fields are empty.. please fill them."))
             return
         self.setCursor(Qt.BusyCursor)
         result = self._main.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION, email, fullname, licensekey, True)
@@ -90,12 +90,12 @@ class expirationDialog(QtGui.QDialog):
             settings.setValue('activation/email', QVariant(email))
             settings.setValue('activation/licensekey', QVariant(licensekey))
             settings.setValue('activation/fullname', QVariant(fullname))
-            QMessageBox.about(self,_("Info"),_("Program Registered Successfully. Thank you"))
-            self._main.setTitleBarText(_('SubDownloader Registered'))
+            QMessageBox.about(self,_("Info"),"Program Registered Successfully. Thank you")
+            self._main.setTitleBarText(_('Program Registered'))
             self._main.menu_Help.removeAction(self._main.action_ActivateProgram)
             self.accept()
         elif result == "DISABLED_TOO_MANY":
-            QMessageBox.about(self,_("Error"),_("This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net"))
+            QMessageBox.about(self,_("Error"),"This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net")
         else:
-            QMessageBox.about(self,_("Error"),_("Invalid Registration.\nIf you have paid for the license, you should receive soon an email from licenses@subdownloader.net with your License Key"))
+            QMessageBox.about(self,_("Error"),"Invalid Registration.\nIf you have paid for the license, you should receive soon an email from licenses@subdownloader.net with your License Key")
 
