@@ -1,19 +1,18 @@
 [Desktop Entry]
 Version=1.0
-Categories=KDE;X-QT;AudioVideo;Video;
-Comment=Application to download subtitles for your movies.
-Comment[en_US]=Application to download subtitles for your movies.
-Exec=subdownloader
-GenericName=
-GenericName[en_US]=
-Icon=subdownloader
-MimeType=video/avi;
 Name=SubDownloader
 Name[en_US]=SubDownloader
+Comment=Application to download/upload subtitles of your movies.
+Comment[en_US]=Application to download/upload subtitles of your movies.
+Comment[pt_PT]=Aplicação para descarregar/enviar legendas para os seus filmes.
+Exec=subdownloader
+Icon=subdownloader
 Path=/usr/share/subdownloader
+MimeType=video/avi;
 StartupNotify=false
 Terminal=false
-Type=Application
 X-DCOP-ServiceType=unique
 X-KDE-SubstituteUID=false
 X-KDE-Username=
+Type=Application
+Categories=KDE;X-QT;AudioVideo;Video;
