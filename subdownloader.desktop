@@ -15,4 +15,4 @@ X-DCOP-ServiceType=unique
 X-KDE-SubstituteUID=false
 X-KDE-Username=
 Type=Application
-Categories=KDE;X-QT;AudioVideo;Video;
+Categories=Qt;KDE;AudioVideo;Video;
