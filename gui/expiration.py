@@ -40,8 +40,8 @@ def calculateDaysLeft(server_time):
         if daysLeft.days <= 0:
             return 0
         return daysLeft.days
-        
-class expirationDialog(QtGui.QDialog): 
+
+class expirationDialog(QtGui.QDialog):
     def __init__(self, parent, daysLeft):
         QtGui.QDialog.__init__(self)
         self.ui = Ui_ExpirationDialog()
@@ -55,46 +55,47 @@ class expirationDialog(QtGui.QDialog):
         QObject.connect(self.ui.activation_email, SIGNAL("textChanged()"), self.onFieldsChanged)
         QObject.connect(self.ui.activation_fullname, SIGNAL("textChanged()"), self.onFieldsChanged)
         QObject.connect(self.ui.activation_licensekey, SIGNAL("textChanged()"), self.onFieldsChanged)
-        
+
         if daysLeft:
             self.ui.label_expiration.setText(_('The program will expire in %d days.') % daysLeft)
             self.setWindowTitle(_('Activate Program'))
         else:
             self.ui.label_expiration.setText(_('The program has expired after %d days of usage.') % DAYS_TRIAL)
             self.ui.buttonCancel.hide()
-        
+
     def onButtonCancel(self):
         self.reject()
-        
+
     def onButtonRegister(self):
         webbrowser.open( "http://www.subdownloader.net/buylicense.html", new=2, autoraise=1)
-        
+
     def onFieldsChanged(self):
         if len(self.ui.activation_email.text()) and len(self.ui.activation_fullname.text()) and len(self.ui.activation_licensekey.text()):
             self.ui.buttonActivate.setEnabled(True)
         else:
             self.ui.buttonActivate.setEnabled(False)
+
     def onButtonActivate(self):
         email = unicode(self.ui.activation_email.text())
         fullname = unicode(self.ui.activation_fullname.text())
         licensekey  = unicode(self.ui.activation_licensekey.text())
         if not email or not fullname or not licensekey:
-            QMessageBox.about(self,_("Error"),_("Some fields are empty."))
+            QMessageBox.about(self,_("Error"),_("Some fields are empty, so please fill them."))
             return
         self.setCursor(Qt.BusyCursor)
-        result = self._main.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey, True)
+        result = self._main.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION, email, fullname, licensekey, True)
         self.setCursor(Qt.ArrowCursor)
         if result == "REGISTERED":
             settings = QSettings()
             settings.setValue('activation/email', QVariant(email))
             settings.setValue('activation/licensekey', QVariant(licensekey))
             settings.setValue('activation/fullname', QVariant(fullname))
-            QMessageBox.about(self,_("Info"),"Program Registered Successfully. Many Thanks")
-            self._main.setTitleBarText(_('Program Registered'))
+            QMessageBox.about(self,_("Info"),_("Program Registered Successfully. Thank you"))
+            self._main.setTitleBarText(_('SubDownloader Registered'))
             self._main.menu_Help.removeAction(self._main.action_ActivateProgram)
             self.accept()
         elif result == "DISABLED_TOO_MANY":
-            QMessageBox.about(self,_("Error"),"This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net")
+            QMessageBox.about(self,_("Error"),_("This license has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net"))
         else:
-            QMessageBox.about(self,_("Error"),"Invalid Registration.\nIf you have paid for the license, you should receive soon an email from licenses@subdownloader.net with your License Key")
+            QMessageBox.about(self,_("Error"),_("Invalid Registration.\nIf you have paid for the license, you should receive soon an email from licenses@subdownloader.net with your License Key"))
 
