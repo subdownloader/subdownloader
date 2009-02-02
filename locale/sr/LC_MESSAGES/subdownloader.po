@@ -1,0 +1,2252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSubtitles.org\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-08 23:04+0100\n"
+"PO-Revision-Date: 2008-12-06 15:36+0000\n"
+"Last-Translator: Tice <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:106
+#, python-format
+msgid "Parsing video: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:119
+#: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:150
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:119
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:150
+#, python-format
+msgid "Parsing sub: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:120
+#: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:151
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:120
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:151
+msgid "Finished hashing"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:28
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:28
+msgid "Albanian"
+msgstr "Албански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:29
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:29
+msgid "Arabic"
+msgstr "Арапски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:30
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:30
+msgid "Armenian"
+msgstr "Jерменски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:31
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:31
+msgid "Malay"
+msgstr "Mалајски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:32
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:32
+msgid "Bosnian"
+msgstr "Босански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:33
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:33
+msgid "Brazilian"
+msgstr "Бразилски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:34
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:34
+msgid "Bulgarian"
+msgstr "Бугарски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:35
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:35
+msgid "Catalan"
+msgstr "Каталонски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:36
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:36
+msgid "Basque"
+msgstr "Баскијски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:37
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:37
+msgid "Chinese"
+msgstr "Кинески"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:38
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:38
+msgid "Croatian"
+msgstr "Хрватски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:39
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:39
+msgid "Czech"
+msgstr "Чешки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:40
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:40
+msgid "Danish"
+msgstr "Дански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:41
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:41
+msgid "Dutch"
+msgstr "Холандски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:42
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:42
+msgid "English"
+msgstr "Енглески"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:43
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:43
+msgid "British English"
+msgstr "Британски Енглески"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:44
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:44
+msgid "Esperanto"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:45
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:45
+msgid "Estonian"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:46
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:46
+msgid "Finnish"
+msgstr "Фински"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:47
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:47
+msgid "French"
+msgstr "Француски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:48
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:48
+msgid "Georgian"
+msgstr "Грузијски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:49
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:49
+msgid "German"
+msgstr "Немачки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:50
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:50
+msgid "Greek"
+msgstr "Грчки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:51
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:51
+msgid "Hebrew"
+msgstr "Хебрејски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:52
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:52
+msgid "Hungarian"
+msgstr "Мађарски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:53
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:53
+msgid "Indonesian"
+msgstr "Индонежански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:54
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:54
+msgid "Italian"
+msgstr "Италијански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:55
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:55
+msgid "Japanese"
+msgstr "Јапански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:56
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:56
+msgid "Kazakh"
+msgstr "Казахстански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:57
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:57
+msgid "Korean"
+msgstr "Корејски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:58
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:58
+msgid "Latvian"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:59
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:59
+msgid "Lithuanian"
+msgstr "Литвански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:60
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:60
+msgid "Luxembourgish"
+msgstr "Луксембуршки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:61
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:61
+msgid "Macedonian"
+msgstr "Македонски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:62
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:62
+msgid "Norwegian"
+msgstr "Норвешки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:63
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:63
+msgid "Persian"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:64
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:64
+msgid "Polish"
+msgstr "Пољски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:65
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:65
+msgid "Portuguese"
+msgstr "Португалски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:66
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:66
+msgid "Romanian"
+msgstr "Румунски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:67
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:67
+msgid "Russian"
+msgstr "Руски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:68
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:68
+msgid "Serbian"
+msgstr "Српски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:69
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:69
+msgid "Slovak"
+msgstr "Словачки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:70
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:70
+msgid "Slovenian"
+msgstr "Словеначки"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:71
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:71
+msgid "Spanish"
+msgstr "Шпански"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:72
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:72
+msgid "Swedish"
+msgstr "Шведски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:73
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:73
+msgid "Thai"
+msgstr "Тајландски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:74
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:74
+msgid "Turkish"
+msgstr "Турски"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:75
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:75
+msgid "Ukrainian"
+msgstr "Украјински"
+
+#: /home/capiscuas/workspace/subdownloader/languages/Languages.py:76
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:76
+msgid "Vietnamese"
+msgstr "Вијетнамски"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:60
+#, python-format
+msgid "The program will expire in %d days."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:61
+msgid "Activate Program"
+msgstr "Активирај Програм"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:63
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:92
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:92
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:97
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:99
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:156
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:67
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:41
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:50
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:77
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:83
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:297
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:305
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:611
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:618
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:753
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:831
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:896
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:907
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:937
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:954
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:957
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:985
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1027
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1120
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1123
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1251
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1256
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1306
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1309
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1573
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1623
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1645
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:67
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:50
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:77
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:83
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:297
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:305
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:611
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:618
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:753
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:831
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:896
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:907
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:937
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:954
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:957
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:985
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1027
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1120
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1123
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1251
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1256
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1306
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1309
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1573
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1623
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1645
+msgid "Error"
+msgstr "Грешка"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
+msgid "Some fields are empty."
+msgstr "Нека поља су празна"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:92
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:462
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:888
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:462
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:888
+msgid "Info"
+msgstr "Информације"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration.py:93
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:609
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:609
+msgid "Program Registered"
+msgstr "Програм је регистрован"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:670
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:670
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:671
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:671
+msgid "Select the video/folder that needs subtitles:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:672
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:672
+msgid "Select videos that need subtitles"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:673
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:673
+msgid "Select videos..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:674
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:676
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:674
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:676
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:675
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:675
+msgid "Select folder..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:677
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:677
+msgid "Search subtitles"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:678
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:678
+msgid "Videos/Subtitles found:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:679
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:693
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:679
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:693
+msgid "Filter by :"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:685
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:694
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:79
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:859
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:874
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:685
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:694
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:79
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:859
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:874
+msgid "Movie Info"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:686
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:686
+msgid "Play"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:687
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:695
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:280
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:439
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:687
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:695
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:280
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:439
+msgid "Download"
+msgstr "Преузми"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:688
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:688
+msgid "Search from Video file(s)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:689
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:270
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1656
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:689
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:270
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1656
+msgid "Search"
+msgstr "Претражи"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:690
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:690
+msgid "Site:"
+msgstr "Сајт:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:691
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:691
+msgid "OpenSubtitles.org"
+msgstr "ОтворениПреводи.орг"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:692
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:692
+msgid "Subtitles found:"
+msgstr "Преводи пронађени"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:696
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:696
+msgid "Search by Movie Name"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:697
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:697
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:698
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:699
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:700
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:702
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:703
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:704
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:717
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:718
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:698
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:699
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:700
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:702
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:703
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:704
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:717
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:718
+msgid "..."
+msgstr "..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:701
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:701
+msgid "Empty the list"
+msgstr "Испразни листу"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:705
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:705
+msgid "Details:"
+msgstr "Детаљи"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:710
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:710
+msgid "Movie Title:"
+msgstr "Наслов филма"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:711
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:711
+msgid "Click on the Find button to identify the movie"
+msgstr "Кликни на Тражи дугме да индетигикујеш филм"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:712
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:712
+msgid "Find"
+msgstr "Пронађи"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:719
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:719
+msgid "Release name:"
+msgstr "Назив изадања"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:720
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:720
+msgid "Comments:"
+msgstr "Коментари"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:721
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:721
+msgid "Subtitle Language:"
+msgstr "Језик превода"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:722
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:282
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:722
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "Учитавање"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:723
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:723
+msgid "Upload subtitles"
+msgstr "Учитавање превода"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:724
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:724
+msgid "&Main"
+msgstr "&Главни"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:725
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:725
+msgid "&Help"
+msgstr "&Помоћ"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:726
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:726
+msgid "&Settings"
+msgstr "&Подешавања"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:727
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:727
+msgid "&View"
+msgstr "&Приказ"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:728
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:728
+msgid "Quit"
+msgstr "Напусти"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:729
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:729
+msgid "Visit HomePage"
+msgstr "Посети Главну Страницу"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:730
+#: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:143
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:730
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:143
+msgid "About"
+msgstr "О програму"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:731
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:731
+msgid "Report A Problem"
+msgstr "Пријави проблем"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:732
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:256
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:732
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:256
+msgid "Help Us With 5 USD/EUR"
+msgstr "Помози нам са 5 УСД/ЕУР"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:733
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:733
+msgid "&Configure Subdownloader"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:734
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:734
+msgid "LogIn"
+msgstr "Улогуј се"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:735
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:735
+msgid "Log Messages"
+msgstr "Поруке лога"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:736
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:736
+msgid "Show/Hide Tree Folder"
+msgstr "Прикажи/Сакриј дрво датотеке"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:737
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:737
+msgid "LogOut"
+msgstr "Излогуј се"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:738
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:288
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:738
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "Преведите ову апликацију..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:91
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:91
+msgid "Program has expired"
+msgstr "Програм је истекао"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:93
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:93
+msgid "Register Online..."
+msgstr "Региструј се на мрежи"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:94
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:94
+msgid "After registering, you will receive a license key via email."
+msgstr "После регистрације, добићете кључ лиценце преко Е-поште"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:95
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:95
+msgid "Email:"
+msgstr "Е‑пошта:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:96
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:96
+msgid "Full Name:"
+msgstr "Пуно име:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:97
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:97
+msgid "License key:"
+msgstr "Кључ Лиценце:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:98
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:298
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:81
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1087
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:98
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:298
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:81
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1087
+msgid "Cancel"
+msgstr "Одустани"
+
+#: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:99
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:663
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:99
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:663
+msgid "Activate"
+msgstr "Активирај"
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:33
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "Видео датотека"
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:33
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "Поднаслов"
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:81
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:88
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:93
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:99
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:104
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:208
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:213
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "Кликните овде да селектујете поднаслов"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:268
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "Подешавања"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:269
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "Филтрирај резултате претрживања по овим језицима:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:271
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "Одредишна датотека:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:272
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "Увек питај корисника"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:273
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "Иста датотека као видео фајл"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:274
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "Предодређена датотекаЧ"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:275
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:293
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:275
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "Разгледај..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:276
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "Име фајла поднаслова"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:277
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "Исто име као видео фајл"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:278
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:279
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:281
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:283
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:284
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "Домаћин:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:285
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "Port:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:286
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:286
+msgid "Network"
+msgstr "Мрежа"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:287
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:289
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:290
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "Омогућити у вашем претраживачу"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:291
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:292
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:294
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "Параметри:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:295
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:296
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:296
+msgid "Others"
+msgstr "Остали"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:297
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:297
+msgid "Save"
+msgstr "Сачувај"
+
+#: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:120
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:120
+msgid "About Subdownloader"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:150
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:150
+msgid "Authors"
+msgstr "Аутори"
+
+#: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:166
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:166
+msgid "License Agreement"
+msgstr "Уговор о лиценци"
+
+#: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:167
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:167
+msgid "Close"
+msgstr "Затвори"
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:76
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "IMDB дијалог претраге"
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:77
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "Унеси наслов филам или IMDB индетификацију:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:78
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "Тражи филм"
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:80
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:80
+msgid "OK"
+msgstr "У реду"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:67
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:67
+msgid "Login:"
+msgstr "Улогуј се:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:68
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:68
+msgid "Login into OpenSubtitles.org"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:69
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:69
+msgid "Username:"
+msgstr "Корисничко име:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:70
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:70
+msgid "Password:"
+msgstr "Шифра:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:71
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:71
+msgid "Currently logged as :"
+msgstr "Тренутно улоговани као:"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:72
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:72
+msgid "Connect"
+msgstr "Повежи се"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:35
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:35
+msgid "<AutoDetect>"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:38
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:40
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:698
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:699
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:700
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:38
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:40
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:698
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:699
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:700
+msgid "LanguageName"
+msgstr "Језичко име"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:66
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1219
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:66
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1219
+msgid "Select a directory"
+msgstr "Изаберите директоријум"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:75
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:75
+msgid "Select the Video Player executable file"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:80
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:213
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:213
+msgid "Alert"
+msgstr "Упозорење"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:80
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
+msgid "The new language will be displayed after restarting the program."
+msgstr "Нови језик ће бити приказан након рестартовања програма."
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:142
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:142
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:145
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:145
+msgid "Enable in your Windows Explorer"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:148
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:148
+msgid "Enable in your File Manager"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:156
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
+msgid "Predefined Folder cannot be empty"
+msgstr "Предодређени директоријум не може бити празан"
+
+#: /home/capiscuas/workspace/subdownloader/gui/preferences.py:213
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:213
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:33
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:71
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:149
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:572
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:33
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:71
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:149
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:572
+msgid "Anonymous"
+msgstr "Анониман"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:36
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:76
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:36
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:76
+#, python-format
+msgid "Succesfully logged as: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:38
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:38
+msgid "Not Connected"
+msgstr "Није повезан"
+
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:67
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:50
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:297
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:831
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:67
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:50
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:297
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:831
+msgid "Error contacting the server. Please try again later"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/login.py:78
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:78
+#, python-format
+msgid "Cannot loggin as: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:157
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:157
+#, python-format
+msgid "[Rate: %s]"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:160
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:160
+msgid "(Already downloaded)"
+msgstr "(Већ преузет)"
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:163
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:172
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:163
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:172
+#, python-format
+msgid "Uploader: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:168
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:168
+#, python-format
+msgid "Rate: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:169
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:169
+#, python-format
+msgid "Format: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:170
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:170
+#, python-format
+msgid "Downloads: %d"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:171
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:171
+#, python-format
+msgid "CDs: %d"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:200
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:222
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:200
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:222
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:223
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:223
+#, python-format
+msgid "(%d subtitles)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:41
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
+msgid "Please fill out the search title"
+msgstr "Молимо Вас попуните наслов претраге"
+
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:77
+#: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:83
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:77
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:83
+msgid "Please search and select a movie from the list"
+msgstr "Молимо Вас претражите и селектујте филм са листе"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:49
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:49
+msgid "Loading modules..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:78
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:78
+msgid "Building main dialog..."
+msgstr "Израда главне комуникације"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:107
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:107
+#, python-format
+msgid "SubDownloader %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:134
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:134
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:249
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:249
+msgid "Not logged yet"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:305
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:305
+#, python-format
+msgid "Unable to find %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:378
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:378
+msgid "How To Use SubDownloader"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:379
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:379
+msgid "1st Tab:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:379
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:379
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:380
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:380
+msgid "2nd Tab:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:380
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:380
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:381
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:381
+msgid "3rd Tab:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:381
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:381
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:382
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
+msgid "Quid Pro Quo:"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:382
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:430
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:454
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:430
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:454
+msgid "View IMDB info"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:433
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:433
+msgid "Set IMDB info..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:442
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:442
+msgid "Play video + subtitle"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:447
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:447
+msgid "View online info"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:520
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:520
+msgid "New Version Detected"
+msgstr "Detektovana je nova verzija"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:521
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:521
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:546
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:546
+msgid "Users online: Updating..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:549
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:549
+#, python-format
+msgid "Users online: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:551
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:551
+msgid "Users online: ERROR"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:561
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:562
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:565
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:561
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:562
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:565
+msgid "Logging in..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:561
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1171
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:561
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1171
+msgid "&Cancel"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:573
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:573
+#, python-format
+msgid "Logged as %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:577
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:577
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:581
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:581
+msgid "Login: ERROR"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:590
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:590
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:644
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:644
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:662
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
+msgid "Expiration Reminder"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:662
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:695
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:696
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:695
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:696
+msgid "All languages"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:753
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:896
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:907
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:753
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:896
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:907
+msgid "You are not connected to the server. Please reconnect first."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:759
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:759
+msgid "Scanning files"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:759
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:790
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:946
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1035
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1259
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1586
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1655
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:759
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:790
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:946
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1035
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1259
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1586
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1655
+msgid "&Abort"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:787
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:787
+msgid "Scan Results"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:787
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:787
+msgid "No video has been found"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:790
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:790
+msgid "Searching subtitles..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:791
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:791
+msgid "Asking Server..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:804
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:843
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:843
+msgid "Search finished"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:865
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:880
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:865
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:880
+msgid "Sub Info"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:888
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:888
+msgid "You must select a folder first"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:900
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:911
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:911
+msgid "Select the directory that contains your videos"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:937
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:937
+msgid "No default video player has been defined in Settings."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:946
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1035
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1036
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1586
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:946
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1035
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1036
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1586
+msgid "Downloading files..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:947
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:947
+msgid "Playing video + sub"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:954
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:957
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1120
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1123
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:954
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:957
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1120
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1123
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:985
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:985
+msgid "Unable to launch videoplayer"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1007
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1059
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1086
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1007
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1059
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1086
+msgid "Save as..."
+msgstr "Sačuvaj kao..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1027
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1573
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1027
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1573
+msgid "No subtitles selected to be downloaded"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1045
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1114
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1045
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1114
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1051
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1130
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1051
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1130
+msgid "Error write permission"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1052
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1131
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1052
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1131
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1066
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1102
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1066
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1102
+msgid "Save subtitle as..."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1082
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1082
+msgid "File already exists"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1082
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1082
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1083
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1083
+msgid "Skip"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1084
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1084
+msgid "Replace"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1085
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1085
+msgid "Replace all"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1171
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1171
+msgid "Connecting to server..."
+msgstr "Konektujem se na server..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1172
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1172
+msgid "Connecting"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1185
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1185
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1191
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1191
+msgid "Connected succesfully"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1256
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1256
+msgid "Please identify the movie."
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1259
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1259
+msgid "Uploading subtitle"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1260
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1260
+msgid "Uploading..."
+msgstr "Slanje..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1292
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1292
+msgid "Successful Upload"
+msgstr "Upload završen"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1293
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1293
+msgid ""
+"Subtitles succesfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1300
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1300
+msgid "View Subtitle Info"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1306
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1306
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1309
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1309
+msgid "Error contacting the server. Please restart or try later"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1332
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1332
+msgid "↓ Movie autodetected from .nfo file"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1335
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1335
+msgid "↓ Movie autodetected from database"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1374
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1374
+msgid "↑ Language autodetected from database"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1378
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1382
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1382
+msgid "↑ Language autodetected from subtitle's content"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1432
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1432
+msgid "Browse video..."
+msgstr "Pretraga videa..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1449
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1449
+msgid "Browse subtitle..."
+msgstr "Pretraga prevoda..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1502
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1503
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1655
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1502
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1503
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1655
+msgid "Searching..."
+msgstr "Pretražujem..."
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1582
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1582
+msgid "Select the directory where to save the subtitle(s)"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1587
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1587
+msgid "Downloading"
+msgstr "Preuzimam"
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1607
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1607
+#, python-format
+msgid "Downloading %s to %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1623
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1623
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1645
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1645
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+
+#: /home/capiscuas/workspace/subdownloader/gui/main.py:1679
+#: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
+msgid "A new version of SubDownloader has been released."
+msgstr "Novija verzija iz SubDownloadera je izdata."
+
+#~ msgid "Search by:"
+#~ msgstr "Traži po:"
+
+#~ msgid "Retrieving info from IMDB server, please wait..."
+#~ msgstr "Zahtevam informacije sa IMDB servera, molimo sačekajte..."
+
+#~ msgid "CD1 subtitle file:"
+#~ msgstr "CD1 prevod fajl:"
+
+#~ msgid "Browse sub..."
+#~ msgstr "Pronađi prevod..."
+
+#~ msgid "Yes, there is an CD2 file."
+#~ msgstr "Da, postoji CD2 fajl"
+
+#~ msgid "CD2 AVI file:"
+#~ msgstr "CD2 AVI fajl:"
+
+#~ msgid "CD2 subtitle file:"
+#~ msgstr "CD2 prevod fajl:"
+
+#~ msgid "Add more Cds"
+#~ msgstr "Dodaj još CD-ova"
+
+#~ msgid "Confirm..."
+#~ msgstr "Potvrdi..."
+
+#~ msgid "Movie IMDB ID:"
+#~ msgstr "IMDB ID broj filma:"
+
+#~ msgid "Search ID..."
+#~ msgstr "Potraži ID..."
+
+#~ msgid "Error requesting Title in IMDB Server"
+#~ msgstr "Greška prilikom zahtevanja Naziva na IMDB Serveru"
+
+#~ msgid "Alternative Movie title (AKA): "
+#~ msgstr "Alternativni naziv Filma (AKA): "
+
+#~ msgid "Movies"
+#~ msgstr "Filmovi"
+
+#~ msgid "Serials/Seasons/Episodes"
+#~ msgstr "Seriali/Sezone/Epizode"
+
+#~ msgid "Errors found:"
+#~ msgstr "Pronađene greške:"
+
+#~ msgid "Upload More Cds"
+#~ msgstr "Uploaduj još CD-ova"
+
+#~ msgid "%d extra CDs added."
+#~ msgstr "%d CD-a je dodato."
+
+#~ msgid "The video %(videopath)s doesn't exist."
+#~ msgstr "Video %(videopath)s ne postoji"
+
+#~ msgid "Try searching by IMDB ID number."
+#~ msgstr "Pokušajte pretragom po IMDB ID broju."
+
+#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
+#~ msgstr "Pronađena je greška u videu CD%(cd_number)s : %(videopath)s"
+
+#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
+#~ msgstr "Premala veličina videa CD%(cd_number)s : %(videopath)s"
+
+#~ msgid "The subtitle %s doesn't exist."
+#~ msgstr "Prevod %s ne postoji."
+
+#~ msgid "Size of subtitle %s bigger than 300Kb"
+#~ msgstr "Veličina prevoda %s je veća od 300Kb"
+
+#~ msgid "Error: video CD %d = video CD %d"
+#~ msgstr "Greška: Video CD %d = Video CD %d"
+
+#~ msgid "Error: sub CD %d = sub CD %d"
+#~ msgstr "Greška: sub CD %d = sub CD %d"
+
+#~ msgid "Checking videofiles and subs, please wait..."
+#~ msgstr "Provera video fajlova i prevoda, molimo sačekajte..."
+
+#~ msgid "Checking subtitles in server, please wait..."
+#~ msgstr "Proveravam prevode na serveru, molim sačekajte..."
+
+#~ msgid "Error Checking Subtitles in server, possible causes:"
+#~ msgstr "Greška prilikom proveravanja prevoda na serveru, mogući problemi:"
+
+#~ msgid "The connection with the server is off"
+#~ msgstr "Konekcija sa serverom je isključena"
+
+#~ msgid "Error getting the IMDB info of %s"
+#~ msgstr "Greška prilikom dobijanja IMDB informacija od %s"
+
+#~ msgid "Your subtitle name has some special characters you should remove."
+#~ msgstr ""
+#~ "Naziv Vašeg prevoda ima neke specijalne karaktere koje trebate ukloniti."
+
+#~ msgid "Subtitle Found..."
+#~ msgstr "Prevod pronađen..."
+
+#~ msgid "AutoDetected"
+#~ msgstr "Autodetektovan"
+
+#~ msgid "Detected .nfo file, please wait..."
+#~ msgstr "Detektovan .nfo fajl, molim sačekajte..."
+
+#~ msgid "Error retrieving IMDB ID from .NFO file"
+#~ msgstr "Greška IMDB ID broja iz .NFO fajla"
+
+#~ msgid "IMDB Search"
+#~ msgstr "IMDB Pretraga"
+
+#~ msgid "Error: The IMDB ID field is required."
+#~ msgstr "Greška: IMDB ID Broj je obavezan."
+
+#~ msgid "Upload Progress"
+#~ msgstr "Upload proces"
+
+#~ msgid "Uploading, it can take a while..."
+#~ msgstr "Uploadovanje, može potrajati..."
+
+#~ msgid "Thank you. Subtitle sucessfuly uploaded."
+#~ msgstr "Hvala Vam. Prevod je uspešno uploadovan."
+
+#~ msgid "The number %s is the ID of the movie?"
+#~ msgstr "Broj %s je ID broj filma?"
+
+#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
+#~ msgstr ""
+#~ "Da li bi ste želeli da proverite detaljnu stranicu uploadovanog prevoda?"
+
+#~ msgid "The server returned some errors"
+#~ msgstr "Server prijavljuje greške"
+
+#~ msgid "Error Uploading Subtitles in server, possible causes:"
+#~ msgstr "Greška prilikom uploadovanja prevoda na server, mogući problemi:"
+
+#~ msgid "Replacing subtitle"
+#~ msgstr "Zamena prevoda"
+
+#~ msgid "No Subtitle found."
+#~ msgstr "Nema pronađenih prevoda."
+
+#~ msgid "Where can I download subtitles?"
+#~ msgstr "Gde mogu skinuti prevode?"
+
+#~ msgid "No subtitles found. Please upload it."
+#~ msgstr "Nema pronađenih prevoda. Molimo Vas da ih uploadujete."
+
+#~ msgid "log-in"
+#~ msgstr "Uloguj se"
+
+#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
+#~ msgstr "IMDB ID ili NAZIV FILMA je dvosmislen"
+
+#~ msgid "Exit"
+#~ msgstr "Izađi"
+
+#~ msgid "Main"
+#~ msgstr "Početak"
+
+#~ msgid "Contact us"
+#~ msgstr "Kontaktirajte nas"
+
+#~ msgid "Donate"
+#~ msgstr "Doniraj"
+
+#~ msgid "Help"
+#~ msgstr "Pomoć"
+
+#~ msgid "Options"
+#~ msgstr "Opcije"
+
+#~ msgid "Help us"
+#~ msgstr "Pomožite nas"
+
+#~ msgid "You must search the movie title and select an IMDB ID"
+#~ msgstr "Morate tražiti po nazivu filma i selektovati IMDB ID Broj"
+
+#~ msgid "Log"
+#~ msgstr "Log"
+
+#~ msgid "Reporting errors"
+#~ msgstr "Izvesćanja o greškama"
+
+#~ msgid "Error sending bug. Thank you anyway"
+#~ msgstr "Greška uz ispračanja baga. Hvala Vam svakako"
+
+#~ msgid "Please Login"
+#~ msgstr "Molimo Vas, Prijavite se"
+
+#~ msgid "We strongly recommend to log-in before uploading files"
+#~ msgstr "Strogo je preporučlivo da prijavite se pre dodavke fajlova"
+
+#~ msgid "Connecting, please wait..."
+#~ msgstr "Puvezuje se, molim Vas prićekajte..."
+
+#~ msgid "Error XMLRPC creating server connection to : %s"
+#~ msgstr "Greška XMLRPC prilikom kreiranja server konekcije na : %s"
+
+#~ msgid "Connected as %s"
+#~ msgstr "Povežano kako %s"
+
+#~ msgid "Error opening link"
+#~ msgstr "Greška prilikom otvaranja linka"
+
+#~ msgid "Connected anonymously"
+#~ msgstr "Konektovan automatski"
+
+#~ msgid "I cannot login to server. Status: %s"
+#~ msgstr "Ne mogu se prijaviti serverom. Status: %s"
+
+#~ msgid "NEW VERSION: "
+#~ msgstr "NOVIJA VERZIJA: "
+
+#~ msgid "UNKNOWN"
+#~ msgstr "NEPOZNATO"
+
+#~ msgid "CURRENT VERSION:"
+#~ msgstr "Sadašnja verzija:"
+
+#~ msgid "Changes in the new version:"
+#~ msgstr "Izmene u novoj verziji:"
+
+#~ msgid "Update"
+#~ msgstr "Obnova"
+
+#~ msgid "New Update"
+#~ msgstr "Novo ažuriranje"
+
+#~ msgid "Movie hash of"
+#~ msgstr "Video haš od"
+
+#~ msgid "Accept"
+#~ msgstr "Prihvati"
+
+#~ msgid " has been updated."
+#~ msgstr " je ažuriran."
+
+#~ msgid "Thank you very much for your collaboration  :-)"
+#~ msgstr "Hvala vam mnogo na vašoj saradnji :-)"
+
+#~ msgid "Report wrong info"
+#~ msgstr "Prijavite pogrešne informacije"
+
+#~ msgid "Uploading Subtitle"
+#~ msgstr "Slanje titla"
+
+#~ msgid "extra CDs added."
+#~ msgstr "ekstra CD-ovi su dodati."
+
+#~ msgid "The video %(videopath) doesn't exist."
+#~ msgstr "Video %(video putanja) ne postoji"
+
+#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
+#~ msgstr "Interna greška je pronađena na video CD%(cd_number) : %(videopath)"
+
+#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
+#~ msgstr "Veličina je premala na video CD%(cd_number) : %(videopath)"
+
+#~ msgid "The subtitle %(subpath) doesn't exist."
+#~ msgstr "Titl %(podputanja) ne postoji"
+
+#~ msgid "Upload More Subtitles"
+#~ msgstr "Uploaduj još prevoda"
+
+#~ msgid "Size of subtitle %(subpath)"
+#~ msgstr "Veličina titla %(podputanje)"
+
+#~ msgid "Error occurred while autodetecting language"
+#~ msgstr "Greška je nastupila prilikom autodetektovanja jezika"
+
+#~ msgid "Autodecteded language"
+#~ msgstr "Autodetektovanje jezika"
+
+#~ msgid "Subtitle download directory:"
+#~ msgstr "Direktorijum za preuzimanje titlova:"
+
+#~ msgid "Videofiles directory"
+#~ msgstr "Direktorijum video fajlova"
+
+#~ msgid "Please choose directory"
+#~ msgstr "Molimo odaberite direktorijum"
+
+#~ msgid "If you don't have a user account, please"
+#~ msgstr "Ako nemate korisnički nalog, molimo"
+
+#~ msgid "Register for free"
+#~ msgstr "Registrujte se besplatno"
+
+#~ msgid "MOVIE TITLE or IMDB ID: "
+#~ msgstr "NAZIVU FILMA ili IMDB ID Broju: "
+
+#~ msgid "File"
+#~ msgstr "Fajl"
+
+#~ msgid "Languages:"
+#~ msgstr "Jezici:"
+
+#~ msgid "Choose interface language here ..."
+#~ msgstr "Odaberite interfejs jezik ovde ..."
+
+#~ msgid "Search subtitles in ALL the languages"
+#~ msgstr "Tražite titlove za SVE jezike"
+
+#~ msgid "Autodetect Language in Upload"
+#~ msgstr "Autodetektovanje jezika u slanju"
+
+#~ msgid "Default Upload Language:"
+#~ msgstr "Nedostajući jezik za slanje:"
+
+#~ msgid "Servers configuration:"
+#~ msgstr "Konfiguracija servera:"
+
+#~ msgid "Proxy Parameters:"
+#~ msgstr "Proxy parametri:"
+
+#~ msgid "OSDB protocol:"
+#~ msgstr "OSDB protokol:"
+
+#~ msgid "The file for AVI CD%d is required"
+#~ msgstr "Fajl za AVI CD%d je obavezan"
+
+#~ msgid "Host address: "
+#~ msgstr "Adresa hosta: "
+
+#~ msgid "Get server info"
+#~ msgstr "Pribavite informacije servera"
+
+#~ msgid "Server:"
+#~ msgstr "Server:"
+
+#~ msgid "User:"
+#~ msgstr "Korisnik:"
+
+#~ msgid "%s is not a valid http:// address"
+#~ msgstr "%s nije validna http:// adresa"
+
+#~ msgid "OSDB Server Info"
+#~ msgstr "OSDB informacije servera"
+
+#~ msgid "The OSDB server address is unreacheable"
+#~ msgstr "OSDB server adresa je nedostupna"
+
+#~ msgid "The file for Sub CD%d is required"
+#~ msgstr "Fajl za SUB CD%d je obavezan"
+
+#~ msgid "AVI File CD%d"
+#~ msgstr "AVI Fajl CD%d"
+
+#~ msgid "Clear content"
+#~ msgstr "Izbriši sadržaj"
+
+#~ msgid "Add videofile"
+#~ msgstr "Dodaj video fajl"
+
+#~ msgid "Add directory"
+#~ msgstr "Dodaj direktorijum"
+
+#~ msgid "Clear List"
+#~ msgstr "Izbriši listu"
+
+#~ msgid "SEARCH"
+#~ msgstr "TRAŽI"
+
+#~ msgid "Select / Unselect ALL"
+#~ msgstr "Selektuj / Deselektuj sve"
+
+#~ msgid "Add film's directory"
+#~ msgstr "Dodaj direktorijum filma"
+
+#~ msgid "Add videos from folder (recursive)"
+#~ msgstr "Dodaj video iz foldera (rekurzivno)"
+
+#~ msgid "Add video file"
+#~ msgstr "Dodaj video fajl"
+
+#~ msgid "Download Subtitles"
+#~ msgstr "Download Prevoda"
+
+#~ msgid "Download subtitle"
+#~ msgstr "Download prevoda"
+
+#~ msgid "View Details and Rate Subtitle"
+#~ msgstr "Pogledaj detalje i Oceni prevod"
+
+#~ msgid "This SUBTITLE is not for this AVI"
+#~ msgstr "Ovaj PREVOD nije za ovaj AVI"
+
+#~ msgid "The MOVIE IMDB is not for this AVI"
+#~ msgstr "Ovaj IMDB ID Broj FILMA nije za ovaj AVI"
+
+#~ msgid "IMDB details"
+#~ msgstr "IMDB detalji"
+
+#~ msgid "The subtitle LANGUAGE is not correct"
+#~ msgstr "JEZIK prevoda nije korektan"
+
+#~ msgid "Report us Wrong Info"
+#~ msgstr "Izvestite nas o Pogrešnim informacijama"
+
+#~ msgid "Play videofile"
+#~ msgstr "Pusti video fajl"
+
+#~ msgid "Search other subs for this Movie"
+#~ msgstr "Traži druge prevode za ovaj Film"
+
+#~ msgid "Download this programs: %s to watch movies + subtitles."
+#~ msgstr "Skini ove programe: %s za pregled filmova + prevoda"
+
+#~ msgid ""
+#~ "(It means subtitles are for this movie, but are not well-synchronized)"
+#~ msgstr "(Znači da je prevod za ovaj film, ali da nije dobro sinhronizovan)"
+
+#~ msgid "Are you sure these subtitles are not good for your video file?"
+#~ msgstr "Da li ste sigurni da ovi prevodi nisu dobri za Vaš video fajl?"
+
+#~ msgid "The report has been noted. Thank you very much."
+#~ msgstr "Ovaj izveštaj je zabeležen. Hvala Vam puno."
+
+#~ msgid "Choose directory..."
+#~ msgstr "Izaberi direktorijum..."
+
+#~ msgid "Downloading, it can take a while..."
+#~ msgstr "Preuzimam, može potrajati..."
+
+#~ msgid "Downloading subtitle %s of %s"
+#~ msgstr "Preuzimam prevode %s od %s"
+
+#~ msgid "%d subtitle(s) were downloaded"
+#~ msgstr "%d prevod(a) je preuzeto"
+
+#~ msgid "Some errors found:"
+#~ msgstr "Došlo je do grešaka:"
+
+#~ msgid "Search Progress"
+#~ msgstr "Pretraga u toku"
+
+#~ msgid "Searching using OSDB protocol"
+#~ msgstr "Pretraži koristeći OSDB protokol"
+
+#~ msgid "Searching, it can take a while..."
+#~ msgstr "Pretražujem, može potrajati..."
+
+#~ msgid "Error connecting to the OSDB server"
+#~ msgstr "Greška prilikom konekcije na OSDB server"
+
+#~ msgid "Calculating Hash"
+#~ msgstr "Izračunavam hash"
+
+#~ msgid "Hashing files..."
+#~ msgstr "Hashovanje fajlova..."
+
+#~ msgid "Found error in the file %s"
+#~ msgstr "Pronađena je greška u fajlu %s"
+
+#~ msgid "Size error in the file %s"
+#~ msgstr "Greška u veličini fajla %s"
+
+#~ msgid "The file <%s> can't be found"
+#~ msgstr "Fajl <%s> nije nađen"
+
+#~ msgid ""
+#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
+#~ msgstr ""
+#~ "Potrebna nam je Vaša pomoć da održimo Subdownloader, možete nam pomoći na "
+#~ "sledeće načine:"
+
+#~ msgid "IMDB ID"
+#~ msgstr "IMDB ID"
+
+#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
+#~ msgstr "- Uploadovanjem što više prevoda radi uvećanja baze prevoda brže"
+
+#~ msgid "- Contact us to translate the program in your language"
+#~ msgstr "- Kontaktirati nas radi prevoda programa na Vaš jezik"
+
+#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
+#~ msgstr ""
+#~ "- Donirajte nas da bi kupili neki ćevap ili kinesku hranu ponekad :-)"
+
+#~ msgid "- Send us some FEEDBACK"
+#~ msgstr "- Poslati nam FEEDBACK"
+
+#~ msgid "Send Feedback"
+#~ msgstr "Pošalji Feedback"
+
+#~ msgid "    - Chat with us:"
+#~ msgstr "    - Pričajte sa nama:"
+
+#~ msgid "   capiscuas@gmail.com"
+#~ msgstr "   capiscuas@gmail.com"
+
+#~ msgid "Thank you very much"
+#~ msgstr "Hvala Vam puno"
+
+#~ msgid "Log Messages:"
+#~ msgstr "Log poruka:"
+
+#~ msgid "Apply Changes"
+#~ msgstr "Primeni izmene"
+
+#~ msgid "Title"
+#~ msgstr "Naziv"
+
+#~ msgid "Cancel Changes"
+#~ msgstr "Otkaži izmene"
+
+#~ msgid "Login"
+#~ msgstr "Login"
+
+#~ msgid "Servers"
+#~ msgstr "Serveri"
+
+#~ msgid "Language"
+#~ msgstr "Jezik"
+
+#~ msgid "Directories"
+#~ msgstr "Direktorijumi"
+
+#~ msgid "Downloading Language"
+#~ msgstr "Preuzimam jezik"
+
+#~ msgid "Downloading %s language, it can take a while..."
+#~ msgstr "Preuzimam %s jezik, može potrajati..."
+
+#~ msgid "Error retrieving new language from server."
+#~ msgstr "Greška prilikom preuzimanja novog jezika sa servera."
+
+#~ msgid "No translation available in %s. Please contact %s to help us."
+#~ msgstr ""
+#~ "Ne postoji translacija na %s jeziku. Molimo Vas kontaktirajte %s ako želite "
+#~ "da pomognete."
+
+#~ msgid "Error trying to save preferences in '%s'"
+#~ msgstr "Greška pri pokušaju čuvanja podešavanja '%s'"
+
+#~ msgid "Login Again"
+#~ msgstr "Ponovno logovanje"
+
+#~ msgid "2nd Step: CD2 files"
+#~ msgstr "2. korak: CD2 fajlovi"
+
+#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
+#~ msgstr "3. korak: Pogledajte da li je prevod već u bazi"
+
+#~ msgid "4th Step: Required Information"
+#~ msgstr "4. korak: Tražene informacije"
+
+#~ msgid "5th Step: Optional Information"
+#~ msgstr "5. korak: Alternativne informacije"
+
+#~ msgid "6th Step: Uploading the subtitle"
+#~ msgstr "6. korak: Uploadovanje prevoda"
+
+#~ msgid "1st Step: CD1 files"
+#~ msgstr "1. korak: CD1 fajlovi"
+
+#~ msgid "CD1 AVI file:"
+#~ msgstr "CD1 AVI fajl:"
+
+#~ msgid "Browse avi..."
+#~ msgstr "Pronađi avi..."
+
+#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
+#~ msgstr "Engleski od capiscuas@gmail.com i 2ge@2ge.us"
