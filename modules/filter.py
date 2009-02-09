@@ -26,11 +26,12 @@ class Filter(object):
             filter = Filter(list_of_video_objects)
             subs = filter.subtitles_to_download()
     """
-    def __init__(self, videos, interactive=False):
+    def __init__(self, videos, interactive=False, rename_subs=False):
         self.log = logging.getLogger("subdownloader.cli.filter")
         self.log.debug("Creating Filter object for %i videos", len(videos))
         self.videos = videos
         self.interactive = interactive
+        self.rename_subs = rename_subs
         
     def subtitles_to_download(self):
         subtitles_to_download ={}
@@ -46,7 +47,11 @@ class Filter(object):
                 if choice == 'y':
                     self.log.debug("- adding: %s: %s"% (subtitle.getIdFileOnline(), subtitle.getFileName()))
                     #subtitles_to_download[subtitle.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
-                    subtitles_to_download[subtitle.getIdFileOnline()] = os.path.join(video.getFolderPath(), subtitle.getFileName())
+                    if self.rename_subs:
+                        subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
+                    else:
+                        subtitle_filename = subtitle.getFileName()
+                    subtitles_to_download[subtitle.getIdFileOnline()] = os.path.join(video.getFolderPath(), subtitle_filename)
             elif video.getTotalOnlineSubtitles() > 1:
                 choice = 'auto_'
                 if self.interactive:
@@ -81,10 +86,16 @@ class Filter(object):
                     self.log.debug("- adding: %s"% (sub_choice.getFileName()))
                     
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
-                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
+                if self.rename_subs:
+                    subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
+                else:
+                    subtitle_filename = subtitle.getFileName()
+
+#                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
                 subtitles_to_download[sub_choice.getIdFileOnline()] = os.path.join(video.getFolderPath(), subtitle_filename)
             else:
                 self.log.info("No subtitle was downloaded \"%s\". Maybe you already have it?"% video.getFileName())
             
+        print subtitles_to_download
         return subtitles_to_download
