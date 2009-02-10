@@ -215,8 +215,6 @@ class SDService(object):
             return self.xmlrpc_server.ServerInfo()
         except TimeoutFunctionException:
             raise
-        
-
             
     def login(self, username="", password=""):
         login = TimeoutFunction(self._login)
@@ -418,7 +416,7 @@ class SDService(object):
                     if moviehashes.has_key(video.getHash()):
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
-                        self.log.debug("- %s"% video.getHash())
+                        self.log.debug("- %s (%s)"% (video.getFileName(), video.getHash()))
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(online=True,id=i["IDSubtitle"])
                             sub.setHash(i["SubHash"])

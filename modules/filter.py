@@ -97,5 +97,4 @@ class Filter(object):
             else:
                 self.log.info("No subtitle was downloaded \"%s\". Maybe you already have it?"% video.getFileName())
             
-        print subtitles_to_download
         return subtitles_to_download
