@@ -175,21 +175,11 @@ class Main(SDService.SDService):
             
         elif operation == "list":
             _filter = filter.Filter(self.videos, interactive=self.options.interactive)
-            print 1
 #            print _filter.subtitles_to_download()
             for video in self.videos:
                 self.log.info("-"*30)
                 self.log.info("- %s (%s)"% (video.getFileName(), video.getHash()))
                 for sub in video.getSubtitles():
-#                    sub.setHash(i["SubHash"])
-#                    sub.setIdFileOnline(i["IDSubtitleFile"])
-#                    sub.setFileName(i["SubFileName"])
-#                    sub.setLanguageXXX(i["SubLanguageID"])  #This method will autogenerate the XX and the LanguageName 
-#                    #sub.setLanguageXX(i["ISO639"])  
-#                    #sub.setLanguageName(i["LanguageName"]) 
-#                    sub.setRating(i["SubRating"])
-#                    sub.setUploader(i["UserNickName"])
-#                    sub.setVideo(video)
                     self.log.info("  [%s] - %s"%  (sub.getLanguage(), sub.getFileName()))
             
         
