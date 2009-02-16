@@ -147,7 +147,7 @@ class Main(QObject, Ui_MainWindow):
         self.showInstructions()
 
         #Loop to expand the current directory in the folderview.
-        lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.rootPath()))
+        lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.homePath()))
         log.debug('Current directory: %s' % lastDir.toString())
         path = QDir(lastDir.toString())
         while True:
@@ -513,10 +513,10 @@ class Main(QObject, Ui_MainWindow):
             title = settings.value("title").toString()
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), QVariant(imdbId))
         settings.endArray()
+
         programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
         if programPath == QVariant(): #If not found videoplayer
             self.initializeVideoPlayer(settings)
-
 
     def write_settings(self):
         settings = QSettings()
@@ -923,6 +923,7 @@ class Main(QObject, Ui_MainWindow):
             if fileNames:
                 settings.setValue("mainwindow/workingDirectory", QVariant(QFileInfo(fileNames[0]).absolutePath()))
                 self.SearchVideos(fileNames)
+
     def onButtonSearchSelectFolder(self):
         if not hasattr(self, 'OSDBServer') or not self.OSDBServer.is_connected():
             QMessageBox.about(self.window,_("Error"),_("You are not connected to the server. Please reconnect first."))
@@ -934,7 +935,6 @@ class Main(QObject, Ui_MainWindow):
                 settings.setValue("mainwindow/workingDirectory", QVariant(directory))
                 folder_path =  str(directory.toUtf8())
                 self.SearchVideos(folder_path)
-
 
     """What to do when a Folder in the tree is clicked"""
     def onFolderTreeClicked(self, index):
@@ -948,7 +948,6 @@ class Main(QObject, Ui_MainWindow):
                                 self.SearchVideos(folder_path)
                                 self.timeLastSearch = QTime.currentTime()
                         self.buttonFind.setEnabled(True)
-
 
     def onButtonPlay(self):
         settings = QSettings()
@@ -1040,6 +1039,7 @@ class Main(QObject, Ui_MainWindow):
             log.debug("Downloading to: %r"% downloadFullPath)
 
         return downloadFullPath
+
     def onButtonDownload(self):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
@@ -1163,7 +1163,6 @@ class Main(QObject, Ui_MainWindow):
 
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val = None,msg = None):
-
         #by calling progres(), it will return False if it has been canceled
         if (val == None and msg == None ):
             return not self.status_progress.wasCanceled()
@@ -1185,8 +1184,6 @@ class Main(QObject, Ui_MainWindow):
         #self.status_progress.setLabelText(msg)
         self.progress(100)
         QCoreApplication.processEvents()
-
-
 
     def establishServerConnection(self):
         self.status_progress = QProgressDialog(_("Connecting to server..."), _("&Cancel"), 0,0, self.window)
@@ -1257,7 +1254,6 @@ class Main(QObject, Ui_MainWindow):
             self.uploadModel.emit(SIGNAL("layoutChanged()"))
             thread.start_new_thread(self.AutoDetectNFOfile, (directory, ))
             thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
-
 
     def AutoDetectNFOfile(self, folder):
         imdb_id = FileScan.AutoDetectNFOfile(folder)
@@ -1476,7 +1472,6 @@ class Main(QObject, Ui_MainWindow):
                 self.uploadView.resizeRowsToContents()
                 self.uploadModel.emit(SIGNAL("layoutChanged()"))
                 thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
-
 
     def OnChangeReleaseName(self, name):
         self.uploadReleaseText.setText(name)
