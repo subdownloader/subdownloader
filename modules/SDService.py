@@ -340,6 +340,7 @@ class SDService(object):
         self.log.debug("DownloadSubtitles RPC method starting...")
         
         subtitles_to_download = subtitles
+        self.log.debug("Acting in: %r"% subtitles)
         
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")

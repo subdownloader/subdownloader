@@ -89,7 +89,7 @@ class Filter(object):
                 if self.rename_subs:
                     subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 else:
-                    subtitle_filename = subtitle.getFileName()
+                    subtitle_filename = sub_choice.getFileName()
 
 #                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
