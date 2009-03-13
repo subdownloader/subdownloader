@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'expiration.ui'
 #
-# Created: Sat Nov  1 00:43:05 2008
-#      by: PyQt4 UI code generator 4.4.3
+# Created: Fri Mar 13 21:05:00 2009
+#      by: PyQt4 UI code generator 4.4.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -88,14 +88,13 @@ class Ui_ExpirationDialog(object):
         QtCore.QMetaObject.connectSlotsByName(ExpirationDialog)
 
     def retranslateUi(self, ExpirationDialog):
-        ExpirationDialog.setWindowTitle(_("Program has expired"))
-        self.label_expiration.setText(_("The program has expired after %d days of usage."))
-        self.buttonRegister.setText(_("Register Online..."))
-        self.label_5.setText(_("After registering, you will receive a license key via email."))
-        self.label.setText(_("Email:"))
-        self.label_2.setText(_("Full Name:"))
-        self.label_3.setText(_("License key:"))
-        self.buttonCancel.setText(_("Cancel"))
-        self.buttonActivate.setText(_("Activate"))
-
+        ExpirationDialog.setWindowTitle(QtGui.QApplication.translate("ExpirationDialog", "Program has expired", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_expiration.setText(QtGui.QApplication.translate("ExpirationDialog", "The program has expired after %d days of usage.", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonRegister.setText(QtGui.QApplication.translate("ExpirationDialog", "Register Online...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_5.setText(QtGui.QApplication.translate("ExpirationDialog", "After registering, you will receive a license key via email.", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("ExpirationDialog", "Email:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("ExpirationDialog", "Full Name:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("ExpirationDialog", "License key:", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonCancel.setText(QtGui.QApplication.translate("ExpirationDialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonActivate.setText(QtGui.QApplication.translate("ExpirationDialog", "Activate", None, QtGui.QApplication.UnicodeUTF8))
 

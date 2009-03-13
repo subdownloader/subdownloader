@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#    Copyright (C) 2007 Ivan Garcia capiscuas@gmail.com
+#    Copyright (C) 2007-2009 Ivan Garcia capiscuas@gmail.com
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation; either version 3 of the License, or
@@ -570,7 +570,7 @@ class Main(QObject, Ui_MainWindow):
     def login_user(self, username, password, window):
         #window.emit(SIGNAL('setLoginStatus(QString)'),"Trying to login...")
         self.status_progress = QProgressDialog(_("Logging in..."), _("&Cancel"), 0,0, window)
-        self.status_progress.setWindowTitle(_("Logging in..."))
+        self.status_progress.setWindowTitle(_("Authentication"))
         self.status_progress.setCancelButton(None)
         self.status_progress.show()
         self.login_button.setText(_("Logging in..."))
@@ -770,6 +770,7 @@ class Main(QObject, Ui_MainWindow):
 
 
     def SearchVideos(self, path):
+        self.buttonFind.setEnabled(False)
         if not hasattr(self, 'OSDBServer') or not self.OSDBServer.is_connected():
                 QMessageBox.about(self.window,_("Error"),_("You are not connected to the server. Please reconnect first."))
         else:
@@ -778,7 +779,7 @@ class Main(QObject, Ui_MainWindow):
                     path = [path]
 
                 self.status_progress = QProgressDialog(_("Scanning files"), _("&Abort"), 0, 100, self.window)
-                self.status_progress.setWindowTitle(_("Scanning files"))
+                self.status_progress.setWindowTitle(_("Scanning..."))
                 self.status_progress.forceShow()
                 self.progress(-1)
                 try:
@@ -865,6 +866,7 @@ class Main(QObject, Ui_MainWindow):
                     self.progress(-1)
                     self.status_progress.close()
                     self.window.setCursor(Qt.ArrowCursor)
+                    self.buttonFind.setEnabled(True)
 
                 #TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
                 #self.OSDBServer.CheckSubHash(sub_hashes)
@@ -1044,6 +1046,7 @@ class Main(QObject, Ui_MainWindow):
         #We download the subtitle in the same folder than the video
             subs = self.videoModel.getCheckedSubtitles()
             replace_all  = False
+            skip_all = False
             if not subs:
                 QMessageBox.about(self.window,_("Error"),_("No subtitles selected to be downloaded"))
                 return
@@ -1054,7 +1057,7 @@ class Main(QObject, Ui_MainWindow):
             success_downloaded = 0
 
             self.status_progress = QProgressDialog(_("Downloading files..."), _("&Abort"), 0, 100, self.window)
-            self.status_progress.setWindowTitle(_('Downloading files...'))
+            self.status_progress.setWindowTitle(_('Downloading...'))
             self.status_progress.forceShow()
             for i, sub in enumerate(subs):
                 if not self.progress():
@@ -1097,11 +1100,12 @@ class Main(QObject, Ui_MainWindow):
 
                 optionWhereToDownload =  QSettings().value("options/whereToDownload", QVariant("SAME_FOLDER"))
                 #Check if doesn't exists already, otherwise show fileExistsBox dialog
-                if QFileInfo(destinationPath).exists() and not replace_all and optionWhereToDownload != QVariant("ASK_FOLDER"):
+                if QFileInfo(destinationPath).exists() and not replace_all and not skip_all and optionWhereToDownload != QVariant("ASK_FOLDER"):
                     # The "remote filename" below is actually not the real filename. Real name could be confusing
                     # since we always rename downloaded sub to match movie filename.
                     fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s\n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
                     skipButton = fileExistsBox.addButton(QString(_("Skip")), QMessageBox.ActionRole)
+                    skipAllButton = fileExistsBox.addButton(QString(_("Skip all")), QMessageBox.ActionRole)
                     replaceButton = fileExistsBox.addButton(QString(_("Replace")), QMessageBox.ActionRole)
                     replaceAllButton = fileExistsBox.addButton(QString(_("Replace all")), QMessageBox.ActionRole)
                     saveAsButton = fileExistsBox.addButton(QString(_("Save as...")), QMessageBox.ActionRole)
@@ -1129,16 +1133,21 @@ class Main(QObject, Ui_MainWindow):
                     elif answer == skipButton:
                         count += percentage
                         continue # Skip this particular file
+                    elif answer == skipAllButton:
+                        count += percentage
+                        skip_all = True # Skip all files already downloaded
+                        continue
                     elif answer == cancelButton:
                         break # Break out of DL loop - cancel was pushed
                 QCoreApplication.processEvents()
                 self.progress(count,_("Downloading subtitle %s (%d/%d)") % (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
                 try:
-                   log.debug("Downloading subtitle '%s'" % destinationPath)
-                   if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
-                       success_downloaded += 1
-                   else:
-                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") %sub.getFileName())
+                   if not skip_all:
+                        log.debug("Downloading subtitle '%s'" % destinationPath)
+                        if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
+                            success_downloaded += 1
+                        else:
+                            QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") %sub.getFileName())
                 except Exception, e:
                     traceback.print_exc(e)
                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % sub.getFileName())
@@ -1515,31 +1524,36 @@ class Main(QObject, Ui_MainWindow):
             settings.setValue("options/VideoPlayerParameters", QVariant( predefinedVideoPlayer['parameters']))
 
     def onButtonSearchByTitle(self):
-        self.status_progress = QProgressDialog(_("Searching..."), "&Abort", 0, 0, self.window)
-        self.status_progress.setWindowTitle(_('Searching...'))
-        self.status_progress.forceShow()
-        self.window.setCursor(Qt.WaitCursor)
-        self.progress(-1)
-        self.moviesModel.clearTree()
-        self.moviesView.expandAll() #This was a solution found to refresh the treeView
-        QCoreApplication.processEvents()
-        s = SearchByName()
-        selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
-        search_text = str(self.movieNameText.text().toUtf8())
-        # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
-        # like a string of forbidden chars (pr the other way around, string of good chars)
-        search_text = re.sub('\'', '', search_text)
-        self.progress(0)
-        #This should be in a thread to be able to Cancel
-        movies = s.search_movie(search_text,'all')
-        self.moviesModel.setMovies(movies, selectedLanguageXXX)
-        if len(movies) == 1:
-            self.moviesView.expandAll()
+        if len(self.movieNameText.text()) == 0:
+            QMessageBox.about(self.window,_("Info"),_("You must enter at least one character in movie name"))
         else:
-            self.moviesView.collapseAll()
-        QCoreApplication.processEvents()
-        self.window.setCursor(Qt.ArrowCursor)
-        self.status_progress.close()
+            self.buttonSearchByName.setEnabled(False)
+            self.status_progress = QProgressDialog(_("Searching..."), "&Abort", 0, 0, self.window)
+            self.status_progress.setWindowTitle(_('Search'))
+            self.status_progress.forceShow()
+            self.window.setCursor(Qt.WaitCursor)
+            self.progress(-1)
+            self.moviesModel.clearTree()
+            self.moviesView.expandAll() #This was a solution found to refresh the treeView
+            QCoreApplication.processEvents()
+            s = SearchByName()
+            selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString())
+            search_text = str(self.movieNameText.text().toUtf8())
+            # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
+            # like a string of forbidden chars (pr the other way around, string of good chars)
+            search_text = re.sub('\'', '', search_text)
+            self.progress(0)
+            #This should be in a thread to be able to Cancel
+            movies = s.search_movie(search_text,'all')
+            self.moviesModel.setMovies(movies, selectedLanguageXXX)
+            if len(movies) == 1:
+                self.moviesView.expandAll()
+            else:
+                self.moviesView.collapseAll()
+            QCoreApplication.processEvents()
+            self.window.setCursor(Qt.ArrowCursor)
+            self.status_progress.close()
+            self.buttonSearchByName.setEnabled(True)
 
     def onFilterLangChangedPermanent(self, languages):
         languages = str(languages.toUtf8())
