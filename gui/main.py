@@ -470,7 +470,7 @@ class Main(QObject, Ui_MainWindow):
             menu.exec_(listview.mapToGlobal(point))
 
     def onSetIMDBInfo(self):
-        QMessageBox.about(self.window,_("Info"),"Not implemented yet. Please donate.")
+        QMessageBox.about(self.window,_("Info"),"Not implemented yet. Sorry...")
 
     def onViewOnlineInfo(self):
         if self.tabs.currentIndex() == 0: #Tab for SearchByHash TODO:replace this 0 by an ENUM value
