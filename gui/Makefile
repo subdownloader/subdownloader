@@ -25,4 +25,4 @@ images_rc.py : images.qrc
 	pyrcc4 images.qrc > images_rc.py
 
 clean :
-	rm main_ui.py imdb_ui.py images_rc.py login_ui.py preferences_ui.py about_ui.py
+	rm -f main_ui.py imdb_ui.py images_rc.py login_ui.py preferences_ui.py about_ui.py
