@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Python is a feature-rich language and it can also be extended via libraries.  In
-# this file, we need to include functionality inside the "os" library module.  We
-# include this library by typing "import os"
+#    Copyright (C) 2007-2009 Ivan Garcia capiscuas@gmail.com
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License along
+#    with this program; if not, write to the Free Software Foundation, Inc.,
+#    see <http://www.gnu.org/licenses/>.
+
 import os, logging
 
-# Creating classes in Python is easy.  Simply declare it as shown below and indent
-# everything that belongs in the class.
-#
-# On another note, you may have noticed I comment everything using the # mark
-# and that my comments appear above the code that they discuss.  You may have also
-# noticed the comment listed below the line "class RecursiveParser:" that uses three
-# single quote marks to designate the beginning and end of the comment.  These are
-# special comments that can be used to self-document your classes and methods for
-# use in PyDoc documentation and IDEs that support them for things like automatic
-# line completion, etc.  They must appear BELOW the class, function, and method
-# declarations they are associated with.
 class RecursiveParser:
     '''
     The RecursiveParser class contains methods to recursively find directories, files, or specific files in a
