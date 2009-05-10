@@ -997,7 +997,7 @@ class Main(QObject, Ui_MainWindow):
             print params
             log.info("Running this command:\n%s %s" % (programPath, params))
             try:
-                os.spawnve(os.P_NOWAIT, programPath,params, os.environ)
+                os.spawnvpe(os.P_NOWAIT, programPath,params, os.environ)
             except AttributeError:
                 pid = os.fork()
                 if not pid :
