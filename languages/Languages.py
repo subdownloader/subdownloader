@@ -45,6 +45,7 @@ LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageNa
  {'locale':'et', 'ISO639': 'et', 'SubLanguageID': 'est', 'LanguageName': _('Estonian')},
  {'locale':'fi', 'ISO639': 'fi', 'SubLanguageID': 'fin', 'LanguageName': _('Finnish')},
  {'locale':'fr', 'ISO639': 'fr', 'SubLanguageID': 'fre', 'LanguageName': _('French')},
+ {'locale':'gl', 'ISO639': 'gl', 'SubLanguageID': 'glg', 'LanguageName': _('Galician')},
  {'locale':'ka', 'ISO639': 'ka', 'SubLanguageID': 'geo', 'LanguageName': _('Georgian')},
  {'locale':'de', 'ISO639': 'de', 'SubLanguageID': 'ger', 'LanguageName': _('German')},
  {'locale':'el', 'ISO639': 'el', 'SubLanguageID': 'ell', 'LanguageName': _('Greek')},
