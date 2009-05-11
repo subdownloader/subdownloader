@@ -69,7 +69,7 @@ LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageNa
  {'locale':'sr', 'ISO639': 'sr', 'SubLanguageID': 'scc', 'LanguageName': _('Serbian')},
  {'locale':'sk', 'ISO639': 'sk', 'SubLanguageID': 'slo', 'LanguageName': _('Slovak')},
  {'locale':'sl', 'ISO639': 'sl', 'SubLanguageID': 'slv', 'LanguageName': _('Slovenian')},
- {'locale':'es', 'ISO639': 'es', 'SubLanguageID': 'spa', 'LanguageName': _('Spanish')},
+ {'locale':'es_ES', 'ISO639': 'es', 'SubLanguageID': 'spa', 'LanguageName': _('Spanish')},
  {'locale':'sv', 'ISO639': 'sv', 'SubLanguageID': 'swe', 'LanguageName': _('Swedish')},
  {'locale':'th', 'ISO639': 'th', 'SubLanguageID': 'tha', 'LanguageName': _('Thai')},
  {'locale':'tr', 'ISO639': 'tr', 'SubLanguageID': 'tur', 'LanguageName': _('Turkish')},
