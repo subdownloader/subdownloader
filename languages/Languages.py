@@ -30,7 +30,7 @@ LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageNa
  {'locale':'hy', 'ISO639': 'hy', 'SubLanguageID': 'arm', 'LanguageName': _('Armenian')},
  {'locale':'ms', 'ISO639': 'ms', 'SubLanguageID': 'may', 'LanguageName': _('Malay')},
  {'locale':'bs', 'ISO639': 'bs', 'SubLanguageID': 'bos', 'LanguageName': _('Bosnian')},
- {'locale':'pt_BR', 'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': _('Brazilian')}, 
+ {'locale':'pt_BR', 'ISO639': 'pb', 'SubLanguageID': 'pob', 'LanguageName': _('Brazilian')},
  {'locale':'bg', 'ISO639': 'bg', 'SubLanguageID': 'bul', 'LanguageName': _('Bulgarian')},
  {'locale':'ca', 'ISO639': 'ca', 'SubLanguageID': 'cat', 'LanguageName': _('Catalan')},
  {'locale':'eu', 'ISO639': 'eu', 'SubLanguageID': 'eus', 'LanguageName': _('Basque')},
@@ -62,7 +62,7 @@ LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageNa
  {'locale':'no', 'ISO639': 'no', 'SubLanguageID': 'nor', 'LanguageName': _('Norwegian')},
  {'locale':'fa', 'ISO639': 'fa', 'SubLanguageID': 'per', 'LanguageName': _('Persian')},
  {'locale':'pl', 'ISO639': 'pl', 'SubLanguageID': 'pol', 'LanguageName': _('Polish')},
- {'locale':'pt', 'ISO639': 'pt', 'SubLanguageID': 'por', 'LanguageName': _('Portuguese')},
+ {'locale':'pt_PT', 'ISO639': 'pt', 'SubLanguageID': 'por', 'LanguageName': _('Portuguese')},
  {'locale':'ro', 'ISO639': 'ro', 'SubLanguageID': 'rum', 'LanguageName': _('Romanian')},
  {'locale':'ru', 'ISO639': 'ru', 'SubLanguageID': 'rus', 'LanguageName': _('Russian')},
  {'locale':'sr', 'ISO639': 'sr', 'SubLanguageID': 'scc', 'LanguageName': _('Serbian')},
@@ -92,7 +92,7 @@ def ListAll_locale():
     for lang in LANGUAGES:
         temp.append(lang['locale'])
     return temp
-    
+
 def ListAll_names():
     temp = []
     for lang in LANGUAGES:
@@ -107,22 +107,22 @@ def xxx2xx(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
             return lang['ISO639']
-                
+
 def xxx2name(xxx):
     for lang in LANGUAGES:
         if lang['SubLanguageID'] == xxx:
             return lang['LanguageName']
-            
+
 def locale2name(locale):
     for lang in LANGUAGES:
         if lang['locale'] == locale:
             return lang['LanguageName']
-            
+
 def xx2name(xx):
     for lang in LANGUAGES:
         if lang['ISO639'] == xx:
             return lang['LanguageName']
-    
+
 def name2xx(name):
     for lang in LANGUAGES:
         if lang['LanguageName'].lower() == name.lower():
@@ -132,7 +132,7 @@ def name2xxx(name):
     for lang in LANGUAGES:
         if lang['LanguageName'].lower() == name.lower():
             return lang['SubLanguageID']
-        
+
 def CleanTagsFile(text):
     p = re.compile( '<.*?>')
     return p.sub('',text)
