@@ -45,7 +45,7 @@ def checkPoFiles(localedir = "../locale"):
         return False
     return True
                         
-def copy_to_temp(temp_path="/tmp/subdownloader"):
+def copy_to_temp(temp_path="/tmp/subdownloader-" + APP_VERSION):
     sys.stdout.write("Copying current path contents to '%s'..."% temp_path)
     sys.stdout.flush()
     #os.mkdir("subdownloader_cli")
@@ -53,7 +53,7 @@ def copy_to_temp(temp_path="/tmp/subdownloader"):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def clean_temp(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
+def clean_temp(temp_path="/tmp/subdownloader-" + APP_VERSION, exclude_dirs=exclude_dirs):
     sys.stdout.write("Cleaning '%s'..."% temp_path)
     sys.stdout.flush()
     for root, dirs, fileNames in os.walk(temp_path):
@@ -69,11 +69,11 @@ def clean_temp(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def clean_temp_cli(temp_path="/tmp/subdownloader", exclude_dirs=exclude_dirs):
+def clean_temp_cli(temp_path="/tmp/subdownloader-" + APP_VERSION, exclude_dirs=exclude_dirs):
     exclude_dirs.append("gui") # append another unwanted directory
     clean_temp(exclude_dirs=exclude_dirs)
 
-def convert_to_cli(dir="/tmp/subdownloader"):
+def convert_to_cli(dir="/tmp/subdownloader-" + APP_VERSION):
     # just a thing to replace some lines on the code
     fileName = 'run.py'
     f = open(os.path.join(dir, fileName))
@@ -85,14 +85,14 @@ def convert_to_cli(dir="/tmp/subdownloader"):
     final.write(text)
     final.close()
 
-def remove_temp(temp_path="/tmp/subdownloader"):
+def remove_temp(temp_path="/tmp/subdownloader-" + APP_VERSION):
     sys.stdout.write("Removing temporary directory '%s'..."% temp_path)
     sys.stdout.flush()
     shutil.rmtree(temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
+def toZip( zipFile, directory="/tmp/subdownloader-" + APP_VERSION, compress_lib=zipfile):
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, zipFile))
     sys.stdout.flush()
     z = compress_lib.ZipFile("%s.zip" % zipFile, 'w', compression=zipfile.ZIP_DEFLATED)
@@ -106,7 +106,7 @@ def toZip( zipFile, directory="/tmp/subdownloader", compress_lib=zipfile):
     sys.stdout.flush()
     return zipFile
     
-def toTarGz( filename_noext, directory="/tmp/subdownloader"):
+def toTarGz( filename_noext, directory="/tmp/subdownloader-" + APP_VERSION):
     compressedFileName = "%s.tar.gz" % filename_noext
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, compressedFileName))
     sys.stdout.flush()
@@ -134,20 +134,16 @@ def get_svn_revision():
     version = commands.getoutput('bzr version-info --custom --template="{revno}"')
     return version
 
-def get_version():
-    return APP_VERSION
-
 if __name__ == "__main__":
     svn_revision = get_svn_revision()
-    sd_version = get_version()
-    fileName = "subdownloader-%s"% sd_version
+    fileName = "subdownloader-" + APP_VERSION
     # create the tarball directory tree
     if not checkPoFiles():
         sys.exit(1)
     copy_to_temp()
     if len(sys.argv) > 1:
         if sys.argv[1] == "-cli":
-            fileName = "SubDownloader_CLI-%s"% sd_version
+            fileName = "SubDownloader_CLI-" + APP_VERSION
             # delete gui and other unwanted stuff
             clean_temp_cli()
             # replace some source code
