@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(os.getcwd()))
 print sys.path
 from modules import APP_TITLE, APP_VERSION
 
-exclude_dirs = ["flags",".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution", "debian"]
+exclude_dirs = ["flags",".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution", "debian", "mmpython"]
 exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py","expiration.py", "paypal.png"]
 
 def checkPoFiles(localedir = "../locale"):
