@@ -61,7 +61,7 @@ class Main(SDService.SDService):
             self.log.debug(result)
             
         self.log.debug("Starting XMLRPC session...")
-        SDService.SDService.__init__(self, 'osdb', proxy=self.options.proxy) 
+        SDService.SDService.__init__(self, 'osdb', server = self.options.server ,proxy=self.options.proxy) 
         try:
             self.login(self.options.username, self.options.password)
         except Exception, e:

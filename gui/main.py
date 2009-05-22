@@ -1212,7 +1212,7 @@ class Main(QObject, Ui_MainWindow):
             self.progress(0,_("Connecting to server using proxy %s") % self.options.proxy)
 
         try:
-            self.OSDBServer = SDService('osdb',proxy = self.options.proxy)
+            self.OSDBServer = SDService('osdb',server = self.options.server, proxy = self.options.proxy)
             self.SDDBServer = SDService('sddb', self.options.server, self.options.proxy)
 
             self.progress(100, _("Connected successfully"))
