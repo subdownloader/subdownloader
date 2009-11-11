@@ -544,12 +544,12 @@ class Main(QObject, Ui_MainWindow):
 
     def detect_software_updates(self):
         # REMARK: to be used by a thread
-        #try:
+        try:
                 result = self.SDDBServer.CheckSoftwareUpdates('SubDownloader')
                 if utils.compVer(result['latest_version'], APP_VERSION) == 1:  #if APP_VERSION is < than latest_version
                         self.emit(SIGNAL("SoftwareUpdateDetected(QString,QString)"),result['latest_version'], result['link'])
-        #except:
-           #     log.debug('Error while asking server CheckSoftwareUpdates()')
+        except:
+                log.debug('Error while asking server CheckSoftwareUpdates()')
 
     def update_users(self, sleeptime=60):
         # REMARK: to be used by a thread
