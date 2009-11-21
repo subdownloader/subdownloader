@@ -313,7 +313,7 @@ class Main(QObject, Ui_MainWindow):
 
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
-           	if self.programFolder == '/usr/share/subdownloader':
+            if self.programFolder == '/usr/share/subdownloader':
                 localedir = '/usr/share/locale/'
             else:
                 localedir = 'locale'
