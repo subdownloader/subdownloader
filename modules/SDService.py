@@ -368,6 +368,9 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("SearchSubtitles timed out")
             return None
+        except ProtocolError:
+            self.log.error("Protocol Error on Opensubtitles.com")
+            return None
         
     def _SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         """
