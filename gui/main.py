@@ -278,7 +278,8 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.WaitCursor)
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
                 thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
-                thread.start_new_thread(self.detect_software_updates, ())
+                if platform.system() in ("Windows", "Microsoft"):
+                    thread.start_new_thread(self.detect_software_updates, ())
                 if SHAREWARE:
                    if not self.software_registered:
                             thread.start_new_thread(self.getServerTime, ())
@@ -312,8 +313,10 @@ class Main(QObject, Ui_MainWindow):
 
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
+           	if self.programFolder == '/usr/share/subdownloader':
                 localedir = '/usr/share/locale/'
-
+            else:
+                localedir = 'locale'
         else:
                 localedir = 'locale'
                 #Get the local directory since we are not installing anything
