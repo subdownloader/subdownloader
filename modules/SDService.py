@@ -44,7 +44,7 @@ def test_connection(url, timeout=15):
         connectable=False
     socket.setdefaulttimeout(defTimeOut)
     return connectable
-    
+
 class TimeoutFunctionException(Exception): 
     """Exception to raise on a timeout""" 
     pass 
@@ -157,14 +157,14 @@ class SDService(object):
                 self.log.debug("Trying proxied connection... (%r)"% proxy)
                 self.proxied_transport = ProxiedTransport()
                 self.proxied_transport.set_proxy(proxy)
-                self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=1)
+                self.xmlrpc_server = ServerProxy(server, transport=self.proxied_transport, allow_none=True)
                 #self.ServerInfo()
                 self.log.debug("...connected")
                 return True
                 
             elif test_connection(server):
                     self.log.debug("Trying direct connection...")
-                    self.xmlrpc_server = ServerProxy(server)
+                    self.xmlrpc_server = ServerProxy(server, allow_none=True)
                     #self.ServerInfo()
                     self.log.debug("...connected")
                     return True
@@ -220,7 +220,7 @@ class SDService(object):
         Returns True if login sucessful, and False if not.
         """ 
         self.log.debug("----------------")
-        self.log.debug("Logging in (username:%r)..."% username)
+        self.log.debug("Logging in (username: %s)..."% username)
         info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
         if info['status'] == "200 OK":
@@ -682,7 +682,7 @@ class SDService(object):
         self.log.debug("Latest SubDownloader Version Found: %s"% info['latest_version'])
         return info
         
-    def NoOperation(self):
+    def NoOperation(self, token=None):
         NoOperation = TimeoutFunction(self._NoOperation)
         try:
             return NoOperation()
@@ -698,6 +698,7 @@ class SDService(object):
         self.log.debug("NoOperation RPC method starting...")
         info = self.xmlrpc_server.NoOperation(self._token)
         self.log.debug("NoOperation finished in %s with status %s."% (info['seconds'], info['status']))
+        self.log.debug("----------------")
         if info['status'] != "200 OK":
             return False
         return True

@@ -70,7 +70,7 @@ from modules.search import *
 import modules.utils as utils
 import languages.Languages as languages
 
-if SHAREWARE:
+if SHAREWARE and platform.system() in ("Windows", "Microsoft"):
     import gui.expiration as expiration
 
 import logging
@@ -260,7 +260,7 @@ class Main(QObject, Ui_MainWindow):
 
         iconpaypal = QtGui.QIcon()
         iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        if platform.system() == "Windows":
+        if platform.system() in ("Windows", "Microsoft"):
             self.donate_button.setIcon(iconpaypal)
             self.donate_button.setIconSize(QtCore.QSize(50, 24))
 
@@ -297,8 +297,8 @@ class Main(QObject, Ui_MainWindow):
                 else:
                     loginUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                     loginPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
-                #thread.start_new_thread(self.login_user, (settingsUsername,settingsPassword,window, ))
                 self.login_user(loginUsername,loginPassword,self.window)
+                thread.start_new_thread(self.OSDBServer.NoOperation, (900, )) #check expire session every 15min
             else:
                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
             self.window.setCursor(Qt.ArrowCursor)
@@ -309,7 +309,6 @@ class Main(QObject, Ui_MainWindow):
                         self.SearchVideos(options.videofile)
                 else:
                         QMessageBox.about(self.window,_("Error"),_("Unable to find %s") % options.videofile)
-
 
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
@@ -641,10 +640,11 @@ class Main(QObject, Ui_MainWindow):
             settings.remove('activation/fullname')
             self.window.close()
             sys.exit(1)
+
     def checkRegisteredLicense(self, email, licensekey, fullname):
             log.debug("Checking Registered License: %s - %s - %s" % (email, licensekey, fullname))
-            result =  self.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey, False)
-            log.debug("License Status : %s" % result)
+            result = self.SDDBServer.xmlrpc_server.CheckSoftwareLicense(APP_VERSION,email, fullname, licensekey, False)
+            log.debug("License Status: %s" % result)
             self.emit(SIGNAL("CheckedRegisteredLicense(QString,QString,QString,QString)"),result, email, licensekey, fullname)
 
     def getServerTime(self):
@@ -985,7 +985,7 @@ class Main(QObject, Ui_MainWindow):
             parameters = str(parameters.toUtf8())
 
             for param in parameters.split(" "):
-                if platform.system() == "Windows":
+                if platform.system() in ("Windows", "Microsoft"):
                     param = param.replace('{0}', '"' + moviePath + '"'  )
                 else:
                     param = param.replace('{0}', moviePath)
@@ -1496,7 +1496,7 @@ class Main(QObject, Ui_MainWindow):
                     predefinedVideoPlayer = {'programPath': path,  'parameters': player['parameters']}
                     break
 
-        elif platform.system() == "Windows":
+        elif platform.system() in ("Windows", "Microsoft"):
             import _winreg
             windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey':'','parameters': '{0} --sub-file {1}'},
                                             {'regRoot': _winreg.HKEY_LOCAL_MACHINE , 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey':'ExePath','parameters': '{0} /sub {1}'}]
