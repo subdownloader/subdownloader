@@ -9,7 +9,6 @@ import Crypto.Hash.MD4
 import sha
 import base32
 
-
 """
  	    generates and returns ed2klink for filename
  	    based on donkeyhash.pl translated to python

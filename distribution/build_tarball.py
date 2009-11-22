@@ -1,20 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-#    Copyright (C) 2007-2009 Ivan Garcia capiscuas@gmail.com
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation; either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License along
-#    with this program; if not, write to the Free Software Foundation, Inc.,
-#    see <http://www.gnu.org/licenses/>.
+# Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 import sys
 import os
@@ -28,8 +13,8 @@ sys.path.insert(0, os.path.dirname(os.getcwd()))
 print sys.path
 from modules import APP_TITLE, APP_VERSION
 
-exclude_dirs = ["flags",".svn",".bzr","firesubtitles", "Subdownloader","build","dist","distribution", "debian", "mmpython"]
-exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "setup.py2exe.py","expiration.py", "paypal.png"]
+exclude_dirs = ["flags",".svn",".bzr","firesubtitles","build","distribution", "debian", "mmpython"]
+exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "windows_installer.py","expiration.py", "paypal.png"]
 
 def checkPoFiles(localedir = "../locale"):
     error = False
