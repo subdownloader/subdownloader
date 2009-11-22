@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 # Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 """ Create and launch the GUI """
@@ -800,10 +802,10 @@ class Main(QObject, Ui_MainWindow):
                     i = 0
                     total = len(videos_found)
                     if self.SDDBServer: #only sending those hashes bigger than 12MB
-                        videos_sddb = [video for video in videos_found if int(video.getSize()) >  12000000]
+                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
                         if videos_sddb:
                                 thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
-                    while i < total :
+                    while i < total:
                             next = min(i+10, total)
                             videos_piece = videos_found[i:next]
                             progress_percentage = int(i * 100/total )
