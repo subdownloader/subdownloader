@@ -489,7 +489,6 @@ class Main(QObject, Ui_MainWindow):
                     webbrowser.open( "http://www.imdb.com/title/tt%s"% imdb , new=2, autoraise=1)
         elif type(treeItem.data) == SubtitleFile: #Subtitle
             sub = treeItem.data
-            #print  sub.isOnline()
             if sub.isOnline():
                 webbrowser.open( "http://www.opensubtitles.org/en/subtitles/%s/"% sub.getIdOnline(), new=2, autoraise=1)
 

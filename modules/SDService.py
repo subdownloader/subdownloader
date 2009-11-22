@@ -16,7 +16,7 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    see <http://www.gnu.org/licenses/>.
 
-from xmlrpclib import Transport,ServerProxy
+from xmlrpclib import Transport,ServerProxy,ProtocolError
 import base64, httplib, os
 import StringIO, gzip, zlib
 import logging
@@ -28,17 +28,10 @@ import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 from FileManagement import Subtitle
 
-
-DEFAULT_OSDB_SERVER = "http://www.opensubtitles.org/xml-rpc"
+DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
-
-#"""This class is useful to let the server know who we are, good for statistics,
-#    so we can separate the traffic from normal Web visitors"""
-#class GtkTransport (Transport):
-#        user_agent = "Subdownloader " + APP_VERSION 
-    
 
 def test_connection(url, timeout=15):
     import socket, urllib2
@@ -129,8 +122,6 @@ class SDService(object):
                     self.server = DEFAULT_SDDB_SERVER
                 
         self.proxy = proxy
-
-                
         self.logged_as = None
         self.xmlrpc_server = None
         self._token = None
