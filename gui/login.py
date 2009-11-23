@@ -6,7 +6,8 @@ from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
                          QSettings, QVariant, QSize, QEventLoop, QString, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-                        QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
+                        QMessageBox, QFileDialog, QIcon, QDialog, \
+                        QInputDialog, QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
 from gui.login_ui import Ui_LoginDialog
@@ -23,21 +24,12 @@ class loginDialog(QtGui.QDialog):
         self._main  = parent
         settings = QSettings()
 
-        QObject.connect(self.ui.loginConnectButton, SIGNAL("clicked(bool)"), self.onButtonConnect)
         QObject.connect(self.ui.buttonBox, SIGNAL("accepted()"), self.onButtonAccept)
         QObject.connect(self.ui.buttonBox, SIGNAL("rejected()"), self.onButtonClose)
         username = settings.value("options/LoginUsername", QVariant()).toString()
         password = settings.value("options/LoginPassword", QVariant()).toString()
         self.ui.optionLoginUsername.setText(username)
         self.ui.optionLoginPassword.setText(password)
-        
-        if not username: 
-            username = _('Anonymous')
-            
-        if hasattr(self._main, 'OSDBServer') and self._main.OSDBServer.is_connected():
-            self.ui.loginLabelStatus.setText(_("Succesfully logged as: %s") % username)
-        else:
-            self.ui.loginLabelStatus.setText(_("Not Connected"))
 
     def onButtonClose(self):
         self.reject()
@@ -48,16 +40,14 @@ class loginDialog(QtGui.QDialog):
         newPassword = self.ui.optionLoginPassword.text()
         oldUsername = settings.value("options/LoginUsername", QVariant())
         oldPassword = settings.value("options/LoginPassword", QVariant())
+
         if newUsername != oldUsername.toString() or newPassword != oldPassword.toString():
             settings.setValue("options/LoginUsername",QVariant(newUsername))
             settings.setValue("options/LoginPassword", QVariant(newPassword))
-            log.debug('Login credentials has changed. Trying to login.')
-            self.connect()
-        self.accept() #We close the window
-        
-    def onButtonConnect(self):
+
         self.connect()
-        
+        self.accept() #We close the window
+       
     def connect(self):
         username =  self.ui.optionLoginUsername.text()
         password = self.ui.optionLoginPassword.text()
@@ -68,16 +58,7 @@ class loginDialog(QtGui.QDialog):
                 self._main.window.setCursor(Qt.ArrowCursor)
                 QMessageBox.about(self._main.window,_("Error"),_("Error contacting the server. Please try again later"))
                 return
-        
-        if not username: 
-            displayUsername = _('Anonymous')
-        else:
-            displayUsername = username
-                
-        if self._main.login_user(str(username.toUtf8()),str(password.toUtf8()),self._main.window):
-            self.ui.loginLabelStatus.setText(_("Successfully logged as: %s") % displayUsername)
-        else:
-            self.ui.loginLabelStatus.setText(_("Cannot loggin as: %s") % displayUsername)
+
+        self._main.login_user(str(username.toUtf8()),str(password.toUtf8()),self._main.window)
         self._main.window.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
-

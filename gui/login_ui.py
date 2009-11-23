@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'login.ui'
 #
-# Created: Fri Mar 13 21:04:59 2009
-#      by: PyQt4 UI code generator 4.4.4
+# Created: Mon Nov 23 21:11:21 2009
+#      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,7 +13,7 @@ class Ui_LoginDialog(object):
     def setupUi(self, LoginDialog):
         LoginDialog.setObjectName("LoginDialog")
         LoginDialog.setWindowModality(QtCore.Qt.WindowModal)
-        LoginDialog.resize(290, 193)
+        LoginDialog.resize(290, 154)
         self.verticalLayout = QtGui.QVBoxLayout(LoginDialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.groupBox = QtGui.QGroupBox(LoginDialog)
@@ -42,16 +42,6 @@ class Ui_LoginDialog(object):
         self.gridLayout.addWidget(self.optionLoginPassword, 1, 1, 1, 1)
         self.verticalLayout_2.addLayout(self.gridLayout)
         self.verticalLayout.addWidget(self.groupBox)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.loginLabelStatus = QtGui.QLabel(LoginDialog)
-        self.loginLabelStatus.setObjectName("loginLabelStatus")
-        self.horizontalLayout.addWidget(self.loginLabelStatus)
-        self.loginConnectButton = QtGui.QPushButton(LoginDialog)
-        self.loginConnectButton.setMaximumSize(QtCore.QSize(70, 16777215))
-        self.loginConnectButton.setObjectName("loginConnectButton")
-        self.horizontalLayout.addWidget(self.loginConnectButton)
-        self.verticalLayout.addLayout(self.horizontalLayout)
         self.buttonBox = QtGui.QDialogButtonBox(LoginDialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
@@ -64,11 +54,9 @@ class Ui_LoginDialog(object):
         QtCore.QMetaObject.connectSlotsByName(LoginDialog)
 
     def retranslateUi(self, LoginDialog):
-        LoginDialog.setWindowTitle(_("Login Form"))
+        LoginDialog.setWindowTitle(_("Authentication"))
         self.groupBox.setTitle(_("Login into OpenSubtitles.org"))
         self.label_57.setText(_("Username:"))
         self.label_58.setText(_("Password:"))
-        self.loginLabelStatus.setText(_("Currently logged as :"))
-        self.loginConnectButton.setText(_("Connect"))
 
 

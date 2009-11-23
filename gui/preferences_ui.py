@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'preferences.ui'
 #
-# Created: Mon Dec  8 00:30:47 2008
-#      by: PyQt4 UI code generator 4.4.3
+# Created: Sun Nov 22 23:25:46 2009
+#      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -171,7 +171,7 @@ class Ui_PreferencesDialog(object):
         self.gridLayout.addWidget(self.label_59, 1, 0, 1, 1)
         self.optionProxyPort = QtGui.QSpinBox(self.layoutWidget1)
         self.optionProxyPort.setMaximum(99999)
-        self.optionProxyPort.setProperty("value", QtCore.QVariant(8080))
+        self.optionProxyPort.setProperty("value", 8080)
         self.optionProxyPort.setObjectName("optionProxyPort")
         self.gridLayout.addWidget(self.optionProxyPort, 1, 1, 1, 1)
         self.tabWidget.addTab(self.tab_9, "")

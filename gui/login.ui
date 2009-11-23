@@ -1,55 +1,56 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>LoginDialog</class>
- <widget class="QDialog" name="LoginDialog" >
-  <property name="windowModality" >
+ <widget class="QDialog" name="LoginDialog">
+  <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>290</width>
-    <height>193</height>
+    <height>154</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Login Form</string>
+  <property name="windowTitle">
+   <string>Authentication</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Login into OpenSubtitles.org</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" >
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QGridLayout" name="gridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label_57" >
-          <property name="text" >
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_57">
+          <property name="text">
            <string>Username:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="QLineEdit" name="optionLoginUsername" />
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="optionLoginUsername"/>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_58" >
-          <property name="text" >
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_58">
+          <property name="text">
            <string>Password:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="optionLoginPassword" >
-          <property name="echoMode" >
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="optionLoginPassword">
+          <property name="echoMode">
            <enum>QLineEdit::Password</enum>
           </property>
          </widget>
@@ -60,35 +61,11 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
-     <item>
-      <widget class="QLabel" name="loginLabelStatus" >
-       <property name="text" >
-        <string>Currently logged as :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="loginConnectButton" >
-       <property name="maximumSize" >
-        <size>
-         <width>70</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text" >
-        <string>Connect</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
@@ -103,11 +80,11 @@
    <receiver>LoginDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -119,11 +96,11 @@
    <receiver>LoginDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

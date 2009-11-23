@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Sun Dec 28 17:51:26 2008
-#      by: PyQt4 UI code generator 4.4.3
+# Created: Mon Nov 23 20:23:02 2009
+#      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(686, 577)
+        MainWindow.resize(709, 577)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -170,6 +170,12 @@ class Ui_MainWindow(object):
         self.layoutTopVideos.addWidget(self.filterLanguageForVideo)
         self.verticalLayout_8.addLayout(self.layoutTopVideos)
         self.videoView = QtGui.QTreeView(self.groupBox_videosFound)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.videoView.sizePolicy().hasHeightForWidth())
+        self.videoView.setSizePolicy(sizePolicy)
+        self.videoView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.videoView.setAlternatingRowColors(True)
         self.videoView.setObjectName("videoView")
         self.verticalLayout_8.addWidget(self.videoView)
@@ -261,7 +267,7 @@ class Ui_MainWindow(object):
         self.searchSitesCombo.setObjectName("searchSitesCombo")
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(":/images/sites/opensubtitles.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.searchSitesCombo.addItem(icon7, QtCore.QString())
+        self.searchSitesCombo.addItem(icon7, "")
         self.horizontalLayout_2.addWidget(self.searchSitesCombo)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
@@ -460,7 +466,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
         self.uploadIMDB = QtGui.QComboBox(self.uploadDetailsGroupBox)
         self.uploadIMDB.setObjectName("uploadIMDB")
-        self.uploadIMDB.addItem(QtCore.QString())
+        self.uploadIMDB.addItem("")
         self.gridLayout.addWidget(self.uploadIMDB, 1, 2, 1, 1)
         self.buttonUploadFindIMDB = QtGui.QPushButton(self.uploadDetailsGroupBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
@@ -598,7 +604,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 686, 25))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 709, 25))
         self.menuBar.setObjectName("menuBar")
         self.menuMain = QtGui.QMenu(self.menuBar)
         self.menuMain.setObjectName("menuMain")
@@ -682,8 +688,8 @@ class Ui_MainWindow(object):
         self.introductionHelp.setHtml(QtGui.QApplication.translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'DejaVu Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt; font-weight:600;\"></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"</style></head><body style=\" font-family:\'Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'DejaVu Sans\'; font-weight:600;\"></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonIMDB.setText(_("Movie Info"))
         self.buttonPlay.setText(_("Play"))
         self.buttonDownload.setText(_("Download"))
