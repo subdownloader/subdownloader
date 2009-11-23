@@ -1498,7 +1498,7 @@ class Main(QObject, Ui_MainWindow):
                 except WindowsError:
                     log.debug("Cannot find registry for %s" % player['regRoot'])
         elif platform.system() == "Darwin": #MACOSX
-            macos_players = [{'path': '/Applications/VLC.app/Contents/MacOS/VLC', 'parameters': '{0} --sub-file {1}'},
+            macos_players = [{'path': '/usr/bin/open', 'parameters': '-a /Applications/VLC.app {0} --sub-file {1}'},
                                         {'path': '/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX', 'parameters': '{0} -sub {1}'},
                                         {'path': '/Applications/MPlayer OS X 2.app/Contents/MacOS/MPlayer OS X 2', 'parameters': '{0} -sub {1}'} ]
             for player in macos_players:
