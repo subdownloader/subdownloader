@@ -14,7 +14,6 @@ import platform
 import os.path
 import zipfile
 
-
 import __builtin__,gettext,locale
 
 from PyQt4 import QtCore, QtGui
@@ -28,7 +27,6 @@ from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical, QApplication, QMainWin
 
 from gui.SplashScreen import SplashScreen, NoneSplashScreen
 from FileManagement import get_extension, clear_string, without_extension
-
 
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
@@ -110,7 +108,7 @@ class Main(QObject, Ui_MainWindow):
         settings = QSettings()
 
         #SHAREWARE PART
-        if SHAREWARE:
+        if SHAREWARE and platform.system() in ("Windows", "Microsoft"):
             activation_email = settings.value('activation/email', QVariant())
             activation_licensekey = settings.value('activation/licensekey', QVariant())
             activation_fullname = settings.value('activation/fullname', QVariant())
@@ -727,7 +725,7 @@ class Main(QObject, Ui_MainWindow):
 
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
-        log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
+        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
         self.videoView.clearSelection()
 
        # self.videoModel.emit(SIGNAL("layoutAboutToBeChanged()"))
@@ -772,14 +770,13 @@ class Main(QObject, Ui_MainWindow):
                     videos_found,subs_found = FileScan.ScanFilesFolders(path,recursively = True,report_progress = self.progress)
                     #progressWindow.destroy()
                 except FileScan.UserActionCanceled:
-                    print "user canceled"
+                    #print "user canceled"
                     return
+
                 log.debug("Videos found: %s"% videos_found)
                 log.debug("Subtitles found: %s"% subs_found)
                 self.status_progress.close()
-
                 self.hideInstructions()
-
                 self.window.setCursor(Qt.ArrowCursor)
                 #Populating the items in the VideoListView
                 self.videoModel.clearTree()
@@ -787,12 +784,12 @@ class Main(QObject, Ui_MainWindow):
                 self.videoModel.setVideos(videos_found)
                 self.videoView.setModel(self.videoModel)
                 self.videoModel.videoResultsBackup = []
-
                 self.videoView.expandAll() #This was a solution found to refresh the treeView
                 #Searching our videohashes in the OSDB database
                 QCoreApplication.processEvents()
+
                 if not videos_found:
-                    QMessageBox.about(self.window,_("Scan Results"),_("No video has been found"))
+                    QMessageBox.about(self.window,_("Scan Results"),_("No video has been found!"))
                 else:
                     self.window.setCursor(Qt.WaitCursor)
                     self.status_progress = QProgressDialog(_("Searching subtitles..."), _("&Abort"), 0, 100, self.window)
@@ -801,17 +798,18 @@ class Main(QObject, Ui_MainWindow):
                     self.progress(1)
                     i = 0
                     total = len(videos_found)
-                    if self.SDDBServer: #only sending those hashes bigger than 12MB
-                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
-                        if videos_sddb:
-                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
+                     # TODO: Hashes bigger than 12 MB not working correctly.
+#                    if self.SDDBServer: #only sending those hashes bigger than 12MB
+#                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
+#                        if videos_sddb:
+#                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
                     while i < total:
                             next = min(i+10, total)
                             videos_piece = videos_found[i:next]
                             progress_percentage = int(i * 100/total )
                             self.progress(progress_percentage ,_("Searching subtitles ( %d / %d )") % (i, total))
                             if not self.progress():
-                                print "canceled"
+                                #print "canceled"
                                 self.window.setCursor(Qt.ArrowCursor)
                                 return
                             videoSearchResults = self.OSDBServer.SearchSubtitles("",videos_piece)
@@ -830,12 +828,11 @@ class Main(QObject, Ui_MainWindow):
                                            sub._path = hashes_subs_found[sub.getHash()]
                                            sub._online = False
 
-                            if(videoSearchResults):
-                                #self.videoModel.clearTree()
+                            if videoSearchResults:
                                 self.videoModel.setVideos(videoSearchResults, filter=None, append=True)
                                 self.onFilterLanguageVideo(self.filterLanguageForVideo.currentIndex())
                                 self.videoView.expandAll() #This was a solution found to refresh the treeView
-                            elif videoSearchResults == None :
+                            elif videoSearchResults == None:
                                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
                                 return
 
@@ -1552,19 +1549,18 @@ class Main(QObject, Ui_MainWindow):
                     self.filterLanguageForTitle.addItem(languages, QVariant(languages))
         index = self.filterLanguageForTitle.findData(QVariant(languages))
         if index != -1 :
-            self.filterLanguageForTitle.setCurrentIndex (index)
+            self.filterLanguageForTitle.setCurrentIndex(index)
 
         index = self.filterLanguageForVideo.findData(QVariant(languages))
         if index != -1 :
-            self.filterLanguageForVideo.setCurrentIndex (index)
+            self.filterLanguageForVideo.setCurrentIndex(index)
 
     def onFilterLanguageSearchName(self, index):
         selectedLanguageXXX = str(self.filterLanguageForTitle.itemData(index).toString())
-        log.debug("Filtering subtitles by language : %s" % selectedLanguageXXX)
+        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
         self.moviesView.clearSelection()
         self.moviesModel.clearTree()
         self.moviesModel.setLanguageFilter(selectedLanguageXXX)
-
         self.moviesView.expandAll()
 
     def onUploadSelectLanguage(self, index):

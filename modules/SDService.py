@@ -423,11 +423,9 @@ class SDService(object):
             elif imdb_ids:
                 #TODO: search with IMDB id's
                 pass
-            
         else:
             self.log.info("No subtitles were found on Opensubtitles.com")
             return []
-        
         
     def TryUploadSubtitles(self, videos, no_update=False):
         TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)

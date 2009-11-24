@@ -11,14 +11,13 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect      
 
-from modules.videofile import  VideoFile
+from modules.videofile import VideoFile
 from modules.subtitlefile import SubtitleFile
 from modules.search import Movie
 
 import languages.Languages as languages
 
-import images_rc
-import logging
+import images_rc, logging
 log = logging.getLogger("subdownloader.gui.videotreeview")
 
 class Node:
@@ -38,7 +37,6 @@ class Node:
       return self.parent.children.index(self)
     else:
       return 0
-
     
 class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
@@ -61,10 +59,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             for video in videoResults:
                videoNode = self.root.addChild(video)
                for sub in video._subs:
-                   sub_lang_xxx =  sub.getLanguageXXX()
-                   if (not filter) or (sub_lang_xxx in filter ) :    #Filter subtitles by Language
+                   sub_lang_xxx = sub.getLanguageXXX()
+                   if (not filter) or (sub_lang_xxx in filter):    #Filter subtitles by Language
                        videoNode.addChild(sub)
-                       
                        
   def setMovies(self,moviesResults,filter = None):
         self.moviesResultsBackup = moviesResults
@@ -75,10 +72,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                if len(movie.subtitles): 
                     movieNode.data.totalSubs = 0 #We'll recount the number of subtitles after filtering
                for sub in movie.subtitles:
-                   sub_lang_xxx =  sub.getLanguageXXX()
-                   if (not filter) or (sub_lang_xxx in filter ) :    #Filter subtitles by Language
+                   sub_lang_xxx = sub.getLanguageXXX()
+                   if (not filter) or (sub_lang_xxx in filter):    #Filter subtitles by Language
                        movieNode.addChild(sub)
-                       movieNode.data.totalSubs +=  1
+                       movieNode.data.totalSubs += 1
     
   def clearTree(self):
      log.debug("Clearing VideoTree")
@@ -250,7 +247,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         movieNode.children = []
         for sub in movie.subtitles:
             sub_lang_xxx =  sub.getLanguageXXX()
-            if (not filter) or (filter == sub_lang_xxx) :    #Filter subtitles by Language
+            if (not filter) or (filter == sub_lang_xxx):    #Filter subtitles by Language
                    movieNode.addChild(sub)
 
   def getSelectedItem(self, index = None):
@@ -318,7 +315,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
     else:
       parentItem = parent.internalPointer()
     
-    if type(parentItem.data)  == Movie:
+    if type(parentItem.data) == Movie:
         movie = parentItem.data
         if not len(movie.subtitles):
             if movie.totalSubs > 0: #To put a 0 in the future, the 1 is just to show it's working

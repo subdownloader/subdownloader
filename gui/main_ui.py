@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon Nov 23 20:23:02 2009
+# Created: Tue Nov 24 23:32:00 2009
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -684,7 +684,7 @@ class Ui_MainWindow(object):
         self.buttonFind.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
         self.buttonFind.setText(_("Search subtitles"))
         self.label_videosFound.setText(_("Videos/Subtitles found:"))
-        self.label_filterBy.setText(_("Filter by :"))
+        self.label_filterBy.setText(_("Filter by:"))
         self.introductionHelp.setHtml(QtGui.QApplication.translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

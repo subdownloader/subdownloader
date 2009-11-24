@@ -37,7 +37,6 @@ class Movie(object):
     
 
 class SearchByName(object):
-    
     def __init__(self):
         self.log = logging.getLogger("subdownloader.modules.search")
         
