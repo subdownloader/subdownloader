@@ -4,17 +4,7 @@
 # Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 """ Create and launch the GUI """
-import sys, re, os, traceback, tempfile
-import time, thread
-import webbrowser
-import urllib2
-import base64, zlib
-import commands
-import platform
-import os.path
-import zipfile
-
-import __builtin__,gettext,locale
+import sys, re, os, traceback, tempfile, time, thread, webbrowser, urllib2, base64, zlib, commands, platform, os.path, zipfile, __builtin__, gettext, locale
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
@@ -31,8 +21,9 @@ from FileManagement import get_extension, clear_string, without_extension
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
 splash = SplashScreen()
-splash.showMessage(_("Loading modules..."))
+splash.showMessage(_("Loading..."))
 QCoreApplication.flush()
+
 from modules import *
 from modules.SDService import SDService, TimeoutFunctionException
 
@@ -318,10 +309,10 @@ class Main(QObject, Ui_MainWindow):
 
         log.debug('Found these translations languages: %r' % self.interface_langs)
 
-        #Check the default locale
+        #Check the system default locale
         lc, encoding = locale.getdefaultlocale()
         if not lc:
-            user_locale = 'en' #english will be the default locale in case of not found
+            user_locale = 'en' #In case of language not found
         else:
             if lc in languages.ListAll_locale():
                 user_locale = lc
@@ -334,14 +325,15 @@ class Main(QObject, Ui_MainWindow):
                 interface_lang = 'en'
         else:
                 if interface_lang == QVariant():
-                        interface_lang = self.chooseInterfaceLanguage(user_locale)
-                        settings.setValue("options/interfaceLang", QVariant(interface_lang))
+                        #Use system default locale
+                        interface_lang = user_locale
+                        settings.setValue("options/interfaceLang", QVariant(user_locale))
                 else:
                         interface_lang = str(interface_lang.toString().toUtf8())
 
         log.debug('Interface language: %s' % interface_lang)
         try:
-            isTrans = gettext.translation(domain = "subdownloader",localedir = localedir ,languages=[interface_lang],fallback=True)
+            isTrans = gettext.translation(domain = "subdownloader", localedir = localedir, languages=[interface_lang], fallback=True)
         except IOError:
             isTrans = False
 
