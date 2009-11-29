@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2009-01-31 00:59+0000\n"
-"Last-Translator: Tomasz Bakiera <Unknown>\n"
+"PO-Revision-Date: 2009-05-10 15:54+0000\n"
+"Last-Translator: Michał Pławsiuk (razit.pl) <mp3-10@o2.pl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -111,7 +111,7 @@ msgstr "Angielski"
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:43
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:43
 msgid "British English"
-msgstr "Brytyjski Angielski"
+msgstr "Angielski (brytyjski)"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:44
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:44
@@ -377,7 +377,7 @@ msgstr "Zarejestruj program"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:670
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:670
 msgid "SubDownloader"
-msgstr "SubDownloader (tłumaczenie Kamil Dzióbek)"
+msgstr "SubDownloader"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:671
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:671
@@ -421,7 +421,7 @@ msgstr "Znalezione pliki wideo/napisy"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:679
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:693
 msgid "Filter by :"
-msgstr "Sortuj poprzez:"
+msgstr "Sortuj:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:685
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:694
@@ -439,7 +439,7 @@ msgstr "Informacje o filmie"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:686
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:686
 msgid "Play"
-msgstr "Odtwarzaj"
+msgstr "Odtwórz"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:687
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:695
@@ -484,7 +484,7 @@ msgstr "Znalezione napisy:"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:696
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:696
 msgid "Search by Movie Name"
-msgstr "Znajdź poprzez nazwę filmu"
+msgstr "Szukaj wg nazwy filmu"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:697
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:697
@@ -528,7 +528,7 @@ msgstr "Tytuł filmu:"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:711
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:711
 msgid "Click on the Find button to identify the movie"
-msgstr "Kiliknij na przycisk Szukaj, aby zidentyfikować film"
+msgstr "Kiliknij przycisk Szukaj, aby zidentyfikować film"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:712
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:712
@@ -538,7 +538,7 @@ msgstr "Szukaj"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:719
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:719
 msgid "Release name:"
-msgstr "nazwa relesu"
+msgstr "Nazwa wersji:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:720
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:720
@@ -585,7 +585,7 @@ msgstr "&Widok"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:728
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:728
 msgid "Quit"
-msgstr "Zamknij"
+msgstr "Zakończ"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:729
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:729
@@ -597,7 +597,7 @@ msgstr "Odwiedź stronę domową"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:730
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/about_ui.py:143
 msgid "About"
-msgstr "Subdownloader -Informacje"
+msgstr "O programie"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:731
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:731
@@ -609,7 +609,7 @@ msgstr "Zgłoś problem"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:732
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:256
 msgid "Help Us With 5 USD/EUR"
-msgstr "Pomóż nam dotacją 5 USD/EUR"
+msgstr "Wesprzyj nas dotacją 5USD/EUR"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:733
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:733
@@ -619,7 +619,7 @@ msgstr "&Skonfiguruj Subdownloader"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:734
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:734
 msgid "LogIn"
-msgstr "LogIn"
+msgstr "Zaloguj"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:735
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:735
@@ -710,13 +710,13 @@ msgstr "Lista plików wideo/napisów jest pusta"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
-msgstr "Napisy %s są powtórzone"
+msgstr "Napisy %s się powtarzają"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:93
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
-msgstr "Plik wideo %s jest powtórzony"
+msgstr "Plik wideo %s się powtarza"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:99
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:99
@@ -809,7 +809,7 @@ msgstr "Pośrednik sieciowy"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:284
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:284
 msgid "Host:"
-msgstr "Serwer:"
+msgstr "Nazwa komputera:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:285
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:285
@@ -824,7 +824,7 @@ msgstr "Sieć"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:287
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:287
 msgid "Interface Language:"
-msgstr "Język:"
+msgstr "Język interfejsu:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:289
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:289
@@ -976,7 +976,7 @@ msgstr "Powiadomienie"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:80
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
 msgid "The new language will be displayed after restarting the program."
-msgstr "Po ponownym uruchomieni program będzie w nowym języku."
+msgstr "Nowy język pojawi się po ponownym uruchomieniu programu."
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:142
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:142
@@ -1013,7 +1013,7 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:149
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:572
 msgid "Anonymous"
-msgstr "Anonim"
+msgstr "Anonimowy"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:36
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:76
@@ -1021,12 +1021,12 @@ msgstr "Anonim"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:76
 #, python-format
 msgid "Succesfully logged as: %s"
-msgstr "Logowanie jako: %s powiodło się"
+msgstr "Zalogowany jako: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:38
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:38
 msgid "Not Connected"
-msgstr "Brak Połączenia"
+msgstr "Niepołączony"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:67
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:50
@@ -1062,7 +1062,7 @@ msgstr "(Już ściągnięte)"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:172
 #, python-format
 msgid "Uploader: %s"
-msgstr ""
+msgstr "Uploader: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:168
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:168
@@ -1080,7 +1080,7 @@ msgstr "Format: %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:170
 #, python-format
 msgid "Downloads: %d"
-msgstr ""
+msgstr "Pobrane: %d"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:171
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:171
@@ -1100,7 +1100,7 @@ msgstr "[Ocena IMDB: %s]"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:223
 #, python-format
 msgid "(%d subtitles)"
-msgstr ""
+msgstr "(napisów: %d)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:41
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
@@ -1134,7 +1134,7 @@ msgstr "SubDownloader %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:134
 #, python-format
 msgid "%d days to expire. Activate Program."
-msgstr ""
+msgstr "%d dni do wygaśnięcia. Aktywuj program."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:249
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:249
@@ -1179,6 +1179,8 @@ msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
+"Jeśli nie posiadasz plików wideo na swoim komputerze możesz szukać napisów "
+"wpisując tytuł lub nazwę pliku."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:381
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:381
@@ -1192,11 +1194,14 @@ msgid ""
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
+"Jeśli znalazłeś jakieś napisy w miejscu, które nie jest uwzględnione w bazie "
+"danych SubDownloader'a, prosimy ich upload - dzięki temu inni użytkownicy "
+"będą mogli je łatwo odnaleźć."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
 msgid "Quid Pro Quo:"
-msgstr ""
+msgstr "Quid Pro Quo (coś za coś)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
@@ -1204,6 +1209,8 @@ msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
+"Jeśli uważasz, że ten program jest użyteczny i zaoszczędził Ci dużo czasu, "
+"prosimy o wsparcie poprzez darowiznę."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:430
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:454
@@ -1230,7 +1237,7 @@ msgstr "Przeglądaj informacje online"
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:520
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:520
 msgid "New Version Detected"
-msgstr "Wykryto Nowa Wersja"
+msgstr "Dostępna nowa wersja"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:521
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:521
@@ -1243,7 +1250,7 @@ msgid ""
 "\n"
 "Would you like to download the new version now?"
 msgstr ""
-"Nowa wersja SubDownloader została wypuszczona.\n"
+"Pojawiła sie nowa wersja SubDownloader.\n"
 "\n"
 "Nowa Wersja: %s\n"
 "Obecna Wersja: %s\n"
@@ -1309,12 +1316,12 @@ msgstr "SubDownloader %s - %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:644
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
-msgstr ""
+msgstr "Program niezarejestrowany, pozostało %d dni do wygaśnięcia licencji."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:662
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
 msgid "Expiration Reminder"
-msgstr ""
+msgstr "Przypomnienie o wygaśnięciu licencji."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:662
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
@@ -1484,7 +1491,7 @@ msgstr "Pobieranie napisów %s (%d/%d)"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1051
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1130
 msgid "Error write permission"
-msgstr "Błąd dostępu zapisu"
+msgstr "Brak prawa zapisu"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1052
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1131
@@ -1494,7 +1501,9 @@ msgstr "Błąd dostępu zapisu"
 msgid ""
 "%s cannot be saved.\n"
 "Check that the folder exists and you have write-access permissions."
-msgstr "%s nie może zostać zapisany."
+msgstr ""
+"%s nie może zostać zapisany.\n"
+"Sprawdź czy katalog istnieje i czy masz prawo do zapisywania w nim."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1066
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1102
@@ -1518,6 +1527,11 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
+"Lokalne: %s\n"
+"\n"
+"Zdalne: %s\n"
+"\n"
+"Co chciałbyś teraz zrobić?"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1083
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1083
@@ -1548,7 +1562,7 @@ msgstr "Łączenie"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1185
 #, python-format
 msgid "Connecting to server using proxy %s"
-msgstr "Podłączanie do serwera za pośrednictwem proxy %s"
+msgstr "Podłączanie do serwera za pośrednictwem pośrednika sieciowego %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1191
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1191
@@ -1573,7 +1587,7 @@ msgstr "Wysyłanie..."
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1292
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1292
 msgid "Successful Upload"
-msgstr "Udane Wysłanie"
+msgstr "Wysłano pomyślnie"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1293
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1293
@@ -1709,579 +1723,3 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "Nowa wersja programu SubDownloader jest dostepna."
-
-#~ msgid "Search by:"
-#~ msgstr "Szukane przez:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "Uzyskiwanie informacji z serwera IMDB, proszę czekać..."
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "CD1 plik napisów:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "Wybierz napisy..."
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "Tak, film jest dwu płytowy."
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "CD2 plik AVI:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "CD2 plik napisów:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "Dodaj więcej CD"
-
-#~ msgid "Confirm..."
-#~ msgstr "Potwierdzenie..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "IMDB ID Filmu:"
-
-#~ msgid "Search ID..."
-#~ msgstr "Wyszukaj ID.."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "Błąd żądania filmu z serwera IMDB"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "znany też jako: "
-
-#~ msgid "Movies"
-#~ msgstr "Filmy"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "Seriale"
-
-#~ msgid "Errors found:"
-#~ msgstr "Znalezione błędy:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "Wyślij Więcej CD"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "%d dodatkowe CD dodane."
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "Plik wideo %(videopath)s nie istnieje."
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "Spróbuj wyszukać po numerze IMDB ID."
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr ""
-#~ "Znaleziono błąd wewnętrzny w pliku filmu CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Rozmiar pliku filmu za mały CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "Napisy %s nie istnieją."
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "Napisy większe niż %s 300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "Błąd: Wideo CD %d = Wideo CD %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "Błąd: Napisy CD %d = Wideo CD %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "Sprawdzam pliki filmów i napisów, proszę czekać..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "Sprawdzam napisy na serwerze, proszę czekać..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "Błąd sprawdzania napisów na serwerze, prawdopodobne przyczyny to:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "Brak połączenia z serwerem."
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "Błąd pobierania informacji z IMDB dotyczący %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "Nazwa pliku napisów ma znaki specjalne które powinieneś usunąć."
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "Napisy Znalezione..."
-
-#~ msgid "AutoDetected"
-#~ msgstr "Automatyczna detekcja"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "Detekcja pliku .nfo, proszę czekać..."
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "Błąd wyciągnięcia IMDB ID z pliku .NFO"
-
-#~ msgid "IMDB Search"
-#~ msgstr "IMDB Szukanie"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "Błąd: Pole IMDB jest wymagane."
-
-#~ msgid "Upload Progress"
-#~ msgstr "Postęp wysyłania"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "Wysyłanie, to może potrwać chwilę..."
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "Dziękujemy. Udało się wysłać napisy."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "Czy numer %s jest do tego filmu?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "Czy chcesz sprawdzić stronę ze szczegółami wysłanych napisów."
-
-#~ msgid "The server returned some errors"
-#~ msgstr "Serwer zwrucił błedy"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "Błąd Wysyłania Napisów na serwer, prawdopodobne przyczyny:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "Zastępowanie napisów"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "Nie znaleziono napisów"
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "Skąd mogę ściągnąć napisy?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "Nie znaleziono napisów. Proszę je wysłać."
-
-#~ msgid "log-in"
-#~ msgstr "Logowanie"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "IMDB ID lub TYTUŁ FILMU nie pasują do siebie"
-
-#~ msgid "Exit"
-#~ msgstr "Zakończ"
-
-#~ msgid "Main"
-#~ msgstr "Menu"
-
-#~ msgid "Contact us"
-#~ msgstr "Kontakt z nami"
-
-#~ msgid "Donate"
-#~ msgstr "Daj datek"
-
-#~ msgid "Help"
-#~ msgstr "Pomoc"
-
-#~ msgid "Options"
-#~ msgstr "Opcje"
-
-#~ msgid "Help us"
-#~ msgstr "Pomóż nam"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "Musisz znaleźć tytuł filmu i wskazać IMDB ID"
-
-#~ msgid "Log"
-#~ msgstr "Log"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr ""
-#~ "Aplikacja znalazła błędy. Czy chcesz wysłać raport by zostały poprawione?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "Raportowanie błedów."
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "Błąd wysyłania błędu. I tak dziękujemy."
-
-#~ msgid "Please Login"
-#~ msgstr "Proszę się zalogować"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "Rekomendujemy zalogowanie się przed dodaniem napisów."
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "Łączenie proszę czekać..."
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "Błąd XMLRPC tworzenia połączenia z serwerem : %s"
-
-#~ msgid "Connected as %s"
-#~ msgstr "Podłączony jako %s"
-
-#~ msgid "Error opening link"
-#~ msgstr "Błąd otwarcia strony"
-
-#~ msgid "Connected anonymously"
-#~ msgstr "Podłączony anonimowo."
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "Nie mogę się zalogować na serwer. Status: %s"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "NOWA WERSJA: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "NIEZNANA"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "AKTUALNA WERSJA"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "Zmiany w nowej wersji"
-
-#~ msgid "Update"
-#~ msgstr "Aktualizacja"
-
-#~ msgid "New Update"
-#~ msgstr "Nowa Aktualizacja"
-
-#~ msgid "Movie hash of"
-#~ msgstr "Hasz filmu"
-
-#~ msgid "Accept"
-#~ msgstr "Akceptacja"
-
-#~ msgid " has been updated."
-#~ msgstr " został zaktualizowany."
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "Dziękujemy ci bardzo za współprace.;-)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "Raportuj błędną informacje."
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "Wysyłanie napisów"
-
-#~ msgid "extra CDs added."
-#~ msgstr "dodatkowe CD zostało dodane."
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "Plik filmu %(videopath) nie istnieje."
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr ""
-#~ "Znaleziono błąd wewnętrzny  w pliku filmu CD%(cd_number) : %(videopath)"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "Za mała wielkość pliku filmu CD%(cd_number) : %(videopath)"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "Napisy %(subpath) nie istnieją."
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "Wyślij więcej napisów"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "Wielkośc napisów %(subpath)"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "błąd w czasie automatycznego wykrywania języka napisów"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "Automatyczne wykrywanie języka"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "Folder pobierania napisów:"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "Tam gdzie film"
-
-#~ msgid "Please choose directory"
-#~ msgstr "Proszę wybrać folder"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "Jeśli nie masz konta, proszę"
-
-#~ msgid "Register for free"
-#~ msgstr "Zarejestruj się za darmo"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "TYTUŁ FILMU lub IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "Plik"
-
-#~ msgid "Languages:"
-#~ msgstr "Języki:"
-
-#~ msgid "Choose interface language here ..."
-#~ msgstr "Wybierz język interfejsu..."
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "Szukaj napisów we WSZYSTKICH językach"
-
-#~ msgid "Autodetect Language in Upload"
-#~ msgstr "Autodetekcja języku przy wysyłaniu"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "Domyślny język wysyłanych napisów:"
-
-#~ msgid "Servers configuration:"
-#~ msgstr "Konfiguracja serwera:"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "Ustawienia proxy:"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "protokół OSDB"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "Plik dla AVI CD%d jest wymagany"
-
-#~ msgid "Host address: "
-#~ msgstr "Adres hosta: "
-
-#~ msgid "Get server info"
-#~ msgstr "Pobierz informacje serwera"
-
-#~ msgid "Server:"
-#~ msgstr "Serwer:"
-
-#~ msgid "User:"
-#~ msgstr "Użytkownik:"
-
-#~ msgid "%s is not a valid http:// address"
-#~ msgstr "%s jest nieprawidłowym adresem http://"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "Informacja serwera OSDB"
-
-#~ msgid "The OSDB server address is unreacheable"
-#~ msgstr "Adres serwera OSDB jest nie osiągalny"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "Plik napisów dla CD%d jest wymagany"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "Plik AVI CD%d"
-
-#~ msgid "Clear content"
-#~ msgstr "Wyczyść"
-
-#~ msgid "Add videofile"
-#~ msgstr "Dodaj plik video"
-
-#~ msgid "Add directory"
-#~ msgstr "Dodaj folder"
-
-#~ msgid "Clear List"
-#~ msgstr "Wyczyść listę"
-
-#~ msgid "SEARCH"
-#~ msgstr "SZUKAJ"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "Zaznacz / Odznacz WSZYSTKO"
-
-#~ msgid "Add film's directory"
-#~ msgstr "Dodaj folder filmu"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "Dodaj filmy z folderu (z podfolderami)"
-
-#~ msgid "Add video file"
-#~ msgstr "Dodaj plik filmu"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "Pobierz napisy"
-
-#~ msgid "Download subtitle"
-#~ msgstr "Pobierz napisy"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "Pokaż szczegóły i ocenę napisów"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "Te NAPISY nie są do tego pliku AVI"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "Numer IMDB nie jest do tego pliku AVI"
-
-#~ msgid "IMDB details"
-#~ msgstr "Opis na IMDB.com"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "JEZYK napisów jest niepoprawny"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "Zgłoś błąd w informacji"
-
-#~ msgid "Play videofile"
-#~ msgstr "Odtwarzaj film"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "Szukaj innych napisów do tego filmu."
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "Pobranie programu : %s by oglądać filmy z napisami"
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr "(to oznacza że napisy są do tego pliku ale są źle zsynchronizowane)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "Czy jesteś pewny że te  napisy nie pasują do twojego pliku z filmem?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "Raport został przyjęty. Dziękujemy."
-
-#~ msgid "Choose directory..."
-#~ msgstr "Wybierz folder..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "Pobieranie, może potrwać chwilę..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "Pobieranie napisów %s z %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "Pobrano %d napis(ów)"
-
-#~ msgid "Some errors found:"
-#~ msgstr "Wystąpiły błędy"
-
-#~ msgid "Search Progress"
-#~ msgstr "Postęp Wyszukiwania"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "Szukanie przy pomocy protokołu OSDB"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "Szukanie, proszę czekać..."
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "Błąd połączenia z serwerem OSDB"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "Obliczanie sumy kontrolnej"
-
-#~ msgid "Hashing files..."
-#~ msgstr "Haszowanie plików..."
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "Błąd plikk %s"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "Błąd wielkości pliku %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "Nie mogę znaleźć pliku <%s>"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "Potrzebujemy twojej pomocy w utrzymaniu Subdownloadera. Możesz pomóc nam "
-#~ "następujące sposoby:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMDB ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "-Wyślij do nas napisy. Niech baza się rozrośnie!"
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr ""
-#~ "-Skontaktuj się z nami jeśli chcesz przetłumaczyć (lub poprawić tłumaczenie) "
-#~ "programu."
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr ""
-#~ "- Wyślij nam pieniądze tak byśmy mieli na żarcie z Biedronki.\n"
-#~ " Inaczej będziemy musieli rzucić  pisanie darmowego oprogramowania i wziąć "
-#~ "się za uczciwą prace (kopanie rowów)."
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- Wyślij nam swoją opinie na temat programu."
-
-#~ msgid "Send Feedback"
-#~ msgstr "Wyślij opinie"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    -Czatuj z nami (a nie na nas):"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "Bardzo ci dziękuję"
-
-#~ msgid "Log Messages:"
-#~ msgstr "Zdarzenia:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Zastosuj"
-
-#~ msgid "Title"
-#~ msgstr "Tytuł"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "Anuluj"
-
-#~ msgid "Login"
-#~ msgstr "Użytkownik:"
-
-#~ msgid "Servers"
-#~ msgstr "Serwery"
-
-#~ msgid "Language"
-#~ msgstr "Język"
-
-#~ msgid "Directories"
-#~ msgstr "Foldery"
-
-#~ msgid "Downloading Language"
-#~ msgstr "Ściągam tłumaczenie programu"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "Pobieram tłumaczenie w języku %s, proszę czekać..."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "Błąd przy pobraniu nowego języka z serwera."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr ""
-#~ "Tłumaczenie dostępne w %s. Proszę skontaktować się z %s by nam pomóc."
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "Błąd przy próbie zapisania ustawień w '%s'"
-
-#~ msgid "Login Again"
-#~ msgstr "Logowanie Ponowne"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "Drugi krok: plik cd2"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "Trzeci krok. Sprawdzamy czy te napisy są już w bazie."
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "Czwarty krok. Niezbędne informacje."
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "Piaty krok. Opcjonalne informacje."
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "Szósty krok. Wysłanie napisów"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "Pierwszy krok. Plik CD1"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "CD1 plik AVI:"
-
-#~ msgid "Browse avi..."
-#~ msgstr "Wybierz AVI"
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "Polska wersja językowa Kamil Dzióbek"

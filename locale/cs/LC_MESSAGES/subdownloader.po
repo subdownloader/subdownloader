@@ -3,20 +3,20 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2009-01-14 23:55+0000\n"
-"Last-Translator: Marcel <Unknown>\n"
+"PO-Revision-Date: 2009-11-13 19:22+0000\n"
+"Last-Translator: clever_fox <clever_fox@seznam.cz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:106
 #, python-format
 msgid "Parsing video: %s"
-msgstr "Analyzuji video: %s"
+msgstr "Analyzuje se video: %s"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:119
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:150
@@ -24,7 +24,7 @@ msgstr "Analyzuji video: %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:150
 #, python-format
 msgid "Parsing sub: %s"
-msgstr "Analyzuji titulky: %s"
+msgstr "Analyzují se titulky: %s"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:120
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:151
@@ -36,187 +36,187 @@ msgstr "Hashování ukončeno"
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:28
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:28
 msgid "Albanian"
-msgstr "albánština"
+msgstr "Albánština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:29
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:29
 msgid "Arabic"
-msgstr "arabština"
+msgstr "Arabština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:30
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:30
 msgid "Armenian"
-msgstr "arménština"
+msgstr "Arménština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:31
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:31
 msgid "Malay"
-msgstr "malajština"
+msgstr "Malajština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:32
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:32
 msgid "Bosnian"
-msgstr "bosenština"
+msgstr "Bosenská srbština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:33
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:33
 msgid "Brazilian"
-msgstr "brazilština"
+msgstr "Brazilská portugalština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:34
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:34
 msgid "Bulgarian"
-msgstr "bulharština"
+msgstr "Bulharština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:35
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:35
 msgid "Catalan"
-msgstr "katalánština"
+msgstr "Katalánština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:36
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:36
 msgid "Basque"
-msgstr "baskičtina"
+msgstr "Baskitština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:37
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:37
 msgid "Chinese"
-msgstr "čínština"
+msgstr "Čínština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:38
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:38
 msgid "Croatian"
-msgstr "chorvatština"
+msgstr "Chorvatština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:39
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:39
 msgid "Czech"
-msgstr "čeština"
+msgstr "Čeština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:40
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:40
 msgid "Danish"
-msgstr "dánština"
+msgstr "Dánština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:41
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:41
 msgid "Dutch"
-msgstr "holandština"
+msgstr "Holandština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:42
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:42
 msgid "English"
-msgstr "angličtina"
+msgstr "Angličtina"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:43
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:43
 msgid "British English"
-msgstr "britská angličtina"
+msgstr "Britská angličtina"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:44
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:44
 msgid "Esperanto"
-msgstr "esperanto"
+msgstr "Esperanto"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:45
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:45
 msgid "Estonian"
-msgstr "estonština"
+msgstr "Estonština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:46
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:46
 msgid "Finnish"
-msgstr "finština"
+msgstr "Finština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:47
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:47
 msgid "French"
-msgstr "francouzština"
+msgstr "Francouzština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:48
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:48
 msgid "Georgian"
-msgstr "gruzínština"
+msgstr "Gruzínština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:49
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:49
 msgid "German"
-msgstr "němčina"
+msgstr "Němčina"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:50
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:50
 msgid "Greek"
-msgstr "řečtina"
+msgstr "Řečtina"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:51
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:51
 msgid "Hebrew"
-msgstr "hebrejština"
+msgstr "Hebrejština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:52
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:52
 msgid "Hungarian"
-msgstr "maďarština"
+msgstr "Maďarština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:53
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:53
 msgid "Indonesian"
-msgstr "indonéština"
+msgstr "Indonéština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:54
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:54
 msgid "Italian"
-msgstr "italština"
+msgstr "Italština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:55
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:55
 msgid "Japanese"
-msgstr "japonština"
+msgstr "Japonština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:56
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:56
 msgid "Kazakh"
-msgstr "kazaština"
+msgstr "Kazachština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:57
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:57
 msgid "Korean"
-msgstr "korejština"
+msgstr "Korejština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:58
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:58
 msgid "Latvian"
-msgstr "lotyština"
+msgstr "Lotyšština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:59
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:59
 msgid "Lithuanian"
-msgstr "litevština"
+msgstr "Litevština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:60
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:60
 msgid "Luxembourgish"
-msgstr "lucemburština"
+msgstr "Lucemburština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:61
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:61
 msgid "Macedonian"
-msgstr "makedonština"
+msgstr "Makedonština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:62
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:62
 msgid "Norwegian"
-msgstr "norština"
+msgstr "Norština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:63
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:63
 msgid "Persian"
-msgstr "perština"
+msgstr "Perština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:64
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:64
 msgid "Polish"
-msgstr "polština"
+msgstr "Polština"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:65
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:65
@@ -285,14 +285,14 @@ msgstr "Programu skončí platnost v %d dnech."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:61
 msgid "Activate Program"
-msgstr "Aktivuj program"
+msgstr "Aktivovat program"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:63
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:92
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:92
 #, python-format
 msgid "The program has expired after %d days of usage."
-msgstr "Program ukončil svojí platnost po %d dnech používání."
+msgstr "Programu vypršela platnost po %d dnech používání."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:97
@@ -358,7 +358,7 @@ msgstr "Chyba"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
 msgid "Some fields are empty."
-msgstr "Některá políčka jsou prázdná."
+msgstr "Některá pole jsou prázdná."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:92
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:462
@@ -382,29 +382,29 @@ msgstr "SubDownloader"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:671
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:671
 msgid "Select the video/folder that needs subtitles:"
-msgstr "Vyberte video/složku, která potřebuje titulky:"
+msgstr "Vybrat video/složku, která potřebuje titulky:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:672
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:672
 msgid "Select videos that need subtitles"
-msgstr "Vyberte videa, která potřebují titulky"
+msgstr "Vybrat videa, která potřebují titulky"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:673
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:673
 msgid "Select videos..."
-msgstr "Zvolte video..."
+msgstr "Zvolit videa..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:674
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:676
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:674
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:676
 msgid "Click here to Search the subtitles of the movies in that folder"
-msgstr "Klikněte sem pro vyhledávání titulek pro videa v dané složce"
+msgstr "Klikněte zde pro vyhledání titulků k filmům v této složce"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:675
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:675
 msgid "Select folder..."
-msgstr "Vyberte složku..."
+msgstr "Vybrat složku..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:677
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:677
@@ -414,7 +414,7 @@ msgstr "Hledat titulky"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:678
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:678
 msgid "Videos/Subtitles found:"
-msgstr "Videa/titulky byly nalezeny:"
+msgstr "Nalezená videa-titulky:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:679
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:693
@@ -455,7 +455,7 @@ msgstr "Stáhnout"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:688
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:688
 msgid "Search from Video file(s)"
-msgstr "Hledat z videa souboru"
+msgstr "Hledat ze souboru videa"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:689
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:270
@@ -484,7 +484,7 @@ msgstr "Nalezené titulky"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:696
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:696
 msgid "Search by Movie Name"
-msgstr "Hlkedat podle názvu videa"
+msgstr "Hledat podle názvu videa"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:697
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:697
@@ -1720,574 +1720,3 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "Byla vydána nová verze SubDownloaderu"
-
-#~ msgid "Search by:"
-#~ msgstr "Hledat dle:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "Získavám informace z IMDB servru, prosím čekejte..."
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "CD1 titulky:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "Vybrat titulky..."
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "Ano, existuje CD2"
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "CD2 film:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "CD2 titulky:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "Přidat více CD"
-
-#~ msgid "Confirm..."
-#~ msgstr "Potvrdit..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "Filmové IMDB ID:"
-
-#~ msgid "Search ID..."
-#~ msgstr "Hledat ID..."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "Chyba při dotazování IMDB serveru"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "Překlad názvu filmu (AKA): "
-
-#~ msgid "Movies"
-#~ msgstr "Filmy"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "Seriály/Epizody"
-
-#~ msgid "Errors found:"
-#~ msgstr "Nalezené chyby:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "Nahrát více CD"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "Přidaných %d CD."
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "Video %(videopath)s neexistuje."
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "Zkuste hledat dle IMDB ID čísla."
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Interní chyba ve video CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Velikost je příliš malá pro video CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "Titulky neexistují."
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "Velikost titulků %s je větší jak 300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "Chyba: video CD %d = video CD %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "Chyba: titulky CD %d = titulky CD %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "Kontroluji videosoubory a titulky, prosím čekejte..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "Kontroluji titulky na serveru, prosím čekejte..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "Chyba při kontrolování titulků na serveru, možné chyby:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "Nepodařilo se navázat spojení se serverem"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "Chyba při získávání informací z IMBD o %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "Název souboru titulků má speciální znaky, odstraňte je prosím"
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "Nalezené titulky..."
-
-#~ msgid "AutoDetected"
-#~ msgstr "Auto Detekované"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "Detekovaný .nfo soubor, prosím čekejte..."
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "Chyba při hledání IMDB ID z .nfo souboru"
-
-#~ msgid "IMDB Search"
-#~ msgstr "IMDB hledání"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "Chyba: IMDB ID pole je povinné"
-
-#~ msgid "Upload Progress"
-#~ msgstr "Stav nahrávání"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "Nahrávám. Může to chvíli trvat"
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "Děkujeme. Titulky úspešně nahrané."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "Číslo %s je ID filmu?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "Chtěli by jste otevřít web stránku právě nahraných titulkú ?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "Server vrátil nějaké chyby"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "Chyba při nahrávání titulků na server, možné chyby:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "Přepsání titulků"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "Titulky nenalezeny."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "Kde můžu stáhnout titulky?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "Nebyly nalezeny titulky. Prosím, nahrajte je."
-
-#~ msgid "log-in"
-#~ msgstr "přihlašte se"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "Nejednoznačnost IMDB ID nebo jména filmu"
-
-#~ msgid "Exit"
-#~ msgstr "Konec"
-
-#~ msgid "Main"
-#~ msgstr "Hlavní"
-
-#~ msgid "Contact us"
-#~ msgstr "Kontaktujte nás"
-
-#~ msgid "Donate"
-#~ msgstr "Přispějte"
-
-#~ msgid "Help"
-#~ msgstr "Pomoc"
-
-#~ msgid "Options"
-#~ msgstr "Možnosti"
-
-#~ msgid "Help us"
-#~ msgstr "Podpořte nás"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "Musíte hledat název filmu a vybrat IMDB ID"
-
-#~ msgid "Log"
-#~ msgstr "Log"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr "Aplikace našla nějaké chyby. Chcete je nahlásit, aby byly opraveny?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "Nahlašuji chyby"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "Chyba při odesílání chyby."
-
-#~ msgid "Please Login"
-#~ msgstr "Prosím přihlašte se"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "Doporučujeme, aby jste se přihlásili před nahrávaním titulků"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "Připojuji se, prosím čekejte..."
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "Chyba XMLRPC spojení s %s"
-
-#~ msgid "Connected as %s"
-#~ msgstr "Připojen jako %s"
-
-#~ msgid "Error opening link"
-#~ msgstr "Chyba při otevírání linku."
-
-#~ msgid "Connected anonymously"
-#~ msgstr "Připojen anonymně"
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "Nemůžu se přihlásit na server. Stav: %s"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "Nová Verze: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "Neznámý"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "Aktuální verze:"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "Změny v nové verzi"
-
-#~ msgid "Update"
-#~ msgstr "Aktualizace"
-
-#~ msgid "New Update"
-#~ msgstr "Nová aktualizace"
-
-#~ msgid "Movie hash of"
-#~ msgstr "Video hash"
-
-#~ msgid "Accept"
-#~ msgstr "Potvrdit"
-
-#~ msgid " has been updated."
-#~ msgstr " byl aktualizován"
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "Děkujeme za spolupráci :)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "Nahlásit špatné info"
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "Nahrávám titulky"
-
-#~ msgid "extra CDs added."
-#~ msgstr "extra CD byly přidána"
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "Video %(videopath) neexistuje."
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr "Nalezena interní chyba ve video CD%(cd_number) : %(videopath"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "Velkost je příliš malá pro video CD%(cd_number) : %(videopath)"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "Titulky %(subpath) neexistují."
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "Nahrát více titulků"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "Velikost titulků %(subpath)"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "Chyba nastala při autodetekci jazyka"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "Autodetekovaný jazyk"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "Složka pro ukládání titulků:"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "Složka s video soubory"
-
-#~ msgid "Please choose directory"
-#~ msgstr "Prosím vyberte složku"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "Pokud nemáte uživatelský účet, prosíme"
-
-#~ msgid "Register for free"
-#~ msgstr "Registrace zdarma"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "Jméno filmu nebo IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "Soubor"
-
-#~ msgid "Languages:"
-#~ msgstr "Jazyky:"
-
-#~ msgid "Choose interface language here ..."
-#~ msgstr "Zvolte jazyk programu..."
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "Hledat titulky ve VŠECH jazycích"
-
-#~ msgid "Autodetect Language in Upload"
-#~ msgstr "Autodetekce jazyka při nahrávání"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "Výchozí jazyk pro nahrávání:"
-
-#~ msgid "Servers configuration:"
-#~ msgstr "Nastavení serveru"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "Proxy Parametry:"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "OSDB protokol:"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "Je vyžadován soubor pro AVI CD%d"
-
-#~ msgid "Host address: "
-#~ msgstr "Adresa Serveru: "
-
-#~ msgid "Get server info"
-#~ msgstr "Získat informace ze serveru"
-
-#~ msgid "Server:"
-#~ msgstr "Server"
-
-#~ msgid "User:"
-#~ msgstr "Jméno:"
-
-#~ msgid "%s is not a valid http:// address"
-#~ msgstr "%s není validní http:// adresa"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "OSDB Server Info"
-
-#~ msgid "The OSDB server address is unreacheable"
-#~ msgstr "Nedostupný OSDB server"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "Je vyžadován soubor pro Sub CD%d"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "AVI soubor CD%d"
-
-#~ msgid "Clear content"
-#~ msgstr "Vymazat obsah"
-
-#~ msgid "Add videofile"
-#~ msgstr "Přidat video"
-
-#~ msgid "Add directory"
-#~ msgstr "Přidat složku"
-
-#~ msgid "Clear List"
-#~ msgstr "Vymazat seznam"
-
-#~ msgid "SEARCH"
-#~ msgstr "Hledat"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "Označit / Odznačit všechno"
-
-#~ msgid "Add film's directory"
-#~ msgstr "Přidat složku s filmem"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "Přidat videa ze složky (rekurzívně)"
-
-#~ msgid "Add video file"
-#~ msgstr "Přidat video"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "Stáhnout titulky"
-
-#~ msgid "Download subtitle"
-#~ msgstr "Stáhnout titulky"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "Zobrazit detaily a hodnotit titulky"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "Tyhle titulky nejsou pro tohle video"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "Tohle IMDB ID není pro tohle video"
-
-#~ msgid "IMDB details"
-#~ msgstr "IMDB detaily"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "Jazyk titulků je špatný"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "Nahlásit špatné informace"
-
-#~ msgid "Play videofile"
-#~ msgstr "Přehrát video"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "Hledat další titulky pro film"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "Stáhni si tento program: %s pro sledováni filmu a titulků"
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr "(Titulky jsou správně ale jsou špatně načasované)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "Jste si jistý, že tyto titulky nepatří k Vašemu video souboru?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "Zpráva byla zaznamenána. Díky za pomoc."
-
-#~ msgid "Choose directory..."
-#~ msgstr "Vybrat složku..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "Moment stahuji titulky..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "Stahuji titulky %s z %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "%d titulků bylo stáhnutých"
-
-#~ msgid "Some errors found:"
-#~ msgstr "Nalezené chyby:"
-
-#~ msgid "Search Progress"
-#~ msgstr "Probíhá vyhledávání"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "Hledám za pomoci OSBD protokolu"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "Hledám, může to chvilku trvat"
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "Chyba při spojení s OSDB servrem"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "Hashuji"
-
-#~ msgid "Hashing files..."
-#~ msgstr "hashuji soubory..."
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "Nalezena chyba v souboru %s"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "Chybná velikost souboru %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "Nemohu nalézt soubor <%s>"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "Potřebujeme pomoc pro udržení SubDownloader-u, můžete nám pomoci více "
-#~ "způsoby:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMBD ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "- Náhráváním mnoha titulků, aby se databáze rychle rozrůstala"
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "- Obracet se na nás, pokud chcete přeložit program do svého jazyka"
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr ""
-#~ "- přispět nám, abychom si občas mohli koupit nějaké kebaby nebo zajít na "
-#~ "čínu :-)"
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- Poslat nám svůj názor"
-
-#~ msgid "Send Feedback"
-#~ msgstr "Zaslat nám zpětnou vazbu"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    - Pokecat si s námi:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "Mockrát Vám děkujeme"
-
-#~ msgid "Log Messages:"
-#~ msgstr "Log:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Uložit změny"
-
-#~ msgid "Title"
-#~ msgstr "Jméno"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "Zrušit změny"
-
-#~ msgid "Login"
-#~ msgstr "Login"
-
-#~ msgid "Servers"
-#~ msgstr "Servery"
-
-#~ msgid "Language"
-#~ msgstr "Jazyk"
-
-#~ msgid "Directories"
-#~ msgstr "Složky"
-
-#~ msgid "Downloading Language"
-#~ msgstr "Stahuji jazyk"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "Stahuji %s jazyk, může to chvilku trvat...."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "Chyba při stahování jazyka ze serveru."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr ""
-#~ "Bohužel, překlad pro %s neexistuje. Prosím kontaktujte %s, pokud chcete "
-#~ "pomoct"
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "Chyba při zápisu INI souboru <%s>"
-
-#~ msgid "Login Again"
-#~ msgstr "Přihlásit se znovu"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "2. krok: CD2 soubory"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "3. krok: Kontrola, zda jsou titulky již v databázi"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "4. krok: Povinné informace"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "5. krok: Nepovinné informace"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "6. krok: Nahrání titulků"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "1. krok: CD1 soubory"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "CD1 film:"
-
-#~ msgid "Browse avi..."
-#~ msgstr "Vybrat film..."
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "Český překlad bosomt@gmail.com, korekce James"

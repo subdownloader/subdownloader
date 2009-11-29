@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2008-11-16 15:31+0000\n"
-"Last-Translator: nanker <Unknown>\n"
+"PO-Revision-Date: 2009-11-23 21:43+0000\n"
+"Last-Translator: slarre <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -285,14 +285,14 @@ msgstr ""
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:61
 msgid "Activate Program"
-msgstr ""
+msgstr "Aktivera Programmet"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:63
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:92
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:92
 #, python-format
 msgid "The program has expired after %d days of usage."
-msgstr ""
+msgstr "Programmet har avaktiverats efter %d dagars användande."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:97
@@ -358,7 +358,7 @@ msgstr "Fel"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:82
 msgid "Some fields are empty."
-msgstr ""
+msgstr "Några fält är tomma."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration.py:92
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:462
@@ -434,7 +434,7 @@ msgstr "Sortera efter:"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:859
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:874
 msgid "Movie Info"
-msgstr "Film Info"
+msgstr "Filminfo"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:686
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:686
@@ -490,6 +490,7 @@ msgstr "Sök med filmnamn"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:697
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
 msgstr ""
+"Välj videofiler och undertexter (endast undertexter kommer laddas upp):"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:698
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:699
@@ -528,7 +529,7 @@ msgstr "Filmtitel:"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:711
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:711
 msgid "Click on the Find button to identify the movie"
-msgstr "Klicka påSök knappen för att identifiera filen"
+msgstr "Klicka på Sök knappen för att identifiera filen"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:712
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:712
@@ -538,7 +539,7 @@ msgstr "Sök"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:719
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:719
 msgid "Release name:"
-msgstr "Release namn:"
+msgstr "Releasenamn:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:720
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:720
@@ -614,7 +615,7 @@ msgstr "Hjälp oss med 5 USD/EUR"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:733
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:733
 msgid "&Configure Subdownloader"
-msgstr ""
+msgstr "&Konfigurera Subdownloader"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:734
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:734
@@ -671,7 +672,7 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:97
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:97
 msgid "License key:"
-msgstr ""
+msgstr "Licensnyckel"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:98
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:298
@@ -689,7 +690,7 @@ msgstr "Avbryt"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:99
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:663
 msgid "Activate"
-msgstr ""
+msgstr "Aktivera"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:33
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:33
@@ -761,12 +762,12 @@ msgstr "Fråga alltid användaren"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:273
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:273
 msgid "Same folder as video file"
-msgstr "Samma katalog som video filen"
+msgstr "Samma katalog som videofilen"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:274
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:274
 msgid "Predefined folder:"
-msgstr "Fördefinerad katalog:"
+msgstr "Fördefinierad katalog"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:275
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:293
@@ -788,7 +789,7 @@ msgstr "Samma namn som videofilen"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:278
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:278
 msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
-msgstr "Samma namn som videofilen + språk koden (ex: StarWarsCD1.swe.srt"
+msgstr "Samma namn som videofilen + språkkoden (ex: StarWarsCD1.swe.srt)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:279
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:279
@@ -798,7 +799,7 @@ msgstr "Samma namn som undertexten online"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:281
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Standard språk på uppladad undertext"
+msgstr "Standardspråk på uppladad undertext"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:283
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:283
@@ -843,7 +844,7 @@ msgstr "Externt program för uppspelning av video"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:292
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:292
 msgid "Video Player:"
-msgstr "Video spelare:"
+msgstr "Videospelare"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:294
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:294
@@ -913,7 +914,7 @@ msgstr "Logga in:"
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:68
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:68
 msgid "Login into OpenSubtitles.org"
-msgstr "Loggar in på OpenSubtitles.org"
+msgstr "Logga in på OpenSubtitles.org"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:69
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:69
@@ -1410,7 +1411,7 @@ msgstr "Välj videofilen(a) som behöver undertext"
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:911
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:911
 msgid "Select the directory that contains your videos"
-msgstr "Välj katalog som innehåkker dina videofiler"
+msgstr "Välj katalog som innehåller dina videofiler"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:937
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:937
@@ -1701,575 +1702,3 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "En ny version av SubDownloader har släppts."
-
-#~ msgid "Search by:"
-#~ msgstr "Sök efter:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "Hämtar information från IMDB servrar, var god vänta..."
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "CD1 undertext fil:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "Bläddra efter undertext..."
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "Yep, där finns en CD2 fil."
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "CD2 AVI Fil:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "CD2 undertext fil:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "Lägg till mer CD skivor"
-
-#~ msgid "Confirm..."
-#~ msgstr "Bekräfta..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "Film IMDB ID:"
-
-#~ msgid "Search ID..."
-#~ msgstr "Sök ID..."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "Fel vid hämtning av titel hos IMDB servrar"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "Alternativ filmtitel (AKA): "
-
-#~ msgid "Movies"
-#~ msgstr "Filmer"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "Serier/Säsonger/Avsnitt"
-
-#~ msgid "Errors found:"
-#~ msgstr "Fel funna:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "Ladda upp fler CD skivor"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "%d extra CD skivor tillagda."
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "Videon %(videopath)s existerar inte."
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "Försök söka genom IMDB ID nummer."
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Hittade interna fel i video CD%(cd_number)s: %(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Storleken är för liten för video CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "Undertexten %s existerar inte"
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "Storleken för undertext %s är större än 300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "Fel: video CD %d = video CD %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "Fel: undertext CD %d = undertext CD %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "Kontrollerar videofiler och undertexter, var god vänta..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "Kontrollerar undertexter på servern, var god vänta..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "Fel vid kontrollering av undertexter på server, möjliga orsaker:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "Anslutningen med servern är bruten"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "Fel vid hämtning av IMDB information för %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "Din undertexts namn har specialtecken du borde ta bort."
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "Undertext funnen..."
-
-#~ msgid "AutoDetected"
-#~ msgstr "Automatiskt funnen"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "Fann .nfo fil, var god vänta..."
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "Fel vid hämtning av IMDB ID från .NFO fil"
-
-#~ msgid "IMDB Search"
-#~ msgstr "IMDB Sökning"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "Fel: IMDB ID fältet krävs"
-
-#~ msgid "Upload Progress"
-#~ msgstr "Uppladdningsstatus"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "Laddar upp, det kan ta ett tag..."
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "Tack. Undertexten laddades upp korrekt."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "Är nummret %s filmens ID?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "Vill du se detljsidan för undertexten som laddades upp?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "Servern returnerade fel"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "Fel vid uppladdning av undertexter till servern, möjliga orsaker:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "Ersätter undertext"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "Ingen undertext funnen."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "Var kan jag ladda ner undertexter?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "Inga undertexter funna. Var god ladda upp."
-
-#~ msgid "log-in"
-#~ msgstr "logga in"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "IMDB ID eller FILMTITEL har flera betydelser"
-
-#~ msgid "Exit"
-#~ msgstr "Avsluta"
-
-#~ msgid "Main"
-#~ msgstr "Huvudfönster"
-
-#~ msgid "Contact us"
-#~ msgstr "Kontakta oss"
-
-#~ msgid "Donate"
-#~ msgstr "Donera"
-
-#~ msgid "Help"
-#~ msgstr "Hjälp"
-
-#~ msgid "Options"
-#~ msgstr "Inställningar"
-
-#~ msgid "Help us"
-#~ msgstr "Hjälp oss"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "Du måste söka efter filmtitel och välja ett IMDB ID"
-
-#~ msgid "Log"
-#~ msgstr "Logg"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr ""
-#~ "Applikationen hittade fel. Vill du rapportera dem så de blir korrigerade?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "Rapporterar fel"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "Fel vid sändning av bug. Tack ändå"
-
-#~ msgid "Please Login"
-#~ msgstr "Var god logga in"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "Vi rekommenderar skarpt att logga in innan uppladdning av filer"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "Ansluter, var god vänta..."
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "Fel vid XMLRPC server anslutning till: %s"
-
-#~ msgid "Connected as %s"
-#~ msgstr "Ansluten som %s"
-
-#~ msgid "Error opening link"
-#~ msgstr "Fel vid länkhämtning"
-
-#~ msgid "Connected anonymously"
-#~ msgstr "Ansluten anonymt"
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "Jag kan inte logga in till servern. Status: %s"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "NY VERSION: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "OKÄND"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "NUVARANDE VERSION:"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "Ändringar i den nya versionen:"
-
-#~ msgid "Update"
-#~ msgstr "Uppdatera"
-
-#~ msgid "New Update"
-#~ msgstr "Ny uppdatering"
-
-#~ msgid "Movie hash of"
-#~ msgstr "Video hashen av"
-
-#~ msgid "Accept"
-#~ msgstr "Acceptera"
-
-#~ msgid " has been updated."
-#~ msgstr " har blivit uppdaterad."
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "Tack så mycket för att du samarbetar :-)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "Rapportera felaktig information"
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "Laddar upp undertext"
-
-#~ msgid "extra CDs added."
-#~ msgstr "extra CD skivor tillagda."
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "Videon %(videopath) existerar inte."
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr "Hittade internt fel i video CD%(cd_number) : %(videopath)"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "Storlek för liten för video CD%(cd_number) : %(videopath)"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "Undertexten %(subpath) existerar inte."
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "Ladda upp fler undertexter"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "Storlek av undertext %(subpath)"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "Fel inträffade vid försök att detektera språk"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "Fann språk"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "Undertext nerladdningsmapp:"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "Mapp för videofiler"
-
-#~ msgid "Please choose directory"
-#~ msgstr "Var god väl mapp"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "Om du inte har ett användarkonto, var god"
-
-#~ msgid "Register for free"
-#~ msgstr "Registrera gratis"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "FILMTITEL eller IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "Fil"
-
-#~ msgid "Languages:"
-#~ msgstr "Språk:"
-
-#~ msgid "Choose interface language here ..."
-#~ msgstr "Välj interface språk här..."
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "Sök undertexter på ALLA språk"
-
-#~ msgid "Autodetect Language in Upload"
-#~ msgstr "Detektera språk vid uppladdning"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "Standard uppladdningsspråk:"
-
-#~ msgid "Servers configuration:"
-#~ msgstr "Servers konfiguration:"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "Proxy parametrar:"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "OSDB protokoll:"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "Filen till AVI CD%d krävs"
-
-#~ msgid "Host address: "
-#~ msgstr "Host adress: "
-
-#~ msgid "Get server info"
-#~ msgstr "Hämta server information"
-
-#~ msgid "Server:"
-#~ msgstr "Server:"
-
-#~ msgid "User:"
-#~ msgstr "Användare:"
-
-#~ msgid "%s is not a valid http:// address"
-#~ msgstr "%s är inte en giltig http:// adress"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "OSDB Server informaiton"
-
-#~ msgid "The OSDB server address is unreacheable"
-#~ msgstr "OSDB server adressen är inte nåbar"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "Filen till Sub CD%d krävs"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "AVI Fil CD%d"
-
-#~ msgid "Clear content"
-#~ msgstr "Rensa innehåll"
-
-#~ msgid "Add videofile"
-#~ msgstr "Lägg till videofil"
-
-#~ msgid "Add directory"
-#~ msgstr "Lägg till mapp"
-
-#~ msgid "Clear List"
-#~ msgstr "Rensa lista"
-
-#~ msgid "SEARCH"
-#~ msgstr "SÖK"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "Markera / Avmarkera ALLA"
-
-#~ msgid "Add film's directory"
-#~ msgstr "Lägg till filmens mapp"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "Lägg till filmer från mapp (rekursivt)"
-
-#~ msgid "Add video file"
-#~ msgstr "Lägg till videofil"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "Ladda ner undertexter"
-
-#~ msgid "Download subtitle"
-#~ msgstr "Ladda ner undertext"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "Visa detaljer och betygsätt undertext"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "Denna undertext är inte till denna AVI fil"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "IMDB nummret är inte till denna AVI fil"
-
-#~ msgid "IMDB details"
-#~ msgstr "IMDB detaljer"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "Undertext språket är inte korrekt"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "Rapportera felaktig information till oss"
-
-#~ msgid "Play videofile"
-#~ msgstr "Spela upp videofil"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "Sök efter andra undertexter till denna filmen"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "Ladda ner detta program: %s för att se filmer + undertexter"
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr ""
-#~ "(Det betyder att undertexterna är till dennna filmen, men är inte bra "
-#~ "synkroniserade)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "Är du säker på att dessa undertexter inte är bra till din videofil?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "Rapporten har noterats. Tack så mycket!"
-
-#~ msgid "Choose directory..."
-#~ msgstr "Välj mapp..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "Laddar ner, det kan ta ett tag..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "Laddar ner undertext %s av %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "%d undertext(er) laddades ner"
-
-#~ msgid "Some errors found:"
-#~ msgstr "Fel inträffade:"
-
-#~ msgid "Search Progress"
-#~ msgstr "Sökstatus"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "Söker genom att använda OSDB protokollet"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "Söker, det kan ta ett tag..."
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "Fel vid anslutning till OSDB servern"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "Beräknar hash"
-
-#~ msgid "Hashing files..."
-#~ msgstr "Hashar filer..."
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "Fann fel i filen %s"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "Storleksfel i filen %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "Filen <%s> kan inte hittas"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "Vi behöver din hjälp att underhålla Subdownloader, du kan hjälpa oss på "
-#~ "många sätt:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMDB ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr ""
-#~ "- Uppladdning av många undertexter för att göra data basen stor snabbt"
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "- Kontakta oss för att översätta programmet till ditt språk"
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr "- Donera till oss så vi kan köpa kebab eller kinamat ibland :-)"
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- Ge oss feedback"
-
-#~ msgid "Send Feedback"
-#~ msgstr "Skicka feedback"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    - Chatta med oss:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "Tack så mycket"
-
-#~ msgid "Log Messages:"
-#~ msgstr "Logg meddelanden:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Genomför ändringar"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "Ångra ändringar"
-
-#~ msgid "Login"
-#~ msgstr "Logga in"
-
-#~ msgid "Servers"
-#~ msgstr "Servrar"
-
-#~ msgid "Language"
-#~ msgstr "Språk"
-
-#~ msgid "Directories"
-#~ msgstr "Mappar"
-
-#~ msgid "Downloading Language"
-#~ msgstr "Laddar ner språk"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "Laddar ner språket %s, det kan ta ett tag..."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "Fel vid hämtning av det nya språket från servern."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr ""
-#~ "Ingen översättning finns för %s. Var god kontakta %s för att hjälpa oss."
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "Fel vid försök att spara inställningar till '%s'"
-
-#~ msgid "Login Again"
-#~ msgstr "Logga in igen"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "Steg 2: CD2 filer"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "3:e steget: Kontrollera om undertexterna redan finns i databasen"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "Steg 4: Nödvändig information"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "Steg 5: Valfri information"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "Steg 6: Laddar upp undertexten"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "Första steget: CD1 filer"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "CD1 AVI fil:"
-
-#~ msgid "Browse avi..."
-#~ msgstr "Bläddra efter avi..."
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "Svenska av André"

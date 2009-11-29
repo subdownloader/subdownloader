@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2009-02-01 16:19+0000\n"
+"PO-Revision-Date: 2009-04-01 20:21+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -1103,7 +1103,7 @@ msgstr "(%d כתוביות)"
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:41
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
 msgid "Please fill out the search title"
-msgstr "אנא מלא את חיפוש הכותרת"
+msgstr "אנא מלא את כותרת החיפוש"
 
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:77
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:83
@@ -1195,7 +1195,7 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
 msgid "Quid Pro Quo:"
-msgstr ""
+msgstr "טובה תחת טובה:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
@@ -1304,7 +1304,7 @@ msgstr "הזדהות: שגיאה!"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:590
 #, python-format
 msgid "SubDownloader %s - %s"
-msgstr ""
+msgstr "SubDownloader %s - %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:644
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:644
@@ -1389,7 +1389,7 @@ msgstr "שואל את השרת..."
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
-msgstr ""
+msgstr "בחיפוש אחר כתוביות ( %d / %d )"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:843
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:843
@@ -1401,7 +1401,7 @@ msgstr "החיפוש הסתיים"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:865
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:880
 msgid "Sub Info"
-msgstr ""
+msgstr "מידע אודות הכתובית"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:888
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:888
@@ -1421,7 +1421,7 @@ msgstr "בחר את הספריה אשר מכילה את הסרטים"
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:937
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:937
 msgid "No default video player has been defined in Settings."
-msgstr ""
+msgstr "לא הוגדרה תוכנת ברירת מחדל לצפיה בווידאו במסך ההגדרות."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:946
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1035
@@ -1478,7 +1478,7 @@ msgstr "לא נבחרו כתוביות להורדה"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1114
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
-msgstr ""
+msgstr "מוריד כתובית %s (%d/%d)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1051
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1130
@@ -1521,6 +1521,11 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
+"מקומי: %s\n"
+"\n"
+"מרוחק: %s\n"
+"\n"
+"כיצד ברצונך להמשיך?"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1083
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1083
@@ -1551,7 +1556,7 @@ msgstr "מתחבר"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1185
 #, python-format
 msgid "Connecting to server using proxy %s"
-msgstr ""
+msgstr "מתחבר לשרת בעזרת המתווך %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1191
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1191
@@ -1702,540 +1707,12 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
+"הכתוביות עלולות לא להיות מסונכרנות עם הסרטים שלך. אנא בדוק זאת ידנית.\n"
+"\n"
+"אם אין בעית סנכרון, אנא שקול העלאת הכתובית מחדש באמצעות תוכנה זו. פעולה זו "
+"תקל על משתמשים אחרים בתהליך החיפוש!"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1679
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "שוחררה גרסה חדשה של SubDownloader"
-
-#~ msgid "Search by:"
-#~ msgstr "חיפוש ע\"י"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "מקבל מידע משרת IMDB אנא המתן"
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "כתובית לחלק ראשון"
-
-#~ msgid "Browse sub..."
-#~ msgstr "עיון כתובית"
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "כן. יש חלק שני"
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "קובץ וידאו חלק שני:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "קובץ כתוביות חלק שני:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "הוסף עוד דיסקים"
-
-#~ msgid "Confirm..."
-#~ msgstr "אימות..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "מספר סרט ב IMDB :"
-
-#~ msgid "Search ID..."
-#~ msgstr "חיפוש מספר סרט..."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "בקשת כותר מ IMDB שגויה"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "שם חלופי עבור הפצה זו: "
-
-#~ msgid "Movies"
-#~ msgstr "סרטים"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "עונות/פרקים/סדרה"
-
-#~ msgid "Errors found:"
-#~ msgstr "נמצאה שגיאה:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "העלה עוד דיסקים"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "הוספת דיסקים נוספים"
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "נתיב הקובץ אינו נמצא"
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "נסה לחפש באמצעות קוד זיהוי של IMDB"
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "נמצאה שגיאה פנימית בקובץ הוידאו"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "גודל הקובץ קטן מידי"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "כתובית לא נמצאה"
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "גודל הכתובית חורג מ 300 ק\"ב"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "שגיאה: קובץ וידאו"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "שגיאה: קובץ כתובית"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "בודק כעת קבצי וידאו וכתוביות... אנא המתן"
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "בודק כתוביות בשרת, אנא המתן"
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "שגיאת כתוביות בשרת, יתכן שנגרם כתוצאה מ:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "התקשורת מול השרת הופסקה"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "שגיאה התקבלה מ IMDB"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "קובץ הכתוביות מכיל אותיות וסימנים לא חוקיים"
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "נמצא כתובית"
-
-#~ msgid "AutoDetected"
-#~ msgstr "בדיקה אוטומאטית"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "בודק מידע... אנא המתן"
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "שגיאת קוד סרט IMDB מול קובץ המידע"
-
-#~ msgid "IMDB Search"
-#~ msgstr "חיפוש ב IMDB"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "שגיאה: שדה מספר IMDB הינו חובה"
-
-#~ msgid "Upload Progress"
-#~ msgstr "שלב העלאה"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "מעלה... יתכן ותאלץ להמתין מספר שניות"
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "תודה לך. כתובית הועלתה בהצלחה"
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "מספר הזיהוי ב IMDB"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "האם תרצה לבדוק את הפרטים אודות הכתובית שהעלת?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "השרת החזיר הודעת שגיאה"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "שגיאת העלאת כתובית יכולה לנבוע כתוצאה מ:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "החלפת כתובית"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "לא נמצא כתובית."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "היכן אני יכול להוריד כתוביות?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "לא נמצא כתוביות. אנא העלה כתובית זו"
-
-#~ msgid "log-in"
-#~ msgstr "התחברוץ"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "כותרת או מספר זיהוי לא תואם"
-
-#~ msgid "Exit"
-#~ msgstr "יציאה"
-
-#~ msgid "Main"
-#~ msgstr "ראשי"
-
-#~ msgid "Contact us"
-#~ msgstr "צור איתנו קשר"
-
-#~ msgid "Donate"
-#~ msgstr "תרום"
-
-#~ msgid "Help"
-#~ msgstr "עזרה"
-
-#~ msgid "Options"
-#~ msgstr "אפשרויות"
-
-#~ msgid "Help us"
-#~ msgstr "עזור לנו"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "עליך לחפש את כותרת הסרט ולבחור מספר זיהוי ב IMDB"
-
-#~ msgid "Log"
-#~ msgstr "תיעוד"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr "המערכת מצאה מספר שגיאות. האם תרצה לדווח עליהם?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "דיווח שגיאות"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "שליחת השגיאה למערכת. תודה על שיתוף הפעולה"
-
-#~ msgid "Please Login"
-#~ msgstr "אנא התחבר"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "אנו ממליצים להתחבר בטרם העלאת קבצים"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "מתחבר... אנא המתן"
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "שגיאת XMLRPC מול השרת"
-
-#~ msgid "Connected as %s"
-#~ msgstr "התחבר כ..."
-
-#~ msgid "Error opening link"
-#~ msgstr "שגיאה בפתיחת הקישור"
-
-#~ msgid "Connected anonymously"
-#~ msgstr "התחבר בעילום שם"
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "אני לא מצליח להתחבר לשרת"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "גרסה חדשה: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "לא ידוע"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "גרסה נוכחית"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "שנה לגרסה חדשה"
-
-#~ msgid "Update"
-#~ msgstr "עדכון"
-
-#~ msgid "New Update"
-#~ msgstr "עדכון חדש"
-
-#~ msgid "Movie hash of"
-#~ msgstr "video hash"
-
-#~ msgid "Accept"
-#~ msgstr "אישור"
-
-#~ msgid " has been updated."
-#~ msgstr " עודכן"
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "תודה רבה על שיתוף הפעולה"
-
-#~ msgid "Report wrong info"
-#~ msgstr "דווח על מידע שגוי"
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "העלאת כתוביות"
-
-#~ msgid "extra CDs added."
-#~ msgstr "דיסקים נוספים"
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "קובץ הוידאו לא קיים"
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr "נמצא שגיאה פנימית בקובץ הוידאו"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "גודל קובץ של וידאו קטן מידי"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "הכתובית לא נמצאה"
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "העלה עוד כתוביות"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "גודל כתובית"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "התרחשה שגיאה בעת בדיקת השפה"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "בדיקה אוטומאטית של השפה"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "ספריית הורדת כתוביות"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "ספריית קבצי הוידאו"
-
-#~ msgid "Please choose directory"
-#~ msgstr "אנא בחר ספרייה"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "במידה ואין לך חשבון"
-
-#~ msgid "Register for free"
-#~ msgstr "הרשם בחינם"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "כותרת סרט או קוד זיהוי ב IMDB "
-
-#~ msgid "File"
-#~ msgstr "קובץ"
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "חפש כתוביות בכל השפות"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "פרוטוקול OSDB:"
-
-#~ msgid "Server:"
-#~ msgstr "שרת:"
-
-#~ msgid "User:"
-#~ msgstr "משתמש:"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "מידע אודות שרת OSDB"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "קובץ הכתוביות נדרש"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "קובץ הסרט"
-
-#~ msgid "Clear content"
-#~ msgstr "נקה תוכן"
-
-#~ msgid "Add videofile"
-#~ msgstr "הוסף קובץ וידאו"
-
-#~ msgid "Add directory"
-#~ msgstr "הוסף ספרייה"
-
-#~ msgid "Clear List"
-#~ msgstr "נקה רשימה"
-
-#~ msgid "SEARCH"
-#~ msgstr "חיפוש"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "בחר/בטל הכל"
-
-#~ msgid "Add film's directory"
-#~ msgstr "הוסף ספריית סרטים"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "הוסף סרטים מתקייה"
-
-#~ msgid "Add video file"
-#~ msgstr "הוסף קובץ סרט"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "הורדת כתוביות"
-
-#~ msgid "Download subtitle"
-#~ msgstr "הורדת כתובית"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "צפה בפרטים ודרג את הכתובית"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "כתובית זו אינה עבור קובץ סרט זה"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "הסרט מ IMDB  אינו תואם את קובץ הסרט"
-
-#~ msgid "IMDB details"
-#~ msgstr "פרטים מ IMDB"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "שפת הכתובית אינה נכונה"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "דווח לנו על מידע שגוי"
-
-#~ msgid "Play videofile"
-#~ msgstr "צםה בקובץ"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "חפש כתוביות אחרות עבור סרט זה"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "הורד תוכנה זו עבור צפיה בקובץ"
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr "כתוביות עבור הסרט אך לא בהכרח תואמות - יתכנו בעיות סינכרון"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "האם אתה בטוח שכתוביות אלה לא טובות לקובץ הוידאו שלך?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "רישום ההערה נשלח למערכת. תודה לך"
-
-#~ msgid "Choose directory..."
-#~ msgstr "בחר ספרייה"
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "מוריד... יתכן ויקח מעט זמן"
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "הורדת כתוביות  %s של %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "הורדת הכתוביות הושלמה"
-
-#~ msgid "Some errors found:"
-#~ msgstr "נמצאו מספר שגיאות:"
-
-#~ msgid "Search Progress"
-#~ msgstr "חיפוש תוכנות"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "חיפוש בעזרת פרוטוקול OSDB"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "מחפש כעת... אנא התאזר בסבלנות"
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "התרחשה שגיאה בעת חיבור לשרת ה OSDB"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "מחשב הצפנה"
-
-#~ msgid "Hashing files..."
-#~ msgstr "הצפנת הקבצים"
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "נמצאה שגיאה בקובץ"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "ישנה בעיה גודל של קובץ"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "הקובץ <S%> לא נמצא"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "גולש יקר, אנו זקוקים לעזרתך להמשך אחזקת האתר.אתה יכול לסייע לנו בכמה דרכים:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "מספר זיהוי ב IMDB"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "-העלאת כתוביות להגדלת מאגר המידע עבור כולם."
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "-ליצור עימנו קשר לשם תרגום שפת ממשק נוספת שאינה מופיעה כאן"
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr ""
-#~ "- תרומה כספית לשם כיסוי הוצאות אחזקת האתר שאינו למטרות רווח. אנא הרימו תרומה "
-#~ "בעין יפה. כל סכום יתקבל בברכה."
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- לשלוח לנו משוב בנוגע לאתר לשם שיפור השירות"
-
-#~ msgid "Send Feedback"
-#~ msgstr "שליחת משוב"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    -צור עימנו קשר:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   2bthebest4u@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "תודה רבה"
-
-#~ msgid "Log Messages:"
-#~ msgstr "רשומת הודעות"
-
-#~ msgid "Apply Changes"
-#~ msgstr "החל שינויים"
-
-#~ msgid "Title"
-#~ msgstr "כותרת"
-
-#~ msgid "Login"
-#~ msgstr "התחברות"
-
-#~ msgid "Servers"
-#~ msgstr "שרתים"
-
-#~ msgid "Language"
-#~ msgstr "שפה"
-
-#~ msgid "Directories"
-#~ msgstr "ספרייה"
-
-#~ msgid "Downloading Language"
-#~ msgstr "הורדת שפה"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "מוריד את השפה, אנא התאזר בסבלנות"
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "שגיאת שפה חדשה התקבלה מהשרת"
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr "לא נמצא תרגום זמין. אנא צור עמנו קשר"
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "התרחשה שגיאה בעת נסיון שמירת מאפיינים"
-
-#~ msgid "Login Again"
-#~ msgstr "התחבר שוב"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "שלב שני: קובץ שני"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "שלב שלישי: בדוק האם הכתובית מופיעה במאגר"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "שלב רביעי: מידע נדרש"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "שלב חמישי: מידע אופציונלי"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "שלב שישי: העלאת הכתובית"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "שלב ראשון: קובץ סידי ראשון"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "קובץ וידאו ראשון"
-
-#~ msgid "Browse avi..."
-#~ msgstr "עיון קובץ וידאו"
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "עברית ע\"י 2bthebest4u@gmail.com"

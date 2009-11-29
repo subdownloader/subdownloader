@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2009-01-17 00:39+0000\n"
-"Last-Translator: nikescar <Unknown>\n"
+"PO-Revision-Date: 2009-09-30 00:29+0000\n"
+"Last-Translator: sungyup nham <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -710,23 +710,23 @@ msgstr "비디오/자막목록이 비었습니다."
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
-msgstr ""
+msgstr "자막 %s 이 반복되었습니다"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:93
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
-msgstr ""
+msgstr "비디오파일 %s 이 반복되었습니다"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:99
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:99
 msgid "Some of the upload rows are empty"
-msgstr ""
+msgstr "몇몇 업로드 행들이 비었습니다."
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:104
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:104
 msgid "Some of the video/subtitles fields are empty"
-msgstr ""
+msgstr "몇몇 비디오/자막필드가 비었습니다."
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:208
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:208
@@ -828,12 +828,12 @@ msgstr "사용자 언어"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:289
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:289
 msgid "Context Menu:"
-msgstr ""
+msgstr "컨텍스트 메뉴"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:290
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:290
 msgid "Enable in your explorer"
-msgstr ""
+msgstr "탐색창에서 사용가능케 합니다"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:291
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:291
@@ -938,7 +938,7 @@ msgstr "연결"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:35
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:35
 msgid "<AutoDetect>"
-msgstr ""
+msgstr "<자동감지>"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:38
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:40
@@ -951,7 +951,7 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:699
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:700
 msgid "LanguageName"
-msgstr ""
+msgstr "언어이름"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:66
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1219
@@ -995,7 +995,7 @@ msgstr "파일매니져에서 사용가능하게.."
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:156
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
 msgid "Predefined Folder cannot be empty"
-msgstr ""
+msgstr "미리 지정된 폴더는 비울수 없습니다."
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:213
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:213
@@ -1047,7 +1047,7 @@ msgstr "로그인 할수 없음: %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:157
 #, python-format
 msgid "[Rate: %s]"
-msgstr ""
+msgstr "[등급: %s]"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:160
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:160
@@ -1683,565 +1683,3 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "새 버전의 subdownloader이 릴리스되었습니다."
-
-#~ msgid "Search by:"
-#~ msgstr "수색:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "정보에서 만회  IMDB  서버는, 기다린다…"
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "CD1 부제 파일:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "찾아보십시오 잠수함을…"
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "그렇습니다, CD2 파일이 있다."
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "CD2 AVI 파일:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "CD2 부제 파일:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "CD를 더 추가하십시오Cds"
-
-#~ msgid "Confirm..."
-#~ msgstr "확인하십시오…"
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "영화 IMDB id"
-
-#~ msgid "Search ID..."
-#~ msgstr "수색 ID…"
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "제목을 안으로 요구하는 과실 IMDB 서버"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "양자택일 영화 제목 (AKA): "
-
-#~ msgid "Movies"
-#~ msgstr "영화"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "연재물 / 계절 / 에피소드"
-
-#~ msgid "Errors found:"
-#~ msgstr "찾아내는 과실:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "업로드를 더 cd"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "%d 여분의 cd들.."
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "영상 %(videopath)s 존재하지 않는다"
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "곁에 찾는 시험IMDB ID 수."
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "영상에 있는 내부 오류를 찾아냈다o CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "영상의 크기 너무 적게CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "부제 %s  존재하지 않는다."
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "부제의 크기  %s  큰 보다  300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "오류 : 동영상 cd %d = 동영상 cd %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "오류: 서브 cd %d = 서브 cd %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "검사 videofiles 및 금속, 기다려주십시오 ..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "검사를 자막은 서버, 기다려주십시오 ..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "서버에 있는 에러 검사 부제, 가능한 원인:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "서버와의 연결은 꺼져있다"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "얻는 과실  IMDB  정보의  %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "당신의 부제 이름에는 당신이 제거해야 하는 몇몇 특성이 있다."
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "찾아내는 부제…"
-
-#~ msgid "AutoDetected"
-#~ msgstr "자동 검출하"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "검출한 .nfo 파일은, 기다린다…"
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "imdb id에서 오류를 검색합니다. nfo 파일"
-
-#~ msgid "IMDB Search"
-#~ msgstr "IMDB 수색"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "과실: IMDB ID 분야는 요구된다."
-
-#~ msgid "Upload Progress"
-#~ msgstr "올려주기 진도"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr ", 그것은 올려주기 시간이 좀 걸릴 수 있다…"
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "당신을 감사하십시오. 성공적으로 올려주기되는 부제."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "수 %s는 영화의 ID인가?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "당신은 올려주기된 부제의 상세한 페이지를 검사하고 싶은가 하고자 했는가?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "서버는 몇몇 과실을 돌려보냈다"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "서버에 있는 과실 올려주기 부제, 가능한 원인:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "부제 대체"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "찾아내는 부제 없음."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "나는 어디에서 부제를 다운로드해서 좋은가?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "찾아내는 부제 없음. 그것을 올려주기하십시오."
-
-#~ msgid "log-in"
-#~ msgstr "로그인"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "IMDB ID 또는 영화 제목 모호성 해소"
-
-#~ msgid "Exit"
-#~ msgstr "출구"
-
-#~ msgid "Main"
-#~ msgstr "주요"
-
-#~ msgid "Contact us"
-#~ msgstr "저희에게 연락하십시오"
-
-#~ msgid "Donate"
-#~ msgstr "기증하십시오"
-
-#~ msgid "Help"
-#~ msgstr "도움"
-
-#~ msgid "Options"
-#~ msgstr "선택권"
-
-#~ msgid "Help us"
-#~ msgstr "도움"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "이 영화 제목을 검색해야합니다 및 선택하는 imdb id"
-
-#~ msgid "Log"
-#~ msgstr "통나무"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr "신청은 몇몇 과실을 찾아냈다. 당신은 정정될 그(것)들을 보고하고 싶은가 하고자 했는가?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "보고 과실"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "벌레를 보내는 과실. 당신을 어쨌든 감사하십시오"
-
-#~ msgid "Please Login"
-#~ msgstr "로그인하십시오"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "우리는 로그인에게 파일을 올려주기하기 전에 강하게 추천한다"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "연결은, 기다린다…"
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "오류가 xmlrpc 서버 연결을 만들기 : %s"
-
-#~ msgid "Connected as %s"
-#~ msgstr "연결하는 것과 같이%s"
-
-#~ msgid "Error opening link"
-#~ msgstr "과실 오프닝 연결"
-
-#~ msgid "Connected anonymously"
-#~ msgstr "익명으로 연결하는"
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "나는 서버에 로그인할 수 없다. 상태"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "새로운 자료: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "불명한"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "최신판:"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "새로운 자료에 있는 변화:"
-
-#~ msgid "Update"
-#~ msgstr "갱신"
-
-#~ msgid "New Update"
-#~ msgstr "새로운 갱신"
-
-#~ msgid "Movie hash of"
-#~ msgstr "영상 음식의"
-
-#~ msgid "Accept"
-#~ msgstr "받아들이십시오"
-
-#~ msgid " has been updated."
-#~ msgstr " 새롭게 했다."
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "당신의 협력을 대단히 감사합니다: -)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "틀린 정보를 보고하십시오"
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "올려주기 부제"
-
-#~ msgid "extra CDs added."
-#~ msgstr "추가되는 여분 CD."
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "영상  %(videopath)  존재하지 않는다."
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr "영상에 있는 내부 오류를 찾아냈다 CD%(cd_number) : %(videopath)"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "영상의 크기 너무 적게 CD%(cd_number) : %(videopath)"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "부제  %(subpath)  존재하지 않는다."
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "부제를 더 올려주기하십시오"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "부제의 크기 %(subpath)"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "과실은 언어를 자동 검출하 동안 발생했다"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "autodecteded 언어"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "부제 다운로드 전화번호부:"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "videofiles 디렉토리"
-
-#~ msgid "Please choose directory"
-#~ msgstr "전화번호부를 선택하십시오"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "당신은 사용자 계정이 없는 경우에,"
-
-#~ msgid "Register for free"
-#~ msgstr "자유로운을 위한 기록기"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "영화 제목 또는 IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "파일"
-
-#~ msgid "Languages:"
-#~ msgstr "언어:"
-
-#~ msgid "Choose interface language here ..."
-#~ msgstr "여기에서 선택하십시오 공용영역 언어를…"
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "모든 언어에 있는 수색 부제"
-
-#~ msgid "Autodetect Language in Upload"
-#~ msgstr "올려주기에 있는 언어를 자동 검출하"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "과태 올려주기 언어:"
-
-#~ msgid "Servers configuration:"
-#~ msgstr "서버 윤곽:"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "대리 매개변수:"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "OSDB 의정서:"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "이 파일에 대한 형식을 cd % 개발이 필요"
-
-#~ msgid "Host address: "
-#~ msgstr "호스트 주소: "
-
-#~ msgid "Get server info"
-#~ msgstr "서버 정보를 얻으십시오"
-
-#~ msgid "Server:"
-#~ msgstr "서버:"
-
-#~ msgid "User:"
-#~ msgstr "사용자:"
-
-#~ msgid "%s is not a valid http:// address"
-#~ msgstr "%s i 유효한 것 이지 않는다  http://  주소"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "OSDB 서버 정보"
-
-#~ msgid "The OSDB server address is unreacheable"
-#~ msgstr "가 OSDB 서버 주소가 unreacheable"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "이하 CD%d를 위한 파일은 요구된다"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "형식 파일을 cd % 개발"
-
-#~ msgid "Clear content"
-#~ msgstr "명확한 내용"
-
-#~ msgid "Add videofile"
-#~ msgstr "추 videofile"
-
-#~ msgid "Add directory"
-#~ msgstr "추 디렉토리"
-
-#~ msgid "Clear List"
-#~ msgstr "명확한 명부"
-
-#~ msgid "SEARCH"
-#~ msgstr "수색"
-
-#~ msgid "Add film's directory"
-#~ msgstr "추 필름의 디렉토리"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "추에서 동영상 폴더 (순환)"
-
-#~ msgid "Add video file"
-#~ msgstr "비디오 파일을 추"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "자막 다운로드"
-
-#~ msgid "Download subtitle"
-#~ msgstr "다운로드 부제"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "전망 세부사항과 비율 부제"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "이것이 형식에 대한 부제가 아닙니다"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "이러한 형식의 영화 imdb가 아닙니다"
-
-#~ msgid "IMDB details"
-#~ msgstr "IMDB 세부사항"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "부제 언어는 정확하지 않다"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "저희에게 틀린 정보를 보고하십시오"
-
-#~ msgid "Play videofile"
-#~ msgstr "플레이 videofile"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "이 영화를 다른 잠수함을 찾으십시오"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "이 프로그램을 다운로드하십시오 : %의 영화 + 자막을 감시합니다."
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr "부제가 이 영화를 위해 이고, 그러나 잘 동기화되지 않는다는 것을 (의미한다)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "당신은 확실한가 이 부제 당신의 영상 파일을 위해 좋지 않은가?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "보고는 주의되었다. 대단히 감사합니다."
-
-#~ msgid "Choose directory..."
-#~ msgstr "디렉토리를 선택 ..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "다운로드, 그것은 다소 걸릴 수있습니다 ..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "부제 %의 다운로드 중 %의"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "% 및 부제 (들)들이 다운로드한"
-
-#~ msgid "Some errors found:"
-#~ msgstr "찾아내는 몇몇 과실:"
-
-#~ msgid "Search Progress"
-#~ msgstr "수색 진도"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "검색을 사용하여 osdb 프로토콜"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "검색, 그것은 다소 걸릴 수있습니다 ..."
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "오류를 연결에 osdb 서버"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "계산 음식"
-
-#~ msgid "Hashing files..."
-#~ msgstr "추리기는 신청한다…"
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "파일 %s에 있는 찾아낸 과실"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "파일에 있는 크기 과실 %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "파일<%s> 찾아낼 수 없다"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr "우리는 여러분의 도움이 필요 유지하려면 최대 subdownloader, 도움을 다양하게 할 수있습니다 :"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMDB ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "- 데이타베이스를 빨리 자라기 위하여 많은 부제 올려주기"
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "- 당신의 언어에 있는 프로그램을 번역하기 위하여 저희에게 연락하십시오"
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr "- 미국을 기증하십시오 그렇게 함으로 우리는 약간 kebap 또는 중국 음식을 때때로 살 수 있었다: -)"
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- 저희에게 약간 의견을 보내십시오"
-
-#~ msgid "Send Feedback"
-#~ msgstr "의견을 보내십시오"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    - 저희와 가진 잡담:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "대단히 감사합니다"
-
-#~ msgid "Log Messages:"
-#~ msgstr "로그 메시지:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "변화를 적용하십시오"
-
-#~ msgid "Title"
-#~ msgstr "제목"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "변화를 취소하십시오"
-
-#~ msgid "Login"
-#~ msgstr "로그인"
-
-#~ msgid "Servers"
-#~ msgstr "서버"
-
-#~ msgid "Language"
-#~ msgstr "언어"
-
-#~ msgid "Directories"
-#~ msgstr "전화번호부"
-
-#~ msgid "Downloading Language"
-#~ msgstr "다운로드 중 언어"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "다운로드 중 %의 언어, 그것은 다소 걸릴 수있습니다 ..."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "서버에서 새로운 언어를 만회하는 과실."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr "유효한 번역 없음 안으로  %s.  접촉하십시오  %s  저희를 돕기 위하여."
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "특혜를 안으로 저장하는 것을 시도하는 과실 '%s'"
-
-#~ msgid "Login Again"
-#~ msgstr "다시 로그인"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "2 차 단계 : cd2 파일"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "세 번째 단계 : 보자 경우 부제 (s)가 이미 데이터베이스에"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "네 번째 단계 : 필요한 정보"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "5 일 단계 : 옵션 정보"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "여섯 번째 단계 : 업로드 부제"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "1 차 단계 : cd1 파일"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "CD1 AVI 파일 ::"
-
-#~ msgid "Browse avi..."
-#~ msgstr "찾아보기 avi..."
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "곁에 영어  capiscuas@gmail.com  그리고 2ge@2ge.us"

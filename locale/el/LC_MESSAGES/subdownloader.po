@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2008-11-30 12:16+0000\n"
-"Last-Translator: Chris Sintoris <Unknown>\n"
+"PO-Revision-Date: 2009-11-25 15:15+0000\n"
+"Last-Translator: christosp <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -31,7 +31,7 @@ msgstr "Ανάλυση του υπότιτλου %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:120
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/FileManagement/FileScan.py:151
 msgid "Finished hashing"
-msgstr ""
+msgstr "Ολοκληρώθηκε το hashing"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:28
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:28
@@ -106,7 +106,7 @@ msgstr "Ολλανδικά"
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:42
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:42
 msgid "English"
-msgstr "Αγγλικά."
+msgstr "Αγγλικά"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:43
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:43
@@ -592,7 +592,7 @@ msgstr "Έξοδος"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:729
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:729
 msgid "Visit HomePage"
-msgstr ""
+msgstr "Αρχική Σελίδα Εφαρμογής"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:730
 #: /home/capiscuas/workspace/subdownloader/gui/about_ui.py:143
@@ -604,76 +604,76 @@ msgstr "Σχετικά"
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:731
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:731
 msgid "Report A Problem"
-msgstr ""
+msgstr "Αναφορά Προβλήματος"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:732
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:256
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:732
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:256
 msgid "Help Us With 5 USD/EUR"
-msgstr ""
+msgstr "Δωρεά 5 USD/EUR"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:733
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:733
 msgid "&Configure Subdownloader"
-msgstr ""
+msgstr "&Διαμόρφωση του Subdownloader"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:734
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:734
 msgid "LogIn"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:735
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:735
 msgid "Log Messages"
-msgstr ""
+msgstr "Προβολή Συμβάντων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:736
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:736
 msgid "Show/Hide Tree Folder"
-msgstr ""
+msgstr "Εμφάνιση/Απόκρυψη Δομής Φακέλων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:737
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:737
 msgid "LogOut"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main_ui.py:738
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:288
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main_ui.py:738
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:288
 msgid "Translate This Application..."
-msgstr ""
+msgstr "Μεταφράστε αυτή την εφαρμογή..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:91
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:91
 msgid "Program has expired"
-msgstr ""
+msgstr "Η δοκιμαστική περίοδος έληξε"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:93
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:93
 msgid "Register Online..."
-msgstr ""
+msgstr "Εγγραφείτε..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:94
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:94
 msgid "After registering, you will receive a license key via email."
-msgstr ""
+msgstr "Μετά την εγγραφή σας, θα λάβετε ένα κλειδί άδειας μέσω email."
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:95
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:95
 msgid "Email:"
-msgstr ""
+msgstr "Email:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:96
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:96
 msgid "Full Name:"
-msgstr ""
+msgstr "Πλήρες Όνομα:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:97
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/expiration_ui.py:97
 msgid "License key:"
-msgstr ""
+msgstr "Κλειδί άδειας χρήσης:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/expiration_ui.py:98
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:298
@@ -718,7 +718,7 @@ msgstr "Ο υπότιτλος %s επαναλαμβάνεται"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
-msgstr ""
+msgstr "Το αρχείο βίντεο %s επαναλαμβάνεται"
 
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:99
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:99
@@ -738,79 +738,81 @@ msgstr "Πατήστε εδώ για να επιλέξετε βίντεο..."
 #: /home/capiscuas/workspace/subdownloader/gui/uploadlistview.py:213
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr ""
+msgstr "Κάντε κλικ εδώ για να επιλέξετε υπότιτλο..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:268
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:268
 msgid "Settings"
-msgstr ""
+msgstr "Ρυθμίσεις"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:269
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:269
 msgid "Filter search results by these languages:"
-msgstr ""
+msgstr "Περιορίστε την αναζήτηση στις παρακάτω γλώσσες:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:271
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:271
 msgid "Destination folder:"
-msgstr ""
+msgstr "Φάκελος προορισμού:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:272
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:272
 msgid "Always ask user"
-msgstr ""
+msgstr "Πάντα να ερωτάται ο χρήστης"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:273
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:273
 msgid "Same folder as video file"
-msgstr ""
+msgstr "Ίδιος με αυτόν του βίντεο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:274
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:274
 msgid "Predefined folder:"
-msgstr ""
+msgstr "Προεπιλεγμένος φάκελος:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:275
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:293
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:275
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:293
 msgid "Browse..."
-msgstr ""
+msgstr "Περιήγηση..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:276
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:276
 msgid "Filename of the Subtitle:"
-msgstr ""
+msgstr "Όνομα Αρχείου του Υπότιτλου:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:277
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:277
 msgid "Same name as video file"
-msgstr ""
+msgstr "Ίδιο με το όνομα του αρχείου του βίντεο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:278
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:278
 msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
 msgstr ""
+"Ίδιο με το όνομα του αρχείου του βίντεο + κωδικός γλώσσας (πχ: "
+"StarWarsCD1.el.srt)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:279
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:279
 msgid "Same name as the online subtitle"
-msgstr ""
+msgstr "Ίδιο με αυτό του online υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:281
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr ""
+msgstr "Προεπιλεγμένη γλώσσα των υποτίτλων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:283
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:283
 msgid "Network Proxy"
-msgstr ""
+msgstr "Διαμεσολαβητής"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:284
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:284
 msgid "Host:"
-msgstr ""
+msgstr "Υπολογιστής:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:285
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:285
@@ -820,22 +822,22 @@ msgstr "Θύρα:"
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:286
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:286
 msgid "Network"
-msgstr ""
+msgstr "Δίκτυο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:287
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:287
 msgid "Interface Language:"
-msgstr ""
+msgstr "Γλώσσα Εφαρμογής:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:289
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:289
 msgid "Context Menu:"
-msgstr ""
+msgstr "Μενού Επιλογών στο Δεξί Κλικ:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:290
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:290
 msgid "Enable in your explorer"
-msgstr ""
+msgstr "Ενεργοποίηση στον explorer"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences_ui.py:291
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences_ui.py:291
@@ -895,12 +897,12 @@ msgstr "IMDB φράση αναζήτησης"
 #: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:77
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:77
 msgid "Enter the Movie Title or IMDB id:"
-msgstr ""
+msgstr "Δώστε τον Τίτλο της Ταινίας ή τον κωδικό IMBD:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:78
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:78
 msgid "Search Movie"
-msgstr ""
+msgstr "Αναζήτηση Ταινίας"
 
 #: /home/capiscuas/workspace/subdownloader/gui/imdb_ui.py:80
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdb_ui.py:80
@@ -915,7 +917,7 @@ msgstr "Σύνδεση:"
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:68
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:68
 msgid "Login into OpenSubtitles.org"
-msgstr ""
+msgstr "Είσοδος στο OpenSubtitles.org"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:69
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:69
@@ -930,17 +932,17 @@ msgstr "Κωδικός:"
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:71
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:71
 msgid "Currently logged as :"
-msgstr ""
+msgstr "Συνδεδεμένος ως:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login_ui.py:72
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login_ui.py:72
 msgid "Connect"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:35
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:35
 msgid "<AutoDetect>"
-msgstr ""
+msgstr "<ΑυτόματηΑνίχνευση>"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:38
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:40
@@ -953,26 +955,26 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:699
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:700
 msgid "LanguageName"
-msgstr ""
+msgstr "ΌνομαΓλώσσας"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:66
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1219
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:66
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1219
 msgid "Select a directory"
-msgstr ""
+msgstr "Επιλέξτε κατάλογο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:75
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:75
 msgid "Select the Video Player executable file"
-msgstr ""
+msgstr "Επιλέξτε το εκτελέσιμο του Video Player"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:80
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:213
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:213
 msgid "Alert"
-msgstr ""
+msgstr "Προειδοποίηση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:80
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:80
@@ -982,27 +984,28 @@ msgstr "Η νέα γλώσσα θα εμφανιστεί μετά την επα�
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:142
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:142
 msgid "Enable in your Konqueror/Dolphin/Nautilus"
-msgstr ""
+msgstr "Ενεργοποίηση στα Konqueror/Dolphin/Nautilus"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:145
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:145
 msgid "Enable in your Windows Explorer"
-msgstr ""
+msgstr "Ενεργοποίηση στον Windows Explorer"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:148
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:148
 msgid "Enable in your File Manager"
-msgstr ""
+msgstr "Ενεργοποίηση στο Διαχειριστή Αρχείων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:156
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:156
 msgid "Predefined Folder cannot be empty"
-msgstr ""
+msgstr "Ο Προεπιλεγμένος Φάκελος δεν μπορεί να είναι κενός"
 
 #: /home/capiscuas/workspace/subdownloader/gui/preferences.py:213
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/preferences.py:213
 msgid "Modified proxy settings will take effect after restarting the program"
 msgstr ""
+"Οι αλλαγές του διαμεσολαβητή θα ισχύουν μετά την επαναφόρτωση της εφαρμογής"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:33
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:71
@@ -1021,7 +1024,7 @@ msgstr "Ανώνυμος"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:76
 #, python-format
 msgid "Succesfully logged as: %s"
-msgstr ""
+msgstr "Συνδεδεμένος ως: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:38
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:38
@@ -1037,24 +1040,24 @@ msgstr "Δε συνδέθηκε"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:297
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:831
 msgid "Error contacting the server. Please try again later"
-msgstr ""
+msgstr "Σφάλμα επικοινωνίας με τον εξυπηρετητή. Παρακαλώ δοκιμάστε αργότερα"
 
 #: /home/capiscuas/workspace/subdownloader/gui/login.py:78
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/login.py:78
 #, python-format
 msgid "Cannot loggin as: %s"
-msgstr ""
+msgstr "Αδύνατη η σύνδεση ως: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:157
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:157
 #, python-format
 msgid "[Rate: %s]"
-msgstr ""
+msgstr "[Βαθμολογία: %s]"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:160
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:160
 msgid "(Already downloaded)"
-msgstr ""
+msgstr "(Ήδη κατεβασμένο)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:163
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:172
@@ -1062,13 +1065,13 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:172
 #, python-format
 msgid "Uploader: %s"
-msgstr ""
+msgstr "Χρήστης: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:168
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:168
 #, python-format
 msgid "Rate: %s"
-msgstr ""
+msgstr "Βαθμολογία: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/videotreeview.py:169
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:169
@@ -1100,7 +1103,7 @@ msgstr "[Βαθμολγία IMDB: %s]"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/videotreeview.py:223
 #, python-format
 msgid "(%d subtitles)"
-msgstr ""
+msgstr "(%d υπότιτλοι)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/imdbSearch.py:41
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/imdbSearch.py:41
@@ -1134,28 +1137,28 @@ msgstr "SubDownloader %s"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:134
 #, python-format
 msgid "%d days to expire. Activate Program."
-msgstr ""
+msgstr "%d μέρες μέχρι την λήξη. Ενεργοποιήστε το Πρόγραμμα."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:249
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:249
 msgid "Not logged yet"
-msgstr ""
+msgstr "Χωρίς σύνδεση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:305
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:305
 #, python-format
 msgid "Unable to find %s"
-msgstr ""
+msgstr "Αδύνατη η εύρεση του %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:378
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:378
 msgid "How To Use SubDownloader"
-msgstr ""
+msgstr "Πως να χρησιμοποιήσετε το SubDownloader"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:379
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:379
 msgid "1st Tab:"
-msgstr ""
+msgstr "1η Καρτέλα:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:379
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:379
@@ -1164,11 +1167,14 @@ msgid ""
 "videos that need subtitles. SubDownloader will then try to automatically "
 "find available subtitles."
 msgstr ""
+"Επιλέξτε από τους φακέλους αριστερά, αυτόν που περιέχει αρχεία βίντεο. Το "
+"SubDownloader θα προσπαθήσει αυτόματα να βρει διαθέσιμους υπότιτλους για τα "
+"αρχεία σας."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:380
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:380
 msgid "2nd Tab:"
-msgstr ""
+msgstr "2η Καρτέλα:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:380
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:380
@@ -1176,11 +1182,13 @@ msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
+"Εάν δεν έχετε τα βίντεο στον υπολογιστή σας, μπορείτε να αναζητήσετε "
+"υπότιτλους βάσει του τίτλου/ονόματος του βίντεο."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:381
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:381
 msgid "3rd Tab:"
-msgstr ""
+msgstr "3η Καρτέλα:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:381
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:381
@@ -1189,11 +1197,14 @@ msgid ""
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
+"Εάν έχετε βρει υπότιτλους κάπου αλλού, εκτός της βάσης δεδομένων του "
+"SubDownloader, παρακαλώ ανεβάστε αυτούς τους υπότιτλους, έτσι ώστε οι "
+"επόμενοι χρήστες να έχουν τη δυνατότητα να τους βρούνε εύκολα."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
 msgid "Quid Pro Quo:"
-msgstr ""
+msgstr "Quid Pro Quo:"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:382
@@ -1201,28 +1212,29 @@ msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
+"Εάν βρήκατε χρήσιμο αυτό το πρόγραμμα, βοηθήστε μας κάνοντας μια δωρεά."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:430
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:454
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:430
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:454
 msgid "View IMDB info"
-msgstr ""
+msgstr "Εμφάνιση IMDB πληροφοριών"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:433
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:433
 msgid "Set IMDB info..."
-msgstr ""
+msgstr "Εισάγετε τις πληροφορίες IMBD..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:442
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:442
 msgid "Play video + subtitle"
-msgstr ""
+msgstr "Αναπαραγωγή βίντεο + υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:447
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:447
 msgid "View online info"
-msgstr ""
+msgstr "Εμφάνιση πληροφοριών"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:520
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:520
@@ -1240,22 +1252,28 @@ msgid ""
 "\n"
 "Would you like to download the new version now?"
 msgstr ""
+"Υπάρχει μια νέα έκδοση του SubDownloader.\n"
+"\n"
+"Νέα Έκδοση: %s\n"
+"Τρέχουσα Έκδοση: %s\n"
+"\n"
+"Θα θέλατε να κατεβάσετε τη νέα έκδοση τώρα;"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:546
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:546
 msgid "Users online: Updating..."
-msgstr ""
+msgstr "Συνδεδεμένοι χρήστες: Ανανέωση..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:549
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:549
 #, python-format
 msgid "Users online: %s"
-msgstr ""
+msgstr "Συνδεδεμένοι χρήστες: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:551
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:551
 msgid "Users online: ERROR"
-msgstr ""
+msgstr "Συνδεδεμένοι χρήστες: ΣΦΑΛΜΑ"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:561
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:562
@@ -1264,48 +1282,48 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:562
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:565
 msgid "Logging in..."
-msgstr ""
+msgstr "Είσοδος στο σύστημα..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:561
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1171
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:561
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1171
 msgid "&Cancel"
-msgstr ""
+msgstr "&Ακύρωση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:573
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:573
 #, python-format
 msgid "Logged as %s"
-msgstr ""
+msgstr "Συνδεδεμένος ως %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:577
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:577
 #, python-format
 msgid "Login as %s: ERROR"
-msgstr ""
+msgstr "Συνδεδεμένος ως %s: ΣΦΑΛΜΑ"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:581
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:581
 msgid "Login: ERROR"
-msgstr ""
+msgstr "Σύνδεση: ΣΦΑΛΜΑ"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:590
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:590
 #, python-format
 msgid "SubDownloader %s - %s"
-msgstr ""
+msgstr "SubDownloader %s - %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:644
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:644
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
-msgstr ""
+msgstr "(Δοκιμαστική Χρήση Προγράμματος, %d ημέρες για την λήξη)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:662
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
 msgid "Expiration Reminder"
-msgstr ""
+msgstr "Υπενθύμιση Δοκιμαστικής Περιόδου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:662
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:662
@@ -1314,6 +1332,8 @@ msgid ""
 "The program will expire in %d days.\n"
 "Would you like to activate it now?"
 msgstr ""
+"Το πρόγραμμα λήγει σε %d μέρες.\n"
+"Θέλετε να το ενεργοποιήσετε τώρα;"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:695
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:696
@@ -1329,12 +1349,12 @@ msgstr "Όλες οι γλώσσες"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:896
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:907
 msgid "You are not connected to the server. Please reconnect first."
-msgstr ""
+msgstr "Δεν είστε συνδεδεμένος στο διακομιστή. Παρακαλώ επανασυνδεθείτε."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:759
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:759
 msgid "Scanning files"
-msgstr ""
+msgstr "Αναζήτηση αρχείων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:759
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:790
@@ -1351,65 +1371,65 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1586
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1655
 msgid "&Abort"
-msgstr ""
+msgstr "&Διακοπή"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:787
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:787
 msgid "Scan Results"
-msgstr ""
+msgstr "Αποτελέσματα Αναζήτησης"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:787
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:787
 msgid "No video has been found"
-msgstr ""
+msgstr "Δε βρέθηκε βίντεο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:790
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:790
 msgid "Searching subtitles..."
-msgstr ""
+msgstr "Αναζήτηση υποτίτλων..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:791
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:791
 msgid "Asking Server..."
-msgstr ""
+msgstr "Ερώτημα στον Εξυπηρετητή..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:804
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
-msgstr ""
+msgstr "Αναζήτηση υποτίτλων ( %d / %d )"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:843
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:843
 msgid "Search finished"
-msgstr ""
+msgstr "Η αναζήτηση ολοκληρώθηκε"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:865
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:880
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:865
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:880
 msgid "Sub Info"
-msgstr ""
+msgstr "Πληροφορίες Υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:888
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:888
 msgid "You must select a folder first"
-msgstr ""
+msgstr "Πρέπει πρώτα να  επιλέξετε ένα φάκελο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:900
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:900
 msgid "Select the video(s) that need subtitles"
-msgstr ""
+msgstr "Επιλέξτε τα βίντεο που χρειάζονται υπότιτλους"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:911
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:911
 msgid "Select the directory that contains your videos"
-msgstr ""
+msgstr "Επιλέξτε τον κατάλογο που περιέχει τα βίντεο σας"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:937
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:937
 msgid "No default video player has been defined in Settings."
-msgstr ""
+msgstr "Δεν  έχει οριστεί εφαρμογή αναπαραγωγής βίντεο στις Ρυθμίσεις."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:946
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1035
@@ -1420,12 +1440,12 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1036
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1586
 msgid "Downloading files..."
-msgstr ""
+msgstr "Κατέβασμα αρχείων..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:947
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:947
 msgid "Playing video + sub"
-msgstr ""
+msgstr "Αναπαραγωγή βίντεο + υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:954
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:957
@@ -1437,12 +1457,12 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1123
 #, python-format
 msgid "Unable to download subtitle %s"
-msgstr ""
+msgstr "Αδύνατο το κατέβασμα του υπότιτλου %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:985
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:985
 msgid "Unable to launch videoplayer"
-msgstr ""
+msgstr "Αδύνατο να ξεκινήσει το πρόγραμμα αναπαραγωγής βίντεο"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1007
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1059
@@ -1458,7 +1478,7 @@ msgstr "Αποθήκευση ως..."
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1027
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1573
 msgid "No subtitles selected to be downloaded"
-msgstr ""
+msgstr "Δεν έχουν επιλεγεί υπότιτλοι για κατέβασμα"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1045
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1114
@@ -1466,14 +1486,14 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1114
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
-msgstr ""
+msgstr "Κατέβασμα υπότιτλου %s (%d/%d)"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1051
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1130
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1051
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1130
 msgid "Error write permission"
-msgstr ""
+msgstr "Σφάλμα εγγραφής"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1052
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1131
@@ -1484,18 +1504,20 @@ msgid ""
 "%s cannot be saved.\n"
 "Check that the folder exists and you have write-access permissions."
 msgstr ""
+"Το %s δεν μπορεί να αποθηκευτεί.\n"
+"Ελέγξτε εάν υπάρχει ο φάκελος και έχετε δικαιώματα εγγραφής."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1066
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1102
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1066
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1102
 msgid "Save subtitle as..."
-msgstr ""
+msgstr "Αποθήκευση υπότιτλου ως..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1082
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1082
 msgid "File already exists"
-msgstr ""
+msgstr "Το αρχείο υπάρχει ήδη"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1082
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1082
@@ -1507,52 +1529,57 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
+"Τοπικά: %s\n"
+"\n"
+"Απομακρυσμένα: %s\n"
+"\n"
+"Πως θα θέλατε να συνεχίσετε;"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1083
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1083
 msgid "Skip"
-msgstr ""
+msgstr "Παράβλεψη"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1084
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1084
 msgid "Replace"
-msgstr ""
+msgstr "Αντικατάσταση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1085
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1085
 msgid "Replace all"
-msgstr ""
+msgstr "Αντικατάσταση όλων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1171
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1171
 msgid "Connecting to server..."
-msgstr "Σύνδεση στο server..."
+msgstr "Σύνδεση στον εξυπηρετητή..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1172
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1172
 msgid "Connecting"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1185
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1185
 #, python-format
 msgid "Connecting to server using proxy %s"
-msgstr ""
+msgstr "Σύνδεση στον εξυπηρετητή μέσω του διακομιστή διαμεσολάβησης %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1191
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1191
 msgid "Connected succesfully"
-msgstr ""
+msgstr "Σύνδεση επιτυχής"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1256
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1256
 msgid "Please identify the movie."
-msgstr ""
+msgstr "Παρακαλώ ταυτοποιήστε την ταινία."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1259
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1259
 msgid "Uploading subtitle"
-msgstr ""
+msgstr "Ανέβασμα υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1260
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1260
@@ -1570,11 +1597,13 @@ msgid ""
 "Subtitles succesfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"Οι υπότιτλοι ανέβηκαν.\n"
+"Ευχαριστούμε!"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1300
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1300
 msgid "View Subtitle Info"
-msgstr ""
+msgstr "Προβολή Πληροφοριών Υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1306
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1306
@@ -1583,36 +1612,41 @@ msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
+"Πρόβλημα με το ανέβασμα...\n"
+"Σφάλμα: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1309
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1309
 msgid "Error contacting the server. Please restart or try later"
 msgstr ""
+"Σφάλμα στην επικοινωνία με τον εξυπηρετητή. Παρακαλώ δοκιμάστε αργότερα ή "
+"κάντε επαναφόρτωση την εφαρμογή"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1332
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1332
 msgid "↓ Movie autodetected from .nfo file"
-msgstr ""
+msgstr "Η ταινία αναγνωρίσθηκε αυτόματα από το αρχείο .nfo"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1335
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1335
 msgid "↓ Movie autodetected from database"
-msgstr ""
+msgstr "Η ταινία αναγνωρίσθηκε αυτόματα από την βάση δεδομένων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1374
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1374
 msgid "↑ Language autodetected from database"
-msgstr ""
+msgstr "Η γλώσσα αναγνωρίσθηκε αυτόματα από την βάση δεδομένων"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1378
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr ""
+"Η γλώσσα αναγνωρίσθηκε αυτόματα από το όνομα του αρχείου του υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1382
 msgid "↑ Language autodetected from subtitle's content"
-msgstr ""
+msgstr "Η γλώσσα αναγνωρίσθηκε αυτόματα από το περιεχόμενο του υπότιτλου"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1432
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1432
@@ -1636,7 +1670,7 @@ msgstr "Αναζήτηση..."
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1582
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1582
 msgid "Select the directory where to save the subtitle(s)"
-msgstr ""
+msgstr "Επιλέξτε τον κατάλογο που θα αποθηκευτούν οι υπότιτλοι"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1587
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1587
@@ -1647,7 +1681,7 @@ msgstr "Κατεβαίνει"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1607
 #, python-format
 msgid "Downloading %s to %s"
-msgstr ""
+msgstr "Κατέβασμα του %s στο %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1623
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1623
@@ -1656,6 +1690,8 @@ msgid ""
 "An error occured downloading %s:\n"
 "Error:%s"
 msgstr ""
+"Παρουσιάστηκε σφάλμα κατά το κατέβασμα του %s:\n"
+"Σφάλμα:%s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1645
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1645
@@ -1664,12 +1700,14 @@ msgid ""
 "An error occured unziping %s:\n"
 "Error: %s"
 msgstr ""
+"Παρουσιάστηκε σφάλμα κατά την αποσυμπίεση του %s:\n"
+"Σφάλμα: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
 #, python-format
 msgid "%d subtitles downloaded successfully"
-msgstr ""
+msgstr "%d υπότιτλοι κατέβηκαν με επιτυχία"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
@@ -1680,500 +1718,14 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
+"Οι υπότιτλοι ενδέχεται να μην είναι συγχρονισμένοι με τα βίντεο σας, "
+"παρακαλώ ελέγξτε το χειροκίνητα.\n"
+"\n"
+"Εάν δεν υπάρχει πρόβλημα συγχρονισμού, σκεφτείτε να τους ξανά ανεβάσετε με "
+"την χρήση του subdownloader. Αυτό θα αυτοματοποιήσει τη διαδικασία για "
+"άλλους χρήστες."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1679
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
 msgstr "Υπάρχει νέα έκδοση του SubDownloader."
-
-#~ msgid "Search by:"
-#~ msgstr "Αναζήτηση κατά:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "Ανάκτηση πληροφοριών του IMDB, παρακαλώ περιμένετε..."
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "CD1 αρχείο υποτίτλων:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "Αναζήτηση υποτίτλων..."
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "Ναι, υπάρχει αρχείο CD2."
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "CD2 αρχείο AVI:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "CD2 αρχείο υποτίτλων:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "Προσθήκη Cds"
-
-#~ msgid "Confirm..."
-#~ msgstr "Επιβεβαίωση..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "IMDB ID ταινίας:"
-
-#~ msgid "Search ID..."
-#~ msgstr "Αναζήτηση ID..."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "Σφάλμα αίτησης τίτλου στο IMDB"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "Εναλλακτικός τίτλος ταινίας (ΑΚΑ): "
-
-#~ msgid "Movies"
-#~ msgstr "Ταινίες"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "Σειρές/Κύκλοι/Επεισόδια"
-
-#~ msgid "Errors found:"
-#~ msgstr "Σφάλματα:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "Ανέβασμα Περισσότερων Cds"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "%d παραπάνω CDs προστέθηκαν."
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "Το βίντεο %(videopath)s δεν υπάρχει."
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "Δοκιμάστε αναζήτηση κατά IMDB ID αριθμό."
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr ""
-#~ "Υπάρχουν εσωτερικά σφάλματα στο βίντεο CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Πολύ μικρό μέγεθος στο βίντεο CD%(cd_number)s : %(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "Οι υπότιτλοι %s δεν υπάρχουν."
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "Το μέγεθος των υποτίτλων %s είναι πάνω από 300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "Σφάλμα: βίντεο CD %d = βίντεο CD %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "Σφάλμα: υπότιτλοι CD %d = υπότιτλοι CD %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "Έλεγχος βίντεο και υποτίτλων, παρακαλώ περιμένετε..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "Έλεγχος υποτίτλων στο server, παρακαλώ περιμένετε..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "Σφάλμα κατά τον έλεγχο των υποτίτλων στο server, πιθανά αίτια:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "Η συνδεση με το server τερματίστηκε"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "Σφάλμα ανάκτησης IMDB πληροφοριών του %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr ""
-#~ "Το όνομα των υποτίτλων έχει ειδικούς χαρακτήρες που πρέπει να αφαιρεθούν."
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "Βρέθηκαν Υπότιτλοι..."
-
-#~ msgid "AutoDetected"
-#~ msgstr "Αυτόματη Ανίχνευση"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "Ανίχνευση αρχείου .nfo, παρακαλώ περιμένετε..."
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "Σφάλμα ανάκτησης IMDB ID από το αρχείο .NFO"
-
-#~ msgid "IMDB Search"
-#~ msgstr "Αναζήτηση IMDB"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "Σφάλμα: Το πεδίο IMDB ID είναι υποχρεωτικό."
-
-#~ msgid "Upload Progress"
-#~ msgstr "Πρόοδος Upload"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "Ανεβαίνει, ίσως αργήσει λίγο..."
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "Ευχαριστύμε. Οι υπότιτλοι ανέβηκαν επιτυχώς."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "Ο αριθμός %s είναι το ID της ταινίας?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr "Θέλετε να ελέγξετε τη σελίδα λεπτομερειών των ανεβασμένων υποτίτλων?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "Ο server επέστρεψε μερικά σφάλματα"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "Σφάλμα κατά το ανέβασμα υπότιτλων στο server, πιθανά αίτια:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "Αντικατάσταση υποτίτλων"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "Δεν βρέθηκαν υπότιτλοι."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "Που μπορώ να κατεβάσω υπότιτλους?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "Δεν βρέθηκαν υπότιτλοι. Παρακαλώ ανεβάστε τους."
-
-#~ msgid "log-in"
-#~ msgstr "σύνδεση"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "IMBD ID ή ΤΙΤΛΟΣ ΤΑΙΝΙΑΣ αποσαφήνιση"
-
-#~ msgid "Exit"
-#~ msgstr "Έξοδος"
-
-#~ msgid "Main"
-#~ msgstr "Κύριο"
-
-#~ msgid "Contact us"
-#~ msgstr "Επικοινωνία"
-
-#~ msgid "Donate"
-#~ msgstr "Δωρεά"
-
-#~ msgid "Help"
-#~ msgstr "Βοήθεια"
-
-#~ msgid "Options"
-#~ msgstr "Επιλογές"
-
-#~ msgid "Help us"
-#~ msgstr "Βοηθήστε μας"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "Πρέπει να αναζητήσετε τίτλο ταινίας και να επιλέξετε  IMDB ID"
-
-#~ msgid "Log"
-#~ msgstr "Log"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr ""
-#~ "Η εφαρμογή βρήκε μερικά λάθη. Θέλετε να τα αναφέρετε έτσι ώστε να διορθωθούν?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "Αναφορά σφαλμάτων"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "Λάθος κατά την αποστολή σφάλματος. Ευχαριστούμε."
-
-#~ msgid "Please Login"
-#~ msgstr "Παρακαλώ Συνδεθείτε"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "Σας συνιστούμε να συνδεθείτε πριν ανεβάσετε αρχεία"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "Σύνδεση, παρακαλώ περιμένετε..."
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "Σφάλμα XMLRPC δημιουργώντας σύνδεση server με : %s"
-
-#~ msgid "Error opening link"
-#~ msgstr "Σφαλμα ανοίγματος link"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "ΝΕΑ ΕΚΔΟΣΗ: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "ΑΓΝΩΣΤΟ"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "ΤΡΕΧΟΥΣΑ ΕΚΔΟΣΗ:"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "Αλλαγές στη νέα έκδοση:"
-
-#~ msgid "Update"
-#~ msgstr "Ενημέρωση"
-
-#~ msgid "New Update"
-#~ msgstr "Νέα Ενημέρωση"
-
-#~ msgid "Movie hash of"
-#~ msgstr "Το βίντεο hash του"
-
-#~ msgid "Accept"
-#~ msgstr "Αποδοχή"
-
-#~ msgid " has been updated."
-#~ msgstr " έχει ενημερωθεί."
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "Ευχαριστουμε πολύ για τη συνεργασία :-)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "Αναφορά λάθος πληροφοριών"
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "Ανεβάστε Περισσότερους Υπότιτλους"
-
-#~ msgid "Register for free"
-#~ msgstr "Εγγραφείτε δωρεάν"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "Τίτλος ταινίας ή IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "Αρχείο"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "Προκαθορισμένη Γλώσσα Upload :"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "Παράμετροι Proxy :"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "Το αρχείο για AVI CD%d απαιτείται"
-
-#~ msgid "Server:"
-#~ msgstr "Server:"
-
-#~ msgid "User:"
-#~ msgstr "Χρήστης:"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "Το αρχείο για Sub CD%d απαιτείται"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "AVI Αρχείο CD%d"
-
-#~ msgid "Clear content"
-#~ msgstr "Καθαρισμός περιεχομένων"
-
-#~ msgid "Add videofile"
-#~ msgstr "Προσθήκη αρχείου βίντεο"
-
-#~ msgid "Add directory"
-#~ msgstr "Προσθήκη καταλόγου"
-
-#~ msgid "Clear List"
-#~ msgstr "Καθαρισμός Λιστας"
-
-#~ msgid "SEARCH"
-#~ msgstr "Αναζήτηση"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "Επιλογή / Αποεπιλογή ΟΛΩΝ"
-
-#~ msgid "Add film's directory"
-#~ msgstr "Προσθήκη καταλόγου ταινίας"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "Προσθήκη βίντεο από φάκελο (περιοδικά)"
-
-#~ msgid "Add video file"
-#~ msgstr "Προσθήκη αρχείου βίντεο"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "Κατεβάστε Υπότιτλους"
-
-#~ msgid "Download subtitle"
-#~ msgstr "Κατέβασμα υποτίτλων"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "Εμφάνιση Λεπτομερειών και Αξιολόγηση Υποτίτλων"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "Αυτοί οι ΥΠΟΤΙΤΛΟΙ δεν είναι για αυτό το ΑVI"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "Το IMDB της ταινίας δεν είναι για αυτό το AVI"
-
-#~ msgid "IMDB details"
-#~ msgstr "IMDB λεπτομέρειες"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "Η ΓΛΩΣΣΑ των υπότιτλων δεν είναι σωστή"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "Αναφέρετε Λάθος Πληροφορίες"
-
-#~ msgid "Play videofile"
-#~ msgstr "Αναπαραγωγή αρχείου βίντεο"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "Αναζήτηση άλλων υπότιτλων για αυτή την Ταινία"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "Κατεβάστε αυτά τα προγράμματα: %s για να δείτε ταινίες + υπότιτλους."
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr ""
-#~ "(Σημαίνει οτι οι υπότιτλοι είναι για αυτή την ταινία , αλλά δεν είναι καλά "
-#~ "συγχρονισμένοι.)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr ""
-#~ "Είστε σίγουροι ότι αυτοί οι υπότιτλοι δεν είναι καλοί για το βίντεό σας?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "Η αναφορά έχει καταχωρηθεί. Ευχαριστούμε πολύ."
-
-#~ msgid "Choose directory..."
-#~ msgstr "Επιλογή καταλόγου..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "Κατεβαίνει, ίσως αργήσει λίγο..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "Κατέβασμα υποτίτλων %s από %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "%d υπότιτλοι κατέβηκαν"
-
-#~ msgid "Some errors found:"
-#~ msgstr "Βρέθηκαν κάποια λάθη:"
-
-#~ msgid "Search Progress"
-#~ msgstr "Πρόοδος Αναζήτησης"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "Αναζήτηση με πρωτόκολλο OSDB"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "Αναζήτηση σε εξέλιξη, ίσως αργήσει λίγο..."
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "Λάθος κατά τη σύνδεση με το OSDB"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "Υπολογισμός Hash"
-
-#~ msgid "Hashing files..."
-#~ msgstr "Hashing αρχείων..."
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "Βρέθηκε λάθος στο αρχείο %s"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "Λάθος μεγέθους στο αρχείο %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "Το αρχείο <%s> δε μπορεί να βρεθεί"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "Χρειαζόμαστε τη βοήθεια σας για να συνεχιστεί ο Subdownloader, μπορείτε να "
-#~ "βοηθήσετε με πολλούς τρόπους:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMBD ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "- Ανεβάζοντας πολλούς υπότιτλους για να μεγαλώσει γρήγορα η βάση."
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "- Εποικοινωνήστε για να μεταφράσετε το πρόγραμμα στη γλώσσα σας."
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr ""
-#~ "- ΔΩΡΗΣΤΕ ετσι ώστε να μπορούμε να αγοράζουμε λίγο κεμπάπ ή κινέζικο καμιά "
-#~ "φορά :-)"
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- Στείλτε μας ΣΧΟΛΙΑ"
-
-#~ msgid "Send Feedback"
-#~ msgstr "Αποστολή Σχολίων"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    - Μιλήστε μαζί μας:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "Ευχαριστούμε πολύ"
-
-#~ msgid "Log Messages:"
-#~ msgstr "Μηνύματα Log:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Εφαρμογή Αλλαγών"
-
-#~ msgid "Title"
-#~ msgstr "Τίτλος"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "Ακύρωση Αλλαγών"
-
-#~ msgid "Login"
-#~ msgstr "Σύνδεση"
-
-#~ msgid "Servers"
-#~ msgstr "Servers"
-
-#~ msgid "Language"
-#~ msgstr "Γλώσσα"
-
-#~ msgid "Directories"
-#~ msgstr "Κατάλογοι"
-
-#~ msgid "Downloading Language"
-#~ msgstr "Κατέβασμα Γλώσσας"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "Κατέβασμα %s γλώσσας, ίσως αργήσει λίγο..."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "Λάθος κατά τη λήψη της νέας γλώσσας από το server."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr ""
-#~ "Δεν υπάρχει μετάφραση στα %s. Παρακαλώ επικοινωνήστε %s για να μας βοηθήσετε."
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "Σφάλμα κατά την αποθήκευση '%s'"
-
-#~ msgid "Login Again"
-#~ msgstr "Συνδεθείτε Ξανά"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "2ο Βήμα: Αρχεία του CD2"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "3ο Βήμα: Ας δούμε αν οι υπότιτλοι υπάρχουν ήδη στη Βάση"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "4ο Βήμα: Απαιτούμενες Πληροφορίες"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "5ο Βήμα: Προαιρετικές Πληροφορίες"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "6ο Βήμα: Ανέβασμα των υποτίτλων"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "1ο Βήμα: Αρχεία του CD1"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "CD1 αρχείο AVI:"
-
-#~ msgid "Browse avi..."
-#~ msgstr "Αναζήτηση avi..."

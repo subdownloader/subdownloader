@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 23:04+0100\n"
-"PO-Revision-Date: 2008-12-07 07:58+0000\n"
+"PO-Revision-Date: 2009-09-02 06:26+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-02-02 20:32+0000\n"
+"X-Launchpad-Export-Date: 2009-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: /home/capiscuas/workspace/subdownloader/FileManagement/FileScan.py:106
@@ -116,7 +116,7 @@ msgstr "Inggris Britania"
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:44
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:44
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #: /home/capiscuas/workspace/subdownloader/languages/Languages.py:45
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader-cli/usr/share/subdownloader/languages/Languages.py:45
@@ -1520,7 +1520,7 @@ msgstr ""
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1085
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1085
 msgid "Replace all"
-msgstr ""
+msgstr "Ganti semua"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1171
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1171
@@ -1530,38 +1530,38 @@ msgstr "Menghubungi server..."
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1172
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1172
 msgid "Connecting"
-msgstr ""
+msgstr "Menyambung"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1185
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1185
 #, python-format
 msgid "Connecting to server using proxy %s"
-msgstr ""
+msgstr "Menyambung ke server memakai proxy %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1191
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1191
 msgid "Connected succesfully"
-msgstr ""
+msgstr "Berhasil terhubung"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1256
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1256
 msgid "Please identify the movie."
-msgstr ""
+msgstr "Mohon cirikan film ini."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1259
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1259
 msgid "Uploading subtitle"
-msgstr ""
+msgstr "Mengunggah teks"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1260
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1260
 msgid "Uploading..."
-msgstr "Mengunggah..."
+msgstr "Sedang mengunggah..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1292
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1292
 msgid "Successful Upload"
-msgstr "Sukses mengunggah"
+msgstr "Pengunggahan Berhasil"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1293
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1293
@@ -1569,11 +1569,13 @@ msgid ""
 "Subtitles succesfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"Teks telah berhasil diunggah.\n"
+"Terima kasih!"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1300
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1300
 msgid "View Subtitle Info"
-msgstr ""
+msgstr "Lihat Info Subtitle"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1306
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1306
@@ -1582,46 +1584,48 @@ msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
+"Masalah saat mengunggah...\n"
+"Galat: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1309
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1309
 msgid "Error contacting the server. Please restart or try later"
-msgstr ""
+msgstr "Galat menghubungi server. Silahkan start ulang atau coba nanti"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1332
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1332
 msgid "↓ Movie autodetected from .nfo file"
-msgstr ""
+msgstr "↓ Film swa-deteksi dari berkas .nfo"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1335
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1335
 msgid "↓ Movie autodetected from database"
-msgstr ""
+msgstr "↓ Film swa-deteksi dari database"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1374
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1374
 msgid "↑ Language autodetected from database"
-msgstr ""
+msgstr "↑ Bahasa ter-swadeteksi dari database"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1378
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's filename"
-msgstr ""
+msgstr "↑ Swa-deteksi Bahasa dari nama berkas subtitel"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1382
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1382
 msgid "↑ Language autodetected from subtitle's content"
-msgstr ""
+msgstr "Swa-deteksi bahasa dari isi teks"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1432
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1432
 msgid "Browse video..."
-msgstr "Telusuri video..."
+msgstr "Ramban video..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1449
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1449
 msgid "Browse subtitle..."
-msgstr "Telusuri subjudul..."
+msgstr "Ramban subtitel..."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1502
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1503
@@ -1635,7 +1639,7 @@ msgstr "Mencari...."
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1582
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1582
 msgid "Select the directory where to save the subtitle(s)"
-msgstr ""
+msgstr "Pilih direktori di mana berkas teks akan disimpan"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1587
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1587
@@ -1646,7 +1650,7 @@ msgstr "Sedang mengunduh"
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1607
 #, python-format
 msgid "Downloading %s to %s"
-msgstr ""
+msgstr "Sedang mengunduh %s ke %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1623
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1623
@@ -1655,6 +1659,8 @@ msgid ""
 "An error occured downloading %s:\n"
 "Error:%s"
 msgstr ""
+"Error terjadi dalam proses mengunduh %s:\n"
+"Error:%s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1645
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1645
@@ -1663,12 +1669,14 @@ msgid ""
 "An error occured unziping %s:\n"
 "Error: %s"
 msgstr ""
+"Error terjadi ketika meng-unzip %s:\n"
+"Errror: %s"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
 #, python-format
 msgid "%d subtitles downloaded successfully"
-msgstr ""
+msgstr "%d teks telah berhasil diunduh"
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1650
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1650
@@ -1679,574 +1687,13 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
+"Teks subtitle yang telah diunduh mungkin tidak sinkron dengan berkas video "
+"anda, silahkan diperiksa secara manual.\n"
+"\n"
+"Jika tak ada masalah sinkronisasi, diperkenankan untuk mengunggahnya dengan "
+"subdownloader. Ini berguna untuk pencarian otomatis bagi pengguna lain."
 
 #: /home/capiscuas/workspace/subdownloader/gui/main.py:1679
 #: /home/capiscuas/workspace/subdownloader/debian/subdownloader/usr/share/subdownloader/gui/main.py:1679
 msgid "A new version of SubDownloader has been released."
-msgstr "Versi yang lebih baru dari SubDownloader telah keluar."
-
-#~ msgid "Search by:"
-#~ msgstr "Cari berdasarkan:"
-
-#~ msgid "Retrieving info from IMDB server, please wait..."
-#~ msgstr "Sedang mengambil info dari server IMDB, silahkan tunggu..."
-
-#~ msgid "CD1 subtitle file:"
-#~ msgstr "File subjudul CD1:"
-
-#~ msgid "Browse sub..."
-#~ msgstr "Telusuri sub..."
-
-#~ msgid "Yes, there is an CD2 file."
-#~ msgstr "Ya, ada file CD2."
-
-#~ msgid "CD2 AVI file:"
-#~ msgstr "File AVI CD2:"
-
-#~ msgid "CD2 subtitle file:"
-#~ msgstr "File subjudul CD2:"
-
-#~ msgid "Add more Cds"
-#~ msgstr "Tambah CD lagi"
-
-#~ msgid "Confirm..."
-#~ msgstr "Confirmasi..."
-
-#~ msgid "Movie IMDB ID:"
-#~ msgstr "ID Film IMDB:"
-
-#~ msgid "Search ID..."
-#~ msgstr "ID Pencarian..."
-
-#~ msgid "Error requesting Title in IMDB Server"
-#~ msgstr "Tidak dapat meminta Judul di Server IMDB"
-
-#~ msgid "Alternative Movie title (AKA): "
-#~ msgstr "Judul alternatif film (AKA): "
-
-#~ msgid "Movies"
-#~ msgstr "Film"
-
-#~ msgid "Serials/Seasons/Episodes"
-#~ msgstr "Seri/Sesi/Episode"
-
-#~ msgid "Errors found:"
-#~ msgstr "Kesalahan:"
-
-#~ msgid "Upload More Cds"
-#~ msgstr "Unggah CD lagi"
-
-#~ msgid "%d extra CDs added."
-#~ msgstr "%d CD ditambahkan"
-
-#~ msgid "The video %(videopath)s doesn't exist."
-#~ msgstr "Video dari %(videopath)s tidak ada."
-
-#~ msgid "Try searching by IMDB ID number."
-#~ msgstr "Coba mencari dengan nomor IMDB ID"
-
-#~ msgid "Found internal error in video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Ada kesalahan di video CD%(cd_number)s :%(videopath)s"
-
-#~ msgid "Size too little of the video CD%(cd_number)s : %(videopath)s"
-#~ msgstr "Ukuran terlalu kecil untuk video CD%(cd_number)s :%(videopath)s"
-
-#~ msgid "The subtitle %s doesn't exist."
-#~ msgstr "Subjudul %s tidak ada."
-
-#~ msgid "Size of subtitle %s bigger than 300Kb"
-#~ msgstr "Ukuran subjudul %s lebih besar dari 300Kb"
-
-#~ msgid "Error: video CD %d = video CD %d"
-#~ msgstr "Gagal: video CD %d = video CD %d"
-
-#~ msgid "Error: sub CD %d = sub CD %d"
-#~ msgstr "Gagal: sub CD %d = sub CD %d"
-
-#~ msgid "Checking videofiles and subs, please wait..."
-#~ msgstr "Mencari berkas video dan sub, mohon tunggu..."
-
-#~ msgid "Checking subtitles in server, please wait..."
-#~ msgstr "Mencari subjudul di server, mohon tunggu..."
-
-#~ msgid "Error Checking Subtitles in server, possible causes:"
-#~ msgstr "Gagal mencari subjudul di server, mungkin karena:"
-
-#~ msgid "The connection with the server is off"
-#~ msgstr "Koneksi ke server terputus"
-
-#~ msgid "Error getting the IMDB info of %s"
-#~ msgstr "TIdak dapat mengambil info IMDB dari %s"
-
-#~ msgid "Your subtitle name has some special characters you should remove."
-#~ msgstr "Nama subjudul anda memiliki karakter khusus yang harus dihilangkan."
-
-#~ msgid "Subtitle Found..."
-#~ msgstr "Subjudul ditemukan..."
-
-#~ msgid "AutoDetected"
-#~ msgstr "AutoDeteksi"
-
-#~ msgid "Detected .nfo file, please wait..."
-#~ msgstr "berkas .nfo terdeteksi, mohon tunggu..."
-
-#~ msgid "Error retrieving IMDB ID from .NFO file"
-#~ msgstr "Gagal mengambil IMDB ID dari berkas .NFO"
-
-#~ msgid "IMDB Search"
-#~ msgstr "Pencarian IMDB"
-
-#~ msgid "Error: The IMDB ID field is required."
-#~ msgstr "Gagal: Kolom IMDB ID dibutuhkan"
-
-#~ msgid "Upload Progress"
-#~ msgstr "Proses Unggah"
-
-#~ msgid "Uploading, it can take a while..."
-#~ msgstr "Mengunggah, tunggu sebentar..."
-
-#~ msgid "Thank you. Subtitle sucessfuly uploaded."
-#~ msgstr "Terima kasih. Subjudul sukses terunggah."
-
-#~ msgid "The number %s is the ID of the movie?"
-#~ msgstr "Apakah %s memang ID dari filmnya?"
-
-#~ msgid "Would you like to check the detailed page of the subtitle uploaded?"
-#~ msgstr ""
-#~ "Apakah anda ingin melihat halaman detail dari subjudul yang diunggah?"
-
-#~ msgid "The server returned some errors"
-#~ msgstr "Server mengembalikan kesalahan"
-
-#~ msgid "Error Uploading Subtitles in server, possible causes:"
-#~ msgstr "Gagal mengunggah subjudul ke server, kemungkinan kesalahan:"
-
-#~ msgid "Replacing subtitle"
-#~ msgstr "Mengganti subjudul"
-
-#~ msgid "No Subtitle found."
-#~ msgstr "Subjudul tidak ditemukan."
-
-#~ msgid "Where can I download subtitles?"
-#~ msgstr "Dimana saya dapat mengunduh subjudul?"
-
-#~ msgid "No subtitles found. Please upload it."
-#~ msgstr "Subjudul tidak ditemukan. Tolong diunggah."
-
-#~ msgid "log-in"
-#~ msgstr "log-masuk"
-
-#~ msgid "IMDB ID or MOVIE TITLE disambiguation"
-#~ msgstr "Ketidakjelasan IMDB ID atau JUDUL FILM"
-
-#~ msgid "Exit"
-#~ msgstr "Keluar"
-
-#~ msgid "Main"
-#~ msgstr "Utama"
-
-#~ msgid "Contact us"
-#~ msgstr "Hubungi kami"
-
-#~ msgid "Donate"
-#~ msgstr "Menyumbang"
-
-#~ msgid "Help"
-#~ msgstr "Bantuan"
-
-#~ msgid "Options"
-#~ msgstr "Pilihan"
-
-#~ msgid "Help us"
-#~ msgstr "Bantu kami"
-
-#~ msgid "You must search the movie title and select an IMDB ID"
-#~ msgstr "Anda harus mencari judul film dan memilih IMDB ID"
-
-#~ msgid "Log"
-#~ msgstr "Catatan"
-
-#~ msgid ""
-#~ "The application found some errors. Would you like to report them to be "
-#~ "corrected?"
-#~ msgstr "Aplikasi menemukan kesalahan. Maukah anda melaporkan untuk dibenahi?"
-
-#~ msgid "Reporting errors"
-#~ msgstr "Melaporkan kesalahan"
-
-#~ msgid "Error sending bug. Thank you anyway"
-#~ msgstr "Gagal mengirim"
-
-#~ msgid "Please Login"
-#~ msgstr "Silahkan Login"
-
-#~ msgid "We strongly recommend to log-in before uploading files"
-#~ msgstr "Kami menyarankan untuk log-masuk sebelum mengunggah berkas"
-
-#~ msgid "Connecting, please wait..."
-#~ msgstr "Menghubungi, mohon tunggu..."
-
-#~ msgid "Error XMLRPC creating server connection to : %s"
-#~ msgstr "Gagal membuat koneksi server XMLRPC ke : %s"
-
-#~ msgid "Connected as %s"
-#~ msgstr "Terhubung sebagai %s"
-
-#~ msgid "Error opening link"
-#~ msgstr "Tidak bisa membuka hubungan"
-
-#~ msgid "Connected anonymously"
-#~ msgstr "Terhubung secara anonim"
-
-#~ msgid "I cannot login to server. Status: %s"
-#~ msgstr "Saya tidak bisa log masuk ke server. Status: %s"
-
-#~ msgid "NEW VERSION: "
-#~ msgstr "VERSI BARU: "
-
-#~ msgid "UNKNOWN"
-#~ msgstr "TIDAK TAHU"
-
-#~ msgid "CURRENT VERSION:"
-#~ msgstr "VERSI TERAKHIR:"
-
-#~ msgid "Changes in the new version:"
-#~ msgstr "Perubahan di versi terbaru:"
-
-#~ msgid "Update"
-#~ msgstr "Perbarui"
-
-#~ msgid "New Update"
-#~ msgstr "Tambahan Baru"
-
-#~ msgid "Accept"
-#~ msgstr "Setujui"
-
-#~ msgid " has been updated."
-#~ msgstr " telah diperbarui."
-
-#~ msgid "Thank you very much for your collaboration  :-)"
-#~ msgstr "Terima kasih atas kolaborasi anda :-)"
-
-#~ msgid "Report wrong info"
-#~ msgstr "Laporkan informasi salah"
-
-#~ msgid "Uploading Subtitle"
-#~ msgstr "Mengunggah Subjudul"
-
-#~ msgid "extra CDs added."
-#~ msgstr "CD tambahan ditambahkan."
-
-#~ msgid "The video %(videopath) doesn't exist."
-#~ msgstr "Video %(videopath) tidak ada."
-
-#~ msgid "Found internal error in video CD%(cd_number) : %(videopath)"
-#~ msgstr "DItemukan kesalahn internal di video CD%(cd_number) : %(videopath)"
-
-#~ msgid "Size too little of the video CD%(cd_number) : %(videopath)"
-#~ msgstr "Ukuruan terlalu kecil untuk video CD%(cd_number) : %(videopath)"
-
-#~ msgid "The subtitle %(subpath) doesn't exist."
-#~ msgstr "Subjudul %(subpath) tidak ada."
-
-#~ msgid "Upload More Subtitles"
-#~ msgstr "Unggah subjudul lagi"
-
-#~ msgid "Size of subtitle %(subpath)"
-#~ msgstr "Ukuruan subjudul %(subpath)"
-
-#~ msgid "Error occurred while autodetecting language"
-#~ msgstr "Kesalahan muncul ketika mendeteksi bahasa"
-
-#~ msgid "Autodecteded language"
-#~ msgstr "Deteksi otomiatis bahasa"
-
-#~ msgid "Subtitle download directory:"
-#~ msgstr "Direktori unduh subjudul:"
-
-#~ msgid "Videofiles directory"
-#~ msgstr "Direktori file video"
-
-#~ msgid "Please choose directory"
-#~ msgstr "Silahkan pilih direktori"
-
-#~ msgid "If you don't have a user account, please"
-#~ msgstr "Jika anda tidak memiliki akun pengguna, tolong"
-
-#~ msgid "Register for free"
-#~ msgstr "Daftar gratis"
-
-#~ msgid "MOVIE TITLE or IMDB ID: "
-#~ msgstr "JUDUL FILM atau IMDB ID: "
-
-#~ msgid "File"
-#~ msgstr "File"
-
-#~ msgid "Languages:"
-#~ msgstr "Bahasa:"
-
-#~ msgid "Choose interface language here ..."
-#~ msgstr "Pilih bahasa antarmuka disini ..."
-
-#~ msgid "Search subtitles in ALL the languages"
-#~ msgstr "Cari subjudul di SEMUA bahasa"
-
-#~ msgid "Autodetect Language in Upload"
-#~ msgstr "Deteksi otomatis bahasa di unggah"
-
-#~ msgid "Default Upload Language:"
-#~ msgstr "Bahasa unggah terpilih:"
-
-#~ msgid "Servers configuration:"
-#~ msgstr "Konfigurasi Server:"
-
-#~ msgid "Proxy Parameters:"
-#~ msgstr "Parameter Proxy:"
-
-#~ msgid "OSDB protocol:"
-#~ msgstr "Protokol OSDB:"
-
-#~ msgid "The file for AVI CD%d is required"
-#~ msgstr "File untuk AVI CD%d dibutuhkan"
-
-#~ msgid "Host address: "
-#~ msgstr "Alamat "
-
-#~ msgid "Get server info"
-#~ msgstr "Ambil informasi server"
-
-#~ msgid "Server:"
-#~ msgstr "Server:"
-
-#~ msgid "User:"
-#~ msgstr "Pengguna:"
-
-#~ msgid "%s is not a valid http:// address"
-#~ msgstr "%s bukan alamat http:// yang valid"
-
-#~ msgid "OSDB Server Info"
-#~ msgstr "Informasi Server OSDB"
-
-#~ msgid "The OSDB server address is unreacheable"
-#~ msgstr "Alamat server OSDB tidak terhubung"
-
-#~ msgid "The file for Sub CD%d is required"
-#~ msgstr "File untuk sub CD%d dibutuhkan"
-
-#~ msgid "AVI File CD%d"
-#~ msgstr "File AVI CD%d"
-
-#~ msgid "Clear content"
-#~ msgstr "Bersihkan isi"
-
-#~ msgid "Add videofile"
-#~ msgstr "Tambah file video"
-
-#~ msgid "Add directory"
-#~ msgstr "Tambah direktori"
-
-#~ msgid "Clear List"
-#~ msgstr "Bersihkan daftar"
-
-#~ msgid "SEARCH"
-#~ msgstr "Cari"
-
-#~ msgid "Select / Unselect ALL"
-#~ msgstr "Pilih / Tidak memilih SEMUA"
-
-#~ msgid "Add film's directory"
-#~ msgstr "Tambah direktori film"
-
-#~ msgid "Add videos from folder (recursive)"
-#~ msgstr "Tambah video dari pelipat (berulang)"
-
-#~ msgid "Add video file"
-#~ msgstr "Tambah file video"
-
-#~ msgid "Download Subtitles"
-#~ msgstr "Unduh Subjudul"
-
-#~ msgid "Download subtitle"
-#~ msgstr "Unduh Subjudul"
-
-#~ msgid "View Details and Rate Subtitle"
-#~ msgstr "Tampilkan detil dan beri rating subjudul"
-
-#~ msgid "This SUBTITLE is not for this AVI"
-#~ msgstr "SUBJUDUL bukan untuk AVI ini"
-
-#~ msgid "The MOVIE IMDB is not for this AVI"
-#~ msgstr "IMDB FILM bukan untuk AVI ini"
-
-#~ msgid "IMDB details"
-#~ msgstr "Detail IMDB"
-
-#~ msgid "The subtitle LANGUAGE is not correct"
-#~ msgstr "BAHASA subjudul salah"
-
-#~ msgid "Report us Wrong Info"
-#~ msgstr "Laporkan Info yang Salah"
-
-#~ msgid "Play videofile"
-#~ msgstr "Mainkan file video"
-
-#~ msgid "Search other subs for this Movie"
-#~ msgstr "Cari sub lain untuk film ini"
-
-#~ msgid "Download this programs: %s to watch movies + subtitles."
-#~ msgstr "Unduh program ini: %s untuk melihat film + subjudul"
-
-#~ msgid ""
-#~ "(It means subtitles are for this movie, but are not well-synchronized)"
-#~ msgstr "(Ini berarti subjudul untuk film ini, tetapi tidak sesuai)"
-
-#~ msgid "Are you sure these subtitles are not good for your video file?"
-#~ msgstr "Apakah anda yakin subjudul ini tidak cocok dengan file video anda?"
-
-#~ msgid "The report has been noted. Thank you very much."
-#~ msgstr "Laporan telah diterima. Terima kasih banyak."
-
-#~ msgid "Choose directory..."
-#~ msgstr "Pilih direktori..."
-
-#~ msgid "Downloading, it can take a while..."
-#~ msgstr "Sedang mengunduh, tunggu sebentar..."
-
-#~ msgid "Downloading subtitle %s of %s"
-#~ msgstr "Mengunduh subjudul %s dari %s"
-
-#~ msgid "%d subtitle(s) were downloaded"
-#~ msgstr "%d subjudul telah diunduh"
-
-#~ msgid "Some errors found:"
-#~ msgstr "Beberapa kesalahan ditemukan:"
-
-#~ msgid "Search Progress"
-#~ msgstr "Perkembangan Pencarian"
-
-#~ msgid "Searching using OSDB protocol"
-#~ msgstr "Mencari dengan protokol OSDB"
-
-#~ msgid "Searching, it can take a while..."
-#~ msgstr "Sedang mencari, tunggu sebentar..."
-
-#~ msgid "Error connecting to the OSDB server"
-#~ msgstr "Tidak bisa terhubung ke server OSDB"
-
-#~ msgid "Calculating Hash"
-#~ msgstr "Menghitung Hash"
-
-#~ msgid "Hashing files..."
-#~ msgstr "Hash file..."
-
-#~ msgid "Found error in the file %s"
-#~ msgstr "Ditemukan kesalahan di file %s"
-
-#~ msgid "Size error in the file %s"
-#~ msgstr "Kesalahan ukuran di file %s"
-
-#~ msgid "The file <%s> can't be found"
-#~ msgstr "File <%s> tidak dapat ditemukan"
-
-#~ msgid ""
-#~ "We need your help to keep up Subdownloader, you can help us in many ways:"
-#~ msgstr ""
-#~ "Kami butuh bantuan anda untuk Subdownloader, anda dapat membantu dalam "
-#~ "berbagai cara:"
-
-#~ msgid "IMDB ID"
-#~ msgstr "IMDB ID"
-
-#~ msgid "- Uploading a lot of subtitles to grow up the database quickly"
-#~ msgstr "- Mengunggah banyak subjudul untuk memperluas basisdata"
-
-#~ msgid "- Contact us to translate the program in your language"
-#~ msgstr "- Hubungi kami untuk menterjemahkan program ini dalam bahasa anda"
-
-#~ msgid "- DONATE US so we could buy some kebap or chinese food sometimes :-)"
-#~ msgstr ""
-#~ "- SUMBANG KAMI biar kami bisa membeli kebab atau masakan cina sekali-kali :-)"
-
-#~ msgid "- Send us some FEEDBACK"
-#~ msgstr "- Beri kami masukan"
-
-#~ msgid "Send Feedback"
-#~ msgstr "Kirim masukan"
-
-#~ msgid "    - Chat with us:"
-#~ msgstr "    - Chat dengan kami:"
-
-#~ msgid "   capiscuas@gmail.com"
-#~ msgstr "   capiscuas@gmail.com"
-
-#~ msgid "Thank you very much"
-#~ msgstr "Terima kasih banyak"
-
-#~ msgid "Log Messages:"
-#~ msgstr "Log Pesan:"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Terapkan Perubahan"
-
-#~ msgid "Title"
-#~ msgstr "Judul"
-
-#~ msgid "Cancel Changes"
-#~ msgstr "Batalkan Perubahan"
-
-#~ msgid "Login"
-#~ msgstr "Log Masuk"
-
-#~ msgid "Servers"
-#~ msgstr "Server"
-
-#~ msgid "Language"
-#~ msgstr "Bahasa"
-
-#~ msgid "Directories"
-#~ msgstr "Direktori"
-
-#~ msgid "Downloading Language"
-#~ msgstr "Mengunduh Bahasa"
-
-#~ msgid "Downloading %s language, it can take a while..."
-#~ msgstr "Mengunduh $s, tunggu sebentar..."
-
-#~ msgid "Error retrieving new language from server."
-#~ msgstr "Tidak bisa mengambil bahasa baru dari server."
-
-#~ msgid "No translation available in %s. Please contact %s to help us."
-#~ msgstr "Terjemahan tidak tersedia dalam %s"
-
-#~ msgid "Error trying to save preferences in '%s'"
-#~ msgstr "Ada kesalahan saat menyimpan acuan di '%s'"
-
-#~ msgid "Login Again"
-#~ msgstr "Log masuk lagi"
-
-#~ msgid "2nd Step: CD2 files"
-#~ msgstr "Langkah ke-2: File CD2"
-
-#~ msgid "3rd Step: Let's see if the subtitle(s) are already in the DataBase"
-#~ msgstr "Langkah ke-3: Mari kita lihat apakah subjudul sudah ada"
-
-#~ msgid "4th Step: Required Information"
-#~ msgstr "Langkah ke-4: Informasi yang dibutuhkan"
-
-#~ msgid "5th Step: Optional Information"
-#~ msgstr "Langkah ke-5: Informasi Tambahan"
-
-#~ msgid "6th Step: Uploading the subtitle"
-#~ msgstr "Langkah ke-6: Unggah subjudul"
-
-#~ msgid "1st Step: CD1 files"
-#~ msgstr "Langkah ke-1: File CD1"
-
-#~ msgid "CD1 AVI file:"
-#~ msgstr "File AVI CD1:"
-
-#~ msgid "Browse avi..."
-#~ msgstr "Telusuri avi..."
-
-#~ msgid "English by capiscuas@gmail.com and 2ge@2ge.us"
-#~ msgstr "Bahasa Indonesia oleh nilayaksa@yahoo.com dan roy@cs.its.ac.id"
+msgstr "Versi terbaru SubDownloader telah dirilis."
