@@ -327,7 +327,7 @@ class Main(QObject, Ui_MainWindow):
                 if interface_lang == QVariant():
                         #Use system default locale
                         interface_lang = user_locale
-                        self.settings.setValue("options/interfaceLang", QVariant(user_locale))
+                        settings.setValue("options/interfaceLang", QVariant(user_locale))
                 else:
                         interface_lang = str(interface_lang.toString().toUtf8())
 
@@ -1272,7 +1272,7 @@ class Main(QObject, Ui_MainWindow):
                 details['movieaka'] = ''
                 details['moviereleasename'] = str(self.uploadReleaseText.text().toUtf8())
                 comments = str(self.uploadComments.toPlainText().toUtf8())
-                details['subauthorcomment'] =  comments
+                details['subauthorcomment'] = comments
 
                 movie_info = {}
                 movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details['movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
@@ -1395,7 +1395,7 @@ class Main(QObject, Ui_MainWindow):
         self.uploadView.resizeRowsToContents()
         selected = self.uploadSelectionModel.selection()
         total_selected = selected.count()
-        if  total_selected== 1:
+        if total_selected == 1:
             self.uploadModel.rowsSelected = [selected.last().bottomRight().row()]
             self.buttonUploadMinusRow.setEnabled(True)
             if self.uploadModel.rowsSelected[0] != self.uploadModel.getTotalRows() -1:

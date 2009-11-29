@@ -31,7 +31,6 @@ class preferencesDialog(QtGui.QDialog):
         QObject.connect(self.ui.optionVideoAppChooseLocation, SIGNAL("clicked(bool)"), self.onOptionVideoAppChooseLocation)
         QObject.connect(self.ui.helpTranslateButton, SIGNAL("clicked(bool)"), self.onOptionHelpTranslateButton)
         
-        
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), QVariant())
@@ -224,6 +223,6 @@ class preferencesDialog(QtGui.QDialog):
 
     def actionContextMenu(self, action,os):
         pass
+
     def onOptionsButtonCancel(self):
         self.reject()
-
