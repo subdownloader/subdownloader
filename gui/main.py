@@ -46,7 +46,7 @@ from modules.search import *
 import modules.utils as utils
 import languages.Languages as languages
 
-if SHAREWARE and platform.system() in ("Windows", "Microsoft"):
+if SHAREWARE:
     import gui.expiration as expiration
 
 import logging
@@ -99,7 +99,7 @@ class Main(QObject, Ui_MainWindow):
         settings = QSettings()
 
         #SHAREWARE PART
-        if SHAREWARE and platform.system() in ("Windows", "Microsoft"):
+        if SHAREWARE:
             activation_email = settings.value('activation/email', QVariant())
             activation_licensekey = settings.value('activation/licensekey', QVariant())
             activation_fullname = settings.value('activation/fullname', QVariant())
@@ -327,7 +327,7 @@ class Main(QObject, Ui_MainWindow):
                 if interface_lang == QVariant():
                         #Use system default locale
                         interface_lang = user_locale
-                        settings.setValue("options/interfaceLang", QVariant(user_locale))
+                        self.settings.setValue("options/interfaceLang", QVariant(user_locale))
                 else:
                         interface_lang = str(interface_lang.toString().toUtf8())
 
@@ -353,9 +353,9 @@ class Main(QObject, Ui_MainWindow):
 
     def calculateProgramFolder(self):
         if os.path.isdir(sys.path[0]): #for Linux is /program_folder/
-            self.programFolder =  sys.path[0]
+            self.programFolder = sys.path[0]
         else: #for Windows is the /program_folder/run.py
-            self.programFolder =  os.path.dirname(sys.path[0])
+            self.programFolder = os.path.dirname(sys.path[0])
 
     def showInstructions(self):
             introduction = '<p align="center"><h2>%s</h2></p>' \
@@ -391,7 +391,7 @@ class Main(QObject, Ui_MainWindow):
 
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
-        if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
+        if event.mimeData().hasFormat("text/plain") or event.mimeData().hasFormat("text/uri-list"):
                 event.accept()
         else:
                 event.ignore()
