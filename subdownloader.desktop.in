@@ -1,10 +1,7 @@
 [Desktop Entry]
 Version=1.0
-Name=SubDownloader
-Name[en_US]=SubDownloader
-Comment=Application to download/upload subtitles of your movies.
-Comment[en_US]=Application to download/upload subtitles of your movies.
-Comment[pt_PT]=Aplicação para descarregar/enviar legendas para os seus filmes.
+_Name=SubDownloader
+_Comment=Application to download/upload subtitles of your movies.
 Exec=subdownloader
 Icon=subdownloader
 Path=/usr/share/subdownloader
