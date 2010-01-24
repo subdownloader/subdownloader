@@ -1080,7 +1080,7 @@ class Main(QObject, Ui_MainWindow):
                     # since we always rename downloaded sub to match movie filename.
                     fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s\n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
                     skipButton = fileExistsBox.addButton(QString(_("Skip")), QMessageBox.ActionRole)
-                    skipAllButton = fileExistsBox.addButton(QString(_("Skip all")), QMessageBox.ActionRole)
+#                    skipAllButton = fileExistsBox.addButton(QString(_("Skip all")), QMessageBox.ActionRole)
                     replaceButton = fileExistsBox.addButton(QString(_("Replace")), QMessageBox.ActionRole)
                     replaceAllButton = fileExistsBox.addButton(QString(_("Replace all")), QMessageBox.ActionRole)
                     saveAsButton = fileExistsBox.addButton(QString(_("Save as...")), QMessageBox.ActionRole)
@@ -1108,10 +1108,10 @@ class Main(QObject, Ui_MainWindow):
                     elif answer == skipButton:
                         count += percentage
                         continue # Skip this particular file
-                    elif answer == skipAllButton:
-                        count += percentage
-                        skip_all = True # Skip all files already downloaded
-                        continue
+#                    elif answer == skipAllButton:
+#                        count += percentage
+#                        skip_all = True # Skip all files already downloaded
+#                        continue
                     elif answer == cancelButton:
                         break # Break out of DL loop - cancel was pushed
                 QCoreApplication.processEvents()
