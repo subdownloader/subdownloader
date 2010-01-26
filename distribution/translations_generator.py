@@ -11,11 +11,11 @@ import sys
 class TranslationsGenerator(object):
     '''Translation file generator'''
 
-    def __init__(self, gui_dir = '../gui', pot_dir = '../locale',
+    def __init__(self, main_dir = '../', pot_dir = '../locale',
         po_dir = '../locale', exclude_dir_pattern = 'images'):
 
-        # Directory of python gui files to search for for translations
-        self.gui_dir = gui_dir
+        # Directorys of python files to search for translations
+        self.main_dir = main_dir
 
         # A directory pattern to exclude when searching
         self.exclude = exclude_dir_pattern
@@ -37,7 +37,7 @@ class TranslationsGenerator(object):
 
         # Cycle through all the files and collect the necessary data
         # pylint: disable-msg=W0612
-        for root, dirs, files in os.walk(self.gui_dir):
+        for root, dirs, files in os.walk(self.main_dir):
             if self.exclude in root:
                 continue
             for filename in files:
