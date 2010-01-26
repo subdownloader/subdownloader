@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-07 19:23+0000\n"
+"POT-Creation-Date: 2010-01-26 21:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,142 +16,324 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gui/preferences_ui.py:268
-msgid "Settings"
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
 msgstr ""
 
-#: ../gui/preferences_ui.py:269
-msgid "Filter search results by these languages:"
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
 msgstr ""
 
-#: ../gui/preferences_ui.py:270 ../gui/main.py:1507 ../gui/main.py:1660
-#: ../gui/main_ui.py:697
-msgid "Search"
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
 msgstr ""
 
-#: ../gui/preferences_ui.py:271
-msgid "Destination folder:"
+#: ../languages/Languages.py:12
+msgid "Albanian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:272
-msgid "Always ask user"
+#: ../languages/Languages.py:13
+msgid "Arabic"
 msgstr ""
 
-#: ../gui/preferences_ui.py:273
-msgid "Same folder as video file"
+#: ../languages/Languages.py:14
+msgid "Armenian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:274
-msgid "Predefined folder:"
+#: ../languages/Languages.py:15
+msgid "Malay"
 msgstr ""
 
-#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
-msgid "Browse..."
+#: ../languages/Languages.py:16
+msgid "Bosnian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:276
-msgid "Filename of the Subtitle:"
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:277
-msgid "Same name as video file"
+#: ../languages/Languages.py:18
+msgid "Catalan"
 msgstr ""
 
-#: ../gui/preferences_ui.py:278
-msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+#: ../languages/Languages.py:19
+msgid "Basque"
 msgstr ""
 
-#: ../gui/preferences_ui.py:279
-msgid "Same name as the online subtitle"
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
 msgstr ""
 
-#: ../gui/preferences_ui.py:280 ../gui/main.py:426 ../gui/main_ui.py:695
-#: ../gui/main_ui.py:703
-msgid "Download"
+#: ../languages/Languages.py:21
+msgid "Croatian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:281
-msgid "Default language of uploaded subtitles"
+#: ../languages/Languages.py:22
+msgid "Czech"
 msgstr ""
 
-#: ../gui/preferences_ui.py:282 ../gui/main_ui.py:730
-msgid "Upload"
+#: ../languages/Languages.py:23
+msgid "Danish"
 msgstr ""
 
-#: ../gui/preferences_ui.py:283
-msgid "Network Proxy"
+#: ../languages/Languages.py:24
+msgid "Dutch"
 msgstr ""
 
-#: ../gui/preferences_ui.py:284
-msgid "Host:"
+#: ../languages/Languages.py:25
+msgid "English (US)"
 msgstr ""
 
-#: ../gui/preferences_ui.py:285
-msgid "Port:"
+#: ../languages/Languages.py:26
+msgid "English (UK)"
 msgstr ""
 
-#: ../gui/preferences_ui.py:286
-msgid "Network"
+#: ../languages/Languages.py:27
+msgid "Esperanto"
 msgstr ""
 
-#: ../gui/preferences_ui.py:287
-msgid "Interface Language:"
+#: ../languages/Languages.py:28
+msgid "Estonian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:288 ../gui/main_ui.py:746
-msgid "Translate This Application..."
+#: ../languages/Languages.py:29
+msgid "Finnish"
 msgstr ""
 
-#: ../gui/preferences_ui.py:289
-msgid "Context Menu:"
+#: ../languages/Languages.py:30
+msgid "French"
 msgstr ""
 
-#: ../gui/preferences_ui.py:290
-msgid "Enable in your explorer"
+#: ../languages/Languages.py:31
+msgid "Galician"
 msgstr ""
 
-#: ../gui/preferences_ui.py:291
-msgid "External application for video playback"
+#: ../languages/Languages.py:32
+msgid "Georgian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:292
-msgid "Video Player:"
+#: ../languages/Languages.py:33
+msgid "German"
 msgstr ""
 
-#: ../gui/preferences_ui.py:294
-msgid "Parameters:"
+#: ../languages/Languages.py:34
+msgid "Greek"
 msgstr ""
 
-#: ../gui/preferences_ui.py:295
-msgid "{0} = video file path; {1} = subtitle path"
+#: ../languages/Languages.py:35
+msgid "Hebrew"
 msgstr ""
 
-#: ../gui/preferences_ui.py:296
-msgid "Others"
+#: ../languages/Languages.py:36
+msgid "Hungarian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:297
-msgid "Save"
+#: ../languages/Languages.py:37
+msgid "Indonesian"
 msgstr ""
 
-#: ../gui/preferences_ui.py:298 ../gui/main.py:1087 ../gui/imdb_ui.py:81
-msgid "Cancel"
+#: ../languages/Languages.py:38
+msgid "Italian"
 msgstr ""
 
-#: ../gui/login_ui.py:57 ../gui/main.py:548
-msgid "Authentication"
+#: ../languages/Languages.py:39
+msgid "Japanese"
 msgstr ""
 
-#: ../gui/login_ui.py:58
-msgid "Login into OpenSubtitles.org"
+#: ../languages/Languages.py:40
+msgid "Kazakh"
 msgstr ""
 
-#: ../gui/login_ui.py:59
-msgid "Username:"
+#: ../languages/Languages.py:41
+msgid "Korean"
 msgstr ""
 
-#: ../gui/login_ui.py:60
-msgid "Password:"
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr ""
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr ""
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr ""
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr ""
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr ""
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr ""
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr ""
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr ""
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr ""
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr ""
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr ""
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr ""
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr ""
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr ""
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr ""
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr ""
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr ""
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr ""
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr ""
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr ""
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:558
+msgid "Anonymous"
+msgstr ""
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr ""
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr ""
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr ""
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr ""
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr ""
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr ""
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr ""
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr ""
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr ""
+
+#: ../gui/about_ui.py:120
+msgid "About Subdownloader"
+msgstr ""
+
+#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
+msgid "About"
+msgstr ""
+
+#: ../gui/about_ui.py:151
+msgid "Authors"
+msgstr ""
+
+#: ../gui/about_ui.py:167
+msgid "License Agreement"
+msgstr ""
+
+#: ../gui/about_ui.py:168
+msgid "Close"
+msgstr ""
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr ""
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr ""
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr ""
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr ""
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr ""
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr ""
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr ""
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr ""
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
 msgstr ""
 
 #: ../gui/main.py:24
@@ -187,9 +369,9 @@ msgstr ""
 #: ../gui/main.py:1252 ../gui/main.py:1257 ../gui/main.py:1307
 #: ../gui/main.py:1310 ../gui/main.py:1577 ../gui/main.py:1627
 #: ../gui/main.py:1649 ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52
-#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/expiration.py:85
-#: ../gui/expiration.py:100 ../gui/expiration.py:102 ../gui/login.py:59
-#: ../gui/preferences.py:157
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/login.py:59
+#: ../gui/preferences.py:157 ../gui/expiration.py:85 ../gui/expiration.py:100
+#: ../gui/expiration.py:102
 msgid "Error"
 msgstr ""
 
@@ -257,6 +439,11 @@ msgstr ""
 msgid "Set IMDB info..."
 msgstr ""
 
+#: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr ""
+
 #: ../gui/main.py:429
 msgid "Play video + subtitle"
 msgstr ""
@@ -306,8 +493,8 @@ msgstr ""
 msgid "&Cancel"
 msgstr ""
 
-#: ../gui/main.py:558 ../gui/videotreeview.py:146
-msgid "Anonymous"
+#: ../gui/main.py:548 ../gui/login_ui.py:57
+msgid "Authentication"
 msgstr ""
 
 #: ../gui/main.py:559
@@ -405,8 +592,8 @@ msgstr ""
 msgid "Search finished"
 msgstr ""
 
-#: ../gui/main.py:857 ../gui/main.py:872 ../gui/imdb_ui.py:79
-#: ../gui/main_ui.py:693 ../gui/main_ui.py:702
+#: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
 msgid "Movie Info"
 msgstr ""
 
@@ -498,16 +685,16 @@ msgstr ""
 msgid "Skip"
 msgstr ""
 
-#: ../gui/main.py:1083
-msgid "Skip all"
-msgstr ""
-
 #: ../gui/main.py:1084
 msgid "Replace"
 msgstr ""
 
 #: ../gui/main.py:1085
 msgid "Replace all"
+msgstr ""
+
+#: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
 msgstr ""
 
 #: ../gui/main.py:1173
@@ -604,6 +791,11 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
+#: ../gui/main.py:1507 ../gui/main.py:1660 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr ""
+
 #: ../gui/main.py:1586
 msgid "Select the directory where to save the subtitle(s)"
 msgstr ""
@@ -649,148 +841,24 @@ msgstr ""
 msgid "A new version of SubDownloader has been released."
 msgstr ""
 
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr ""
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr ""
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr ""
+
 #: ../gui/imdbSearch.py:43
 msgid "Please fill out the search title"
 msgstr ""
 
 #: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
 msgid "Please search and select a movie from the list"
-msgstr ""
-
-#: ../gui/about_ui.py:120
-msgid "About Subdownloader"
-msgstr ""
-
-#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
-msgid "About"
-msgstr ""
-
-#: ../gui/about_ui.py:151
-msgid "Authors"
-msgstr ""
-
-#: ../gui/about_ui.py:167
-msgid "License Agreement"
-msgstr ""
-
-#: ../gui/about_ui.py:168
-msgid "Close"
-msgstr ""
-
-#: ../gui/expiration.py:62
-#, python-format
-msgid "The program will expire in %d days."
-msgstr ""
-
-#: ../gui/expiration.py:63
-msgid "Activate Program"
-msgstr ""
-
-#: ../gui/expiration.py:65
-#, python-format
-msgid "The program has expired after %d days of usage."
-msgstr ""
-
-#: ../gui/expiration.py:85
-msgid "Some fields are empty.. please fill them."
-msgstr ""
-
-#: ../gui/imdb_ui.py:76
-msgid "IMDB search dialog:"
-msgstr ""
-
-#: ../gui/imdb_ui.py:77
-msgid "Enter the Movie Title or IMDB id:"
-msgstr ""
-
-#: ../gui/imdb_ui.py:78
-msgid "Search Movie"
-msgstr ""
-
-#: ../gui/imdb_ui.py:80
-msgid "OK"
-msgstr ""
-
-#: ../gui/videotreeview.py:154
-#, python-format
-msgid "[Rate: %s]"
-msgstr ""
-
-#: ../gui/videotreeview.py:157
-msgid "(Already downloaded)"
-msgstr ""
-
-#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
-#, python-format
-msgid "Uploader: %s"
-msgstr ""
-
-#: ../gui/videotreeview.py:165
-#, python-format
-msgid "Rate: %s"
-msgstr ""
-
-#: ../gui/videotreeview.py:166
-#, python-format
-msgid "Format: %s"
-msgstr ""
-
-#: ../gui/videotreeview.py:167
-#, python-format
-msgid "Downloads: %d"
-msgstr ""
-
-#: ../gui/videotreeview.py:168
-#, python-format
-msgid "CDs: %d"
-msgstr ""
-
-#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
-#, python-format
-msgid "[IMDB Rate: %s]"
-msgstr ""
-
-#: ../gui/videotreeview.py:220
-#, python-format
-msgid "(%d subtitles)"
-msgstr ""
-
-#: ../gui/uploadlistview.py:33
-msgid "Videofile"
-msgstr ""
-
-#: ../gui/uploadlistview.py:33
-msgid "Subtitle"
-msgstr ""
-
-#: ../gui/uploadlistview.py:81
-msgid "The list of video/subtitle is empty"
-msgstr ""
-
-#: ../gui/uploadlistview.py:88
-#, python-format
-msgid "Subtitle %s is repeated"
-msgstr ""
-
-#: ../gui/uploadlistview.py:93
-#, python-format
-msgid "Videofile %s is repeated"
-msgstr ""
-
-#: ../gui/uploadlistview.py:99
-msgid "Some of the upload rows are empty"
-msgstr ""
-
-#: ../gui/uploadlistview.py:104
-msgid "Some of the video/subtitles fields are empty"
-msgstr ""
-
-#: ../gui/uploadlistview.py:208
-msgid "Click here to select video..."
-msgstr ""
-
-#: ../gui/uploadlistview.py:213
-msgid "Click here to select subtitle..."
 msgstr ""
 
 #: ../gui/main_ui.py:678
@@ -899,6 +967,10 @@ msgstr ""
 msgid "Subtitle Language:"
 msgstr ""
 
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr ""
+
 #: ../gui/main_ui.py:731
 msgid "Upload subtitles"
 msgstr ""
@@ -951,6 +1023,26 @@ msgstr ""
 msgid "LogOut"
 msgstr ""
 
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr ""
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr ""
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr ""
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr ""
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr ""
+
 #: ../gui/preferences.py:36
 msgid "<AutoDetect>"
 msgstr ""
@@ -985,4 +1077,122 @@ msgstr ""
 
 #: ../gui/preferences.py:214
 msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr ""
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr ""
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr ""
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr ""
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr ""
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr ""
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr ""
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr ""
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr ""
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr ""
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr ""
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr ""
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr ""
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr ""
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr ""
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr ""
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr ""
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr ""
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr ""
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
 msgstr ""
