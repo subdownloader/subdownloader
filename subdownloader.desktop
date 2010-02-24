@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
-_Name=SubDownloader
-_Comment=Application to download/upload subtitles of your movies.
+Name=SubDownloader
+Comment=Application to download/upload subtitles of your movies.
 Exec=subdownloader
 Icon=subdownloader
 Path=/usr/share/subdownloader
