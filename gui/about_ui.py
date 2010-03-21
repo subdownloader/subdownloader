@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created: Sun Nov 29 11:08:09 2009
-#      by: PyQt4 UI code generator 4.6
+# Created: Sun Mar 21 10:46:17 2010
+#      by: PyQt4 UI code generator 4.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -147,7 +147,7 @@ class Ui_AboutDialog(object):
 "</style></head><body style=\" font-family:\'Verdana\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Ivan Garcia &lt;</span><a href=\"mailto:ivangarcia@subdownloader.net\"><span style=\" font-family:\'Sans Serif\'; text-decoration: underline; color:#0057ae;\">ivangarcia@subdownloader.net</span></a><span style=\" font-family:\'Sans Serif\';\">&gt;</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Marco Ferreira &lt;</span><a href=\"mailto:mferreira@subdownloader.net\"><span style=\" font-family:\'Sans Serif\'; text-decoration: underline; color:#0057ae;\">mferreira@subdownloader.net</span></a><span style=\" font-family:\'Sans Serif\';\">&gt;</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Marco Rodrigues &lt;</span><a href=\"mailto:mferreira@subdownloader.net\"><span style=\" font-family:\'Sans Serif\'; text-decoration: underline; color:#0057ae;\">gothicx@sapo.pt</span></a><span style=\" font-family:\'Sans Serif\';\">&gt;</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Marco Rodrigues &lt;</span><a href=\"mailto:mferreira@subdownloader.net\"><span style=\" font-family:\'Sans Serif\'; text-decoration: underline; color:#0057ae;\">gothicx@gmail.com</span></a><span style=\" font-family:\'Sans Serif\';\">&gt;</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_2), _("Authors"))
         self.txtLicense.setHtml(QtGui.QApplication.translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
