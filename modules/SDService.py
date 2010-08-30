@@ -14,15 +14,15 @@ from modules import APP_TITLE, APP_VERSION
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 from FileManagement import Subtitle
+import socket, urllib2
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
-MAX_TIMEOUT = 300
+CON_TIMEOUT = 300
 
-def test_connection(url, timeout=MAX_TIMEOUT):
-    import socket, urllib2
+def test_connection(url, timeout=CON_TIMEOUT):
     defTimeOut=socket.getdefaulttimeout()
     socket.setdefaulttimeout(timeout)
     connectable=False
@@ -48,7 +48,7 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=MAX_TIMEOUT): 
+    def __init__(self, function, timeout=CON_TIMEOUT): 
 	self.log = logging.getLogger("subdownloader.SDService.TimeoutFunction")
         self.timeout = timeout 
         self.function = function 
@@ -184,7 +184,7 @@ class SDService(object):
 		self.log.debug("error in xml-rpc server")
 		raise e
         except Exception,e:
-                self.log.debug("Connection to the server failed/other error:%s" %sys.exc_info())
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
                 raise e
         
     def is_connected(self):
@@ -219,11 +219,13 @@ class SDService(object):
             raise
             
     def login(self, username="", password=""):
-        login = TimeoutFunction(self._login)
         try:
+	    login = TimeoutFunction(self._login)
             return login(username, password)
         except TimeoutFunctionException:
             self.log.error("login timed out")
+	except Exception, e:
+	    self.log.error("login: other issue:%s",sys.exc_info()[0])
         
     def _login(self, username="", password=""):
         """Login to the Server using username/password,
@@ -234,9 +236,12 @@ class SDService(object):
         self.log.debug("Logging in (username: %s)..."% username)
 	try: 
 	        info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
+	        self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
 	except : 
 		self.log.debug("Unexpected error: %s", sys.exc_info()[0])
-        self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
+		self._token = None
+		return False
+        
         if info['status'] == "200 OK":
             self.log.debug("Session ID: %s"% info['token'])
             self.log.debug("----------------")
@@ -249,8 +254,8 @@ class SDService(object):
             return False
         
     def logout(self):
-        logout = TimeoutFunction(self._logout)
         try:
+	    logout = TimeoutFunction(self._logout)
             return logout()
         except TimeoutFunctionException:
             self.log.error("logout timed out")
@@ -260,11 +265,21 @@ class SDService(object):
         This functions doesn't return any boolean value, since it can 'fail' for anonymous logins
         """
         self.log.debug("Logging out from session ID: %s"% self._token)
-        info = self.xmlrpc_server.LogOut(self._token)
-        self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
-        # force token reset
-        self._token = None
-        
+	try:
+		info = self.xmlrpc_server.LogOut(self._token)
+                self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
+        except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
+	finally:
+        	# force token reset
+	        self._token = None
         
     #
     # SUBTITLE METHODS 
@@ -275,6 +290,8 @@ class SDService(object):
             return GetSubLanguages(language)
         except TimeoutFunctionException:
             self.log.error("GetSubLanguages timed out")
+	except:
+	    self.log.error("GetSubLanguages other error")
             
     def _GetSubLanguages(self, language):
         """Return all suported subtitles languages in a dictionary
@@ -285,14 +302,22 @@ class SDService(object):
         if language == "all":
             # return result right away if no 'translation' needed
             return "all"
-        info = self.xmlrpc_server.GetSubLanguages(language)
-        self.log.debug("GetSubLanguages complete in %s"% info['seconds'])
-            
-        if language:
-            for lang in info['data']:
-                if lang['ISO639'] == language: return lang['SubLanguageID']
-                
-        return info['data']
+	try:
+	        info = self.xmlrpc_server.GetSubLanguages(language)
+        	self.log.debug("GetSubLanguages complete in %s"% info['seconds'])
+                if language:
+                    for lang in info['data']:
+                        if lang['ISO639'] == language: return lang['SubLanguageID']
+                return info['data']
+	except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
         
     def CheckSubHash(self, hashes):
         CheckSubHash = TimeoutFunction(self._CheckSubHash)
@@ -300,6 +325,8 @@ class SDService(object):
             return CheckSubHash(hashes)
         except TimeoutFunctionException:
             self.log.error("CheckSubHash timed out")
+	except:
+	    self.log.error("CheckSubHash other error")
         
     def _CheckSubHash(self, hashes):
         """
@@ -316,14 +343,25 @@ class SDService(object):
             for sub in video.getSubtitles():
                 hashes.append(sub.getHash())
             self.log.debug("...done")
-        info = self.xmlrpc_server.CheckSubHash(self._token,hashes)
-        self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
-        result = {}
-        for hash in hashes:
-            result[hash] = info['data'][hash]
-#        for data in info['data']:
-#            result[data.key()] = data.value()
-        return result
+	try:
+	        info = self.xmlrpc_server.CheckSubHash(self._token,hashes)
+        	self.log.debug("CheckSubHash ended in %s with status: %s"% (info['seconds'], info['status']))
+	        result = {}
+	        for hash in hashes:
+        	    result[hash] = info['data'][hash]
+	#        for data in info['data']:
+#       	     result[data.key()] = data.value()
+	        return result
+        except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
+
     
     def DownloadSubtitles(self, subtitles):
         DownloadSubtitles = TimeoutFunction(self._DownloadSubtitles)
@@ -350,21 +388,31 @@ class SDService(object):
         if len(subtitles_to_download):
             self.log.debug("Communicating with server...")
             self.log.debug("xmlrpc_server.DownloadSubtitles(%s,%r)" %(self._token, subtitles_to_download.keys()))
-            answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
-            self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
-            
-            if answer.has_key("data"):
-                if answer['data'] == False:  #TODO support passing the reason of the erorr to be shown in the GUI
-                    self.log.info("Error downloading subtitle.")
-                    return False
-                self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
-                for sub in answer['data']:
+	    try:
+		answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
+		self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
+	    except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+               	raise e
+	    except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+               	raise e
+	    except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+               	raise e
+	    else:
+                if answer.has_key("data"):
+                    if answer['data'] == False:  #TODO support passing the reason of the erorr to be shown in the GUI
+                       self.log.info("Error downloading subtitle.")
+                       return False
+                    self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
+                    for sub in answer['data']:
                     #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
-                    self.BaseToFile(sub['data'], subtitles_to_download[sub['idsubtitlefile']])
-                return answer['data']
-            else:
-                self.log.info("Server sent no subtitles to me.")
-                return False
+                        self.BaseToFile(sub['data'], subtitles_to_download[sub['idsubtitlefile']])
+                    return answer['data']
+                else:
+                    self.log.info("Server sent no subtitles to me.")
+                    return False
         
     def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
         SearchSubtitles = TimeoutFunction(self._SearchSubtitles)
@@ -681,6 +729,8 @@ class SDService(object):
             return CheckSoftwareUpdates(app)
         except TimeoutFunctionException:
             self.log.error("CheckSoftwareUpdates timed out")
+	except: 
+	    self.log.error("CheckSoftwareUpdates other error")
         
     def _CheckSoftwareUpdates(self, app=None):
         """Returns latest info on the given application if available
@@ -688,18 +738,30 @@ class SDService(object):
         self.log.debug("----------------")
         self.log.debug("CheckSoftwareUpdates RPC method starting...")
         if not app: app = APP_TITLE.lower()
-        info = self.xmlrpc_server.CheckSoftwareUpdates(app)
-
-        # we have something to show
-        self.log.debug("Latest SubDownloader Version Found: %s"% info['latest_version'])
-        return info
+	try:
+	        info = self.xmlrpc_server.CheckSoftwareUpdates(app)
+	except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e: 
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except Exception,e:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
+	else:
+        	# we have something to show
+        	self.log.debug("Latest SubDownloader Version Found: %s"% info['latest_version'])
+        	return info
         
     def NoOperation(self, token=None):
-        NoOperation = TimeoutFunction(self._NoOperation)
         try:
+	    NoOperation = TimeoutFunction(self._NoOperation)
             return NoOperation()
         except TimeoutFunctionException:
             self.log.error("NoOperation timed out")
+	except:
+	    self.log.error("NoOperation other error")
         
     def _NoOperation(self):
         """This method should be called every 15 minutes after last request to xmlrpc. 
@@ -708,12 +770,24 @@ class SDService(object):
         """
         self.log.debug("----------------")
         self.log.debug("NoOperation RPC method starting...")
-        info = self.xmlrpc_server.NoOperation(self._token)
-        self.log.debug("NoOperation finished in %s with status %s."% (info['seconds'], info['status']))
-        self.log.debug("----------------")
-        if info['status'] != "200 OK":
-            return False
-        return True
+	noop=False
+	try:
+        	info = self.xmlrpc_server.NoOperation(self._token)
+	        self.log.debug("NoOperation finished in %s with status %s."% (info['seconds'], info['status']))
+                self.log.debug("----------------")
+                if info['status'] == "200 OK":
+                	return True
+		else:
+			return noop
+        except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
         
     def SearchToMail(self, videos, languages):
         SearchToMail = TimeoutFunction(self._SearchToMail)
@@ -733,8 +807,18 @@ class SDService(object):
         for video in videos:
             array = {'moviehash': video.getHash(), 'moviesize': video.getSize()}
             video_array.append(array)
-        info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
-        self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
+	try:
+	        info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
+        	self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
+	except xmlrpclib.ProtocolError, e:
+                self.log.debug("error in HTTP/HTTPS transport layer")
+                raise e
+        except xmlrpclib.Fault, e:
+                self.log.debug("error in xml-rpc server")
+                raise e
+        except:
+                self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
+                raise e
         
     def BaseToFile(self, base_data, path):
         """This will decode the base64 data and save it as a file with the given path
