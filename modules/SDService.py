@@ -19,6 +19,7 @@ import socket, urllib2
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
+TEST_URL = 'http://www.google.com'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 CON_TIMEOUT = 300
 
@@ -167,7 +168,7 @@ class SDService(object):
                 self.log.debug("...connected")
                 return True
                 
-            elif test_connection(server):
+            elif test_connection(TEST_URL):
                     self.log.debug("Trying direct connection...")
                     self.xmlrpc_server = ServerProxy(server, allow_none=True)
                     #self.ServerInfo()

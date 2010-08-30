@@ -253,7 +253,7 @@ class Main(QObject, Ui_MainWindow):
             #print self.OSDBServer.xmlrpc_server.GetTranslation(self.OSDBServer._token, 'ar', 'po','subdownloader')
             self.window.setCursor(Qt.WaitCursor)
             if self.establishServerConnection():# and self.OSDBServer.is_connected():
-                thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
+                #thread.start_new_thread(self.update_users, (300, )) #update the users counter every 5min
                 if platform.system() in ("Windows", "Microsoft"):
                     thread.start_new_thread(self.detect_software_updates, ())
                 if SHAREWARE:
@@ -1132,18 +1132,8 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
 
     def showErrorConnection(self):
-        warningBox = QMessageBox(_("Error write permission"),
-                                    _("%s cannot be saved.\nCheck that the folder exists and you have write-access permissions.") %destinationPath ,
-                                    QMessageBox.Warning,
-                                    QMessageBox.Retry | QMessageBox.Default ,
-                                    QMessageBox.Discard | QMessageBox.Escape,
-                                    QMessageBox.NoButton,
-                                    self.window)
-        answer = warningBox.exec_()
-        if answer == QMessageBox.Retry:
-            pass #Try to create connection + login
-        elif answer == QMessageBox.Discard :
-            return
+	QMessageBox.about(self.window,_("Error www.opensubtitles.org"),_("Error connecting to 3rd party server www.opensubtitles.org \nTry to reconnect later in case if overloaded."))
+
 
     """Control the STATUS BAR PROGRESS"""
     def progress(self, val = None,msg = None):
