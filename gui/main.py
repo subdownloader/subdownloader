@@ -1132,7 +1132,7 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
 
     def showErrorConnection(self):
-	QMessageBox.about(self.window,_("Error www.opensubtitles.org"),_("Error connecting to 3rd party server www.opensubtitles.org \nTry to reconnect later in case if overloaded."))
+	QMessageBox.about(self.window,_("Alert"),_("www.opensubtitles.org is not responding\nIt might be overloaded, try again in a few moments."))
 
 
     """Control the STATUS BAR PROGRESS"""
