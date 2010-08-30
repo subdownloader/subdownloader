@@ -274,7 +274,7 @@ class Main(QObject, Ui_MainWindow):
                     loginUsername = str(settings.value("options/LoginUsername", QVariant()).toString().toUtf8())
                     loginPassword = str(settings.value("options/LoginPassword", QVariant()).toString().toUtf8())
                 self.login_user(loginUsername,loginPassword,self.window)
-                thread.start_new_thread(self.OSDBServer.NoOperation, (900, )) #check expire session every 15min
+                #thread.start_new_thread(self.OSDBServer.NoOperation, (900, )) #check expire session every 15min
             else:
                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
             self.window.setCursor(Qt.ArrowCursor)

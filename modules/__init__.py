@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 '''
@@ -6,5 +7,5 @@ MODULES package
 '''
 
 APP_TITLE     = "SubDownloader"
-APP_VERSION   = "2.0.11"
+APP_VERSION   = "2.0.12"
 SHAREWARE     = False

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 from xmlrpclib import Transport,ServerProxy,ProtocolError
@@ -6,6 +7,7 @@ import base64, httplib, os
 import StringIO, gzip, zlib
 import logging
 import threading, thread
+import sys
 log = logging.getLogger("subdownloader.WebService")
     
 from modules import APP_TITLE, APP_VERSION
@@ -17,18 +19,28 @@ DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
+MAX_TIMEOUT = 300
 
-def test_connection(url, timeout=15):
+def test_connection(url, timeout=MAX_TIMEOUT):
     import socket, urllib2
     defTimeOut=socket.getdefaulttimeout()
     socket.setdefaulttimeout(timeout)
-    connectable=True
+    connectable=False
     try:
-        urllib2.urlopen(url)
-    except (urllib2.HTTPError, urllib2.URLError, socket.error, socket.sslerror):
-        connectable=False
+       	urllib2.urlopen(url)
+	log.debug("successfully tested connection")
+	connectable=True
+    except urllib2.HTTPError, e:
+       	log.error('The server couldn\'t fulfill the request. Error code: '% e.code)
+    except urllib2.URLError, e:
+       	log.error('We failed to reach a server. Reason: %s '% e.reason)
+    except socket.error, (value,message):
+       	log.error("Could not open socket: %s"% message)
+    except socket.sslerror, (value,message):
+       	log.error("Could not open ssl socket: %s"% message)
     socket.setdefaulttimeout(defTimeOut)
     return connectable
+
 
 class TimeoutFunctionException(Exception): 
     """Exception to raise on a timeout""" 
@@ -36,11 +48,13 @@ class TimeoutFunctionException(Exception):
 
 class TimeoutFunction: 
 
-    def __init__(self, function, timeout=30): 
+    def __init__(self, function, timeout=MAX_TIMEOUT): 
+	self.log = logging.getLogger("subdownloader.SDService.TimeoutFunction")
         self.timeout = timeout 
         self.function = function 
 
     def handle_timeout(self): 
+	self.log.debug("exception in timeouted function %s"%self.function)
         raise TimeoutFunctionException()
 
     def __call__(self, *args): 
@@ -50,6 +64,8 @@ class TimeoutFunction:
         try: 
             t.start()
             result = self.function(*args)
+	except Exception, e:
+	    raise e
         finally: 
             #signal.signal(signal.SIGALRM, old)
             t.cancel()
@@ -63,13 +79,13 @@ class ProxiedTransport(Transport):
     """ Used for proxied connections to the XMLRPC server
     """
     def __init__(self):
-        #self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
+        self.log = logging.getLogger("subdownloader.OSDBServer.ProxiedTransport")
         self._use_datetime = True # annoying -> AttributeError: Main instance has no attribute '_use_datetime'
     def set_proxy(self, proxy):
         self.proxy = proxy
-        #self.log.debug("Proxy set to: %s"% proxy)
+        self.log.debug("Proxy set to: %s"% proxy)
     def make_connection(self, host):
-        #self.log.debug("Connecting to %s through %s"% (host, self.proxy))
+        self.log.debug("Connecting to %s through %s"% (host, self.proxy))
         self.realhost = host
         h = httplib.HTTP(self.proxy)
         return h
@@ -118,13 +134,14 @@ class SDService(object):
             raise e
             
     def create_xmlrpcserver(self, server, proxy):
-        self.log.debug("Creating XMLRPC server connection...")
+        self.log.debug("Creating XMLRPC server connection... to server %s with proxy %s" %(server,proxy))
         try:
             return self.connect(server, proxy)
         except Exception, e:
             raise e
         
     def connect(self, server, proxy):
+	connect=False
         try:
             self.log.debug("Connecting with parameters (%r, %r)" %(server, proxy))
             connect = TimeoutFunction(self._connect)
@@ -132,9 +149,12 @@ class SDService(object):
         except TimeoutFunctionException, e:
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise e
-        #except Exception, e:
-            #import sys
-            #self.log.error("Unexpected error: %s", sys.exc_info())
+        except Exception, e:
+            self.log.error("connect: Unexpected error: %s", sys.exc_info())
+	    raise e
+	finally:
+	    self.log.debug("connection connected %s"%connect)
+	    return connect
 
     def _connect(self, server, proxy):
         try:
@@ -157,9 +177,15 @@ class SDService(object):
                 self.log.debug("...failed")
                 self.log.error("Unable to connect. Try setting a proxy.")
                 return False
+	except xmlrpclib.ProtocolError, e:
+		self.log.debug("error in HTTP/HTTPS transport layer")
+		raise e
+	except xmlrpclib.Fault, e:
+		self.log.debug("error in xml-rpc server")
+		raise e
         except Exception,e:
-                    self.log.debug("Connection to the server failed")
-                    raise e
+                self.log.debug("Connection to the server failed/other error:%s" %sys.exc_info())
+                raise e
         
     def is_connected(self):
         """ 
@@ -170,7 +196,7 @@ class SDService(object):
         return self._token != None
         
     def ServerInfo(self):
-        ServerInfo = TimeoutFunction(self._ServerInfo)
+        ServerInfo = self._ServerInfo
         try:
             a = ServerInfo()
             return a
@@ -178,9 +204,9 @@ class SDService(object):
             self.log.error("ServerInfo timed out")
             
         except Exception, e:
-            #print type(e)     # the exception instance
-            #print e.args      # arguments stored in .args
-            #print e           # __str__ allows args to printed directly
+            print type(e)     # the exception instance
+            print e.args      # arguments stored in .args
+            print e           # __str__ allows args to printed directly
             self.log.error("ServerInfo error connection.")
             raise e
 
@@ -206,7 +232,10 @@ class SDService(object):
         """ 
         self.log.debug("----------------")
         self.log.debug("Logging in (username: %s)..."% username)
-        info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
+	try: 
+	        info = self.xmlrpc_server.LogIn(username, password, self.language, self.user_agent)
+	except : 
+		self.log.debug("Unexpected error: %s", sys.exc_info()[0])
         self.log.debug("Login ended in %s with status: %s"% (info['seconds'], info['status']))
         if info['status'] == "200 OK":
             self.log.debug("Session ID: %s"% info['token'])
