@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
 
 import os, sys
@@ -16,7 +17,9 @@ import shutil
 if len(sys.argv) == 1:
     sys.argv.append("py2exe")
 
+
 from modules import APP_TITLE, APP_VERSION
+
 print sys.path
 
 
@@ -25,6 +28,7 @@ def py2exe(dist_dir, dist_build):
     sys.argv[1:2] = ['py2exe']
     sys.argv.append ( "--verbose" ) 
     print sys.argv
+    print sys.path
     
     setup(name=APP_TITLE,
         version=APP_VERSION,
@@ -49,7 +53,7 @@ def py2exe(dist_dir, dist_build):
                                       'optimize'  : 2, 
                                       'includes'  : [
                                                  'sip', 
-                                                 'subdownloader.modules.configuration.*', 
+                                                # 'subdownloader.modules.configuration.*', 
                                                  ],
                                       'excludes'  : ["Tkconstants", "Tkinter", "tcl",
                                                      "_imagingtk", "ImageTk", "FixTk"
@@ -158,6 +162,7 @@ if __name__ == '__main__':
            shutil.rmtree(PY2EXE_BUILD)
         if os.path.exists(PY2EXE_DIST):
             shutil.rmtree(PY2EXE_DIST)
+        print PY2EXE_DIST, PY2EXE_BUILD
         py2exe(PY2EXE_DIST, PY2EXE_BUILD)
         print 'Deleting build'
         if os.path.exists('locale'):

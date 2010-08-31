@@ -16,6 +16,7 @@ import modules.subtitlefile as subtitlefile
 from FileManagement import Subtitle
 import socket, urllib2
 
+
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 DEFAULT_PROXY = 'http://w2.hidemyass.com/'
@@ -408,7 +409,8 @@ class SDService(object):
                        return False
                     self.log.debug("Got %i subtitles from server. Uncompressing data..."% len(answer['data']))
                     for sub in answer['data']:
-                    #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
+                        #print subtitles_to_download[sub['idsubtitlefile']]['subtitle_path']
+                        #print subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()
                         self.BaseToFile(sub['data'], subtitles_to_download[sub['idsubtitlefile']])
                     return answer['data']
                 else:
