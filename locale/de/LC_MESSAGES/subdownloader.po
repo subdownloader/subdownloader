@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-02-07 05:04+0000\n"
-"Last-Translator: Tomasz Surmacz <Unknown>\n"
+"PO-Revision-Date: 2010-06-02 22:05+0000\n"
+"Last-Translator: Jiří Jindra <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -84,7 +84,7 @@ msgstr "Englisch (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Englisch (GB)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -507,7 +507,7 @@ msgstr "&Abbrechen"
 
 #: ../gui/main.py:548 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Echtheitsbestätigung"
 
 #: ../gui/main.py:559
 #, python-format

@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2009-04-01 20:21+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: 2010-04-04 00:50+0000\n"
+"Last-Translator: ishai levy <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -60,7 +60,7 @@ msgstr "בסקית"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "סינית"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
@@ -80,11 +80,11 @@ msgstr "הולנדית"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "(אנגלית (ארצות הברית"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "אנגלית (בריטניה)‏"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "צרפתית"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "גליציאנית"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +176,11 @@ msgstr "פולנית"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "(פורטוגזית (פורטוגל"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "פורטוגזית (ברזיל)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +204,7 @@ msgstr "סלובנית"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "ספרדית (ספרד)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -334,7 +334,7 @@ msgstr "לחץ כאן כדי לבחור כתובית..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "טוען..."
 
 #: ../gui/main.py:54
 msgid "Building main dialog..."
@@ -503,7 +503,7 @@ msgstr "&ביטול"
 
 #: ../gui/main.py:548 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "הזדהות"
 
 #: ../gui/main.py:559
 #, python-format
@@ -575,7 +575,7 @@ msgstr "&ביטול"
 
 #: ../gui/main.py:758
 msgid "Scanning..."
-msgstr ""
+msgstr "סורק..."
 
 #: ../gui/main.py:784
 msgid "Scan Results"
@@ -583,7 +583,7 @@ msgstr "תוצאות סריקה"
 
 #: ../gui/main.py:784
 msgid "No video has been found!"
-msgstr ""
+msgstr "לא נמצא וידיאו"
 
 #: ../gui/main.py:787
 msgid "Searching subtitles..."
@@ -655,7 +655,7 @@ msgstr "לא נבחרו כתוביות להורדה"
 
 #: ../gui/main.py:1035
 msgid "Downloading..."
-msgstr ""
+msgstr "מוריד..."
 
 #: ../gui/main.py:1044 ../gui/main.py:1118
 #, python-format
@@ -729,7 +729,7 @@ msgstr "מתחבר לשרת בעזרת המתווך %s"
 
 #: ../gui/main.py:1193
 msgid "Connected successfully"
-msgstr ""
+msgstr "החיבור בוצע בהצלחה"
 
 #: ../gui/main.py:1221 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -756,6 +756,8 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"הכתוביות הועלו בהצלחה.\n"
+"תודה רבה!"
 
 #: ../gui/main.py:1301
 msgid "View Subtitle Info"
@@ -804,7 +806,7 @@ msgstr "עיון בכתוביות"
 
 #: ../gui/main.py:1503
 msgid "You must enter at least one character in movie name"
-msgstr ""
+msgstr "יש להקליד לפחות תו אחד תחת שם הסרט"
 
 #: ../gui/main.py:1506 ../gui/main.py:1659
 msgid "Searching..."
@@ -922,7 +924,7 @@ msgstr "נמצאו קטעי וידאו/כתוביות:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "סנן על פי:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -1122,7 +1124,7 @@ msgstr "התוכנית פגה לאחר %d ימים של שימוש."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr ""
+msgstr "ישנן שדות ריקים... נא מלאו אותן."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"

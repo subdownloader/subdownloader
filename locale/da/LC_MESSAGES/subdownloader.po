@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-01-31 13:37+0000\n"
-"Last-Translator: Sara85 <Unknown>\n"
+"PO-Revision-Date: 2010-03-30 21:48+0000\n"
+"Last-Translator: AJenbo <anders@jenbo.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -28,31 +28,31 @@ msgstr "Hashing færdig"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr "Danish"
+msgstr "Albansk"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
-msgstr "Danish"
+msgstr "Arabisk"
 
 #: ../languages/Languages.py:14
 msgid "Armenian"
-msgstr "Danish"
+msgstr "Armensk"
 
 #: ../languages/Languages.py:15
 msgid "Malay"
-msgstr "Danish"
+msgstr "Malajisk"
 
 #: ../languages/Languages.py:16
 msgid "Bosnian"
-msgstr "Danish"
+msgstr "Bosnisk"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr "Danish"
+msgstr "Bulgarsk"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr "Danish"
+msgstr "Catalansk"
 
 #: ../languages/Languages.py:19
 msgid "Basque"

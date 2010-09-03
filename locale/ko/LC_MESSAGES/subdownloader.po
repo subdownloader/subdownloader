@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2009-09-30 00:29+0000\n"
-"Last-Translator: sungyup nham <Unknown>\n"
+"PO-Revision-Date: 2010-04-03 15:37+0000\n"
+"Last-Translator: Bundo <bundo@bundo.biz>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -52,39 +52,39 @@ msgstr "불가리아어"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr ""
+msgstr "카탈로니아어"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
-msgstr ""
+msgstr "바스크어"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "중국어(중국)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr ""
+msgstr "크로아티아어"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
-msgstr ""
+msgstr "체코어"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr ""
+msgstr "덴마크어"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr ""
+msgstr "네덜란드어"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "영어 (미국)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "영어 (영국)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "프랑스어"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "갈리시아어"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +176,11 @@ msgstr "폴란드어"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "포르투갈어 (포르투갈)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "포르투갈어 (브라질)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +204,7 @@ msgstr "슬로베니아어"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "스페인어 (스페인)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -262,7 +262,7 @@ msgstr "다운로드: %d"
 #: ../gui/videotreeview.py:168
 #, python-format
 msgid "CDs: %d"
-msgstr ""
+msgstr "CDs: %d"
 
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
@@ -334,7 +334,7 @@ msgstr "자막 선택"
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "불러오는 중..."
 
 #: ../gui/main.py:54
 msgid "Building main dialog..."
@@ -343,7 +343,7 @@ msgstr "메인 대화상자 생성..."
 #: ../gui/main.py:85
 #, python-format
 msgid "SubDownloader %s"
-msgstr ""
+msgstr "자막다운로더  %s"
 
 #: ../gui/main.py:112
 #, python-format
@@ -387,7 +387,7 @@ msgstr ""
 
 #: ../gui/main.py:365
 msgid "1st Tab:"
-msgstr ""
+msgstr "첫번째 탭:"
 
 #: ../gui/main.py:365
 msgid ""
@@ -398,7 +398,7 @@ msgstr ""
 
 #: ../gui/main.py:366
 msgid "2nd Tab:"
-msgstr ""
+msgstr "두번쨰 탭:"
 
 #: ../gui/main.py:366
 msgid ""
@@ -408,7 +408,7 @@ msgstr ""
 
 #: ../gui/main.py:367
 msgid "3rd Tab:"
-msgstr ""
+msgstr "세번째 탭:"
 
 #: ../gui/main.py:367
 msgid ""
@@ -475,23 +475,23 @@ msgstr ""
 #: ../gui/main.py:535
 #, python-format
 msgid "Users online: %s"
-msgstr ""
+msgstr "사용자 온라인: %s"
 
 #: ../gui/main.py:537
 msgid "Users online: ERROR"
-msgstr ""
+msgstr "사용자 온라인: 오류"
 
 #: ../gui/main.py:547 ../gui/main.py:551
 msgid "Logging in..."
-msgstr ""
+msgstr "로그인 중..."
 
 #: ../gui/main.py:547 ../gui/main.py:1173
 msgid "&Cancel"
-msgstr ""
+msgstr "취소(&C)"
 
 #: ../gui/main.py:548 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "인증"
 
 #: ../gui/main.py:559
 #, python-format
@@ -505,12 +505,12 @@ msgstr ""
 
 #: ../gui/main.py:570
 msgid "Login: ERROR"
-msgstr ""
+msgstr "로그인: 오류"
 
 #: ../gui/main.py:586
 #, python-format
 msgid "SubDownloader %s - %s"
-msgstr ""
+msgstr "서브다운로더 %s - %s"
 
 #: ../gui/main.py:605 ../gui/expiration.py:96
 msgid "Program Registered"
@@ -538,7 +538,7 @@ msgstr "등록"
 
 #: ../gui/main.py:692 ../gui/main.py:693
 msgid "All languages"
-msgstr ""
+msgstr "모든 언어"
 
 #: ../gui/main.py:695 ../gui/main.py:696 ../gui/main.py:697
 #: ../gui/preferences.py:39 ../gui/preferences.py:41
@@ -551,21 +551,21 @@ msgstr ""
 
 #: ../gui/main.py:757
 msgid "Scanning files"
-msgstr ""
+msgstr "스캔중인 파일들"
 
 #: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
 #: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
 #: ../gui/main.py:1659
 msgid "&Abort"
-msgstr ""
+msgstr "중단(&A)"
 
 #: ../gui/main.py:758
 msgid "Scanning..."
-msgstr ""
+msgstr "검사 중..."
 
 #: ../gui/main.py:784
 msgid "Scan Results"
-msgstr ""
+msgstr "검사 결과"
 
 #: ../gui/main.py:784
 msgid "No video has been found!"
@@ -573,11 +573,11 @@ msgstr ""
 
 #: ../gui/main.py:787
 msgid "Searching subtitles..."
-msgstr ""
+msgstr "자막을 찾는 중입니다..."
 
 #: ../gui/main.py:788
 msgid "Asking Server..."
-msgstr ""
+msgstr "서버에 질문중..."
 
 #: ../gui/main.py:802
 #, python-format
@@ -586,7 +586,7 @@ msgstr ""
 
 #: ../gui/main.py:840
 msgid "Search finished"
-msgstr ""
+msgstr "검색 마침"
 
 #: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
 #: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
@@ -595,11 +595,11 @@ msgstr "영화정보"
 
 #: ../gui/main.py:863 ../gui/main.py:878
 msgid "Sub Info"
-msgstr ""
+msgstr "자막 정보"
 
 #: ../gui/main.py:886
 msgid "You must select a folder first"
-msgstr ""
+msgstr "당신은 먼저 폴더를 선택해야 합니다"
 
 #: ../gui/main.py:898
 msgid "Select the video(s) that need subtitles"
@@ -615,11 +615,11 @@ msgstr ""
 
 #: ../gui/main.py:943 ../gui/main.py:1034 ../gui/main.py:1590
 msgid "Downloading files..."
-msgstr ""
+msgstr "다운로드중인 파일들..."
 
 #: ../gui/main.py:944
 msgid "Playing video + sub"
-msgstr ""
+msgstr "재상 비디오+자막"
 
 #: ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:1125
 #: ../gui/main.py:1128
@@ -641,16 +641,16 @@ msgstr ""
 
 #: ../gui/main.py:1035
 msgid "Downloading..."
-msgstr ""
+msgstr "다운로드 중..."
 
 #: ../gui/main.py:1044 ../gui/main.py:1118
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
-msgstr ""
+msgstr "작막 다운로드 중 %s (%d/%d)"
 
 #: ../gui/main.py:1050 ../gui/main.py:1135
 msgid "Error write permission"
-msgstr ""
+msgstr "쓰기 권한 오류"
 
 #: ../gui/main.py:1051 ../gui/main.py:1136
 #, python-format
@@ -661,11 +661,11 @@ msgstr ""
 
 #: ../gui/main.py:1065 ../gui/main.py:1102
 msgid "Save subtitle as..."
-msgstr ""
+msgstr "자막 다른이름으로 저장..."
 
 #: ../gui/main.py:1081
 msgid "File already exists"
-msgstr ""
+msgstr "파일이 이미 존재함"
 
 #: ../gui/main.py:1081
 #, python-format
@@ -679,15 +679,15 @@ msgstr ""
 
 #: ../gui/main.py:1082
 msgid "Skip"
-msgstr ""
+msgstr "건너뛰기"
 
 #: ../gui/main.py:1084
 msgid "Replace"
-msgstr ""
+msgstr "되돌리기"
 
 #: ../gui/main.py:1085
 msgid "Replace all"
-msgstr ""
+msgstr "모두 바꾸기"
 
 #: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
 msgid "Cancel"
@@ -699,7 +699,7 @@ msgstr "서버에 연결…"
 
 #: ../gui/main.py:1174
 msgid "Connecting"
-msgstr ""
+msgstr "연결 중"
 
 #: ../gui/main.py:1187
 #, python-format
@@ -708,7 +708,7 @@ msgstr ""
 
 #: ../gui/main.py:1193
 msgid "Connected successfully"
-msgstr ""
+msgstr "성공적으로 연결됨"
 
 #: ../gui/main.py:1221 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: ../gui/main.py:1260
 msgid "Uploading subtitle"
-msgstr ""
+msgstr "자막 업로드 중"
 
 #: ../gui/main.py:1261
 msgid "Uploading..."
@@ -738,7 +738,7 @@ msgstr ""
 
 #: ../gui/main.py:1301
 msgid "View Subtitle Info"
-msgstr ""
+msgstr "자막 정보 표시"
 
 #: ../gui/main.py:1307
 #, python-format
@@ -746,6 +746,8 @@ msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
+"업로드 중 문제...\n"
+"오류: %s"
 
 #: ../gui/main.py:1310
 msgid "Error contacting the server. Please restart or try later"
@@ -907,7 +909,7 @@ msgstr "사이트:"
 
 #: ../gui/main_ui.py:699
 msgid "OpenSubtitles.org"
-msgstr ""
+msgstr "OpenSubtitles.org"
 
 #: ../gui/main_ui.py:700
 msgid "Subtitles found:"
@@ -929,7 +931,7 @@ msgstr "비디오와 자막 선택(자막만 업로드)"
 #: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
 #: ../gui/main_ui.py:725 ../gui/main_ui.py:726
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../gui/main_ui.py:709
 msgid "Empty the list"

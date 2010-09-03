@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-02-09 08:36+0000\n"
-"Last-Translator: peteri <peteri@icedsl.hu>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-08-01 12:20+0000\n"
+"Last-Translator: csola48 <Unknown>\n"
+"Language-Team: csola48 <csola48@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-Language: Hungarian\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -48,7 +50,7 @@ msgstr "bosnyák"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr "Bolgár"
+msgstr "bolgár"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
@@ -60,7 +62,7 @@ msgstr "baszk"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "kínai"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
@@ -80,11 +82,11 @@ msgstr "holland"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "angol (amerikai)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "angol"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +106,7 @@ msgstr "francia"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "gall"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +178,11 @@ msgstr "lengyel"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "portugál"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "portugál (brazíliai)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +206,7 @@ msgstr "szlovén"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "spanyol"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -267,7 +269,7 @@ msgstr "CD-k: %d"
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
 msgid "[IMDB Rate: %s]"
-msgstr "IMDB Értékelés: %s"
+msgstr "[IMDB Értékelés: %s]"
 
 #: ../gui/videotreeview.py:220
 #, python-format
@@ -334,7 +336,7 @@ msgstr "Kattintson ide a felirat kiválasztásához..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "Betöltés..."
 
 #: ../gui/main.py:54
 msgid "Building main dialog..."
@@ -356,7 +358,7 @@ msgstr "Még nincs bejelentkezve"
 
 #: ../gui/main.py:234 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
-msgstr "Támogassa a munkánkat 5 Dollárral vagy Euróval"
+msgstr "Támogassa a munkánkat 5 $-al vagy €-val"
 
 #: ../gui/main.py:279 ../gui/main.py:287 ../gui/main.py:607 ../gui/main.py:614
 #: ../gui/main.py:751 ../gui/main.py:828 ../gui/main.py:894 ../gui/main.py:906
@@ -383,7 +385,7 @@ msgstr "Sikertelen keresés: %s"
 
 #: ../gui/main.py:364
 msgid "How To Use SubDownloader"
-msgstr "Hogyan használd a SubDownloader-t"
+msgstr "Hogyan használja a SubDownloader-t"
 
 #: ../gui/main.py:365
 msgid "1st Tab:"
@@ -418,7 +420,7 @@ msgid ""
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
-"Ha talált olyan feliratokat, amik még nincsenek a SubDownloader "
+"Ha talált olyan feliratokat, amelyek még nincsenek a SubDownloader "
 "adatbázisában, kérem töltse fel őket, hogy a többi felhasználó könnyebben "
 "megtalálja őket."
 
@@ -431,7 +433,7 @@ msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
-"Ha úgy gondolja, ez a program hasznos, és sok időt spórolt meg magának, "
+"Ha úgy gondolja, ez a program hasznos és sok időt takarított meg magának, "
 "kérjük, segítse munkánkat."
 
 #: ../gui/main.py:417 ../gui/main.py:441
@@ -504,17 +506,17 @@ msgstr "&Mégse"
 
 #: ../gui/main.py:548 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Hitelesítés..."
 
 #: ../gui/main.py:559
 #, python-format
 msgid "Logged as %s"
-msgstr "Bejelentkezve %s-ként"
+msgstr "Bejelentkezve, mint: %s"
 
 #: ../gui/main.py:566
 #, python-format
 msgid "Login as %s: ERROR"
-msgstr "Bejelentkezés %s-ként: Hiba"
+msgstr "Bejelentkezve, mint %s: Hiba"
 
 #: ../gui/main.py:570
 msgid "Login: ERROR"
@@ -566,7 +568,7 @@ msgstr "Nincs kapcsolat a kiszolgálóval. Kérem előbb csatlakozzon."
 
 #: ../gui/main.py:757
 msgid "Scanning files"
-msgstr "Fájlok vizsgálata"
+msgstr "Fájlok keresése"
 
 #: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
 #: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
@@ -576,7 +578,7 @@ msgstr "M&egszakítás"
 
 #: ../gui/main.py:758
 msgid "Scanning..."
-msgstr ""
+msgstr "Keresés..."
 
 #: ../gui/main.py:784
 msgid "Scan Results"
@@ -584,7 +586,7 @@ msgstr "A keresés eredménye"
 
 #: ../gui/main.py:784
 msgid "No video has been found!"
-msgstr ""
+msgstr "Nem talált videót!"
 
 #: ../gui/main.py:787
 msgid "Searching subtitles..."
@@ -610,7 +612,7 @@ msgstr "Film információ"
 
 #: ../gui/main.py:863 ../gui/main.py:878
 msgid "Sub Info"
-msgstr "Információ a feliratról"
+msgstr "Felirat információ"
 
 #: ../gui/main.py:886
 msgid "You must select a folder first"
@@ -656,7 +658,7 @@ msgstr "Nincs letöltésre kiválasztott felirat"
 
 #: ../gui/main.py:1035
 msgid "Downloading..."
-msgstr ""
+msgstr "Letöltés..."
 
 #: ../gui/main.py:1044 ../gui/main.py:1118
 #, python-format
@@ -730,7 +732,7 @@ msgstr "Kapcsolódás a kiszolgálóhoz %s proxyn keresztül"
 
 #: ../gui/main.py:1193
 msgid "Connected successfully"
-msgstr ""
+msgstr "Kapcsolat tökéletes"
 
 #: ../gui/main.py:1221 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -757,6 +759,8 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"A felirat sikeresen feltöltve.\n"
+"Köszönjük!"
 
 #: ../gui/main.py:1301
 msgid "View Subtitle Info"
@@ -806,7 +810,7 @@ msgstr "Feliratok böngészése..."
 
 #: ../gui/main.py:1503
 msgid "You must enter at least one character in movie name"
-msgstr ""
+msgstr "A film nevéből legalább egy karaktert meg kell adnia"
 
 #: ../gui/main.py:1506 ../gui/main.py:1659
 msgid "Searching..."
@@ -861,7 +865,7 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
-"A letöltött felirat lehet, hogy nincs szinkronban az ön videófájljával, "
+"A letöltött felirat lehet, hogy nincs szinkronban az ön videó fájljával, "
 "kérem ellenőrizze ezt.\n"
 "\n"
 "Ha nincs szinkronizációs probléma, kérem töltse fel a feliratot a "
@@ -927,7 +931,7 @@ msgstr "Talált videók/feliratok:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "Szűrő:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -1014,7 +1018,7 @@ msgstr "&Főmenü"
 
 #: ../gui/main_ui.py:733
 msgid "&Help"
-msgstr "Súgó"
+msgstr "&Súgó"
 
 #: ../gui/main_ui.py:734
 msgid "&Settings"
@@ -1094,11 +1098,11 @@ msgstr "Az új nyelv a szoftver újraindításakor lép érvénybe."
 
 #: ../gui/preferences.py:143
 msgid "Enable in your Konqueror/Dolphin/Nautilus"
-msgstr "Engedélyezés a Konqueror/Dolphin/Nautilus-ban"
+msgstr "Engedélyezés Konqueror/Dolphin/Nautilus-ban"
 
 #: ../gui/preferences.py:146
 msgid "Enable in your Windows Explorer"
-msgstr "Engedélyezés a Windows Explorerben"
+msgstr "Engedélyezés Windows Explorerben"
 
 #: ../gui/preferences.py:149
 msgid "Enable in your File Manager"
@@ -1129,7 +1133,7 @@ msgstr "A program %d nap használat után lejárt."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr ""
+msgstr "Néhány mező üres... kérem töltse ki."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"

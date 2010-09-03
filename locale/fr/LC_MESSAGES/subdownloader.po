@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-02-04 11:16+0000\n"
-"Last-Translator: Alexandre COLLIGNON <Unknown>\n"
+"PO-Revision-Date: 2010-08-31 19:52+0000\n"
+"Last-Translator: Emilien Klein <emilien+ubuntu@klein.st>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../gui/main_ui.py:728
@@ -112,7 +112,7 @@ msgstr "Français"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galicien"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -519,7 +519,7 @@ msgstr "Identification"
 #: ../gui/main.py:559
 #, python-format
 msgid "Logged as %s"
-msgstr "Connecté sous %s"
+msgstr "Connecté en tant que %s"
 
 #: ../gui/main.py:566
 #, python-format
@@ -769,7 +769,7 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
-"Téléversement des sous-titres réussi.\n"
+"L'envoi des sous-titres a réussi.\n"
 "Merci beaucoup !"
 
 #: ../gui/main.py:1301
@@ -812,7 +812,7 @@ msgstr "↑ Langue détectée automatiquement à partir du contenu du sous-titre
 
 #: ../gui/main.py:1433
 msgid "Browse video..."
-msgstr "Parcourir video…"
+msgstr "Parcourir vidéo…"
 
 #: ../gui/main.py:1450
 msgid "Browse subtitle..."

@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2008-06-30 10:36+0000\n"
-"Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
+"PO-Revision-Date: 2010-04-25 12:31+0000\n"
+"Last-Translator: Hiroshi Tagawa <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -28,203 +28,203 @@ msgstr ""
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr ""
+msgstr "アルバニア語"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
-msgstr ""
+msgstr "アラビア語"
 
 #: ../languages/Languages.py:14
 msgid "Armenian"
-msgstr ""
+msgstr "アルメニア語"
 
 #: ../languages/Languages.py:15
 msgid "Malay"
-msgstr ""
+msgstr "マレー語"
 
 #: ../languages/Languages.py:16
 msgid "Bosnian"
-msgstr ""
+msgstr "ボスニア語"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr ""
+msgstr "ブルガリア語"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr ""
+msgstr "カタルーニャ語"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
-msgstr ""
+msgstr "バスク語"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "中国語(中国)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr ""
+msgstr "クロアチア語"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
-msgstr ""
+msgstr "チェコ語"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr ""
+msgstr "デンマーク語"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr ""
+msgstr "オランダ語"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "英語(アメリカ)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "英語(イギリス)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
-msgstr ""
+msgstr "エスペラント語"
 
 #: ../languages/Languages.py:28
 msgid "Estonian"
-msgstr ""
+msgstr "エストニア語"
 
 #: ../languages/Languages.py:29
 msgid "Finnish"
-msgstr ""
+msgstr "フィンランド語"
 
 #: ../languages/Languages.py:30
 msgid "French"
-msgstr ""
+msgstr "フランス語"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "ガリシア語"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
-msgstr ""
+msgstr "グルジア語"
 
 #: ../languages/Languages.py:33
 msgid "German"
-msgstr ""
+msgstr "ドイツ語"
 
 #: ../languages/Languages.py:34
 msgid "Greek"
-msgstr ""
+msgstr "ギリシャ語"
 
 #: ../languages/Languages.py:35
 msgid "Hebrew"
-msgstr ""
+msgstr "ヘブライ語"
 
 #: ../languages/Languages.py:36
 msgid "Hungarian"
-msgstr ""
+msgstr "ハンガリー語"
 
 #: ../languages/Languages.py:37
 msgid "Indonesian"
-msgstr ""
+msgstr "インドネシア語"
 
 #: ../languages/Languages.py:38
 msgid "Italian"
-msgstr ""
+msgstr "イタリア語"
 
 #: ../languages/Languages.py:39
 msgid "Japanese"
-msgstr ""
+msgstr "日本語"
 
 #: ../languages/Languages.py:40
 msgid "Kazakh"
-msgstr ""
+msgstr "カザフ語"
 
 #: ../languages/Languages.py:41
 msgid "Korean"
-msgstr ""
+msgstr "朝鮮語"
 
 #: ../languages/Languages.py:42
 msgid "Latvian"
-msgstr ""
+msgstr "ラトビア語"
 
 #: ../languages/Languages.py:43
 msgid "Lithuanian"
-msgstr ""
+msgstr "リトアニア語"
 
 #: ../languages/Languages.py:44
 msgid "Luxembourgish"
-msgstr ""
+msgstr "ルクセンブルク語"
 
 #: ../languages/Languages.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "マケドニア語"
 
 #: ../languages/Languages.py:46
 msgid "Norwegian"
-msgstr ""
+msgstr "ノルウェー語"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
-msgstr ""
+msgstr "ペルシャ語"
 
 #: ../languages/Languages.py:48
 msgid "Polish"
-msgstr ""
+msgstr "ポーランド語"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "ポルトガル語 (ポルトガル)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "ポルトガル語 (ブラジル)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
-msgstr ""
+msgstr "ルーマニア語"
 
 #: ../languages/Languages.py:52
 msgid "Russian"
-msgstr ""
+msgstr "ロシア語"
 
 #: ../languages/Languages.py:53
 msgid "Serbian"
-msgstr ""
+msgstr "セルビア語"
 
 #: ../languages/Languages.py:54
 msgid "Slovak"
-msgstr ""
+msgstr "スロバキア語"
 
 #: ../languages/Languages.py:55
 msgid "Slovenian"
-msgstr ""
+msgstr "スロベニア語"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "スペイン語 (スペイン)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
-msgstr ""
+msgstr "スウェーデン語"
 
 #: ../languages/Languages.py:58
 msgid "Thai"
-msgstr ""
+msgstr "タイ語"
 
 #: ../languages/Languages.py:59
 msgid "Turkish"
-msgstr ""
+msgstr "トルコ語"
 
 #: ../languages/Languages.py:60
 msgid "Ukrainian"
-msgstr ""
+msgstr "ウクライナ語"
 
 #: ../languages/Languages.py:61
 msgid "Vietnamese"
-msgstr ""
+msgstr "ベトナム語"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:558
 msgid "Anonymous"
@@ -247,22 +247,22 @@ msgstr ""
 #: ../gui/videotreeview.py:165
 #, python-format
 msgid "Rate: %s"
-msgstr ""
+msgstr "レート: %s"
 
 #: ../gui/videotreeview.py:166
 #, python-format
 msgid "Format: %s"
-msgstr ""
+msgstr "フォーマット: %s"
 
 #: ../gui/videotreeview.py:167
 #, python-format
 msgid "Downloads: %d"
-msgstr ""
+msgstr "ダウンロード: %d"
 
 #: ../gui/videotreeview.py:168
 #, python-format
 msgid "CDs: %d"
-msgstr ""
+msgstr "CD: %d"
 
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
@@ -276,7 +276,7 @@ msgstr ""
 
 #: ../gui/about_ui.py:120
 msgid "About Subdownloader"
-msgstr ""
+msgstr "Subdownloader について"
 
 #: ../gui/about_ui.py:143 ../gui/main_ui.py:738
 msgid "About"
@@ -296,11 +296,11 @@ msgstr "閉じる"
 
 #: ../gui/uploadlistview.py:33
 msgid "Videofile"
-msgstr ""
+msgstr "動画ファイル"
 
 #: ../gui/uploadlistview.py:33
 msgid "Subtitle"
-msgstr ""
+msgstr "字幕"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
@@ -334,7 +334,7 @@ msgstr ""
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "読み込み中..."
 
 #: ../gui/main.py:54
 msgid "Building main dialog..."

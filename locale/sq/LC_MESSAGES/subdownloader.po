@@ -3,32 +3,32 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2008-06-30 11:21+0000\n"
-"Last-Translator: Ivan Garcia <capiscuas@gmail.com>\n"
+"PO-Revision-Date: 2010-04-21 14:23+0000\n"
+"Last-Translator: j3tm1r <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
 msgid "Parsing video: %s"
-msgstr ""
+msgstr "Video analiza: %s"
 
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
 msgid "Parsing sub: %s"
-msgstr ""
+msgstr "Analiza e nëntitujve: %s"
 
 #: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
 msgid "Finished hashing"
-msgstr ""
+msgstr "Ashpërsia e përfunduar"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr ""
+msgstr "Shqip"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
@@ -56,175 +56,175 @@ msgstr ""
 
 #: ../languages/Languages.py:19
 msgid "Basque"
-msgstr ""
+msgstr "Baske"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "Gjuha kineze"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr ""
+msgstr "Kroate"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
-msgstr ""
+msgstr "Çekisht"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr ""
+msgstr "Daneze"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr ""
+msgstr "Hollandisht"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Angleze (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Anglisht"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #: ../languages/Languages.py:28
 msgid "Estonian"
-msgstr ""
+msgstr "Estonisht"
 
 #: ../languages/Languages.py:29
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandeze"
 
 #: ../languages/Languages.py:30
 msgid "French"
-msgstr ""
+msgstr "Frëngjisht"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galiciane"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
-msgstr ""
+msgstr "Gjeorgjisht"
 
 #: ../languages/Languages.py:33
 msgid "German"
-msgstr ""
+msgstr "Gjermanisht"
 
 #: ../languages/Languages.py:34
 msgid "Greek"
-msgstr ""
+msgstr "Greqisht"
 
 #: ../languages/Languages.py:35
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebraishte"
 
 #: ../languages/Languages.py:36
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungareze"
 
 #: ../languages/Languages.py:37
 msgid "Indonesian"
-msgstr ""
+msgstr "Indoneziane"
 
 #: ../languages/Languages.py:38
 msgid "Italian"
-msgstr ""
+msgstr "Italisht"
 
 #: ../languages/Languages.py:39
 msgid "Japanese"
-msgstr ""
+msgstr "Japonisht"
 
 #: ../languages/Languages.py:40
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazake"
 
 #: ../languages/Languages.py:41
 msgid "Korean"
-msgstr ""
+msgstr "Koreane"
 
 #: ../languages/Languages.py:42
 msgid "Latvian"
-msgstr ""
+msgstr "Letonisht"
 
 #: ../languages/Languages.py:43
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituanisht"
 
 #: ../languages/Languages.py:44
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luksemburgase"
 
 #: ../languages/Languages.py:45
 msgid "Macedonian"
-msgstr ""
+msgstr "Maqedonisht"
 
 #: ../languages/Languages.py:46
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegjeze"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
-msgstr ""
+msgstr "Persisht"
 
 #: ../languages/Languages.py:48
 msgid "Polish"
-msgstr ""
+msgstr "Polonisht"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugeze (Portugali)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portugeze (Brazil)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
-msgstr ""
+msgstr "Rumanisht"
 
 #: ../languages/Languages.py:52
 msgid "Russian"
-msgstr ""
+msgstr "Rusisht"
 
 #: ../languages/Languages.py:53
 msgid "Serbian"
-msgstr ""
+msgstr "Serbe"
 
 #: ../languages/Languages.py:54
 msgid "Slovak"
-msgstr ""
+msgstr "Sllovake"
 
 #: ../languages/Languages.py:55
 msgid "Slovenian"
-msgstr ""
+msgstr "Sllovene"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "Spanjisht (Spanjë)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
-msgstr ""
+msgstr "Suedeze"
 
 #: ../languages/Languages.py:58
 msgid "Thai"
-msgstr ""
+msgstr "Tailandeze"
 
 #: ../languages/Languages.py:59
 msgid "Turkish"
-msgstr ""
+msgstr "Turqisht"
 
 #: ../languages/Languages.py:60
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainase"
 
 #: ../languages/Languages.py:61
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnameze"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:558
 msgid "Anonymous"
@@ -233,62 +233,62 @@ msgstr "Anonim"
 #: ../gui/videotreeview.py:154
 #, python-format
 msgid "[Rate: %s]"
-msgstr ""
+msgstr "Shkalla: %s"
 
 #: ../gui/videotreeview.py:157
 msgid "(Already downloaded)"
-msgstr ""
+msgstr "Tashmë shkarkuar"
 
 #: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
 #, python-format
 msgid "Uploader: %s"
-msgstr ""
+msgstr "Ngarkuesi: %s"
 
 #: ../gui/videotreeview.py:165
 #, python-format
 msgid "Rate: %s"
-msgstr ""
+msgstr "Shkalla: %s"
 
 #: ../gui/videotreeview.py:166
 #, python-format
 msgid "Format: %s"
-msgstr ""
+msgstr "Formati: %s"
 
 #: ../gui/videotreeview.py:167
 #, python-format
 msgid "Downloads: %d"
-msgstr ""
+msgstr "Shkarkime: %d"
 
 #: ../gui/videotreeview.py:168
 #, python-format
 msgid "CDs: %d"
-msgstr ""
+msgstr "CD-të: %d"
 
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
 msgid "[IMDB Rate: %s]"
-msgstr ""
+msgstr "[IMDB Shkalla: %s]"
 
 #: ../gui/videotreeview.py:220
 #, python-format
 msgid "(%d subtitles)"
-msgstr ""
+msgstr "%d e titrave"
 
 #: ../gui/about_ui.py:120
 msgid "About Subdownloader"
-msgstr ""
+msgstr "Rreth Nënshkarkuesit"
 
 #: ../gui/about_ui.py:143 ../gui/main_ui.py:738
 msgid "About"
-msgstr "Perreth"
+msgstr "Rreth"
 
 #: ../gui/about_ui.py:151
 msgid "Authors"
-msgstr ""
+msgstr "Autorët"
 
 #: ../gui/about_ui.py:167
 msgid "License Agreement"
-msgstr ""
+msgstr "Marrëveshje Liçensimi"
 
 #: ../gui/about_ui.py:168
 msgid "Close"
@@ -296,11 +296,11 @@ msgstr "Mbylle"
 
 #: ../gui/uploadlistview.py:33
 msgid "Videofile"
-msgstr ""
+msgstr "Video dosja"
 
 #: ../gui/uploadlistview.py:33
 msgid "Subtitle"
-msgstr ""
+msgstr "Titrat"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"

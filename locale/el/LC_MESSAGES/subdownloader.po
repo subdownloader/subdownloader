@@ -3,24 +3,24 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-02-08 10:56+0000\n"
-"Last-Translator: Μάριος Ζηντίλης <m.zindilis@dmajor.org>\n"
+"PO-Revision-Date: 2010-05-22 17:58+0000\n"
+"Last-Translator: marao <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-23 22:44+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
 msgid "Parsing video: %s"
-msgstr "Ανάλυση του βίντεο %s"
+msgstr ""
 
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
 msgid "Parsing sub: %s"
-msgstr "Ανάλυση του υπότιτλου %s"
+msgstr ""
 
 #: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
 msgid "Finished hashing"
@@ -28,7 +28,7 @@ msgstr "Ολοκληρώθηκε το hashing"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr "Αλβανικά"
+msgstr ""
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
@@ -36,7 +36,7 @@ msgstr "Αραβικά"
 
 #: ../languages/Languages.py:14
 msgid "Armenian"
-msgstr "Αρμενικά"
+msgstr "Αρμένικα"
 
 #: ../languages/Languages.py:15
 msgid "Malay"
@@ -276,11 +276,11 @@ msgstr "(%d υπότιτλοι)"
 
 #: ../gui/about_ui.py:120
 msgid "About Subdownloader"
-msgstr "Σχετικά με τον Subdownloader"
+msgstr "Σχετικά με το Subdownloader"
 
 #: ../gui/about_ui.py:143 ../gui/main_ui.py:738
 msgid "About"
-msgstr "Σχετικά"
+msgstr "Περί"
 
 #: ../gui/about_ui.py:151
 msgid "Authors"
@@ -288,7 +288,7 @@ msgstr "Δημιουργοί"
 
 #: ../gui/about_ui.py:167
 msgid "License Agreement"
-msgstr "Άδεια χρήσης"
+msgstr "Άδεια Χρήσης"
 
 #: ../gui/about_ui.py:168
 msgid "Close"
@@ -427,7 +427,7 @@ msgstr ""
 
 #: ../gui/main.py:368
 msgid "Quid Pro Quo:"
-msgstr "Quid Pro Quo:"
+msgstr "Ανταπόδοση"
 
 #: ../gui/main.py:368
 msgid ""
@@ -447,7 +447,7 @@ msgstr "Εισάγετε τις πληροφορίες IMBD..."
 #: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
 msgid "Download"
-msgstr "Κατεβάστε"
+msgstr "Λήψη"
 
 #: ../gui/main.py:429
 msgid "Play video + subtitle"
@@ -498,7 +498,7 @@ msgstr "Συνδεδεμένοι χρήστες: ΣΦΑΛΜΑ"
 
 #: ../gui/main.py:547 ../gui/main.py:551
 msgid "Logging in..."
-msgstr "Είσοδος στο σύστημα..."
+msgstr "Είσοδος..."
 
 #: ../gui/main.py:547 ../gui/main.py:1173
 msgid "&Cancel"
@@ -568,13 +568,13 @@ msgstr "Δεν είστε συνδεδεμένος στο διακομιστή. 
 
 #: ../gui/main.py:757
 msgid "Scanning files"
-msgstr "Αναζήτηση αρχείων"
+msgstr "Σάρωση αρχείων"
 
 #: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
 #: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
 #: ../gui/main.py:1659
 msgid "&Abort"
-msgstr "&Διακοπή"
+msgstr "&Ματαίωση"
 
 #: ../gui/main.py:758
 msgid "Scanning..."
@@ -582,7 +582,7 @@ msgstr "Σάρωση..."
 
 #: ../gui/main.py:784
 msgid "Scan Results"
-msgstr "Αποτελέσματα Αναζήτησης"
+msgstr "Αποτελέσματα σάρωσης"
 
 #: ../gui/main.py:784
 msgid "No video has been found!"
@@ -1221,7 +1221,7 @@ msgstr "Εξωτερική εφαρμογή για την αναπαραγωγή
 
 #: ../gui/preferences_ui.py:292
 msgid "Video Player:"
-msgstr "Εφαρμογής αναπαραγωγής βίντεο:"
+msgstr "Εφαρμογή αναπαραγωγής βίντεο:"
 
 #: ../gui/preferences_ui.py:294
 msgid "Parameters:"
