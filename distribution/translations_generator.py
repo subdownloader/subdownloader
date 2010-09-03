@@ -1,4 +1,4 @@
-# Copyright (c) 2009 Entertainer Developers - See COPYING - GPLv2
+# Copyright (c) 2010 Entertainer Developers - See COPYING - GPLv2
 # Modified to use with SubDownloader.
 '''Generate translations related files, pot/po/mo'''
 

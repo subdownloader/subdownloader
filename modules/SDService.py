@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 from xmlrpclib import Transport,ServerProxy,ProtocolError
 import base64, httplib, os

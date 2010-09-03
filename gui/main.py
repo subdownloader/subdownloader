@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 """ Create and launch the GUI """
 import sys, re, os, traceback, tempfile, time, thread, webbrowser, urllib2, base64, zlib, commands, platform, os.path, zipfile, __builtin__, gettext, locale

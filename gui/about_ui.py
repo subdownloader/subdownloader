@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'about.ui'
 #
-# Created: Sun Mar 21 10:46:17 2010
-#      by: PyQt4 UI code generator 4.7
+# Created: Fri Sep  3 23:47:00 2010
+#      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -56,6 +56,7 @@ class Ui_AboutDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lblIcon.sizePolicy().hasHeightForWidth())
         self.lblIcon.setSizePolicy(sizePolicy)
+        self.lblIcon.setText("")
         self.lblIcon.setObjectName("lblIcon")
         self.verticalLayout.addWidget(self.lblIcon)
         self.tabs = QtGui.QTabWidget(AboutDialog)
@@ -107,6 +108,7 @@ class Ui_AboutDialog(object):
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.hboxlayout.addItem(spacerItem1)
         self.buttonClose = QtGui.QPushButton(AboutDialog)
+        self.buttonClose.setStyleSheet("None")
         self.buttonClose.setObjectName("buttonClose")
         self.hboxlayout.addWidget(self.buttonClose)
         self.verticalLayout.addLayout(self.hboxlayout)
@@ -153,7 +155,7 @@ class Ui_AboutDialog(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Verdana\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Copyright (c) 2007-2009, Subdownloader Developers</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">Copyright (c) 2007-2010, Subdownloader Developers</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\';\"></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\';\">This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or(at your option) any later version.                   </span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Sans Serif\';\"></p>\n"

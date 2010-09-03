@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 NEW_LANGUAGES=`ls /tmp/launchpad-export/po/ | cut -d '-' -f 2 | cut -d '.' -f 1`
 for lang in $NEW_LANGUAGES; do \

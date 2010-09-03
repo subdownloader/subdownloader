@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2009 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 """ The GUI to libprs500. Also has ebook library management features. """
 __docformat__ = "epytext"
