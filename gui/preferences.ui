@@ -1,10 +1,11 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PreferencesDialog</class>
- <widget class="QDialog" name="PreferencesDialog" >
-  <property name="windowModality" >
+ <widget class="QDialog" name="PreferencesDialog">
+  <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -12,108 +13,108 @@
     <height>369</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Settings</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>false</bool>
   </property>
-  <property name="modal" >
+  <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5" >
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="tabPosition" >
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
-     <property name="tabShape" >
+     <property name="tabShape">
       <enum>QTabWidget::Triangular</enum>
      </property>
-     <property name="currentIndex" >
-      <number>0</number>
+     <property name="currentIndex">
+      <number>3</number>
      </property>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Search</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4" >
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QLabel" name="label_56" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+        <widget class="QLabel" name="label_56">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="font" >
+         <property name="font">
           <font>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Filter search results by these languages:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QScrollArea" name="scrollArea" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="MinimumExpanding" hsizetype="Expanding" >
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>150</height>
           </size>
          </property>
-         <property name="widgetResizable" >
+         <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents" >
-          <property name="geometry" >
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>584</width>
-            <height>252</height>
+            <width>572</width>
+            <height>231</height>
            </rect>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2" >
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_1" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout" name="optionFilterLangLayout_1">
+             <property name="spacing">
               <number>5</number>
              </property>
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_2" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout" name="optionFilterLangLayout_2">
+             <property name="spacing">
               <number>5</number>
              </property>
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_3" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout" name="optionFilterLangLayout_3">
+             <property name="spacing">
               <number>5</number>
              </property>
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_4" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout" name="optionFilterLangLayout_4">
+             <property name="spacing">
               <number>5</number>
              </property>
             </layout>
@@ -124,60 +125,60 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_6" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_6">
+      <attribute name="title">
        <string>Download</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QGroupBox" name="groupBox" >
-         <property name="font" >
+        <widget class="QGroupBox" name="groupBox">
+         <property name="font">
           <font>
            <weight>50</weight>
            <italic>false</italic>
            <bold>false</bold>
           </font>
          </property>
-         <property name="title" >
+         <property name="title">
           <string>Destination folder:</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6" >
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QRadioButton" name="optionDownloadFolderAsk" >
-            <property name="text" >
+           <widget class="QRadioButton" name="optionDownloadFolderAsk">
+            <property name="text">
              <string>Always ask user</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="optionDownloadFolderSame" >
-            <property name="text" >
+           <widget class="QRadioButton" name="optionDownloadFolderSame">
+            <property name="text">
              <string>Same folder as video file</string>
             </property>
-            <property name="checked" >
+            <property name="checked">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6" >
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="QRadioButton" name="optionDownloadFolderPredefined" >
-              <property name="text" >
+             <widget class="QRadioButton" name="optionDownloadFolderPredefined">
+              <property name="text">
                <string>Predefined folder:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="optionPredefinedFolderText" >
-              <property name="readOnly" >
+             <widget class="QLineEdit" name="optionPredefinedFolderText">
+              <property name="readOnly">
                <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="optionButtonChooseFolder" >
-              <property name="text" >
+             <widget class="QPushButton" name="optionButtonChooseFolder">
+              <property name="text">
                <string>Browse...</string>
               </property>
              </widget>
@@ -188,34 +189,34 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2" >
-         <property name="title" >
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
           <string>Filename of the Subtitle:</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2" >
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QRadioButton" name="optionDownloadSameFilename" >
-            <property name="text" >
+           <widget class="QRadioButton" name="optionDownloadSameFilename">
+            <property name="text">
              <string>Same name as video file</string>
             </property>
-            <property name="checked" >
+            <property name="checked">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang" >
-            <property name="text" >
+           <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLang">
+            <property name="text">
              <string>Same name as video file + language code (ex: StarWarsCD1.eng.srt)</string>
             </property>
-            <property name="checked" >
+            <property name="checked">
              <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="optionDownloadOnlineSubName" >
-            <property name="text" >
+           <widget class="QRadioButton" name="optionDownloadOnlineSubName">
+            <property name="text">
              <string>Same name as the online subtitle</string>
             </property>
            </widget>
@@ -225,12 +226,12 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_8" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_8">
+      <attribute name="title">
        <string>Upload</string>
       </attribute>
-      <widget class="QWidget" name="layoutWidget" >
-       <property name="geometry" >
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
         <rect>
          <x>10</x>
          <y>20</y>
@@ -238,23 +239,23 @@
          <height>52</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" >
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QLabel" name="label_55" >
-          <property name="font" >
+         <widget class="QLabel" name="label_55">
+          <property name="font">
            <font>
             <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>Default language of uploaded subtitles</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="optionDefaultUploadLanguage" >
-          <property name="minimumSize" >
+         <widget class="QComboBox" name="optionDefaultUploadLanguage">
+          <property name="minimumSize">
            <size>
             <width>0</width>
             <height>20</height>
@@ -265,12 +266,12 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_9" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_9">
+      <attribute name="title">
        <string>Network</string>
       </attribute>
-      <widget class="QLabel" name="label_52" >
-       <property name="geometry" >
+      <widget class="QLabel" name="label_52">
+       <property name="geometry">
         <rect>
          <x>20</x>
          <y>10</y>
@@ -278,18 +279,18 @@
          <height>18</height>
         </rect>
        </property>
-       <property name="font" >
+       <property name="font">
         <font>
          <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Network Proxy</string>
        </property>
       </widget>
-      <widget class="QWidget" name="layoutWidget" >
-       <property name="geometry" >
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
         <rect>
          <x>20</x>
          <y>30</y>
@@ -297,30 +298,30 @@
          <height>67</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label_60" >
-          <property name="text" >
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_60">
+          <property name="text">
            <string>Host:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="QLineEdit" name="optionProxyHost" />
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="optionProxyHost"/>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_59" >
-          <property name="text" >
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_59">
+          <property name="text">
            <string>Port:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
-         <widget class="QSpinBox" name="optionProxyPort" >
-          <property name="maximum" >
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="optionProxyPort">
+          <property name="maximum">
            <number>99999</number>
           </property>
-          <property name="value" >
+          <property name="value">
            <number>8080</number>
           </property>
          </widget>
@@ -328,32 +329,32 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_7" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_7">
+      <attribute name="title">
        <string>Others</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" >
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QLabel" name="label_61" >
-           <property name="font" >
+          <widget class="QLabel" name="label_61">
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Interface Language:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="optionInterfaceLanguage" />
+          <widget class="QComboBox" name="optionInterfaceLanguage"/>
          </item>
          <item>
-          <widget class="QPushButton" name="helpTranslateButton" >
-           <property name="text" >
+          <widget class="QPushButton" name="helpTranslateButton">
+           <property name="text">
             <string>Translate This Application...</string>
            </property>
           </widget>
@@ -361,51 +362,51 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5" >
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLabel" name="label_62" >
-           <property name="enabled" >
+          <widget class="QLabel" name="label_62">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="font" >
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Context Menu:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="optionIntegrationExplorer" >
-           <property name="enabled" >
+          <widget class="QCheckBox" name="optionIntegrationExplorer">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize" >
+           <property name="minimumSize">
             <size>
              <width>0</width>
              <height>22</height>
             </size>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Enable in your explorer</string>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer" >
-           <property name="orientation" >
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -416,50 +417,50 @@
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_4" >
-         <item row="0" column="0" colspan="2" >
-          <widget class="QLabel" name="label_63" >
-           <property name="font" >
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="label_63">
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>External application for video playback</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="label_67" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_67">
+           <property name="text">
             <string>Video Player:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QLineEdit" name="optionVideoAppLocation" />
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="optionVideoAppLocation"/>
          </item>
-         <item row="1" column="2" >
-          <widget class="QPushButton" name="optionVideoAppChooseLocation" >
-           <property name="text" >
+         <item row="1" column="2">
+          <widget class="QPushButton" name="optionVideoAppChooseLocation">
+           <property name="text">
             <string>Browse...</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0" >
-          <widget class="QLabel" name="label_66" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_66">
+           <property name="text">
             <string>Parameters:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" >
-          <widget class="QLineEdit" name="optionVideoAppParams" />
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="optionVideoAppParams"/>
          </item>
-         <item row="3" column="1" colspan="2" >
-          <widget class="QLabel" name="label_65" >
-           <property name="text" >
+         <item row="3" column="1" colspan="2">
+          <widget class="QLabel" name="label_65">
+           <property name="text">
             <string>{0} = video file path; {1} = subtitle path</string>
            </property>
           </widget>
@@ -471,13 +472,13 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" >
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>498</width>
          <height>36</height>
@@ -486,15 +487,15 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="optionsButtonApplyChanges" >
-       <property name="text" >
+      <widget class="QPushButton" name="optionsButtonApplyChanges">
+       <property name="text">
         <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="optionsButtonCancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="optionsButtonCancel">
+       <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
@@ -504,7 +505,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="images.qrc" />
+  <include location="images.qrc"/>
  </resources>
  <connections/>
 </ui>

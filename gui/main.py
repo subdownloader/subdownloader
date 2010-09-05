@@ -236,9 +236,9 @@ class Main(QObject, Ui_MainWindow):
         self.donate_button = QtGui.QPushButton("   " + _("Help Us With 5 USD/EUR"))
         #self.donate_button.setIndent(10)
 
-        iconpaypal = QtGui.QIcon()
-        iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         if platform.system() in ("Windows", "Microsoft"):
+            iconpaypal = QtGui.QIcon()
+            iconpaypal.addPixmap(QtGui.QPixmap(":/images/paypal.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
             self.donate_button.setIcon(iconpaypal)
             self.donate_button.setIconSize(QtCore.QSize(50, 24))
 
