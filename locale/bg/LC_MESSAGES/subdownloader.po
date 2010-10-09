@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-02-23 04:29+0000\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2010-09-12 22:19+0000\n"
 "Last-Translator: Petar Toushkov <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
+"X-Launchpad-Export-Date: 2010-10-09 12:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -226,7 +226,7 @@ msgstr "Украински"
 msgid "Vietnamese"
 msgstr "Виетнамски"
 
-#: ../gui/videotreeview.py:146 ../gui/main.py:558
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
 msgstr "Анонимен"
 
@@ -274,23 +274,23 @@ msgstr "[Оценка в IMDb: %s]"
 msgid "(%d subtitles)"
 msgstr "(%d субтитри)"
 
-#: ../gui/about_ui.py:120
+#: ../gui/about_ui.py:122
 msgid "About Subdownloader"
 msgstr "Относно Subdownloader"
 
-#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
 msgstr "Относно"
 
-#: ../gui/about_ui.py:151
+#: ../gui/about_ui.py:153
 msgid "Authors"
 msgstr "Автори"
 
-#: ../gui/about_ui.py:167
+#: ../gui/about_ui.py:169
 msgid "License Agreement"
 msgstr "Лиценз"
 
-#: ../gui/about_ui.py:168
+#: ../gui/about_ui.py:170
 msgid "Close"
 msgstr "Затваряне"
 
@@ -336,60 +336,59 @@ msgstr "Щракнете тук, за да изберете субтитри..."
 msgid "Loading..."
 msgstr "Зареждане…"
 
-#: ../gui/main.py:54
+#: ../gui/main.py:56
 msgid "Building main dialog..."
 msgstr "Зареждане на основен диалог..."
 
-#: ../gui/main.py:85
+#: ../gui/main.py:87
 #, python-format
 msgid "SubDownloader %s"
 msgstr "SubDownloader %s"
 
-#: ../gui/main.py:112
+#: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
 msgstr "%d до изтичане на срока за ползване. Активирайте програмата."
 
-#: ../gui/main.py:226 ../gui/main.py:577
+#: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
 msgstr "Още не сте влезли"
 
-#: ../gui/main.py:234 ../gui/main_ui.py:740
+#: ../gui/main.py:236 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
 msgstr "Помогнете ни с 5 USD/EUR"
 
-#: ../gui/main.py:279 ../gui/main.py:287 ../gui/main.py:607 ../gui/main.py:614
-#: ../gui/main.py:751 ../gui/main.py:828 ../gui/main.py:894 ../gui/main.py:906
-#: ../gui/main.py:934 ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:982
-#: ../gui/main.py:1026 ../gui/main.py:1125 ../gui/main.py:1128
-#: ../gui/main.py:1252 ../gui/main.py:1257 ../gui/main.py:1307
-#: ../gui/main.py:1310 ../gui/main.py:1577 ../gui/main.py:1627
-#: ../gui/main.py:1649 ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52
-#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/login.py:59
-#: ../gui/preferences.py:157 ../gui/expiration.py:85 ../gui/expiration.py:100
-#: ../gui/expiration.py:102
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
 msgid "Error"
 msgstr "Грешка"
 
-#: ../gui/main.py:279 ../gui/main.py:828 ../gui/imdbSearch.py:52
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
 #: ../gui/login.py:59
 msgid "Error contacting the server. Please try again later"
 msgstr "Грешка при свързването със сървъра. Моля, опитайте отново"
 
-#: ../gui/main.py:287
+#: ../gui/main.py:289
 #, python-format
 msgid "Unable to find %s"
 msgstr "%s не беше намерено"
 
-#: ../gui/main.py:364
+#: ../gui/main.py:366
 msgid "How To Use SubDownloader"
 msgstr "Начин за употреба на SubDownloader"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid "1st Tab:"
 msgstr "1ви подпрозорец:"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid ""
 "Select, from the Folder Tree on the left, the folder which contains the "
 "videos that need subtitles. SubDownloader will then try to automatically "
@@ -399,11 +398,11 @@ msgstr ""
 "директории вляво. След това SubDownloader автоматично ще направи опит да "
 "открие налични субтитри."
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid "2nd Tab:"
 msgstr "2ри подпрозорец:"
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
@@ -411,11 +410,11 @@ msgstr ""
 "Ако не разполагате с видео файловете в компютъра си, можете да търсите "
 "субтитри, въвеждайки заглавие/име на видео."
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid "3rd Tab:"
 msgstr "3ти подпрозорец:"
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid ""
 "If you have found some subtitle somewhere else that it's not in "
 "SubDownloader database, please upload those subtitles so next users will be "
@@ -424,11 +423,11 @@ msgstr ""
 "Ако сте открили някъде субтитри, които не фигурират в базата от данни на "
 "SubDownloader, можете да ги качите, за да се възползват и други потребители"
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid "Quid Pro Quo:"
 msgstr "Quid Pro Quo:"
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
@@ -436,37 +435,37 @@ msgstr ""
 "Ако смятате, че тази програма е полезна и ви е спестила купища време, моля, "
 "помогнете ни, като направите дарение."
 
-#: ../gui/main.py:417 ../gui/main.py:441
+#: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
 msgstr "Разглеждане на информацията в IMDb"
 
-#: ../gui/main.py:420
+#: ../gui/main.py:422
 msgid "Set IMDB info..."
 msgstr "Задаване на IMDb информация..."
 
-#: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
 msgid "Download"
 msgstr "Изтегляне"
 
-#: ../gui/main.py:429
+#: ../gui/main.py:431
 msgid "Play video + subtitle"
 msgstr "Просвирване на видео + субтитри"
 
-#: ../gui/main.py:434
+#: ../gui/main.py:436
 msgid "View online info"
 msgstr "Разглеждане на информация в интернет"
 
-#: ../gui/main.py:449 ../gui/main.py:886 ../gui/main.py:1503
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
 msgstr "Информация"
 
-#: ../gui/main.py:506
+#: ../gui/main.py:508
 msgid "New Version Detected"
 msgstr "Намерена нова версия"
 
-#: ../gui/main.py:507
+#: ../gui/main.py:509
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -483,65 +482,65 @@ msgstr ""
 "\n"
 "Бихте ли желали да изтеглите новата версия сега?"
 
-#: ../gui/main.py:532
+#: ../gui/main.py:534
 msgid "Users online: Updating..."
 msgstr "Потребители на линия: обновяване..."
 
-#: ../gui/main.py:535
+#: ../gui/main.py:537
 #, python-format
 msgid "Users online: %s"
 msgstr "Потребители на линия: %s"
 
-#: ../gui/main.py:537
+#: ../gui/main.py:539
 msgid "Users online: ERROR"
 msgstr "Потребители на линия: ГРЕШКА"
 
-#: ../gui/main.py:547 ../gui/main.py:551
+#: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
 msgstr "Влизане..."
 
-#: ../gui/main.py:547 ../gui/main.py:1173
+#: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
 msgstr "&Отказ"
 
-#: ../gui/main.py:548 ../gui/login_ui.py:57
+#: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
 msgstr "Удостоверяване"
 
-#: ../gui/main.py:559
+#: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
 msgstr "Влезли сте като %s"
 
-#: ../gui/main.py:566
+#: ../gui/main.py:568
 #, python-format
 msgid "Login as %s: ERROR"
 msgstr "Влизане като %s: ГРЕШКА"
 
-#: ../gui/main.py:570
+#: ../gui/main.py:572
 msgid "Login: ERROR"
 msgstr "Влизане: ГРЕШКА"
 
-#: ../gui/main.py:586
+#: ../gui/main.py:588
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr "SubDownloader %s - %s"
 
-#: ../gui/main.py:605 ../gui/expiration.py:96
+#: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
 msgstr "Програмата е регистрирана"
 
-#: ../gui/main.py:641
+#: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
 msgstr ""
 "(Програмата не е регистрирана, %d дни до изтичането на срока за ползване)"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 msgid "Expiration Reminder"
 msgstr "Напомняне за изтичане на срока за ползване"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 #, python-format
 msgid ""
 "The program will expire in %d days.\n"
@@ -550,128 +549,122 @@ msgstr ""
 "Срокът за ползване на програмата ще изтече след %d дни.\n"
 "Бихте ли желали да я активирате сега?"
 
-#: ../gui/main.py:660
+#: ../gui/main.py:662
 msgid "Activate"
 msgstr "Активиране"
 
-#: ../gui/main.py:692 ../gui/main.py:693
+#: ../gui/main.py:694 ../gui/main.py:695
 msgid "All languages"
 msgstr "Всички езици"
 
-#: ../gui/main.py:695 ../gui/main.py:696 ../gui/main.py:697
-#: ../gui/preferences.py:39 ../gui/preferences.py:41
-msgid "LanguageName"
-msgstr "Име на езика"
-
-#: ../gui/main.py:751 ../gui/main.py:894 ../gui/main.py:906
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
 msgid "You are not connected to the server. Please reconnect first."
 msgstr ""
 "Не сте свързани със сървъра. Моля, направете опит да се свържете отново."
 
-#: ../gui/main.py:757
+#: ../gui/main.py:759
 msgid "Scanning files"
 msgstr "Сканиране на файлове"
 
-#: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
-#: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
-#: ../gui/main.py:1659
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
 msgid "&Abort"
 msgstr "&Прекъсване"
 
-#: ../gui/main.py:758
+#: ../gui/main.py:760
 msgid "Scanning..."
 msgstr "Сканиране..."
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "Scan Results"
 msgstr "Сканиране на резултатите"
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "No video has been found!"
 msgstr "Не беше открито видео!"
 
-#: ../gui/main.py:787
+#: ../gui/main.py:789
 msgid "Searching subtitles..."
 msgstr "Търсене на субтитри..."
 
-#: ../gui/main.py:788
+#: ../gui/main.py:790
 msgid "Asking Server..."
 msgstr "Заявка към сървъра..."
 
-#: ../gui/main.py:802
+#: ../gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr "Търсене на субтитри ( %d / %d )"
 
-#: ../gui/main.py:840
+#: ../gui/main.py:842
 msgid "Search finished"
 msgstr "Търсенето завърши"
 
-#: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
 #: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
 msgid "Movie Info"
 msgstr "Информация за филма"
 
-#: ../gui/main.py:863 ../gui/main.py:878
+#: ../gui/main.py:865 ../gui/main.py:880
 msgid "Sub Info"
 msgstr "Информация за субтитрите"
 
-#: ../gui/main.py:886
+#: ../gui/main.py:888
 msgid "You must select a folder first"
 msgstr "Първо трябва да изберете папка"
 
-#: ../gui/main.py:898
+#: ../gui/main.py:900
 msgid "Select the video(s) that need subtitles"
 msgstr "Изберете видео файлове без субтитри"
 
-#: ../gui/main.py:910
+#: ../gui/main.py:912
 msgid "Select the directory that contains your videos"
 msgstr "Изберете директорията, съдържаща вашите видео файлове"
 
-#: ../gui/main.py:934
+#: ../gui/main.py:936
 msgid "No default video player has been defined in Settings."
 msgstr "В настройките на програмата не е посочен видео плеър по подразбиране"
 
-#: ../gui/main.py:943 ../gui/main.py:1034 ../gui/main.py:1590
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
 msgstr "Изтегляне на файлове..."
 
-#: ../gui/main.py:944
+#: ../gui/main.py:946
 msgid "Playing video + sub"
 msgstr "Просвирване на видео + субтитри"
 
-#: ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:1125
-#: ../gui/main.py:1128
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr "Невъзможност за изтегляне на субтитри %s"
 
-#: ../gui/main.py:982
+#: ../gui/main.py:984
 msgid "Unable to launch videoplayer"
 msgstr "Невъзможност за стартиране на на видео плеър"
 
-#: ../gui/main.py:1004 ../gui/main.py:1058 ../gui/main.py:1086
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
 msgstr "Запазване като…"
 
-#: ../gui/main.py:1026 ../gui/main.py:1577
+#: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
 msgstr "Не са избрани субтитри за изтегляне"
 
-#: ../gui/main.py:1035
+#: ../gui/main.py:1038
 msgid "Downloading..."
 msgstr "Изтегляне..."
 
-#: ../gui/main.py:1044 ../gui/main.py:1118
+#: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
 msgstr "Изтегляне на субтитри %s (%d/%d)"
 
-#: ../gui/main.py:1050 ../gui/main.py:1135
+#: ../gui/main.py:1053
 msgid "Error write permission"
 msgstr "Грешка при права за запис"
 
-#: ../gui/main.py:1051 ../gui/main.py:1136
+#: ../gui/main.py:1054
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
@@ -680,15 +673,15 @@ msgstr ""
 "%s не могат да бъдат запазени.\n"
 "Проверете дали папката съществува и дали имате права за запис."
 
-#: ../gui/main.py:1065 ../gui/main.py:1102
+#: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
 msgstr "Запазване на субтитрите като..."
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 msgid "File already exists"
 msgstr "Файлът вече съществува"
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 #, python-format
 msgid ""
 "Local: %s\n"
@@ -703,60 +696,72 @@ msgstr ""
 "\n"
 "Какво бихте желали да предприемете?"
 
-#: ../gui/main.py:1082
+#: ../gui/main.py:1085
 msgid "Skip"
 msgstr "Пропускане"
 
-#: ../gui/main.py:1084
+#: ../gui/main.py:1087
 msgid "Replace"
 msgstr "Заместване"
 
-#: ../gui/main.py:1085
+#: ../gui/main.py:1088
 msgid "Replace all"
 msgstr "Заместване на всички"
 
-#: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
 msgid "Cancel"
 msgstr "Отказ"
 
-#: ../gui/main.py:1173
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Предупреждение"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org не отговаря\n"
+"Възможно е сайтът да е претоварен; изчакайте и опитайте отново."
+
+#: ../gui/main.py:1168
 msgid "Connecting to server..."
 msgstr "Свързване със сървъра..."
 
-#: ../gui/main.py:1174
+#: ../gui/main.py:1169
 msgid "Connecting"
 msgstr "Свързване"
 
-#: ../gui/main.py:1187
+#: ../gui/main.py:1182
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr "Свързване към сървър с помощта на сървър-посредник %s"
 
-#: ../gui/main.py:1193
+#: ../gui/main.py:1188
 msgid "Connected successfully"
 msgstr "Успешно свързване"
 
-#: ../gui/main.py:1221 ../gui/preferences.py:67
+#: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
 msgstr "Избор на директория"
 
-#: ../gui/main.py:1257
+#: ../gui/main.py:1252
 msgid "Please identify the movie."
 msgstr "Моля, укажете филма."
 
-#: ../gui/main.py:1260
+#: ../gui/main.py:1255
 msgid "Uploading subtitle"
 msgstr "Качване на субтитри"
 
-#: ../gui/main.py:1261
+#: ../gui/main.py:1256
 msgid "Uploading..."
 msgstr "Качване..."
 
-#: ../gui/main.py:1293
+#: ../gui/main.py:1288
 msgid "Successful Upload"
 msgstr "Качването завърши успешно"
 
-#: ../gui/main.py:1294
+#: ../gui/main.py:1289
 msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
@@ -764,11 +769,11 @@ msgstr ""
 "Субтитрите бяха качени успешно.\n"
 "Благодарим ви!"
 
-#: ../gui/main.py:1301
+#: ../gui/main.py:1296
 msgid "View Subtitle Info"
 msgstr "Разглеждане на информация за субтитри"
 
-#: ../gui/main.py:1307
+#: ../gui/main.py:1302
 #, python-format
 msgid ""
 "Problem while uploading...\n"
@@ -777,67 +782,67 @@ msgstr ""
 "Проблем по време качването...\n"
 "Грешка: %s"
 
-#: ../gui/main.py:1310
+#: ../gui/main.py:1305
 msgid "Error contacting the server. Please restart or try later"
 msgstr ""
 "Грешка при свързването със сървъра. Моля, рестартирайте или опитайте по-късно"
 
-#: ../gui/main.py:1333
+#: ../gui/main.py:1328
 msgid "↓ Movie autodetected from .nfo file"
 msgstr "Филмът е разпознат автоматично от .nfo файл"
 
-#: ../gui/main.py:1336
+#: ../gui/main.py:1331
 msgid "↓ Movie autodetected from database"
 msgstr "Филмът е разпознат автоматично от база с данни"
 
-#: ../gui/main.py:1375
+#: ../gui/main.py:1370
 msgid "↑ Language autodetected from database"
 msgstr "Езикът е разпознат автоматично от база с данни"
 
-#: ../gui/main.py:1379
+#: ../gui/main.py:1374
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr "Езикът е разпознат автоматично от името на файла със субтитрите"
 
-#: ../gui/main.py:1383
+#: ../gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's content"
 msgstr ""
 "Езикът е разпознат автоматично от съдържанието на файла със субтитрите"
 
-#: ../gui/main.py:1433
+#: ../gui/main.py:1428
 msgid "Browse video..."
 msgstr "Потърси видео..."
 
-#: ../gui/main.py:1450
+#: ../gui/main.py:1445
 msgid "Browse subtitle..."
 msgstr "Потърси субтитри..."
 
-#: ../gui/main.py:1503
+#: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
 msgstr "Трябва да въведете поне един символ за име на филма"
 
-#: ../gui/main.py:1506 ../gui/main.py:1659
+#: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
 msgstr "Търсене..."
 
-#: ../gui/main.py:1507 ../gui/main.py:1660 ../gui/main_ui.py:697
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
 msgid "Search"
 msgstr "Търсене"
 
-#: ../gui/main.py:1586
+#: ../gui/main.py:1581
 msgid "Select the directory where to save the subtitle(s)"
 msgstr "Посочете директория, в която субтитрите да бъдат запазени"
 
-#: ../gui/main.py:1591
+#: ../gui/main.py:1586
 msgid "Downloading"
 msgstr "Изтегляне"
 
-#: ../gui/main.py:1611
+#: ../gui/main.py:1606
 #, python-format
 msgid "Downloading %s to %s"
 msgstr "Изтегляне на %s от %s"
 
-#: ../gui/main.py:1627
+#: ../gui/main.py:1622
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
@@ -846,7 +851,7 @@ msgstr ""
 "Възникна грешка при изтеглянето на %s\n"
 "Грешка: %s"
 
-#: ../gui/main.py:1649
+#: ../gui/main.py:1644
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
@@ -855,12 +860,12 @@ msgstr ""
 "Възникна грешка при разархивирането на %s\n"
 "Грешка: %s"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 #, python-format
 msgid "%d subtitles downloaded successfully"
 msgstr "Успешно бяха изтеглени %d файла със субтитри"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), "
 "please check this manually.\n"
@@ -875,7 +880,7 @@ msgstr ""
 "наново с помощта на SubDownloader. Това ще улесни търсенето за потребителите "
 "след вас!"
 
-#: ../gui/main.py:1683
+#: ../gui/main.py:1678
 msgid "A new version of SubDownloader has been released."
 msgstr "Налична е нова версия на SubDownloader."
 
@@ -1091,10 +1096,6 @@ msgstr "<Автоматично разпознаване>"
 #: ../gui/preferences.py:76
 msgid "Select the Video Player executable file"
 msgstr "Посочване на изпълнителния файл на плеъра"
-
-#: ../gui/preferences.py:81 ../gui/preferences.py:214
-msgid "Alert"
-msgstr "Предупреждение"
 
 #: ../gui/preferences.py:81
 msgid "The new language will be displayed after restarting the program."

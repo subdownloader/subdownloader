@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-26 21:51+0000\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
 "PO-Revision-Date: 2009-11-23 21:43+0000\n"
 "Last-Translator: slarre <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
+"X-Launchpad-Export-Date: 2010-10-09 12:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -226,7 +226,7 @@ msgstr "Ukrainska"
 msgid "Vietnamese"
 msgstr "Vietnamesiska"
 
-#: ../gui/videotreeview.py:146 ../gui/main.py:558
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
 msgstr "Anonym"
 
@@ -274,23 +274,23 @@ msgstr "[IMDB Betyg: %s]"
 msgid "(%d subtitles)"
 msgstr "(%d unfertexter)"
 
-#: ../gui/about_ui.py:120
+#: ../gui/about_ui.py:122
 msgid "About Subdownloader"
 msgstr "Om Subdownloader"
 
-#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
 msgstr "Om"
 
-#: ../gui/about_ui.py:151
+#: ../gui/about_ui.py:153
 msgid "Authors"
 msgstr "Upphovsmän"
 
-#: ../gui/about_ui.py:167
+#: ../gui/about_ui.py:169
 msgid "License Agreement"
 msgstr "Licensavtal"
 
-#: ../gui/about_ui.py:168
+#: ../gui/about_ui.py:170
 msgid "Close"
 msgstr "Stäng"
 
@@ -336,60 +336,59 @@ msgstr "Klicka här för att välja undertext..."
 msgid "Loading..."
 msgstr ""
 
-#: ../gui/main.py:54
+#: ../gui/main.py:56
 msgid "Building main dialog..."
 msgstr ""
 
-#: ../gui/main.py:85
+#: ../gui/main.py:87
 #, python-format
 msgid "SubDownloader %s"
 msgstr "SubDownloader %s"
 
-#: ../gui/main.py:112
+#: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
 msgstr ""
 
-#: ../gui/main.py:226 ../gui/main.py:577
+#: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
 msgstr "Inte inloggad"
 
-#: ../gui/main.py:234 ../gui/main_ui.py:740
+#: ../gui/main.py:236 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
 msgstr "Hjälp oss med 5 USD/EUR"
 
-#: ../gui/main.py:279 ../gui/main.py:287 ../gui/main.py:607 ../gui/main.py:614
-#: ../gui/main.py:751 ../gui/main.py:828 ../gui/main.py:894 ../gui/main.py:906
-#: ../gui/main.py:934 ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:982
-#: ../gui/main.py:1026 ../gui/main.py:1125 ../gui/main.py:1128
-#: ../gui/main.py:1252 ../gui/main.py:1257 ../gui/main.py:1307
-#: ../gui/main.py:1310 ../gui/main.py:1577 ../gui/main.py:1627
-#: ../gui/main.py:1649 ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52
-#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/login.py:59
-#: ../gui/preferences.py:157 ../gui/expiration.py:85 ../gui/expiration.py:100
-#: ../gui/expiration.py:102
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
 msgid "Error"
 msgstr "Fel"
 
-#: ../gui/main.py:279 ../gui/main.py:828 ../gui/imdbSearch.py:52
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
 #: ../gui/login.py:59
 msgid "Error contacting the server. Please try again later"
 msgstr "Det gick ej att kontakta servern. Försök igen senare"
 
-#: ../gui/main.py:287
+#: ../gui/main.py:289
 #, python-format
 msgid "Unable to find %s"
 msgstr "Kunde inte hitta %s"
 
-#: ../gui/main.py:364
+#: ../gui/main.py:366
 msgid "How To Use SubDownloader"
 msgstr "Hur Du Använder SubDownloader"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid "1st Tab:"
 msgstr ""
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid ""
 "Select, from the Folder Tree on the left, the folder which contains the "
 "videos that need subtitles. SubDownloader will then try to automatically "
@@ -398,68 +397,68 @@ msgstr ""
 "Välj, från trädvyn till vänster, katalogen som innehåller videofiler som "
 "behöver undertext. SubDownloader försöker då automatiskt hitta undertexter."
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid "2nd Tab:"
 msgstr ""
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid "3rd Tab:"
 msgstr ""
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid ""
 "If you have found some subtitle somewhere else that it's not in "
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid "Quid Pro Quo:"
 msgstr ""
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
 
-#: ../gui/main.py:417 ../gui/main.py:441
+#: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
 msgstr "Visa IMDB info"
 
-#: ../gui/main.py:420
+#: ../gui/main.py:422
 msgid "Set IMDB info..."
 msgstr "Ange IMDB info..."
 
-#: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
 msgid "Download"
 msgstr "Ladda ner"
 
-#: ../gui/main.py:429
+#: ../gui/main.py:431
 msgid "Play video + subtitle"
 msgstr "Spela upp video + undertext"
 
-#: ../gui/main.py:434
+#: ../gui/main.py:436
 msgid "View online info"
 msgstr "Visa online information"
 
-#: ../gui/main.py:449 ../gui/main.py:886 ../gui/main.py:1503
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
 msgstr "Info"
 
-#: ../gui/main.py:506
+#: ../gui/main.py:508
 msgid "New Version Detected"
 msgstr "Ny version upptäckt"
 
-#: ../gui/main.py:507
+#: ../gui/main.py:509
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -476,191 +475,185 @@ msgstr ""
 "\n"
 "Vill du ladda hem den nya versionen nu?"
 
-#: ../gui/main.py:532
+#: ../gui/main.py:534
 msgid "Users online: Updating..."
 msgstr "Användare online: Uppdaterar..."
 
-#: ../gui/main.py:535
+#: ../gui/main.py:537
 #, python-format
 msgid "Users online: %s"
 msgstr "Användare online: %s"
 
-#: ../gui/main.py:537
+#: ../gui/main.py:539
 msgid "Users online: ERROR"
 msgstr "Användare online: ERROR"
 
-#: ../gui/main.py:547 ../gui/main.py:551
+#: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
 msgstr "Loggar in..."
 
-#: ../gui/main.py:547 ../gui/main.py:1173
+#: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
 msgstr "&Avbryt"
 
-#: ../gui/main.py:548 ../gui/login_ui.py:57
+#: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
 msgstr ""
 
-#: ../gui/main.py:559
+#: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
 msgstr "Inloggad som %s"
 
-#: ../gui/main.py:566
+#: ../gui/main.py:568
 #, python-format
 msgid "Login as %s: ERROR"
 msgstr "Inloggad som %s: ERROR"
 
-#: ../gui/main.py:570
+#: ../gui/main.py:572
 msgid "Login: ERROR"
 msgstr "Login: ERROR"
 
-#: ../gui/main.py:586
+#: ../gui/main.py:588
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr "SubDownloader %s - %s"
 
-#: ../gui/main.py:605 ../gui/expiration.py:96
+#: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
 msgstr ""
 
-#: ../gui/main.py:641
+#: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
 msgstr ""
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 msgid "Expiration Reminder"
 msgstr ""
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 #, python-format
 msgid ""
 "The program will expire in %d days.\n"
 "Would you like to activate it now?"
 msgstr ""
 
-#: ../gui/main.py:660
+#: ../gui/main.py:662
 msgid "Activate"
 msgstr "Aktivera"
 
-#: ../gui/main.py:692 ../gui/main.py:693
+#: ../gui/main.py:694 ../gui/main.py:695
 msgid "All languages"
 msgstr "Alla språk"
 
-#: ../gui/main.py:695 ../gui/main.py:696 ../gui/main.py:697
-#: ../gui/preferences.py:39 ../gui/preferences.py:41
-msgid "LanguageName"
-msgstr "SpråkNamn"
-
-#: ../gui/main.py:751 ../gui/main.py:894 ../gui/main.py:906
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
 msgid "You are not connected to the server. Please reconnect first."
 msgstr ""
 
-#: ../gui/main.py:757
+#: ../gui/main.py:759
 msgid "Scanning files"
 msgstr "Scannar filer"
 
-#: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
-#: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
-#: ../gui/main.py:1659
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
 msgid "&Abort"
 msgstr "&Avbryt"
 
-#: ../gui/main.py:758
+#: ../gui/main.py:760
 msgid "Scanning..."
 msgstr ""
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "Scan Results"
 msgstr "Sökresultat"
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "No video has been found!"
 msgstr ""
 
-#: ../gui/main.py:787
+#: ../gui/main.py:789
 msgid "Searching subtitles..."
 msgstr "Söker undertexter..."
 
-#: ../gui/main.py:788
+#: ../gui/main.py:790
 msgid "Asking Server..."
 msgstr ""
 
-#: ../gui/main.py:802
+#: ../gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr "Söker undertexter ( %d / %d )"
 
-#: ../gui/main.py:840
+#: ../gui/main.py:842
 msgid "Search finished"
 msgstr "Sökning avslutad"
 
-#: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
 #: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
 msgid "Movie Info"
 msgstr "Filminfo"
 
-#: ../gui/main.py:863 ../gui/main.py:878
+#: ../gui/main.py:865 ../gui/main.py:880
 msgid "Sub Info"
 msgstr "Undertext info"
 
-#: ../gui/main.py:886
+#: ../gui/main.py:888
 msgid "You must select a folder first"
 msgstr "Du måste välja en katalog först"
 
-#: ../gui/main.py:898
+#: ../gui/main.py:900
 msgid "Select the video(s) that need subtitles"
 msgstr "Välj videofilen(a) som behöver undertext"
 
-#: ../gui/main.py:910
+#: ../gui/main.py:912
 msgid "Select the directory that contains your videos"
 msgstr "Välj katalog som innehåller dina videofiler"
 
-#: ../gui/main.py:934
+#: ../gui/main.py:936
 msgid "No default video player has been defined in Settings."
 msgstr "Ingen standard videospelare har angets i Inställningar"
 
-#: ../gui/main.py:943 ../gui/main.py:1034 ../gui/main.py:1590
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
 msgstr "Laddar hem filer..."
 
-#: ../gui/main.py:944
+#: ../gui/main.py:946
 msgid "Playing video + sub"
 msgstr "Spelar upp video + undertext"
 
-#: ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:1125
-#: ../gui/main.py:1128
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr "Det gick ej att ladda hem undertext %s"
 
-#: ../gui/main.py:982
+#: ../gui/main.py:984
 msgid "Unable to launch videoplayer"
 msgstr "Det gick inte att starta videospelaren"
 
-#: ../gui/main.py:1004 ../gui/main.py:1058 ../gui/main.py:1086
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
 msgstr "Spara som..."
 
-#: ../gui/main.py:1026 ../gui/main.py:1577
+#: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
 msgstr "Ingen undertext vald för nedladdning"
 
-#: ../gui/main.py:1035
+#: ../gui/main.py:1038
 msgid "Downloading..."
 msgstr ""
 
-#: ../gui/main.py:1044 ../gui/main.py:1118
+#: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
 msgstr "Laddar ner undertext %s (%d/%d)"
 
-#: ../gui/main.py:1050 ../gui/main.py:1135
+#: ../gui/main.py:1053
 msgid "Error write permission"
 msgstr "Error, ingen skriv behörighet"
 
-#: ../gui/main.py:1051 ../gui/main.py:1136
+#: ../gui/main.py:1054
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
@@ -669,15 +662,15 @@ msgstr ""
 "%s kan inte sparas.\n"
 "Kontrollera att katalogen finns och att du har skriv behörighet."
 
-#: ../gui/main.py:1065 ../gui/main.py:1102
+#: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
 msgstr "Spara undertext som..."
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 msgid "File already exists"
 msgstr "Filen finns redan"
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 #, python-format
 msgid ""
 "Local: %s\n"
@@ -687,70 +680,80 @@ msgid ""
 "How would you like to proceed?"
 msgstr ""
 
-#: ../gui/main.py:1082
+#: ../gui/main.py:1085
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: ../gui/main.py:1084
+#: ../gui/main.py:1087
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../gui/main.py:1085
+#: ../gui/main.py:1088
 msgid "Replace all"
 msgstr "Ersätt alla"
 
-#: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui/main.py:1173
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Varning"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+
+#: ../gui/main.py:1168
 msgid "Connecting to server..."
 msgstr "Ansluter till server..."
 
-#: ../gui/main.py:1174
+#: ../gui/main.py:1169
 msgid "Connecting"
 msgstr "Ansluter"
 
-#: ../gui/main.py:1187
+#: ../gui/main.py:1182
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr "Ansluter till server med proxy %s"
 
-#: ../gui/main.py:1193
+#: ../gui/main.py:1188
 msgid "Connected successfully"
 msgstr ""
 
-#: ../gui/main.py:1221 ../gui/preferences.py:67
+#: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
 msgstr "Välj en katalog"
 
-#: ../gui/main.py:1257
+#: ../gui/main.py:1252
 msgid "Please identify the movie."
 msgstr ""
 
-#: ../gui/main.py:1260
+#: ../gui/main.py:1255
 msgid "Uploading subtitle"
 msgstr "Laddar upp undertext"
 
-#: ../gui/main.py:1261
+#: ../gui/main.py:1256
 msgid "Uploading..."
 msgstr "Laddar upp..."
 
-#: ../gui/main.py:1293
+#: ../gui/main.py:1288
 msgid "Successful Upload"
 msgstr "Uppladdning korrekt"
 
-#: ../gui/main.py:1294
+#: ../gui/main.py:1289
 msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
 
-#: ../gui/main.py:1301
+#: ../gui/main.py:1296
 msgid "View Subtitle Info"
 msgstr "Visa undertext info"
 
-#: ../gui/main.py:1307
+#: ../gui/main.py:1302
 #, python-format
 msgid ""
 "Problem while uploading...\n"
@@ -759,65 +762,65 @@ msgstr ""
 "Problem med uppladdning...\n"
 "Error: %s"
 
-#: ../gui/main.py:1310
+#: ../gui/main.py:1305
 msgid "Error contacting the server. Please restart or try later"
 msgstr "Error vid anslutning till servern. Starta om och prova igen senare."
 
-#: ../gui/main.py:1333
+#: ../gui/main.py:1328
 msgid "↓ Movie autodetected from .nfo file"
 msgstr ""
 
-#: ../gui/main.py:1336
+#: ../gui/main.py:1331
 msgid "↓ Movie autodetected from database"
 msgstr ""
 
-#: ../gui/main.py:1375
+#: ../gui/main.py:1370
 msgid "↑ Language autodetected from database"
 msgstr ""
 
-#: ../gui/main.py:1379
+#: ../gui/main.py:1374
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr ""
 
-#: ../gui/main.py:1383
+#: ../gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's content"
 msgstr ""
 
-#: ../gui/main.py:1433
+#: ../gui/main.py:1428
 msgid "Browse video..."
 msgstr "Bläddra efter video..."
 
-#: ../gui/main.py:1450
+#: ../gui/main.py:1445
 msgid "Browse subtitle..."
 msgstr "Bläddra efter undertext..."
 
-#: ../gui/main.py:1503
+#: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
 msgstr ""
 
-#: ../gui/main.py:1506 ../gui/main.py:1659
+#: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
 msgstr "Söker..."
 
-#: ../gui/main.py:1507 ../gui/main.py:1660 ../gui/main_ui.py:697
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
 msgid "Search"
 msgstr "Sök"
 
-#: ../gui/main.py:1586
+#: ../gui/main.py:1581
 msgid "Select the directory where to save the subtitle(s)"
 msgstr ""
 
-#: ../gui/main.py:1591
+#: ../gui/main.py:1586
 msgid "Downloading"
 msgstr "Laddar ner"
 
-#: ../gui/main.py:1611
+#: ../gui/main.py:1606
 #, python-format
 msgid "Downloading %s to %s"
 msgstr "Laddar ner %s till %s"
 
-#: ../gui/main.py:1627
+#: ../gui/main.py:1622
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
@@ -826,7 +829,7 @@ msgstr ""
 "Ett fell uppstod vid ner laddning av %s:\n"
 "Error:%s"
 
-#: ../gui/main.py:1649
+#: ../gui/main.py:1644
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
@@ -835,12 +838,12 @@ msgstr ""
 "Ett fell uppstod vid uppackning av %s:\n"
 "Error:%s"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 #, python-format
 msgid "%d subtitles downloaded successfully"
 msgstr "%d undertexter laddades ner"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), "
 "please check this manually.\n"
@@ -849,7 +852,7 @@ msgid ""
 "subdownloader. This will automate the search for other users!"
 msgstr ""
 
-#: ../gui/main.py:1683
+#: ../gui/main.py:1678
 msgid "A new version of SubDownloader has been released."
 msgstr "En ny version av SubDownloader har släppts."
 
@@ -1063,10 +1066,6 @@ msgstr ""
 #: ../gui/preferences.py:76
 msgid "Select the Video Player executable file"
 msgstr "Välj Videospelarens exekverings fil"
-
-#: ../gui/preferences.py:81 ../gui/preferences.py:214
-msgid "Alert"
-msgstr "Varning"
 
 #: ../gui/preferences.py:81
 msgid "The new language will be displayed after restarting the program."

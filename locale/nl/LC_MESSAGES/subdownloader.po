@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-26 21:51+0000\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
 "PO-Revision-Date: 2010-01-29 21:38+0000\n"
 "Last-Translator: Edo <edo.boorsma@solcon.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
+"X-Launchpad-Export-Date: 2010-10-09 12:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -226,7 +226,7 @@ msgstr "Oekraïens"
 msgid "Vietnamese"
 msgstr "Vietnamees"
 
-#: ../gui/videotreeview.py:146 ../gui/main.py:558
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
 msgstr "Anoniem"
 
@@ -274,23 +274,23 @@ msgstr "[Waardering IMDB: %s]"
 msgid "(%d subtitles)"
 msgstr "(%d ondertitelingen)"
 
-#: ../gui/about_ui.py:120
+#: ../gui/about_ui.py:122
 msgid "About Subdownloader"
 msgstr "Over SubDownloader"
 
-#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
 msgstr "Over"
 
-#: ../gui/about_ui.py:151
+#: ../gui/about_ui.py:153
 msgid "Authors"
 msgstr "Auteurs"
 
-#: ../gui/about_ui.py:167
+#: ../gui/about_ui.py:169
 msgid "License Agreement"
 msgstr "Licentie Overeenkomst"
 
-#: ../gui/about_ui.py:168
+#: ../gui/about_ui.py:170
 msgid "Close"
 msgstr "Afsluiten"
 
@@ -336,60 +336,59 @@ msgstr "Klik hier om een ondertiteling te selecteren..."
 msgid "Loading..."
 msgstr "Bezig met laden..."
 
-#: ../gui/main.py:54
+#: ../gui/main.py:56
 msgid "Building main dialog..."
 msgstr "Opbouwen van het hoofdvenster..."
 
-#: ../gui/main.py:85
+#: ../gui/main.py:87
 #, python-format
 msgid "SubDownloader %s"
 msgstr "SubDownloader %s"
 
-#: ../gui/main.py:112
+#: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
 msgstr "Nog %d voor dat de testversie is verlopen. Activeer het programma."
 
-#: ../gui/main.py:226 ../gui/main.py:577
+#: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
 msgstr "Nog niet gelogged"
 
-#: ../gui/main.py:234 ../gui/main_ui.py:740
+#: ../gui/main.py:236 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
 msgstr "Steun ons met €5,-"
 
-#: ../gui/main.py:279 ../gui/main.py:287 ../gui/main.py:607 ../gui/main.py:614
-#: ../gui/main.py:751 ../gui/main.py:828 ../gui/main.py:894 ../gui/main.py:906
-#: ../gui/main.py:934 ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:982
-#: ../gui/main.py:1026 ../gui/main.py:1125 ../gui/main.py:1128
-#: ../gui/main.py:1252 ../gui/main.py:1257 ../gui/main.py:1307
-#: ../gui/main.py:1310 ../gui/main.py:1577 ../gui/main.py:1627
-#: ../gui/main.py:1649 ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52
-#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/login.py:59
-#: ../gui/preferences.py:157 ../gui/expiration.py:85 ../gui/expiration.py:100
-#: ../gui/expiration.py:102
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
 msgid "Error"
 msgstr "Fout"
 
-#: ../gui/main.py:279 ../gui/main.py:828 ../gui/imdbSearch.py:52
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
 #: ../gui/login.py:59
 msgid "Error contacting the server. Please try again later"
 msgstr "Fout bij het verbinden met de server, probeer het later nog een keer"
 
-#: ../gui/main.py:287
+#: ../gui/main.py:289
 #, python-format
 msgid "Unable to find %s"
 msgstr "Kan '%s' niet vinden"
 
-#: ../gui/main.py:364
+#: ../gui/main.py:366
 msgid "How To Use SubDownloader"
 msgstr "Hoe u SubDownloader moet gebruiken"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid "1st Tab:"
 msgstr "1ste tab:"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid ""
 "Select, from the Folder Tree on the left, the folder which contains the "
 "videos that need subtitles. SubDownloader will then try to automatically "
@@ -399,11 +398,11 @@ msgstr ""
 "ondertiteling voor zoekt. SubDownloader zal dan proberen automatisch de "
 "juiste ondertiteling te vinden."
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid "2nd Tab:"
 msgstr "2de tab:"
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
@@ -411,11 +410,11 @@ msgstr ""
 "Als u de video's niet op uw computer heeft, kunt u ook zoeken m.b.v. de "
 "filmtitel."
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid "3rd Tab:"
 msgstr "3de tab:"
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid ""
 "If you have found some subtitle somewhere else that it's not in "
 "SubDownloader database, please upload those subtitles so next users will be "
@@ -425,11 +424,11 @@ msgstr ""
 "database staat, upload deze dan a.u.b. zodat andere gebruikers ze "
 "gemakkelijk kunnen vinden."
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid "Quid Pro Quo:"
 msgstr "Quid Pro Quo:"
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
@@ -437,37 +436,37 @@ msgstr ""
 "Als u denkt dat dit programma nuttig is en het heeft u veel tijd bespaard, "
 "help ons dan door een donatie te doen."
 
-#: ../gui/main.py:417 ../gui/main.py:441
+#: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
 msgstr "Bekijk de informatie op IMDB"
 
-#: ../gui/main.py:420
+#: ../gui/main.py:422
 msgid "Set IMDB info..."
 msgstr "Stel IMDB informatie in..."
 
-#: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
 msgid "Download"
 msgstr "Downloaden"
 
-#: ../gui/main.py:429
+#: ../gui/main.py:431
 msgid "Play video + subtitle"
 msgstr "Video + ondertiteling afspelen"
 
-#: ../gui/main.py:434
+#: ../gui/main.py:436
 msgid "View online info"
 msgstr "Bekijk online infomatie"
 
-#: ../gui/main.py:449 ../gui/main.py:886 ../gui/main.py:1503
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
 msgstr "Informatie"
 
-#: ../gui/main.py:506
+#: ../gui/main.py:508
 msgid "New Version Detected"
 msgstr "Nieuwe versie gedetecteerd"
 
-#: ../gui/main.py:507
+#: ../gui/main.py:509
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -484,65 +483,65 @@ msgstr ""
 "\n"
 "Wilt u de nieuwe versie nu downloaden?"
 
-#: ../gui/main.py:532
+#: ../gui/main.py:534
 msgid "Users online: Updating..."
 msgstr "Online gebruikers: Bezig met updaten..."
 
-#: ../gui/main.py:535
+#: ../gui/main.py:537
 #, python-format
 msgid "Users online: %s"
 msgstr "Online gebruikers: %s"
 
-#: ../gui/main.py:537
+#: ../gui/main.py:539
 msgid "Users online: ERROR"
 msgstr "Online gebruiker: FOUT"
 
-#: ../gui/main.py:547 ../gui/main.py:551
+#: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
 msgstr "Bezig met aanmelden..."
 
-#: ../gui/main.py:547 ../gui/main.py:1173
+#: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
 msgstr "&Annuleren"
 
-#: ../gui/main.py:548 ../gui/login_ui.py:57
+#: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
 msgstr "Authenticatie"
 
-#: ../gui/main.py:559
+#: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
 msgstr "Ingelogd als %s"
 
-#: ../gui/main.py:566
+#: ../gui/main.py:568
 #, python-format
 msgid "Login as %s: ERROR"
 msgstr "Inloggen als %s: FOUT"
 
-#: ../gui/main.py:570
+#: ../gui/main.py:572
 msgid "Login: ERROR"
 msgstr "Inloggen: FOUT"
 
-#: ../gui/main.py:586
+#: ../gui/main.py:588
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr "SubDownloader %s - %s"
 
-#: ../gui/main.py:605 ../gui/expiration.py:96
+#: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
 msgstr "Het programma is geregistreerd"
 
-#: ../gui/main.py:641
+#: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
 msgstr ""
 "(Niet-geregistreerd programma, nog %d dagen totdat de testversie verloopt)"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 msgid "Expiration Reminder"
 msgstr "Herrinering dat de testversie binnenkort verloopt"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 #, python-format
 msgid ""
 "The program will expire in %d days.\n"
@@ -551,127 +550,121 @@ msgstr ""
 "De testversie van dit programma verloopt over %d dagen\n"
 "Wilt u dit programma nu activeren?"
 
-#: ../gui/main.py:660
+#: ../gui/main.py:662
 msgid "Activate"
 msgstr "Activeren"
 
-#: ../gui/main.py:692 ../gui/main.py:693
+#: ../gui/main.py:694 ../gui/main.py:695
 msgid "All languages"
 msgstr "Alle talen"
 
-#: ../gui/main.py:695 ../gui/main.py:696 ../gui/main.py:697
-#: ../gui/preferences.py:39 ../gui/preferences.py:41
-msgid "LanguageName"
-msgstr "Taal"
-
-#: ../gui/main.py:751 ../gui/main.py:894 ../gui/main.py:906
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
 msgid "You are not connected to the server. Please reconnect first."
 msgstr "U bent niet verbonden met de server, gelieve opnieuw te verbinden."
 
-#: ../gui/main.py:757
+#: ../gui/main.py:759
 msgid "Scanning files"
 msgstr "Bezig met het scannen van bestanden"
 
-#: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
-#: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
-#: ../gui/main.py:1659
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
 msgid "&Abort"
 msgstr "&Afbreken"
 
-#: ../gui/main.py:758
+#: ../gui/main.py:760
 msgid "Scanning..."
 msgstr "Bezig met scannen..."
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "Scan Results"
 msgstr "Scanresultaten"
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "No video has been found!"
 msgstr "Geen video gevonden!"
 
-#: ../gui/main.py:787
+#: ../gui/main.py:789
 msgid "Searching subtitles..."
 msgstr "Bezig met zoeken naar ondertiteling..."
 
-#: ../gui/main.py:788
+#: ../gui/main.py:790
 msgid "Asking Server..."
 msgstr "Aanvraag bij Server..."
 
-#: ../gui/main.py:802
+#: ../gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr "Bezig met zoeken naar ondertiteling ( %d / %d )"
 
-#: ../gui/main.py:840
+#: ../gui/main.py:842
 msgid "Search finished"
 msgstr "Zoeken voltooid"
 
-#: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
 #: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
 msgid "Movie Info"
 msgstr "Film informatie"
 
-#: ../gui/main.py:863 ../gui/main.py:878
+#: ../gui/main.py:865 ../gui/main.py:880
 msgid "Sub Info"
 msgstr "Ondertiteling info"
 
-#: ../gui/main.py:886
+#: ../gui/main.py:888
 msgid "You must select a folder first"
 msgstr "U dient eerst een map te selecteren"
 
-#: ../gui/main.py:898
+#: ../gui/main.py:900
 msgid "Select the video(s) that need subtitles"
 msgstr "Selecteer de video('s) waarvoor u ondertiteling zoekt"
 
-#: ../gui/main.py:910
+#: ../gui/main.py:912
 msgid "Select the directory that contains your videos"
 msgstr "Selecteer de map die uw video's bevat"
 
-#: ../gui/main.py:934
+#: ../gui/main.py:936
 msgid "No default video player has been defined in Settings."
 msgstr "Er is geen standaard afspeel programma geselecteerd bij Instellingen"
 
-#: ../gui/main.py:943 ../gui/main.py:1034 ../gui/main.py:1590
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
 msgstr "Bezig met het downloaden van bestanden..."
 
-#: ../gui/main.py:944
+#: ../gui/main.py:946
 msgid "Playing video + sub"
 msgstr "Speel video + ondertiteling af"
 
-#: ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:1125
-#: ../gui/main.py:1128
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr "Kan ondertiteling %s niet downloaden"
 
-#: ../gui/main.py:982
+#: ../gui/main.py:984
 msgid "Unable to launch videoplayer"
 msgstr "Kan het video afspeel programma neit starten"
 
-#: ../gui/main.py:1004 ../gui/main.py:1058 ../gui/main.py:1086
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
 msgstr "Opslaan als..."
 
-#: ../gui/main.py:1026 ../gui/main.py:1577
+#: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
 msgstr "Geen ondertiteling geselecteerd om te downloaden"
 
-#: ../gui/main.py:1035
+#: ../gui/main.py:1038
 msgid "Downloading..."
 msgstr "Bezig met downloaden..."
 
-#: ../gui/main.py:1044 ../gui/main.py:1118
+#: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
 msgstr "Bezig met downloaden van ondertiteling %s ( %d / %d )"
 
-#: ../gui/main.py:1050 ../gui/main.py:1135
+#: ../gui/main.py:1053
 msgid "Error write permission"
 msgstr "Fout bij schrijven vanwege bestandsrechten"
 
-#: ../gui/main.py:1051 ../gui/main.py:1136
+#: ../gui/main.py:1054
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
@@ -680,15 +673,15 @@ msgstr ""
 "%s kan niet opgeslagen worden.\n"
 "Kijk of de map bestaat en of u lees- en schrijf rechten heeft in die map."
 
-#: ../gui/main.py:1065 ../gui/main.py:1102
+#: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
 msgstr "Ondertiteling opslaan als..."
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 msgid "File already exists"
 msgstr "Bestand bestaat reeds"
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 #, python-format
 msgid ""
 "Local: %s\n"
@@ -703,60 +696,70 @@ msgstr ""
 "\n"
 "Hoe wilt u verder gaan?"
 
-#: ../gui/main.py:1082
+#: ../gui/main.py:1085
 msgid "Skip"
 msgstr "Overslaan"
 
-#: ../gui/main.py:1084
+#: ../gui/main.py:1087
 msgid "Replace"
 msgstr "Vervangen"
 
-#: ../gui/main.py:1085
+#: ../gui/main.py:1088
 msgid "Replace all"
 msgstr "Alles vervangen"
 
-#: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../gui/main.py:1173
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Attentie"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+
+#: ../gui/main.py:1168
 msgid "Connecting to server..."
 msgstr "Bezig verbinding te maken met de server..."
 
-#: ../gui/main.py:1174
+#: ../gui/main.py:1169
 msgid "Connecting"
 msgstr "Bezig met verbinden"
 
-#: ../gui/main.py:1187
+#: ../gui/main.py:1182
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr "Bezig met verbinden via proxy %s"
 
-#: ../gui/main.py:1193
+#: ../gui/main.py:1188
 msgid "Connected successfully"
 msgstr "Succesvol verbonden"
 
-#: ../gui/main.py:1221 ../gui/preferences.py:67
+#: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
 msgstr "Selecteer een woordenboek"
 
-#: ../gui/main.py:1257
+#: ../gui/main.py:1252
 msgid "Please identify the movie."
 msgstr "Identificeer a.u.b. de film."
 
-#: ../gui/main.py:1260
+#: ../gui/main.py:1255
 msgid "Uploading subtitle"
 msgstr "Bezig met uploaden van ondertiteling"
 
-#: ../gui/main.py:1261
+#: ../gui/main.py:1256
 msgid "Uploading..."
 msgstr "Bezig met uploaden..."
 
-#: ../gui/main.py:1293
+#: ../gui/main.py:1288
 msgid "Successful Upload"
 msgstr "Upload succesvol"
 
-#: ../gui/main.py:1294
+#: ../gui/main.py:1289
 msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
@@ -764,11 +767,11 @@ msgstr ""
 "Ondertitels succesvol geüploadt.\n"
 "Hartelijk Dank!"
 
-#: ../gui/main.py:1301
+#: ../gui/main.py:1296
 msgid "View Subtitle Info"
 msgstr "Bekijk info over ondertiteling"
 
-#: ../gui/main.py:1307
+#: ../gui/main.py:1302
 #, python-format
 msgid ""
 "Problem while uploading...\n"
@@ -777,70 +780,70 @@ msgstr ""
 "Probleem opgetreden tijdens het uploaden...\n"
 "Foutmelding: %s"
 
-#: ../gui/main.py:1310
+#: ../gui/main.py:1305
 msgid "Error contacting the server. Please restart or try later"
 msgstr ""
 "Fout bij het verbinden met de server. Start het programma opnieuw of probeer "
 "het later nog een keer"
 
-#: ../gui/main.py:1333
+#: ../gui/main.py:1328
 msgid "↓ Movie autodetected from .nfo file"
 msgstr "↓ Film automatisch identificeren a.d.h.v. .nfo bestand"
 
-#: ../gui/main.py:1336
+#: ../gui/main.py:1331
 msgid "↓ Movie autodetected from database"
 msgstr "↓ Film is automatisch geïdentificeerd m.b.v de database"
 
-#: ../gui/main.py:1375
+#: ../gui/main.py:1370
 msgid "↑ Language autodetected from database"
 msgstr "↑ Taal automatisch geïdentificeerd m.b.v. database"
 
-#: ../gui/main.py:1379
+#: ../gui/main.py:1374
 msgid "↑ Language autodetected from subtitle's filename"
 msgstr ""
 "↑ Taal is automatisch geïdentificeerd a.d.h.v. de bestandsnaam van de "
 "ondertiteling"
 
-#: ../gui/main.py:1383
+#: ../gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's content"
 msgstr ""
 "↑ Taal is automatisch geïdentificeerd a.d.h.v de inhoud van de ondertiteling"
 
-#: ../gui/main.py:1433
+#: ../gui/main.py:1428
 msgid "Browse video..."
 msgstr "Selecteer video..."
 
-#: ../gui/main.py:1450
+#: ../gui/main.py:1445
 msgid "Browse subtitle..."
 msgstr "Selecteer ondertiteling..."
 
-#: ../gui/main.py:1503
+#: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
 msgstr "Je moet op z'n minst 1 karakter invullen bij filmnaam"
 
-#: ../gui/main.py:1506 ../gui/main.py:1659
+#: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
 msgstr "Bezig met zoeken"
 
-#: ../gui/main.py:1507 ../gui/main.py:1660 ../gui/main_ui.py:697
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../gui/main.py:1586
+#: ../gui/main.py:1581
 msgid "Select the directory where to save the subtitle(s)"
 msgstr "Selecteer de map waar ondertiteling(en) opgeslagen moeten worden"
 
-#: ../gui/main.py:1591
+#: ../gui/main.py:1586
 msgid "Downloading"
 msgstr "Bezig met downloaden"
 
-#: ../gui/main.py:1611
+#: ../gui/main.py:1606
 #, python-format
 msgid "Downloading %s to %s"
 msgstr "Bezig met downloaden van %s naar %s"
 
-#: ../gui/main.py:1627
+#: ../gui/main.py:1622
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
@@ -849,7 +852,7 @@ msgstr ""
 "Er is een fout opgetreden bij het downloaden van: %s\n"
 "Fout: %s"
 
-#: ../gui/main.py:1649
+#: ../gui/main.py:1644
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
@@ -858,12 +861,12 @@ msgstr ""
 "Er is een fout opgetreden bij het uitpakken van: %s\n"
 "Fout: %s"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 #, python-format
 msgid "%d subtitles downloaded successfully"
 msgstr "%d ondertitelingen zijn succesvol gedownload"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), "
 "please check this manually.\n"
@@ -878,7 +881,7 @@ msgstr ""
 "nogmaals uploaden om toekomstige zoekopdrachten gemakkelijker te maken voor "
 "andere gebruikers!"
 
-#: ../gui/main.py:1683
+#: ../gui/main.py:1678
 msgid "A new version of SubDownloader has been released."
 msgstr "Er is een nieuwe versie van SubDownload vrijgegeven."
 
@@ -1094,10 +1097,6 @@ msgstr "<AutomatischDetecteren>"
 #: ../gui/preferences.py:76
 msgid "Select the Video Player executable file"
 msgstr "Selecteer het video programma"
-
-#: ../gui/preferences.py:81 ../gui/preferences.py:214
-msgid "Alert"
-msgstr "Attentie"
 
 #: ../gui/preferences.py:81
 msgid "The new language will be displayed after restarting the program."

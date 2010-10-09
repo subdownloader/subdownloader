@@ -2,29 +2,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-26 21:51+0000\n"
-"PO-Revision-Date: 2010-03-06 22:30+0000\n"
-"Last-Translator: lyyser <Unknown>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2010-09-22 22:24+0000\n"
+"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-03 22:52+0000\n"
+"X-Launchpad-Export-Date: 2010-10-09 12:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
 msgid "Parsing video: %s"
-msgstr "Parsing video: %s"
+msgstr "Video parsimine: %s"
 
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
 msgid "Parsing sub: %s"
-msgstr "Parsing sub: %s"
+msgstr "Subtiitrite parsimine: %s"
 
 #: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
 msgid "Finished hashing"
-msgstr "Hashimine lõpetatud"
+msgstr "Räsimine lõpetatud"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
@@ -52,7 +52,7 @@ msgstr "Bulgaaria"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr "Kataloonia"
+msgstr "Katalaani"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
@@ -64,7 +64,7 @@ msgstr "Hiina"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr "Horvaatia"
+msgstr "Horvaadi"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
@@ -156,7 +156,7 @@ msgstr "Leedu"
 
 #: ../languages/Languages.py:44
 msgid "Luxembourgish"
-msgstr "Luksemburgi"
+msgstr "Letseburgi"
 
 #: ../languages/Languages.py:45
 msgid "Macedonian"
@@ -226,7 +226,7 @@ msgstr "Ukraina"
 msgid "Vietnamese"
 msgstr "Vietnami"
 
-#: ../gui/videotreeview.py:146 ../gui/main.py:558
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
 msgstr "Anonüümne"
 
@@ -274,23 +274,23 @@ msgstr "[IMDB hinnang: %s]"
 msgid "(%d subtitles)"
 msgstr "(%d subtiitrit)"
 
-#: ../gui/about_ui.py:120
+#: ../gui/about_ui.py:122
 msgid "About Subdownloader"
 msgstr "Subdownloaderist lähemalt"
 
-#: ../gui/about_ui.py:143 ../gui/main_ui.py:738
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
-msgstr "Meist"
+msgstr "Programmist"
 
-#: ../gui/about_ui.py:151
+#: ../gui/about_ui.py:153
 msgid "Authors"
 msgstr "Autorid"
 
-#: ../gui/about_ui.py:167
+#: ../gui/about_ui.py:169
 msgid "License Agreement"
 msgstr "Litsentsileping"
 
-#: ../gui/about_ui.py:168
+#: ../gui/about_ui.py:170
 msgid "Close"
 msgstr "Sulge"
 
@@ -300,7 +300,7 @@ msgstr "Videofail"
 
 #: ../gui/uploadlistview.py:33
 msgid "Subtitle"
-msgstr "Subtiiter"
+msgstr "Subtiitrid"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
@@ -309,7 +309,7 @@ msgstr "Video/subtiitrite loend on tühi"
 #: ../gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
-msgstr "Subtiiiter %s on korduv"
+msgstr "Subtiitrid %s on korduvad"
 
 #: ../gui/uploadlistview.py:93
 #, python-format
@@ -322,7 +322,7 @@ msgstr "Mõned üleslaadimise read on tühjad"
 
 #: ../gui/uploadlistview.py:104
 msgid "Some of the video/subtitles fields are empty"
-msgstr "Mõned video/subtiitri väljad on tühjad"
+msgstr "Mõned video/subtiitrite väljad on tühjad"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
@@ -330,143 +330,140 @@ msgstr "Video valimiseks klõpsa siin..."
 
 #: ../gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr "Subtiitri valimiseks klõpsa siin..."
+msgstr "Subtiitrite valimiseks klõpsa siin..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
 msgstr "Laadimine..."
 
-#: ../gui/main.py:54
+#: ../gui/main.py:56
 msgid "Building main dialog..."
 msgstr "Peadialoogiakna loomine..."
 
-#: ../gui/main.py:85
+#: ../gui/main.py:87
 #, python-format
 msgid "SubDownloader %s"
 msgstr "SubDownloader %s"
 
-#: ../gui/main.py:112
+#: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
 msgstr "%d päeva aegumiseni. Aktiveeri programm."
 
-#: ../gui/main.py:226 ../gui/main.py:577
+#: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
 msgstr "Pole veel sisselogitud"
 
-#: ../gui/main.py:234 ../gui/main_ui.py:740
+#: ../gui/main.py:236 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
 msgstr "Aita meid annetades 5 USD/EUR"
 
-#: ../gui/main.py:279 ../gui/main.py:287 ../gui/main.py:607 ../gui/main.py:614
-#: ../gui/main.py:751 ../gui/main.py:828 ../gui/main.py:894 ../gui/main.py:906
-#: ../gui/main.py:934 ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:982
-#: ../gui/main.py:1026 ../gui/main.py:1125 ../gui/main.py:1128
-#: ../gui/main.py:1252 ../gui/main.py:1257 ../gui/main.py:1307
-#: ../gui/main.py:1310 ../gui/main.py:1577 ../gui/main.py:1627
-#: ../gui/main.py:1649 ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52
-#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85 ../gui/login.py:59
-#: ../gui/preferences.py:157 ../gui/expiration.py:85 ../gui/expiration.py:100
-#: ../gui/expiration.py:102
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
 msgid "Error"
 msgstr "Tõrge"
 
-#: ../gui/main.py:279 ../gui/main.py:828 ../gui/imdbSearch.py:52
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
 #: ../gui/login.py:59
 msgid "Error contacting the server. Please try again later"
 msgstr "Tõrge serveriga ühendumisel. Palun proovi hiljem uuesti"
 
-#: ../gui/main.py:287
+#: ../gui/main.py:289
 #, python-format
 msgid "Unable to find %s"
 msgstr "%s ei suudeta leida"
 
-#: ../gui/main.py:364
+#: ../gui/main.py:366
 msgid "How To Use SubDownloader"
 msgstr "Kuidas kasutada SubDownloaderit"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid "1st Tab:"
-msgstr "1ne Tab:"
+msgstr "Esimene kaart:"
 
-#: ../gui/main.py:365
+#: ../gui/main.py:367
 msgid ""
 "Select, from the Folder Tree on the left, the folder which contains the "
 "videos that need subtitles. SubDownloader will then try to automatically "
 "find available subtitles."
 msgstr ""
-"Valige, vasakulut kataloogipuust, kausta video failiga, millele on vaja "
-"subtiitreid. Subdownloader proovib automaatselt leida saadaval olevaid "
-"subtiitreid."
+"Vali vasakult puust kataloog videodega, millele on vaja subtiitreid. "
+"SubDownloader üritab seejärel neile saadaolevad subtiitrid leida."
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid "2nd Tab:"
-msgstr "2ne Tab:"
+msgstr "Teine kaart"
 
-#: ../gui/main.py:366
+#: ../gui/main.py:368
 msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
-"Kui sul ei ole video faili arvutis, võite otsida subtiitrit nime järgi."
+"Kui videosid pole parajasti arvutis, võid otsida subtiitreid pealkirja järgi."
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid "3rd Tab:"
-msgstr "3as Tab:"
+msgstr "Kolmas kaart:"
 
-#: ../gui/main.py:367
+#: ../gui/main.py:369
 msgid ""
 "If you have found some subtitle somewhere else that it's not in "
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
-"Kui leitsire subtiitrid kusagilt mujal, kui Subdownloaderi andmebaasist, "
-"palun laadige need andmebaasi, nii et teised kasutajad saaksid kergesti neid "
-"leida."
+"Kui oled kuskilt mujalt leidnud subtiitrid, mida SubDownloaderi andmebaasis "
+"pole, laadi need palun üles, et järgmised kasutajad leiaks need lihtsamalt."
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid "Quid Pro Quo:"
-msgstr "Quid Pro Quo:"
+msgstr "Quid pro quo:"
 
-#: ../gui/main.py:368
+#: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
-"Kui arvad, et see programm on kasulik ja säästab palju aega, aidake meid "
+"Kui leiad, et see programm on kasulik ja säästab palju aega, toeta meid "
 "annetusega."
 
-#: ../gui/main.py:417 ../gui/main.py:441
+#: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
 msgstr "Kuva IMDB andmed"
 
-#: ../gui/main.py:420
+#: ../gui/main.py:422
 msgid "Set IMDB info..."
 msgstr "Määra IMDB andmed..."
 
-#: ../gui/main.py:426 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
 msgid "Download"
 msgstr "Allalaadimine"
 
-#: ../gui/main.py:429
+#: ../gui/main.py:431
 msgid "Play video + subtitle"
 msgstr "Esita video + subtiitrid"
 
-#: ../gui/main.py:434
+#: ../gui/main.py:436
 msgid "View online info"
 msgstr "Kuva veebiteavet"
 
-#: ../gui/main.py:449 ../gui/main.py:886 ../gui/main.py:1503
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
 msgstr "Andmed"
 
-#: ../gui/main.py:506
+#: ../gui/main.py:508
 msgid "New Version Detected"
 msgstr "Uus versioon tuvastatud"
 
-#: ../gui/main.py:507
+#: ../gui/main.py:509
 #, python-format
 msgid ""
 "A new version of SubDownloader has been released.\n"
@@ -476,71 +473,71 @@ msgid ""
 "\n"
 "Would you like to download the new version now?"
 msgstr ""
-"Uus versioon SubDownloader-ist on ilmunud.\n"
+"Uus SubDownloaderi versioon on saadaval.\n"
 "\n"
 "Uus versioon: %s\n"
 "Praegune: %s\n"
 "\n"
-"Kas soovid allalaadida uue versiooni?"
+"Kas soovid uue versiooni alla laadida?"
 
-#: ../gui/main.py:532
+#: ../gui/main.py:534
 msgid "Users online: Updating..."
-msgstr "Kasutajaid võrgus : Värskendan..."
-
-#: ../gui/main.py:535
-#, python-format
-msgid "Users online: %s"
-msgstr "Kasutjaid võrgus: %s"
+msgstr "Kasutajaid võrgus: värskendamine..."
 
 #: ../gui/main.py:537
-msgid "Users online: ERROR"
-msgstr "Kasutajaid võrgus: Tõrge"
+#, python-format
+msgid "Users online: %s"
+msgstr "Kasutajaid võrgus: %s"
 
-#: ../gui/main.py:547 ../gui/main.py:551
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "Kasutajaid võrgus: tõrge"
+
+#: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
 msgstr "Sisselogimine..."
 
-#: ../gui/main.py:547 ../gui/main.py:1173
+#: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
 msgstr "&Loobu"
 
-#: ../gui/main.py:548 ../gui/login_ui.py:57
+#: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
 msgstr "Autentimine"
 
-#: ../gui/main.py:559
+#: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
 msgstr "Sisse logitud kui %s"
 
-#: ../gui/main.py:566
+#: ../gui/main.py:568
 #, python-format
 msgid "Login as %s: ERROR"
-msgstr "Logimisel %s: TÕRGE"
+msgstr "Sisselogimine kui %s: tõrge"
 
-#: ../gui/main.py:570
+#: ../gui/main.py:572
 msgid "Login: ERROR"
-msgstr "Logimine: TÕRGE"
+msgstr "Sisselogimine: tõrge"
 
-#: ../gui/main.py:586
+#: ../gui/main.py:588
 #, python-format
 msgid "SubDownloader %s - %s"
 msgstr "SubDownloader %s - %s"
 
-#: ../gui/main.py:605 ../gui/expiration.py:96
+#: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
 msgstr "Programm registreeritud"
 
-#: ../gui/main.py:641
+#: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
 msgstr "(Registreerimata programm, %d päeva aegumiseni)"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 msgid "Expiration Reminder"
 msgstr "Aegumise meeldetuletus"
 
-#: ../gui/main.py:659
+#: ../gui/main.py:661
 #, python-format
 msgid ""
 "The program will expire in %d days.\n"
@@ -549,144 +546,138 @@ msgstr ""
 "Programm aegub %d päeva pärast.\n"
 "Kas soovid  aktiveerida kohe?"
 
-#: ../gui/main.py:660
+#: ../gui/main.py:662
 msgid "Activate"
 msgstr "Aktiveeri"
 
-#: ../gui/main.py:692 ../gui/main.py:693
+#: ../gui/main.py:694 ../gui/main.py:695
 msgid "All languages"
 msgstr "Kõik keeled"
 
-#: ../gui/main.py:695 ../gui/main.py:696 ../gui/main.py:697
-#: ../gui/preferences.py:39 ../gui/preferences.py:41
-msgid "LanguageName"
-msgstr "Keele nimi"
-
-#: ../gui/main.py:751 ../gui/main.py:894 ../gui/main.py:906
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
 msgid "You are not connected to the server. Please reconnect first."
-msgstr "Sa ei ole serveriga ühendatud. Palun enne ühendu."
+msgstr "Sa ei ole serveriga ühendatud. Palun taasta esmalt ühendus."
 
-#: ../gui/main.py:757
+#: ../gui/main.py:759
 msgid "Scanning files"
 msgstr "Failide skaneerimine"
 
-#: ../gui/main.py:757 ../gui/main.py:787 ../gui/main.py:943
-#: ../gui/main.py:1034 ../gui/main.py:1260 ../gui/main.py:1590
-#: ../gui/main.py:1659
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
 msgid "&Abort"
 msgstr "&Katkesta"
 
-#: ../gui/main.py:758
+#: ../gui/main.py:760
 msgid "Scanning..."
 msgstr "Skaneerimine..."
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "Scan Results"
 msgstr "Otsingu tulemused"
 
-#: ../gui/main.py:784
+#: ../gui/main.py:786
 msgid "No video has been found!"
-msgstr "Videot ei leitud!"
+msgstr "Videosid ei leitud."
 
-#: ../gui/main.py:787
+#: ../gui/main.py:789
 msgid "Searching subtitles..."
 msgstr "Subtiitrite otsimine..."
 
-#: ../gui/main.py:788
+#: ../gui/main.py:790
 msgid "Asking Server..."
-msgstr "Serveri küsimine..."
+msgstr "Serverilt küsimine..."
 
-#: ../gui/main.py:802
+#: ../gui/main.py:804
 #, python-format
 msgid "Searching subtitles ( %d / %d )"
 msgstr "Subtiitrite otsimine ( %d / %d )"
 
-#: ../gui/main.py:840
+#: ../gui/main.py:842
 msgid "Search finished"
 msgstr "Otsimine lõpetatud"
 
-#: ../gui/main.py:857 ../gui/main.py:872 ../gui/main_ui.py:693
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
 #: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
 msgid "Movie Info"
 msgstr "Filmi info"
 
-#: ../gui/main.py:863 ../gui/main.py:878
+#: ../gui/main.py:865 ../gui/main.py:880
 msgid "Sub Info"
 msgstr "Subtiitrite info"
 
-#: ../gui/main.py:886
+#: ../gui/main.py:888
 msgid "You must select a folder first"
 msgstr "Pead esmalt valima kausta"
 
-#: ../gui/main.py:898
+#: ../gui/main.py:900
 msgid "Select the video(s) that need subtitles"
-msgstr "Vali video(d), mis vajab subtiitreid"
+msgstr "Vali video(d), millele subtiitreid vaja"
 
-#: ../gui/main.py:910
+#: ../gui/main.py:912
 msgid "Select the directory that contains your videos"
 msgstr "Vali kataloog, mis sisaldab sinu videoid"
 
-#: ../gui/main.py:934
+#: ../gui/main.py:936
 msgid "No default video player has been defined in Settings."
-msgstr "Videoesitajat pole vaikimisi määratud"
+msgstr "Vaikimisi videomängijat pole seadetes määratud."
 
-#: ../gui/main.py:943 ../gui/main.py:1034 ../gui/main.py:1590
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
 msgstr "Failide allalaadimine..."
 
-#: ../gui/main.py:944
+#: ../gui/main.py:946
 msgid "Playing video + sub"
 msgstr "Video + subtiitrite esitamine"
 
-#: ../gui/main.py:951 ../gui/main.py:954 ../gui/main.py:1125
-#: ../gui/main.py:1128
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
 #, python-format
 msgid "Unable to download subtitle %s"
 msgstr "Ei suudetud %s subtiitreid allalaadida"
 
-#: ../gui/main.py:982
+#: ../gui/main.py:984
 msgid "Unable to launch videoplayer"
 msgstr "Videoesitajat ei suudetud käivitada"
 
-#: ../gui/main.py:1004 ../gui/main.py:1058 ../gui/main.py:1086
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
 msgstr "Salvesta kui..."
 
-#: ../gui/main.py:1026 ../gui/main.py:1577
+#: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
-msgstr "Allalaadimiseks pole valitud ühtegi subtiitrit"
+msgstr "Subtiitreid pole allalaadimiseks valitud"
 
-#: ../gui/main.py:1035
+#: ../gui/main.py:1038
 msgid "Downloading..."
 msgstr "Allalaadimine..."
 
-#: ../gui/main.py:1044 ../gui/main.py:1118
+#: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
-msgstr "Subtiitri allalaadimine %s (%d/%d)"
+msgstr "%s subtiitrite allalaadimine (%d/%d)"
 
-#: ../gui/main.py:1050 ../gui/main.py:1135
+#: ../gui/main.py:1053
 msgid "Error write permission"
-msgstr "Viga kirjutamise lubamisel"
+msgstr "Viga kirjutamisel"
 
-#: ../gui/main.py:1051 ../gui/main.py:1136
+#: ../gui/main.py:1054
 #, python-format
 msgid ""
 "%s cannot be saved.\n"
 "Check that the folder exists and you have write-access permissions."
 msgstr ""
 "%s pole võimalik salvestada.\n"
-"Kontrolli, et kaust on olemas ja kas sul on kirjutamiseks õigused."
+"Vaata, et kataloog oleks olemas ja sul oleks õigus sinna salvestada."
 
-#: ../gui/main.py:1065 ../gui/main.py:1102
+#: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
 msgstr "Salvesta subtiitrid kui..."
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 msgid "File already exists"
 msgstr "Fail on juba olemas"
 
-#: ../gui/main.py:1081
+#: ../gui/main.py:1084
 #, python-format
 msgid ""
 "Local: %s\n"
@@ -697,64 +688,76 @@ msgid ""
 msgstr ""
 "Kohalik: %s\n"
 "\n"
-"Kaug: %s\n"
+"Serveris: %s\n"
 "\n"
 "Kuidas soovid jätkata?"
 
-#: ../gui/main.py:1082
+#: ../gui/main.py:1085
 msgid "Skip"
 msgstr "Jäta vahele"
 
-#: ../gui/main.py:1084
+#: ../gui/main.py:1087
 msgid "Replace"
 msgstr "Asenda"
 
-#: ../gui/main.py:1085
+#: ../gui/main.py:1088
 msgid "Replace all"
 msgstr "Asenda kõik"
 
-#: ../gui/main.py:1087 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
 msgid "Cancel"
 msgstr "Loobu"
 
-#: ../gui/main.py:1173
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Hoiatus"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org ei vasta.\n"
+"See võib ülekoormatud olla, proovi natukese aja pärast uuesti."
+
+#: ../gui/main.py:1168
 msgid "Connecting to server..."
 msgstr "Serveriga ühendumine..."
 
-#: ../gui/main.py:1174
+#: ../gui/main.py:1169
 msgid "Connecting"
 msgstr "Ühendumine"
 
-#: ../gui/main.py:1187
+#: ../gui/main.py:1182
 #, python-format
 msgid "Connecting to server using proxy %s"
 msgstr "Serveriga ühendumine kasutades proksit %s"
 
-#: ../gui/main.py:1193
+#: ../gui/main.py:1188
 msgid "Connected successfully"
 msgstr "Ühendumine edukas"
 
-#: ../gui/main.py:1221 ../gui/preferences.py:67
+#: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
 msgstr "Kataloogi valimine"
 
-#: ../gui/main.py:1257
+#: ../gui/main.py:1252
 msgid "Please identify the movie."
 msgstr "Palun tuvasta film."
 
-#: ../gui/main.py:1260
+#: ../gui/main.py:1255
 msgid "Uploading subtitle"
-msgstr "Subtiitri üleslaadimine"
+msgstr "Subtiitrite üleslaadimine"
 
-#: ../gui/main.py:1261
+#: ../gui/main.py:1256
 msgid "Uploading..."
 msgstr "Üleslaadimine..."
 
-#: ../gui/main.py:1293
+#: ../gui/main.py:1288
 msgid "Successful Upload"
-msgstr "Õnnestunult üleslaaditud"
+msgstr "Ilusti üleslaaditud"
 
-#: ../gui/main.py:1294
+#: ../gui/main.py:1289
 msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
@@ -762,11 +765,11 @@ msgstr ""
 "Subtiitrid on edukalt üles laaditud.\n"
 "Suur tänu!"
 
-#: ../gui/main.py:1301
+#: ../gui/main.py:1296
 msgid "View Subtitle Info"
-msgstr "Vaata subtiitri infot"
+msgstr "Vaata subtiitrite infot"
 
-#: ../gui/main.py:1307
+#: ../gui/main.py:1302
 #, python-format
 msgid ""
 "Problem while uploading...\n"
@@ -775,74 +778,74 @@ msgstr ""
 "Probleem  üleslaadimisel...\n"
 "Tõrge: %s"
 
-#: ../gui/main.py:1310
+#: ../gui/main.py:1305
 msgid "Error contacting the server. Please restart or try later"
 msgstr "Tõrge serveriga ühendumisel. Palun taaskäivita või proovi hiljem"
 
-#: ../gui/main.py:1333
+#: ../gui/main.py:1328
 msgid "↓ Movie autodetected from .nfo file"
-msgstr "↓ Film automaatselt tuvastatud. NFO faiist"
+msgstr "↓ Film tuvastatud .nfo-faili abil"
 
-#: ../gui/main.py:1336
+#: ../gui/main.py:1331
 msgid "↓ Movie autodetected from database"
-msgstr "↓ Film automaatselt tuvastatud andmebaasisit"
+msgstr "↓ Film tuvastatud andmebaasi abil"
 
-#: ../gui/main.py:1375
+#: ../gui/main.py:1370
 msgid "↑ Language autodetected from database"
-msgstr "↑ Keel automaatselt tuvastatud andmebaasisit"
+msgstr "↑ Keel tuvastatud andmebaasi abil"
 
-#: ../gui/main.py:1379
+#: ../gui/main.py:1374
 msgid "↑ Language autodetected from subtitle's filename"
-msgstr "↑ Keel automaatselt tuvastatud subtiitri failinimest"
+msgstr "↑ Keel tuvastatud subtiitrite failinimest"
 
-#: ../gui/main.py:1383
+#: ../gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's content"
-msgstr "↑ Keel automaatselt tuvastatud subtiiri sisust"
+msgstr "↑ Keel tuvastatud subtiitrite sisust"
 
-#: ../gui/main.py:1433
+#: ../gui/main.py:1428
 msgid "Browse video..."
 msgstr "Vali video..."
 
-#: ../gui/main.py:1450
+#: ../gui/main.py:1445
 msgid "Browse subtitle..."
-msgstr "Vali subtiiter..."
+msgstr "Vali subtiitrid..."
 
-#: ../gui/main.py:1503
+#: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
-msgstr "Peate sisestama vähemalt ühe tähe filmi nimest"
+msgstr "Pead sisestama vähemalt ühe tähe filmi pealkirjast"
 
-#: ../gui/main.py:1506 ../gui/main.py:1659
+#: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
 msgstr "Otsimine..."
 
-#: ../gui/main.py:1507 ../gui/main.py:1660 ../gui/main_ui.py:697
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
 msgid "Search"
-msgstr "Otsi"
+msgstr "Otsing"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "Vali kataloog, kuhu subtiitrid salvestada"
 
 #: ../gui/main.py:1586
-msgid "Select the directory where to save the subtitle(s)"
-msgstr "Vali kataloog, kuhu salvestada subtiiter(id)"
-
-#: ../gui/main.py:1591
 msgid "Downloading"
 msgstr "Allalaadimine"
 
-#: ../gui/main.py:1611
+#: ../gui/main.py:1606
 #, python-format
 msgid "Downloading %s to %s"
 msgstr "%s allalaadimine kohta %s"
 
-#: ../gui/main.py:1627
+#: ../gui/main.py:1622
 #, python-format
 msgid ""
 "An error occured downloading %s:\n"
 "Error:%s"
 msgstr ""
-"Viga allalaadimisel %s:\n"
+"Viga %s allalaadimisel:\n"
 "Viga:%s"
 
-#: ../gui/main.py:1649
+#: ../gui/main.py:1644
 #, python-format
 msgid ""
 "An error occured unziping %s:\n"
@@ -851,12 +854,12 @@ msgstr ""
 "Viga %s lahtipakkimisel:\n"
 "Viga: %s"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 #, python-format
 msgid "%d subtitles downloaded successfully"
-msgstr "%d subtiitrit laaditi edukalt alla"
+msgstr "%d filmi subtiitrid edukalt allalaaditud"
 
-#: ../gui/main.py:1654
+#: ../gui/main.py:1649
 msgid ""
 "The downloaded subtitle(s) may not be in sync with your video file(s), "
 "please check this manually.\n"
@@ -864,19 +867,19 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
-"Letavaid subtiitreid ei saa sünkroonida sinu video failiga, kontrollige seda "
-"käsitsi režiimil.\n"
+"Allalaaditud subtiitrid ei pruugi sinu videofaili(de)ga sünkroonis olla, "
+"palun kontrolli seda ise.\n"
 "\n"
-"Kui sünkroonimine on mingit probleemi, saatke need uuesti serverisse. See "
-"võimaldab otsida teistelt kasutajatelt!"
+"Kui sünkroonsusega probleeme pole, kaalu palun nende uuesti üleslaadimist "
+"SubDownloaderiga. Nii ei pea teised kasutajad käsitsi otsima."
 
-#: ../gui/main.py:1683
+#: ../gui/main.py:1678
 msgid "A new version of SubDownloader has been released."
 msgstr "Uus SubDownloader on välja lastud"
 
 #: ../gui/login_ui.py:58
 msgid "Login into OpenSubtitles.org"
-msgstr "Sisene OpenSubtitles.org"
+msgstr "Logi OpenSubtitles.org-i sisse"
 
 #: ../gui/login_ui.py:59
 msgid "Username:"
@@ -888,7 +891,7 @@ msgstr "Parool:"
 
 #: ../gui/imdbSearch.py:43
 msgid "Please fill out the search title"
-msgstr "Palun täitke otsingu nimetus"
+msgstr "Palun täida otsinguväli"
 
 #: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
 msgid "Please search and select a movie from the list"
@@ -900,11 +903,11 @@ msgstr "SubDownloader"
 
 #: ../gui/main_ui.py:679
 msgid "Select the video/folder that needs subtitles:"
-msgstr "Vali video/kaust, mis vajab subtiitreid:"
+msgstr "Vali video/kataloog, millele subtiitreid vaja:"
 
 #: ../gui/main_ui.py:680
 msgid "Select videos that need subtitles"
-msgstr "Vali videod, mis vajavad subtiitreid"
+msgstr "Vali videod, millele subtiitreid vaja"
 
 #: ../gui/main_ui.py:681
 msgid "Select videos..."
@@ -912,7 +915,7 @@ msgstr "Videote valimine..."
 
 #: ../gui/main_ui.py:682 ../gui/main_ui.py:684
 msgid "Click here to Search the subtitles of the movies in that folder"
-msgstr "Kliki siia, et otsida subtiitreid ja filme selles kaustas"
+msgstr "Klõpsa siia, et otsida subtiitreid selle kataloogi filmidele"
 
 #: ../gui/main_ui.py:683
 msgid "Select folder..."
@@ -924,11 +927,11 @@ msgstr "Otsi subtiitreid"
 
 #: ../gui/main_ui.py:686
 msgid "Videos/Subtitles found:"
-msgstr "Videod/subtiitrid leitud:"
+msgstr "Leitud videod/subtiitrid:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr "Filtreeritud:"
+msgstr "Filter:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -948,11 +951,11 @@ msgstr "OpenSubtitles.org"
 
 #: ../gui/main_ui.py:700
 msgid "Subtitles found:"
-msgstr "Subtiiter leitud:"
+msgstr "Subtiitrid leitud:"
 
 #: ../gui/main_ui.py:701
 msgid "Filter by :"
-msgstr "Filtreeri:"
+msgstr "Filter:"
 
 #: ../gui/main_ui.py:704
 msgid "Search by Movie Name"
@@ -960,7 +963,7 @@ msgstr "Otsi filmi nime järgi"
 
 #: ../gui/main_ui.py:705
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
-msgstr "Vali videod ja subtiitrid (ainult subtiiter laaditakse üles):"
+msgstr "Vali videod ja subtiitrid (ainult subtiitrid laaditakse üles):"
 
 #: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
 #: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
@@ -982,7 +985,7 @@ msgstr "Filmi pealkiri:"
 
 #: ../gui/main_ui.py:719
 msgid "Click on the Find button to identify the movie"
-msgstr "Filmi tuvastamiseks klõpsa nupule otsi"
+msgstr "Filmi tuvastamiseks klõpsa nupul \"Otsi\""
 
 #: ../gui/main_ui.py:720
 msgid "Find"
@@ -998,7 +1001,7 @@ msgstr "Kommentaarid:"
 
 #: ../gui/main_ui.py:729
 msgid "Subtitle Language:"
-msgstr "Subtiitri keel:"
+msgstr "Subtiitrite keel:"
 
 #: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
 msgid "Upload"
@@ -1038,11 +1041,11 @@ msgstr "Raporteeri veast"
 
 #: ../gui/main_ui.py:741
 msgid "&Configure Subdownloader"
-msgstr "&Seadista Subdownloaderit"
+msgstr "&SubDownloaderi seadistused"
 
 #: ../gui/main_ui.py:742
 msgid "LogIn"
-msgstr "Sisene"
+msgstr "Logi sisse"
 
 #: ../gui/main_ui.py:743
 msgid "Log Messages"
@@ -1050,7 +1053,7 @@ msgstr "Teadete logi"
 
 #: ../gui/main_ui.py:744
 msgid "Show/Hide Tree Folder"
-msgstr "Näita/peida kaustapuu"
+msgstr "Näita/peida kataloogipuu"
 
 #: ../gui/main_ui.py:745
 msgid "LogOut"
@@ -1058,7 +1061,7 @@ msgstr "Logi välja"
 
 #: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
 msgid "Translate This Application..."
-msgstr "Tõlgi see rakendus..."
+msgstr "Aita seda rakendust tõlkida..."
 
 #: ../gui/imdb_ui.py:76
 msgid "IMDB search dialog:"
@@ -1066,7 +1069,7 @@ msgstr "IMDB otsingu dialoog:"
 
 #: ../gui/imdb_ui.py:77
 msgid "Enter the Movie Title or IMDB id:"
-msgstr "Sisesta filmi nimi või IMDB id:"
+msgstr "Sisesta filmi pealkiri või IMDB ID:"
 
 #: ../gui/imdb_ui.py:78
 msgid "Search Movie"
@@ -1082,23 +1085,19 @@ msgstr "<Isetuvastus>"
 
 #: ../gui/preferences.py:76
 msgid "Select the Video Player executable file"
-msgstr "Valige video mängia käivitatav fail"
-
-#: ../gui/preferences.py:81 ../gui/preferences.py:214
-msgid "Alert"
-msgstr "Hoiatus"
+msgstr "Vali videomängija käivitatav fail"
 
 #: ../gui/preferences.py:81
 msgid "The new language will be displayed after restarting the program."
-msgstr "Uus keel kuvatakse juhul, kui teed programmile alglaadimise."
+msgstr "Keelemuutus jõustub pärast programmi uuestikäivitamist."
 
 #: ../gui/preferences.py:143
 msgid "Enable in your Konqueror/Dolphin/Nautilus"
-msgstr "Luba oma Konquerori / Dolphin / Nautilus"
+msgstr "Luba Konqueroris/Dolphinis/Nautiluses"
 
 #: ../gui/preferences.py:146
 msgid "Enable in your Windows Explorer"
-msgstr "Luba Windows Explorer-is"
+msgstr "Luba Windows Exploreris"
 
 #: ../gui/preferences.py:149
 msgid "Enable in your File Manager"
@@ -1106,7 +1105,7 @@ msgstr "Luba oma failihalduris"
 
 #: ../gui/preferences.py:157
 msgid "Predefined Folder cannot be empty"
-msgstr "Etteantud kaust ei saa olla tühi"
+msgstr "Etteantud kataloog ei tohi olla tühi"
 
 #: ../gui/preferences.py:214
 msgid "Modified proxy settings will take effect after restarting the program"
@@ -1128,11 +1127,11 @@ msgstr "Programmi kasutsusaeg lõpeb %d päeva pärast."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr "Mõned väljad on tühjad.. palun täitke need"
+msgstr "Mõned väljad on tühjad, palun täida need."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
-msgstr "Sätted"
+msgstr "Seadistused"
 
 #: ../gui/preferences_ui.py:269
 msgid "Filter search results by these languages:"
@@ -1144,15 +1143,15 @@ msgstr "Sihtkataloog:"
 
 #: ../gui/preferences_ui.py:272
 msgid "Always ask user"
-msgstr "Alati küsi kasutajalt"
+msgstr "Alati küsitakse kasutajalt"
 
 #: ../gui/preferences_ui.py:273
 msgid "Same folder as video file"
-msgstr "Videofaili kaust"
+msgstr "Videofaili kataloog"
 
 #: ../gui/preferences_ui.py:274
 msgid "Predefined folder:"
-msgstr "Eelmääratud kaust:"
+msgstr "Eelmääratud kataloog:"
 
 #: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
 msgid "Browse..."
@@ -1160,23 +1159,23 @@ msgstr "Lehitse..."
 
 #: ../gui/preferences_ui.py:276
 msgid "Filename of the Subtitle:"
-msgstr "Subtiitri faili nimi:"
+msgstr "Subtiitrite failinimi:"
 
 #: ../gui/preferences_ui.py:277
 msgid "Same name as video file"
-msgstr "Videofaili nimeline"
+msgstr "Sama mis videofaili nimi"
 
 #: ../gui/preferences_ui.py:278
 msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
-msgstr "Videofaili nimeline + keel kood (ex: StarWarsCD1.eng.srt)"
+msgstr "Videofaili nimi + keele kood (nt StarWarsCD1.eng.srt)"
 
 #: ../gui/preferences_ui.py:279
 msgid "Same name as the online subtitle"
-msgstr "Sama nimega võrgus subtiiter"
+msgstr "Võrgusubtiitrite nimi"
 
 #: ../gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Üles laetud subtiitrite vaikimisi keel"
+msgstr "Üleslaaditud subtiitrite vaikimisi keel"
 
 #: ../gui/preferences_ui.py:283
 msgid "Network Proxy"
@@ -1196,7 +1195,7 @@ msgstr "Võrk"
 
 #: ../gui/preferences_ui.py:287
 msgid "Interface Language:"
-msgstr "Liidese keel:"
+msgstr "Kasutajaliidese keel:"
 
 #: ../gui/preferences_ui.py:289
 msgid "Context Menu:"
@@ -1204,11 +1203,11 @@ msgstr "Hüpikmenüü:"
 
 #: ../gui/preferences_ui.py:290
 msgid "Enable in your explorer"
-msgstr "Luba oma explorer-is"
+msgstr "Luba Exploreris"
 
 #: ../gui/preferences_ui.py:291
 msgid "External application for video playback"
-msgstr "Väline taotlus video taasesituseks"
+msgstr "Väline rakendus video mängimiseks"
 
 #: ../gui/preferences_ui.py:292
 msgid "Video Player:"
@@ -1220,7 +1219,7 @@ msgstr "Parameetrid:"
 
 #: ../gui/preferences_ui.py:295
 msgid "{0} = video file path; {1} = subtitle path"
-msgstr "{0} = videofaili asukoht; {1} = subtiitri asukoht"
+msgstr "{0} = videofaili asukoht; {1} = subtiitrite asukoht"
 
 #: ../gui/preferences_ui.py:296
 msgid "Others"
