@@ -28,8 +28,8 @@ class UploadListModel(QAbstractTableModel):
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
-        self._subs = [None, None]
-        self._videos = [None, None]
+        self._subs = [None]
+        self._videos = [None]
         self._headers = [_("Videofile"), _("Subtitle")]
         self._main = None
         self.rowsSelected = None
