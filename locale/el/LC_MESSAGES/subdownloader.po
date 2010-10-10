@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-10-09 12:47+0000\n"
+"PO-Revision-Date: 2010-10-10 22:04+0000\n"
 "Last-Translator: Marco Rodrigues <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-09 12:52+0000\n"
+"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -20,7 +20,7 @@ msgstr "Ανάλυση του βίντεο %s"
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
 msgid "Parsing sub: %s"
-msgstr ""
+msgstr "Ανάλυση του υπότιτλου %s"
 
 #: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
 msgid "Finished hashing"
@@ -28,7 +28,7 @@ msgstr "Ολοκληρώθηκε το hashing"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr ""
+msgstr "Αλβανικά"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
