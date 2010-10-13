@@ -107,6 +107,8 @@ class preferencesDialog(QtGui.QDialog):
             self.ui.optionDownloadSameFilename.setChecked(True)
         elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANG"):
             self.ui.optionDownloadSameFilenamePlusLang.setChecked(True)
+        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANGANDUPLOADER"):
+            self.ui.optionDownloadSameFilenamePlusLangAndUploader.setChecked(True)
         elif optionSubtitleName == QVariant("SAME_ONLINE"):
             self.ui.optionDownloadOnlineSubName.setChecked(True)
             
@@ -171,6 +173,8 @@ class preferencesDialog(QtGui.QDialog):
             settings.setValue("options/subtitleName", QVariant("SAME_VIDEO"))
         elif self.ui.optionDownloadSameFilenamePlusLang.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_VIDEOPLUSLANG"))
+        elif self.ui.optionDownloadSameFilenamePlusLangAndUploader.isChecked():
+            settings.setValue("options/subtitleName", QVariant("SAME_VIDEOPLUSLANGANDUPLOADER"))
         elif self.ui.optionDownloadOnlineSubName.isChecked():
             settings.setValue("options/subtitleName", QVariant("SAME_ONLINE"))
         

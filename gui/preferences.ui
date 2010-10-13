@@ -214,6 +214,16 @@
             </property>
            </widget>
           </item>
+		   <item>
+           <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLangAndUploader">
+            <property name="text">
+             <string>Same name as video file + language code + Uploader name (ex: StarWarsCD1.eng.JohnDoe.srt)</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QRadioButton" name="optionDownloadOnlineSubName">
             <property name="text">

@@ -994,6 +994,8 @@ class Main(QObject, Ui_MainWindow):
            subFileName = without_extension(video.getFileName()) +"." + sub_extension
         elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANG"):
            subFileName = without_extension(video.getFileName()) +"." +subtitle.getLanguageXXX() +"." + sub_extension
+        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANGANDUPLOADER"):
+           subFileName = without_extension(video.getFileName()) +"." +subtitle.getLanguageXXX() +"." +subtitle.getUploader()+"." + sub_extension
         elif optionSubtitleName == QVariant("SAME_ONLINE"):
            subFileName = subtitle.getFileName()
 
