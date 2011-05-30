@@ -23,6 +23,7 @@ class SubtitleFile(object):
         self._online = online
         self._path = ""
         self._onlineId = ""
+        self._onlineFileId = ""
         self._id_file_online = ""
         self._extraInfo = {}
         if online:

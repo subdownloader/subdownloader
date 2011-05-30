@@ -27,11 +27,12 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     for ext in subtitlefile.SUBTITLES_EXT:
         possiblefilenamesrt = filename1_noextension + "." + ext
         if sub_list:
-            print sub_list
+            #print sub_list
             try:
                 # check if subtitle is in our list
-                sub_list.index(possiblefilenamesrt)
-                return possiblefilenamesrt
+                if isinstance(sub_list, list):
+                    sub_list.index(possiblefilenamesrt)
+                    return possiblefilenamesrt
             except ValueError, e:
                 log.debug(e)
             except AttributeError, e:
