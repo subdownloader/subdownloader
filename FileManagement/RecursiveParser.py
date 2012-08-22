@@ -171,6 +171,10 @@ class RecursiveParser:
             #print "An error has occured.  You may not have permission"
             #print "to access all files and folders in the specified path."
             
+        except OSError, e:
+                print e[1] + ". Please select a specific folder."
+                sys.exit(1)
+            
         except TypeError, e:
             self.log.error("The calling code has passed an invalid parameter to getRecursiveFileList.")
             self.log.error(e)
