@@ -153,6 +153,7 @@ def subtitle_name_gen(video_filename, extension=".srt"):
     video_name = ""
     sub_name = ""
     if isinstance(video_filename, str):
+        video_filename = video_filename.lower()
         if get_extension(video_filename) in videofile.VIDEOS_EXT:
             video_name = without_extension(video_filename)
     elif isinstance(video_filename, videofile):
