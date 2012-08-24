@@ -239,6 +239,8 @@ class SearchByName(object):
                     sub['MovieYear'] = entry.getElementsByTagName('MovieYear')[0].firstChild.data
                 if entry.getElementsByTagName('MovieImdbRating') and entry.getElementsByTagName('MovieImdbRating')[0].firstChild:
                     sub['MovieImdbRating'] = entry.getElementsByTagName('MovieImdbRating')[0].firstChild.data
+                elif not entry.getElementsByTagName('MovieImdbRating')[0].firstChild:
+                    sub['MovieImdbRating'] = 0
                 if entry.getElementsByTagName('MovieImdbID') and entry.getElementsByTagName('MovieImdbID')[0].firstChild:
                     sub['MovieImdbID'] = entry.getElementsByTagName('MovieImdbID')[0].firstChild.data
                 if entry.getElementsByTagName('SubAuthorComment'):
