@@ -93,6 +93,7 @@ class SearchByName(object):
         if not data:
             return []
         # catch subtitle information
+        
         for entry in data:
             sub_obj = subtitlefile.SubtitleFile(online=True)
             sub = {}
@@ -128,10 +129,11 @@ class SearchByName(object):
                 sub_obj._uploader = sub['UserNickName']
             if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                 sub['LanguageName'] = entry.getElementsByTagName('LanguageName')[0].firstChild.data
-                sub_obj.setLanguageXX(entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639'))
+                sub_obj.setLanguageXX(entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639'))             
             if entry.getElementsByTagName('SubtitleFile'):
                 SubtitleFile = {}
                 _SubtitleFile = entry.getElementsByTagName('SubtitleFile')[0]
+
                 _File = _SubtitleFile.getElementsByTagName('File')[0]
                 SubtitleFile['File'] = {'ID': _SubtitleFile.getElementsByTagName('File')[0].getAttribute('ID'), 
                                                 'SubActualCD': {'SubActualCD':_File.getElementsByTagName('SubActualCD')[0].firstChild.data, 
@@ -139,9 +141,9 @@ class SearchByName(object):
                                                                         'MD5': _File.getElementsByTagName('SubActualCD')[0].getAttribute('MD5'), 
                                                                         'SubFileName': _File.getElementsByTagName('SubActualCD')[0].getAttribute('SubFileName'), 
                                                                         'DownloadLink': _File.getElementsByTagName('SubActualCD')[0].getAttribute('DownloadLink'),  
-                                                                        }, 
-                                                'SubPreview': _File.getElementsByTagName('SubPreview')[0].firstChild.data
+                                                                        }
                                                 }
+                
                 SubtitleFile['Download'] = {'Download': _SubtitleFile.getElementsByTagName('Download')[0].firstChild.data, 
                                                         'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('DownloadLink'),  
                                                         }
@@ -182,6 +184,8 @@ class SearchByName(object):
                 }, 
                 ...]
         """
+        
+
         dom = minidom.parseString(raw_xml) #Make the dom from raw xml
         entries=dom.getElementsByTagName('opensubtitles') #Pull out all entry's
         result_entries=[] #Make an empty container to fill up and return
