@@ -145,9 +145,15 @@ class SearchByName(object):
                                                 }
                 
                 SubtitleFile['Download'] = {'Download': _SubtitleFile.getElementsByTagName('Download')[0].firstChild.data, 
-                                                        'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('DownloadLink'),  
+                                                        'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('LinkDownloadBundle'),  
                                                         }
                 sub['SubtitleFile'] = SubtitleFile
+                OnlyLink = ''
+                OnlyLink = _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('LinkDownloadBundle')
+                OnlyLink = ((OnlyLink.replace('dl', 'www')).replace('org/en', 'com')).replace('subb', 'sub')
+                link_file = open('link_file', 'w')
+                link_file.write(OnlyLink)
+                link_file.close()
             if entry.getElementsByTagName('Movie'):
                 _Movie = entry.getElementsByTagName('Movie')[0]
                 #sub['MovieName'] = _Movie.getElementsByTagName('MovieName')[0].firstChild.data

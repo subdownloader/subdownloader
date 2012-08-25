@@ -971,7 +971,6 @@ class Main(QObject, Ui_MainWindow):
                 params.append(param)
 
             params.insert(0,'"' + programPath+'"' )
-            print params
             log.info("Running this command:\n%s %s" % (programPath, params))
             try:
                 os.spawnvpe(os.P_NOWAIT, programPath,params, os.environ)
@@ -1595,7 +1594,12 @@ class Main(QObject, Ui_MainWindow):
         for i, sub in enumerate(subs):
             if not self.status_progress.wasCanceled(): #Skip rest of loop if Abort was pushed in progress bar
 
-                url = sub.getExtraInfo("downloadLink")
+                try:            
+                    url = sub.getExtraInfo("downloadLink")
+                except:
+                    url = open('link_file', 'r').readlines()
+                    #url = ((url.replace('dl', 'www')).replace('org/en', 'com')).replace('subb', 'sub')
+                    url = url[0]
 #                webbrowser.open( url, new=2, autoraise=1)
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
