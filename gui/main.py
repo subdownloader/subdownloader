@@ -135,6 +135,7 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.scrollTo(model.index(lastDir.toString()))
         QObject.connect(self.folderView, SIGNAL("clicked(QModelIndex)"),  self.onFolderTreeClicked)
         QObject.connect(self.buttonFind, SIGNAL("clicked(bool)"), self.onButtonFind)
+        QObject.connect(self.buttonRefresh, SIGNAL("clicked(bool)"), self.onButtonRefresh)
 
         #SETTING UP SEARCH_VIDEO_VIEW
         self.videoModel = VideoTreeModel(window)
@@ -287,6 +288,22 @@ class Main(QObject, Ui_MainWindow):
                         self.SearchVideos(options.videofile)
                 else:
                         QMessageBox.about(self.window,_("Error"),_("Unable to find %s") % options.videofile)
+                        
+    def onButtonRefresh(self):
+        settings = QSettings()
+        lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.homePath()))
+        path = QDir(lastDir.toString())
+        window = QMainWindow()
+        self.window = window
+        model = QDirModel(window)
+        model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
+        self.folderView.setModel(model)
+        
+        self.folderView.show()
+                
+        while True:
+            self.folderView.expand(model.index(path.absolutePath()))
+            if not path.cdUp(): break
 
     def SetupInterfaceLang(self):
         if platform.system() == "Linux":
@@ -1597,8 +1614,9 @@ class Main(QObject, Ui_MainWindow):
                 try:            
                     url = sub.getExtraInfo("downloadLink")
                 except:
-                    url = Link().OneLink(0)
-
+                    url = open('link_file', 'r').readlines()
+                    #url = ((url.replace('dl', 'www')).replace('org/en', 'com')).replace('subb', 'sub')
+                    url = url[0]
 #                webbrowser.open( url, new=2, autoraise=1)
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
