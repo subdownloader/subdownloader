@@ -6,12 +6,24 @@ import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
 
+OnlyLink = ''
+FilmLink = ''
+
 try:
     from modules import subtitlefile
 except ImportError:
     import sys, os
     sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
     from modules import subtitlefile
+
+class Link:
+    def OneLink(self, OnlyLink):
+        if OnlyLink == 0:
+            return FilmLink
+        elif OnlyLink != 0:
+            global FilmLink    
+            FilmLink = OnlyLink
+            return        
     
 class Movie(object):
     def __init__(self, movieInfo):
@@ -148,12 +160,9 @@ class SearchByName(object):
                                                         'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('LinkDownloadBundle'),  
                                                         }
                 sub['SubtitleFile'] = SubtitleFile
-                OnlyLink = ''
+                global OnlyLink
                 OnlyLink = _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('LinkDownloadBundle')
                 OnlyLink = ((OnlyLink.replace('dl', 'www')).replace('org/en', 'com')).replace('subb', 'sub')
-                link_file = open('link_file', 'w')
-                link_file.write(OnlyLink)
-                link_file.close()
             if entry.getElementsByTagName('Movie'):
                 _Movie = entry.getElementsByTagName('Movie')[0]
                 #sub['MovieName'] = _Movie.getElementsByTagName('MovieName')[0].firstChild.data
@@ -172,6 +181,7 @@ class SearchByName(object):
                 sub['ReportLink'] = entry.getElementsByTagName('ReportLink')[0].firstChild.data
             # just s shortcut
             sub['DownloadLink'] = sub['SubtitleFile']['File']['SubActualCD']['DownloadLink']
+            Link().OneLink(OnlyLink)
             if sub:
                 subtitle_entries.append(sub)
         return (subtitle_entries, sub_obj)
