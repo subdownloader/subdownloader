@@ -18,10 +18,10 @@ except ImportError:
 
 class Link:
     def OneLink(self, OnlyLink):
+        global FilmLink
         if OnlyLink == 0:
             return FilmLink
         elif OnlyLink != 0:
-            global FilmLink    
             FilmLink = OnlyLink
             return        
     

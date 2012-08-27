@@ -1614,9 +1614,7 @@ class Main(QObject, Ui_MainWindow):
                 try:            
                     url = sub.getExtraInfo("downloadLink")
                 except:
-                    url = open('link_file', 'r').readlines()
-                    #url = ((url.replace('dl', 'www')).replace('org/en', 'com')).replace('subb', 'sub')
-                    url = url[0]
+                    url = Link().OneLink(0)
 #                webbrowser.open( url, new=2, autoraise=1)
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
