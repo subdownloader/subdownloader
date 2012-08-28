@@ -5,6 +5,9 @@ import logging
 import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
+import sys
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 OnlyLink = ''
 FilmLink = ''
@@ -61,7 +64,12 @@ class SearchByName(object):
         else:
             moviename = moviename.replace(" ","%20")
             xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
-        xml_page = urllib2.urlopen(xml_url)
+            
+        try:    
+            xml_page = urllib2.urlopen(xml_url)
+        except:
+            return(2)
+            
         try:
             self.log.debug("Getting data from '%s'"% xml_url)
             search = self.parse_results(xml_page.read())

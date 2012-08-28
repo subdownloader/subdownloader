@@ -1513,6 +1513,7 @@ class Main(QObject, Ui_MainWindow):
     def onButtonSearchByTitle(self):
         if len(self.movieNameText.text()) == 0:
             QMessageBox.about(self.window,_("Info"),_("You must enter at least one character in movie name"))
+            
         else:
             self.buttonSearchByName.setEnabled(False)
             self.status_progress = QProgressDialog(_("Searching..."), "&Abort", 0, 0, self.window)
@@ -1532,6 +1533,9 @@ class Main(QObject, Ui_MainWindow):
             self.progress(0)
             #This should be in a thread to be able to Cancel
             movies = s.search_movie(search_text,'all')
+            if movies == 2:
+                QMessageBox.about(self.window,_("Info"),_("The server is momentarily unavailable. Please try later."))
+                sys.exit(1)
             self.moviesModel.setMovies(movies, selectedLanguageXXX)
             if len(movies) == 1:
                 self.moviesView.expandAll()
