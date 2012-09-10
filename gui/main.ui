@@ -221,7 +221,7 @@
                    <item>
                     <widget class="QPushButton" name="buttonRefresh">
                      <property name="enabled">
-                      <bool>false</bool>
+                      <bool>true</bool>
                      </property>
                      <property name="maximumSize">
                       <size>
