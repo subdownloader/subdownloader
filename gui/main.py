@@ -1688,6 +1688,11 @@ class Main(QObject, Ui_MainWindow):
             #print temp_movie
             try:
                 movie.subtitles = temp_movie[0].subtitles
+            except IndexError:
+                QMessageBox.about(self.window,_("Info"),_("This is a TV series and it cannot be handled."))
+                self.status_progress.close()
+                self.status_progress.destroy()
+                return
             except AttributeError:
                 # this means only one subtitle was returned
                 movie.subtitles = [temp_movie[1]]
@@ -1700,7 +1705,7 @@ class Main(QObject, Ui_MainWindow):
 
 def onUpgradeDetected():
         QMessageBox.about(self.window,_("A new version of SubDownloader has been released."))
-
+ 
 def main(options):
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)

@@ -230,6 +230,9 @@ class SearchByName(object):
             try:
                 sub_obj = subtitlefile.SubtitleFile(online=True)
                 sub = {}
+                
+                if entry.getElementsByTagName('EpisodeName'):
+                    return
                 if entry.getElementsByTagName('IDSubtitle'):
                     sub['IDSubtitle'] = { 'IDSubtitle': entry.getElementsByTagName('IDSubtitle')[0].firstChild.data, 
                                                         'Link': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('Link'), 
