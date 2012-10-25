@@ -1622,8 +1622,12 @@ class Main(QObject, Ui_MainWindow):
 #                webbrowser.open( url, new=2, autoraise=1)
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
-
-                zipDestFile = os.path.join(str(zipDestDir), zipFileName)
+                zipDestDir = str(zipDestDir.toUtf8()).decode(sys.getfilesystemencoding())
+                
+                try:
+                    zipDestFile = os.path.join(zipDestDir, zipFileName).decode(sys.getfilesystemencoding())
+                except:
+                    zipDestFile = (zipDestDir + '/' + zipFileName)
 
                 log.debug("About to download %s to %s" % (url, zipDestFile))
                 count += percentage
@@ -1649,6 +1653,8 @@ class Main(QObject, Ui_MainWindow):
                 # Only try unziping if download was succesful
                 if dlOK:
                     try:
+                        zipDestFile = zipDestFile.encode("utf-8")
+                        zipDestDir = zipDestDir.encode("utf-8")
                         zipf = zipfile.ZipFile(zipDestFile, "r")
                         for fname in zipf.namelist():
                             if (fname.endswith('/')) or (fname.endswith('\\')):
