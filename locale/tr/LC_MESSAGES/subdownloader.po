@@ -1,0 +1,1239 @@
+# Turkish translation for subdownloader
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the subdownloader package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subdownloader\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2010-10-27 04:51+0000\n"
+"Last-Translator: Ertan Kurt <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-27 22:32+0000\n"
+"X-Generator: Launchpad (build 16194)\n"
+
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
+msgstr "%s vidyosu ayrıştırılıyor"
+
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "%s alt yazısı ayrıştırılıyor"
+
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
+msgstr "İsim-değer çift oluşturuldu"
+
+#: ../languages/Languages.py:12
+msgid "Albanian"
+msgstr "Arnavutça"
+
+#: ../languages/Languages.py:13
+msgid "Arabic"
+msgstr "Arapça"
+
+#: ../languages/Languages.py:14
+msgid "Armenian"
+msgstr "Ermenice"
+
+#: ../languages/Languages.py:15
+msgid "Malay"
+msgstr "Malezyanca"
+
+#: ../languages/Languages.py:16
+msgid "Bosnian"
+msgstr "Boşnakça"
+
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
+msgstr "Bulgarca"
+
+#: ../languages/Languages.py:18
+msgid "Catalan"
+msgstr "Katalanca"
+
+#: ../languages/Languages.py:19
+msgid "Basque"
+msgstr "Bask Dili"
+
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
+msgstr "Çince (Çin)"
+
+#: ../languages/Languages.py:21
+msgid "Croatian"
+msgstr "Hırvatça"
+
+#: ../languages/Languages.py:22
+msgid "Czech"
+msgstr "Çekce"
+
+#: ../languages/Languages.py:23
+msgid "Danish"
+msgstr "Danca"
+
+#: ../languages/Languages.py:24
+msgid "Dutch"
+msgstr "Flemenkçe"
+
+#: ../languages/Languages.py:25
+msgid "English (US)"
+msgstr "İngilizce (ABD)"
+
+#: ../languages/Languages.py:26
+msgid "English (UK)"
+msgstr "İngilizce (UK)"
+
+#: ../languages/Languages.py:27
+msgid "Esperanto"
+msgstr "İspanyolca"
+
+#: ../languages/Languages.py:28
+msgid "Estonian"
+msgstr "Estonyaca"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "Fince"
+
+#: ../languages/Languages.py:30
+msgid "French"
+msgstr "Fransızca"
+
+#: ../languages/Languages.py:31
+msgid "Galician"
+msgstr "Galiçyaca"
+
+#: ../languages/Languages.py:32
+msgid "Georgian"
+msgstr "Gürcüce"
+
+#: ../languages/Languages.py:33
+msgid "German"
+msgstr "Almanca"
+
+#: ../languages/Languages.py:34
+msgid "Greek"
+msgstr "Yunanca"
+
+#: ../languages/Languages.py:35
+msgid "Hebrew"
+msgstr "İbranice"
+
+#: ../languages/Languages.py:36
+msgid "Hungarian"
+msgstr "Macarca"
+
+#: ../languages/Languages.py:37
+msgid "Indonesian"
+msgstr "Endonezya Dili"
+
+#: ../languages/Languages.py:38
+msgid "Italian"
+msgstr "İtalyanca"
+
+#: ../languages/Languages.py:39
+msgid "Japanese"
+msgstr "Japonca"
+
+#: ../languages/Languages.py:40
+msgid "Kazakh"
+msgstr "Kazakça"
+
+#: ../languages/Languages.py:41
+msgid "Korean"
+msgstr "Korece"
+
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr "Letonca"
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr "Litvanya dili"
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr "Lüksemburg almancası"
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr "Makedonya Dili"
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr "Norveç Dili"
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr "Farsça"
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr "Polonya dili"
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr "Portekizce (Portekiz)"
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr "Portekizce (Brezilya)"
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr "Rumence"
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr "Rusça"
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr "Sırpça"
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr "Slovakça"
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr "Slovence"
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr "İspanyolca (İspanya)"
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr "İsveçce"
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr "Tayvan Dili"
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr "Türkçe"
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr "Ukraynaca"
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr "Vietnamca"
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
+msgid "Anonymous"
+msgstr "isimsiz"
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr "[Puanla: %s]"
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr "(Zaten indirildi)"
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr "Yükleyici: %s"
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr "Puanla: %s"
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr "Biçim: %s"
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr "İndirmeler: %d"
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr "CD'ler: %d"
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr "[IMDB Puanı: %s]"
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr "(%d altyazılar)"
+
+#: ../gui/about_ui.py:122
+msgid "About Subdownloader"
+msgstr "Subdownloader Hakkında"
+
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
+msgid "About"
+msgstr "Hakkında"
+
+#: ../gui/about_ui.py:153
+msgid "Authors"
+msgstr "Yazarlar"
+
+#: ../gui/about_ui.py:169
+msgid "License Agreement"
+msgstr "Lisans Anlaşması"
+
+#: ../gui/about_ui.py:170
+msgid "Close"
+msgstr "Kapat"
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "Görüntü dosyası"
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "Altyazı"
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "Görüntü/altyazı listesi boş"
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "Altyazı %s tekrarlanmış"
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr "Görüntü %s tekrarlanmış"
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "Yüklenenlerin bazı satırları boş"
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr "Bazı video/altyazı alanları boş"
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "Video seçmek için burayı tıklayın..."
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "Altyazıyı seçmek için burayı tıklayın..."
+
+#: ../gui/main.py:24
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+#: ../gui/main.py:56
+msgid "Building main dialog..."
+msgstr "Ana diyalog kutusu kuruluyor..."
+
+#: ../gui/main.py:87
+#, python-format
+msgid "SubDownloader %s"
+msgstr "Altyazı indirici %s"
+
+#: ../gui/main.py:114
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr "süre bitimine %d gün kaldı. Programı etkinleştirin."
+
+#: ../gui/main.py:228 ../gui/main.py:579
+msgid "Not logged yet"
+msgstr "Henüz giriş yapılmadı"
+
+#: ../gui/main.py:236 ../gui/main_ui.py:740
+msgid "Help Us With 5 USD/EUR"
+msgstr "5 USD/EUR İle Bize Yardım Edin"
+
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
+msgid "Error"
+msgstr "Hata"
+
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
+#: ../gui/login.py:59
+msgid "Error contacting the server. Please try again later"
+msgstr "Sunucuyla temas başarısız. Lütfen daha sonra yeniden deneyin"
+
+#: ../gui/main.py:289
+#, python-format
+msgid "Unable to find %s"
+msgstr "%s bulunamıyor"
+
+#: ../gui/main.py:366
+msgid "How To Use SubDownloader"
+msgstr "SubDownloader Nasıl Kullanılır"
+
+#: ../gui/main.py:367
+msgid "1st Tab:"
+msgstr "1.Sekme:"
+
+#: ../gui/main.py:367
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+"Soldaki klasör ağacından altyazıya ihtiyaç duyan filmlerin bulunduğu klasörü "
+"seçin. SubDownloader mevcut altyazıları bulmayı deneyecektir."
+
+#: ../gui/main.py:368
+msgid "2nd Tab:"
+msgstr "2.Sekme"
+
+#: ../gui/main.py:368
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr ""
+"Makinenizde video dosyası yoksa, film başlığını/adını girerek altyazı "
+"arayabilirsiniz."
+
+#: ../gui/main.py:369
+msgid "3rd Tab:"
+msgstr "3.Sekme"
+
+#: ../gui/main.py:369
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+"Eğer SubDownloader veri tabanında olmayan bir altyazı bulursanız, diğer "
+"kullanıcıların kolay bulabilmeleri için dosyayı lütfen karşıya yükleyiniz"
+
+#: ../gui/main.py:370
+msgid "Quid Pro Quo:"
+msgstr "Karşılığını ver:"
+
+#: ../gui/main.py:370
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+"Bu programın kullanışlı olduğunu ve yeteri kadar vakit kazandırdığını "
+"düşünüyorsanız, lütfen bağış yoluyla bize yardım ediniz."
+
+#: ../gui/main.py:419 ../gui/main.py:443
+msgid "View IMDB info"
+msgstr "IMDB bilgisine bak"
+
+#: ../gui/main.py:422
+msgid "Set IMDB info..."
+msgstr "IMDB bilgisini ayarla..."
+
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr "İndir"
+
+#: ../gui/main.py:431
+msgid "Play video + subtitle"
+msgstr "Video + altyazı Oynat"
+
+#: ../gui/main.py:436
+msgid "View online info"
+msgstr "Çevrimiçi bilgiye bak"
+
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
+#: ../gui/expiration.py:95
+msgid "Info"
+msgstr "Bilgi"
+
+#: ../gui/main.py:508
+msgid "New Version Detected"
+msgstr "Yeni Sürüm Bulundu"
+
+#: ../gui/main.py:509
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+"SubDownloader'ın yeni Sürümü yayınlandı\n"
+"\n"
+"Yeni Sürüm: %s\n"
+"Kullanılan Sürüm: %s\n"
+"\n"
+"Yeni sürümü şimdi indirmek ister misiniz?"
+
+#: ../gui/main.py:534
+msgid "Users online: Updating..."
+msgstr "Kullanıcılar çevrimiçi: Güncelleniyor..."
+
+#: ../gui/main.py:537
+#, python-format
+msgid "Users online: %s"
+msgstr "Kullanıcılar çevrimiçi: %s"
+
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "Kullanıcılar çevrimiçi: HATA"
+
+#: ../gui/main.py:549 ../gui/main.py:553
+msgid "Logging in..."
+msgstr "Giriş yapılıyor..."
+
+#: ../gui/main.py:549 ../gui/main.py:1168
+msgid "&Cancel"
+msgstr "&Vazgeç"
+
+#: ../gui/main.py:550 ../gui/login_ui.py:57
+msgid "Authentication"
+msgstr "Kimlik doğrulama"
+
+#: ../gui/main.py:561
+#, python-format
+msgid "Logged as %s"
+msgstr "%s adıyla giriş yapıldı"
+
+#: ../gui/main.py:568
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "%s adıyla giriş: HATA"
+
+#: ../gui/main.py:572
+msgid "Login: ERROR"
+msgstr "Giriş: HATA"
+
+#: ../gui/main.py:588
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "SubDownloader %s - %s"
+
+#: ../gui/main.py:607 ../gui/expiration.py:96
+msgid "Program Registered"
+msgstr "Kaydedilmiş Yazılım"
+
+#: ../gui/main.py:643
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr "(Kayıtlı olmayan Program, süre bitimine %d gün kaldı )"
+
+#: ../gui/main.py:661
+msgid "Expiration Reminder"
+msgstr "Süre Sonu Hatırlatıcı"
+
+#: ../gui/main.py:661
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+"Bu programın süresi %d gün sonra bitecek.\n"
+"Şimdi etkinleştirmek ister misiniz?"
+
+#: ../gui/main.py:662
+msgid "Activate"
+msgstr "Etkinleştir"
+
+#: ../gui/main.py:694 ../gui/main.py:695
+msgid "All languages"
+msgstr "Bütün Diller"
+
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
+msgid "You are not connected to the server. Please reconnect first."
+msgstr "Sunucuya bağlı değilsiniz. Lütfen öncelikle bağlanın."
+
+#: ../gui/main.py:759
+msgid "Scanning files"
+msgstr "Dosyalar taranıyor"
+
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
+msgid "&Abort"
+msgstr "&Durdur"
+
+#: ../gui/main.py:760
+msgid "Scanning..."
+msgstr "Tarıyor..."
+
+#: ../gui/main.py:786
+msgid "Scan Results"
+msgstr "Tarama Sonuçları"
+
+#: ../gui/main.py:786
+msgid "No video has been found!"
+msgstr "Video bulunamadı !"
+
+#: ../gui/main.py:789
+msgid "Searching subtitles..."
+msgstr "Altyazı aranıyor..."
+
+#: ../gui/main.py:790
+msgid "Asking Server..."
+msgstr "Sunucuya soruluyor..."
+
+#: ../gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr "Altyazı aranıyor ( %d / %d )"
+
+#: ../gui/main.py:842
+msgid "Search finished"
+msgstr "Arama tamamlandı"
+
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
+msgid "Movie Info"
+msgstr "Film Bilgisi"
+
+#: ../gui/main.py:865 ../gui/main.py:880
+msgid "Sub Info"
+msgstr "Altyazı bilgisi"
+
+#: ../gui/main.py:888
+msgid "You must select a folder first"
+msgstr "Öcelikle bir klasör seçmelisiniz"
+
+#: ../gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr "Altyazı ihtiyacı olan video(lar)'yu seçin"
+
+#: ../gui/main.py:912
+msgid "Select the directory that contains your videos"
+msgstr "Videonun bulunduğu klasörü seçin"
+
+#: ../gui/main.py:936
+msgid "No default video player has been defined in Settings."
+msgstr "Ayarlarda varsayılan video oynatıcı seçilmedi"
+
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
+msgid "Downloading files..."
+msgstr "Dosyalar indiriliyor..."
+
+#: ../gui/main.py:946
+msgid "Playing video + sub"
+msgstr "Video + altyazı oynatılıyor"
+
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "Altyazı indirilemiyor %s"
+
+#: ../gui/main.py:984
+msgid "Unable to launch videoplayer"
+msgstr "Video oynatıcı çalıştırılamıyor"
+
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
+msgid "Save as..."
+msgstr "Farklı kaydet..."
+
+#: ../gui/main.py:1029 ../gui/main.py:1572
+msgid "No subtitles selected to be downloaded"
+msgstr "İndirilecek altyazı seçilmedi"
+
+#: ../gui/main.py:1038
+msgid "Downloading..."
+msgstr "İndiriliyor..."
+
+#: ../gui/main.py:1047 ../gui/main.py:1121
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "Altyazı indiriliyor %s (%d/%d)"
+
+#: ../gui/main.py:1053
+msgid "Error write permission"
+msgstr "Yazma izni hatası"
+
+#: ../gui/main.py:1054
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s kaydedilemiyor.\n"
+"Klasörün var olduğunu ve yazma izninizin bulunduğunu kontrol edin."
+
+#: ../gui/main.py:1068 ../gui/main.py:1105
+msgid "Save subtitle as..."
+msgstr "Altyazıyı farklı kaydet..."
+
+#: ../gui/main.py:1084
+msgid "File already exists"
+msgstr "Dosya zaten var"
+
+#: ../gui/main.py:1084
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+"Yerel: %s\n"
+"\n"
+"Uzak: %s\n"
+"\n"
+"Nasıl devam etmek istersiniz?"
+
+#: ../gui/main.py:1085
+msgid "Skip"
+msgstr "Atla"
+
+#: ../gui/main.py:1087
+msgid "Replace"
+msgstr "Üzerine Yaz"
+
+#: ../gui/main.py:1088
+msgid "Replace all"
+msgstr "Tümünün üzerine yaz"
+
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
+msgstr "İptal"
+
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Uyarı"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org cevap vermiyor\n"
+"Aşırı yük binmiş olabilir, bir süre sonra tekrar deneyin."
+
+#: ../gui/main.py:1168
+msgid "Connecting to server..."
+msgstr "Sunucuya bağlanılıyor..."
+
+#: ../gui/main.py:1169
+msgid "Connecting"
+msgstr "Bağlanılıyor"
+
+#: ../gui/main.py:1182
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "%s Vekil sunucusu kullanılarak sunucuya bağlanılıyor"
+
+#: ../gui/main.py:1188
+msgid "Connected successfully"
+msgstr "Bağlantı gerçekleşti"
+
+#: ../gui/main.py:1216 ../gui/preferences.py:67
+msgid "Select a directory"
+msgstr "Bir dizin seçin"
+
+#: ../gui/main.py:1252
+msgid "Please identify the movie."
+msgstr "Lütfen filmi tanımlayınız."
+
+#: ../gui/main.py:1255
+msgid "Uploading subtitle"
+msgstr "Altyazı yükleniyor"
+
+#: ../gui/main.py:1256
+msgid "Uploading..."
+msgstr "Karşıya yükleniyor..."
+
+#: ../gui/main.py:1288
+msgid "Successful Upload"
+msgstr "Başarılı Yükleme"
+
+#: ../gui/main.py:1289
+msgid ""
+"Subtitles successfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+"Altyazılar başarıyla gönderildi!\n"
+"Çok teşekkürler!"
+
+#: ../gui/main.py:1296
+msgid "View Subtitle Info"
+msgstr "Altyazı bilgisine bak"
+
+#: ../gui/main.py:1302
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"Yükleme sırasında sorun...\n"
+"Hata: %s"
+
+#: ../gui/main.py:1305
+msgid "Error contacting the server. Please restart or try later"
+msgstr ""
+"Sunucuyla temasta hata. Lütfen yeniden başlatın veya daha sonra deneyin"
+
+#: ../gui/main.py:1328
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "↓ Film .nfo dosyasından otomatik tanındı"
+
+#: ../gui/main.py:1331
+msgid "↓ Movie autodetected from database"
+msgstr "↓ Film veri tabanından otomatik tanındı"
+
+#: ../gui/main.py:1370
+msgid "↑ Language autodetected from database"
+msgstr "↑ Dil veri tabanından otomatik tanındı"
+
+#: ../gui/main.py:1374
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "↑ Dil altyazı dosyasından otomatik tanındı"
+
+#: ../gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "↑ Dil altyazı içeriğinden otomatik tanındı"
+
+#: ../gui/main.py:1428
+msgid "Browse video..."
+msgstr "Videoya göz at..."
+
+#: ../gui/main.py:1445
+msgid "Browse subtitle..."
+msgstr "Altyazıya göz at..."
+
+#: ../gui/main.py:1498
+msgid "You must enter at least one character in movie name"
+msgstr "Film adı için en az bir karakter girmelisiniz"
+
+#: ../gui/main.py:1501 ../gui/main.py:1654
+msgid "Searching..."
+msgstr "Aranıyor..."
+
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr "Ara"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "Altyazı(lar)'ın kaydedileceği dizini seçin"
+
+#: ../gui/main.py:1586
+msgid "Downloading"
+msgstr "İndiriliyor"
+
+#: ../gui/main.py:1606
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "%s, %s'e indiriliyor"
+
+#: ../gui/main.py:1622
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+"%s indirilirken hata oluştu:\n"
+"HATA: %s"
+
+#: ../gui/main.py:1644
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+"%s açılırken hata oluştu:\n"
+"Hata: %s"
+
+#: ../gui/main.py:1649
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "%d altyazı başarıyla indirildi"
+
+#: ../gui/main.py:1649
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"İndirilen altyazı(lar) video dosya(ları)nızla senkronize değil. Lütfen "
+"kontrol ediniz.\n"
+"\n"
+"Eğer bir senkron sorunu yoksa, subdownloader ile yeniden karşıya yükleyin. "
+"Bu işlem diğer kullanıcıların aramalarını otomatikleştirecektir!"
+
+#: ../gui/main.py:1678
+msgid "A new version of SubDownloader has been released."
+msgstr "SubDownloader'ın yeni sürümü yayınlanmıştır."
+
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr "OpenSubtitles.org'a giriş yap"
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr "Kullanıcı adı:"
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr "Şifre:"
+
+#: ../gui/imdbSearch.py:43
+msgid "Please fill out the search title"
+msgstr "Lütfen arama başlığını doldurun"
+
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
+msgid "Please search and select a movie from the list"
+msgstr "Lütfen listeden arayıp bir film seçin"
+
+#: ../gui/main_ui.py:678
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: ../gui/main_ui.py:679
+msgid "Select the video/folder that needs subtitles:"
+msgstr "Alt yazıların kullanılacağı vidyo ya da dizini seçin:"
+
+#: ../gui/main_ui.py:680
+msgid "Select videos that need subtitles"
+msgstr "Alt yazı kullanacak vidyoyu seçin"
+
+#: ../gui/main_ui.py:681
+msgid "Select videos..."
+msgstr "Vidyo Seç..."
+
+#: ../gui/main_ui.py:682 ../gui/main_ui.py:684
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr "Bu dizin altındaki vidyo alt yazılarını aramak için burayı tıklatın"
+
+#: ../gui/main_ui.py:683
+msgid "Select folder..."
+msgstr "Dizin Seç..."
+
+#: ../gui/main_ui.py:685
+msgid "Search subtitles"
+msgstr "Alt yazıları ara"
+
+#: ../gui/main_ui.py:686
+msgid "Videos/Subtitles found:"
+msgstr "Bulunan vidyolar/alt yazılar:"
+
+#: ../gui/main_ui.py:687
+msgid "Filter by:"
+msgstr "Süzme anahtarı:"
+
+#: ../gui/main_ui.py:694
+msgid "Play"
+msgstr "Oynat"
+
+#: ../gui/main_ui.py:696
+msgid "Search from Video file(s)"
+msgstr "Vidyo Dosyalarında Ara"
+
+#: ../gui/main_ui.py:698
+msgid "Site:"
+msgstr "Site:"
+
+#: ../gui/main_ui.py:699
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: ../gui/main_ui.py:700
+msgid "Subtitles found:"
+msgstr "Bulunan alt yazılar:"
+
+#: ../gui/main_ui.py:701
+msgid "Filter by :"
+msgstr "Süzgeç:"
+
+#: ../gui/main_ui.py:704
+msgid "Search by Movie Name"
+msgstr "Film Adına Göre Ara"
+
+#: ../gui/main_ui.py:705
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr ""
+"Videoları ve altyazıları seç (yalnızca altyazılar karşıya yüklenecektir):"
+
+#: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
+#: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
+#: ../gui/main_ui.py:725 ../gui/main_ui.py:726
+msgid "..."
+msgstr "..."
+
+#: ../gui/main_ui.py:709
+msgid "Empty the list"
+msgstr "Listeyi boşalt"
+
+#: ../gui/main_ui.py:713
+msgid "Details:"
+msgstr "Ayrıntılar:"
+
+#: ../gui/main_ui.py:718
+msgid "Movie Title:"
+msgstr "Film Adı:"
+
+#: ../gui/main_ui.py:719
+msgid "Click on the Find button to identify the movie"
+msgstr "Filmi doğrulamak için Bul butonuna bas"
+
+#: ../gui/main_ui.py:720
+msgid "Find"
+msgstr "Bul"
+
+#: ../gui/main_ui.py:727
+msgid "Release name:"
+msgstr "Versiyon adı"
+
+#: ../gui/main_ui.py:728
+msgid "Comments:"
+msgstr "Yorumlar:"
+
+#: ../gui/main_ui.py:729
+msgid "Subtitle Language:"
+msgstr "Altyazı dili:"
+
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "Karşıya yükle"
+
+#: ../gui/main_ui.py:731
+msgid "Upload subtitles"
+msgstr "Altyazıları yükle"
+
+#: ../gui/main_ui.py:732
+msgid "&Main"
+msgstr "&Ana"
+
+#: ../gui/main_ui.py:733
+msgid "&Help"
+msgstr "&Yardım"
+
+#: ../gui/main_ui.py:734
+msgid "&Settings"
+msgstr "Aya&rlar"
+
+#: ../gui/main_ui.py:735
+msgid "&View"
+msgstr "&Görünüm"
+
+#: ../gui/main_ui.py:736
+msgid "Quit"
+msgstr "Çık"
+
+#: ../gui/main_ui.py:737
+msgid "Visit HomePage"
+msgstr "AnaSayfayı ziyaret et"
+
+#: ../gui/main_ui.py:739
+msgid "Report A Problem"
+msgstr "Problem Bildir"
+
+#: ../gui/main_ui.py:741
+msgid "&Configure Subdownloader"
+msgstr "&Subdownloader'i ayarla"
+
+#: ../gui/main_ui.py:742
+msgid "LogIn"
+msgstr "Giriş"
+
+#: ../gui/main_ui.py:743
+msgid "Log Messages"
+msgstr "Günlük Mesajları"
+
+#: ../gui/main_ui.py:744
+msgid "Show/Hide Tree Folder"
+msgstr "Klasör Ağacını Göster/Gizle"
+
+#: ../gui/main_ui.py:745
+msgid "LogOut"
+msgstr "Çıkış"
+
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "Bu Uygulamayı Çevir..."
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "IMDB'de ara:"
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "Film adı veya IMDB numarası girin"
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "Film ara"
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr "Tamam"
+
+#: ../gui/preferences.py:36
+msgid "<AutoDetect>"
+msgstr "<OtomatikTanı>"
+
+#: ../gui/preferences.py:76
+msgid "Select the Video Player executable file"
+msgstr "Video Oynatıcı program dosyasını seç"
+
+#: ../gui/preferences.py:81
+msgid "The new language will be displayed after restarting the program."
+msgstr "Yeni dil, program yeniden başlatılınca görünecektir."
+
+#: ../gui/preferences.py:143
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "Konqueror/Dolphin/Nautilus 'da etkinleştir"
+
+#: ../gui/preferences.py:146
+msgid "Enable in your Windows Explorer"
+msgstr "Windows Explorer'da etkinleştir"
+
+#: ../gui/preferences.py:149
+msgid "Enable in your File Manager"
+msgstr "Dosya Yöneticisi'nde etkinleştir"
+
+#: ../gui/preferences.py:157
+msgid "Predefined Folder cannot be empty"
+msgstr "Öntanımlı dizin boş olamaz"
+
+#: ../gui/preferences.py:214
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+"Değiştirilmiş proxy ayarları program yeniden başlatılınca etkinleşecektir"
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr "Yazılım %d gün içerisinde geçersiz hale gelecek."
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr "Yazılımı Etkinleştir"
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr "Yazılım %d gün kullanım sonunda geçersiz hale gelecek."
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr "Bazı alanlar boş bırakılmış.. Lütfen doldurunuz."
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "Arama sonuçlarını şu dillere göre filtrele:"
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "Hedef klasör:"
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "Her zaman kullanıcıya sor"
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "Video dosyası ile aynı klasör"
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "Öntanımlı klasör:"
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "Göz At..."
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "Altyazının dosya adı:"
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "Video dosyasıyla aynı ada sahip"
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr "Video dosyasıyla aynı ad + dil kodu (ör: StarWarsCD1.tr.srt)"
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr "Çevrimiçi altyazıdakiyle aynı ad"
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr "Karşıya yüklenen altyazının dil varsayılanı"
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr "Ağ Vekili"
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "Sunucu:"
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "Port:"
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr "Ağ"
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr "Arayüz Dili"
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr "Alt menü"
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "Explorer'da etkinleştir"
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr "Video görüntüleme için harici program"
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr "Video Oynatıcı"
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "Parametreler:"
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0} = video dosya konumu ; {1} = altyazı dosya konumu"
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr "Diğer"
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
+msgstr "Kaydet"
