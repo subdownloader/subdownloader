@@ -47,7 +47,7 @@ class Filter(object):
                         choices += [str(i)]
                     self.log.info("[auto] Subdownloader will select one for you.")
                     while choice not in choices:
-                        choice = raw_input("Please make you choice: [auto] ").lower() or 'auto'
+                        choice = raw_input("Please make your choice: [auto] ").lower() or 'auto'
                     if choice != 'auto':
                         sub_choice = video.getOnlineSubtitles()[int(choice)]
                         
