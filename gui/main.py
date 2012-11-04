@@ -1026,7 +1026,7 @@ class Main(QObject, Ui_MainWindow):
         elif optionWhereToDownload == QVariant("SAME_FOLDER"):
             folderPath = video.getFolderPath()
             dir = QDir(QString(folderPath))
-            downloadFullPath = os.path.join(folderPath, subFileName).decode(sys.getfilesystemencoding())
+            downloadFullPath = os.path.join(folderPath, subFileName)
             log.debug("Downloading to: %r"% downloadFullPath)
         elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
             folderPath = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
