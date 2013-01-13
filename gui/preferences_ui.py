@@ -138,6 +138,7 @@ class Ui_PreferencesDialog(object):
         self.layoutWidget.setObjectName("layoutWidget")
         self.horizontalLayout_4 = QtGui.QHBoxLayout(self.layoutWidget)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.horizontalLayout_4.setSpacing(8)
         self.label_55 = QtGui.QLabel(self.layoutWidget)
         font = QtGui.QFont()
         font.setWeight(75)

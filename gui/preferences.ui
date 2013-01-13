@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>614</width>
-    <height>369</height>
+    <width>722</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -86,8 +86,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>572</width>
-            <height>231</height>
+            <width>98</width>
+            <height>148</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -214,7 +214,7 @@
             </property>
            </widget>
           </item>
-		   <item>
+          <item>
            <widget class="QRadioButton" name="optionDownloadSameFilenamePlusLangAndUploader">
             <property name="text">
              <string>Same name as video file + language code + Uploader name (ex: StarWarsCD1.eng.JohnDoe.srt)</string>
@@ -250,6 +250,9 @@
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>8</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_55">
           <property name="font">
