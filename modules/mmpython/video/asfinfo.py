@@ -79,7 +79,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -103,7 +103,7 @@ def _guid(input):
     guid = struct.unpack('>IHHBB6s',r)
     return guid
 
-GUIDS = {        
+GUIDS = {
 'ASF_Header_Object' : _guid('75B22630-668E-11CF-A6D9-00AA0062CE6C'),
 'ASF_Data_Object' : _guid('75B22636-668E-11CF-A6D9-00AA0062CE6C'),
 'ASF_Simple_Index_Object' : _guid('33000890-E5B1-11CF-89F4-00A0C90349CB'),
@@ -169,7 +169,7 @@ class AsfInfo(mediainfo.AVInfo):
         if len(h) < 30:
             return
         self.valid = 1
-        (guidstr,objsize,objnum,reserved1,reserved2) = struct.unpack('<16sQIBB',h)                
+        (guidstr,objsize,objnum,reserved1,reserved2) = struct.unpack('<16sQIBB',h)
         guid = self._parseguid(guidstr)
         if (guid != GUIDS['ASF_Header_Object']):
             self.valid = 0
@@ -181,16 +181,16 @@ class AsfInfo(mediainfo.AVInfo):
         for i in range(0,objnum):
             h = self._getnextheader(header)
             header = header[h[1]:]
-            
+
     def _printguid(self,guid):
         r = "%.8X-%.4X-%.4X-%.2X%.2X-%s" % guid
-        return r 
-        
+        return r
+
     def _parseguid(self,string):
         return struct.unpack('<IHHBB6s', string[:16])
-        
+
     def _parsekv(self,s):
-        pos = 0    
+        pos = 0
         (descriptorlen,) = struct.unpack('<H', s[pos:pos+2])
         pos += 2
         descriptorname = s[pos:pos+descriptorlen]
@@ -223,7 +223,7 @@ class AsfInfo(mediainfo.AVInfo):
         return (pos,descriptorname,value)
 
     def _parsekv2(self,s):
-        pos = 0    
+        pos = 0
         (strno,descriptorlen,descriptortype,valuelen) = struct.unpack('<2xHHHI', s[pos:pos+12])
         pos += 12
         descriptorname = s[pos:pos+descriptorlen]
@@ -255,7 +255,7 @@ class AsfInfo(mediainfo.AVInfo):
             _print("Unknown Descriptor Type %d" % descriptortype)
         return (pos,descriptorname,value,strno)
 
-        
+
     def _getnextheader(self,s):
         r = struct.unpack('<16sQ',s[:24])
         (guidstr,objsize) = r
@@ -268,7 +268,7 @@ class AsfInfo(mediainfo.AVInfo):
              val
             self.length = duration/10000000
         elif guid == GUIDS['ASF_Stream_Properties_Object']:
-            _print("Stream Properties Object [%d]" % objsize)                        
+            _print("Stream Properties Object [%d]" % objsize)
             streamtype = self._parseguid(s[24:40])
             errortype = self._parseguid(s[40:56])
             offset, typelen, errorlen, flags = struct.unpack('>QIIH4x', s[56:78])
@@ -280,14 +280,14 @@ class AsfInfo(mediainfo.AVInfo):
                 vi.width, vi.height, depth, codec, = struct.unpack('<4xII2xH4s', s[89:89+20])
                 vi.codec = fourcc.RIFFCODEC[codec]
                 vi.id = strno
-                self.video.append(vi)  
+                self.video.append(vi)
             elif streamtype == GUIDS['ASF_Audio_Media']:
                 ai = mediainfo.AudioInfo()
                 twocc, ai.channels, ai.samplerate, bitrate, block, ai.samplebits, = struct.unpack('<HHIIHH', s[78:78+16])
                 ai.bitrate = 8*bitrate  # XXX Is this right?
                 ai.codec = fourcc.RIFFWAVE[twocc]
                 ai.id = strno
-                self.audio.append(ai)  
+                self.audio.append(ai)
             pass
         elif guid == GUIDS['ASF_Header_Extension_Object']:
             _print("ASF_Header_Extension_Object %d" % objsize)
@@ -297,7 +297,7 @@ class AsfInfo(mediainfo.AVInfo):
                 _print("Sub:")
                 h = self._getnextheader(data)
                 data = data[h[1]:]
-            
+
         elif guid == GUIDS['ASF_Codec_List_Object']:
             _print("List Object")
             pass
@@ -370,5 +370,5 @@ class AsfInfo(mediainfo.AVInfo):
             if bfail:
                 _print("unknown: %s [%d]" % (self._printguid(guid), objsize))
         return r
-        
+
 #mmpython.registertype( 'video/asf', ('asf','wmv','wma'), mediainfo.TYPE_AV, AsfInfo )

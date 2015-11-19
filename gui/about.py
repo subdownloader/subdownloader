@@ -13,7 +13,7 @@ from gui.about_ui import Ui_AboutDialog
 import logging
 log = logging.getLogger("subdownloader.gui.about")
 
-class aboutDialog(QtGui.QDialog): 
+class aboutDialog(QtGui.QDialog):
     def __init__(self, parent):
         QtGui.QDialog.__init__(self)
         self.ui = Ui_AboutDialog()

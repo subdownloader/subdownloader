@@ -102,7 +102,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -122,7 +122,7 @@ ATOM_DEBUG = 0
 
 if mediainfo.DEBUG > 1:
     ATOM_DEBUG = 1
-    
+
 class MovInfo(mediainfo.AVInfo):
     def __init__(self,file):
         mediainfo.AVInfo.__init__(self)
@@ -130,7 +130,7 @@ class MovInfo(mediainfo.AVInfo):
         self.valid = 0
         self.mime = 'video/quicktime'
         self.type = 'Quicktime Video'
-        h = file.read(8)                
+        h = file.read(8)
         (size,type) = struct.unpack('>I4s',h)
         if type == 'moov':
             self.valid = 1
@@ -141,7 +141,7 @@ class MovInfo(mediainfo.AVInfo):
         # Extended size
         if size == 1:
             #print "Extended Size"
-            size = struct.unpack('>Q', file.read(8))                  
+            size = struct.unpack('>Q', file.read(8))
         while self._readatom(file):
             pass
         try:
@@ -154,7 +154,7 @@ class MovInfo(mediainfo.AVInfo):
 
 
     def _readatom(self, file):
-        
+
         s = file.read(8)
         if len(s) < 8:
             return 0
@@ -176,7 +176,7 @@ class MovInfo(mediainfo.AVInfo):
             while pos < atomsize-12:
                 (datasize,datatype) = struct.unpack('>I4s', atomdata[pos:pos+8])
                 if ord(datatype[0]) == 169:
-                    # i18n Metadata... 
+                    # i18n Metadata...
                     mypos = 8+pos
                     while mypos < datasize+pos:
                         # first 4 Bytes are i18n header
@@ -192,14 +192,14 @@ class MovInfo(mediainfo.AVInfo):
                         tabl[datatype] = atomdata[pos+8:pos+datasize]
                 pos += datasize
             if len(i18ntabl.keys()) > 0:
-                for k in i18ntabl.keys():                
+                for k in i18ntabl.keys():
                     if QTLANGUAGES.has_key(k):
                         self.appendtable('QTUDTA', i18ntabl[k], QTLANGUAGES[k])
                         self.appendtable('QTUDTA', tabl, QTLANGUAGES[k])
             else:
                 #print "NO i18"
                 self.appendtable('QTUDTA', tabl)
-             
+
         elif atomtype == 'trak':
             atomdata = file.read(atomsize-8)
             pos   = 0
@@ -217,7 +217,7 @@ class MovInfo(mediainfo.AVInfo):
 
                     ai = mediainfo.AudioInfo()
                     ai.id = tkhd[3]
-                    
+
                     try:
                         # XXX Date number of Seconds is since January 1st 1904!!!
                         # XXX 2082844800 is the difference between Unix and Apple time
@@ -226,7 +226,7 @@ class MovInfo(mediainfo.AVInfo):
                         self.date = time.strftime('%y/%m/%d', time.gmtime(self.date))
                     except Exception, e:
                         print 'ex', e
-                    
+
                 elif datatype == 'mdia':
                     pos      += 8
                     datasize -= 8
@@ -244,7 +244,7 @@ class MovInfo(mediainfo.AVInfo):
                                 ai.length = mdhd[4] / mdhd[3]
                                 if mdhd[5] in QTLANGUAGES:
                                     ai.language = QTLANGUAGES[mdhd[5]]
-                            # mdhd[6] == quality 
+                            # mdhd[6] == quality
                             self.length = max(self.length, mdhd[4] / mdhd[3])
                         elif mdia[1] == 'minf':
                             # minf has only atoms inside
@@ -278,7 +278,7 @@ class MovInfo(mediainfo.AVInfo):
                             if ATOM_DEBUG:
                                 print '  --> %s, %s' % mdia
                                 print '    --> %s, %s (reference)' % dref
-                            
+
                         elif ATOM_DEBUG:
                             if mdia[1].startswith('st'):
                                 print '  --> %s, %s (sample)' % mdia
@@ -333,18 +333,18 @@ class MovInfo(mediainfo.AVInfo):
                 decompressedIO = StringIO.StringIO(decompressed)
                 while self._readatom(decompressedIO):
                     pass
-                
+
             else:
                 if mediainfo.DEBUG:
                     print 'unknown compression %s' % method
                 # unknown compression method
                 file.seek(datasize-8,1)
-        
+
         elif atomtype == 'moov':
             # decompressed movie info
             while self._readatom(file):
                 pass
-            
+
         elif atomtype == 'mdat':
             pos = file.tell() + atomsize - 8
             # maybe there is data inside the mdat
@@ -355,8 +355,8 @@ class MovInfo(mediainfo.AVInfo):
             if ATOM_DEBUG:
                 print 'end of mdat'
             file.seek(pos, 0)
-            
-        
+
+
         else:
             if ATOM_DEBUG and not atomtype in ('wide', 'free'):
                 print 'unhandled base atom %s' % atomtype
@@ -368,7 +368,7 @@ class MovInfo(mediainfo.AVInfo):
                 return 0
 
         return atomsize
-        
+
 #mmpython.registertype( 'video/quicktime', ('mov', 'qt'), mediainfo.TYPE_AV, MovInfo )
 
 # doc links:

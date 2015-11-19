@@ -66,7 +66,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -97,7 +97,7 @@ START_CODE = {
     0xB7 : 'sequence end',
     0xB8 : 'group of pictures',
 }
-for i in range(0x01,0xAF): 
+for i in range(0x01,0xAF):
     START_CODE[i] = 'slice_start_code'
 
 #------------------------------------------------------------------------
@@ -131,19 +131,19 @@ TS_SYNC          = 0x47
 # of the early to mid 1990s.
 #
 # CPB
-#   Constrained Parameters Bitstreams, an MPEG-1 set of sampling and 
-#   bitstream parameters designed to normalize decoder computational 
-#   complexity, buffer size, and memory bandwidth while still addressing 
+#   Constrained Parameters Bitstreams, an MPEG-1 set of sampling and
+#   bitstream parameters designed to normalize decoder computational
+#   complexity, buffer size, and memory bandwidth while still addressing
 #   the widest possible range of applications.
 #
 # Main Level
-#   MPEG-2 Video Main Profile and Main Level is analogous to MPEG-1's 
-#   CPB, with sampling limits at CCIR 601 parameters (720x480x30 Hz or 
-#   720x576x24 Hz). 
+#   MPEG-2 Video Main Profile and Main Level is analogous to MPEG-1's
+#   CPB, with sampling limits at CCIR 601 parameters (720x480x30 Hz or
+#   720x576x24 Hz).
 #
-#------------------------------------------------------------------------ 
-FRAME_RATE = [ 
-      0, 
+#------------------------------------------------------------------------
+FRAME_RATE = [
+      0,
       round(24000.0/1001*100)/100, # 3-2 pulldown NTSC (CPB/Main Level)
       24,           # Film (CPB/Main Level)
       25,           # PAL/SECAM or 625/60 video
@@ -158,17 +158,17 @@ FRAME_RATE = [
 # ASPECT_RATIO -- INCOMPLETE?
 #
 # This lookup table maps the header aspect ratio index to a common name.
-# These are just the defined ratios for CPB I believe.  As I understand 
+# These are just the defined ratios for CPB I believe.  As I understand
 # it, a stream that doesn't adhere to one of these aspect ratios is
 # technically considered non-compliant.
-#------------------------------------------------------------------------ 
+#------------------------------------------------------------------------
 ASPECT_RATIO = [ 'Forbidden',
                  '1/1 (VGA)',
                  '4/3 (TV)',
                  '16/9 (Large TV)',
                  '2.21/1 (Cinema)',
                ]
- 
+
 
 class MpegInfo(mediainfo.AVInfo):
     def __init__(self,file):
@@ -177,17 +177,17 @@ class MpegInfo(mediainfo.AVInfo):
         self.sequence_header_offset = 0
 
         # detect TS (fast scan)
-        self.valid = self.isTS(file) 
+        self.valid = self.isTS(file)
 
         if not self.valid:
             # detect system mpeg (many infos)
-            self.valid = self.isMPEG(file) 
+            self.valid = self.isMPEG(file)
 
         if not self.valid:
             # detect PES
-            self.valid = self.isPES(file) 
-            
-        if self.valid:       
+            self.valid = self.isPES(file)
+
+        if self.valid:
             self.mime = 'video/mpeg'
             if not self.video:
                 self.video.append(mediainfo.VideoInfo())
@@ -196,7 +196,7 @@ class MpegInfo(mediainfo.AVInfo):
                 return
 
             self.progressive(file)
-            
+
             for vi in self.video:
                 vi.width, vi.height = self.dxy(file)
                 vi.fps, vi.aspect = self.framerate_aspect(file)
@@ -215,8 +215,8 @@ class MpegInfo(mediainfo.AVInfo):
             if mediainfo.DEBUG > 2:
                 self.__scan__()
 
-            
-    def dxy(self,file):  
+
+    def dxy(self,file):
         """
         get width and height of the video
         """
@@ -226,13 +226,13 @@ class MpegInfo(mediainfo.AVInfo):
         y = struct.unpack('>H',v[1:3])[0] & 0x0FFF
         return (x,y)
 
-        
+
     def framerate_aspect(self,file):
         """
         read framerate and aspect ratio
         """
         file.seek(self.sequence_header_offset+7,0)
-        v = struct.unpack( '>B', file.read(1) )[0] 
+        v = struct.unpack( '>B', file.read(1) )[0]
         try:
             fps = FRAME_RATE[v&0xf]
         except IndexError:
@@ -244,7 +244,7 @@ class MpegInfo(mediainfo.AVInfo):
                 print 'Index error: %s' % (v>>4)
             aspect = None
         return (fps, aspect)
-        
+
 
     def progressive(self, file):
         """
@@ -281,47 +281,47 @@ class MpegInfo(mediainfo.AVInfo):
                 print 'ext', ext
             buffer = buffer[pos+4:]
         return False
-    
-        
+
+
     #------------------------------------------------------------------------
     # bitrate()
     #
     # From the MPEG-2.2 spec:
     #
-    #   bit_rate -- This is a 30-bit integer.  The lower 18 bits of the 
-    #   integer are in bit_rate_value and the upper 12 bits are in 
-    #   bit_rate_extension.  The 30-bit integer specifies the bitrate of the 
-    #   bitstream measured in units of 400 bits/second, rounded upwards. 
+    #   bit_rate -- This is a 30-bit integer.  The lower 18 bits of the
+    #   integer are in bit_rate_value and the upper 12 bits are in
+    #   bit_rate_extension.  The 30-bit integer specifies the bitrate of the
+    #   bitstream measured in units of 400 bits/second, rounded upwards.
     #   The value zero is forbidden.
     #
     # So ignoring all the variable bitrate stuff for now, this 30 bit integer
     # multiplied times 400 bits/sec should give the rate in bits/sec.
-    #  
+    #
     # TODO: Variable bitrates?  I need one that implements this.
-    # 
+    #
     # Continued from the MPEG-2.2 spec:
     #
-    #   If the bitstream is a constant bitrate stream, the bitrate specified 
-    #   is the actual rate of operation of the VBV specified in annex C.  If 
-    #   the bitstream is a variable bitrate stream, the STD specifications in 
-    #   ISO/IEC 13818-1 supersede the VBV, and the bitrate specified here is 
-    #   used to dimension the transport stream STD (2.4.2 in ITU-T Rec. xxx | 
-    #   ISO/IEC 13818-1), or the program stream STD (2.4.5 in ITU-T Rec. xxx | 
+    #   If the bitstream is a constant bitrate stream, the bitrate specified
+    #   is the actual rate of operation of the VBV specified in annex C.  If
+    #   the bitstream is a variable bitrate stream, the STD specifications in
+    #   ISO/IEC 13818-1 supersede the VBV, and the bitrate specified here is
+    #   used to dimension the transport stream STD (2.4.2 in ITU-T Rec. xxx |
+    #   ISO/IEC 13818-1), or the program stream STD (2.4.5 in ITU-T Rec. xxx |
     #   ISO/IEC 13818-1).
-    # 
-    #   If the bitstream is not a constant rate bitstream the vbv_delay 
+    #
+    #   If the bitstream is not a constant rate bitstream the vbv_delay
     #   field shall have the value FFFF in hexadecimal.
     #
-    #   Given the value encoded in the bitrate field, the bitstream shall be 
-    #   generated so that the video encoding and the worst case multiplex 
+    #   Given the value encoded in the bitrate field, the bitstream shall be
+    #   generated so that the video encoding and the worst case multiplex
     #   jitter do not cause STD buffer overflow or underflow.
     #
     #
-    #------------------------------------------------------------------------ 
+    #------------------------------------------------------------------------
 
 
     # Some parts in the code are based on mpgtx (mpgtx.sf.net)
-    
+
     def bitrate(self,file):
         """
         read the bitrate (most of the time broken)
@@ -330,7 +330,7 @@ class MpegInfo(mediainfo.AVInfo):
         t,b = struct.unpack( '>HB', file.read(3) )
         vrate = t << 2 | b >> 6
         return vrate * 400
-        
+
 
     def ReadSCRMpeg2(self, buffer):
         """
@@ -449,15 +449,15 @@ class MpegInfo(mediainfo.AVInfo):
 
         if id == SYS_PKT:
             return 0
-        
+
         if id == EXT_START:
             return 0
-        
+
         return 0
 
 
     # Normal MPEG (VCD, SVCD) ========================================
-        
+
     def isMPEG(self, file):
         """
         This MPEG starts with a sequence of 0x00 followed by a PACK Header
@@ -526,7 +526,7 @@ class MpegInfo(mediainfo.AVInfo):
         if pos == -1:
             return -1
         return pos + 4
-        
+
 
 
     # PES ============================================================
@@ -538,7 +538,7 @@ class MpegInfo(mediainfo.AVInfo):
         Since it starts with 0x00 0x00 0x01 like 'normal' mpegs, this
         function will return (0, -1) when it is no PES header or
         (packet length, timestamp position (maybe -1))
-        
+
         http://dvd.sourceforge.net/dvdinfo/pes-hdr.html
         """
         if not buffer[0:3] == '\x00\x00\x01':
@@ -598,15 +598,15 @@ class MpegInfo(mediainfo.AVInfo):
             if ord(buffer[9]) >> 4 != ptsdts:
                 print 'WARNING: bad PTS/DTS, please contact us'
                 return packet_length, -1
-                
+
             # timestamp = self.ReadPTS(buffer[9:14])
             high = ((ord(buffer[9]) & 0xF) >> 1)
             med  = (ord(buffer[10]) << 7) + (ord(buffer[11]) >> 1)
             low  = (ord(buffer[12]) << 7) + (ord(buffer[13]) >> 1)
             return packet_length, 9
-            
+
         return packet_length, -1
-    
+
 
 
     def isPES(self, file):
@@ -638,9 +638,9 @@ class MpegInfo(mediainfo.AVInfo):
             if offset + 1000 < len(buffer) and len(buffer) < 1000000 or 1:
                 # looks like a pes, read more
                 buffer += file.read(10000)
-        
+
         if not self.video and not self.audio:
-            # no video and no audio? 
+            # no video and no audio?
             return 0
 
         self.type = 'MPEG-PES'
@@ -665,7 +665,7 @@ class MpegInfo(mediainfo.AVInfo):
         offset = 0
         if pos == -1 or offset + 1000 >= len(buffer):
             return -1
-        
+
         retpos   = -1
         ackcount = 0
         while offset + 1000 < len(buffer):
@@ -685,10 +685,10 @@ class MpegInfo(mediainfo.AVInfo):
                 # looks ok to me
                 return retpos
         return -1
-            
+
 
     # Transport Stream ===============================================
-    
+
     def isTS(self, file):
         file.seek(0,0)
 
@@ -704,7 +704,7 @@ class MpegInfo(mediainfo.AVInfo):
 
         buffer += file.read(10000)
         self.type = 'MPEG-TS'
-        
+
         while c + TS_PACKET_LENGTH < len(buffer):
             start = ord(buffer[c+1]) & 0x40
             # maybe load more into the buffer
@@ -747,20 +747,20 @@ class MpegInfo(mediainfo.AVInfo):
                             del self.start
                             if mediainfo.DEBUG:
                                 print 'Timestamp error, correcting'
-                            
+
             if hasattr(self, 'start') and self.start and \
                    self.sequence_header_offset and self.video and self.audio:
                 break
-            
+
             c += TS_PACKET_LENGTH
 
-                
+
         if not self.sequence_header_offset:
             return 0
 
         if hasattr(self, 'start') and self.start:
             self.keys.append('start')
-            
+
         # fill in values for support functions:
         self.__seek_size__   = 10000000  # 10 MB
         self.__sample_size__ = 100000    # 100 k scanning
@@ -781,7 +781,7 @@ class MpegInfo(mediainfo.AVInfo):
             c += 1
         else:
             return -1
-        
+
         while c + TS_PACKET_LENGTH < len(buffer):
             start = ord(buffer[c+1]) & 0x40
             if not start:
@@ -824,10 +824,10 @@ class MpegInfo(mediainfo.AVInfo):
                 break
             end    = self.get_time(buffer[pos:])
             buffer = buffer[pos+100:]
-            
+
         file.close()
         return end
-    
+
 
     def get_length(self):
         """
@@ -839,7 +839,7 @@ class MpegInfo(mediainfo.AVInfo):
         if self.start > end:
             return int(((long(1) << 33) - 1 ) / 90000) - self.start + end
         return end - self.start
-    
+
 
     def seek(self, end_time):
         """
@@ -851,7 +851,7 @@ class MpegInfo(mediainfo.AVInfo):
 
         file    = open(self.filename)
         seek_to = 0
-        
+
         while 1:
             file.seek(self.__seek_size__, 1)
             buffer = file.read(self.__sample_size__)
@@ -892,6 +892,6 @@ class MpegInfo(mediainfo.AVInfo):
         print 'done'
         print
 
-    
-    
+
+
 #mmpython.registertype( 'video/mpeg', ('mpeg','mpg','mp4', 'ts'), mediainfo.TYPE_AV, MpegInfo )

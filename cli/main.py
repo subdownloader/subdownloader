@@ -11,15 +11,15 @@ import modules.configuration as conf
 import languages.Languages as Languages
 
 class Main(SDService.SDService):
-    
+
     def __init__(self, cli_options):
         self.options = cli_options
         self.log = logging.getLogger("subdownloader.cli.main")
-        
+
     def start_session(self):
         if not self.minimum_parameters():
             return
-            
+
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.operation == "download" and self.options.interactive:
@@ -44,15 +44,15 @@ class Main(SDService.SDService):
                 else: sub_name = "NO MATCH"
                 result += "%s -> %s\n"% (video_name, sub_name)
             self.log.debug(result)
-            
+
         self.log.debug("Starting XMLRPC session...")
-        SDService.SDService.__init__(self, 'osdb', server = self.options.server ,proxy=self.options.proxy) 
+        SDService.SDService.__init__(self, 'osdb', server = self.options.server ,proxy=self.options.proxy)
         try:
             self.login(self.options.username, self.options.password)
         except Exception, e:
             self.log.error(e)
             return
-        
+
         if self.is_connected():
             # set language
             if len(self.options.language) == 2:
@@ -74,7 +74,7 @@ class Main(SDService.SDService):
                                 nos_sub = video.getSubtitle(hash)
                                 self.log.debug("Not on server - %s - jailing..."% nos_sub.getFileName())
                                 video.setNOSSubtitle(nos_sub)
-                
+
             videoSearchResults = self.SearchSubtitles(language=lang_id, videos=self.videos)
             if self.options.test:
                 for (i, video) in enumerate(self.videos):
@@ -83,11 +83,11 @@ class Main(SDService.SDService):
                         cd = 'cd%i'% (i+1)
                         curr_video = video
                         curr_sub = curr_video.getSubtitles()[0]
-                        user_choices = {'moviereleasename': 'NA', 
-                                        'movieaka': 'NA', 
-                                        'moviefilename': curr_video.getFileName(), 
-                                        'subfilename': curr_sub.getFileName(), 
-                                        'sublanguageid': curr_sub.getLanguage(), 
+                        user_choices = {'moviereleasename': 'NA',
+                                        'movieaka': 'NA',
+                                        'moviefilename': curr_video.getFileName(),
+                                        'subfilename': curr_sub.getFileName(),
+                                        'sublanguageid': curr_sub.getLanguage(),
                                         }
                         # interactive mode
                         if self.options.mode == 'cli' and self.interactive:
@@ -102,24 +102,24 @@ class Main(SDService.SDService):
                                     new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
                                     user_choices[choice] = new_value
                                 change = raw_input("Change any more details? [y/N] ").lower() or 'n'
-                            
+
             else:
                 self.handle_operation(self.options.operation)
-                
+
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
             video_filesizes =  [video.getSize() for video in videoSearchResults]
             video_movienames = [video.getMovieName() for video in videoSearchResults]
             #thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
-            
+
             self.logout()
-                
+
     def minimum_parameters(self):
         """Check for minimum parameters integrity"""
         # check if user set a video file name
         self.log.debug("Checking video file parameter...")
         if not self.options.videofile:  #in GUI this value needs to empty, but for CLI we replace by currentDir
             self.options.videofile = os.path.abspath(os.path.curdir)
-            
+
         if self.options.videofile == os.path.abspath(os.path.curdir) and self.options.interactive:
             # confirm with user if he wants to use default directory
             self.options.videofile = raw_input("Enter your video(s) directory [%s]: "% self.options.videofile) or self.options.videofile
@@ -138,7 +138,7 @@ class Main(SDService.SDService):
             self.log.debug("...failed")
             self.log.info("--video parameter must be set")
             return False
-           
+
         # check if user set language to use on subtitles
         self.log.debug("Checking language parameter...")
         if self.options.language:
@@ -149,15 +149,15 @@ class Main(SDService.SDService):
             return False
         # everything is good
         return True
-            
+
     def handle_operation(self, operation):
         if operation == "download":
             _filter = filter.Filter(self.videos, interactive=self.options.interactive, rename_subs=self.options.renaming)
             self.DownloadSubtitles(_filter.subtitles_to_download())
-            
+
         elif operation == "upload":
             self.do_upload(self.videos)
-            
+
         elif operation == "list":
             _filter = filter.Filter(self.videos, interactive=self.options.interactive)
 #            print _filter.subtitles_to_download()
@@ -166,8 +166,8 @@ class Main(SDService.SDService):
                 self.log.info("- %s (%s)"% (video.getFileName(), video.getHash()))
                 for sub in video.getSubtitles():
                     self.log.info("  [%s] - %s"%  (sub.getLanguage(), sub.getFileName()))
-            
-        
+
+
     def check_directory(self):
         """ search for videos and subtitles in the given path """
         self.log.info("Scanning %s ..."% self.options.videofile)
@@ -196,7 +196,7 @@ class Main(SDService.SDService):
         else:
             self.log.info("Nothing to do here")
             return -1
-            
+
     def do_matching(self, videos, subtitles):
         if self.options.logging > logging.DEBUG and self.options.verbose:
             progress = progressbar.ProgressBar(widgets=conf.Terminal.progress_bar_style, maxval=len(videos)).start()
@@ -205,7 +205,7 @@ class Main(SDService.SDService):
             if self.options.logging > logging.DEBUG and self.options.verbose:
                 progress.update(i+1)
             self.log.debug("Processing %s..."% video.getFileName())
-            
+
             possible_subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
             #self.log.debug("possible subtitle is: %s"% possible_subtitle)
             sub_match = None
@@ -221,7 +221,7 @@ class Main(SDService.SDService):
                 video.addSubtitle(sub_match)
         if self.options.logging > logging.DEBUG and self.options.verbose:
             progress.finish()
-            
+
     def do_upload(self, videos):
         self.log.debug("----------------")
         self.log.debug("UploadSubtitles RPC method starting...")
@@ -256,11 +256,11 @@ class Main(SDService.SDService):
                     cd = 'cd%i'% (i+1)
                     curr_video = video
                     curr_sub = curr_video.getSubtitles()[0]
-                    user_choices = {'moviereleasename': details['MovieName'], 
-                                    'movieaka': details['MovieNameEng'], 
-                                    'moviefilename': curr_video.getFileName(), 
-                                    'subfilename': curr_sub.getFileName(), 
-                                    'sublanguageid': curr_sub.getLanguage(), 
+                    user_choices = {'moviereleasename': details['MovieName'],
+                                    'movieaka': details['MovieNameEng'],
+                                    'moviefilename': curr_video.getFileName(),
+                                    'subfilename': curr_sub.getFileName(),
+                                    'sublanguageid': curr_sub.getLanguage(),
                                     }
                     # interactive mode
                     if self.options.mode == 'cli' and self.interactive:
@@ -275,16 +275,16 @@ class Main(SDService.SDService):
                                 new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
                                 user_choices[choice] = new_value
                             change = raw_input("Change any more details? [y/N] ").lower() or 'n'
-                        
+
                     # cook subtitle content
                     self.log.debug("Compressing subtitle...")
                     buf = open(curr_sub.getFilePath(), mode='rb').read()
                     curr_sub_content = base64.encodestring(zlib.compress(buf))
-                    
+
                     # transfer info
                     movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': user_choices['subfilename'], 'moviehash': details['MovieHash'], 'moviebytesize': details['MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': user_choices['moviefilename'], 'subcontent': curr_sub_content}
                     break
-                        
+
             movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': user_choices['moviereleasename'], 'movieaka': user_choices['movieaka'], 'sublanguageid': user_choices['sublanguageid'], 'subauthorcomment': "Upload by SubDownloader2.0 - www.subdownloader.net"} #details['SubAuthorComment']}
-            
+
             return self.UploadSubtitles(movie_info)

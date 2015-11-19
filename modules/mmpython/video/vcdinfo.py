@@ -70,7 +70,7 @@ class VCDInfo(mediainfo.CollectionInfo):
         self.offset = 0
         self.valid = self.isVCD(file)
         self.mime = 'video/vcd'
-        self.type = 'vcd video'        
+        self.type = 'vcd video'
 
     def isVCD(self, file):
         type = None
@@ -85,7 +85,7 @@ class VCDInfo(mediainfo.CollectionInfo):
             return 0
 
         # At this point this really is a cue/bin disc
-        
+
         # brute force reading of the bin to find out if it is a VCD
         f = open(bin,'rb')
         f.seek(32768, 0)

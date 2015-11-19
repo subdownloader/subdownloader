@@ -66,4 +66,4 @@ def magnetLink(filename, sha1Hash = ''):
     link="magnet:?%s" % urllib.urlencode({'dn':filename,'xt':"urn:sha1:%s" % sha1Hash})
     return link
 
-      
+

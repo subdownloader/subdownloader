@@ -14,7 +14,7 @@ from gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
 import logging
 log = logging.getLogger("subdownloader.gui.chooseLanguage")
 
-class chooseLanguageDialog(QtGui.QDialog): 
+class chooseLanguageDialog(QtGui.QDialog):
     def __init__(self, parent, user_locale):
         QtGui.QDialog.__init__(self)
         self.ui = Ui_ChooseLanguageDialog()
@@ -23,7 +23,7 @@ class chooseLanguageDialog(QtGui.QDialog):
         settings = QSettings()
         QObject.connect(self.ui.languagesList, SIGNAL("activated(QModelIndex)"), self.onOkButton)
         QObject.connect(self.ui.OKButton, SIGNAL("clicked(bool)"), self.onOkButton)
-        
+
         for lang_locale in self._main.interface_langs:
                 languageName = Languages.locale2name(lang_locale)
                 if not languageName:

@@ -288,7 +288,7 @@ class Main(QObject, Ui_MainWindow):
                         self.SearchVideos(options.videofile)
                 else:
                         QMessageBox.about(self.window,_("Error"),_("Unable to find %s") % options.videofile)
-                        
+
     def onButtonRefresh(self):
         settings = QSettings()
         lastDir = settings.value("mainwindow/workingDirectory", QVariant(QDir.homePath()))
@@ -298,9 +298,9 @@ class Main(QObject, Ui_MainWindow):
         model = QDirModel(window)
         model.setFilter(QDir.AllDirs|QDir.NoDotAndDotDot)
         self.folderView.setModel(model)
-        
+
         self.folderView.show()
-                
+
         while True:
             self.folderView.expand(model.index(path.absolutePath()))
             if not path.cdUp(): break
@@ -1513,7 +1513,7 @@ class Main(QObject, Ui_MainWindow):
     def onButtonSearchByTitle(self):
         if len(self.movieNameText.text()) == 0:
             QMessageBox.about(self.window,_("Info"),_("You must enter at least one character in movie name"))
-            
+
         else:
             self.buttonSearchByName.setEnabled(False)
             self.status_progress = QProgressDialog(_("Searching..."), "&Abort", 0, 0, self.window)
@@ -1615,7 +1615,7 @@ class Main(QObject, Ui_MainWindow):
         for i, sub in enumerate(subs):
             if not self.status_progress.wasCanceled(): #Skip rest of loop if Abort was pushed in progress bar
 
-                try:            
+                try:
                     url = sub.getExtraInfo("downloadLink")
                 except:
                     url = Link().OneLink(0)
@@ -1623,7 +1623,7 @@ class Main(QObject, Ui_MainWindow):
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
                 zipDestDir = str(zipDestDir.toUtf8()).decode(sys.getfilesystemencoding())
-                
+
                 try:
                     zipDestFile = os.path.join(zipDestDir, zipFileName).decode(sys.getfilesystemencoding())
                 except:
@@ -1711,7 +1711,7 @@ class Main(QObject, Ui_MainWindow):
 
 def onUpgradeDetected():
         QMessageBox.about(self.window,_("A new version of SubDownloader has been released."))
- 
+
 def main(options):
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)

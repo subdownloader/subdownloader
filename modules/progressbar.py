@@ -3,17 +3,17 @@
 #
 # progressbar  - Text progressbar library for python.
 # Copyright (c) 2005 Nilton Volpato
-# 
+#
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
 # version 2.1 of the License, or (at your option) any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -147,7 +147,7 @@ class Percentage(ProgressBarWidget):
     "Just the percentage done."
     def update(self, pbar):
         return '%3d%%' % pbar.percentage()
-        
+
 class CurrTotal(ProgressBarWidget):
     "Returns someting like: 54/100 (54 from a total of 100)"
     def update(self, pbar):
@@ -235,7 +235,7 @@ class ProgressBar(object):
         self.prev_percentage = -1
         self.start_time = None
         self.seconds_elapsed = 0
-    
+
     def set_maxval(self, maxval):
         self.maxval = maxval
 
@@ -311,7 +311,7 @@ class ProgressBar(object):
         self.update(self.maxval)
         if self.signal_set:
             signal.signal(signal.SIGWINCH, signal.SIG_DFL)
-        
+
 
 
 if __name__=='__main__':

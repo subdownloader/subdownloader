@@ -9,7 +9,7 @@ from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
-                     
+
 from PyQt4.QtGui import QItemSelection
 
 from FileManagement import get_extension, clear_string, without_extension
@@ -24,7 +24,7 @@ import logging
 log = logging.getLogger("subdownloader.gui.uploadlistview")
 
 class UploadListModel(QAbstractTableModel):
-    
+
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
@@ -33,28 +33,28 @@ class UploadListModel(QAbstractTableModel):
         self._headers = [_("Videofile"), _("Subtitle")]
         self._main = None
         self.rowsSelected = None
-    
+
     def dropMimeData(self, data, action, row, column, parent):
         print row,column
-        
+
     def flags(self, index):
         flags = QAbstractTableModel.flags(self, index)
-        if index.isValid():       
-            if index.row() == 0:  
+        if index.isValid():
+            if index.row() == 0:
                 flags |= Qt.ItemIsDropEnabled
         return flags
-    
+
     def addVideos(self,index,videos):
-        for video in videos:    
+        for video in videos:
                 if len(self._videos) <= index:
                         self._videos.insert(index,video)
                         self._subs.insert(index, None)
                 else:
                         self._videos[index] = video
-                        
+
                 if index == 0:
                         self._main.emit(SIGNAL('release_updated(QString)'),self.calculateReleaseName(video.getFilePath()))
-                        
+
                 index += 1
 
     def calculateReleaseName(self, filepath):
@@ -66,7 +66,7 @@ class UploadListModel(QAbstractTableModel):
                 return ""
         except:
             return ""
-        
+
     def addSubs(self,index,subs ):
         for sub in subs:
                 if len(self._subs) <= index:
@@ -75,36 +75,36 @@ class UploadListModel(QAbstractTableModel):
                 else:
                     self._subs[index] = sub
                 index += 1
-                
+
     def validate(self):
         if not self.getTotalRows() or self.getTotalRows() == 1 and not self._subs[0] and not self._videos[0]:
             return False ,_('The list of video/subtitle is empty')
-            
+
         valid_subs = []
         valid_videos = []
         for i in range(self.getTotalRows()):
-            if self._subs[i]: 
+            if self._subs[i]:
                 if valid_subs.count(self._subs[i].getFilePath()) > 0:
                     return False ,_('Subtitle %s is repeated') % str(i +1)
                 else:
                     valid_subs.append(self._subs[i].getFilePath())
-            if self._videos[i]: 
+            if self._videos[i]:
                 if valid_videos.count(self._videos[i].getFilePath()) > 0:
                     return False ,_('Videofile %s is repeated') % str(i +1)
                 else:
                     valid_videos.append(self._videos[i].getFilePath())
-                
+
             if not self._subs[i] and not self._videos[i] :
                if i != self.getTotalRows()-1:
                     return False ,_('Some of the upload rows are empty')
                else:
                    return True, ""
-                
+
             if not self._subs[i] or not self._videos[i]  and i != self.getTotalRows()-1:
                 return False ,_('Some of the video/subtitles fields are empty')
-                
+
         return True, ""
-    
+
     def ObtainUploadInfo(self):
         #Trying to autodetect the imdb fro m the server
         videos = []
@@ -127,10 +127,10 @@ class UploadListModel(QAbstractTableModel):
                     self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "database")
             if video_imdb:
                      self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'),video_imdb["IDMovieImdb"], video_imdb["MovieName"], "database")
-            
+
         self.AutoDetectLangFromFileName()
         self.AutoDetectLangFromContent()
-     
+
     def AutoDetectLangFromFileName(self):
         all_langs = []
         xxx_lang = ""
@@ -152,7 +152,7 @@ class UploadListModel(QAbstractTableModel):
             if all_langs.count(lang) > max:
                 max = all_langs.count(lang)
                 max_lang = lang
-        
+
         xxx_lang = max_lang
         log.debug("Majoritary Language Autodetected by filename = " + str(xxx_lang))
         if xxx_lang:
@@ -174,51 +174,51 @@ class UploadListModel(QAbstractTableModel):
             if all_langs.count(lang) > max:
                 max = all_langs.count(lang)
                 max_lang = lang
-        
+
         xxx_lang = languages.name2xxx(max_lang)
         log.debug("Majoritary Language Autodetected by content = " + str(xxx_lang))
         if xxx_lang:
             self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "content")
-  
+
     def getTotalRows(self):
         return self.rowCount(None)
     def rowCount(self, index):
            return max(len(self._subs),len(self._videos))
 
-    def columnCount(self, parent): 
+    def columnCount(self, parent):
         return len(self._headers)
-    
-    def headerData(self, section, orientation, role): 
+
+    def headerData(self, section, orientation, role):
         if role != Qt.DisplayRole:
             return QVariant()
         text = ""
-        if orientation == Qt.Horizontal:      
+        if orientation == Qt.Horizontal:
             text = unicode(self._headers[section])
             return QVariant(text) #self.trUtf8(text))
-        else: 
+        else:
             return QVariant("CD"+str(1+section))
-        
+
     def data(self, index, role):
         row, col = index.row(), index.column()
 
-        if role == Qt.DisplayRole:      
+        if role == Qt.DisplayRole:
             text = None
-            if   col == UploadListView.COL_VIDEO: 
+            if   col == UploadListView.COL_VIDEO:
                 if self._videos[row] == None:
                     text = _("Click here to select video...")
                 else:
                         text = self._videos[row].getFileName()
-            elif col == UploadListView.COL_SUB: 
+            elif col == UploadListView.COL_SUB:
                 if self._subs[row] == None:
                     text = _("Click here to select subtitle...")
                 else:
                         text = self._subs[row].getFileName()
-            if text == None: 
+            if text == None:
                 text = "Unknown"
             return QVariant(text)
 
         return QVariant()
-    
+
     def onUploadButtonPlusRow(self, clicked):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         if(self.rowsSelected != None):
@@ -228,12 +228,12 @@ class UploadListModel(QAbstractTableModel):
             self._videos.append(None)
             self._subs.append(None)
         self.emit(SIGNAL("layoutChanged()"))
-        self._main.updateButtonsUpload() 
-        
+        self._main.updateButtonsUpload()
+
     def onUploadButtonMinusRow(self, clicked):
          if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
-            
+
             rowsSelected = self.rowsSelected
             rowsSelected.sort(reverse=True)
 
@@ -244,14 +244,14 @@ class UploadListModel(QAbstractTableModel):
                     except:
                         pass
             self.emit(SIGNAL("layoutChanged()"))
-            if self.rowsSelected[0] > 0: 
+            if self.rowsSelected[0] > 0:
                 previousRowSelection = QItemSelection(self.createIndex(self.rowsSelected[0] -1, UploadListView.COL_VIDEO),self.createIndex(self.rowsSelected[0] -1, UploadListView.COL_SUB))
                 self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
             #elif not len(self._videos):
                 #print "last row"
-            
-            self._main.updateButtonsUpload() 
-        
+
+            self._main.updateButtonsUpload()
+
     def onUploadButtonUpRow(self, clicked):
         if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
@@ -260,21 +260,21 @@ class UploadListModel(QAbstractTableModel):
                 temp = self._videos[rowSelected]
                 self._videos[rowSelected] = self._videos[rowSelected -1]
                 self._videos[rowSelected - 1] = temp
-                
+
                 temp = self._subs[rowSelected]
                 self._subs[rowSelected] = self._subs[rowSelected -1]
                 self._subs[rowSelected - 1] = temp
             self.emit(SIGNAL("layoutChanged()"))
             previousRowSelection = QItemSelection(self.createIndex(rowSelected -1, UploadListView.COL_VIDEO),self.createIndex(rowSelected-1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(previousRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
-            
-        self._main.updateButtonsUpload() 
+
+        self._main.updateButtonsUpload()
 
     def onUploadButtonDeleteAllRow(self):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.removeAll()
         self.emit(SIGNAL("layoutChanged()"))
-        
+
     def onUploadButtonDownRow(self, clicked):
         if self.rowsSelected != None:
             self.emit(SIGNAL("layoutAboutToBeChanged()"))
@@ -283,7 +283,7 @@ class UploadListModel(QAbstractTableModel):
                 temp = self._videos[rowSelected]
                 self._videos[rowSelected] = self._videos[rowSelected +1]
                 self._videos[rowSelected + 1] = temp
-                
+
                 temp = self._subs[rowSelected]
                 self._subs[rowSelected] = self._subs[rowSelected +1]
                 self._subs[rowSelected + 1] = temp
@@ -291,8 +291,8 @@ class UploadListModel(QAbstractTableModel):
             self.emit(SIGNAL("layoutChanged()"))
             nextRowSelection = QItemSelection(self.index(rowSelected +1 , UploadListView.COL_VIDEO),self.index(rowSelected +1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(nextRowSelection, self._main.uploadSelectionModel.ClearAndSelect)
-        self._main.updateButtonsUpload() 
-        
+        self._main.updateButtonsUpload()
+
     def removeAll(self):
          self._videos = [None, None]
          self._subs = [None, None]
@@ -300,10 +300,10 @@ class UploadListModel(QAbstractTableModel):
 class UploadListView(QTableView):
     COL_VIDEO = 0
     COL_SUB = 1
-    def __init__(self, parent):    
+    def __init__(self, parent):
         QTableView.__init__(self, parent)
         self.setAcceptDrops(True)
-        
+
     def dragMoveEvent(self, event):
         if event.mimeData().hasFormat("text/plain")  or event.mimeData().hasFormat("text/uri-list"):
                 event.accept()
@@ -323,23 +323,23 @@ class UploadListView(QTableView):
             row, col = index.row(), index.column()
             settings = QSettings()
             if col == UploadListView.COL_VIDEO:
-                if(VideoTools.isVideofile(fileName)): 
+                if(VideoTools.isVideofile(fileName)):
                     settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
-                    video = VideoFile(fileName) 
+                    video = VideoFile(fileName)
                     self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
                     self.model().addVideos(row, [video])
                     subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
                     if subtitle:
-                        sub = SubtitleFile(False,subtitle) 
+                        sub = SubtitleFile(False,subtitle)
                         self.model().addSubs(row, [sub])
                         thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
                     self.resizeRowsToContents()
                     self.model().emit(SIGNAL("layoutChanged()"))
             else: #if it's the column in SUBTITLES
                 print fileName
-                if(Subtitle.isSubtitle(fileName)): 
+                if(Subtitle.isSubtitle(fileName)):
                     settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
-                    sub = SubtitleFile(False, fileName) 
+                    sub = SubtitleFile(False, fileName)
                     self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
                     self.model().addSubs(row, [sub])
                     self.resizeRowsToContents()

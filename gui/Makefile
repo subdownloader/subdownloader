@@ -8,7 +8,7 @@ expiration_ui.py : expiration.ui
 
 login_ui.py : login.ui
 	pyuic4 login.ui | sed -s s/^.*Margin.*// | sed -e s/^.*boxlayout\.setObjectName.*// | python Qt2Po.py > login_ui.py
-    
+
 imdb_ui.py : imdb.ui
 	pyuic4 imdb.ui | sed -s s/^.*Margin.*// | sed -e s/^.*boxlayout\.setObjectName.*// | python Qt2Po.py > imdb_ui.py
 
@@ -20,7 +20,7 @@ about_ui.py : about.ui
 
 chooseLanguage_ui.py : chooseLanguage.ui
 	pyuic4 chooseLanguage.ui | sed -s s/^.*Margin.*// | sed -e s/^.*boxlayout\.setObjectName.*//  > chooseLanguage_ui.py
-    
+
 images_rc.py : images.qrc
 	pyrcc4 images.qrc > images_rc.py
 

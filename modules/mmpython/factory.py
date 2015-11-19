@@ -73,7 +73,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -98,7 +98,7 @@ def isurl(url):
 class Factory:
     """
     Abstract Factory for the creation of MediaInfo instances. The different Methods
-    create MediaInfo objects by parsing the given medium. 
+    create MediaInfo objects by parsing the given medium.
     """
     def __init__(self):
         self.extmap = {}
@@ -107,7 +107,7 @@ class Factory:
         self.device_types = []
         self.directory_types = []
         self.stream_types = []
-        
+
     def create_from_file(self, file, ext_only=0):
         """
         create based on the file stream 'file
@@ -145,7 +145,7 @@ class Factory:
                     traceback.print_exc()
         if DEBUG: print 'not found'
         return None
-    
+
     def create_from_url(self,url):
         """
         Create information for urls. This includes file:// and cd://
@@ -162,7 +162,7 @@ class Factory:
             if r:
                 r.url = url
             return r
-        
+
         elif scheme == 'http':
             # Quick Hack for webradio support
             # We will need some more soffisticated and generic construction
@@ -174,7 +174,7 @@ class Factory:
                 if t.valid:
                     t.url = url
                     return t
-            
+
         else:
             (scheme, location, path, query, fragment) = split
             uhandle = urllib.urlopen(url)
@@ -185,7 +185,7 @@ class Factory:
                 if t.valid: return t
             # XXX Todo: Try other types
         pass
-    
+
     def create_from_filename(self, filename, ext_only=0):
         """
         Create information for the given filename
@@ -205,7 +205,7 @@ class Factory:
                 r.url = 'file://%s' % os.path.abspath(filename)
                 return r
         return None
-    
+
     def create_from_device(self,devicename):
         """
         Create information from the device. Currently only rom drives
@@ -218,7 +218,7 @@ class Factory:
                 t.url = 'file://%s' % os.path.abspath(devicename)
                 return t
         return None
-    
+
     def create_from_directory(self, dirname):
         """
         Create information from the directory.
@@ -229,7 +229,7 @@ class Factory:
             if t.valid:
                 return t
         return None
-    
+
     def create(self, name, ext_only=0):
         """
         Global 'create' function. This function calls the different
@@ -246,7 +246,7 @@ class Factory:
                     or stat.S_ISBLK(os.stat(name)[stat.ST_MODE]):
                     return self.create_from_device(name)
             except AttributeError:
-                pass            
+                pass
             if os.path.isdir(name):
                 return self.create_from_directory(name)
             return self.create_from_filename(name, ext_only)
@@ -256,7 +256,7 @@ class Factory:
             print
             print 'Please report this bug to the Freevo mailing list'
             return None
-    
+
     def register(self,mimetype,extensions,type,c):
         """
         register the parser to mmpython
@@ -276,7 +276,7 @@ class Factory:
             for e in extensions:
                 self.extmap[e] = tuple
             self.mimemap[mimetype] = tuple
-    
+
     def get(self, mimetype, extensions):
         """
         return the object for mimetype/extensions or None

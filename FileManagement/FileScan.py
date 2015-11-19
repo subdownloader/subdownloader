@@ -13,9 +13,9 @@ import modules.metadata as metadata
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
-class UserActionCanceled(Exception): 
-    pass 
-    
+class UserActionCanceled(Exception):
+    pass
+
 def FakeProgress(count=None,msg=""):
     if not count:
         return -1
@@ -32,7 +32,7 @@ def AutoDetectNFOfile(videofolder):
                                     log.debug("Found Imdb from NFO file , IMDB = %s" % found_imdb_id)
                                     return found_imdb_id
     return None
-        
+
 def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress_end=None):
     all_videos_found = []
     all_subs_found = []
@@ -47,17 +47,17 @@ def ScanFilesFolders(filepaths,recursively = True,report_progress=None, progress
             if get_extension(path).lower() in videofile.VIDEOS_EXT:
                 all_videos_found.append(videofile.VideoFile(path))
              #Interested to know which subtitles we have in the same folder
-            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path),recursively = False,report_progress=report_progress, progress_end=progress_end) 
+            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path),recursively = False,report_progress=report_progress, progress_end=progress_end)
     return all_videos_found, all_subs_found
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
 def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=None):
     #Let's reset the progress bar to 0%
     log.debug("Scanning Folder %s" % folderpath)
-    
+
     if report_progress == None:
         report_progress = FakeProgress
-    
+
     #Let's reset the progress bar to 0%
     report_progress(0)
 
@@ -74,7 +74,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         #Scanning VIDEOS
         files_found = parser.getRecursiveFileList(folderpath, videofile.VIDEOS_EXT)
 
-        
+
     videos_found = []
     # only work the video files if any were found
     if len(files_found):
@@ -90,7 +90,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
                 raise UserActionCanceled()
             report_progress(count,_("Parsing video: %s")% os.path.basename(filepath).decode(sys.getfilesystemencoding()))
     report_progress(0)
-    
+
     #Scanning Subs
     files_found = parser.getRecursiveFileList(folderpath,subtitlefile.SUBTITLES_EXT)
     subs_found = []
@@ -105,14 +105,14 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
     report_progress(100,_("Finished hashing"))
     if progress_end:
         progress_end()
-        
+
     return videos_found,subs_found
-    
+
 
 def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, progress_end=None):
     if report_progress == None:
         report_progress = FakeProgress
-    
+
     #Let's reset the progress bar to 0%
     report_progress(0)
     #Scanning Subs
@@ -123,7 +123,7 @@ def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, prog
         for filename in os.listdir(folderpath):
             if os.path.isfile(os.path.join(folderpath, filename)) and get_extension(filename).lower() in subtitlefile.SUBTITLES_EXT:
                 files_found.append(os.path.join(folderpath, filename))
-    
+
     subs_found = []
     # only work the subtitles if any were found
     if len(files_found):
@@ -136,5 +136,5 @@ def ScanSubtitlesFolder(folderpath,recursively = True,report_progress=None, prog
     report_progress(100,_("Finished hashing"))
     if progress_end:
         progress_end()
-        
+
     return subs_found

@@ -31,7 +31,7 @@ def compVer(ver1,ver2):
             return 0
 
 def randomSerialKey():
-    import string 
+    import string
     from random import Random
 
     d = ''.join( Random().sample(string.letters+string.digits, 16) )

@@ -106,7 +106,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -175,8 +175,8 @@ class RiffInfo(mediainfo.AVInfo):
                 print 'error in file, stop parsing'
 
         self.find_subtitles(file.name)
-        
-        # Copy Metadata from tables into the main set of attributes        
+
+        # Copy Metadata from tables into the main set of attributes
         for k in self.tag_map.keys():
             map(lambda x:self.setitem(x,self.gettable(k[0],k[1]),self.tag_map[k][x]),
                 self.tag_map[k].keys())
@@ -184,8 +184,8 @@ class RiffInfo(mediainfo.AVInfo):
             _print('WARNING: avi has no index')
             self.corrupt = 1
             self.keys.append('corrupt')
-            
-        
+
+
     def _extractHeaderString(self,h,offset,len):
         return h[offset:offset+len]
 
@@ -193,9 +193,9 @@ class RiffInfo(mediainfo.AVInfo):
         retval = {}
         v = struct.unpack('<IIIIIIIIIIIIII',t[0:56])
         ( retval['dwMicroSecPerFrame'],
-          retval['dwMaxBytesPerSec'],           
-          retval['dwPaddingGranularity'], 
-          retval['dwFlags'], 
+          retval['dwMaxBytesPerSec'],
+          retval['dwPaddingGranularity'],
+          retval['dwFlags'],
           retval['dwTotalFrames'],
           retval['dwInitialFrames'],
           retval['dwStreams'],
@@ -211,7 +211,7 @@ class RiffInfo(mediainfo.AVInfo):
             self.valid = 0
             return {}
         return retval
-        
+
     def parseSTRH(self,t):
         retval = {}
         retval['fccType'] = t[0:4]
@@ -250,7 +250,7 @@ class RiffInfo(mediainfo.AVInfo):
                              (float(retval['dwRate']) / retval['dwScale'])
             except:
                 pass
-            
+
         return retval
 
     def parseSTRF(self,t,strh):
@@ -275,8 +275,8 @@ class RiffInfo(mediainfo.AVInfo):
             try:
                 ai.codec = fourcc.RIFFWAVE[retval['wFormatTag']]
             except:
-                ai.codec = "Unknown"            
-            self.audio.append(ai)  
+                ai.codec = "Unknown"
+            self.audio.append(ai)
         elif fccType == 'vids':
             v = struct.unpack('<IIIHH',t[0:16])
             ( retval['biSize'],
@@ -284,7 +284,7 @@ class RiffInfo(mediainfo.AVInfo):
               retval['biHeight'],
               retval['biPlanes'],
               retval['biBitCount'], ) = v
-            retval['fourcc'] = t[16:20]            
+            retval['fourcc'] = t[16:20]
             v = struct.unpack('IIIII',t[20:40])
             ( retval['biSizeImage'],
               retval['biXPelsPerMeter'],
@@ -297,13 +297,13 @@ class RiffInfo(mediainfo.AVInfo):
             except:
                 vi.codec = "Unknown"
             vi.width = retval['biWidth']
-            vi.height = retval['biHeight']            
+            vi.height = retval['biHeight']
             vi.bitrate = strh['dwRate']
             vi.fps = round(float(strh['dwRate'] * 100) / strh['dwScale']) / 100
-            vi.length = strh['dwLength'] / vi.fps 
-            self.video.append(vi)  
+            vi.length = strh['dwLength'] / vi.fps
+            self.video.append(vi)
         return retval
-        
+
 
     def parseSTRL(self,t):
         retval = {}
@@ -329,7 +329,7 @@ class RiffInfo(mediainfo.AVInfo):
             i += sz
         return ( retval, i )
 
-            
+
     def parseODML(self,t):
         retval = {}
         size = len(t)
@@ -346,11 +346,11 @@ class RiffInfo(mediainfo.AVInfo):
         i += sz - 8
         return ( retval, i )
 
-            
+
     def parseVPRP(self,t):
         retval = {}
         v = struct.unpack('<IIIIIIIIII',t[:4*10])
-        
+
         ( retval['VideoFormat'],
           retval['VideoStandard'],
           retval['RefreshRate'],
@@ -362,9 +362,9 @@ class RiffInfo(mediainfo.AVInfo):
 
         # I need an avi with more informations
         # enum {FORMAT_UNKNOWN, FORMAT_PAL_SQUARE, FORMAT_PAL_CCIR_601,
-        #    FORMAT_NTSC_SQUARE, FORMAT_NTSC_CCIR_601,...} VIDEO_FORMAT; 
+        #    FORMAT_NTSC_SQUARE, FORMAT_NTSC_CCIR_601,...} VIDEO_FORMAT;
         # enum {STANDARD_UNKNOWN, STANDARD_PAL, STANDARD_NTSC, STANDARD_SECAM}
-        #    VIDEO_STANDARD; 
+        #    VIDEO_STANDARD;
         #
         r = retval['FrameAspectRatio']
         r = float(r >> 16) / (r & 0xFFFF)
@@ -373,7 +373,7 @@ class RiffInfo(mediainfo.AVInfo):
             map(lambda v: setattr(v, 'aspect', r), self.video)
         return ( retval, v[0] )
 
-            
+
     def parseLIST(self,t):
         retval = {}
         i = 0
@@ -437,14 +437,14 @@ class RiffInfo(mediainfo.AVInfo):
                     retval[key] = value
                 i+=sz
         return retval
-        
+
 
     def parseRIFFChunk(self,file):
         h = file.read(8)
         if len(h) < 4:
             return False
         name = h[:4]
-        size = struct.unpack('<I',h[4:8])[0]        
+        size = struct.unpack('<I',h[4:8])[0]
 
         if name == 'LIST' and size < 80000:
             pos = file.tell() - 8
@@ -532,7 +532,7 @@ class RiffInfo(mediainfo.AVInfo):
             file.write( tag )
         _print("Junksize %i" % (self.junkSize-size-8))
         file.write( "JUNK" + struct.pack('<I',self.junkSize-size-8) )
-        
+
 
 
 #mmpython.registertype( 'video/avi', ('avi',), mediainfo.TYPE_AV, RiffInfo )

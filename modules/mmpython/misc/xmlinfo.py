@@ -27,7 +27,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -51,7 +51,7 @@ XML_TAG_INFO = {
     'image':  'Bins Image Description',
     'freevo': 'Freevo XML Definition'
     }
-    
+
 class XMLInfo(mediainfo.MediaInfo):
 
     def __init__(self,file):
@@ -74,6 +74,6 @@ class XMLInfo(mediainfo.MediaInfo):
         else:
             self.type = 'XML file'
         self.valid = 1
-        
+
 
 #modules.mmpython.registertype( 'text/xml', ('xml', 'fxd'), mediainfo.TYPE_MISC, XMLInfo )

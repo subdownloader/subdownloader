@@ -16,7 +16,7 @@ class RecursiveParser:
     # to you in the form of a list.
     #
     # If you look at the bottom of the file on line ????????, you will notice we
-    # are only passing one argument (a directory path) to this method.  However, 
+    # are only passing one argument (a directory path) to this method.  However,
     # when we declare the method here, we are specifying two arguments.
     #
     # This is, in my opinion, an oddity with Python classes.  If this
@@ -35,17 +35,17 @@ class RecursiveParser:
         # guarantee that all users of my code will add this slash.  Therefore, I have created a
         # method that checks to see if the trailing slash exists and appends one if it does not.
         basedir = self.addSlash(basedir)
-            
+
         # Here we specify two variables.  subdirlist keeps a list of all the directories contained
         # within the current directory and dirlist keeps a running list of all the directories found
         # throughout the entire directory structure.
         subdirlist = []
         dirlist = []
-        
+
         # Since we know that the argument "basedir" is a directory (or should be) we will add it to
         # the dirlist variable.
         dirlist.append(basedir)
-        
+
         # Next, we are going to list all the contents of the current directory and then check each
         # item one at a time to see if it is a directory or a file.  If it is a directory, then we
         # will add it to the dirlist variable (our final, definitive list of all directories contained in a
@@ -62,7 +62,7 @@ class RecursiveParser:
                 if os.path.isdir(os.path.join(basedir, item)):
                     dirlist.append(os.path.join(basedir, item))
                     subdirlist.append(os.path.join(basedir, item))
-                    
+
         # There are, of course, other exception types and a generic except statement that can
         # catch all errors.  The generic would look like "except:".  I ran into a permission
         # issue on my Windows machine when I ran this script, so I thought I'd use the WindowsError
@@ -74,16 +74,16 @@ class RecursiveParser:
         except WindowsError, e:
             self.log.error("An error has occured. You may not have permission to access all files and folders in the specified path.")
             self.log.error(e)
-            
+
         # Now we need to recursively call getRecursiveDirList until you reach the end of
         # the directory structure.  This means that getRecursiveDirList will call itself
         # over and over again until there are no more subdirectories left to process.
         for subdir in subdirlist:
             dirlist += self.getRecursiveDirList(subdir)
-            
-        # Return a comprehensive list of all directories contained within 'basedir' 
+
+        # Return a comprehensive list of all directories contained within 'basedir'
         return dirlist
-        
+
     # The getRecursiveFileList() method accepts a directory path as an argument and
     # then recursively searches through that path looking for files to return
     # to you in the form of a list.
@@ -133,10 +133,10 @@ class RecursiveParser:
         # You have already seen the next three lines of code.  Refer to
         # getRecursiveDirList() if you have forgotten what they are for.
         basedir = self.addSlash(basedir)
-        
+
         subdirlist = []
         filelist = []
-        
+
         # This code is almost identical to the try: except: segment of getRecursiveDirList().
         # The differences here are that instead of directories, we are searching for files
         # and adding them to the definitive list "filelist".
@@ -159,9 +159,9 @@ class RecursiveParser:
                 for item in os.listdir(basedir):
                     if os.path.isfile(os.path.join(basedir, item)):
                         filelist.append(os.path.join(basedir, item))
-                    else:                        
+                    else:
                         subdirlist.append(os.path.join(basedir, item))
-                        
+
         # Here again you can see an example of catching a specific type of error.  In this
         # example, I am catching both a WindowsError exception and also a TypeError exception
         # While my error messages are probably lame, this shows that you can customize your
@@ -170,23 +170,23 @@ class RecursiveParser:
         #except WindowsError:
             #print "An error has occured.  You may not have permission"
             #print "to access all files and folders in the specified path."
-            
+
         except OSError, e:
                 print e[1] + ". Please select a specific folder."
                 sys.exit(1)
-            
+
         except TypeError, e:
             self.log.error("The calling code has passed an invalid parameter to getRecursiveFileList.")
             self.log.error(e)
-        
+
         # This is an example of a generic catchall for exceptions.
         except Exception, e:
             self.log.error(e)
-                    
+
         # Recursively call getRecursiveDirList until you reach the end of the directory structure
         for subdir in subdirlist:
             filelist += self.getRecursiveFileList(subdir, extensions)
-            
+
         # Return a comprehensive list of all files (or specified files) contained within 'basedir'
         #Sorting the list by name (Added by capiscuas)
         filelist.sort()
@@ -196,13 +196,13 @@ class RecursiveParser:
     def addSlash(self, dir):
         '''
         addSlash(dir) adds a trailing slash to a string representation of a directory
-        '''        
+        '''
         # I want to make sure that all the paths I pass to my program have a trailing
         # slash character.  I could have written more code in the methods to handle both
         # cases, but I chose to do it this way in order to keep things simple.
         if dir[-1:] != '/':
             dir += '/'
-        
+
         return dir
 
 # In Python, if you run code directly from the command line, the internal variable
@@ -221,31 +221,31 @@ class RecursiveParser:
 #
 # While this is not serious unit testing, it demonstrates a good strategy and
 # it will exercise the two main methods of our class and display the results
-# onto the screen (in an albeit ugly way). 
+# onto the screen (in an albeit ugly way).
 #if __name__ == '__main__':
     # This is how you create an instance of your RecursiveParser class
     #parser = RecursiveParser()
-    
+
     # Replace /home/user/documents with whichever path you wish to search
     #print 'PRINTING DIRECTORIES\n'
     #dirs = parser.getRecursiveDirList('/home/user/documents')
     #print dirs
-    
+
     # Replace /home/user/documents with whichever path you wish to extract a list of files from
     # Remember that the extensions argument is optional.  If you leave it off the returned list
     # contain a list of all the files in the specified directory.
     #print 'PRINTING ALL FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents')
     #print files
-    
+
     # Here is an example that specifies some file extensions.
     #print 'PRINTING ALL HTML, TXT, and DOC FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents', ['html', 'txt', 'doc'])
     #print files
-    
+
     # Finally, here is an example that specifies only one file extension.  Note that even
     # when there is only one file extension, it still needs to be in a list
     #print 'PRINTING ALL HTML FILES\n'
     #files = parser.getRecursiveFileList('/home/user/documents', ['html'])
     #print files
-    
+

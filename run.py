@@ -8,7 +8,7 @@ if os.path.isfile(sys.path[0]):
         subdownloader_folder = os.path.dirname(sys.path[0])
 else:
         subdownloader_folder = sys.path[0]
-        
+
 
 import logging
 from optparse import OptionParser
@@ -37,7 +37,7 @@ if platform.system() == "Windows":
         sys.stderr = open(os.path.join(subdownloader_folder,"subdownloader.log"), "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
     except:
         pass #Cannot write message into subdownloader.log, that happens for example in Vista, where SD does not have writer permission on its ProgramFiles folder
-        
+
 if options.mode == 'gui':
     import gui.main
 elif options.mode == 'cli':
@@ -67,14 +67,14 @@ if not options.verbose:
     # add the handler to the root logger
     logging.getLogger('').addHandler(console)
 """
-# create a logger named 'subdownloader.run' 
+# create a logger named 'subdownloader.run'
 log = logging.getLogger("run")
-    
-if __name__ == "__main__":   
-    
+
+if __name__ == "__main__":
+
     if options.mode == 'gui':
         gui.main.main(options)
     elif options.mode == 'cli':
         cli = cli.main.Main(options)
         cli.start_session()
-    
+

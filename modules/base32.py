@@ -1,4 +1,4 @@
- 
+
 #!/usr/bin/env python
 #
 # Copyright (c) 2002 Bryce "Zooko" Wilcox-O'Hearn

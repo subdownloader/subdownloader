@@ -81,11 +81,11 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
-# Do this stuff before importing the info instances since they 
+# Do this stuff before importing the info instances since they
 # depend on this function
 
 import factory
@@ -100,17 +100,17 @@ _factory = SynchronizedObject(factory.Factory())
 #    # One-time init
 #    if _factory == None:
 #        _factory = SynchronizedObject(factory.Factory())
-#        
+#
 #    return _factory
 
 def registertype(mimetype,extensions,type,c):
     #f = _factory
-    _factory.register(mimetype,extensions,type,c)    
+    _factory.register(mimetype,extensions,type,c)
 
 def gettype(mimetype,extensions):
     #f = _factory
-    return _factory.get(mimetype,extensions)    
-    
+    return _factory.get(mimetype,extensions)
+
 USE_NETWORK = 1
 
 def parse(filename, ext_only = 0):

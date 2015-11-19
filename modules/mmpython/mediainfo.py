@@ -57,7 +57,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -103,7 +103,7 @@ IMAGECORE = ['description', 'people', 'location', 'event',
 MUSICCORE = ['trackno', 'trackof', 'album', 'genre','discs']
 
 AVCORE    = ['length', 'encoder', 'trackno', 'trackof', 'copyright', 'product',
-             'genre', 'secondary genre', 'subject', 'writer', 'producer', 
+             'genre', 'secondary genre', 'subject', 'writer', 'producer',
              'cinematographer', 'production designer', 'edited by', 'costume designer',
              'music by', 'studio', 'distributed by', 'rating', 'starring', 'ripped by',
              'digitizing date', 'internet address', 'source form', 'medium', 'source',
@@ -138,11 +138,11 @@ def _debug(text):
             print text
         except:
             print text.encode('latin-1', 'replace')
-    
+
 
 class MediaInfo:
     """
-    MediaInfo is the base class to all Media Metadata Containers. It defines the 
+    MediaInfo is the base class to all Media Metadata Containers. It defines the
     basic structures that handle metadata. MediaInfo and its derivates contain
     a common set of metadata attributes that is listed in keys. Specific derivates
     contain additional keys to the dublin core set that is defined in MediaInfo.
@@ -180,11 +180,11 @@ class MediaInfo:
             except AttributeError:
                 pass
         return result
-        
+
 
     def appendtable(self, name, hashmap, language='en'):
         """
-        Appends a tables of additional metadata to the Object. 
+        Appends a tables of additional metadata to the Object.
         If such a table already exists, the given tables items are
         added to the existing one.
         """
@@ -194,7 +194,7 @@ class MediaInfo:
             # Append to the already existing table
             for k in hashmap.keys():
                 self._tables[(name, language)][k] = hashmap[k]
-    
+
 
     def correct_data(self):
         """
@@ -209,10 +209,10 @@ class MediaInfo:
 
     def gettable(self, name, language='en'):
         """
-        returns a table of the given name and language        
+        returns a table of the given name and language
         """
         return self._tables.get((name, language), {})
-    
+
 
     def setitem(self, item, dict, key, convert_to_str=False):
         """
@@ -244,7 +244,7 @@ class MediaInfo:
             return getattr(self, key)
         return None
 
-        
+
     def __setitem__(self, key, val):
         """
         set the value of 'key' to 'val'
@@ -270,7 +270,7 @@ class MediaInfo:
         if hasattr(self, key):
             setattr(self, key, None)
 
-        
+
 class AudioInfo(MediaInfo):
     """
     Audio Tracks in a Multiplexed Container.
@@ -316,7 +316,7 @@ class MusicInfo(AudioInfo):
             except:
                 pass
 
-            
+
 class VideoInfo(MediaInfo):
     """
     Video Tracks in a Multiplexed Container.
@@ -326,7 +326,7 @@ class VideoInfo(MediaInfo):
         for k in VIDEOCORE:
             setattr(self,k,None)
             self.keys.append(k)
-           
+
 
 class ChapterInfo(MediaInfo):
     """
@@ -336,12 +336,12 @@ class ChapterInfo(MediaInfo):
         self.keys = ['name', 'pos']
         setattr(self,'name', name)
         setattr(self,'pos', pos)
-           
+
 
 class AVInfo(MediaInfo):
     """
     Container for Audio and Video streams. This is the Container Type for
-    all media, that contain more than one stream. 
+    all media, that contain more than one stream.
     """
     def __init__(self):
         MediaInfo.__init__(self)
@@ -364,8 +364,8 @@ class AVInfo(MediaInfo):
         for container in [ self ] + self.video + self.audio:
             if container['length']:
                 container['length'] = int(container['length'])
-            
-                                 
+
+
     def find_subtitles(self, filename):
         """
         Search for subtitle files. Right now only VobSub is supported
@@ -382,7 +382,7 @@ class AVInfo(MediaInfo):
                     line = file.readline()
             file.close()
 
-            
+
     def __unicode__(self):
         result = u'Attributes:'
         result += MediaInfo.__unicode__(self)
@@ -404,13 +404,13 @@ class AVInfo(MediaInfo):
                                                   self.chapters[i]['pos'])
         return result
 
-        
+
 class ImageInfo(MediaInfo):
     """
     Digital Images, Photos, Pictures.
     """
     def __init__(self):
-        MediaInfo.__init__(self)        
+        MediaInfo.__init__(self)
         for k in IMAGECORE:
             setattr(self,k,None)
             self.keys.append(k)
@@ -432,7 +432,7 @@ class CollectionInfo(MediaInfo):
         for counter in range(0,len(self.tracks)):
              result += u' \nTrack %d:\n%s' % (counter+1, unicode(self.tracks[counter]))
         return result
-    
+
     def appendtrack(self, track):
         self.tracks.append(track)
 
@@ -441,4 +441,4 @@ class CollectionInfo(MediaInfo):
 #    print "This function is deprecated. Please use 'mmpython.Factory' instead."
 #    return mmpython.Factory()
 
-    
+

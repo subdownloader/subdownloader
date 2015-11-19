@@ -27,7 +27,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -48,7 +48,7 @@ class Table:
             self.read_translations()
         except:
             pass
-    
+
     def read_translations(self):
         for filename in [x for x in os.listdir(self.i18ndir) if x.endswith('.mo')]:
             lang = filename[:-3]
@@ -57,38 +57,38 @@ class Table:
             self.translations[lang] = GNUTranslations(f)
             f.close()
         self.languages = self.translations.keys()
-        
+
     def gettext(self, message, language = None):
         try:
             return self.translations[language].gettext(unicode(message))
         except KeyError:
             return unicode(message)
-        
+
     def __setitem__(self,key,value):
         self.dict[key] = value
-        
+
     def __getitem__(self,key):
         try:
             return self.dict[key]
         except KeyError:
             return None
-         
+
     def getstr(self,key):
         s = self[key]
         try:
-            if s and len(unicode(s)) < 100: 
+            if s and len(unicode(s)) < 100:
                 return s
             else:
                 return "Not Displayable"
         except UnicodeDecodeError:
             return "Not Displayable"
-         
+
     def has_key(self, key):
-        return self.dict.has_key(key)    
-    
+        return self.dict.has_key(key)
+
     def getEntry(self, key, language = 'en'):
         pair = (self.gettext(key), unicode(self.dict[key]))
-    
+
     def __unicode__(self):
         header = "\nTable %s (%s):" % (self.name, self.language)
         result = reduce( lambda a,b: self[b] and "%s\n        %s: %s" % \

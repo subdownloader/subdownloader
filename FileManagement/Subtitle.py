@@ -13,7 +13,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     """ will try to guess the subtitle for the given filepath video """
     log.debug("----------------")
     log.debug("AutoDetectSubtitle started with: %r, %r"% (pathvideofile, sub_list))
-    
+
     if os.path.isfile(pathvideofile):
         videofolder = os.path.dirname(pathvideofile)
         filename1_noextension = without_extension(os.path.basename(pathvideofile))
@@ -21,7 +21,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
         log.debug("AutoDetectSubtitle argument must be a complete video path")
         return ""
 
- 
+
     #1st METHOD , EXACT FILENAME THAN THE VIDEO WITHOUT EXTENSION
     log.debug("1st method starting...")
     for ext in subtitlefile.SUBTITLES_EXT:
@@ -39,7 +39,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                 log.debug(e)
         elif os.path.exists(os.path.join(videofolder, possiblefilenamesrt)):
             return os.path.join(videofolder, possiblefilenamesrt)
- 
+
     #2nd METHOD FIND THE AVI NAME MERGED INTO THE SUB NAME
     log.debug("2nd method starting...")
     cleaned_file = clear_string(filename1_noextension.lower())
@@ -66,7 +66,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                             return os.path.join(videofolder,filename)
             except AttributeError, e:
                 log.error(e)
-    
+
     #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list) (by searching the filename of the video in the content of the subtitle)
     if sub_list:
         log.debug("3rd method starting...")
@@ -79,8 +79,8 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
             return best_scored_sub
     else:
         log.debug("3rd was skipped")
-    
- 
+
+
     #4th METHOD WE TAKE THE SUB IF THERE IS ONLY ONE
     log.debug("4th method starting...")
     if len(filesfound) == 1:
@@ -88,14 +88,14 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
             return filesfound[0]
         else:
             return os.path.join(videofolder,filesfound[0])
-    
+
     return ""
-    
+
 def score_subtitles(video, subtitle_list):
     """Will to a pseudo scoring on the subtitle list
     @video: video file name
     @subtitle_list: list of subtitle file names
-    
+
     returns dictionary like {'subtitle_file_name': score}
     """
     log.debug("Subtitle scoring started with: %r, %r"% (video, subtitle_list))
@@ -118,7 +118,7 @@ def score_subtitles(video, subtitle_list):
         else:
             continue
         log.debug("scoring for %s is %i"% (sub_name, sub_dict[sub]))
-            
+
     # return scored subtitles
     return sub_dict
 
@@ -129,13 +129,13 @@ def GetLangFromFilename(filepath):
             return get_extension(without_extension(filepath))
         else:
             return ""
-    
+
 #FIXME: when language is 'Brazlian' wrong value is returned: 'Bra' instead of 'pob')
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = file(filepath,mode='rb').read()
         Languages.CleanTagsFile(subtitle_content)
-        #Initializing the Language Detector 
+        #Initializing the Language Detector
         n = autodetect_lang._NGram()
         l = autodetect_lang.NGram()
         percentage, lang = l.classify(subtitle_content)
@@ -146,7 +146,7 @@ def AutoDetectLang(filepath):
             return lang
     else:
         return ""
-        
+
 def subtitle_name_gen(video_filename, extension=".srt"):
     """Generates a subtitle file name given the video file name
     """
@@ -159,14 +159,14 @@ def subtitle_name_gen(video_filename, extension=".srt"):
     elif isinstance(video_filename, videofile):
         if get_extension(video_filename.getFileName()) in videofile.VIDEOS_EXT:
             video_name = without_extension(video_filename.getFileName())
-            
+
     if video_name:
         sub_name = video_name + extension
         return sub_name
     else:
         log.debug("No video name to generate subtitle file name")
         return ""
-        
+
 def isSubtitle(filepath):
     if get_extension(filepath).lower() in subtitlefile.SUBTITLES_EXT:
         return True

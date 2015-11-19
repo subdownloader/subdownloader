@@ -47,7 +47,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -69,7 +69,7 @@ class RealInfo(mediainfo.AVInfo):
         self.valid = 0
         self.mime = 'video/real'
         self.type = 'Real Video'
-        h = file.read(10)        
+        h = file.read(10)
         (object_id,object_size,object_version) = struct.unpack('>4sIH',h)
         if object_id == '.RMF':
             self.valid = 1
@@ -77,12 +77,12 @@ class RealInfo(mediainfo.AVInfo):
             return
         file_version, num_headers = struct.unpack('>II', file.read(8))
         _print("size: %d, ver: %d, headers: %d" % (object_size, file_version,num_headers))
-        for i in range(0,num_headers):            
+        for i in range(0,num_headers):
             (object_id,object_size,object_version) = struct.unpack('>4sIH',file.read(10))
             self._read_header(object_id, file.read(object_size-10))
             _print("%s [%d]" % (object_id,object_size-10))
         # Read all the following headers
-        
+
     def _read_header(self,object_id,s):
         if object_id == 'PROP':
             prop = struct.unpack('>9IHH', s)

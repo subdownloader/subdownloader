@@ -3,7 +3,7 @@
 
 # Copyright (c) 2006 Thomas Mangin
 
-#This program is distributed under Gnu General Public License 
+#This program is distributed under Gnu General Public License
 #(cf. the file COPYING in distribution). Alternatively, you can use
 #the program under the conditions of the Artistic License (as Perl).
 
@@ -42,7 +42,7 @@ class _NGram:
 
     def addText (self,text):
         ngrams = dict()
-        
+
         text = text.replace('\n',' ')
         text = re.sub('\s+',' ',text)
         words = text.split(' ')
@@ -105,15 +105,15 @@ class NGram:
         ext='.lm'
         self.ngrams = dict()
         folder = os.path.join(folder,'*'+ext)
-        size = len(ext) 
+        size = len(ext)
         count = 0
-        
+
         for fname in glob.glob(os.path.normcase(folder)):
             count += 1
             lang = os.path.split(fname)[-1][:-size]
             ngrams = dict()
             file = open(fname,'r')
-        
+
             for line in file.readlines():
                 parts = line[:-1].split('\t ')
                 if len(parts) != 2:
@@ -124,12 +124,12 @@ class NGram:
                     raise
                 except:
                     raise ValueError("invalid language file %s line : %s" % (fname,parts))
-                    
+
             if len(ngrams.keys()):
                 self.ngrams[lang] = _NGram(ngrams)
-            
+
             file.close()
-    
+
         if not count:
             raise ValueError("no language files found")
 
@@ -155,20 +155,20 @@ class Generate:
         folder = os.path.join(folder,'*'+ext)
         size = len(ext)
         count = 0
-        
+
         for fname in glob.glob(os.path.normcase(folder)):
             count += 1
             lang = os.path.split(fname)[-1][:-size]
             n = _NGram()
-            
+
             file = open(fname,'r')
             for line in file.readlines():
                 n.addText(line)
             file.close()
-                
+
             n.normalise()
             self.ngrams[lang] = n
-            
+
     def save (self,folder,ext='.lm'):
         for lang in self.ngrams.keys():
             fname = os.path.join(folder,lang+ext)

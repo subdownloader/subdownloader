@@ -7,7 +7,7 @@ __author__    = "Ivan Garcia <contact@ivangarcia.org>"
 
 import sys, os, re, StringIO, traceback
 from modules import APP_TITLE, APP_VERSION, SHAREWARE, SDService, subtitlefile, videofile
-                                
+
 
 error_dialog = None
 
@@ -24,12 +24,12 @@ def installErrorHandler(dialog):
 
 def _Warning(msg, e):
     print >> sys.stderr, msg
-    if e: 
+    if e:
         traceback.print_exc(e)
 
-def Error(msg, e):  
+def Error(msg, e):
     if error_dialog:
-        if e: 
+        if e:
             msg += "<br>" + traceback.format_exc(e)
         msg = re.sub("Traceback", "<b>Traceback</b>", msg)
         msg = re.sub(r"\n", "<br>", msg)

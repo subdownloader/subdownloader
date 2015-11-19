@@ -16,7 +16,7 @@ import time, thread
 import logging
 log = logging.getLogger("subdownloader.gui.login")
 
-class loginDialog(QtGui.QDialog): 
+class loginDialog(QtGui.QDialog):
     def __init__(self, parent):
         QtGui.QDialog.__init__(self)
         self.ui = Ui_LoginDialog()
@@ -33,7 +33,7 @@ class loginDialog(QtGui.QDialog):
 
     def onButtonClose(self):
         self.reject()
-        
+
     def onButtonAccept(self):
         settings = QSettings()
         newUsername =  self.ui.optionLoginUsername.text()
@@ -47,11 +47,11 @@ class loginDialog(QtGui.QDialog):
 
         self.connect()
         self.accept() #We close the window
-       
+
     def connect(self):
         username =  self.ui.optionLoginUsername.text()
         password = self.ui.optionLoginPassword.text()
-        
+
         self._main.window.setCursor(Qt.WaitCursor)
         if not hasattr(self, 'OSDBServer'):
             if not self._main.establishServerConnection():# and self.OSDBServer.is_connected():

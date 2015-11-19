@@ -72,7 +72,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-# 
+#
 # -----------------------------------------------------------------------
 #endif
 
@@ -181,7 +181,7 @@ class OgmInfo(mediainfo.AVInfo):
                                 for v in pos.split(':'):
                                     new_pos = new_pos * 60 + float(v)
                                 pos = int(new_pos)
-                                
+
                             c = mediainfo.ChapterInfo(self.all_header[i][s + 'NAME'], pos)
                             del self.all_header[i][s + 'NAME']
                             del self.all_header[i][s]
@@ -192,8 +192,8 @@ class OgmInfo(mediainfo.AVInfo):
         for stream in self.all_streams:
             if not stream.length:
                 stream.length = self.length
-                
-        # Copy Metadata from tables into the main set of attributes        
+
+        # Copy Metadata from tables into the main set of attributes
         for header in self.all_header:
             self.appendtable('VORBISCOMMENT', header)
 
@@ -203,7 +203,7 @@ class OgmInfo(mediainfo.AVInfo):
             map(lambda x:self.setitem(x,self.gettable(k[0],k[1]),
                                       self.tag_map[k][x]), self.tag_map[k].keys())
 
-        
+
     def _parseOGGS(self,file):
         h = file.read(27)
         if len(h) == 0:
@@ -212,7 +212,7 @@ class OgmInfo(mediainfo.AVInfo):
         elif len(h) < 27:
             _print("%d Bytes of Garbage found after End." % len(h))
             return None, None
-        if h[:4] != "OggS":        
+        if h[:4] != "OggS":
             self.valid = 0
             _print("Invalid Ogg")
             return None, None
@@ -234,7 +234,7 @@ class OgmInfo(mediainfo.AVInfo):
             nextlen += ord(tab[i])
         else:
             h = file.read(1)
-            packettype = ord(h[0]) & PACKET_TYPE_BITS 
+            packettype = ord(h[0]) & PACKET_TYPE_BITS
             if packettype == PACKET_TYPE_HEADER:
                 h += file.read(nextlen-1)
                 self._parseHeader(h, granulepos)
@@ -254,7 +254,7 @@ class OgmInfo(mediainfo.AVInfo):
 
         return granulepos, nextlen + 27 + pageSegCount
 
-        
+
     def _parseMeta(self,h):
         flags = ord(h[0])
         headerlen = len(h)
@@ -274,7 +274,7 @@ class OgmInfo(mediainfo.AVInfo):
             self.subtype = ''
             self.all_header.append(header)
 
-            
+
     def _parseHeader(self,header,granule):
         headerlen = len(header)
         flags = ord(header[0])
@@ -290,7 +290,7 @@ class OgmInfo(mediainfo.AVInfo):
             #ai.length = granule / ai.samplerate
             self.audio.append(ai)
             self.all_streams.append(ai)
-            
+
         elif headerlen >= 7 and header[1:7] == 'theora':
             #print "Theora Header"
             # Theora Header
@@ -346,10 +346,10 @@ class OgmInfo(mediainfo.AVInfo):
                 subtitle.type   = 'subtitle'
                 subtitle.length = 0
                 self.all_streams.append(subtitle)
-                
+
         else:
             _print("Unknown Header")
-              
+
 
     def _extractHeaderString(self,header):
         len = struct.unpack( '<I', header[:4] )[0]

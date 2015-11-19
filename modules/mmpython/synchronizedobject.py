@@ -5,14 +5,14 @@
 # synchronized objects and methods.
 # By André Bjärby
 # From http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65202
-# 
+#
 
 from types import *
 
 def _get_method_names (obj):
     if type(obj) == InstanceType:
         return _get_method_names(obj.__class__)
-    
+
     elif type(obj) == ClassType:
         result = []
         for name, func in obj.__dict__.items():
@@ -40,7 +40,7 @@ class _SynchronizedMethod:
         finally:
             self.__lock.release()
 
-class SynchronizedObject:    
+class SynchronizedObject:
     def __init__ (self, obj, ignore=[], lock=None):
         import threading
 

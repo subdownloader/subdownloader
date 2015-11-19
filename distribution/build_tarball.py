@@ -26,22 +26,22 @@ def checkPoFiles(localedir = os.path.join(projectdir, "locale")):
     for root, dirs, files in os.walk(localedir):
                 if re.search(".*locale$", os.path.split(root)[0]):
                         _lang = os.path.split(root)[-1]
-                
+
                 if not 'subdownloader.po' in files and not dirs:
                         print ".po not found in %s" % _lang
                         error = True
-    
+
     if error:
         return False
     return True
-                        
+
 def copy_to_temp(project_directory, temp_path):
     sys.stdout.write("Copying project directory to '%s'..."% temp_path)
     sys.stdout.flush()
     shutil.copytree(project_directory, temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
-    
+
 def clean_temp_directory(temp_path, exclude_dirs=exclude_dirs):
     sys.stdout.write("Cleaning '%s'..."% temp_path)
     sys.stdout.flush()
@@ -57,7 +57,7 @@ def clean_temp_directory(temp_path, exclude_dirs=exclude_dirs):
                     os.remove(os.path.join(root, fileName))
     sys.stdout.write(" done\n")
     sys.stdout.flush()
-    
+
 def distribution_clean(temp_path, exclude_dirs, gui):
     if not gui:
         sys.stdout.write("Excluding 'gui' folder.\n")
@@ -83,7 +83,7 @@ def remove_temp(temp_path):
     shutil.rmtree(temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
-    
+
 def toZip( zipFile, directory, compress_lib=zipfile):
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, zipFile))
     sys.stdout.flush()
@@ -97,12 +97,12 @@ def toZip( zipFile, directory, compress_lib=zipfile):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     return zipFile
-    
+
 def toTarGz(filename_noext, directory):
     compressedFileName = "%s.tar.gz" % filename_noext
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, compressedFileName))
     sys.stdout.flush()
-   
+
     import tarfile
 
     def fileFilter(tarinfo):
@@ -123,7 +123,7 @@ def toTarGz(filename_noext, directory):
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     return compressedFileName
-    
+
 def get_git_revision():
     version = commands.getoutput('git rev-parse HEAD')
     return version

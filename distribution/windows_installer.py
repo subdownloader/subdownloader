@@ -26,10 +26,10 @@ print sys.path
 
 def py2exe(dist_dir, dist_build):
     sys.argv[1:2] = ['py2exe']
-    sys.argv.append ( "--verbose" ) 
+    sys.argv.append ( "--verbose" )
     print sys.argv
     print sys.path
-    
+
     setup(name=APP_TITLE,
         version=APP_VERSION,
         description='Find Subtitles for your Videos',
@@ -38,7 +38,7 @@ def py2exe(dist_dir, dist_build):
         url='http://www.subdownloader.net',
         #includes=['FileManagement', 'cli', 'gui', 'languages', 'modules'],
         package_dir={'subdownloader':'.'},
-        zipfile = None, 
+        zipfile = None,
         data_files=[
                     ('gui/images', ['gui/images/splash.png']),#glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
                     #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
@@ -46,20 +46,20 @@ def py2exe(dist_dir, dist_build):
                     ('', ['README'])
         ],
         windows=[{
-                        'script':'run.py', 
-                        'icon_resources':[(1, 'gui/images/icon32.ico')]}], 
-        #console=[{'script':'run.py -cli'}], 
+                        'script':'run.py',
+                        'icon_resources':[(1, 'gui/images/icon32.ico')]}],
+        #console=[{'script':'run.py -cli'}],
         options = { 'py2exe' : {'compressed': 1,
-                                      'optimize'  : 2, 
+                                      'optimize'  : 2,
                                       'includes'  : [
-                                                 'sip', 
-                                                # 'subdownloader.modules.configuration.*', 
+                                                 'sip',
+                                                # 'subdownloader.modules.configuration.*',
                                                  ],
                                       'excludes'  : ["Tkconstants", "Tkinter", "tcl",
                                                      "_imagingtk", "ImageTk", "FixTk"
                                                     ],
-                                        'dist_dir' :  dist_dir, 
-                                       #'bundle_files': 1, 
+                                        'dist_dir' :  dist_dir,
+                                       #'bundle_files': 1,
                                        }
                         }
         )
@@ -77,7 +77,7 @@ OutFile "%(outpath)s\SubDownloader-${PRODUCT_VERSION}.exe"
 ; The default installation directory
 InstallDir $PROGRAMFILES\${PRODUCT_NAME}
 
-; Registry key to check for directory (so if you install again, it will 
+; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM "Software\${PRODUCT_NAME}" "Install_Dir"
 
@@ -98,17 +98,17 @@ Section "${PRODUCT_NAME} (required)"
   ; Put file there
   !define PY2EXE_DIR "%(py2exe_dir)s"
   File /r "${PY2EXE_DIR}\*"
-  
+
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\${PRODUCT_NAME} "Install_Dir" "$INSTDIR"
-  
+
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "DisplayName" "${PRODUCT_NAME}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}" "NoRepair" 1
   WriteUninstaller "uninstall.exe"
-  
+
 SectionEnd
 
 ; Optional section (can be disabled by the user)
@@ -120,7 +120,7 @@ SectionEnd
 
 ; Uninstaller
 Section "Uninstall"
-  
+
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
   DeleteRegKey HKLM SOFTWARE\${PRODUCT_NAME}
@@ -136,9 +136,9 @@ SectionEnd
     '''
     def __init__(self, name, version, py2exe_dir, output_dir):
         self.installer = self.__class__.TEMPLATE % dict(name=name, py2exe_dir=py2exe_dir,
-                                                   version=version, 
+                                                   version=version,
                                                    outpath=os.path.abspath(output_dir))
-        
+
     def build(self):
         f = open('installer.nsi', 'w')
         path = f.name
@@ -153,7 +153,7 @@ SectionEnd
             os.remove(path)
 
 if __name__ == '__main__':
-    
+
         print 'Create EXE'
         print 'Deleting build and distribution/dist'
         PY2EXE_BUILD = os.path.join('build')

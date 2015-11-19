@@ -17,7 +17,7 @@ class Filter(object):
         self.videos = videos
         self.interactive = interactive
         self.rename_subs = rename_subs
-        
+
     def subtitles_to_download(self):
         subtitles_to_download ={}
         self.log.debug("Building subtitle matrix ...")
@@ -50,7 +50,7 @@ class Filter(object):
                         choice = raw_input("Please make your choice: [auto] ").lower() or 'auto'
                     if choice != 'auto':
                         sub_choice = video.getOnlineSubtitles()[int(choice)]
-                        
+
                 if choice == 'auto' or choice == 'auto_':
                     # set a starting point to compare scores
                     best_rated_sub = video.getOnlineSubtitles()[0]
@@ -69,7 +69,7 @@ class Filter(object):
                         self.log.debug("Subtitle choosen by rating")
                         sub_choice = best_rated_sub
                     self.log.debug("- adding: %s"% (sub_choice.getFileName()))
-                    
+
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
                 if self.rename_subs:
                     subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
@@ -81,5 +81,5 @@ class Filter(object):
                 subtitles_to_download[sub_choice.getIdFileOnline()] = os.path.join(video.getFolderPath(), subtitle_filename)
             else:
                 self.log.info("No subtitle was downloaded \"%s\". Maybe you already have it?"% video.getFileName())
-            
+
         return subtitles_to_download
