@@ -1,0 +1,8 @@
+subdownloader.e4p
+.eric4project
+.bzr
+
+*.orig *.rej
+*.pyc
+
+*.tar.gz

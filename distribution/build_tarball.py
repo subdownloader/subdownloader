@@ -7,16 +7,21 @@ import re
 import shutil
 import zipfile
 import commands
+import tempfile
 
-sys.path.insert(0, os.path.dirname(os.getcwd()))
+projectdir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.insert(0, projectdir)
 
-print sys.path
 from modules import APP_TITLE, APP_VERSION
 
-exclude_dirs = ["flags",".svn",".bzr","firesubtitles","build","distribution", "debian", "mmpython"]
-exclude_files = ["pyc", "~", "tmp", "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile", "log", "build_tarball.py", "notes.py", "srt", "windows_installer.py","expiration.py", "paypal.png"]
+exclude_dirs = ["flags", ".git", ".svn", ".bzr", "firesubtitles",
+    "build", "distribution",  "debian", "mmpython"]
+exclude_files = [".gitignore", ".bzrignore", "pyc", "~", "tmp",
+    "xml", "e4p", "e4q", "e4s", "e4t", "zip", "cfg", "lockfile",
+    "log", "build_tarball.py", "notes.py", "srt", "windows_installer.py",
+    "expiration.py", "paypal.png"]
 
-def checkPoFiles(localedir = "../locale"):
+def checkPoFiles(localedir = os.path.join(projectdir, "locale")):
     error = False
     for root, dirs, files in os.walk(localedir):
                 if re.search(".*locale$", os.path.split(root)[0]):
@@ -30,15 +35,14 @@ def checkPoFiles(localedir = "../locale"):
         return False
     return True
                         
-def copy_to_temp(temp_path="/tmp/subdownloader-" + APP_VERSION):
-    sys.stdout.write("Copying current path contents to '%s'..."% temp_path)
+def copy_to_temp(project_directory, temp_path):
+    sys.stdout.write("Copying project directory to '%s'..."% temp_path)
     sys.stdout.flush()
-    #os.mkdir("subdownloader_cli")
-    shutil.copytree("..", os.path.join("..", temp_path))
+    shutil.copytree(project_directory, temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def clean_temp(temp_path="/tmp/subdownloader-" + APP_VERSION, exclude_dirs=exclude_dirs):
+def clean_temp_directory(temp_path, exclude_dirs=exclude_dirs):
     sys.stdout.write("Cleaning '%s'..."% temp_path)
     sys.stdout.flush()
     for root, dirs, fileNames in os.walk(temp_path):
@@ -54,30 +58,33 @@ def clean_temp(temp_path="/tmp/subdownloader-" + APP_VERSION, exclude_dirs=exclu
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def clean_temp_cli(temp_path="/tmp/subdownloader-" + APP_VERSION, exclude_dirs=exclude_dirs):
-    exclude_dirs.append("gui") # append another unwanted directory
-    clean_temp(exclude_dirs=exclude_dirs)
+def distribution_clean(temp_path, exclude_dirs, gui):
+    if not gui:
+        sys.stdout.write("Excluding 'gui' folder.\n")
+        exclude_dirs.append("gui") # append another unwanted directory
 
-def convert_to_cli(dir="/tmp/subdownloader-" + APP_VERSION):
-    # just a thing to replace some lines on the code
-    fileName = 'run.py'
-    f = open(os.path.join(dir, fileName))
-    text = f.read()
-    f.close()
-    final = open(os.path.join(dir, fileName), 'w')
-    text = text.replace("import gui.main", "pass")
-    text = text.replace("gui.main.main(options)", "log.warning('GUI mode unavailable')")
-    final.write(text)
-    final.close()
+        # just a thing to replace some lines on the code
+        sys.stdout.write("Rewriting 'run.py'.")
+        fileName = 'run.py'
+        f = open(os.path.join(temp_path, fileName), "r")
+        text = f.read()
+        f.close()
+        final = open(os.path.join(temp_path, fileName), "w")
+        text = text.replace("import gui.main", "pass")
+        text = text.replace("gui.main.main(options)", "log.warning('GUI mode unavailable')")
+        final.write(text)
+        final.close()
 
-def remove_temp(temp_path="/tmp/subdownloader-" + APP_VERSION):
+    clean_temp_directory(temp_path, exclude_dirs=exclude_dirs)
+
+def remove_temp(temp_path):
     sys.stdout.write("Removing temporary directory '%s'..."% temp_path)
     sys.stdout.flush()
     shutil.rmtree(temp_path)
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     
-def toZip( zipFile, directory="/tmp/subdownloader-" + APP_VERSION, compress_lib=zipfile):
+def toZip( zipFile, directory, compress_lib=zipfile):
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, zipFile))
     sys.stdout.flush()
     z = compress_lib.ZipFile("%s.zip" % zipFile, 'w', compression=zipfile.ZIP_DEFLATED)
@@ -91,54 +98,94 @@ def toZip( zipFile, directory="/tmp/subdownloader-" + APP_VERSION, compress_lib=
     sys.stdout.flush()
     return zipFile
     
-def toTarGz( filename_noext, directory="/tmp/subdownloader-" + APP_VERSION):
+def toTarGz(filename_noext, directory):
     compressedFileName = "%s.tar.gz" % filename_noext
     sys.stdout.write("Compressing '%s' to '%s'..."% (directory, compressedFileName))
     sys.stdout.flush()
    
     import tarfile
+
+    def fileFilter(tarinfo):
+        if tarinfo.name == compressedFileName:
+            return None
+        tarinfo.uid = tarinfo.gid = 0
+        tarinfo.uname = tarinfo.gname = "root"
+        return tarinfo
+
     tar = tarfile.open(compressedFileName, "w:gz")
     for root, dirs, fileNames in os.walk(directory):
         for fileName in fileNames:
-            if fileName is not compressedFileName: #avoid self compress
-                    filePath = os.path.join(root, fileName)
-                    tarinfo = tar.gettarinfo(filePath, os.path.join(filePath.lstrip("/tmp/")))
-                    tarinfo.uid = 123
-                    tarinfo.gid = 456
-                    #tarinfo.uname = "johndoe"
-                    #tarinfo.gname = "fake"
-                    tar.addfile(tarinfo, file(filePath))
+            filePath = os.path.join(root, fileName)
+            arcname = filePath[len(directory):]
+            tar.add(filePath, arcname=arcname, filter=fileFilter)
     tar.close()
 
     sys.stdout.write(" done\n")
     sys.stdout.flush()
     return compressedFileName
     
-def get_svn_revision():
-    commands.getoutput("cd ..;bzr update")
-    version = commands.getoutput('bzr version-info --custom --template="{revno}"')
+def get_git_revision():
+    version = commands.getoutput('git rev-parse HEAD')
     return version
 
+import argparse
+import tarfile
+
+def create_distribution(projectdirectory):
+    outdir = tempfile.mkdtemp()
+    compressedFileName = "fff.tar.gz"
+    outfilename = os.path.join(outdir, compressedFileName)
+    tar = tarfile.open(outfilename, "w:gz")
+
+    def fileFilter(tarinfo):
+        if tarinfo.name == compressedFileName:
+            #avoid self compress
+            return None
+        tarinfo.uid = tarinfo.gid = 0
+        tarinfo.uname = tarinfo.gname = "root"
+        return tarinfo
+
+    for root, dirs, fileNames in os.walk(projectdirectory, topdown=False):
+        for fileName in fileNames:
+            filePath = os.path.join(root, fileName)
+            _, _, relativePath = filePath.partition(projectdirectory)
+            tar.add(filePath, arcname=relativePath, filter=fileFilter)
+    sys.stdout.write("output=%s\n" % (outfilename))
+
+
 if __name__ == "__main__":
-    svn_revision = get_svn_revision()
-    fileName = "subdownloader-" + APP_VERSION
+    parser = argparse.ArgumentParser(description='Create distributable tarball')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-cli', dest='gui', action='store_false',
+        help='Create CLI only distribution')
+    group.add_argument('-gui', dest='gui', action='store_true',
+        help='Create GUI+CLI distribution')
+    args = parser.parse_args()
+
+    git_revision = get_git_revision()
+    sys.stdout.write("Git revision %s\n" % (git_revision))
+
+    if args.gui:
+        fileNameBase = "subdownloader-"
+    else:
+        fileNameBase = "subdownloader_cli-"
+    fileName = fileNameBase + APP_VERSION
+
+    #Create temporary directory
+    temp_parent = tempfile.mkdtemp()
+    temp_path = os.path.join(temp_parent, fileName)
+
     # create the tarball directory tree
     if not checkPoFiles():
         sys.exit(1)
-    copy_to_temp()
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-cli":
-            fileName = "SubDownloader_CLI-" + APP_VERSION
-            # delete gui and other unwanted stuff
-            clean_temp_cli()
-            # replace some source code
-            convert_to_cli()
-        elif sys.argv[1] == "-gui":
-            pass
-    else:
-        clean_temp()
+
+    copy_to_temp(projectdir, temp_path)
+
+    distribution_clean(temp_path, exclude_dirs, args.gui)
+
     # create the tarball and delete the source directory
     #toZip(compressedFileName)
-    toTarGz(fileName)
+    toTarGz(fileName, temp_path)
+
     # delete temporary directory
-    remove_temp()
+    remove_temp(temp_parent)
