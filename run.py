@@ -11,10 +11,8 @@ else:
 
 
 import logging
-from optparse import OptionParser
-# this will allow logic imports
-#sys.path.append(os.path.dirname(sys.path[0]))
-#print sys.path[0]
+import argparse
+
 sys.path.append(os.path.join(sys.path[0], 'modules') )
 # simple aplication starter
 import modules.configuration as conf
@@ -29,8 +27,10 @@ DEBUG       10
 NOTSET       0
 """
 #TODO: Check if APP_VERSION replace really works.
-parser = OptionParser(description=conf.General.description, version=APP_VERSION, option_list=conf.Terminal.option_list)
-(options, args) = parser.parse_args()
+parser = argparse.ArgumentParser(description=conf.General.description)
+conf.Terminal.populate_parser(parser)
+
+options = parser.parse_args()
 
 if platform.system() == "Windows":
     try:

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
-from optparse import make_option
 import logging
 import os.path
 import user
@@ -20,62 +19,93 @@ NOTSET       0
 """
 
 class Terminal(object):
-    option_list = [
+    @classmethod
+    def populate_parser(cls, parser):
+        parser.add_argument("--version", action="version", version=APP_VERSION)
         # internal application options
-        make_option("-g", "--gui", dest="mode", action="store_const", const="gui",  #default="cli",
-                                help="Run applicatin in GUI mode. This is the default"),
-        make_option("-c", "--cli", dest="mode", action="store_const", const="cli",  default="gui",
-                                help="Run applicatin in CLI mode"),
-        make_option("-d", "--debug", dest="logging", default=logging.INFO,
-                                action="store_const", const=logging.DEBUG,
-                                help="Print debug messages to stout and logfile"),
-        make_option("-q", "--quiet", dest="verbose",
-                                action="store_false", default=True,
-                                help="Don't print status messages to stdout"),
-        make_option("-T", "--test", dest="test",
-                                action="store_true", default=False,
-                                help="Used by developers for testing"),
-        make_option("-H", "--human", dest="output", action="store_const", const="human",
-                                help="Print human readable messages. Default for CLI mode"),
-        make_option("-n", "--nerd", dest="output", action="store_const", const="nerd",
-                                default="human", help="Print messages with more details"),
-        # user application options
-        make_option("-D", "--download", dest="operation", action="store_const", const="download",
-                                help="Download a subtitle. Default for CLI mode"),
-        make_option("-U", "--upload", dest="operation", action="store_const", const="upload",
-                                default="download", help="Upload a subtitle"),
-        make_option("-L", "--list", dest="operation", action="store_const", const="list",
-                                default="download", help="List available subtitles without downloading"),
-        make_option("-V", "--video", dest="videofile", metavar="FILE/DIR", default=None,
-                                help="Full path to your video(s). Don't use '~'"),
-        make_option("-l", "--lang", dest="language", default='all',
-                                help="Used in subtitle download and upload preferences"),
-        make_option("-i","--interactive", dest="interactive", action="store_true", default=False,
-                                help="Prompt user when decisions need to be done"),
-        make_option("--rename-subs", dest="renaming", action="store_true",
-                                help="Rename subtitles to match movie file name"),
-        make_option("--keep-names", dest="renaming", action="store_false", default=False,
-                                help="Keep original subtitle names"),
-        make_option("--sol", dest="overwrite_local", action="store_true", #default=False,
-                                help="'Server Over Local' overwrites local subtitle with one from server. This is in cases when local subtitle isn't found on server, but server has subtitles for the movie."),
-        make_option("--los", dest="overwrite_local", action="store_false", default=False,
-                                help="'Local Over Server' keeps local subtitles, even if another is found on server. This is the default"),
+        parser.add_argument("-d", "--debug", dest="logging", default=logging.INFO,
+            action="store_const", const=logging.DEBUG,
+            help="Print debug messages to stdout and logfile")
+        parser.add_argument("-q", "--quiet", dest="verbose",
+            action="store_false", default=True,
+            help="Don't print status messages to stdout")
 
-        make_option("-u", "--user", dest="username", default='',
-                                help="Opensubtitles.com username. Must be set in upload mode. Default is blank (anonymous)"),
-        make_option("-p", "--password", dest="password", default='',
-                                help="Opensubtitles.com password. Must be set in upload mode. Default is blank (anonymous)"),
+        guicli = parser.add_mutually_exclusive_group()
+        guicli.add_argument("-g", "--gui", dest="mode",
+            action="store_const", const="gui",
+            help="Run application in GUI modei. This is the default")
+        guicli.add_argument("-c", "--cli", dest="mode",
+            action="store_const", const="cli",
+            help="Run application in CLI mode")
+        parser.set_defaults(mode="gui")
+
+        parser.add_argument("-T", "--test", dest="test",
+            action="store_true", default=False,
+            help="Used by developers for testing")
+        parser.add_argument("-H", "--human", dest="output",
+            action="store_const", const="human",
+            help="Print human readable messages. Default for CLI mode")
+        parser.add_argument("-n", "--nerd", dest="output",
+            action="store_const", const="nerd", default="human",
+            help="Print messages with more details")
+        parser.set_defaults(output="human")
+
+        # user application options
+        updown = parser.add_mutually_exclusive_group()
+        updown.add_argument("-D", "--download", dest="operation",
+            action="store_const", const="download",
+            help="Download a subtitle. Default for CLI mode")
+        updown.add_argument("-U", "--upload", dest="operation",
+            action="store_const", const="upload", default="download",
+            help="Upload a subtitle")
+        parser.set_defaults(operation="download")
+
+        parser.add_argument("-L", "--list", dest="operation",
+            action="store_const", const="list", default="download",
+            help="List available subtitles without downloading")
+        parser.add_argument("-V", "--video", dest="videofile",
+            metavar="FILE/DIR", default=None,
+            help="Full path to your video(s). Don't use '~'")
+        parser.add_argument("-l", "--lang", dest="language", default='all',
+            help="Used in subtitle download and upload preferences")
+        parser.add_argument("-i","--interactive", dest="interactive",
+            action="store_true", default=False,
+            help="Prompt user when decisions need to be done")
+        parser.add_argument("--rename-subs", dest="renaming",
+            action="store_true",
+            help="Rename subtitles to match movie file name")
+        parser.add_argument("--keep-names", dest="renaming",
+            action="store_false", default=False,
+            help="Keep original subtitle names")
+        parser.add_argument("--sol", dest="overwrite_local",
+            action="store_true", #default=False,
+            help="'Server Over Local' overwrites local subtitle with one "\
+                "from server. This is in cases when local subtitle isn't "\
+                "found on server, but server has subtitles for the movie.")
+        parser.add_argument("--los", dest="overwrite_local",
+            action="store_false", default=False,
+            help="'Local Over Server' keeps local subtitles, even if another"\
+                "is found on server. This is the default")
+
+        parser.add_argument("-u", "--user", dest="username", default='',
+            help="Opensubtitles.com username. Must be set in upload mode."\
+                "Default is blank (anonymous)")
+        parser.add_argument("-p", "--password", dest="password", default='',
+            help="Opensubtitles.com password. Must be set in upload mode."\
+                "Default is blank (anonymous)")
+
         # misc options
-        make_option("-s", "--server", dest="server", default=None,
-                                help="Server address of Opensubtitles API"),
-        make_option("-P", "--proxy", dest="proxy", default=None,
-                                help="Proxy to use on internet connections")
-        ]
+        parser.add_argument("-s", "--server", dest="server", default=None,
+            help="Server address of Opensubtitles API")
+        parser.add_argument("-P", "--proxy", dest="proxy", default=None,
+            help="Proxy to use on internet connections")
 
     progress_bar_style= [progressbar.Bar(), progressbar.Percentage(), ' ', progressbar.ETA()]
 
 class Graphical(object):
-    pass
+    @classmethod
+    def populate_parser(cls, parser):
+        pass
 
 class General(object):
     name = APP_TITLE
