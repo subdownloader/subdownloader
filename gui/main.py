@@ -51,7 +51,7 @@ QCoreApplication.flush()
 from modules import *
 from modules.SDService import SDService, TimeoutFunctionException
 
-from gui import installErrorHandler, Error, _Warning, extension
+from gui import installErrorHandler, Error, extension
 
 from gui.uploadlistview import UploadListModel, UploadListView
 from gui.videotreeview import VideoTreeModel

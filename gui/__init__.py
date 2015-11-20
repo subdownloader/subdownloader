@@ -21,13 +21,6 @@ def installErrorHandler(dialog):
     error_dialog.setWindowTitle(APP_TITLE + " - Error")
     error_dialog.setModal(True)
 
-
-def _Warning(msg, e):
-    sys.stderr.write(msg)
-    sys.stderr.write("\n")
-    if e:
-        traceback.print_exc(e)
-
 def Error(msg, e):
     if error_dialog:
         if e:
