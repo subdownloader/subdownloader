@@ -33,9 +33,9 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                 if isinstance(sub_list, list):
                     sub_list.index(possiblefilenamesrt)
                     return possiblefilenamesrt
-            except ValueError, e:
+            except ValueError as e:
                 log.debug(e)
-            except AttributeError, e:
+            except AttributeError as e:
                 log.debug(e)
         elif os.path.exists(os.path.join(videofolder, possiblefilenamesrt)):
             return os.path.join(videofolder, possiblefilenamesrt)
@@ -64,7 +64,7 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
                             return filename
                         else:
                             return os.path.join(videofolder,filename)
-            except AttributeError, e:
+            except AttributeError as e:
                 log.error(e)
 
     #3rd METHOD SCORE EVERY SUBTITLE (this needs the sub_list) (by searching the filename of the video in the content of the subtitle)

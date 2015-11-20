@@ -33,13 +33,15 @@ def test_connection(url, timeout=CON_TIMEOUT):
        	urllib2.urlopen(url)
 	log.debug("successfully tested connection")
 	connectable=True
-    except urllib2.HTTPError, e:
+    except urllib2.HTTPError as e:
        	log.error('The server couldn\'t fulfill the request. Error code: '% e.code)
-    except urllib2.URLError, e:
+    except urllib2.URLError as e:
        	log.error('We failed to reach a server. Reason: %s '% e.reason)
-    except socket.error, (value,message):
+    except socket.error as xxx_todo_changeme:
+       	(value,message) = xxx_todo_changeme.args
        	log.error("Could not open socket: %s"% message)
-    except socket.sslerror, (value,message):
+    except socket.sslerror as xxx_todo_changeme1:
+       	(value,message) = xxx_todo_changeme1.args
        	log.error("Could not open ssl socket: %s"% message)
     socket.setdefaulttimeout(defTimeOut)
     return connectable
@@ -67,7 +69,7 @@ class TimeoutFunction:
         try:
             t.start()
             result = self.function(*args)
-        except Exception, e:
+        except Exception as e:
             self.log.error("%s",sys.exc_info())
             raise e
         finally:
@@ -134,14 +136,14 @@ class SDService(object):
         #OSConnection.__init__(self)
         try:
             self.create_xmlrpcserver(self.server, self.proxy)
-        except Exception, e:
-            raise e
+        except Exception as e:
+            raise
 
     def create_xmlrpcserver(self, server, proxy):
         self.log.debug("Creating XMLRPC server connection... to server %s with proxy %s" %(server,proxy))
         try:
             return self.connect(server, proxy)
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def connect(self, server, proxy):
@@ -150,10 +152,10 @@ class SDService(object):
             self.log.debug("Connecting with parameters (%r, %r)" %(server, proxy))
             connect = TimeoutFunction(self._connect)
             return connect(server, proxy)
-        except TimeoutFunctionException, e:
+        except TimeoutFunctionException as e:
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.error("connect: Unexpected error: %s", sys.exc_info())
             raise e
         finally:
@@ -181,13 +183,13 @@ class SDService(object):
                 self.log.debug("...failed")
                 self.log.error("Unable to connect. Try setting a proxy.")
                 return False
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error: %s",sys.exc_info())
             raise e
 
@@ -207,7 +209,7 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
 
-        except Exception, e:
+        except Exception as e:
             print type(e)     # the exception instance
             print e.args      # arguments stored in .args
             print e           # __str__ allows args to printed directly
@@ -228,7 +230,7 @@ class SDService(object):
             return login(username, password)
         except TimeoutFunctionException:
             self.log.error("login timed out")
-        except Exception, e:
+        except Exception as e:
             self.log.error("login: other issue:%s",sys.exc_info()[0])
             raise e
 
@@ -273,13 +275,13 @@ class SDService(object):
         try:
             info = self.xmlrpc_server.LogOut(self._token)
             self.log.debug("Logout ended in %s with status: %s"% (info['seconds'], info['status']))
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error: %s",sys.exc_info())
             raise e
         finally:
@@ -314,13 +316,13 @@ class SDService(object):
                 for lang in info['data']:
                     if lang['ISO639'] == language: return lang['SubLanguageID']
             return info['data']
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
 
@@ -357,13 +359,13 @@ class SDService(object):
     #        for data in info['data']:
     #            result[data.key()] = data.value()
             return result
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
 
@@ -396,13 +398,13 @@ class SDService(object):
         try:
             answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
             self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
         else:
@@ -687,10 +689,10 @@ class SDService(object):
         SearchMoviesOnIMDB = TimeoutFunction(self._SearchMoviesOnIMDB)
         try:
             return SearchMoviesOnIMDB(query)
-        except TimeoutFunctionException,  e:
+        except TimeoutFunctionException as e:
             self.log.error("SearchMoviesOnIMDB timed out")
             raise
-        except Exception, e:
+        except Exception as e:
             traceback.print_exc(e)
             raise
 
@@ -715,7 +717,7 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("GetIMDBMovieDetails timed out")
             return False
-        except Exception, e:
+        except Exception as e:
             traceback.print_exc(e)
             return False
 
@@ -746,13 +748,13 @@ class SDService(object):
         if not app: app = APP_TITLE.lower()
         try:
             info = self.xmlrpc_server.CheckSoftwareUpdates(app)
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception,e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
         else:
@@ -785,13 +787,13 @@ class SDService(object):
                 return True
             else:
                 return noop
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
 
@@ -816,13 +818,13 @@ class SDService(object):
         try:
             info = self.xmlrpc_server.SearchToMail(self._token, languages, video_array)
             self.log.debug("SearchToMail finished in %s with status %s."% (info['seconds'], info['status']))
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise e
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise e
-        except Exception, e:
+        except Exception as e:
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise e
 

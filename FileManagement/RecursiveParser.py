@@ -71,7 +71,7 @@ class RecursiveParser:
         # Using specific exception types in your error handling allows you to customize
         # error messages for each type of error that occurs instead of always printing
         # a generic "Something went wrong but I don't know what it was" type of error.
-        except WindowsError, e:
+        except WindowsError as e:
             self.log.error("An error has occured. You may not have permission to access all files and folders in the specified path.")
             self.log.error(e)
 
@@ -171,16 +171,16 @@ class RecursiveParser:
             #print "An error has occured.  You may not have permission"
             #print "to access all files and folders in the specified path."
 
-        except OSError, e:
-                print e[1] + ". Please select a specific folder."
+        except OSError as e:
+                print(e[1] + ". Please select a specific folder.")
                 sys.exit(1)
 
-        except TypeError, e:
+        except TypeError as e:
             self.log.error("The calling code has passed an invalid parameter to getRecursiveFileList.")
             self.log.error(e)
 
         # This is an example of a generic catchall for exceptions.
-        except Exception, e:
+        except Exception as e:
             self.log.error(e)
 
         # Recursively call getRecursiveDirList until you reach the end of the directory structure

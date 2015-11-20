@@ -224,7 +224,7 @@ class MovInfo(mediainfo.AVInfo):
                         # XXX Fix me to work on Apple, too
                         self.date = int(tkhd[1]) - 2082844800
                         self.date = time.strftime('%y/%m/%d', time.gmtime(self.date))
-                    except Exception, e:
+                    except Exception as e:
                         print 'ex', e
 
                 elif datatype == 'mdia':
@@ -322,10 +322,10 @@ class MovInfo(mediainfo.AVInfo):
                 data = file.read(datasize-8)
                 try:
                     decompressed = zlib.decompress(data)
-                except Exception, e:
+                except Exception as e:
                     try:
                         decompressed = zlib.decompress(data[4:])
-                    except Exception, e:
+                    except Exception as e:
                         if mediainfo.DEBUG:
                             print 'unable to decompress atom'
                         return atomsize

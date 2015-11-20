@@ -49,7 +49,7 @@ class Main(SDService.SDService):
         SDService.SDService.__init__(self, 'osdb', server = self.options.server ,proxy=self.options.proxy)
         try:
             self.login(self.options.username, self.options.password)
-        except Exception, e:
+        except Exception as e:
             self.log.error(e)
             return
 

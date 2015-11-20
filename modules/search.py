@@ -332,7 +332,7 @@ class SearchByName(object):
                             temp_movie.subtitles.append(sub_obj)
                         result_entries.append(temp_movie)
 
-            except IndexError, e:
+            except IndexError as e:
                 pass
         return result_entries
 

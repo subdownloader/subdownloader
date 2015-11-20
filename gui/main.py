@@ -64,7 +64,7 @@ class Main(QObject, Ui_MainWindow):
         def function(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-            except Exception, e:
+            except Exception as e:
                 Error("There was an error calling " + func.__name__, e)
                 raise
         return function
@@ -585,7 +585,7 @@ class Main(QObject, Ui_MainWindow):
                 self.login_button.setText(_("Login as %s: ERROR") % username)
                 self.status_progress.close()
                 return False
-        except Exception, e:
+        except Exception as e:
             self.login_button.setText(_("Login: ERROR"))
             traceback.print_exc(e)
             self.status_progress.close()
@@ -968,7 +968,7 @@ class Main(QObject, Ui_MainWindow):
                 ok = self.OSDBServer.DownloadSubtitles({subtitleFileID:tempSubFilePath})
                 if not ok:
                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % subtitle.getFileName())
-            except Exception, e:
+            except Exception as e:
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % subtitle.getFileName())
             finally:
@@ -995,7 +995,7 @@ class Main(QObject, Ui_MainWindow):
                 pid = os.fork()
                 if not pid :
                     os.execvpe(os.P_NOWAIT, programPath,params, os.environ)
-            except Exception, e:
+            except Exception as e:
                 traceback.print_exc(e)
                 QMessageBox.about(self.window,_("Error"),_("Unable to launch videoplayer"))
 
@@ -1145,7 +1145,7 @@ class Main(QObject, Ui_MainWindow):
                             #success_downloaded += 1
                         #else:
                             #QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") %sub.getFileName())
-                except Exception, e:
+                except Exception as e:
                     traceback.print_exc(e)
                     QMessageBox.about(self.window,_("Error"),_("Unable to download subtitle %s") % sub.getFileName())
                 finally:
@@ -1210,7 +1210,7 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.close()
             self.showErrorConnection()
 
-        except Exception, e:
+        except Exception as e:
             traceback.print_exc(e)
             #self.progress(0, "Error contacting the server")
             self.status_progress.close()
@@ -1644,7 +1644,7 @@ class Main(QObject, Ui_MainWindow):
                     oFile.close()
                     subSocket.close()
                     dlOK = True
-                except Exception, e:
+                except Exception as e:
                     dlkOK = False
                     log.debug(e)
                     QMessageBox.critical(self.window,_("Error"),_("An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
@@ -1669,7 +1669,7 @@ class Main(QObject, Ui_MainWindow):
                         zipf.close()
                         os.unlink(zipDestFile) # Remove zipfile-for nice-ness. Could be an option perhaps?
                         unzipedOK += 1
-                    except Exception, e:
+                    except Exception as e:
                         log.debug(e)
                         QMessageBox.critical(self.window,_("Error"),_("An error occured unziping %s:\nError: %s") % (zipDestFile, e), QMessageBox.Abort)
 

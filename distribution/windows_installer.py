@@ -146,7 +146,7 @@ SectionEnd
         f.close()
         try:
             subprocess.call('"C:\Program Files\NSIS\makensis.exe" /V2 ' + path, shell=True)
-        except Exception, e:
+        except Exception as e:
             print path
             traceback.print_exc(e)
         else:
