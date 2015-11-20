@@ -7,22 +7,19 @@
 # From http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/65202
 #
 
-from types import *
+def _cls_get_method_names(cls):
+    result = []
+    for name, func in cls.__dict__.items():
+        result.append((name, func))
 
-def _get_method_names (obj):
-    if type(obj) == InstanceType:
-        return _get_method_names(obj.__class__)
+    for base in cls.__bases__:
+        result.extend(_cls_get_method_names(base))
 
-    elif type(obj) == ClassType:
-        result = []
-        for name, func in obj.__dict__.items():
-            if type(func) == FunctionType:
-                result.append((name, func))
+    return result
 
-        for base in obj.__bases__:
-            result.extend(_get_method_names(base))
-
-        return result
+def _obj_get_method_names(obj):
+    cls = obj.__class__
+    return _cls_get_method_names(cls)
 
 
 class _SynchronizedMethod:
@@ -47,7 +44,7 @@ class SynchronizedObject:
         self.__methods = {}
         self.__obj = obj
         lock = lock and lock or threading.RLock()
-        for name, method in _get_method_names(obj):
+        for name, method in _obj_get_method_names(obj):
             if not name in ignore:
                 self.__methods[name] = _SynchronizedMethod(method, obj, lock)
 
