@@ -10,18 +10,18 @@ import sha
 import base32
 
 """
- 	    generates and returns ed2klink for filename
- 	    based on donkeyhash.pl translated to python
- 	    depends on Crypto.Hash function needs to be installed
- 	    source: http://www.amk.ca/python/code/crypto.html
- 	    debian: apt-get install python-crypto
+      generates and returns ed2klink for filename
+      based on donkeyhash.pl translated to python
+      depends on Crypto.Hash function needs to be installed
+      source: http://www.amk.ca/python/code/crypto.html
+      debian: apt-get install python-crypto
 """
 def ed2kLink(filename):
- 	  donkeychunk = 9728000
- 	  digests = []
- 	  filesize=getsize(filename)
- 	  file=open(filename)
- 	  if filesize < donkeychunk:
+   donkeychunk = 9728000
+    digests = []
+    filesize=getsize(filename)
+    file=open(filename)
+    if filesize < donkeychunk:
             md4 = Crypto.Hash.MD4.new()
             buffer=file.read(4096)
             while buffer:
@@ -29,7 +29,7 @@ def ed2kLink(filename):
                   buffer=file.read(4096)
             file.close()
             donkeyhash=md4.hexdigest()
- 	  else:
+    else:
             if (filesize % donkeychunk == 0):
                   md4 = Crypto.Hash.MD4.new()
                   md4.update('')
@@ -44,20 +44,20 @@ def ed2kLink(filename):
             for d in digests:
                 md4.update(d)
             donkeyhash=md4.hexdigest()
- 	  return"ed2k://|file|%s|%s|%s|"  % (basename(filename), filesize,donkeyhash)
- 	
+    return"ed2k://|file|%s|%s|%s|"  % (basename(filename), filesize,donkeyhash)
+
 '''
- 	    returns magnet link for filename
+      returns magnet link for filename
 '''
 def calculateSha1Hash(filename):
- 	    sha1 = sha.new()
- 	    file=open(filename)
- 	    buffer=file.read(4096)
- 	    while buffer:
+      sha1 = sha.new()
+      file=open(filename)
+      buffer=file.read(4096)
+      while buffer:
               sha1.update(buffer)
               buffer=file.read(4096)
- 	    file.close()
- 	    return base32.b2a(sha1.digest())
+      file.close()
+      return base32.b2a(sha1.digest())
 
 def magnetLink(filename, sha1Hash = ''):
     if not sha1Hash:

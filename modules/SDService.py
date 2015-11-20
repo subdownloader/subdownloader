@@ -47,19 +47,19 @@ def test_connection(url, timeout=CON_TIMEOUT):
     socket.setdefaulttimeout(timeout)
     connectable=False
     try:
-       	urlopen(url)
-	log.debug("successfully tested connection")
-	connectable=True
+        urlopen(url)
+        log.debug("successfully tested connection")
+        connectable=True
     except HTTPError as e:
-       	log.error('The server couldn\'t fulfill the request. Error code: '% e.code)
+        log.error('The server couldn\'t fulfill the request. Error code: '% e.code)
     except URLError as e:
-       	log.error('We failed to reach a server. Reason: %s '% e.reason)
+        log.error('We failed to reach a server. Reason: %s '% e.reason)
     except socket.error as xxx_todo_changeme:
-       	(value,message) = xxx_todo_changeme.args
-       	log.error("Could not open socket: %s"% message)
+        (value,message) = xxx_todo_changeme.args
+        log.error("Could not open socket: %s"% message)
     except socket.sslerror as xxx_todo_changeme1:
-       	(value,message) = xxx_todo_changeme1.args
-       	log.error("Could not open ssl socket: %s"% message)
+        (value,message) = xxx_todo_changeme1.args
+        log.error("Could not open ssl socket: %s"% message)
     socket.setdefaulttimeout(defTimeOut)
     return connectable
 
@@ -71,12 +71,12 @@ class TimeoutFunctionException(Exception):
 class TimeoutFunction:
 
     def __init__(self, function, timeout=CON_TIMEOUT):
-	self.log = logging.getLogger("subdownloader.SDService.TimeoutFunction")
+        self.log = logging.getLogger("subdownloader.SDService.TimeoutFunction")
         self.timeout = timeout
         self.function = function
 
     def handle_timeout(self):
-	self.log.debug("exception in timeouted function %s"%self.function)
+        self.log.debug("exception in timeouted function %s"%self.function)
         raise TimeoutFunctionException()
 
     def __call__(self, *args):

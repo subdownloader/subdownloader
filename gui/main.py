@@ -1076,7 +1076,7 @@ class Main(QObject, Ui_MainWindow):
 
     def onButtonDownload(self):
         #We download the subtitle in the same folder than the video
-	    osHttpRequests = OSHttpRequests.OSHttpRequests()
+            osHttpRequests = OSHttpRequests.OSHttpRequests()
             subs = self.videoModel.getCheckedSubtitles()
             replace_all  = False
             skip_all = False
@@ -1177,7 +1177,7 @@ class Main(QObject, Ui_MainWindow):
                 try:
                    if not skip_all:
                         log.debug("Downloading subtitle '%s'" % destinationPath)
-			#print {sub.getIdFileOnline():destinationPath}
+                        #print {sub.getIdFileOnline():destinationPath}
                         osHttpRequests.download('http://www.opensubtitles.org/en/download/file/%s.gz' %sub.getIdFileOnline(), destinationPath)
                         #if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline():destinationPath}):
                             #success_downloaded += 1
@@ -1192,7 +1192,7 @@ class Main(QObject, Ui_MainWindow):
             self.progress(100)
 
     def showErrorConnection(self):
-	QMessageBox.about(self.window,_("Alert"),_("www.opensubtitles.org is not responding\nIt might be overloaded, try again in a few moments."))
+            QMessageBox.about(self.window,_("Alert"),_("www.opensubtitles.org is not responding\nIt might be overloaded, try again in a few moments."))
 
 
     """Control the STATUS BAR PROGRESS"""
