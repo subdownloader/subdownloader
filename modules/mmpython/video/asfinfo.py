@@ -85,8 +85,7 @@
 
 import re
 import struct
-import string
-import fourcc
+from . import fourcc
 #import mmpython
 
 from modules.mmpython import mediainfo

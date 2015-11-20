@@ -3,16 +3,21 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QVariant, QSize, QEventLoop, QString, \
+                         QSettings, QSize, QEventLoop, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
+
 from gui.preferences_ui import Ui_PreferencesDialog
 import webbrowser
 import languages.Languages as languages
-import time, thread, platform
+import time, platform
 import logging
 log = logging.getLogger("subdownloader.gui.preferences")
 
@@ -33,10 +38,10 @@ class preferencesDialog(QtGui.QDialog):
 
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
-        self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), QVariant())
+        self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
         for num, lang in enumerate(languages.LANGUAGES):
             lang_xxx = lang["SubLanguageID"]
-            self.ui.optionDefaultUploadLanguage.addItem(_(lang["LanguageName"]), QVariant(lang_xxx))
+            self.ui.optionDefaultUploadLanguage.addItem(_(lang["LanguageName"]), lang_xxx)
             #Adding checkboxes for the Search...Filter by ...
             self.filterLanguages[lang_xxx] = QtGui.QCheckBox(_(lang["LanguageName"]), self.ui.scrollAreaWidgetContents)
             if num % 4 == 1:
@@ -52,7 +57,7 @@ class preferencesDialog(QtGui.QDialog):
                 languageName = languages.locale2name(lang_locale)
                 if not languageName:
                     languageName = lang_locale
-                self.ui.optionInterfaceLanguage.addItem(_(languageName), QVariant(lang_locale))
+                self.ui.optionInterfaceLanguage.addItem(_(languageName), lang_locale)
 
         self.ui.optionDefaultUploadLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
@@ -90,53 +95,53 @@ class preferencesDialog(QtGui.QDialog):
 
     def readOptionsSettings(self, settings):
         log.debug("Reading Options Settings")
-        optionWhereToDownload = settings.value("options/whereToDownload", QVariant("SAME_FOLDER"))
-        if optionWhereToDownload == QVariant("ASK_FOLDER"):
+        optionWhereToDownload = settings.value("options/whereToDownload", "SAME_FOLDER").toString()
+        if optionWhereToDownload == "ASK_FOLDER":
             self.ui.optionDownloadFolderAsk.setChecked(True)
-        elif optionWhereToDownload == QVariant("SAME_FOLDER"):
+        elif optionWhereToDownload == "SAME_FOLDER":
             self.ui.optionDownloadFolderSame.setChecked(True)
-        elif optionWhereToDownload == QVariant("PREDEFINED_FOLDER"):
+        elif optionWhereToDownload == "PREDEFINED_FOLDER":
             self.ui.optionDownloadFolderPredefined.setChecked(True)
 
-        folder = settings.value("options/whereToDownloadFolder", QVariant("")).toString()
+        folder = settings.value("options/whereToDownloadFolder", "").toString()
         self.ui.optionPredefinedFolderText.setText(folder)
 
 
-        optionSubtitleName = settings.value("options/subtitleName", QVariant("SAME_VIDEO"))
-        if optionSubtitleName == QVariant("SAME_VIDEO"):
+        optionSubtitleName = settings.value("options/subtitleName", "SAME_VIDEO").toString()
+        if optionSubtitleName == "SAME_VIDEO":
             self.ui.optionDownloadSameFilename.setChecked(True)
-        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANG"):
+        elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
             self.ui.optionDownloadSameFilenamePlusLang.setChecked(True)
-        elif optionSubtitleName == QVariant("SAME_VIDEOPLUSLANGANDUPLOADER"):
+        elif optionSubtitleName == "SAME_VIDEOPLUSLANGANDUPLOADER":
             self.ui.optionDownloadSameFilenamePlusLangAndUploader.setChecked(True)
-        elif optionSubtitleName == QVariant("SAME_ONLINE"):
+        elif optionSubtitleName == "SAME_ONLINE":
             self.ui.optionDownloadOnlineSubName.setChecked(True)
 
         #Search
-        optionFilterSearchLang = str(settings.value("options/filterSearchLang", QVariant("")).toString())
+        optionFilterSearchLang = settings.value("options/filterSearchLang", "").toString()
         for lang_xxx in optionFilterSearchLang.split(','):
             if self.filterLanguages.has_key(lang_xxx):
                 self.filterLanguages[lang_xxx].setChecked(True)
 
         #Upload
-        optionUploadLanguage = settings.value("options/uploadLanguage", QVariant("eng"))
+        optionUploadLanguage = settings.value("options/uploadLanguage", "eng").toString()
         index = self.ui.optionDefaultUploadLanguage.findData(optionUploadLanguage)
         if index != -1 :
             self.ui.optionDefaultUploadLanguage.setCurrentIndex (index)
 
-        optionInterfaceLanguage = settings.value("options/interfaceLang", QVariant("en"))
+        optionInterfaceLanguage = settings.value("options/interfaceLang", "en").toString()
         index = self.ui.optionInterfaceLanguage.findData(optionInterfaceLanguage)
         if index != -1 :
             self.ui.optionInterfaceLanguage.setCurrentIndex (index)
 
-        optionIntegrationExplorer = settings.value("options/IntegrationExplorer", QVariant(False))
-        self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer.toBool())
+        optionIntegrationExplorer = settings.value("options/IntegrationExplorer", False).toBool()
+        self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer)
 
-        self.ui.optionProxyHost.setText(settings.value("options/ProxyHost", QVariant()).toString())
-        self.ui.optionProxyPort.setValue(settings.value("options/ProxyPort", QVariant(8080)).toInt()[0])
+        self.ui.optionProxyHost.setText(settings.value("options/ProxyHost", "").toString())
+        self.ui.optionProxyPort.setValue(settings.value("options/ProxyPort", 8080).toInt()[0])
 
-        programPath = settings.value("options/VideoPlayerPath", QVariant()).toString()
-        parameters = settings.value("options/VideoPlayerParameters", QVariant()).toString()
+        programPath = settings.value("options/VideoPlayerPath", "").toString()
+        parameters = settings.value("options/VideoPlayerParameters", "").toString()
         self.ui.optionVideoAppLocation.setText(programPath)
         self.ui.optionVideoAppParams.setText(parameters)
 
@@ -161,22 +166,22 @@ class preferencesDialog(QtGui.QDialog):
         #Writting settings
         settings = QSettings()
         if self.ui.optionDownloadFolderAsk.isChecked():
-            settings.setValue("options/whereToDownload", QVariant("ASK_FOLDER"))
+            settings.setValue("options/whereToDownload", "ASK_FOLDER")
         elif self.ui.optionDownloadFolderSame.isChecked():
-            settings.setValue("options/whereToDownload", QVariant("SAME_FOLDER"))
+            settings.setValue("options/whereToDownload", "SAME_FOLDER")
         elif self.ui.optionDownloadFolderPredefined.isChecked():
-            settings.setValue("options/whereToDownload", QVariant("PREDEFINED_FOLDER"))
+            settings.setValue("options/whereToDownload", "PREDEFINED_FOLDER")
             folder = self.ui.optionPredefinedFolderText.text()
-            settings.setValue("options/whereToDownloadFolder", QVariant(folder))
+            settings.setValue("options/whereToDownloadFolder", folder)
 
         if self.ui.optionDownloadSameFilename.isChecked():
-            settings.setValue("options/subtitleName", QVariant("SAME_VIDEO"))
+            settings.setValue("options/subtitleName", "SAME_VIDEO")
         elif self.ui.optionDownloadSameFilenamePlusLang.isChecked():
-            settings.setValue("options/subtitleName", QVariant("SAME_VIDEOPLUSLANG"))
+            settings.setValue("options/subtitleName", "SAME_VIDEOPLUSLANG")
         elif self.ui.optionDownloadSameFilenamePlusLangAndUploader.isChecked():
-            settings.setValue("options/subtitleName", QVariant("SAME_VIDEOPLUSLANGANDUPLOADER"))
+            settings.setValue("options/subtitleName", "SAME_VIDEOPLUSLANGANDUPLOADER")
         elif self.ui.optionDownloadOnlineSubName.isChecked():
-            settings.setValue("options/subtitleName", QVariant("SAME_ONLINE"))
+            settings.setValue("options/subtitleName", "SAME_ONLINE")
 
         #Search tab
         checked_languages = []
@@ -185,7 +190,7 @@ class preferencesDialog(QtGui.QDialog):
 
                 checked_languages.append(lang)
 
-        settings.setValue("options/filterSearchLang", QVariant(",".join(checked_languages)))
+        settings.setValue("options/filterSearchLang", ",".join(checked_languages))
         self._main.emit(SIGNAL('filterLangChangedPermanent(QString)'),",".join(checked_languages))
 
         #Upload tab
@@ -196,7 +201,7 @@ class preferencesDialog(QtGui.QDialog):
         optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(self.ui.optionInterfaceLanguage.currentIndex())
         settings.setValue("options/interfaceLang", optionInterfaceLanguage)
 
-        IEoldValue = settings.value("options/IntegrationExplorer", QVariant(False)).toBool()
+        IEoldValue = settings.value("options/IntegrationExplorer", False).toBool()
         IEnewValue = self.ui.optionIntegrationExplorer.isChecked()
         if  IEoldValue != IEnewValue:
            if IEnewValue:
@@ -206,21 +211,21 @@ class preferencesDialog(QtGui.QDialog):
                log.debug('Uninstalling the Integration Explorer feature')
                ok = self.actionContextMenu("uninstall",platform.system())
            if ok:
-                settings.setValue("options/IntegrationExplorer", QVariant(IEnewValue))
+                settings.setValue("options/IntegrationExplorer", IEnewValue)
 
         newProxyHost =  self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()
-        oldProxyHost = settings.value("options/ProxyHost", QVariant()).toString()
-        oldProxyPort = settings.value("options/ProxyPort", QVariant("8080")).toInt()[0]
+        oldProxyHost = settings.value("options/ProxyHost", "")
+        oldProxyPort = settings.value("options/ProxyPort", "8080").toInt()
         if newProxyHost != oldProxyHost or newProxyPort != oldProxyPort:
-            settings.setValue("options/ProxyHost",QVariant(newProxyHost))
-            settings.setValue("options/ProxyPort", QVariant(newProxyPort))
+            settings.setValue("options/ProxyHost", newProxyHost)
+            settings.setValue("options/ProxyPort", newProxyPort)
             QMessageBox.about(self,_("Alert"),_("Modified proxy settings will take effect after restarting the program"))
 
         programPath =  self.ui.optionVideoAppLocation.text()
         parameters =  self.ui.optionVideoAppParams.text()
-        settings.setValue("options/VideoPlayerPath",QVariant(programPath))
-        settings.setValue("options/VideoPlayerParameters",QVariant(parameters))
+        settings.setValue("options/VideoPlayerPath", programPath)
+        settings.setValue("options/VideoPlayerParameters", parameters)
 
         #Closing the Preferences window
         self.reject()

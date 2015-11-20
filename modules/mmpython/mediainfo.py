@@ -73,13 +73,11 @@ TYPE_MISC = 10
 
 import string
 import types
-import table
+from . import table
 import traceback
 import locale
 
 import re
-import urllib
-import urlparse
 import os
 
 LOCAL_ENCODING = locale.getpreferredencoding();
@@ -115,7 +113,7 @@ AVCORE    = ['length', 'encoder', 'trackno', 'trackof', 'copyright', 'product',
 
 UNPRINTABLE_KEYS = [ 'thumbnail', ]
 
-import table
+from . import table
 #import mmpython
 
 EXTENSION_DEVICE    = 'device'

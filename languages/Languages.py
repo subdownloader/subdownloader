@@ -6,8 +6,12 @@ import re
 import os.path
 import logging
 log = logging.getLogger("subdownloader.languages.Languages")
-import  __builtin__
-__builtin__._ = lambda x : x
+
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
+builtins._ = lambda x : x
 
 LANGUAGES = [{'locale':'sq', 'ISO639': 'sq', 'SubLanguageID': 'alb', 'LanguageName': _('Albanian')},
  {'locale':'ar', 'ISO639': 'ar', 'SubLanguageID': 'ara', 'LanguageName': _('Arabic')},

@@ -6,7 +6,7 @@ import os.path
 import re #To extract the imdb regexp from the NFO files
 import logging
 from FileManagement import get_extension
-import RecursiveParser
+from . import RecursiveParser
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 import modules.metadata as metadata

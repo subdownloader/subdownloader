@@ -3,16 +3,19 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QVariant, QSize, QEventLoop, QString, \
+                         QSettings, QSize, QEventLoop, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, \
                         QInputDialog, QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
+
 from gui.login_ui import Ui_LoginDialog
-import webbrowser
-import time, thread
 import logging
 log = logging.getLogger("subdownloader.gui.login")
 
@@ -26,8 +29,8 @@ class loginDialog(QtGui.QDialog):
 
         QObject.connect(self.ui.buttonBox, SIGNAL("accepted()"), self.onButtonAccept)
         QObject.connect(self.ui.buttonBox, SIGNAL("rejected()"), self.onButtonClose)
-        username = settings.value("options/LoginUsername", QVariant()).toString()
-        password = settings.value("options/LoginPassword", QVariant()).toString()
+        username = settings.value("options/LoginUsername", "").toString()
+        password = settings.value("options/LoginPassword", "").toString()
         self.ui.optionLoginUsername.setText(username)
         self.ui.optionLoginPassword.setText(password)
 
@@ -38,12 +41,12 @@ class loginDialog(QtGui.QDialog):
         settings = QSettings()
         newUsername =  self.ui.optionLoginUsername.text()
         newPassword = self.ui.optionLoginPassword.text()
-        oldUsername = settings.value("options/LoginUsername", QVariant())
-        oldPassword = settings.value("options/LoginPassword", QVariant())
+        oldUsername = settings.value("options/LoginUsername", "").toString()
+        oldPassword = settings.value("options/LoginPassword", "").toString()
 
-        if newUsername != oldUsername.toString() or newPassword != oldPassword.toString():
-            settings.setValue("options/LoginUsername",QVariant(newUsername))
-            settings.setValue("options/LoginPassword", QVariant(newPassword))
+        if newUsername != oldUsername or newPassword != oldPassword:
+            settings.setValue("options/LoginUsername", newUsername)
+            settings.setValue("options/LoginPassword", newPassword)
 
         self.connect()
         self.accept() #We close the window

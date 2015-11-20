@@ -88,8 +88,8 @@
 # Do this stuff before importing the info instances since they
 # depend on this function
 
-import factory
-from synchronizedobject import SynchronizedObject
+from . import factory
+from .synchronizedobject import SynchronizedObject
 
 _factory = SynchronizedObject(factory.Factory())
 
@@ -123,16 +123,11 @@ def parse(filename, ext_only = 0):
 
 import sys
 import os
-import mediainfo
-import video.riffinfo
-import video.mpeginfo
-import video.asfinfo
-import video.movinfo
-import video.vcdinfo
-import video.realinfo
-import video.ogminfo
-import video.mkvinfo
-import misc.xmlinfo
+from . import mediainfo
+#.riffinfo
+
+from . import video, misc
+
 registertype( 'video/asf', ('asf','wmv','wma'), mediainfo.TYPE_AV, video.asfinfo.AsfInfo )
 registertype( 'application/mkv', ('mkv', 'mka',), mediainfo.TYPE_AV, video.mkvinfo.MkvInfo )
 registertype( 'video/quicktime', ('mov', 'qt'), mediainfo.TYPE_AV, video.movinfo.MovInfo )

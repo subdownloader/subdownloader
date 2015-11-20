@@ -2,12 +2,14 @@
 # Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
-import urllib2
 from xml.dom import minidom
 import xml.parsers.expat
 import sys
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+
+try:
+    from urllib2 import urlopen
+except ImportError:
+    from urllib.request import urlopen
 
 OnlyLink = ''
 FilmLink = ''
@@ -66,7 +68,7 @@ class SearchByName(object):
             xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"% (sublanguageid, moviename)
 
         try:
-            xml_page = urllib2.urlopen(xml_url)
+            xml_page = urlopen(xml_url)
         except:
             return(2)
 
@@ -75,7 +77,7 @@ class SearchByName(object):
             search = self.parse_results(xml_page.read())
         except xml.parsers.expat.ExpatError: # this will happen when only one result is found
             self.log.debug("Getting data from '%s/xml'"% xml_page.url)
-            xml_page = urllib2.urlopen("%s/xml"% xml_page.url)
+            xml_page = urlopen("%s/xml"% xml_page.url)
             search = self.parse_results(xml_page.read())
 
         if search:
@@ -83,18 +85,18 @@ class SearchByName(object):
             movies = search
         else:
             self.log.debug("No data found. Trying '%s'"% xml_page.url)
-            xml_page = urllib2.urlopen("%s"% xml_page.url)
+            xml_page = urlopen("%s"% xml_page.url)
             movies = self.subtitle_info(xml_page.read())
 
         return movies
 
     def search_subtitles(self, IDSubtitle_link):
         xml_url = "http://www.opensubtitles.com%s"% IDSubtitle_link
-        xml_page = urllib2.urlopen(xml_url)
+        xml_page = urlopen(xml_url)
         try:
             search = self.subtitle_info(xml_page.read())
         except xml.parsers.expat.ExpatError: # this will happen when only one result is found
-            search = self.subtitle_info(urllib2.urlopen(xml_page.url + "/xml").read())
+            search = self.subtitle_info(urlopen(xml_page.url + "/xml").read())
         return search
 
     def subtitle_info(self, raw_xml):

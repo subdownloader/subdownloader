@@ -3,11 +3,16 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QVariant, QSize, QEventLoop, QString, \
+                         QSettings, QSize, QEventLoop, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
+
+try:
+    from PyQt4.QtCore import QString
+except ImportError:
+    QString = str
 
 from gui.imdb_ui import Ui_IMDBSearchDialog
 from gui.imdblistview import ImdbListModel, ImdbListView

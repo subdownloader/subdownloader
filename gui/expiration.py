@@ -3,7 +3,7 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QVariant, QSize, QEventLoop, QString, \
+                         QSettings, QSize, QEventLoop, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
@@ -21,12 +21,12 @@ import time
 DAYS_TRIAL = 30
 def GetFirstRunTime():
     settings = QSettings()
-    firstRunTime = settings.value("mainwindow/size2", QVariant())
-    if firstRunTime != QVariant():
+    firstRunTime = settings.value("mainwindow/size2", "").toString()
+    if firstRunTime != "":
         return firstRunTime.toDouble()[0]
     else:
             now = time.time()
-            settings.setValue("mainwindow/size2", QVariant(now))
+            settings.setValue("mainwindow/size2", now)
             return now
 
 def calculateDaysLeft(server_time):
@@ -89,9 +89,9 @@ class expirationDialog(QtGui.QDialog):
         self.setCursor(Qt.ArrowCursor)
         if result == "REGISTERED":
             settings = QSettings()
-            settings.setValue('activation/email', QVariant(email))
-            settings.setValue('activation/licensekey', QVariant(licensekey))
-            settings.setValue('activation/fullname', QVariant(fullname))
+            settings.setValue('activation/email', email)
+            settings.setValue('activation/licensekey', licensekey)
+            settings.setValue('activation/fullname', fullname)
             QMessageBox.about(self,_("Info"),"Program Registered Successfully. Thank you")
             self._main.setTitleBarText(_('Program Registered'))
             self._main.menu_Help.removeAction(self._main.action_ActivateProgram)

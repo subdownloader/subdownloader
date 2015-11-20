@@ -21,8 +21,10 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-from exceptions import KeyboardInterrupt
+try:
+    from exceptions import KeyboardInterrupt
+except:
+    pass
 import os, re, sys
 import glob
 

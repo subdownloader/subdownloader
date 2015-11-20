@@ -5,7 +5,7 @@
 __docformat__ = "epytext"
 __author__    = "Ivan Garcia <contact@ivangarcia.org>"
 
-import sys, os, re, StringIO, traceback
+import sys, os, re, traceback
 from modules import APP_TITLE, APP_VERSION, SHAREWARE, SDService, subtitlefile, videofile
 
 

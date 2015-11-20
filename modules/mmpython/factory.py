@@ -77,10 +77,13 @@
 # -----------------------------------------------------------------------
 #endif
 
-import mediainfo
+from . import mediainfo
 import stat
 import os
-import urlparse
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 import traceback
 import urllib
 

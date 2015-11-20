@@ -3,11 +3,16 @@
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QVariant, QSize, QEventLoop, QString, \
+                         QSettings, QSize, QEventLoop, \
                          QBuffer, QIODevice, QModelIndex,QDir
 from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel, QListWidgetItem
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
+
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
 
 from languages import Languages, autodetect_lang
 from gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
@@ -29,7 +34,7 @@ class chooseLanguageDialog(QtGui.QDialog):
                 if not languageName:
                     languageName = lang_locale
                 item = QListWidgetItem(languageName)
-                item.setData(Qt.UserRole, QVariant(lang_locale))
+                item.setData(Qt.UserRole, lang_locale)
                 self.ui.languagesList.addItem(item)
                 try:
                     if lang_locale == user_locale:

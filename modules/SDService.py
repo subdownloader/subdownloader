@@ -2,9 +2,21 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
-import xmlrpclib
-import base64, httplib, os
-import StringIO, gzip, zlib
+try:
+    import xmlrpclib
+except ImportError:
+    from xmlrpc import client as xmlrpclib
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+import base64, os
+import gzip, zlib
 import logging
 import traceback
 import threading
@@ -15,7 +27,12 @@ from modules import APP_TITLE, APP_VERSION
 import modules.videofile as videofile
 import modules.subtitlefile as subtitlefile
 from FileManagement import Subtitle
-import socket, urllib2
+import socket
+try:
+  from urllib2 import urlopen, HTTPError, URLError
+except:
+  from urllib.request import urlopen
+  from urllib.error import HTTPError, URLError
 
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
@@ -30,12 +47,12 @@ def test_connection(url, timeout=CON_TIMEOUT):
     socket.setdefaulttimeout(timeout)
     connectable=False
     try:
-       	urllib2.urlopen(url)
+       	urlopen(url)
 	log.debug("successfully tested connection")
 	connectable=True
-    except urllib2.HTTPError as e:
+    except HTTPError as e:
        	log.error('The server couldn\'t fulfill the request. Error code: '% e.code)
-    except urllib2.URLError as e:
+    except URLError as e:
        	log.error('We failed to reach a server. Reason: %s '% e.reason)
     except socket.error as xxx_todo_changeme:
        	(value,message) = xxx_todo_changeme.args
@@ -832,9 +849,9 @@ class SDService(object):
         """This will decode the base64 data and save it as a file with the given path
         """
         compressedstream = base64.decodestring(base_data)
-        gzipper = gzip.GzipFile(fileobj=StringIO.StringIO(compressedstream))
+        gzipper = gzip.GzipFile(fileobj=StringIO(compressedstream))
         s=gzipper.read()
         gzipper.close()
-        subtitle_file = file(path,'wb')
+        subtitle_file = file(path, 'wb')
         subtitle_file.write(s)
         subtitle_file.close()

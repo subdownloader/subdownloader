@@ -2,13 +2,18 @@
 # Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop, QSettings
-from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
-                     QVariant, QAbstractTableModel, QTableView, QListView, \
+from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
+                     QAbstractTableModel, QTableView, QListView, \
                      QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
                      QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
+
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
 
 from PyQt4.QtGui import QItemSelection
 
@@ -182,21 +187,22 @@ class UploadListModel(QAbstractTableModel):
 
     def getTotalRows(self):
         return self.rowCount(None)
+
     def rowCount(self, index):
-           return max(len(self._subs),len(self._videos))
+           return max(len(self._subs), len(self._videos))
 
     def columnCount(self, parent):
         return len(self._headers)
 
     def headerData(self, section, orientation, role):
         if role != Qt.DisplayRole:
-            return QVariant()
+            return ""
         text = ""
         if orientation == Qt.Horizontal:
-            text = unicode(self._headers[section])
-            return QVariant(text) #self.trUtf8(text))
+            text = self._headers[section]
+            return text #self.trUtf8(text))
         else:
-            return QVariant("CD"+str(1+section))
+            return "CD" + str(1+section)
 
     def data(self, index, role):
         row, col = index.row(), index.column()
@@ -215,9 +221,9 @@ class UploadListModel(QAbstractTableModel):
                         text = self._subs[row].getFileName()
             if text == None:
                 text = "Unknown"
-            return QVariant(text)
+            return text
 
-        return QVariant()
+        return None
 
     def onUploadButtonPlusRow(self, clicked):
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
@@ -324,7 +330,7 @@ class UploadListView(QTableView):
             settings = QSettings()
             if col == UploadListView.COL_VIDEO:
                 if(VideoTools.isVideofile(fileName)):
-                    settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
+                    settings.setValue("mainwindow/workingDirectory", fileName)
                     video = VideoFile(fileName)
                     self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
                     self.model().addVideos(row, [video])
@@ -338,7 +344,7 @@ class UploadListView(QTableView):
             else: #if it's the column in SUBTITLES
                 print(fileName)
                 if(Subtitle.isSubtitle(fileName)):
-                    settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
+                    settings.setValue("mainwindow/workingDirectory", fileName)
                     sub = SubtitleFile(False, fileName)
                     self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
                     self.model().addSubs(row, [sub])

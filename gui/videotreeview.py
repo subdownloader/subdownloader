@@ -3,13 +3,18 @@
 
 from PyQt4.QtCore import Qt, SIGNAL
 import PyQt4.QtCore as QtCore
-from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
-                     QVariant, QAbstractTableModel, QTableView, QListView, \
+from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
+                     QAbstractTableModel, QTableView, QListView, \
                      QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
                      QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
+
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
 
 from modules.videofile import VideoFile
 from modules.subtitlefile import SubtitleFile
@@ -17,7 +22,10 @@ from modules.search import Movie
 
 import languages.Languages as languages
 
-import images_rc, logging
+from . import images_rc
+
+import logging
+
 log = logging.getLogger("subdownloader.gui.videotreeview")
 
 class Node:
@@ -41,7 +49,7 @@ class Node:
 class VideoTreeModel(QtCore.QAbstractItemModel):
   def __init__(self, parent=None):
     QtCore.QAbstractItemModel.__init__(self, parent)
-    self.root=Node(QtCore.QVariant(""))
+    self.root=Node("")
     self.selectedNode = None
     self.languageFilter = None
     self.videoResultsBackup = None
@@ -82,7 +90,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
      self.selectedNode = None
      self.languageFilter = None
      del self.root
-     self.root=Node(QtCore.QVariant(""))
+     self.root = Node("")
      self.reset() #Better than emit the dataChanged signal
 
   def selectMostRatedSubtitles(self):
@@ -116,29 +124,29 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
   def data(self, index, role):
     if not index.isValid():
-      return QVariant()
+      return None
     data = index.internalPointer().data
 
     if type(data)  == SubtitleFile: #It's a SUBTITLE treeitem.
         sub = data
         if role == QtCore.Qt.DecorationRole:
             if sub.isLocal():
-                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Disabled))
+                return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Disabled)
             else:
-                return QVariant(QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Normal))
+                return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Normal)
 
         if role == QtCore.Qt.ForegroundRole:
             if sub.isLocal():
-                return QVariant(QColor(Qt.red))
+                return QColor(Qt.red)
 
         if role == QtCore.Qt.FontRole:
-                return QVariant(QFont('Arial', 9, QFont.Bold))
+                return QFont('Arial', 9, QFont.Bold)
 
         if role == QtCore.Qt.CheckStateRole:
             if index.internalPointer().checked:
-                return  QVariant(Qt.Checked)
+                return Qt.Checked
             else:
-                return  QVariant(Qt.Unchecked)
+                return Qt.Unchecked
 
         if role == QtCore.Qt.DisplayRole:
                 uploader = sub.getUploader()
@@ -155,10 +163,10 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
                 if sub.isLocal():
                         line += "  " + _("(Already downloaded)")
-                        return QVariant(line)
+                        return line
                 elif hasattr(sub, "_filename"): #Subtitle found from hash
                         line += "  " + _("Uploader: %s") % uploader
-                        return QVariant(line)
+                        return line
                 else: #Subtitle found from movie name
                         line = "[%s]    " % _(sub.getLanguageName())
                         if sub.getRating() != '0.0': #if the rate is not 0
@@ -167,22 +175,22 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                         line += "  " + _("Downloads: %d") % int(sub.getExtraInfo('totalDownloads'))
                         line += "  " + _("CDs: %d") % int(sub.getExtraInfo('totalCDs'))
                         line += "  " + _("Uploader: %s") % uploader
-                        return QVariant(line)
-        return QVariant()
+                        return line
+        return None
     elif type(data)  == VideoFile: #It's a VIDEOFILE treeitem.
         if role == QtCore.Qt.ForegroundRole:
-          return QVariant(QColor(Qt.blue))
+          return QColor(Qt.blue)
 
         movie_info = data.getMovieInfo()
         if role == QtCore.Qt.DecorationRole:
             if movie_info :
                 #TODO: Show this icon bigger.
-                return QVariant(QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal))
+                return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
             else:
-                return QVariant()
+                return None
 
         if role == QtCore.Qt.FontRole:
-            return QVariant(QFont('Arial',9, QFont.Bold))
+            return QFont('Arial',9, QFont.Bold)
 
         if role == QtCore.Qt.DisplayRole:
             if movie_info :
@@ -196,21 +204,21 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     if movie_info["MovieImdbRating"]:
                             info +=  " " + _("[IMDB Rate: %s]") % movie_info["MovieImdbRating"]
                     info +=  " <%s>" % data.getFileName()
-                    return QVariant(info)
+                    return info
             else:
-                 return QVariant(data.getFileName())
+                 return data.getFileName()
 
-        return QVariant()
+        return None
     elif type(data)  == Movie: #It's a MOVIE item
         if role == QtCore.Qt.ForegroundRole:
-          return QVariant(QColor(Qt.blue))
+          return QColor(Qt.blue)
 
         movie = data
         if role == QtCore.Qt.DecorationRole:
-                return QVariant(QIcon(':/images/info.png'))
+                return QIcon(':/images/info.png')
 
         if role == QtCore.Qt.FontRole:
-            return QVariant(QFont('Arial', 9, QFont.Bold))
+            return QFont('Arial', 9, QFont.Bold)
 
         if role == QtCore.Qt.DisplayRole:
             movieName = movie.MovieName
@@ -223,9 +231,9 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                 pass #TODO: Clicking to expand (+) no subtitles are displayed (LP: #312689)
                 #info += " (Double Click here)"
 
-            return QVariant(info)
+            return info
 
-        return QVariant()
+        return None
 
   def flags(self, index):
     if not index.isValid():
@@ -272,7 +280,7 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
   #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
      # return self.root.data[section]
 
-    return QtCore.QVariant("") #Hide headers
+    return None #Hide headers
 
   def index(self, row, column, parent):
     if row < 0 or column < 0 or row >= self.rowCount(parent) or column >= self.columnCount(parent):

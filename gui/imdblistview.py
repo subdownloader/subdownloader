@@ -2,13 +2,18 @@
 # Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
 
 from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop
-from PyQt4.Qt import QApplication, QString, QFont, QAbstractListModel, \
-                     QVariant, QAbstractTableModel, QTableView, QListView, \
+from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
+                     QAbstractTableModel, QTableView, QListView, \
                      QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
                      QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
                      QPen, QColor, QLinearGradient, QBrush, QStyle, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
+
+try:
+    from PyQt4.Qt import QString
+except ImportError:
+    QString = str
 
 from PyQt4.QtGui import QItemSelection
 
@@ -51,13 +56,13 @@ class ImdbListModel(QAbstractTableModel):
 
     def headerData(self, section, orientation, role):
         if role != Qt.DisplayRole:
-            return QVariant()
+            return None
         text = ""
         if orientation == Qt.Horizontal:
             text = self._headers[section]
-            return QVariant(self.trUtf8(text))
+            return self.trUtf8(text)
         else:
-            return QVariant()
+            return None
 
     def data(self, index, role):
         row, col = index.row(), index.column()
@@ -66,6 +71,6 @@ class ImdbListModel(QAbstractTableModel):
                 text = self._imdb[row]["id"] +" : " + self._imdb[row]["title"]
             else:
                 text = "Unknown"
-            return QVariant(text)
+            return text
 
-        return QVariant()
+        return None
