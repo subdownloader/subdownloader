@@ -92,14 +92,14 @@ from modules.mmpython import mediainfo
 
 def _guid(input):
     # Remove any '-'
-    s = string.join(string.split(input,'-'), '')
-    r = ''
+    s = ''.join(input.split('-'))
     if len(s) != 32:
         return ''
     x = ''
+    r = bytearray()
     for i in range(0,16):
-        r+=chr(int(s[2*i:2*i+2],16))
-    guid = struct.unpack('>IHHBB6s',r)
+        r.append(int(s[2*i:2*i+2],16))
+    guid = struct.unpack('>IHHBB6s', bytes(r))
     return guid
 
 GUIDS = {
