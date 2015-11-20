@@ -241,7 +241,7 @@ class MpegInfo(mediainfo.AVInfo):
             aspect = ASPECT_RATIO[v>>4]
         except IndexError:
             if mediainfo.DEBUG:
-                print 'Index error: %s' % (v>>4)
+                print('Index error: %s' % (v>>4))
             aspect = None
         return (fps, aspect)
 
@@ -278,7 +278,7 @@ class MpegInfo(mediainfo.AVInfo):
                     self.interlaced = 1
                 return True
             else:
-                print 'ext', ext
+                print('ext', ext)
             buffer = buffer[pos+4:]
         return False
 
@@ -596,7 +596,7 @@ class MpegInfo(mediainfo.AVInfo):
 
         if ptsdts and ptsdts == ord(buffer[9]) >> 4:
             if ord(buffer[9]) >> 4 != ptsdts:
-                print 'WARNING: bad PTS/DTS, please contact us'
+                print('WARNING: bad PTS/DTS, please contact us')
                 return packet_length, -1
 
             # timestamp = self.ReadPTS(buffer[9:14])
@@ -611,7 +611,7 @@ class MpegInfo(mediainfo.AVInfo):
 
     def isPES(self, file):
         if mediainfo.DEBUG:
-            print 'trying mpeg-pes scan'
+            print('trying mpeg-pes scan')
         file.seek(0,0)
         buffer = file.read(3)
 
@@ -746,7 +746,7 @@ class MpegInfo(mediainfo.AVInfo):
                             # timestamp broken
                             del self.start
                             if mediainfo.DEBUG:
-                                print 'Timestamp error, correcting'
+                                print('Timestamp error, correcting')
 
             if hasattr(self, 'start') and self.start and \
                    self.sequence_header_offset and self.video and self.audio:
@@ -877,7 +877,7 @@ class MpegInfo(mediainfo.AVInfo):
         if not hasattr(self, 'filename') or not hasattr(self, 'start'):
             return 0
         file = open(self.filename)
-        print 'scanning file...'
+        print('scanning file...')
         while 1:
             file.seek(self.__seek_size__ * 10, 1)
             buffer = file.read(self.__sample_size__)
@@ -886,11 +886,11 @@ class MpegInfo(mediainfo.AVInfo):
             pos = self.__search__(buffer)
             if pos == -1:
                 continue
-            print self.get_time(buffer[pos:])
+            print(self.get_time(buffer[pos:]))
 
         file.close()
-        print 'done'
-        print
+        print('done')
+        print()
 
 
 

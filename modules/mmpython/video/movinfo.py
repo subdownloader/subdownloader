@@ -165,7 +165,7 @@ class MovInfo(mediainfo.AVInfo):
             return 0
 
         if mediainfo.DEBUG or ATOM_DEBUG:
-            print "%s [%X]" % (atomtype,atomsize)
+            print("%s [%X]" % (atomtype,atomsize))
 
         if atomtype == 'udta':
             # Userdata (Metadata)
@@ -225,13 +225,13 @@ class MovInfo(mediainfo.AVInfo):
                         self.date = int(tkhd[1]) - 2082844800
                         self.date = time.strftime('%y/%m/%d', time.gmtime(self.date))
                     except Exception as e:
-                        print 'ex', e
+                        print('ex', e)
 
                 elif datatype == 'mdia':
                     pos      += 8
                     datasize -= 8
                     if ATOM_DEBUG:
-                        print '--> mdia information'
+                        print('--> mdia information')
 
                     while datasize:
                         mdia = struct.unpack('>I4s', atomdata[pos:pos+8])
@@ -276,27 +276,27 @@ class MovInfo(mediainfo.AVInfo):
                         elif mdia[1] == 'dinf':
                             dref = struct.unpack('>I4s', atomdata[pos+8:pos+8+8])
                             if ATOM_DEBUG:
-                                print '  --> %s, %s' % mdia
-                                print '    --> %s, %s (reference)' % dref
+                                print('  --> %s, %s' % mdia)
+                                print('    --> %s, %s (reference)' % dref)
 
                         elif ATOM_DEBUG:
                             if mdia[1].startswith('st'):
-                                print '  --> %s, %s (sample)' % mdia
+                                print('  --> %s, %s (sample)' % mdia)
                             elif mdia[1] in ('vmhd', 'smhd'):
-                                print '  --> %s, %s (media information header)' % mdia
+                                print('  --> %s, %s (media information header)' % mdia)
                             else:
-                                print '  --> %s, %s (unknown)' % mdia
+                                print('  --> %s, %s (unknown)' % mdia)
 
                         pos      += mdia[0]
                         datasize -= mdia[0]
 
                 elif datatype == 'udta' and ATOM_DEBUG:
-                    print struct.unpack('>I4s', atomdata[:8])
+                    print(struct.unpack('>I4s', atomdata[:8]))
                 elif ATOM_DEBUG:
                     if datatype == 'edts':
-                        print "--> %s [%d] (edit list)" % (datatype, datasize)
+                        print("--> %s [%d] (edit list)" % (datatype, datasize))
                     else:
-                        print "--> %s [%d] (unknown)" % (datatype, datasize)
+                        print("--> %s [%d] (unknown)" % (datatype, datasize))
                 pos += datasize
 
         elif atomtype == 'mvhd':
@@ -327,7 +327,7 @@ class MovInfo(mediainfo.AVInfo):
                         decompressed = zlib.decompress(data[4:])
                     except Exception as e:
                         if mediainfo.DEBUG:
-                            print 'unable to decompress atom'
+                            print('unable to decompress atom')
                         return atomsize
                 import StringIO
                 decompressedIO = StringIO.StringIO(decompressed)
@@ -336,7 +336,7 @@ class MovInfo(mediainfo.AVInfo):
 
             else:
                 if mediainfo.DEBUG:
-                    print 'unknown compression %s' % method
+                    print('unknown compression %s' % method)
                 # unknown compression method
                 file.seek(datasize-8,1)
 
@@ -349,17 +349,17 @@ class MovInfo(mediainfo.AVInfo):
             pos = file.tell() + atomsize - 8
             # maybe there is data inside the mdat
             if ATOM_DEBUG:
-                print 'parsing mdat'
+                print('parsing mdat')
             while self._readatom(file):
                 pass
             if ATOM_DEBUG:
-                print 'end of mdat'
+                print('end of mdat')
             file.seek(pos, 0)
 
 
         else:
             if ATOM_DEBUG and not atomtype in ('wide', 'free'):
-                print 'unhandled base atom %s' % atomtype
+                print('unhandled base atom %s' % atomtype)
 
             # Skip unknown atoms
             try:

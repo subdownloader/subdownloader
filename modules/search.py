@@ -344,4 +344,4 @@ if __name__ == "__main__":
     #pprint.pprint(res)
     for movie in res:
         pprint.pprint(movie)
-        print len(movie.subtitles)
+        print(len(movie.subtitles))

@@ -33,9 +33,9 @@ class OSHttpRequests:
          arguments += bytesize
 
       url = OS_URL % arguments
-      print url
+      print(url)
       data = urllib.urlopen(url).read()
-      print data
+      print(data)
 
 
    def download_subtitle(self, url=None, local_path=None, progress_callback=None):

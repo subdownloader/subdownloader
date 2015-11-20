@@ -135,9 +135,9 @@ def _debug(text):
     """
     if DEBUG > 1:
         try:
-            print text
+            print(text)
         except:
-            print text.encode('latin-1', 'replace')
+            print(text.encode('latin-1', 'replace'))
 
 
 class MediaInfo:

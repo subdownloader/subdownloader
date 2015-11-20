@@ -172,7 +172,7 @@ class RecursiveParser:
             #print "to access all files and folders in the specified path."
 
         except OSError as e:
-                print(e[1] + ". Please select a specific folder.")
+                print((e[1] + ". Please select a specific folder."))
                 sys.exit(1)
 
         except TypeError as e:

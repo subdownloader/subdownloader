@@ -89,13 +89,13 @@ if __name__ == '__main__':
 
     if 'pot' in sys.argv:
         translation_generator.update_pot()
-        print 'Done.'
+        print('Done.')
     if 'po' in sys.argv:
         translation_generator.update_pos()
-        print 'Done.'
+        print('Done.')
     if 'mo' in sys.argv:
         translation_generator.update_mos()
-        print 'Done.'
+        print('Done.')
 
     if len(sys.argv) == 1:
-        print '= Generate translations related files =\nUsage: translations_generator.py [pot, po, mo]'
+        print('= Generate translations related files =\nUsage: translations_generator.py [pot, po, mo]')

@@ -114,9 +114,9 @@ class Factory:
         """
         # Check extension as a hint
         for e in self.extmap.keys():
-            if DEBUG > 1: print "trying ext %s" % e
+            if DEBUG > 1: print("trying ext %s" % e)
             if file.name.lower().endswith(e.lower()):
-                if DEBUG == 1: print "trying ext %s" % e
+                if DEBUG == 1: print("trying ext %s" % e)
                 try:
                     file.seek(0,0)
                     t = self.extmap[e][3](file)
@@ -130,20 +130,20 @@ class Factory:
             return None
 
         if DEBUG:
-            print "No Type found by Extension. Trying all"
+            print("No Type found by Extension. Trying all")
 
         for e in self.types:
-            if DEBUG: print "Trying %s" % e[0]
+            if DEBUG: print("Trying %s" % e[0])
             try:
                 file.seek(0,0)
                 t = e[3](file)
                 if t.valid:
-                    if DEBUG: print 'found'
+                    if DEBUG: print('found')
                     return t
             except:
                 if DEBUG:
                     traceback.print_exc()
-        if DEBUG: print 'not found'
+        if DEBUG: print('not found')
         return None
 
     def create_from_url(self,url):
@@ -169,7 +169,7 @@ class Factory:
             # method for this. Perhaps move file.open stuff into __init__
             # instead of doing it here...
             for e in self.stream_types:
-                if DEBUG: print 'Trying %s' % e[0]
+                if DEBUG: print('Trying %s' % e[0])
                 t = e[3](url)
                 if t.valid:
                     t.url = url
@@ -179,7 +179,7 @@ class Factory:
             (scheme, location, path, query, fragment) = split
             uhandle = urllib.urlopen(url)
             mime = uhandle.info().gettype()
-            print "Trying %s" % mime
+            print("Trying %s" % mime)
             if self.mimemap.has_key(mime):
                 t = self.mimemap[mime][3](file)
                 if t.valid: return t
@@ -196,7 +196,7 @@ class Factory:
             try:
                 f = open(filename,'rb')
             except IOError:
-                print 'IOError reading %s' % filename
+                print('IOError reading %s' % filename)
                 return None
             r = self.create_from_file(f, ext_only)
             f.close()
@@ -212,7 +212,7 @@ class Factory:
         are supported.
         """
         for e in self.device_types:
-            if DEBUG: print 'Trying %s' % e[0]
+            if DEBUG: print('Trying %s' % e[0])
             t = e[3](devicename)
             if t.valid:
                 t.url = 'file://%s' % os.path.abspath(devicename)
@@ -224,7 +224,7 @@ class Factory:
         Create information from the directory.
         """
         for e in self.directory_types:
-            if DEBUG: print 'Trying %s' % e[0]
+            if DEBUG: print('Trying %s' % e[0])
             t = e[3](dirname)
             if t.valid:
                 return t
@@ -251,10 +251,10 @@ class Factory:
                 return self.create_from_directory(name)
             return self.create_from_filename(name, ext_only)
         except:
-            print 'mmpython.create error:'
+            print('mmpython.create error:')
             traceback.print_exc()
-            print
-            print 'Please report this bug to the Freevo mailing list'
+            print()
+            print('Please report this bug to the Freevo mailing list')
             return None
 
     def register(self,mimetype,extensions,type,c):
@@ -262,7 +262,7 @@ class Factory:
         register the parser to mmpython
         """
         if DEBUG > 0:
-            print "%s registered" % mimetype
+            print("%s registered" % mimetype)
         tuple = (mimetype,extensions,type,c)
 
         if extensions == mediainfo.EXTENSION_DEVICE:

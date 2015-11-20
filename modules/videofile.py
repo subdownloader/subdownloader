@@ -34,7 +34,7 @@ class VideoFile(object):
                 self._fps = 0
             self._timeMS = video.length * 1000
         except Exception as e:
-            print filepath
+            print(filepath)
             traceback.print_exc(e)
             self._fps = 0
             self._timeMS = 0

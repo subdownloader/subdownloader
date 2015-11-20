@@ -28,7 +28,7 @@ def checkPoFiles(localedir = os.path.join(projectdir, "locale")):
                         _lang = os.path.split(root)[-1]
 
                 if not 'subdownloader.po' in files and not dirs:
-                        print ".po not found in %s" % _lang
+                        print(".po not found in %s" % _lang)
                         error = True
 
     if error:

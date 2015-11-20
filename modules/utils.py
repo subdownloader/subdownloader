@@ -36,4 +36,4 @@ def randomSerialKey():
 
     d = ''.join( Random().sample(string.letters+string.digits, 16) )
     serialkey =  "-".join([d[0:4], d[4:8], d[8:12], d[12:]]).upper()
-    print serialkey
+    print(serialkey)

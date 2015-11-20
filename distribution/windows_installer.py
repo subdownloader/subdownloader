@@ -20,15 +20,15 @@ if len(sys.argv) == 1:
 
 from modules import APP_TITLE, APP_VERSION
 
-print sys.path
+print(sys.path)
 
 
 
 def py2exe(dist_dir, dist_build):
     sys.argv[1:2] = ['py2exe']
     sys.argv.append ( "--verbose" )
-    print sys.argv
-    print sys.path
+    print(sys.argv)
+    print(sys.path)
 
     setup(name=APP_TITLE,
         version=APP_VERSION,
@@ -147,28 +147,28 @@ SectionEnd
         try:
             subprocess.call('"C:\Program Files\NSIS\makensis.exe" /V2 ' + path, shell=True)
         except Exception as e:
-            print path
+            print(path)
             traceback.print_exc(e)
         else:
             os.remove(path)
 
 if __name__ == '__main__':
 
-        print 'Create EXE'
-        print 'Deleting build and distribution/dist'
+        print('Create EXE')
+        print('Deleting build and distribution/dist')
         PY2EXE_BUILD = os.path.join('build')
         PY2EXE_DIST = os.path.join('distribution','dist')
         if os.path.exists(PY2EXE_BUILD):
            shutil.rmtree(PY2EXE_BUILD)
         if os.path.exists(PY2EXE_DIST):
             shutil.rmtree(PY2EXE_DIST)
-        print PY2EXE_DIST, PY2EXE_BUILD
+        print(PY2EXE_DIST, PY2EXE_BUILD)
         py2exe(PY2EXE_DIST, PY2EXE_BUILD)
-        print 'Deleting build'
+        print('Deleting build')
         if os.path.exists('locale'):
                 shutil.copytree('locale', os.path.join(PY2EXE_DIST, 'locale'))
         if os.path.exists(PY2EXE_BUILD):
            shutil.rmtree(PY2EXE_BUILD)
-        print 'Building Installer'
+        print('Building Installer')
         installer = NSISInstaller("SubDownloader2",APP_VERSION, PY2EXE_DIST, 'distribution')
         installer.build()

@@ -35,7 +35,7 @@ class UploadListModel(QAbstractTableModel):
         self.rowsSelected = None
 
     def dropMimeData(self, data, action, row, column, parent):
-        print row,column
+        print(row,column)
 
     def flags(self, index):
         flags = QAbstractTableModel.flags(self, index)
@@ -336,7 +336,7 @@ class UploadListView(QTableView):
                     self.resizeRowsToContents()
                     self.model().emit(SIGNAL("layoutChanged()"))
             else: #if it's the column in SUBTITLES
-                print fileName
+                print(fileName)
                 if(Subtitle.isSubtitle(fileName)):
                     settings.setValue("mainwindow/workingDirectory", QVariant(fileName))
                     sub = SubtitleFile(False, fileName)

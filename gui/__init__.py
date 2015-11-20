@@ -23,7 +23,8 @@ def installErrorHandler(dialog):
 
 
 def _Warning(msg, e):
-    print >> sys.stderr, msg
+    sys.stderr.write(msg)
+    sys.stderr.write("\n")
     if e:
         traceback.print_exc(e)
 

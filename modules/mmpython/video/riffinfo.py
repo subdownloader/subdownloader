@@ -172,7 +172,7 @@ class RiffInfo(mediainfo.AVInfo):
                 pass
         except IOError:
             if mediainfo.DEBUG:
-                print 'error in file, stop parsing'
+                print('error in file, stop parsing')
 
         self.find_subtitles(file.name)
 

@@ -44,7 +44,7 @@ try:
     from _xmlplus.utils import qp_xml
 except:
     if DEBUG:
-        print 'Python XML not found'
+        print('Python XML not found')
 
 
 XML_TAG_INFO = {

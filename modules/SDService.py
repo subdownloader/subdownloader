@@ -210,9 +210,9 @@ class SDService(object):
             self.log.error("ServerInfo timed out")
 
         except Exception as e:
-            print type(e)     # the exception instance
-            print e.args      # arguments stored in .args
-            print e           # __str__ allows args to printed directly
+            print(type(e))     # the exception instance
+            print(e.args)      # arguments stored in .args
+            print(e)           # __str__ allows args to printed directly
             self.log.error("ServerInfo error connection.")
             raise
 

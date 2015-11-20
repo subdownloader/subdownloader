@@ -59,11 +59,11 @@ def get_trailing_chars_without_lsbs(N):
     d = {}
     return string.join(_get_trailing_chars_without_lsbs(N, d=d), '')
 def print_trailing_chars_without_lsbs(N):
-    print get_trailing_chars_without_lsbs(N)
+    print(get_trailing_chars_without_lsbs(N))
 def print_trailing_chars():
     N = 4
     while N >= 0:
-        print "%2d" % N + ": ",
+        print("%2d" % N + ": ", end=' ')
         print_trailing_chars_without_lsbs(N)
         N = N - 1
 upcasetranstable = string.maketrans(string.ascii_lowercase, string.ascii_uppercase)
@@ -388,13 +388,13 @@ def _help_bench_ed_l(N):
     return a2b_long(b2a_long(_help_test_rands(N)))
 def benchem():
     import benchfunc # from pyutil
-    print "e: "
+    print("e: ")
     benchfunc.bench(_help_bench_e, TOPXP=13)
-    print "ed: "
+    print("ed: ")
     benchfunc.bench(_help_bench_ed, TOPXP=13)
-    print "e_l: "
+    print("e_l: ")
     benchfunc.bench(_help_bench_e_l, TOPXP=13)
-    print "ed_l: "
+    print("ed_l: ")
     benchfunc.bench(_help_bench_ed_l, TOPXP=13)
 # Copyright (c) 2002 Bryce "Zooko" Wilcox-O'Hearn
 # Permission is hereby granted, free of charge, to any person obtaining a copy
