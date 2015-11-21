@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop, QSettings
 from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \

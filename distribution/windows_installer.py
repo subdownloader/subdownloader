@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 import os, sys
 os.chdir("..") #We are in the distribution subfolder, we want to be in subdownloader folder.

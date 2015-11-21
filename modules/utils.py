@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2010 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 def compVer(ver1,ver2):
     #Checks to see if ver1 >= ver2
