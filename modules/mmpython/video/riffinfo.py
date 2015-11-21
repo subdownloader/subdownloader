@@ -113,7 +113,7 @@
 import re
 import struct
 import string
-import fourcc
+from . import fourcc
 # import factory
 
 #import mmpython

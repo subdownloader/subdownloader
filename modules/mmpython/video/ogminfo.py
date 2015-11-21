@@ -84,7 +84,7 @@ import re
 import stat
 import os
 
-import fourcc
+from . import fourcc
 
 PACKET_TYPE_HEADER   = 0x01
 PACKED_TYPE_METADATA = 0x03

@@ -14,13 +14,13 @@ def compVer(ver1,ver2):
             if len(vl1) >= 1 and len(vl2) == 0:
                 true = 1
                 for each in vl1:
-                    if int(each) <> 0:
+                    if int(each) != 0:
                         true = 0
                 return true
             elif len(vl1) == 0 and len(vl2) >= 1:
                 true = 1
                 for each in vl2:
-                    if int(each) <> 0:
+                    if int(each) != 0:
                         true = 0
                 return true
             elif len(vl1) == 0 and len(vl2) == 0:

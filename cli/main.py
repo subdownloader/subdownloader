@@ -3,7 +3,6 @@
 
 import logging, os.path
 import base64, zlib
-import thread
 from modules import SDService
 from FileManagement import FileScan, Subtitle
 from modules import filter, progressbar

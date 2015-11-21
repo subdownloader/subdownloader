@@ -111,10 +111,10 @@ import struct
 import string
 import time
 import zlib
-import fourcc
+from . import fourcc
 #import mmpython
 from modules.mmpython import mediainfo
-from movlanguages import *
+from .movlanguages import *
 
 # http://developer.apple.com/documentation/QuickTime/QTFF/index.html
 
