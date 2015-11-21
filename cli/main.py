@@ -9,6 +9,11 @@ from modules import filter, progressbar
 import modules.configuration as conf
 import languages.Languages as Languages
 
+try:
+  input = raw_input
+except NameError:
+  pass
+
 class Main(SDService.SDService):
 
     def __init__(self, cli_options):
@@ -22,7 +27,7 @@ class Main(SDService.SDService):
         check_result = self.check_directory()
         continue_ = 'y'
         if check_result == 2 and self.options.operation == "download" and self.options.interactive:
-            continue_ = raw_input("Do you still want to search for missing subtitles? [Y/n] ").lower() or 'y'
+            continue_ = input("Do you still want to search for missing subtitles? [Y/n] ").lower() or 'y'
             if continue_ != 'y':
                 return
         if check_result == -1:
@@ -93,14 +98,14 @@ class Main(SDService.SDService):
                             self.log.info("Upload the following information:")
                             for (i, choice) in enumerate(user_choices):
                                 self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
-                            change = raw_input("Change any of the details? [y/N] ").lower() or 'n'
+                            change = input("Change any of the details? [y/N] ").lower() or 'n'
                             while change == 'y':
-                                change_what = int(raw_input("What detail? "))
+                                change_what = int(input("What detail? "))
                                 if change_what in range(len(user_choices.keys())):
                                     choice = user_choices.keys()[change_what]
-                                    new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
+                                    new_value = input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
                                     user_choices[choice] = new_value
-                                change = raw_input("Change any more details? [y/N] ").lower() or 'n'
+                                change = input("Change any more details? [y/N] ").lower() or 'n'
 
             else:
                 self.handle_operation(self.options.operation)
@@ -108,7 +113,6 @@ class Main(SDService.SDService):
             video_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
             video_filesizes =  [video.getSize() for video in videoSearchResults]
             video_movienames = [video.getMovieName() for video in videoSearchResults]
-            #thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
 
             self.logout()
 
@@ -121,11 +125,11 @@ class Main(SDService.SDService):
 
         if self.options.videofile == os.path.abspath(os.path.curdir) and self.options.interactive:
             # confirm with user if he wants to use default directory
-            self.options.videofile = raw_input("Enter your video(s) directory [%s]: "% self.options.videofile) or self.options.videofile
+            self.options.videofile = input("Enter your video(s) directory [%s]: "% self.options.videofile) or self.options.videofile
         if os.path.exists(self.options.videofile):
             self.log.debug("...passed")
         elif self.options.interactive:
-            choice = raw_input("Enter your video(s) directory: ") or ""
+            choice = input("Enter your video(s) directory: ") or ""
             self.options.videofile = choice
             if os.path.exists(self.options.videofile):
                 self.log.debug("...passed")
@@ -266,14 +270,14 @@ class Main(SDService.SDService):
                         self.log.info("Upload the following information:")
                         for (i, choice) in enumerate(user_choices):
                             self.log.info("[%i] %s: %s"% (i, choice, user_choices[choice]))
-                        change = raw_input("Change any of the details? [y/N] ").lower() or 'n'
+                        change = input("Change any of the details? [y/N] ").lower() or 'n'
                         while change == 'y':
-                            change_what = int(raw_input("What detail? "))
+                            change_what = int(input("What detail? "))
                             if change_what in range(len(user_choices.keys())):
                                 choice = user_choices.keys()[change_what]
-                                new_value = raw_input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
+                                new_value = input("%s: [%s] "% (choice, user_choices[choice])) or user_choices[choice]
                                 user_choices[choice] = new_value
-                            change = raw_input("Change any more details? [y/N] ").lower() or 'n'
+                            change = input("Change any more details? [y/N] ").lower() or 'n'
 
                     # cook subtitle content
                     self.log.debug("Compressing subtitle...")
