@@ -44,17 +44,17 @@ if platform.system() == "Windows":
         #that happens for example in Vista,
         #where SD does not have writer permission on its ProgramFiles folder.
 
-if options.mode == 'gui':
-    import gui.main
-elif options.mode == 'cli':
-    import cli.main
-
 logging.basicConfig(level=options.logging,
                     format=conf.Logging.log_format,
                     datefmt='%H:%M',
                     filename=options.logfile,
                     filemode=conf.Logging.log_mode,
                     )
+
+if options.mode == 'gui':
+    import gui.main
+elif options.mode == 'cli':
+    import cli.main
 
 """
 # add a console logging handler if verbosity is turned on
