@@ -88,7 +88,7 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
 
             if not report_progress(): #If it has been canceled
                 raise UserActionCanceled()
-            report_progress(count,_("Parsing video: %s")% os.path.basename(filepath).decode(sys.getfilesystemencoding()))
+            report_progress(count,_("Parsing video: %s")% os.path.basename(filepath))
     report_progress(0)
 
     #Scanning Subs
