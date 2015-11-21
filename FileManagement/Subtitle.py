@@ -71,12 +71,14 @@ def AutoDetectSubtitle(pathvideofile, sub_list=None):
     if sub_list:
         log.debug("3rd method starting...")
         sub_scores = score_subtitles(pathvideofile, sub_list)
-        best_scored_sub = sub_scores.keys()[0]
+        best_sub = None
+        best_sub_score = -1
         for sub in sub_scores:
-            if sub_scores[sub] > sub_scores[best_scored_sub]:
-                best_scored_sub = sub
-        if sub_scores[best_scored_sub] > 0:
-            return best_scored_sub
+            if sub_scores[sub] > best_sub_score:
+                best_sub = sub
+                best_sub_score = sub_scores[sub]
+        if best_sub is not None:
+            return best_sub
     else:
         log.debug("3rd was skipped")
 
