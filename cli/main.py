@@ -239,9 +239,9 @@ class Main(SDService.SDService):
             #TODO: make this to work with non-hashed subtitles (no 'data' to handle)
             # quick check to see if all video/subtitles are from same movie
             for movie_sub in check_result['data']:
-                if not locals().has_key('IDMovie'):
+                if 'IDMovie' not in locals():
                     IDMovie = {}
-                if IDMovie.has_key(movie_sub['IDMovie']):
+                if 'IDMovie' in IDMovie:
                     IDMovie[movie_sub['IDMovie']] += 1
                 else:
                     IDMovie[movie_sub['IDMovie']] = 1

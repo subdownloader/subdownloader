@@ -117,7 +117,7 @@ class preferencesDialog(QtGui.QDialog):
         #Search
         optionFilterSearchLang = toString(settings.value("options/filterSearchLang", ""))
         for lang_xxx in optionFilterSearchLang.split(','):
-            if self.filterLanguages.has_key(lang_xxx):
+            if lang_xxx in self.filterLanguages:
                 self.filterLanguages[lang_xxx].setChecked(True)
 
         #Upload

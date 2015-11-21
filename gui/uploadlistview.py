@@ -122,7 +122,7 @@ class UploadListModel(QAbstractTableModel):
                 #import pprint
                 #pprint.pprint(results)
                 video_imdb = {"IDMovieImdb": results['data']["IDMovieImdb"], "MovieName": results['data']["MovieName"]}
-                if results['data'].has_key('SubLanguageID'):
+                if 'SubLanguageId' in results['data']:
                     xxx_lang = results['data']['SubLanguageID']
                     self._main.uploadLanguages.emit(SIGNAL('language_updated(QString,QString)'),xxx_lang, "database")
             if video_imdb:

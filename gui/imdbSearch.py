@@ -46,7 +46,7 @@ class imdbSearchDialog(QtGui.QDialog):
             text = self.ui.movieSearch.text()
             try:
                 results = self._main.OSDBServer.SearchMoviesOnIMDB(str(text.toUtf8()))
-                if not results or not len(results) or not results[0].has_key("id"): #In case of empty results
+                if not results or not len(results) or "id" not in results[0]: #In case of empty results
                     results = []
             except:
                 QMessageBox.about(self,_("Error"),_("Error contacting the server. Please try again later"))

@@ -425,7 +425,7 @@ class SDService(object):
             self.log.debug("Connection to the server failed/other error:%s",sys.exc_info())
             raise
         else:
-           if answer.has_key("data"):
+           if "data" in answer:
                if answer['data'] == False:  #TODO support passing the reason of the erorr to be shown in the GUI
                   self.log.info("Error downloading subtitle.")
                   return False
@@ -487,7 +487,7 @@ class SDService(object):
             moviehashes = {}
             for i in result['data']:
                 moviehash = i['MovieHash']
-                if not moviehashes.has_key(moviehash):
+                if moviehash not in moviehashes:
                     moviehashes[moviehash] = []
                 moviehashes[moviehash].append(i)
             self.log.debug("Movie hashes: %i"% len(moviehashes.keys()))
@@ -495,7 +495,7 @@ class SDService(object):
             if videos:
                 videos_result = []
                 for video in videos:
-                    if moviehashes.has_key(video.getHash()):
+                    if video.getHash() in moviehashes:
                         osdb_info = moviehashes[video.getHash()]
                         subtitles = []
                         self.log.debug("- %s (%s)"% (video.getFileName(), video.getHash()))
@@ -678,7 +678,7 @@ class SDService(object):
         if not program: program = APP_TITLE.lower()
         info = self.xmlrpc_server.GetAvailableTranslations(self._token, program)
         self.log.debug("GetAvailableTranslations finished in %s with status %s."% (info['seconds'], info['status']))
-        if info.has_key('data'):
+        if "data" in info:
             return info['data']
         return False
 
@@ -698,7 +698,7 @@ class SDService(object):
         self.log.debug("GetTranslation RPC method starting...")
         info = self.xmlrpc_server.GetTranslation(self._token, language, format, self.user_agent )
         self.log.debug("GetTranslation finished in %s with status %s."% (info['seconds'], info['status']))
-        if info.has_key('data'):
+        if 'data' in info:
             return info['data']
         return False
 

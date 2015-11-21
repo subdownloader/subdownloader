@@ -916,7 +916,7 @@ class Main(QObject, Ui_MainWindow):
                                 QMessageBox.about(self.window,_("Error"),_("Error contacting the server. Please try again later"))
                                 return
 
-                            if locals().has_key('videoSearchResults'):
+                            if 'videoSearchResults' in locals():
                                 video_osdb_hashes = [video.calculateOSDBHash() for video in videoSearchResults]
 
                                 video_filesizes =  [video.getSize() for video in videoSearchResults]
