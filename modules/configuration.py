@@ -116,7 +116,7 @@ class Terminal(object):
         parser.add_argument("-P", "--proxy", dest="proxy", nargs='?', action=proxyAction,
             help="Proxy to use on internet connections")
 
-    progress_bar_style= [progressbar.Bar(), progressbar.Percentage(), ' ', progressbar.ETA()]
+    progress_bar_style= [progressbar.Bar(left='[', right=']'), progressbar.Percentage(), ' ', progressbar.ETA()]
 
 class Graphical(object):
     @classmethod

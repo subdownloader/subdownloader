@@ -86,9 +86,9 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
                 videos_found.append(videofile.VideoFile(filepath))
             count += percentage
 
-            if not report_progress(): #If it has been canceled
-                raise UserActionCanceled()
-            report_progress(count,_("Parsing video: %s")% os.path.basename(filepath))
+            print('old result', report_progress())
+            report_progress()
+            report_progress(count)#,_("Parsing video: %s")% os.path.basename(filepath))
     report_progress(0)
 
     #Scanning Subs
@@ -101,8 +101,8 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
         for i, filepath in enumerate(files_found):
             subs_found.append(subtitlefile.SubtitleFile(online = False,id = filepath))
             count += percentage
-            report_progress(count,_("Parsing sub: %s") % filepath)
-    report_progress(100,_("Finished hashing"))
+            report_progress(count)#,_("Parsing sub: %s") % filepath)
+    report_progress(100)#,_("Finished hashing"))
     if progress_end:
         progress_end()
 
