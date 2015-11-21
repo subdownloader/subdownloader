@@ -11,9 +11,9 @@ from modules import APP_VERSION
 """
 Logging levels:
 CRITICAL    50
-ERROR        40
-WARNING    30
-INFO            20
+ERROR       40
+WARNING     30
+INFO        20
 DEBUG       10
 NOTSET       0
 """
@@ -49,6 +49,10 @@ class Terminal(object):
             action="store_const", const="nerd", default="human",
             help="Print messages with more details")
         parser.set_defaults(output="human")
+
+        parser.add_argument("--log", dest="logfile", metavar="FILE",
+            nargs="?", const=Logging.log_name, default=None,
+            help="Log actions of subdownloader to file")
 
         # user application options
         updown = parser.add_mutually_exclusive_group()
@@ -109,7 +113,9 @@ class Graphical(object):
 
 class General(object):
     name = APP_TITLE
-    description = "%s is a Free Open-Source tool written in PYTHON for automatic download/upload subtitles for videofiles (DIVX,MPEG,AVI,etc) and DVD's using fast hashing."% name
+    description = "%s is a Free Open-Source tool written in PYTHON'\
+        'for automatic download/upload subtitles for videofiles'\
+        '(DIVX,MPEG,AVI,etc) and DVD's using fast hashing."% name
     version = "%s v%s"% (APP_TITLE, APP_VERSION)
     rpc_server = "http://www.opensubtitles.org/xml-rpc"
     search_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml"

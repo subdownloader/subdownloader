@@ -20,9 +20,9 @@ from modules import APP_VERSION
 
 """
 CRITICAL    50
-ERROR        40
-WARNING    30
-INFO            20
+ERROR       40
+WARNING     30
+INFO        20
 DEBUG       10
 NOTSET       0
 """
@@ -34,9 +34,15 @@ options = parser.parse_args()
 
 if platform.system() == "Windows":
     try:
-        sys.stderr = open(os.path.join(subdownloader_folder,"subdownloader.log"), "w") #The EXE file in windows will think that outputs here are errors, and it will show annoying mesage about run.exe.log
+        sys.stderr = open(os.path.join(subdownloader_folder,
+            "subdownloader.log"), "w")
+        #The EXE file in windows will think that outputs here are errors,
+        #and it will show annoying mesage about run.exe.log
     except:
-        pass #Cannot write message into subdownloader.log, that happens for example in Vista, where SD does not have writer permission on its ProgramFiles folder
+        pass
+        #Cannot write message into subdownloader.log,
+        #that happens for example in Vista,
+        #where SD does not have writer permission on its ProgramFiles folder.
 
 if options.mode == 'gui':
     import gui.main
@@ -46,9 +52,8 @@ elif options.mode == 'cli':
 logging.basicConfig(level=options.logging,
                     format=conf.Logging.log_format,
                     datefmt='%H:%M',
-                    #uncomment next two lines if we want logging into a file
-                    #filename=conf.Logging.log_path,
-                    #filemode=conf.Logging.log_mode,
+                    filename=options.logfile,
+                    filemode=conf.Logging.log_mode,
                     )
 
 """
