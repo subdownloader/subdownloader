@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created: Mon Aug 27 09:38:06 2012
-#      by: PyQt4 UI code generator 4.9.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,7 +11,16 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -31,7 +39,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
         self.vboxlayout = QtGui.QVBoxLayout()
-
         self.tabs = QtGui.QTabWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -48,9 +55,8 @@ class Ui_MainWindow(object):
         self.tab.setSizePolicy(sizePolicy)
         self.tab.setObjectName(_fromUtf8("tab"))
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.tab)
-        self.verticalLayout_4.setSpacing(1)
         self.verticalLayout_4.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
-
+        self.verticalLayout_4.setSpacing(1)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
         self.frame = QtGui.QFrame(self.tab)
         self.frame.setFrameShape(QtGui.QFrame.NoFrame)
@@ -58,9 +64,8 @@ class Ui_MainWindow(object):
         self.frame.setLineWidth(0)
         self.frame.setObjectName(_fromUtf8("frame"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.frame)
-        self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
-
+        self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.splitter = QtGui.QSplitter(self.frame)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
@@ -70,9 +75,8 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShadow(QtGui.QFrame.Raised)
         self.frame_2.setObjectName(_fromUtf8("frame_2"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.frame_2)
-        self.verticalLayout_3.setSpacing(6)
         self.verticalLayout_3.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
-
+        self.verticalLayout_3.setSpacing(6)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.horizontalLayout_10 = QtGui.QHBoxLayout()
         self.horizontalLayout_10.setObjectName(_fromUtf8("horizontalLayout_10"))
@@ -151,9 +155,8 @@ class Ui_MainWindow(object):
         self.groupBox_videosFound.setFrameShadow(QtGui.QFrame.Raised)
         self.groupBox_videosFound.setObjectName(_fromUtf8("groupBox_videosFound"))
         self.verticalLayout_8 = QtGui.QVBoxLayout(self.groupBox_videosFound)
-        self.verticalLayout_8.setSpacing(6)
         self.verticalLayout_8.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
-
+        self.verticalLayout_8.setSpacing(6)
         self.verticalLayout_8.setObjectName(_fromUtf8("verticalLayout_8"))
         self.layoutTopVideos = QtGui.QHBoxLayout()
         self.layoutTopVideos.setObjectName(_fromUtf8("layoutTopVideos"))
@@ -369,7 +372,6 @@ class Ui_MainWindow(object):
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.verticalLayout = QtGui.QVBoxLayout(self.groupBox_2)
         self.verticalLayout.setSpacing(0)
-
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
@@ -442,7 +444,6 @@ class Ui_MainWindow(object):
         self.uploadView.setMinimumSize(QtCore.QSize(0, 0))
         self.uploadView.setBaseSize(QtCore.QSize(0, 0))
         self.uploadView.setAcceptDrops(True)
-
         self.uploadView.setDragEnabled(True)
         self.uploadView.setDragDropMode(QtGui.QAbstractItemView.DropOnly)
         self.uploadView.setAlternatingRowColors(True)
@@ -689,77 +690,83 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_("SubDownloader"))
-        self.label_11.setText(_("Select the video/folder that needs subtitles:"))
-        self.buttonSearchSelectVideos.setToolTip(_("Select videos that need subtitles"))
-        self.buttonSearchSelectVideos.setText(_("Select videos..."))
-        self.buttonSearchSelectFolder.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
-        self.buttonSearchSelectFolder.setText(_("Select folder..."))
-        self.buttonRefresh.setText(_("Refresh list"))
-        self.buttonFind.setToolTip(_("Click here to Search the subtitles of the movies in that folder"))
-        self.buttonFind.setText(_("Search subtitles"))
-        self.label_videosFound.setText(_("Videos/Subtitles found:"))
-        self.label_filterBy.setText(_("Filter by:"))
-        self.introductionHelp.setHtml(QtGui.QApplication.translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        MainWindow.setWindowTitle(_translate("MainWindow", "SubDownloader", None))
+        self.label_11.setText(_translate("MainWindow", "Select the video/folder that needs subtitles:", None))
+        self.buttonSearchSelectVideos.setToolTip(_translate("MainWindow", "Select videos that need subtitles", None))
+        self.buttonSearchSelectVideos.setText(_translate("MainWindow", "Select videos...", None))
+        self.buttonSearchSelectFolder.setToolTip(_translate("MainWindow", "Click here to Search the subtitles of the movies in that folder", None))
+        self.buttonSearchSelectFolder.setText(_translate("MainWindow", "Select folder...", None))
+        self.buttonRefresh.setText(_translate("MainWindow", "Refresh list", None))
+        self.buttonFind.setToolTip(_translate("MainWindow", "Click here to Search the subtitles of the movies in that folder", None))
+        self.buttonFind.setText(_translate("MainWindow", "Search subtitles", None))
+        self.label_videosFound.setText(_translate("MainWindow", "Videos/Subtitles found:", None))
+        self.label_filterBy.setText(_translate("MainWindow", "Filter by:", None))
+        self.introductionHelp.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'DejaVu Sans\'; font-size:10pt; font-weight:600;\"><br /></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonIMDB.setText(_("Movie Info"))
-        self.buttonPlay.setText(_("Play"))
-        self.buttonDownload.setText(_("Download"))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab), _("Search from Video file(s)"))
-        self.buttonSearchByName.setText(_("Search"))
-        self.label_3.setText(_("Site:"))
-        self.searchSitesCombo.setItemText(0, _("OpenSubtitles.org"))
-        self.label_12.setText(_("Subtitles found:"))
-        self.label_10.setText(_("Filter by :"))
-        self.buttonIMDBByTitle.setText(_("Movie Info"))
-        self.buttonDownloadByTitle.setText(_("Download"))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_3), _("Search by Movie Name"))
-        self.groupBox_2.setTitle(_("Select the videos and subtitles  (only subtitles will be uploaded):"))
-        self.buttonUploadBrowseFolder.setText(_("..."))
-        self.buttonUploadPlusRow.setText(_("..."))
-        self.buttonUploadMinusRow.setText(_("..."))
-        self.buttonUploadDeleteAllRow.setToolTip(_("Empty the list"))
-        self.buttonUploadDeleteAllRow.setText(_("..."))
-        self.buttonUploadUpRow.setText(_("..."))
-        self.buttonUploadDownRow.setText(_("..."))
-        self.uploadDetailsGroupBox.setTitle(_("Details:"))
-        self.label_4.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'DejaVu Sans\'; font-size:10pt; font-weight:600;\"><br /></p></body></html>", None))
+        self.buttonIMDB.setText(_translate("MainWindow", "Movie Info", None))
+        self.buttonPlay.setText(_translate("MainWindow", "Play", None))
+        self.buttonDownload.setText(_translate("MainWindow", "Download", None))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab), _translate("MainWindow", "Search from Video file(s)", None))
+        self.buttonSearchByName.setText(_translate("MainWindow", "Search", None))
+        self.label_3.setText(_translate("MainWindow", "Site:", None))
+        self.searchSitesCombo.setItemText(0, _translate("MainWindow", "OpenSubtitles.org", None))
+        self.label_12.setText(_translate("MainWindow", "Subtitles found:", None))
+        self.label_10.setText(_translate("MainWindow", "Filter by :", None))
+        self.buttonIMDBByTitle.setText(_translate("MainWindow", "Movie Info", None))
+        self.buttonDownloadByTitle.setText(_translate("MainWindow", "Download", None))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_3), _translate("MainWindow", "Search by Movie Name", None))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Select the videos and subtitles  (only subtitles will be uploaded):", None))
+        self.buttonUploadBrowseFolder.setText(_translate("MainWindow", "...", None))
+        self.buttonUploadPlusRow.setText(_translate("MainWindow", "...", None))
+        self.buttonUploadMinusRow.setText(_translate("MainWindow", "...", None))
+        self.buttonUploadDeleteAllRow.setToolTip(_translate("MainWindow", "Empty the list", None))
+        self.buttonUploadDeleteAllRow.setText(_translate("MainWindow", "...", None))
+        self.buttonUploadUpRow.setText(_translate("MainWindow", "...", None))
+        self.buttonUploadDownRow.setText(_translate("MainWindow", "...", None))
+        self.uploadDetailsGroupBox.setTitle(_translate("MainWindow", "Details:", None))
+        self.label_4.setText(_translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(_("Movie Title:"))
-        self.uploadIMDB.setItemText(0, _("Click on the Find button to identify the movie"))
-        self.buttonUploadFindIMDB.setText(_("Find"))
-        self.label_8.setText(QtGui.QApplication.translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None))
+        self.label.setText(_translate("MainWindow", "Movie Title:", None))
+        self.uploadIMDB.setItemText(0, _translate("MainWindow", "Click on the Find button to identify the movie", None))
+        self.buttonUploadFindIMDB.setText(_translate("MainWindow", "Find", None))
+        self.label_8.setText(_translate("MainWindow", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_autodetect_imdb.setText(_("..."))
-        self.label_autodetect_lang.setText(_("..."))
-        self.label_6.setText(_("Release name:"))
-        self.label_7.setText(_("Comments:"))
-        self.label_5.setText(_("Subtitle Language:"))
-        self.buttonUpload.setText(_("Upload"))
-        self.tabs.setTabText(self.tabs.indexOf(self.tab_4), _("Upload subtitles"))
-        self.menuMain.setTitle(_("&Main"))
-        self.menu_Help.setTitle(_("&Help"))
-        self.menu_Preferences.setTitle(_("&Settings"))
-        self.menuView.setTitle(_("&View"))
-        self.action_Quit.setText(_("Quit"))
-        self.action_HelpHomepage.setText(_("Visit HomePage"))
-        self.action_HelpAbout.setText(_("About"))
-        self.action_HelpBug.setText(_("Report A Problem"))
-        self.action_HelpDonation.setText(_("Help Us With 5 USD/EUR"))
-        self.action_ShowPreferences.setText(_("&Configure Subdownloader"))
-        self.action_Login.setText(_("LogIn"))
-        self.action_LogMessages.setText(_("Log Messages"))
-        self.action_ShowHideTreeFolder.setText(_("Show/Hide Tree Folder"))
-        self.action_LogOut.setText(_("LogOut"))
-        self.actionHelp_To_Translate_This_Application.setText(_("Translate This Application..."))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#ff0000;\">*</span></p></body></html>", None))
+        self.label_autodetect_imdb.setText(_translate("MainWindow", "...", None))
+        self.label_autodetect_lang.setText(_translate("MainWindow", "...", None))
+        self.label_6.setText(_translate("MainWindow", "Release name:", None))
+        self.label_7.setText(_translate("MainWindow", "Comments:", None))
+        self.label_5.setText(_translate("MainWindow", "Subtitle Language:", None))
+        self.buttonUpload.setText(_translate("MainWindow", "Upload", None))
+        self.tabs.setTabText(self.tabs.indexOf(self.tab_4), _translate("MainWindow", "Upload subtitles", None))
+        self.menuMain.setTitle(_translate("MainWindow", "&Main", None))
+        self.menu_Help.setTitle(_translate("MainWindow", "&Help", None))
+        self.menu_Preferences.setTitle(_translate("MainWindow", "&Settings", None))
+        self.menuView.setTitle(_translate("MainWindow", "&View", None))
+        self.action_Quit.setText(_translate("MainWindow", "Quit", None))
+        self.action_HelpHomepage.setText(_translate("MainWindow", "Visit HomePage", None))
+        self.action_HelpAbout.setText(_translate("MainWindow", "About", None))
+        self.action_HelpBug.setText(_translate("MainWindow", "Report A Problem", None))
+        self.action_HelpDonation.setText(_translate("MainWindow", "Help Us With 5 USD/EUR", None))
+        self.action_ShowPreferences.setText(_translate("MainWindow", "&Configure Subdownloader", None))
+        self.action_Login.setText(_translate("MainWindow", "LogIn", None))
+        self.action_LogMessages.setText(_translate("MainWindow", "Log Messages", None))
+        self.action_ShowHideTreeFolder.setText(_translate("MainWindow", "Show/Hide Tree Folder", None))
+        self.action_LogOut.setText(_translate("MainWindow", "LogOut", None))
+        self.actionHelp_To_Translate_This_Application.setText(_translate("MainWindow", "Translate This Application...", None))
 
-from uploadlistview import UploadListView
-import images_rc
+from .uploadlistview import UploadListView
+from . import images_rc
+
+class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
+    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
+        QtGui.QMainWindow.__init__(self, parent, f)
+
+        self.setupUi(self)
 
