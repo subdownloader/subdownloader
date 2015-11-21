@@ -135,7 +135,7 @@ def GetLangFromFilename(filepath):
 #FIXME: when language is 'Brazlian' wrong value is returned: 'Bra' instead of 'pob')
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
-        subtitle_content = file(filepath,mode='rb').read()
+        subtitle_content = open(filepath,mode='rb').read()
         Languages.CleanTagsFile(subtitle_content)
         #Initializing the Language Detector
         n = autodetect_lang._NGram()

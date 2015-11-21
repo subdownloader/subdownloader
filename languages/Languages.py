@@ -123,5 +123,5 @@ def name2xxx(name):
             return lang['SubLanguageID']
 
 def CleanTagsFile(text):
-    p = re.compile( '<.*?>')
-    return p.sub('',text)
+    p = re.compile(b'<.*?>')
+    return p.sub(b'',text)

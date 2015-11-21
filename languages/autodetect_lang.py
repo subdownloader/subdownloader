@@ -114,10 +114,10 @@ class NGram:
             count += 1
             lang = os.path.split(fname)[-1][:-size]
             ngrams = dict()
-            file = open(fname,'r')
+            file = open(fname,'rb')
 
             for line in file.readlines():
-                parts = line[:-1].split('\t ')
+                parts = line[:-1].split(b'\t ')
                 if len(parts) != 2:
                     raise ValueError("invalid language file %s line : %s" % (fname,parts))
                 try:
@@ -139,7 +139,7 @@ class NGram:
         ngram = _NGram(text)
         r = 'guess'
 
-        langs = self.ngrams.keys()
+        langs = list(self.ngrams.keys())
         r = langs.pop()
         min = self.ngrams[r].compare(ngram)
 
