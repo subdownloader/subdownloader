@@ -10,10 +10,7 @@ try:
     import httplib
 except ImportError:
     import http.client as httplib
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import BytesIO
 
 import base64, os
 import gzip, zlib
@@ -413,7 +410,7 @@ class SDService(object):
             self.log.debug("Communicating with server...")
             self.log.debug("xmlrpc_server.DownloadSubtitles(%s,%r)" %(self._token, subtitles_to_download.keys()))
         try:
-            answer = self.xmlrpc_server.DownloadSubtitles(self._token, subtitles_to_download.keys())
+            answer = self.xmlrpc_server.DownloadSubtitles(self._token, list(subtitles_to_download.keys()))
             self.log.debug("DownloadSubtitles finished in %s with status %s."% (answer['seconds'], answer['status']))
         except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
@@ -848,10 +845,10 @@ class SDService(object):
     def BaseToFile(self, base_data, path):
         """This will decode the base64 data and save it as a file with the given path
         """
-        compressedstream = base64.decodestring(base_data)
-        gzipper = gzip.GzipFile(fileobj=StringIO(compressedstream))
+        compressedstream = base64.decodestring(bytearray(base_data, encoding='ascii'))
+        gzipper = gzip.GzipFile(fileobj=BytesIO(compressedstream))
         s=gzipper.read()
         gzipper.close()
-        subtitle_file = file(path, 'wb')
+        subtitle_file = open(path, 'wb')
         subtitle_file.write(s)
         subtitle_file.close()
