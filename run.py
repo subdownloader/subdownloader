@@ -26,7 +26,7 @@ INFO        20
 DEBUG       10
 NOTSET       0
 """
-#TODO: Check if APP_VERSION replace really works.
+
 parser = argparse.ArgumentParser(description=conf.General.description)
 conf.Terminal.populate_parser(parser)
 

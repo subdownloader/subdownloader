@@ -34,7 +34,6 @@ except:
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
-DEFAULT_PROXY = 'http://w2.hidemyass.com/'
 TEST_URL = 'http://www.google.com'
 USER_AGENT = "%s %s"% (APP_TITLE, APP_VERSION)
 CON_TIMEOUT = 300
