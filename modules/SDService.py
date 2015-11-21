@@ -709,8 +709,8 @@ class SDService(object):
         except TimeoutFunctionException as e:
             self.log.error("SearchMoviesOnIMDB timed out")
             raise
-        except Exception as e:
-            traceback.print_exc(e)
+        except:
+            traceback.print_exc()
             raise
 
     def _SearchMoviesOnIMDB(self, query):
@@ -734,8 +734,8 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("GetIMDBMovieDetails timed out")
             return False
-        except Exception as e:
-            traceback.print_exc(e)
+        except:
+            traceback.print_exc()
             return False
 
     def _GetIMDBMovieDetails(self, imdb_id):

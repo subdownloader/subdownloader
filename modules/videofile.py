@@ -25,9 +25,8 @@ class VideoFile(object):
             if not self._fps:
                 self._fps = 0
             self._timeMS = video.length * 1000
-        except Exception as e:
-            print(filepath)
-            traceback.print_exc(e)
+        except:
+            traceback.print_exc()
             self._fps = 0
             self._timeMS = 0
         self._osdb_info = {}
