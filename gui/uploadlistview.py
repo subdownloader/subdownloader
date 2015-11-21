@@ -10,11 +10,6 @@ from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
 
-try:
-    from PyQt4.Qt import QString
-except ImportError:
-    QString = str
-
 from PyQt4.QtGui import QItemSelection
 
 from FileManagement import get_extension, clear_string, without_extension

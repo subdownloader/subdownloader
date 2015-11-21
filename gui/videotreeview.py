@@ -11,11 +11,6 @@ from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
                      QByteArray, QBuffer, QMimeData, \
                      QDrag, QRect
 
-try:
-    from PyQt4.Qt import QString
-except ImportError:
-    QString = str
-
 from modules.videofile import VideoFile
 from modules.subtitlefile import SubtitleFile
 from modules.search import Movie

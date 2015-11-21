@@ -9,10 +9,7 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel, QListWidgetItem
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-try:
-    from PyQt4.Qt import QString
-except ImportError:
-    QString = str
+from .main import toString
 
 from languages import Languages, autodetect_lang
 from gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
@@ -46,7 +43,7 @@ class chooseLanguageDialog(QtGui.QDialog):
         if not self.ui.languagesList.currentItem():
                 QMessageBox.about(self,"Alert","Please select a language")
         else:
-                choosen_lang = str(self.ui.languagesList.currentItem().data(Qt.UserRole).toString().toUtf8())
+                choosen_lang = toString(self.ui.languagesList.currentItem().data(Qt.UserRole))
                 self._main.choosenLanguage = choosen_lang
                 self.reject()
 

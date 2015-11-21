@@ -9,11 +9,6 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-try:
-    from PyQt4.Qt import QString
-except ImportError:
-    QString = str
-
 from gui.about_ui import Ui_AboutDialog
 import logging
 log = logging.getLogger("subdownloader.gui.about")

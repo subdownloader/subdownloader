@@ -9,6 +9,8 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
+from main import toString
+
 from gui.expiration_ui import Ui_ExpirationDialog
 import logging
 import webbrowser
@@ -21,7 +23,7 @@ import time
 DAYS_TRIAL = 30
 def GetFirstRunTime():
     settings = QSettings()
-    firstRunTime = settings.value("mainwindow/size2", "").toString()
+    firstRunTime = toString(settings.value("mainwindow/size2", ""))
     if firstRunTime != "":
         return firstRunTime.toDouble()[0]
     else:

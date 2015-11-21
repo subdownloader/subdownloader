@@ -10,10 +10,7 @@ from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
                         QInputDialog, QDirModel, QItemSelectionModel
 from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
 
-try:
-    from PyQt4.Qt import QString
-except ImportError:
-    QString = str
+from .main import toString
 
 from gui.login_ui import Ui_LoginDialog
 import logging
@@ -29,8 +26,8 @@ class loginDialog(QtGui.QDialog):
 
         QObject.connect(self.ui.buttonBox, SIGNAL("accepted()"), self.onButtonAccept)
         QObject.connect(self.ui.buttonBox, SIGNAL("rejected()"), self.onButtonClose)
-        username = settings.value("options/LoginUsername", "").toString()
-        password = settings.value("options/LoginPassword", "").toString()
+        username = toString(settings.value("options/LoginUsername", ""))
+        password = toString(settings.value("options/LoginPassword", ""))
         self.ui.optionLoginUsername.setText(username)
         self.ui.optionLoginPassword.setText(password)
 
@@ -41,8 +38,8 @@ class loginDialog(QtGui.QDialog):
         settings = QSettings()
         newUsername =  self.ui.optionLoginUsername.text()
         newPassword = self.ui.optionLoginPassword.text()
-        oldUsername = settings.value("options/LoginUsername", "").toString()
-        oldPassword = settings.value("options/LoginPassword", "").toString()
+        oldUsername = toString(settings.value("options/LoginUsername", ""))
+        oldPassword = toString(settings.value("options/LoginPassword", ""))
 
         if newUsername != oldUsername or newPassword != oldPassword:
             settings.setValue("options/LoginUsername", newUsername)

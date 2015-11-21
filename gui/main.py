@@ -23,7 +23,7 @@ except ImportError:
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-                         QSettings, QSize, QEventLoop, \
+                         QSettings, QSize, QEventLoop, QPoint, \
                          QBuffer, QIODevice, QModelIndex,QDir, QFileInfo, QTime, QFile
 from PyQt4.QtGui import QProgressDialog, QPixmap, QSplashScreen, QErrorMessage, QLineEdit, \
                         QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog,QDirModel, QItemSelectionModel
@@ -38,6 +38,37 @@ try:
     toUnicode = unicode
 except NameError:
     toUnicode = str
+
+def toString(string):
+    if isinstance(string, str):
+        return string
+    elif isinstance(string, QString):
+        return str(string)
+    else:
+        #assume QVariatn
+        return str(string.toString())
+
+def toQSize(size):
+    if isinstance(size, QSize):
+        return size
+    else:
+        #assume QVariatn
+        return size.toSize()
+
+def toQPoint(point):
+    if isinstance(point, QPoint):
+        return point
+    else:
+        #assume QVariatn
+        return point.toPoint()
+
+def toInteger(integer):
+    if isinstance(integer, int):
+        return integer
+    elif isinstance(integer, str):
+        return int(integer)
+    else:
+        integer.toInt()[0]
 
 from gui.SplashScreen import SplashScreen, NoneSplashScreen
 from FileManagement import get_extension, clear_string, without_extension
@@ -131,9 +162,9 @@ class Main(QObject, Ui_MainWindow):
 
         #SHAREWARE PART
         if SHAREWARE:
-            activation_email = settings.value('activation/email', "").toString()
-            activation_licensekey = settings.value('activation/licensekey', "").toString()
-            activation_fullname = settings.value('activation/fullname', "").toString()
+            activation_email = toString(settings.value('activation/email', ""))
+            activation_licensekey = toString(settings.value('activation/licensekey', ""))
+            activation_fullname = toString(settings.value('activation/fullname', ""))
             if activation_email != "" and activation_licensekey != "" and activation_fullname != "":
                 self.software_registered = True
             else:
@@ -154,7 +185,7 @@ class Main(QObject, Ui_MainWindow):
         self.showInstructions()
 
         #Loop to expand the current directory in the folderview.
-        lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath()).toString()
+        lastDir = toString(settings.value("mainwindow/workingDirectory", QDir.homePath()))
         log.debug('Current directory: %s' % lastDir)
         path = QDir(lastDir)
         while True:
@@ -303,8 +334,8 @@ class Main(QObject, Ui_MainWindow):
                     loginUsername = options.username
                     loginPassword = options.password
                 else:
-                    loginUsername = settings.value("options/LoginUsername", "").toString().toUtf8()
-                    loginPassword = settings.value("options/LoginPassword", "").toString().toUtf8()
+                    loginUsername = toString(settings.value("options/LoginUsername", ""))
+                    loginPassword = toString(settings.value("options/LoginPassword", ""))
                 self.login_user(loginUsername,loginPassword,self.window)
                 #thread.start_new_thread(self.OSDBServer.NoOperation, (900, )) #check expire session every 15min
             else:
@@ -320,7 +351,7 @@ class Main(QObject, Ui_MainWindow):
 
     def onButtonRefresh(self):
         settings = QSettings()
-        lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath()).toString()
+        lastDir = toString(settings.value("mainwindow/workingDirectory", QDir.homePath()))
         path = QDir(lastDir)
         window = QMainWindow()
         self.window = window
@@ -368,7 +399,7 @@ class Main(QObject, Ui_MainWindow):
                 user_locale = lc.split('_')[0]
 
         settings = QSettings()
-        interface_lang = str(settings.value("options/interfaceLang", "").toString())
+        interface_lang = toString(settings.value("options/interfaceLang", ""))
         if not len(self.interface_langs):
                 interface_lang = 'en'
         else:
@@ -443,7 +474,7 @@ class Main(QObject, Ui_MainWindow):
             self.introductionHelp.hide()
 
     def openExternalUrl(self, url):
-            webbrowser.open( unicode(url.toString()), new=2, autoraise=1)
+            webbrowser.open( toString(url), new=2, autoraise=1)
 
     def dragEnterEvent(self, event):
         #print event.mimeData().formats().join(" ")
@@ -532,21 +563,21 @@ class Main(QObject, Ui_MainWindow):
 
     def read_settings(self):
         settings = QSettings()
-        size = settings.value("mainwindow/size", QSize(1000, 400)).toSize()
+        size = toQSize(settings.value("mainwindow/size", QSize(1000, 400)))
         self.window.resize(size)
-        pos = settings.value("mainwindow/pos", "") #FIXME: default position?
+        pos = toQPoint(settings.value("mainwindow/pos", "")) #FIXME: default position?
         if pos != "":
-                self.window.move(pos.toPoint())
+                self.window.move(pos)
 
         size = settings.beginReadArray("upload/imdbHistory")
         for i in range(size):
             settings.setArrayIndex(i)
-            imdbId = settings.value("imdbId").toString()
-            title = settings.value("title").toString()
+            imdbId = toString(settings.value("imdbId"))
+            title = toString(settings.value("title"))
             self.uploadIMDB.addItem("%s : %s" % (imdbId, title), imdbId)
         settings.endArray()
 
-        programPath = settings.value("options/VideoPlayerPath", "").toString()
+        programPath = toString(settings.value("options/VideoPlayerPath", ""))
         if programPath == "": #If not found videoplayer
             self.initializeVideoPlayer(settings)
 
@@ -714,7 +745,7 @@ class Main(QObject, Ui_MainWindow):
 
     def showExpirationWarning(self, daysLeft):
         reminderBox = QMessageBox(_("Expiration Reminder"),_("The program will expire in %d days.\nWould you like to activate it now?") % daysLeft, QMessageBox.Warning, QMessageBox.Cancel | QMessageBox.Escape, QMessageBox.NoButton , QMessageBox.NoButton, self.window)
-        activateButton = reminderBox.addButton(QString(_("Activate")), QMessageBox.ActionRole)
+        activateButton = reminderBox.addButton(_("Activate"), QMessageBox.ActionRole)
         reminderBox.exec_()
         answer = reminderBox.clickedButton()
         if answer == activateButton:
@@ -763,7 +794,7 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForTitle.adjustSize()
         self.uploadLanguages.adjustSize()
 
-        optionFilterLanguage = settings.value("options/filterSearchLang", "").toString()
+        optionFilterLanguage = toString(settings.value("options/filterSearchLang", ""))
 
         self.emit(SIGNAL('filterLangChangedPermanent(QString)'),optionFilterLanguage)
 
@@ -773,7 +804,7 @@ class Main(QObject, Ui_MainWindow):
         QObject.connect(self.uploadLanguages, SIGNAL("language_updated(QString,QString)"), self.onUploadLanguageDetection)
 
     def onFilterLanguageVideo(self, index):
-        selectedLanguageXXX = str(self.filterLanguageForVideo.itemData(index).toString())
+        selectedLanguageXXX = toString(self.filterLanguageForVideo.itemData(index))
         log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
         self.videoView.clearSelection()
 
@@ -951,8 +982,8 @@ class Main(QObject, Ui_MainWindow):
             QMessageBox.about(self.window,_("Error"),_("You are not connected to the server. Please reconnect first."))
         else:
             settings = QSettings()
-            currentDir = settings.value("mainwindow/workingDirectory", "")
-            fileNames = QFileDialog.getOpenFileNames(None, _("Select the video(s) that need subtitles"), currentDir.toString(), videofile.SELECT_VIDEOS)
+            currentDir = toString(settings.value("mainwindow/workingDirectory", ""))
+            fileNames = QFileDialog.getOpenFileNames(None, _("Select the video(s) that need subtitles"), currentDir, videofile.SELECT_VIDEOS)
             fileNames = [str(file.toUtf8()) for file in fileNames]
             if fileNames:
                 settings.setValue("mainwindow/workingDirectory", QFileInfo(fileNames[0].absolutePath()))
@@ -963,7 +994,7 @@ class Main(QObject, Ui_MainWindow):
             QMessageBox.about(self.window,_("Error"),_("You are not connected to the server. Please reconnect first."))
         else:
             settings = QSettings()
-            path = settings.value("mainwindow/workingDirectory", "").toString()
+            path = toString(settings.value("mainwindow/workingDirectory", ""))
             directory=QtGui.QFileDialog.getExistingDirectory(None,_("Select the directory that contains your videos"),path)
             if directory:
                 settings.setValue("mainwindow/workingDirectory", directory)
@@ -985,9 +1016,9 @@ class Main(QObject, Ui_MainWindow):
 
     def onButtonPlay(self):
         settings = QSettings()
-        programPath = settings.value("options/VideoPlayerPath", "").toString()
-        parameters = settings.value("options/VideoPlayerParameters", "").toString()
-        if programPath == QString():
+        programPath = toString(settings.value("options/VideoPlayerPath", ""))
+        parameters = toString(settings.value("options/VideoPlayerParameters", ""))
+        if programPath == '':
             QMessageBox.about(self.window,_("Error"),_("No default video player has been defined in Settings."))
             return
         else:
@@ -1014,8 +1045,6 @@ class Main(QObject, Ui_MainWindow):
                 self.window.setCursor(Qt.ArrowCursor)
 
             params = []
-            programPath = str(programPath.toUtf8())
-            parameters = str(parameters.toUtf8())
 
             for param in parameters.split(" "):
                 if platform.system() in ("Windows", "Microsoft"):
@@ -1042,7 +1071,7 @@ class Main(QObject, Ui_MainWindow):
         settings = QSettings()
 
         #Creating the Subtitle Filename
-        optionSubtitleName = settings.value("options/subtitleName", "SAME_VIDEO").toString()
+        optionSubtitleName = toString(settings.value("options/subtitleName", "SAME_VIDEO"))
         sub_extension = get_extension(subtitle.getFileName().lower())
         if optionSubtitleName == "SAME_VIDEO":
            subFileName = without_extension(video.getFileName()) +"." + sub_extension
@@ -1054,22 +1083,22 @@ class Main(QObject, Ui_MainWindow):
            subFileName = subtitle.getFileName()
 
         #Creating the Folder Destination
-        optionWhereToDownload = settings.value("options/whereToDownload", "SAME_FOLDER").toString()
+        optionWhereToDownload = toString(settings.value("options/whereToDownload", "SAME_FOLDER"))
         if optionWhereToDownload == "ASK_FOLDER":
             folderPath = video.getFolderPath()
-            dir = QDir(QString(folderPath))
-            downloadFullPath = dir.filePath(QString(subFileName))
+            dir = QDir(folderPath)
+            downloadFullPath = dir.filePath(subFileName)
             downloadFullPath = QFileDialog.getSaveFileName(None, _("Save as..."), downloadFullPath, sub_extension).__str__()
             log.debug("Downloading to: %r"% downloadFullPath)
         elif optionWhereToDownload == "SAME_FOLDER":
             folderPath = video.getFolderPath()
-            dir = QDir(QString(folderPath))
+            dir = QDir(folderPath)
             downloadFullPath = os.path.join(folderPath, subFileName)
             log.debug("Downloading to: %r"% downloadFullPath)
         elif optionWhereToDownload == "PREDEFINED_FOLDER":
-            folderPath = settings.value("options/whereToDownloadFolder", "").toString()
-            dir = QDir(QString(folderPath))
-            downloadFullPath = dir.filePath(QString(subFileName)).__str__()
+            folderPath = toString(settings.value("options/whereToDownloadFolder", ""))
+            dir = QDir(folderPath)
+            downloadFullPath = dir.filePath(subFileName).__str__()
             log.debug("Downloading to: %r"% downloadFullPath)
 
         return downloadFullPath
@@ -1113,7 +1142,7 @@ class Main(QObject, Ui_MainWindow):
                                                                     QMessageBox.NoButton,
                                                                     self.window)
 
-                        saveAsButton = warningBox.addButton(QString(_("Save as...")), QMessageBox.ActionRole)
+                        saveAsButton = warningBox.addButton(_("Save as..."), QMessageBox.ActionRole)
                         answer = warningBox.exec_()
                         if answer == QMessageBox.Retry:
                             continue
@@ -1131,18 +1160,18 @@ class Main(QObject, Ui_MainWindow):
                     count += percentage
                     continue #Continue the next subtitle
 
-                optionWhereToDownload =  QSettings().value("options/whereToDownload", "SAME_FOLDER").toString()
+                optionWhereToDownload = toString(QSettings().value("options/whereToDownload", "SAME_FOLDER"))
                 #Check if doesn't exists already, otherwise show fileExistsBox dialog
                 if QFileInfo(destinationPath).exists() and not replace_all and not skip_all and optionWhereToDownload != "ASK_FOLDER":
                     # The "remote filename" below is actually not the real filename. Real name could be confusing
                     # since we always rename downloaded sub to match movie filename.
                     fileExistsBox = QMessageBox(_("File already exists"),_("Local: %s\n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()), QMessageBox.Warning, QMessageBox.NoButton, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
-                    skipButton = fileExistsBox.addButton(QString(_("Skip")), QMessageBox.ActionRole)
-#                    skipAllButton = fileExistsBox.addButton(QString(_("Skip all")), QMessageBox.ActionRole)
-                    replaceButton = fileExistsBox.addButton(QString(_("Replace")), QMessageBox.ActionRole)
-                    replaceAllButton = fileExistsBox.addButton(QString(_("Replace all")), QMessageBox.ActionRole)
-                    saveAsButton = fileExistsBox.addButton(QString(_("Save as...")), QMessageBox.ActionRole)
-                    cancelButton = fileExistsBox.addButton(QString(_("Cancel")), QMessageBox.ActionRole)
+                    skipButton = fileExistsBox.addButton(_("Skip"), QMessageBox.ActionRole)
+#                    skipAllButton = fileExistsBox.addButton(_("Skip all"), QMessageBox.ActionRole)
+                    replaceButton = fileExistsBox.addButton(_("Replace"), QMessageBox.ActionRole)
+                    replaceAllButton = fileExistsBox.addButton(_("Replace all"), QMessageBox.ActionRole)
+                    saveAsButton = fileExistsBox.addButton(_("Save as..."), QMessageBox.ActionRole)
+                    cancelButton = fileExistsBox.addButton(_("Cancel"), QMessageBox.ActionRole)
                     fileExistsBox.exec_()
                     answer = fileExistsBox.clickedButton()
                     if answer == replaceAllButton:
@@ -1227,8 +1256,8 @@ class Main(QObject, Ui_MainWindow):
         self.progress(0)
 
         settings = QSettings()
-        settingsProxyHost = settings.value("options/ProxyHost", "").toString()
-        settingsProxyPort = settings.value("options/ProxyPort", 8080).toInt()[0]
+        settingsProxyHost = toString(settings.value("options/ProxyHost", ""))
+        settingsProxyPort = toInteger(settings.value("options/ProxyPort", 8080))
         if not self.options.proxy:  #If we are not defining the proxy from command line
             if settingsProxyHost: #Let's see if we have defined a proxy in our Settings
                 self.options.proxy = str(settingsProxyHost + ":" + str(settingsProxyPort))
@@ -1267,8 +1296,8 @@ class Main(QObject, Ui_MainWindow):
 
     def onUploadBrowseFolder(self):
         settings = QSettings()
-        path = settings.value("mainwindow/workingDirectory", "")
-        directory=QtGui.QFileDialog.getExistingDirectory(None,_("Select a directory"),path.toString())
+        path = toString(settings.value("mainwindow/workingDirectory", ""))
+        directory=QtGui.QFileDialog.getExistingDirectory(None,_("Select a directory"),path)
         if directory:
             settings.setValue("mainwindow/workingDirectory", directory)
             directory =  str(directory.toUtf8())
@@ -1302,7 +1331,7 @@ class Main(QObject, Ui_MainWindow):
             QMessageBox.about(self.window,_("Error"),error)
             return
         else:
-            imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
+            imdb_id = toString(self.uploadIMDB.itemData(self.uploadIMDB.currentIndex()))
             if imdb_id is not None: #No IMDB
                 QMessageBox.about(self.window,_("Error"),_("Please identify the movie."))
                 return
@@ -1316,9 +1345,9 @@ class Main(QObject, Ui_MainWindow):
 
                 log.debug("Compressing subtitle...")
                 details = {}
-                details['IDMovieImdb'] = str(imdb_id.toString().toUtf8())
-                lang_xxx = self.uploadLanguages.itemData(self.uploadLanguages.currentIndex())
-                details['sublanguageid'] = str(lang_xxx.toString().toUtf8())
+                details['IDMovieImdb'] = imdb_id
+                lang_xxx = toString(self.uploadLanguages.itemData(self.uploadLanguages.currentIndex()))
+                details['sublanguageid'] = lang_xxx
                 details['movieaka'] = ''
                 details['moviereleasename'] = str(self.uploadReleaseText.text().toUtf8())
                 comments = str(self.uploadComments.toPlainText().toUtf8())
@@ -1348,7 +1377,7 @@ class Main(QObject, Ui_MainWindow):
                                                                         QMessageBox.NoButton,
                                                                         self.window)
 
-                        saveAsButton = successBox.addButton(QString(_("View Subtitle Info")), QMessageBox.ActionRole)
+                        saveAsButton = successBox.addButton(_("View Subtitle Info"), QMessageBox.ActionRole)
                         answer = successBox.exec_()
                         if answer ==  QMessageBox.NoButton:
                             webbrowser.open( info['data'], new=2, autoraise=1)
@@ -1477,7 +1506,7 @@ class Main(QObject, Ui_MainWindow):
     def onUploadClickViewCell(self, index):
         row, col = index.row(), index.column()
         settings = QSettings()
-        currentDir = settings.value("mainwindow/workingDirectory", '').toString()
+        currentDir = toString(settings.value("mainwindow/workingDirectory", ''))
 
         if col == UploadListView.COL_VIDEO:
             fileName = QFileDialog.getOpenFileName(None, _("Browse video..."), currentDir, videofile.SELECT_VIDEOS)
@@ -1563,7 +1592,7 @@ class Main(QObject, Ui_MainWindow):
             self.moviesView.expandAll() #This was a solution found to refresh the treeView
             QCoreApplication.processEvents()
             s = SearchByName()
-            selectedLanguageXXX = self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString()
+            selectedLanguageXXX = toString(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()))
             search_text = str(self.movieNameText.text().toUtf8())
             # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
             # like a string of forbidden chars (pr the other way around, string of good chars)
@@ -1585,7 +1614,7 @@ class Main(QObject, Ui_MainWindow):
             self.buttonSearchByName.setEnabled(True)
 
     def onFilterLangChangedPermanent(self, languages):
-        languages = languages.toUtf8()
+        languages = toString(languages)
         languages_array = languages.split(",")
 
         if len(languages_array) > 1:
@@ -1602,7 +1631,7 @@ class Main(QObject, Ui_MainWindow):
             self.filterLanguageForVideo.setCurrentIndex(index)
 
     def onFilterLanguageSearchName(self, index):
-        selectedLanguageXXX = self.filterLanguageForTitle.itemData(index).toString()
+        selectedLanguageXXX = toString(self.filterLanguageForTitle.itemData(index))
         log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
         self.moviesView.clearSelection()
         self.moviesModel.clearTree()
@@ -1636,8 +1665,8 @@ class Main(QObject, Ui_MainWindow):
         success_downloaded = 0
 
         settings = QSettings()
-        path = settings.value("mainwindow/workingDirectory", "").toString()
-        zipDestDir = QtGui.QFileDialog.getExistingDirectory(None,_("Select the directory where to save the subtitle(s)"),path.toString())
+        path = toString(settings.value("mainwindow/workingDirectory", ""))
+        zipDestDir = QtGui.QFileDialog.getExistingDirectory(None,_("Select the directory where to save the subtitle(s)"),path)
         if zipDestDir:
             settings.setValue("mainwindow/workingDirectory", zipDestDir)
 
@@ -1725,7 +1754,7 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.WaitCursor)
 
             s = SearchByName()
-            selectedLanguageXXX = self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()).toString()
+            selectedLanguageXXX = toString(self.filterLanguageForTitle.itemData(self.filterLanguageForTitle.currentIndex()))
             self.progress(0) #To view/refresh the qprogressdialog
             temp_movie = s.search_movie(None,'all',MovieID_link= movie.MovieSiteLink)
             #The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
