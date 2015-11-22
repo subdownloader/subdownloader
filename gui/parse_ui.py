@@ -53,7 +53,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parse Qt4 generated _ui.py files.')
     parser.add_argument('files', metavar='FILE', type=str, nargs='*',
         help='Assume files to exist.')
+
     args = parser.parse_args()
+    existingFiles = args.files
+
     for line in sys.stdin.readlines():
         for fix in fixes:
             line = fix(line)
