@@ -86,8 +86,6 @@ def ScanFolder(folderpath,recursively = True,report_progress=None, progress_end=
                 videos_found.append(videofile.VideoFile(filepath))
             count += percentage
 
-            print('old result', report_progress())
-            report_progress()
             report_progress(count)#,_("Parsing video: %s")% os.path.basename(filepath))
     report_progress(0)
 
