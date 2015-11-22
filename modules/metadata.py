@@ -3,7 +3,7 @@
 
 import logging
 
-log = logging.getLogger("subdownloader.modules.metadata")
+log = logging.getLogger('subdownloader.modules.metadata')
 
 class MetadataVideo(object):
     def __init__(self, duration_ms, framerate):
@@ -19,7 +19,7 @@ class Metadata(object):
 
     @classmethod
     def parse_dummy(filepath):
-        log.warning("Using dummy metadata parser.")
+        log.warning('Using dummy metadata parser.')
         return None
 
     @classmethod
@@ -51,15 +51,19 @@ class Metadata(object):
 
 try:
     import kaa.metadata
-    log.info('Using kaa.metadata')
+    log.debug('Using kaa.metadata')
     parseFunc = Metadata.parse_kaa_metadata
 except ImportError:
     try:
         import pymediainfo
+        log.debug('Using pymediainfo')
         parseFunc = Metadata.parse_pymediainfo
     except:
         parseFunc = Metadata.parse_dummy
-        log.error("Failed to import metadata module. This means you will be unable to automatically download your subtitles or upload your videos with all details.")
+        log.error('Failed to import metadata module.')
+        log.error('This means you will be unable to automatically')
+        log.error('download your subtitles or upload your videos')
+        log.error('with all details.')
 
 # expose metadata parsing method for global usage
 def parse(filepath):
