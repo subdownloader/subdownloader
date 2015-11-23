@@ -4,19 +4,22 @@
 import os
 import languages.Languages as languages
 import platform
-if platform.python_version_tuple()[:2] == ['2','5']:
-    #this is deprecated since python 2.6
+if platform.python_version_tuple()[:2] == ['2', '5']:
+    # this is deprecated since python 2.6
     from md5 import md5
 else:
     from hashlib import md5
 
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
-SELECT_SUBTITLES = "Subtitle Files (*.%s)"% " *.".join(SUBTITLES_EXT)
+SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)
+
 
 class SubtitleFile(object):
+
     """Contains the class that represents a SubtitleFile (SRT,SUB,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, Validation,etc)
     """
+
     def __init__(self, online, id=None):
         self._language = None
         self._video = None
@@ -38,12 +41,17 @@ class SubtitleFile(object):
         self.rating = 0
         if not online:
             self._size = os.path.getsize(self._path)
-            self._hash = md5(open(self._path,mode='rb').read()).hexdigest()
+            self._hash = md5(open(self._path, mode='rb').read()).hexdigest()
 
 #    def __repr__(self):
-#        return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size: %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %f>"% (self.isOnline(), self.isLocal(), self.getFilePath(), self.getFileName(), self.getSize(), self.getUploader(), self.getIdOnline(), self.getHash(), self.getLanguageXXX(), self.getRating())
+# return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size:
+# %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %f>"%
+# (self.isOnline(), self.isLocal(), self.getFilePath(),
+# self.getFileName(), self.getSize(), self.getUploader(),
+# self.getIdOnline(), self.getHash(), self.getLanguageXXX(),
+# self.getRating())
 
-    def setFileName(self,filename):
+    def setFileName(self, filename):
         self._filename = filename
 
     def getFileName(self):
@@ -55,19 +63,19 @@ class SubtitleFile(object):
     def getVideo(self):
         return self._video
 
-    def setUploader(self,uploader):
+    def setUploader(self, uploader):
         self._uploader = uploader
 
     def getUploader(self):
         return self._uploader
 
-    def setIdOnline(self,_id_online):
+    def setIdOnline(self, _id_online):
         self._onlineId = _id_online
 
     def getIdOnline(self):
         return self._onlineId
 
-    def setIdFileOnline(self,_id_file_online):
+    def setIdFileOnline(self, _id_file_online):
         self._onlineFileId = _id_file_online
 
     def getIdFileOnline(self):
@@ -76,12 +84,12 @@ class SubtitleFile(object):
     def getFilePath(self):
         return self._path
 
-    #It could be the case when isLocal and isOnline are both true
+    # It could be the case when isLocal and isOnline are both true
     def isOnline(self):
         return self._onlineId != None and len(self._onlineId)
 
     def isLocal(self):
-        return self._path != None and  len(self._path)
+        return self._path != None and len(self._path)
 
     def getSize(self):
         return self._size
@@ -92,18 +100,19 @@ class SubtitleFile(object):
     def getHash(self):
         return self._hash
 
-    def setLanguage(self,language):
+    def setLanguage(self, language):
         self.setLanguageXXX(language)
 
     def getLanguage(self):
         return self.getLanguageXXX()
 
-    def setLanguageXX(self,xx):
-        if xx == 'gr': #greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
+    def setLanguageXX(self, xx):
+        # greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
+        if xx == 'gr':
             xx = 'el'
         self._languageXX = xx
         self._languageXXX = languages.xx2xxx(xx)
-        self._languageName= languages.xx2name(xx)
+        self._languageName = languages.xx2name(xx)
 
     def getLanguageXX(self):
         if self._languageXX:
@@ -111,10 +120,10 @@ class SubtitleFile(object):
         else:
             return None
 
-    def setLanguageXXX(self,xxx):
+    def setLanguageXXX(self, xxx):
         self._languageXXX = xxx
         self._languageXX = languages.xxx2xx(xxx)
-        self._languageName= languages.xxx2name(xxx)
+        self._languageName = languages.xxx2name(xxx)
 
     def getLanguageXXX(self):
         if self._languageXXX:
@@ -128,7 +137,7 @@ class SubtitleFile(object):
         else:
             return None
 
-    def setLanguageName(self,language):
+    def setLanguageName(self, language):
         self._languageName = language
         self._languageXXX = languages.name2xxx(language)
         self._languageXX = languages.name2xx(language)

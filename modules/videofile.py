@@ -7,10 +7,13 @@ import traceback
 
 from . import metadata
 
-VIDEOS_EXT = ["3g2","3gp","3gp2","3gpp","60d","ajp","asf","asx","avchd","avi","bik", "bin","bix","box","cam","cue","dat","divx","dmf","dv","dvr-ms","evo","flc","fli","flic","flv","flx","gvi","gvp","h264","m1v","m2p","m2ts","m2v","m4e","m4v","mjp","mjpeg","mjpg","mkv","moov","mov","movhd","movie","movx","mp4","mpe","mpeg","mpg","mpv","mpv2","mxf","nsv","nut","ogm","ogv","omf","ps","qt","ram","rm","rmvb","swf","ts","vfw","vid","video","viv","vivo","vob","vro","webm","wm","wmv","wmx","wrap","wvx","wx","x264","xvid"]
-SELECT_VIDEOS = "Video Files (*.%s)"% " *.".join(VIDEOS_EXT)
+VIDEOS_EXT = ["3g2", "3gp", "3gp2", "3gpp", "60d", "ajp", "asf", "asx", "avchd", "avi", "bik", "bin", "bix", "box", "cam", "cue", "dat", "divx", "dmf", "dv", "dvr-ms", "evo", "flc", "fli", "flic", "flv", "flx", "gvi", "gvp", "h264", "m1v", "m2p", "m2ts", "m2v", "m4e", "m4v", "mjp", "mjpeg", "mjpg",
+              "mkv", "moov", "mov", "movhd", "movie", "movx", "mp4", "mpe", "mpeg", "mpg", "mpv", "mpv2", "mxf", "nsv", "nut", "ogm", "ogv", "omf", "ps", "qt", "ram", "rm", "rmvb", "swf", "ts", "vfw", "vid", "video", "viv", "vivo", "vob", "vro", "webm", "wm", "wmv", "wmx", "wrap", "wvx", "wx", "x264", "xvid"]
+SELECT_VIDEOS = "Video Files (*.%s)" % " *.".join(VIDEOS_EXT)
+
 
 class VideoFile(object):
+
     """Contains the class that represents a VideoFile (AVI,MPG,etc)
     and provides easy methods to retrieve its attributes (Sizebytes, HASH, FPS,etc)
     """
@@ -61,7 +64,7 @@ class VideoFile(object):
     def getTimeMS(self):
         return self._timeMS
 
-    def setOsdbInfo(self,info):
+    def setOsdbInfo(self, info):
         self._osdb_info = info
 
     def getOsdbInfo(self):
@@ -73,13 +76,13 @@ class VideoFile(object):
     def hasMovieName(self):
         try:
             return self._movie_info["MovieName"] != ""
-        except :
+        except:
             return False
 
     def getMovieName(self):
         try:
             return self._movie_info["MovieName"]
-        except :
+        except:
             return ""
 
     def hasMovieNameEng(self):
@@ -94,7 +97,7 @@ class VideoFile(object):
     def hasSubtitles(self):
         return len(self._subs) != 0
 
-    def setSubtitles(self,subs):
+    def setSubtitles(self, subs):
         if len(self._subs):
             for sub in subs:
                 self.addSubtitle(sub)
@@ -128,7 +131,8 @@ class VideoFile(object):
     def getOnlineSubtitles(self):
         subs = []
         for sub in self.getSubtitles():
-            if sub.isOnline(): subs.append(sub)
+            if sub.isOnline():
+                subs.append(sub)
         return subs
 
     def getTotalSubtitles(self):
@@ -165,7 +169,7 @@ class VideoFile(object):
         try:
             longlongformat = 'Q'  # unsigned long long little endian
             bytesize = struct.calcsize(longlongformat)
-            format= "<%d%s" % (65536//bytesize, longlongformat)
+            format = "<%d%s" % (65536 // bytesize, longlongformat)
 
             f = open(self._filepath, "rb")
 
@@ -173,20 +177,20 @@ class VideoFile(object):
             hash = filesize
 
             if filesize < 65536 * 2:
-               return "SizeError"
+                return "SizeError"
 
-            buffer= f.read(65536)
-            longlongs= struct.unpack(format, buffer)
-            hash+= sum(longlongs)
+            buffer = f.read(65536)
+            longlongs = struct.unpack(format, buffer)
+            hash += sum(longlongs)
 
-            f.seek(-65536, os.SEEK_END) # size is always > 131072
-            buffer= f.read(65536)
-            longlongs= struct.unpack(format, buffer)
-            hash+= sum(longlongs)
-            hash&= 0xFFFFFFFFFFFFFFFF
+            f.seek(-65536, os.SEEK_END)  # size is always > 131072
+            buffer = f.read(65536)
+            longlongs = struct.unpack(format, buffer)
+            hash += sum(longlongs)
+            hash &= 0xFFFFFFFFFFFFFFFF
 
             f.close()
-            returnedhash =  "%016x" % hash
+            returnedhash = "%016x" % hash
             return returnedhash
 
         except(IOError):

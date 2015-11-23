@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-#Excample usage
+# Example usage
 # d = HttpRequests()
 # d.download('http://www.opensubtitles.org/en/download/file/1951690122.gz',
 #     '/home/myuser/Night.Watch.2004.CD1.DVDRiP.XViD-FiCO.srt')
@@ -17,9 +17,10 @@ import xml.dom.minidom as xml
 import logging
 import shutil
 
+
 class HttpRequests:
 
-    def __init__ (self):
+    def __init__(self):
         self.log = logging.getLogger('subdownloader.HttpRequests.HttpRequests')
 
     def download_subtitle(self, url=None, local_path=None, progress_callback=None):
@@ -36,7 +37,7 @@ class HttpRequests:
     def unpack_subtitle(self, gz_path, destination_path):
         with gzip.open(gz_path, 'rb') as fin,\
                 open(destination_path, 'wb') as fout:
-          shutil.copyfileobj(fsrc=fin, fdst=fout)
+            shutil.copyfileobj(fsrc=fin, fdst=fout)
 
     def download(self, url=None, local_path=None, progress_callback=None):
         """
@@ -45,14 +46,13 @@ class HttpRequests:
          d.download('http://www.opensubtitles.org/en/download/file/1951690122.gz', '/home/myuser/Night.Watch.2004.CD1.DVDRiP.XViD-FiCO.srt')
         """
         if url and local_path:
-           gz_path = "%s.gz" % local_path
-           self.log.debug('Downloading subtitle from url: %s' % url)
-           self.download_subtitle(url, gz_path, progress_callback)
+            gz_path = "%s.gz" % local_path
+            self.log.debug('Downloading subtitle from url: %s' % url)
+            self.download_subtitle(url, gz_path, progress_callback)
 
-           # unpack the gzipped subtitle
-           self.log.debug('Unpacking and savinng to: %s' % local_path)
-           self.unpack_subtitle(gz_path, local_path)
+            # unpack the gzipped subtitle
+            self.log.debug('Unpacking and savinng to: %s' % local_path)
+            self.unpack_subtitle(gz_path, local_path)
 
-           # remove the gzipped subtitle
-           os.remove(gz_path)
-
+            # remove the gzipped subtitle
+            os.remove(gz_path)

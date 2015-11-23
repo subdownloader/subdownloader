@@ -5,12 +5,16 @@ import logging
 
 log = logging.getLogger('subdownloader.modules.metadata')
 
+
 class MetadataVideo(object):
+
     def __init__(self, duration_ms, framerate):
         self.duration_ms = duration_ms
         self.framerate = framerate
 
+
 class Metadata(object):
+
     def __init__(self):
         self.videos = []
 
@@ -29,8 +33,8 @@ class Metadata(object):
         for video in parseRes.video:
             metaRes._addVideo(
                 MetadataVideo(
-                    duration_ms = 1000 * parseRes.length,
-                    framerate = video.fps
+                    duration_ms=1000 * parseRes.length,
+                    framerate=video.fps
                 )
             )
         return metaRes
@@ -43,8 +47,8 @@ class Metadata(object):
             if track.track_type == 'Video':
                 metaRes._addVideo(
                     MetadataVideo(
-                        duration_ms = track.duration,
-                        framerate = track.frame_rate
+                        duration_ms=track.duration,
+                        framerate=track.frame_rate
                     )
                 )
         return metaRes
@@ -66,6 +70,7 @@ except ImportError:
         log.error('with all details.')
 
 # expose metadata parsing method for global usage
+
+
 def parse(filepath):
     return parseFunc(filepath)
-
