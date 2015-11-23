@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-import os, sys
-os.chdir("..") #We are in the distribution subfolder, we want to be in subdownloader folder.
+import os
+import sys
+# We are in the distribution subfolder, we want to be in subdownloader folder.
+os.chdir("..")
 (parent, current) = os.path.split(os.path.dirname(os.getcwd()))
 sys.path.insert(0, os.path.dirname(parent))
 sys.path.insert(0, os.getcwd())
@@ -11,7 +13,8 @@ sys.path.insert(0, os.getcwd())
 from distutils.core import setup
 import py2exe
 import glob
-import traceback, subprocess
+import traceback
+import subprocess
 import shutil
 
 if len(sys.argv) == 1:
@@ -23,46 +26,47 @@ from modules import APP_TITLE, APP_VERSION
 print(sys.path)
 
 
-
 def py2exe(dist_dir, dist_build):
     sys.argv[1:2] = ['py2exe']
-    sys.argv.append ( "--verbose" )
+    sys.argv.append("--verbose")
     print(sys.argv)
     print(sys.path)
 
     setup(name=APP_TITLE,
-        version=APP_VERSION,
-        description='Find Subtitles for your Videos',
-        author='Ivan Garcia',
-        author_email='contact@ivangarcia.org',
-        url='http://www.subdownloader.net',
-        #includes=['FileManagement', 'cli', 'gui', 'languages', 'modules'],
-        package_dir={'subdownloader':'.'},
-        zipfile = None,
-        data_files=[
-                    ('gui/images', ['gui/images/splash.png']),#glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
-                    #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
-                    ('languages/lm', glob.glob('languages/lm/*.lm')),
-                    ('', ['README'])
-        ],
-        windows=[{
-                        'script':'run.py',
-                        'icon_resources':[(1, 'gui/images/icon32.ico')]}],
-        #console=[{'script':'run.py -cli'}],
-        options = { 'py2exe' : {'compressed': 1,
-                                      'optimize'  : 2,
-                                      'includes'  : [
-                                                 'sip',
-                                                # 'subdownloader.modules.configuration.*',
-                                                 ],
-                                      'excludes'  : ["Tkconstants", "Tkinter", "tcl",
-                                                     "_imagingtk", "ImageTk", "FixTk"
-                                                    ],
-                                        'dist_dir' :  dist_dir,
-                                       #'bundle_files': 1,
-                                       }
-                        }
-        )
+          version=APP_VERSION,
+          description='Find Subtitles for your Videos',
+          author='Ivan Garcia',
+          author_email='contact@ivangarcia.org',
+          url='http://www.subdownloader.net',
+          #includes=['FileManagement', 'cli', 'gui', 'languages', 'modules'],
+          package_dir={'subdownloader': '.'},
+          zipfile=None,
+          data_files=[
+              # glob.glob('gui/images/*.png')+glob.glob('gui/images/*.ico')+glob.glob('gui/images/*.jpg')+['gui/images/subd_splash.gif']),
+              ('gui/images', ['gui/images/splash.png']),
+              #('gui/images/flags', glob.glob('gui/images/flags/*.gif')),
+              ('languages/lm', glob.glob('languages/lm/*.lm')),
+              ('', ['README'])
+          ],
+          windows=[{
+              'script': 'run.py',
+              'icon_resources': [(1, 'gui/images/icon32.ico')]}],
+          #console=[{'script':'run.py -cli'}],
+          options={'py2exe': {'compressed': 1,
+                              'optimize': 2,
+                              'includes': [
+                                  'sip',
+                                  # 'subdownloader.modules.configuration.*',
+                              ],
+                              'excludes': ["Tkconstants", "Tkinter", "tcl",
+                                           "_imagingtk", "ImageTk", "FixTk"
+                                           ],
+                              'dist_dir':  dist_dir,
+                              #'bundle_files': 1,
+                              }
+                   }
+          )
+
 
 class NSISInstaller(object):
     TEMPLATE = r'''
@@ -134,10 +138,11 @@ Section "Uninstall"
 
 SectionEnd
     '''
+
     def __init__(self, name, version, py2exe_dir, output_dir):
         self.installer = self.__class__.TEMPLATE % dict(name=name, py2exe_dir=py2exe_dir,
-                                                   version=version,
-                                                   outpath=os.path.abspath(output_dir))
+                                                        version=version,
+                                                        outpath=os.path.abspath(output_dir))
 
     def build(self):
         f = open('installer.nsi', 'w')
@@ -154,21 +159,22 @@ SectionEnd
 
 if __name__ == '__main__':
 
-        print('Create EXE')
-        print('Deleting build and distribution/dist')
-        PY2EXE_BUILD = os.path.join('build')
-        PY2EXE_DIST = os.path.join('distribution','dist')
-        if os.path.exists(PY2EXE_BUILD):
-           shutil.rmtree(PY2EXE_BUILD)
-        if os.path.exists(PY2EXE_DIST):
-            shutil.rmtree(PY2EXE_DIST)
-        print(PY2EXE_DIST, PY2EXE_BUILD)
-        py2exe(PY2EXE_DIST, PY2EXE_BUILD)
-        print('Deleting build')
-        if os.path.exists('locale'):
-                shutil.copytree('locale', os.path.join(PY2EXE_DIST, 'locale'))
-        if os.path.exists(PY2EXE_BUILD):
-           shutil.rmtree(PY2EXE_BUILD)
-        print('Building Installer')
-        installer = NSISInstaller("SubDownloader2",APP_VERSION, PY2EXE_DIST, 'distribution')
-        installer.build()
+    print('Create EXE')
+    print('Deleting build and distribution/dist')
+    PY2EXE_BUILD = os.path.join('build')
+    PY2EXE_DIST = os.path.join('distribution', 'dist')
+    if os.path.exists(PY2EXE_BUILD):
+        shutil.rmtree(PY2EXE_BUILD)
+    if os.path.exists(PY2EXE_DIST):
+        shutil.rmtree(PY2EXE_DIST)
+    print(PY2EXE_DIST, PY2EXE_BUILD)
+    py2exe(PY2EXE_DIST, PY2EXE_BUILD)
+    print('Deleting build')
+    if os.path.exists('locale'):
+        shutil.copytree('locale', os.path.join(PY2EXE_DIST, 'locale'))
+    if os.path.exists(PY2EXE_BUILD):
+        shutil.rmtree(PY2EXE_BUILD)
+    print('Building Installer')
+    installer = NSISInstaller(
+        "SubDownloader2", APP_VERSION, PY2EXE_DIST, 'distribution')
+    installer.build()

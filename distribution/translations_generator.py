@@ -8,11 +8,13 @@ import re
 from subprocess import call
 import sys
 
+
 class TranslationsGenerator(object):
+
     '''Translation file generator'''
 
-    def __init__(self, main_dir = '../', pot_dir = '../locale',
-        po_dir = '../locale', exclude_dir_pattern = 'images'):
+    def __init__(self, main_dir='../', pot_dir='../locale',
+                 po_dir='../locale', exclude_dir_pattern='images'):
 
         # Directorys of python files to search for translations
         self.main_dir = main_dir
@@ -26,7 +28,7 @@ class TranslationsGenerator(object):
         # Directory where po files are stored
         self.po_dir = po_dir
 
-    def update_pot(self, pot_file = 'subdownloader.pot'):
+    def update_pot(self, pot_file='subdownloader.pot'):
         '''Update the pot file
 
         If the pot file does not exist, create one.
@@ -49,11 +51,11 @@ class TranslationsGenerator(object):
 
         # Generate pot file
         command = ['xgettext', '--language=Python', '--keyword=_',
-            '--output=%s/%s' % (self.pot_dir, pot_file)]
+                   '--output=%s/%s' % (self.pot_dir, pot_file)]
         command.extend(files_to_translate)
         call(command)
 
-    def update_pos(self, pot_file = 'subdownloader.pot'):
+    def update_pos(self, pot_file='subdownloader.pot'):
         '''Update all po files with the data in the pot reference file.'''
 
         pot_path = os.path.join(self.pot_dir, pot_file)
@@ -62,8 +64,8 @@ class TranslationsGenerator(object):
         for po in pos:
             call(['msgmerge', '-U', po, pot_path])
 
-    def update_mos(self, search_pattern = 'subdownloader.po',
-        mo_name = 'subdownloader.mo'):
+    def update_mos(self, search_pattern='subdownloader.po',
+                   mo_name='subdownloader.mo'):
         '''Generate mo files for all po files
 
         Search pattern is the pattern that all the po files are in. The saved
@@ -98,4 +100,5 @@ if __name__ == '__main__':
         print('Done.')
 
     if len(sys.argv) == 1:
-        print('= Generate translations related files =\nUsage: translations_generator.py [pot, po, mo]')
+        print(
+            '= Generate translations related files =\nUsage: translations_generator.py [pot, po, mo]')
