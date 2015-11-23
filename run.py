@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# PYTHON_ARGCOMPLETE_OK
 
 import sys, os, platform
 
@@ -9,26 +10,21 @@ if os.path.isfile(sys.path[0]):
 else:
         subdownloader_folder = sys.path[0]
 
-
 import logging
 import argparse
 
 sys.path.append(os.path.join(sys.path[0], 'modules') )
-# simple aplication starter
-import modules.configuration as conf
-from modules import APP_VERSION
 
-"""
-CRITICAL    50
-ERROR       40
-WARNING     30
-INFO        20
-DEBUG       10
-NOTSET       0
-"""
+import modules.configuration as conf
 
 parser = argparse.ArgumentParser(description=conf.General.description)
 conf.Terminal.populate_parser(parser)
+
+try:
+  import argcomplete
+  argcomplete.autocomplete(parser)
+except ImportError:
+  pass
 
 options = parser.parse_args()
 
