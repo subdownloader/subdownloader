@@ -3,35 +3,39 @@
 
 # Copyright (c) 2006 Thomas Mangin
 
-#This program is distributed under Gnu General Public License
+# This program is distributed under Gnu General Public License
 #(cf. the file COPYING in distribution). Alternatively, you can use
-#the program under the conditions of the Artistic License (as Perl).
+# the program under the conditions of the Artistic License (as Perl).
 
-#This program is free software; you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation; either version 3 of the License, or
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
 #(at your option) any later version.
 
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-#You should have received a copy of the GNU General Public License
-#along with this program; if not, write to the Free Software
-#Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 try:
     from exceptions import KeyboardInterrupt
 except:
     pass
-import os, re, sys
+import os
+import re
+import sys
 import glob
 
 nb_ngrams = 400
 
+
 class _NGram:
-    def __init__ (self,arg={}):
+
+    def __init__(self, arg={}):
         t = type(arg)
         if t == type(""):
             self.addText(arg)
@@ -42,51 +46,51 @@ class _NGram:
         else:
             self.ngrams = dict()
 
-    def addText (self,text):
+    def addText(self, text):
         ngrams = dict()
 
-        text = text.replace('\n',' ')
-        text = re.sub('\s+',' ',text)
+        text = text.replace('\n', ' ')
+        text = re.sub('\s+', ' ', text)
         words = text.split(' ')
 
         for word in words:
-            word = '_'+word+'_'
+            word = '_' + word + '_'
             size = len(word)
             for i in xrange(size):
-                for s in (1,2,3,4):
-                    sub = word[i:i+s]
-                    #print "[",sub,"]"
+                for s in (1, 2, 3, 4):
+                    sub = word[i:i + s]
+                    # print "[",sub,"]"
                     if sub not in ngrams:
                         ngrams[sub] = 0
                     ngrams[sub] += 1
 
-                    if i+s >= size:
+                    if i + s >= size:
                         break
         self.ngrams = ngrams
         return self
 
-    def sorted (self):
-        sorted = [(self.ngrams[k],k) for k in self.ngrams.keys()]
+    def sorted(self):
+        sorted = [(self.ngrams[k], k) for k in self.ngrams.keys()]
         sorted.sort()
         sorted.reverse()
         sorted = sorted[:nb_ngrams]
         return sorted
 
-    def normalise (self):
+    def normalise(self):
         count = 0
         ngrams = dict()
-        for v,k in self.sorted():
+        for v, k in self.sorted():
             ngrams[k] = count
             count += 1
 
         self.ngrams = ngrams
         return self
 
-    def addValues (self,key,value):
+    def addValues(self, key, value):
         self.ngrams[key] = value
         return self
 
-    def compare (self,ngram):
+    def compare(self, ngram):
         d = 0
         ngrams = ngram.ngrams
         for k in self.ngrams.keys():
@@ -96,17 +100,21 @@ class _NGram:
                 d += nb_ngrams
         return d
 
-#The LM class were obtained from the  libtextcat project, get the latest one from there.
+# The LM class were obtained from the  libtextcat project, get the latest
+# one from there.
+
+
 class NGram:
-    def __init__ (self):
-        if os.path.isdir(sys.path[0]): #for Linux is /program_folder/
-            program_folder =  sys.path[0]
-        else: #for Windows is the /program_folder/run.py
-            program_folder =  os.path.dirname(sys.path[0])
-        folder = os.path.join(program_folder,'languages','lm')
-        ext='.lm'
+
+    def __init__(self):
+        if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
+            program_folder = sys.path[0]
+        else:  # for Windows is the /program_folder/run.py
+            program_folder = os.path.dirname(sys.path[0])
+        folder = os.path.join(program_folder, 'languages', 'lm')
+        ext = '.lm'
         self.ngrams = dict()
-        folder = os.path.join(folder,'*'+ext)
+        folder = os.path.join(folder, '*' + ext)
         size = len(ext)
         count = 0
 
@@ -114,18 +122,20 @@ class NGram:
             count += 1
             lang = os.path.split(fname)[-1][:-size]
             ngrams = dict()
-            file = open(fname,'rb')
+            file = open(fname, 'rb')
 
             for line in file.readlines():
                 parts = line[:-1].split(b'\t ')
                 if len(parts) != 2:
-                    raise ValueError("invalid language file %s line : %s" % (fname,parts))
+                    raise ValueError(
+                        "invalid language file %s line : %s" % (fname, parts))
                 try:
                     ngrams[parts[0]] = int(parts[1])
                 except KeyboardInterrupt:
                     raise
                 except:
-                    raise ValueError("invalid language file %s line : %s" % (fname,parts))
+                    raise ValueError(
+                        "invalid language file %s line : %s" % (fname, parts))
 
             if len(ngrams.keys()):
                 self.ngrams[lang] = _NGram(ngrams)
@@ -135,7 +145,7 @@ class NGram:
         if not count:
             raise ValueError("no language files found")
 
-    def classify (self,text):
+    def classify(self, text):
         ngram = _NGram(text)
         r = 'guess'
 
@@ -149,12 +159,14 @@ class NGram:
                 min = d
                 r = lang
 
-        return min,r
+        return min, r
+
 
 class Generate:
-    def __init__ (self,folder,ext='.txt'):
+
+    def __init__(self, folder, ext='.txt'):
         self.ngrams = dict()
-        folder = os.path.join(folder,'*'+ext)
+        folder = os.path.join(folder, '*' + ext)
         size = len(ext)
         count = 0
 
@@ -163,7 +175,7 @@ class Generate:
             lang = os.path.split(fname)[-1][:-size]
             n = _NGram()
 
-            file = open(fname,'r')
+            file = open(fname, 'r')
             for line in file.readlines():
                 n.addText(line)
             file.close()
@@ -171,12 +183,10 @@ class Generate:
             n.normalise()
             self.ngrams[lang] = n
 
-    def save (self,folder,ext='.lm'):
+    def save(self, folder, ext='.lm'):
         for lang in self.ngrams.keys():
-            fname = os.path.join(folder,lang+ext)
-            file = open(fname,'w')
-            for v,k in self.ngrams[lang].sorted():
-                file.write("%s\t %d\n" % (k,v))
+            fname = os.path.join(folder, lang + ext)
+            file = open(fname, 'w')
+            for v, k in self.ngrams[lang].sorted():
+                file.write("%s\t %d\n" % (k, v))
             file.close()
-
-
