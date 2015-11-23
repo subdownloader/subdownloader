@@ -29,7 +29,7 @@ class Metadata(object):
         for video in parseRes.video:
             metaRes._addVideo(
                 MetadataVideo(
-                    duration_ms = 1000 * video.length,
+                    duration_ms = 1000 * parseRes.length,
                     framerate = video.fps
                 )
             )
