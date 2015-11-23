@@ -3,20 +3,24 @@
 
 from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop
 from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
-                     QAbstractTableModel, QTableView, QListView, \
-                     QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
-                     QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
-                     QPen, QColor, QLinearGradient, QBrush, QStyle, \
-                     QByteArray, QBuffer, QMimeData, \
-                     QDrag, QRect
+    QAbstractTableModel, QTableView, QListView, \
+    QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
+    QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
+    QPen, QColor, QLinearGradient, QBrush, QStyle, \
+    QByteArray, QBuffer, QMimeData, \
+    QDrag, QRect
 
 from PyQt4.QtGui import QItemSelection
 
+
 class ImdbListView(QTableView):
+
     def __init__(self, parent):
         QTableView.__init__(self, parent)
 
+
 class ImdbListModel(QAbstractTableModel):
+
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._imdb = []
@@ -44,7 +48,7 @@ class ImdbListModel(QAbstractTableModel):
         return len(self._imdb)
 
     def rowCount(self, index):
-           return len(self._imdb)
+        return len(self._imdb)
 
     def columnCount(self, parent):
         return len(self._headers)
@@ -63,7 +67,7 @@ class ImdbListModel(QAbstractTableModel):
         row, col = index.row(), index.column()
         if role == Qt.DisplayRole:
             if self._imdb[row] != None:
-                text = self._imdb[row]["id"] +" : " + self._imdb[row]["title"]
+                text = self._imdb[row]["id"] + " : " + self._imdb[row]["title"]
             else:
                 text = "Unknown"
             return text
