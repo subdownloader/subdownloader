@@ -1,15 +1,8 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-    QSettings, QSize, QEventLoop, \
-    QBuffer, QIODevice, QModelIndex, QDir
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-    QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog, QDirModel, QItemSelectionModel, QListWidgetItem
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
-
-from .main import toString
+from PyQt5.QtCore import Qt, pyqtSignal, QItemSelectionModel, QSettings
+from PyQt5.QtWidgets import QMessageBox, QDialog, QListWidgetItem
 
 from languages import Languages, autodetect_lang
 from gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
@@ -17,7 +10,7 @@ import logging
 log = logging.getLogger("subdownloader.gui.chooseLanguage")
 
 
-class chooseLanguageDialog(QtGui.QDialog):
+class chooseLanguageDialog(QDialog):
 
     def __init__(self, parent, user_locale):
         QtGui.QDialog.__init__(self)
@@ -25,10 +18,8 @@ class chooseLanguageDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self._main = parent
         settings = QSettings()
-        QObject.connect(self.ui.languagesList, SIGNAL(
-            "activated(QModelIndex)"), self.onOkButton)
-        QObject.connect(
-            self.ui.OKButton, SIGNAL("clicked(bool)"), self.onOkButton)
+        self.ui.languagesList.activated.connect(self.onOkButton)
+        self.ui.OKButton.clicked.connect(self.onOkButton)
 
         for lang_locale in self._main.interface_langs:
             languageName = Languages.locale2name(lang_locale)
@@ -48,7 +39,7 @@ class chooseLanguageDialog(QtGui.QDialog):
         if not self.ui.languagesList.currentItem():
             QMessageBox.about(self, "Alert", "Please select a language")
         else:
-            choosen_lang = toString(
-                self.ui.languagesList.currentItem().data(Qt.UserRole))
+            choosen_lang = \
+                self.ui.languagesList.currentItem().data(Qt.UserRole)
             self._main.choosenLanguage = choosen_lang
             self.reject()

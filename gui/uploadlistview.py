@@ -1,16 +1,9 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop, QSettings
-from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
-    QAbstractTableModel, QTableView, QListView, \
-    QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
-    QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
-    QPen, QColor, QLinearGradient, QBrush, QStyle, \
-    QByteArray, QBuffer, QMimeData, \
-    QDrag, QRect
-
-from PyQt4.QtGui import QItemSelection
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QAbstractTableModel, \
+    QItemSelection, QSettings
+from PyQt5.QtWidgets import QTableView
 
 from FileManagement import get_extension, clear_string, without_extension
 import FileManagement.VideoTools as VideoTools
@@ -25,7 +18,6 @@ log = logging.getLogger("subdownloader.gui.uploadlistview")
 
 
 class UploadListModel(QAbstractTableModel):
-
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
@@ -54,8 +46,8 @@ class UploadListModel(QAbstractTableModel):
                 self._videos[index] = video
 
             if index == 0:
-                self._main.emit(SIGNAL('release_updated(QString)'), self.calculateReleaseName(
-                    video.getFilePath()))
+                self._main.releaseUpdated.emit(
+                    self.calculateReleaseName(video.getFilePath()))
 
             index += 1
 
@@ -110,12 +102,12 @@ class UploadListModel(QAbstractTableModel):
         return True, ""
 
     def ObtainUploadInfo(self):
-        # Trying to autodetect the imdb fro m the server
+        # Trying to autodetect the imdb from the server
         videos = []
-        for i, video in enumerate(self._videos):
-            if self._videos[i] != None and self._subs[i] != None:
+        for video, sub in zip(self._videos, self._subs):
+            if video != None and subs != None:
                 tmp_video = VideoFile(video.getFilePath())
-                tmp_video.setSubtitles([self._subs[i]])
+                tmp_video.setSubtitles([sub])
                 videos.append(tmp_video)
         if videos:
             results = self._main.OSDBServer.TryUploadSubtitles(
@@ -131,11 +123,11 @@ class UploadListModel(QAbstractTableModel):
                     "IDMovieImdb"], "MovieName": results['data']["MovieName"]}
                 if 'SubLanguageId' in results['data']:
                     xxx_lang = results['data']['SubLanguageID']
-                    self._main.uploadLanguages.emit(
-                        SIGNAL('language_updated(QString,QString)'), xxx_lang, "database")
+                    self._main.languageUpdated.emit(xxx_lang, "database")
             if video_imdb:
-                self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'), video_imdb[
-                                "IDMovieImdb"], video_imdb["MovieName"], "database")
+                self._main.imdbDetected.emit(
+                    video_imdb["IDMovieImdb"], video_imdb["MovieName"],
+                    "database")
 
         self.AutoDetectLangFromFileName()
         self.AutoDetectLangFromContent()
@@ -166,8 +158,7 @@ class UploadListModel(QAbstractTableModel):
         log.debug(
             "Majoritary Language Autodetected by filename = " + str(xxx_lang))
         if xxx_lang:
-            self._main.uploadLanguages.emit(
-                SIGNAL('language_updated(QString,QString)'), xxx_lang, "filename")
+            self._main.language_updated.emit(xxx_lang, "filename")
 
     def AutoDetectLangFromContent(self):
         all_langs = []
@@ -190,8 +181,8 @@ class UploadListModel(QAbstractTableModel):
         log.debug(
             "Majoritary Language Autodetected by content = " + str(xxx_lang))
         if xxx_lang:
-            self._main.uploadLanguages.emit(
-                SIGNAL('language_updated(QString,QString)'), xxx_lang, "content")
+            self._main.language_updated.emit(
+                xxx_lang, "content")
 
     def getTotalRows(self):
         return self.rowCount(None)
@@ -233,20 +224,22 @@ class UploadListModel(QAbstractTableModel):
 
         return None
 
-    def onUploadButtonPlusRow(self, clicked):
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+    @pyqtSlot()
+    def onUploadButtonPlusRow(self):
+        self.layoutAboutToBeChanged.emit()
         if(self.rowsSelected != None):
             self._videos.insert(self.rowsSelected[0] + 1, None)
             self._subs.insert(self.rowsSelected[0] + 1, None)
         else:
             self._videos.append(None)
             self._subs.append(None)
-        self.emit(SIGNAL("layoutChanged()"))
+        self.layoutChanged.emit()
         self._main.updateButtonsUpload()
 
-    def onUploadButtonMinusRow(self, clicked):
+    @pyqtSlot()
+    def onUploadButtonMinusRow(self):
         if self.rowsSelected != None:
-            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            self.layoutAboutToBeChanged.emit()
 
             rowsSelected = self.rowsSelected
             rowsSelected.sort(reverse=True)
@@ -257,7 +250,7 @@ class UploadListModel(QAbstractTableModel):
                     del self._subs[row]
                 except:
                     pass
-            self.emit(SIGNAL("layoutChanged()"))
+            self.layoutChanged.emit()
             if self.rowsSelected[0] > 0:
                 previousRowSelection = QItemSelection(self.createIndex(self.rowsSelected[
                                                       0] - 1, UploadListView.COL_VIDEO), self.createIndex(self.rowsSelected[0] - 1, UploadListView.COL_SUB))
@@ -268,9 +261,10 @@ class UploadListModel(QAbstractTableModel):
 
             self._main.updateButtonsUpload()
 
-    def onUploadButtonUpRow(self, clicked):
+    @pyqtSlot()
+    def onUploadButtonUpRow(self):
         if self.rowsSelected != None:
-            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            self.layoutAboutToBeChanged.emit()
             rowSelected = self.rowsSelected[0]
             if rowSelected != 0:
                 temp = self._videos[rowSelected]
@@ -280,7 +274,7 @@ class UploadListModel(QAbstractTableModel):
                 temp = self._subs[rowSelected]
                 self._subs[rowSelected] = self._subs[rowSelected - 1]
                 self._subs[rowSelected - 1] = temp
-            self.emit(SIGNAL("layoutChanged()"))
+            self.layoutChanged.emit()
             previousRowSelection = QItemSelection(self.createIndex(
                 rowSelected - 1, UploadListView.COL_VIDEO), self.createIndex(rowSelected - 1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(
@@ -288,14 +282,16 @@ class UploadListModel(QAbstractTableModel):
 
         self._main.updateButtonsUpload()
 
+    @pyqtSlot()
     def onUploadButtonDeleteAllRow(self):
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.layoutAboutToBeChanged.emit()
         self.removeAll()
-        self.emit(SIGNAL("layoutChanged()"))
+        self.layoutChanged.emit()
 
-    def onUploadButtonDownRow(self, clicked):
+    @pyqtSlot()
+    def onUploadButtonDownRow(self):
         if self.rowsSelected != None:
-            self.emit(SIGNAL("layoutAboutToBeChanged()"))
+            self.layoutAboutToBeChanged.emit()
             rowSelected = self.rowsSelected[0]
             if rowSelected != self.getTotalRows() - 1:
                 temp = self._videos[rowSelected]
@@ -306,7 +302,7 @@ class UploadListModel(QAbstractTableModel):
                 self._subs[rowSelected] = self._subs[rowSelected + 1]
                 self._subs[rowSelected + 1] = temp
 
-            self.emit(SIGNAL("layoutChanged()"))
+            self.layoutChanged.emit()
             nextRowSelection = QItemSelection(self.index(
                 rowSelected + 1, UploadListView.COL_VIDEO), self.index(rowSelected + 1, UploadListView.COL_SUB))
             self._main.uploadSelectionModel.select(
@@ -340,8 +336,7 @@ class UploadListView(QTableView):
 
     def dropEvent(self, event):
         if event.mimeData().hasFormat('text/uri-list'):
-            paths = [str(u.toLocalFile().toUtf8())
-                     for u in event.mimeData().urls()]
+            paths = [url for url in event.mimeData().urls()]
             # If we drop many files, only the first one will be take into
             # acount
             fileName = paths[0]
@@ -352,7 +347,7 @@ class UploadListView(QTableView):
                 if(VideoTools.isVideofile(fileName)):
                     settings.setValue("mainwindow/workingDirectory", fileName)
                     video = VideoFile(fileName)
-                    self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
+                    self.model().layoutAboutToBeChanged.emit()
                     self.model().addVideos(row, [video])
                     subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
                     if subtitle:
@@ -361,15 +356,15 @@ class UploadListView(QTableView):
                         thread.start_new_thread(
                             self.uploadModel.ObtainUploadInfo, ())
                     self.resizeRowsToContents()
-                    self.model().emit(SIGNAL("layoutChanged()"))
+                    self.model().layoutChanged.emit()
             else:  # if it's the column in SUBTITLES
                 print(fileName)
                 if(Subtitle.isSubtitle(fileName)):
                     settings.setValue("mainwindow/workingDirectory", fileName)
                     sub = SubtitleFile(False, fileName)
-                    self.model().emit(SIGNAL("layoutAboutToBeChanged()"))
+                    self.model().layoutAboutToBeChanged.emit()
                     self.model().addSubs(row, [sub])
                     self.resizeRowsToContents()
-                    self.model().emit(SIGNAL("layoutChanged()"))
+                    self.model().layoutChanged.emit()
                     thread.start_new_thread(
                         self.uploadModel.ObtainUploadInfo, ())

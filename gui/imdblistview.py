@@ -1,16 +1,8 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4.QtCore import Qt, SIGNAL,  QCoreApplication, QEventLoop
-from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
-    QAbstractTableModel, QTableView, QListView, \
-    QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
-    QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
-    QPen, QColor, QLinearGradient, QBrush, QStyle, \
-    QByteArray, QBuffer, QMimeData, \
-    QDrag, QRect
-
-from PyQt4.QtGui import QItemSelection
+from PyQt5.QtCore import Qt, pyqtSignal, QAbstractTableModel
+from PyQt5.QtWidgets import QTableView
 
 
 class ImdbListView(QTableView):

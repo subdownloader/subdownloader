@@ -220,9 +220,8 @@ class SearchByName(object):
             if entry.getElementsByTagName('ReportLink') and entry.getElementsByTagName('ReportLink')[0].firstChild:
                 sub['ReportLink'] = entry.getElementsByTagName(
                     'ReportLink')[0].firstChild.data
-            # just s shortcut
-            sub['DownloadLink'] = sub['SubtitleFile'][
-                'File']['SubActualCD']['DownloadLink']
+            # just a shortcut
+            sub['DownloadLink'] = sub['SubtitleFile']['File']['SubActualCD']['DownloadLink']
             Link().OneLink(OnlyLink)
             if sub:
                 subtitle_entries.append(sub)

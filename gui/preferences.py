@@ -1,15 +1,9 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-    QSettings, QSize, QEventLoop, \
-    QBuffer, QIODevice, QModelIndex, QDir
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-    QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog, QDirModel, QItemSelectionModel
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
-
-from .main import toString, toInteger
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSettings
+from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QLineEdit, \
+    QMessageBox
 
 from gui.preferences_ui import Ui_PreferencesDialog
 import webbrowser
@@ -20,27 +14,27 @@ import logging
 log = logging.getLogger("subdownloader.gui.preferences")
 
 
-class preferencesDialog(QtGui.QDialog):
+class preferencesDialog(QDialog):
 
-    def __init__(self, parent):
-        QtGui.QDialog.__init__(self)
+    def __init__(self, parent, main):
+        QDialog.__init__(self, parent)
         self.ui = Ui_PreferencesDialog()
         self.ui.setupUi(self)
-        self._main = parent
+        self._main = main
         settings = QSettings()
         # OPTIONS events
-        QObject.connect(self.ui.optionsButtonApplyChanges, SIGNAL(
-            "clicked(bool)"), self.onOptionsButtonApplyChanges)
-        QObject.connect(self.ui.optionsButtonCancel, SIGNAL(
-            "clicked(bool)"), self.onOptionsButtonCancel)
-        QObject.connect(self.ui.optionButtonChooseFolder, SIGNAL(
-            "clicked(bool)"), self.onOptionButtonChooseFolder)
-        QObject.connect(self.ui.optionDownloadFolderPredefined, SIGNAL(
-            "toggled(bool)"), self.onOptionDownloadFolderPredefined)
-        QObject.connect(self.ui.optionVideoAppChooseLocation, SIGNAL(
-            "clicked(bool)"), self.onOptionVideoAppChooseLocation)
-        QObject.connect(self.ui.helpTranslateButton, SIGNAL(
-            "clicked(bool)"), self.onOptionHelpTranslateButton)
+        self.ui.optionsButtonApplyChanges.clicked.connect(
+            self.onOptionsButtonApplyChanges)
+        self.ui.optionsButtonCancel.clicked.connect(
+            self.onOptionsButtonCancel)
+        self.ui.optionButtonChooseFolder.clicked.connect(
+            self.onOptionButtonChooseFolder)
+        self.ui.optionDownloadFolderPredefined.clicked.connect(
+            self.onOptionDownloadFolderPredefined)
+        self.ui.optionVideoAppChooseLocation.clicked.connect(
+            self.onOptionVideoAppChooseLocation)
+        self.ui.helpTranslateButton.clicked.connect(
+            self.onOptionHelpTranslateButton)
 
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
@@ -50,7 +44,7 @@ class preferencesDialog(QtGui.QDialog):
             self.ui.optionDefaultUploadLanguage.addItem(
                 _(lang["LanguageName"]), lang_xxx)
             # Adding checkboxes for the Search...Filter by ...
-            self.filterLanguages[lang_xxx] = QtGui.QCheckBox(
+            self.filterLanguages[lang_xxx] = QCheckBox(
                 _(lang["LanguageName"]), self.ui.scrollAreaWidgetContents)
             if num % 4 == 1:
                 self.ui.optionFilterLangLayout_1.addWidget(
@@ -76,33 +70,38 @@ class preferencesDialog(QtGui.QDialog):
         self.ui.optionInterfaceLanguage.adjustSize()
         self.readOptionsSettings(settings)
 
-        QObject.connect(self.ui.optionInterfaceLanguage, SIGNAL(
-            "currentIndexChanged(int)"), self.onOptionInterfaceLanguage)
+        self.ui.optionInterfaceLanguage.currentIndexChanged.connect(
+            self.onOptionInterfaceLanguage)
 
+    @pyqtSlot()
     def onOptionHelpTranslateButton(self):
         webbrowser.open(
             "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
 
+    @pyqtSlot()
     def onOptionButtonChooseFolder(self):
-        directory = QtGui.QFileDialog.getExistingDirectory(
+        directory = QFileDialog.getExistingDirectory(
             None, _("Select a directory"), "")
         if directory:
             self.ui.optionPredefinedFolderText.setText(directory)
 
+    @pyqtSlot()
     def onOptionVideoAppChooseLocation(self):
         extensions = ""
         if platform.system == "Windows":
             extensions = "*.exe"
 
-        fileName = QFileDialog.getOpenFileName(
+        fileName, t = QFileDialog.getOpenFileName(
             None, _("Select the Video Player executable file"), "", extensions)
         if fileName:
             self.ui.optionVideoAppLocation.setText(fileName)
 
+    @pyqtSlot(int)
     def onOptionInterfaceLanguage(self, option):
         QMessageBox.about(self, _("Alert"), _(
             "The new language will be displayed after restarting the program."))
 
+    @pyqtSlot()
     def onOptionDownloadFolderPredefined(self):
         if self.ui.optionDownloadFolderPredefined.isChecked():
             self.ui.optionPredefinedFolderText.setEnabled(True)
@@ -113,8 +112,8 @@ class preferencesDialog(QtGui.QDialog):
 
     def readOptionsSettings(self, settings):
         log.debug("Reading Options Settings")
-        optionWhereToDownload = toString(
-            settings.value("options/whereToDownload", "SAME_FOLDER"))
+        optionWhereToDownload = \
+            settings.value("options/whereToDownload", "SAME_FOLDER")
         if optionWhereToDownload == "ASK_FOLDER":
             self.ui.optionDownloadFolderAsk.setChecked(True)
         elif optionWhereToDownload == "SAME_FOLDER":
@@ -122,11 +121,11 @@ class preferencesDialog(QtGui.QDialog):
         elif optionWhereToDownload == "PREDEFINED_FOLDER":
             self.ui.optionDownloadFolderPredefined.setChecked(True)
 
-        folder = toString(settings.value("options/whereToDownloadFolder", ""))
+        folder = settings.value("options/whereToDownloadFolder", "")
         self.ui.optionPredefinedFolderText.setText(folder)
 
-        optionSubtitleName = toString(
-            settings.value("options/subtitleName", "SAME_VIDEO"))
+        optionSubtitleName = \
+            settings.value("options/subtitleName", "SAME_VIDEO")
         if optionSubtitleName == "SAME_VIDEO":
             self.ui.optionDownloadSameFilename.setChecked(True)
         elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
@@ -138,39 +137,38 @@ class preferencesDialog(QtGui.QDialog):
             self.ui.optionDownloadOnlineSubName.setChecked(True)
 
         # Search
-        optionFilterSearchLang = toString(
-            settings.value("options/filterSearchLang", ""))
+        optionFilterSearchLang = \
+            settings.value("options/filterSearchLang", "")
         for lang_xxx in optionFilterSearchLang.split(','):
             if lang_xxx in self.filterLanguages:
                 self.filterLanguages[lang_xxx].setChecked(True)
 
         # Upload
-        optionUploadLanguage = toString(
-            settings.value("options/uploadLanguage", "eng"))
+        optionUploadLanguage = \
+            settings.value("options/uploadLanguage", "eng")
         index = self.ui.optionDefaultUploadLanguage.findData(
             optionUploadLanguage)
         if index != -1:
             self.ui.optionDefaultUploadLanguage.setCurrentIndex(index)
 
-        optionInterfaceLanguage = toString(
-            settings.value("options/interfaceLang", "en"))
+        optionInterfaceLanguage = \
+            settings.value("options/interfaceLang", "en")
         index = self.ui.optionInterfaceLanguage.findData(
             optionInterfaceLanguage)
         if index != -1:
             self.ui.optionInterfaceLanguage.setCurrentIndex(index)
 
         optionIntegrationExplorer = settings.value(
-            "options/IntegrationExplorer", False).toBool()
+            "options/IntegrationExplorer", False)
         self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer)
 
         self.ui.optionProxyHost.setText(
-            toString(settings.value("options/ProxyHost", "")))
-        self.ui.optionProxyPort.setValue(
-            toInteger(settings.value("options/ProxyPort", 8080)))
+            settings.value("options/ProxyHost", ""))
+        self.ui.optionProxyPort.setValue(int(
+            settings.value("options/ProxyPort", 8080)))
 
-        programPath = toString(settings.value("options/VideoPlayerPath", ""))
-        parameters = toString(
-            settings.value("options/VideoPlayerParameters", ""))
+        programPath = settings.value("options/VideoPlayerPath", "")
+        parameters = settings.value("options/VideoPlayerParameters", "")
         self.ui.optionVideoAppLocation.setText(programPath)
         self.ui.optionVideoAppParams.setText(parameters)
 
@@ -188,10 +186,11 @@ class preferencesDialog(QtGui.QDialog):
                 _("Enable in your File Manager"))
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
+    @pyqtSlot()
     def onOptionsButtonApplyChanges(self):
         log.debug("Saving Options Settings")
         # Fields validation
-        if self.ui.optionDownloadFolderPredefined.isChecked() and toString(self.ui.optionPredefinedFolderText.text()) == "":
+        if self.ui.optionDownloadFolderPredefined.isChecked() and self.ui.optionPredefinedFolderText.text() == "":
             QMessageBox.about(
                 self, _("Error"), _("Predefined Folder cannot be empty"))
             return
@@ -225,22 +224,20 @@ class preferencesDialog(QtGui.QDialog):
 
         settings.setValue(
             "options/filterSearchLang", ",".join(checked_languages))
-        self._main.emit(
-            SIGNAL('filterLangChangedPermanent(QString)'), ",".join(checked_languages))
+        self._main.filterLangChangedPermanent.emit(",".join(checked_languages))
 
         # Upload tab
         optionUploadLanguage = self.ui.optionDefaultUploadLanguage.itemData(
             self.ui.optionDefaultUploadLanguage.currentIndex())
         settings.setValue("options/uploadLanguage", optionUploadLanguage)
-        self._main.emit(
-            SIGNAL('language_updated(QString,QString)'), optionUploadLanguage, "")
+        self._main.language_updated.emit(optionUploadLanguage, "")
 
         optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(
             self.ui.optionInterfaceLanguage.currentIndex())
         settings.setValue("options/interfaceLang", optionInterfaceLanguage)
 
         IEoldValue = settings.value(
-            "options/IntegrationExplorer", False).toBool()
+            "options/IntegrationExplorer", False)
         IEnewValue = self.ui.optionIntegrationExplorer.isChecked()
         if IEoldValue != IEnewValue:
             if IEnewValue:
@@ -255,7 +252,7 @@ class preferencesDialog(QtGui.QDialog):
         newProxyHost = self.ui.optionProxyHost.text()
         newProxyPort = self.ui.optionProxyPort.value()
         oldProxyHost = settings.value("options/ProxyHost", "")
-        oldProxyPort = settings.value("options/ProxyPort", "8080").toInt()
+        oldProxyPort = int(settings.value("options/ProxyPort", 8080))
         if newProxyHost != oldProxyHost or newProxyPort != oldProxyPort:
             settings.setValue("options/ProxyHost", newProxyHost)
             settings.setValue("options/ProxyPort", newProxyPort)
@@ -273,5 +270,6 @@ class preferencesDialog(QtGui.QDialog):
     def actionContextMenu(self, action, os):
         pass
 
+    @pyqtSlot()
     def onOptionsButtonCancel(self):
         self.reject()

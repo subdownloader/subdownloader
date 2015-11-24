@@ -1,15 +1,9 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4.QtCore import Qt, SIGNAL
-import PyQt4.QtCore as QtCore
-from PyQt4.Qt import QApplication, QFont, QAbstractListModel, \
-    QAbstractTableModel, QTableView, QListView, \
-    QLabel, QAbstractItemView, QPixmap, QIcon, QSize, \
-    QSpinBox, QPoint, QPainterPath, QItemDelegate, QPainter, \
-    QPen, QColor, QLinearGradient, QBrush, QStyle, \
-    QByteArray, QBuffer, QMimeData, \
-    QDrag, QRect
+from PyQt5.QtCore import Qt, pyqtSignal, QAbstractItemModel, \
+    QAbstractListModel, QModelIndex, QPoint, QRect, QSize
+from PyQt5.QtGui import QColor, QFont, QIcon
 
 from modules.videofile import VideoFile
 from modules.subtitlefile import SubtitleFile
@@ -44,10 +38,10 @@ class Node:
             return 0
 
 
-class VideoTreeModel(QtCore.QAbstractItemModel):
+class VideoTreeModel(QAbstractItemModel):
 
     def __init__(self, parent=None):
-        QtCore.QAbstractItemModel.__init__(self, parent)
+        QAbstractItemModel.__init__(self, parent)
         self.root = Node("")
         self.selectedNode = None
         self.languageFilter = None
@@ -89,11 +83,12 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
     def clearTree(self):
         log.debug("Clearing VideoTree")
+        self.modelAboutToBeReset.emit()
         self.selectedNode = None
         self.languageFilter = None
         del self.root
         self.root = Node("")
-        self.reset()  # Better than emit the dataChanged signal
+        self.modelReset.emit()  # Better than emit the dataChanged signal
 
     def selectMostRatedSubtitles(self):
         for video in self.root.children:
@@ -132,26 +127,26 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
         if type(data) == SubtitleFile:  # It's a SUBTITLE treeitem.
             sub = data
-            if role == QtCore.Qt.DecorationRole:
+            if role == Qt.DecorationRole:
                 if sub.isLocal():
                     return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Disabled)
                 else:
                     return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Normal)
 
-            if role == QtCore.Qt.ForegroundRole:
+            if role == Qt.ForegroundRole:
                 if sub.isLocal():
                     return QColor(Qt.red)
 
-            if role == QtCore.Qt.FontRole:
+            if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
 
-            if role == QtCore.Qt.CheckStateRole:
+            if role == Qt.CheckStateRole:
                 if index.internalPointer().checked:
                     return Qt.Checked
                 else:
                     return Qt.Unchecked
 
-            if role == QtCore.Qt.DisplayRole:
+            if role == Qt.DisplayRole:
                 uploader = sub.getUploader()
                 if not uploader:
                     uploader = _('Anonymous')
@@ -185,21 +180,21 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
                     return line
             return None
         elif type(data) == VideoFile:  # It's a VIDEOFILE treeitem.
-            if role == QtCore.Qt.ForegroundRole:
+            if role == Qt.ForegroundRole:
                 return QColor(Qt.blue)
 
             movie_info = data.getMovieInfo()
-            if role == QtCore.Qt.DecorationRole:
+            if role == Qt.DecorationRole:
                 if movie_info:
                     # TODO: Show this icon bigger.
                     return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
                 else:
                     return None
 
-            if role == QtCore.Qt.FontRole:
+            if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
 
-            if role == QtCore.Qt.DisplayRole:
+            if role == Qt.DisplayRole:
                 if movie_info:
                     # The ENGLISH Movie Name is priority, if not shown, then we
                     # show the original name.
@@ -220,17 +215,17 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
 
             return None
         elif type(data) == Movie:  # It's a MOVIE item
-            if role == QtCore.Qt.ForegroundRole:
+            if role == Qt.ForegroundRole:
                 return QColor(Qt.blue)
 
             movie = data
-            if role == QtCore.Qt.DecorationRole:
+            if role == Qt.DecorationRole:
                 return QIcon(':/images/info.png')
 
-            if role == QtCore.Qt.FontRole:
+            if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
 
-            if role == QtCore.Qt.DisplayRole:
+            if role == Qt.DisplayRole:
                 movieName = movie.MovieName
                 info = "%s [%s]" % (movie.MovieName,  movie.MovieYear)
                 if movie.IMDBRating:
@@ -252,11 +247,11 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             return Qt.ItemIsEnabled
         data = index.internalPointer().data
         if type(data) == SubtitleFile:  # It's a SUBTITLE treeitem.
-            return Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled
+            return Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled
         elif type(data) == VideoFile:  # It's a VIDEO treeitem.
-            return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
         elif type(data) == Movie:  # It's a Movie  treeitem.
-            return Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
     def getTopNodes(self):
         return [self.index(parentItem.row(), 0) for parentItem in self.root.children]
@@ -290,14 +285,14 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
         return checkedSubs
 
     def headerData(self, section, orientation, role):
-        #  if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+        #  if orientation == Qt.Horizontal and role == Qt.DisplayRole:
         # return self.root.data[section]
 
         return None  # Hide headers
 
     def index(self, row, column, parent):
         if row < 0 or column < 0 or row >= self.rowCount(parent) or column >= self.columnCount(parent):
-            return QtCore.QModelIndex()
+            return QModelIndex()
 
         if not parent.isValid():
             parentItem = self.root
@@ -305,25 +300,25 @@ class VideoTreeModel(QtCore.QAbstractItemModel):
             parentItem = parent.internalPointer()
 
         if row > len(parentItem.children) - 1:
-            return QtCore.QModelIndex()
+            return QModelIndex()
 
         childItem = parentItem.children[row]
         if childItem:
             return self.createIndex(row, column, childItem)
         else:
-            return QtCore.QModelIndex()
+            return QModelIndex()
 
     def parent(self, index):
         if not index.isValid():
-            return QtCore.QModelIndex()
+            return QModelIndex()
 
         childItem = index.internalPointer()
         parentItem = childItem.parent
         # if parentItem == None:
-        # return QtCore.QModelIndex()
+        # return QModelIndex()
 
         if parentItem == self.root:
-            return QtCore.QModelIndex()
+            return QModelIndex()
 
         return self.createIndex(parentItem.row(), 0, parentItem)
 

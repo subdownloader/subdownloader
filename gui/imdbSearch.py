@@ -1,38 +1,30 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-    QSettings, QSize, QEventLoop, \
-    QBuffer, QIODevice, QModelIndex, QDir
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-    QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog, QDirModel, QItemSelectionModel
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, \
+    QEventLoop, QItemSelection, QItemSelectionModel
+from PyQt5.QtWidgets import QDialog, QHeaderView, QMessageBox
 
 from gui.imdb_ui import Ui_IMDBSearchDialog
 from gui.imdblistview import ImdbListModel, ImdbListView
 import webbrowser
 
 
-class imdbSearchDialog(QtGui.QDialog):
+class imdbSearchDialog(QDialog):
 
-    def __init__(self, parent):
-        QtGui.QDialog.__init__(self)
+    def __init__(self, parent, main):
+        QDialog.__init__(self, parent)
         self.ui = Ui_IMDBSearchDialog()
         self.ui.setupUi(self)
-        self._main = parent
+        self._main = main
 
-        QObject.connect(self.ui.searchMovieButton, SIGNAL(
-            "clicked(bool)"), self.onSearchMovieButton)
-        QObject.connect(self.ui.movieInfoButton, SIGNAL(
-            "clicked(bool)"), self.onMovieInfoButton)
-        QObject.connect(
-            self.ui.okButton, SIGNAL("clicked(bool)"), self.onOkButton)
-        QObject.connect(
-            self.ui.cancelButton, SIGNAL("clicked(bool)"), self.onCancelButton)
+        self.ui.searchMovieButton.clicked.connect(self.onSearchMovieButton)
+        self.ui.movieInfoButton.clicked.connect(self.onMovieInfoButton)
+        self.ui.okButton.clicked.connect(self.onOkButton)
+        self.ui.cancelButton.clicked.connect(self.onCancelButton)
 
         header = self.ui.searchResultsView.horizontalHeader()
-        header.setResizeMode(QtGui.QHeaderView.Stretch)
+        header.setSectionResizeMode(QHeaderView.Stretch)
         header.hide()
         self.ui.searchResultsView.verticalHeader().hide()
 
@@ -42,21 +34,20 @@ class imdbSearchDialog(QtGui.QDialog):
         self.imdbModel._main = self
         self.imdbSelectionModel = QItemSelectionModel(self.imdbModel)
         self.ui.searchResultsView.setSelectionModel(self.imdbSelectionModel)
-        QObject.connect(self.imdbSelectionModel, SIGNAL(
-            "selectionChanged(QItemSelection, QItemSelection)"), self.onIMDBChangeSelection)
-        QObject.connect(self.ui.searchResultsView, SIGNAL(
-            "activated(QModelIndex)"), self.onOkButton)
+        self.imdbSelectionModel.selectionChanged.connect(
+            self.onIMDBChangeSelection)
+        self.ui.searchResultsView.activated.connect(self.onOkButton)
 
+    @pyqtSlot()
     def onSearchMovieButton(self):
         if not self.ui.movieSearch.text():
             QMessageBox.about(
                 self, _("Error"), _("Please fill out the search title"))
         else:
             self.setCursor(Qt.WaitCursor)
-            text = self.ui.movieSearch.text()
             try:
                 results = self._main.OSDBServer.SearchMoviesOnIMDB(
-                    str(text.toUtf8()))
+                    self.ui.movieSearch.text())
                 # In case of empty results
                 if not results or not len(results) or "id" not in results[0]:
                     results = []
@@ -65,10 +56,10 @@ class imdbSearchDialog(QtGui.QDialog):
                     self, _("Error"), _("Error contacting the server. Please try again later"))
                 results = []
 
-            self.imdbModel.emit(SIGNAL("layoutAboutToBeChanged()"))
+            self.imdbModel.layoutAboutToBeChanged.emit()
             self.imdbModel.setImdbResults(results)
             QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-            self.imdbModel.emit(SIGNAL("layoutChanged()"))
+            self.imdbModel.layoutChanged.emit()
             self.ui.searchResultsView.resizeRowsToContents()
             self.setCursor(Qt.ArrowCursor)
 
@@ -84,9 +75,11 @@ class imdbSearchDialog(QtGui.QDialog):
             self.ui.movieInfoButton.setEnabled(False)
             self.ui.okButton.setEnabled(False)
 
+    @pyqtSlot(QItemSelection, QItemSelection)
     def onIMDBChangeSelection(self, selected, unselected):
         self.updateButtonsIMDB()
 
+    @pyqtSlot()
     def onMovieInfoButton(self):
         if self.imdbModel.rowSelected == None:
             QMessageBox.about(
@@ -96,15 +89,17 @@ class imdbSearchDialog(QtGui.QDialog):
             webbrowser.open("http://www.imdb.com/title/tt%s" %
                             imdbID, new=2, autoraise=1)
 
+    @pyqtSlot()
     def onOkButton(self):
         if self.imdbModel.rowSelected == None:
             QMessageBox.about(
                 self, _("Error"), _("Please search and select a movie from the list"))
         else:
             selection = self.imdbModel.getSelectedImdb()
-            self._main.emit(SIGNAL('imdbDetected(QString,QString,QString)'), selection[
-                            "id"], selection["title"], "search")
+            self._main.imdbDetected.emit(
+                selection["id"], selection["title"], "search")
             self.accept()
 
+    @pyqtSlot()
     def onCancelButton(self):
         self.reject()

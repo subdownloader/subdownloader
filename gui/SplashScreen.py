@@ -7,8 +7,9 @@ Module implementing a splashscreen
 
 import os.path
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QApplication, QPixmap, QSplashScreen, QColor
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QColor
+from PyQt5.QtWidgets import QApplication, QSplashScreen
 
 
 class SplashScreen(QSplashScreen):

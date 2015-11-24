@@ -1,15 +1,8 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-    QSettings, QSize, QEventLoop, \
-    QBuffer, QIODevice, QModelIndex, QDir
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-    QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog, QDirModel, QItemSelectionModel
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
-
-from main import toString
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSettings
+from PyQt5.QtWidgets import QMessageBox, QDialog
 
 from gui.expiration_ui import Ui_ExpirationDialog
 import logging
@@ -25,9 +18,9 @@ DAYS_TRIAL = 30
 
 def GetFirstRunTime():
     settings = QSettings()
-    firstRunTime = toString(settings.value("mainwindow/size2", ""))
+    firstRunTime = settings.value("mainwindow/size2", "")
     if firstRunTime != "":
-        return firstRunTime.toDouble()[0]
+        return float(firstRunTime)
     else:
         now = time.time()
         settings.setValue("mainwindow/size2", now)
@@ -49,27 +42,21 @@ def calculateDaysLeft(server_time):
     return daysLeft.days
 
 
-class expirationDialog(QtGui.QDialog):
+class expirationDialog(QDialog):
 
-    def __init__(self, parent, daysLeft):
-        QtGui.QDialog.__init__(self)
+    def __init__(self, parent, main, daysLeft):
+        QDialog.__init__(self, parent)
         self.ui = Ui_ExpirationDialog()
         self.ui.setupUi(self)
-        self._main = parent
+        self._main = main
         self.daysLeft = daysLeft
         settings = QSettings()
-        QObject.connect(
-            self.ui.buttonCancel, SIGNAL("clicked(bool)"), self.onButtonCancel)
-        QObject.connect(
-            self.ui.buttonRegister, SIGNAL("clicked(bool)"), self.onButtonRegister)
-        QObject.connect(
-            self.ui.buttonActivate, SIGNAL("clicked(bool)"), self.onButtonActivate)
-        QObject.connect(
-            self.ui.activation_email, SIGNAL("textChanged()"), self.onFieldsChanged)
-        QObject.connect(self.ui.activation_fullname, SIGNAL(
-            "textChanged()"), self.onFieldsChanged)
-        QObject.connect(self.ui.activation_licensekey, SIGNAL(
-            "textChanged()"), self.onFieldsChanged)
+        self.ui.buttonCancel.clicked.connect(self.onButtonCancel)
+        self.ui.buttonRegister.clicked.connect(self.onButtonRegister)
+        self.ui.buttonActivate.clicked.connect(self.onButtonActivate)
+        self.ui.activation_email.textChanged.connect(self.onFieldsChanged)
+        self.ui.activation_fullname.textChanged.connect(self.onFieldsChanged)
+        self.ui.activation_licensekey.textChanged.connect(self.onFieldsChanged)
 
         if daysLeft:
             self.ui.label_expiration.setText(
@@ -80,19 +67,23 @@ class expirationDialog(QtGui.QDialog):
                 _('The program has expired after %d days of usage.') % DAYS_TRIAL)
             self.ui.buttonCancel.hide()
 
+    @pyqtSlot()
     def onButtonCancel(self):
         self.reject()
 
+    @pyqtSlot()
     def onButtonRegister(self):
         webbrowser.open(
             "http://www.subdownloader.net/buylicense.html", new=2, autoraise=1)
 
+    @pyqtSlot()
     def onFieldsChanged(self):
         if len(self.ui.activation_email.text()) and len(self.ui.activation_fullname.text()) and len(self.ui.activation_licensekey.text()):
             self.ui.buttonActivate.setEnabled(True)
         else:
             self.ui.buttonActivate.setEnabled(False)
 
+    @pyqtSlot()
     def onButtonActivate(self):
         email = unicode(self.ui.activation_email.text())
         fullname = unicode(self.ui.activation_fullname.text())

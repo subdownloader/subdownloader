@@ -1,29 +1,23 @@
 #!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtCore import Qt, SIGNAL, QObject, QCoreApplication, \
-    QSettings, QSize, QEventLoop, \
-    QBuffer, QIODevice, QModelIndex, QDir
-from PyQt4.QtGui import QPixmap, QErrorMessage, QLineEdit, \
-    QMessageBox, QFileDialog, QIcon, QDialog, QInputDialog, QDirModel, QItemSelectionModel
-from PyQt4.Qt import qDebug, qFatal, qWarning, qCritical
+from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QDialog
 
 from gui.about_ui import Ui_AboutDialog
 import logging
 log = logging.getLogger("subdownloader.gui.about")
 
 
-class aboutDialog(QtGui.QDialog):
+class aboutDialog(QDialog):
 
     def __init__(self, parent):
-        QtGui.QDialog.__init__(self)
+        QDialog.__init__(self, parent)
         self.ui = Ui_AboutDialog()
         self.ui.setupUi(self)
         self._main = parent
         settings = QSettings()
-        QObject.connect(
-            self.ui.buttonClose, SIGNAL("clicked(bool)"), self.onButtonClose)
+        self.ui.buttonClose.clicked.connect(self.onButtonClose)
 
     def onButtonClose(self):
         self.reject()
