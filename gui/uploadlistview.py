@@ -204,7 +204,7 @@ class UploadListModel(QAbstractTableModel):
 
     def headerData(self, section, orientation, role):
         if role != Qt.DisplayRole:
-            return ""
+            return None
         text = ""
         if orientation == Qt.Horizontal:
             text = self._headers[section]
