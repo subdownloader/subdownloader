@@ -1,8 +1,11 @@
-subdownloader.e4p
-.eric4project
-.bzr
+# Bazaar scm
+.bzr*
 
+# Merge conflict artifacts
 *.orig *.rej
+
+# Python byte code
 *.pyc
 
+# Release tarballs
 *.tar.gz
