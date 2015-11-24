@@ -2,7 +2,12 @@
 .bzr*
 
 # Merge conflict artifacts
-*.orig *.rej
+*.orig
+*.rej
+*_BACKUP_*
+*_BASE_*
+*_LOCAL_*
+*_REMOTE_*
 
 # Python byte code
 *.pyc
