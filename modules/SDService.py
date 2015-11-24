@@ -54,11 +54,11 @@ def test_connection(url, timeout=CON_TIMEOUT):
             'The server couldn\'t fulfill the request. Error code: ' % e.code)
     except URLError as e:
         log.error('We failed to reach a server. Reason: %s ' % e.reason)
-    except socket.error as xxx_todo_changeme:
-        (value, message) = xxx_todo_changeme.args
+    except socket.error as e:
+        (value, message) = e.args
         log.error("Could not open socket: %s" % message)
-    except socket.sslerror as xxx_todo_changeme1:
-        (value, message) = xxx_todo_changeme1.args
+    except socket.sslerror as e:
+        (value, message) = e.args
         log.error("Could not open ssl socket: %s" % message)
     socket.setdefaulttimeout(defTimeOut)
     return connectable
