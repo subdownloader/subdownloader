@@ -48,7 +48,7 @@ class Metadata(object):
                 metaRes._addVideo(
                     MetadataVideo(
                         duration_ms=track.duration,
-                        framerate=track.frame_rate
+                        framerate=float(track.frame_rate)
                     )
                 )
         return metaRes
