@@ -145,7 +145,7 @@ def ScanSubtitlesFolder(folderpath, recursively=True, report_progress=None, prog
                 subtitlefile.SubtitleFile(online=False, id=filepath))
             count += percentage
             report_progress(count, _("Parsing sub: %s") % os.path.basename(
-                filepath).decode(sys.getfilesystemencoding()))
+                filepath))
     report_progress(100, _("Finished hashing"))
     if progress_end:
         progress_end()
