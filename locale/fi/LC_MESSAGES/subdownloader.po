@@ -3,14 +3,18 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-01-16 00:29+0000\n"
-"Last-Translator: raspi <pekka.jarvinen@gmail.com>\n"
+"PO-Revision-Date: 2012-02-25 00:49+0000\n"
+"Last-Translator: Matias Ojala <matias.ojala@me.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "suomi"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -28,87 +32,83 @@ msgstr "Tiivistys valmis"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
-msgstr "Albania"
+msgstr "albania"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
-msgstr "Arabia"
+msgstr "arabia"
 
 #: ../languages/Languages.py:14
 msgid "Armenian"
-msgstr "Armenia"
+msgstr "armenia"
 
 #: ../languages/Languages.py:15
 msgid "Malay"
-msgstr "Malaiji"
+msgstr "malaiji"
 
 #: ../languages/Languages.py:16
 msgid "Bosnian"
-msgstr "Bosnia"
+msgstr "bosnia"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr "Bulgaria"
+msgstr "bulgaria"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr "Katalania"
+msgstr "katalaani"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
-msgstr "Baski"
+msgstr "baski"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "kiina (Kiina)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr "Kroatia"
+msgstr "kroatia"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
-msgstr "Tsekki"
+msgstr "tšekki"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr "Tanska"
+msgstr "tanska"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr "Hollanti"
+msgstr "hollanti"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "englanti (USA)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "englanti (Iso-Britannia)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
-msgstr "Esperanto"
+msgstr "esperanto"
 
 #: ../languages/Languages.py:28
 msgid "Estonian"
-msgstr "Viro"
-
-#: ../languages/Languages.py:29
-msgid "Finnish"
-msgstr "Suomi"
+msgstr "viro"
 
 #: ../languages/Languages.py:30
 msgid "French"
-msgstr "Ranska"
+msgstr "ranska"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "galicia"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
-msgstr "Gruusia"
+msgstr "georgia"
 
 #: ../languages/Languages.py:33
 msgid "German"
@@ -116,119 +116,119 @@ msgstr "saksa"
 
 #: ../languages/Languages.py:34
 msgid "Greek"
-msgstr "kreikkalainen"
+msgstr "kreikka"
 
 #: ../languages/Languages.py:35
 msgid "Hebrew"
-msgstr "heprealainen"
+msgstr "heprea"
 
 #: ../languages/Languages.py:36
 msgid "Hungarian"
-msgstr "Unkarilainen"
+msgstr "unkari"
 
 #: ../languages/Languages.py:37
 msgid "Indonesian"
-msgstr "Indonesialainen"
+msgstr "indonesia"
 
 #: ../languages/Languages.py:38
 msgid "Italian"
-msgstr "italialainen"
+msgstr "italia"
 
 #: ../languages/Languages.py:39
 msgid "Japanese"
-msgstr "Japani"
+msgstr "japani"
 
 #: ../languages/Languages.py:40
 msgid "Kazakh"
-msgstr "kazak"
+msgstr "kazakki"
 
 #: ../languages/Languages.py:41
 msgid "Korean"
-msgstr "Korea"
+msgstr "korea"
 
 #: ../languages/Languages.py:42
 msgid "Latvian"
-msgstr "Latvia"
+msgstr "latvia"
 
 #: ../languages/Languages.py:43
 msgid "Lithuanian"
-msgstr "Liettua"
+msgstr "liettua"
 
 #: ../languages/Languages.py:44
 msgid "Luxembourgish"
-msgstr "Luxemburg"
+msgstr "luxemburg"
 
 #: ../languages/Languages.py:45
 msgid "Macedonian"
-msgstr "Makedonia"
+msgstr "makedonia"
 
 #: ../languages/Languages.py:46
 msgid "Norwegian"
-msgstr "Norja"
+msgstr "norja"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
-msgstr "Persia"
+msgstr "persia"
 
 #: ../languages/Languages.py:48
 msgid "Polish"
-msgstr "Puola"
+msgstr "puola"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "portugali (Portugali)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "portugali (Brasilia)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
-msgstr "Romania"
+msgstr "romania"
 
 #: ../languages/Languages.py:52
 msgid "Russian"
-msgstr "Venäjä"
+msgstr "venäjä"
 
 #: ../languages/Languages.py:53
 msgid "Serbian"
-msgstr "Serbia"
+msgstr "serbia"
 
 #: ../languages/Languages.py:54
 msgid "Slovak"
-msgstr "Slovakia"
+msgstr "slovakki"
 
 #: ../languages/Languages.py:55
 msgid "Slovenian"
-msgstr "Slovenia"
+msgstr "sloveeni"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "espanja (Espanja)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
-msgstr "Ruotsi"
+msgstr "ruotsi"
 
 #: ../languages/Languages.py:58
 msgid "Thai"
-msgstr "Thai"
+msgstr "thai"
 
 #: ../languages/Languages.py:59
 msgid "Turkish"
-msgstr "Turkki"
+msgstr "turkki"
 
 #: ../languages/Languages.py:60
 msgid "Ukrainian"
-msgstr "Ukrainalainen"
+msgstr "ukraina"
 
 #: ../languages/Languages.py:61
 msgid "Vietnamese"
-msgstr "Vietnamilainen"
+msgstr "vietnam"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
-msgstr "Anonyymi"
+msgstr "Nimetön"
 
 #: ../gui/videotreeview.py:154
 #, python-format
@@ -326,15 +326,15 @@ msgstr "Jotkin video- tai tekstityskentät ovat tyhjiä"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
-msgstr "Klikkaa valitaksesi video..."
+msgstr "Klikkaa valitaksesi videon..."
 
 #: ../gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr "Klikkaa valitaksesi tekstitys..."
+msgstr "Klikkaa valitaksesi tekstityksen..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr "Lataa..."
+msgstr "Ladataan..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
@@ -719,6 +719,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org ei vastaa\n"
+"Palvelin saattaa olla ylikuormittunut, yritä myöhemmin uudelleen."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1232,9 +1234,3 @@ msgstr "Muut"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Tallenna"
-
-#~ msgid "Not Connected"
-#~ msgstr "Ei yhdistetty"
-
-#~ msgid "Login:"
-#~ msgstr "Kirjaudu:"

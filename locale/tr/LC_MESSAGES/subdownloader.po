@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: subdownloader\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2012-10-29 15:01+0000\n"
-"Last-Translator: zapman <Unknown>\n"
+"PO-Revision-Date: 2013-04-23 19:19+0000\n"
+"Last-Translator: Volkan Gezer <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-11-16 21:28+0000\n"
-"X-Generator: Launchpad (build 16278)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 "X-Poedit-Language: Turkish\n"
 
 #: ../FileManagement/FileScan.py:91
@@ -94,7 +94,7 @@ msgstr "İngilizce (UK)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
-msgstr "İspanyolca"
+msgstr "Esperanto dili"
 
 #: ../languages/Languages.py:28
 msgid "Estonian"

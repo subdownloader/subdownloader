@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-09-18 23:57+0000\n"
-"Last-Translator: Jarosław Ogrodnik <nobodythere@gmail.com>\n"
+"PO-Revision-Date: 2011-03-05 21:10+0000\n"
+"Last-Translator: Kamil Markiewicz <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -80,11 +80,11 @@ msgstr "Holenderski"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Angielski (USA)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Angielski (Wielka Brytania)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "Francuski"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galicyjski"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -334,7 +334,7 @@ msgstr "Kliknij tutaj aby, wybrać napisy..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "Wczytywanie..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
@@ -506,7 +506,7 @@ msgstr "&Anuluj"
 
 #: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Uwierzytelnianie"
 
 #: ../gui/main.py:561
 #, python-format
@@ -573,7 +573,7 @@ msgstr "&Przerwij"
 
 #: ../gui/main.py:760
 msgid "Scanning..."
-msgstr ""
+msgstr "Skanowanie..."
 
 #: ../gui/main.py:786
 msgid "Scan Results"
@@ -581,7 +581,7 @@ msgstr "Wyniki skanowania"
 
 #: ../gui/main.py:786
 msgid "No video has been found!"
-msgstr ""
+msgstr "Nie znaleziono plików video!"
 
 #: ../gui/main.py:789
 msgid "Searching subtitles..."
@@ -652,7 +652,7 @@ msgstr "Nie wybrano żadnych napisów do pobrania"
 
 #: ../gui/main.py:1038
 msgid "Downloading..."
-msgstr ""
+msgstr "Pobieranie..."
 
 #: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
@@ -720,6 +720,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org nie odpowiada\n"
+"Serwer może być przeciążony, spróbuj jeszcze raz za kilka minut."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -736,7 +738,7 @@ msgstr "Podłączanie do serwera za pośrednictwem pośrednika sieciowego %s"
 
 #: ../gui/main.py:1188
 msgid "Connected successfully"
-msgstr ""
+msgstr "Połączono pomyślnie"
 
 #: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -763,6 +765,8 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"Napisy wysłane pomyślnie.\n"
+"Wielkie dzięki!"
 
 #: ../gui/main.py:1296
 msgid "View Subtitle Info"
@@ -811,7 +815,7 @@ msgstr "Wybierz napisy..."
 
 #: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
-msgstr ""
+msgstr "Musisz podać co najmniej jeden znak w nazwie filmu"
 
 #: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
@@ -930,7 +934,7 @@ msgstr "Znalezione pliki wideo/napisy"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "Filtruj według:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -1127,7 +1131,7 @@ msgstr "Program wygasł po %d dniach użytkowania."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr ""
+msgstr "Niektóre pola są puste.. proszę je uzupełnić."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
@@ -1229,6 +1233,3 @@ msgstr "Inne"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Zapisz"
-
-#~ msgid "Login:"
-#~ msgstr "Użytkownik:"

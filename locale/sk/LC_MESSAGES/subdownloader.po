@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-01-20 21:17+0000\n"
-"Last-Translator: Selmi <miso.seliga@gmail.com>\n"
+"PO-Revision-Date: 2011-02-15 02:53+0000\n"
+"Last-Translator: Miroslav Ďurian <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -60,7 +60,7 @@ msgstr "baskičtina"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "Čínština (Čína)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
@@ -80,11 +80,11 @@ msgstr "holandčina"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Angličtina (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Angličtina (UK)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "francúzština"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galčina"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +176,11 @@ msgstr "poľština"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugalčina (Portugalsko)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portugalčina (Brazília)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +204,7 @@ msgstr "slovinčina"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "Španielčina (Španielsko)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -718,6 +718,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org neodpovedá\n"
+"Možno je preťažená, skúste o chvíľu."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -933,7 +935,7 @@ msgstr "Nájdené videá/titulky:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "Triediť podľa:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -1231,9 +1233,3 @@ msgstr "Ostatné"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Uložiť"
-
-#~ msgid "Not Connected"
-#~ msgstr "Nepripojený"
-
-#~ msgid "Login:"
-#~ msgstr "Prihlásenie:"

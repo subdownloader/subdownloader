@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2008-11-02 12:21+0000\n"
-"Last-Translator: sanjatrajceva <Unknown>\n"
+"PO-Revision-Date: 2014-09-05 15:31+0000\n"
+"Last-Translator: ProbePLayer <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -40,123 +40,123 @@ msgstr ""
 
 #: ../languages/Languages.py:15
 msgid "Malay"
-msgstr ""
+msgstr "Малајски"
 
 #: ../languages/Languages.py:16
 msgid "Bosnian"
-msgstr ""
+msgstr "Босански"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr ""
+msgstr "Бугарски"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr ""
+msgstr "Каталонски"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
-msgstr ""
+msgstr "Баскијски"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "Кинески (Кина)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr ""
+msgstr "Хрватски"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
-msgstr ""
+msgstr "Чешки"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr ""
+msgstr "Дански"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr ""
+msgstr "Холандски"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Англиски (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Англиски (OK)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
-msgstr ""
+msgstr "Есперанто"
 
 #: ../languages/Languages.py:28
 msgid "Estonian"
-msgstr ""
+msgstr "Естонски"
 
 #: ../languages/Languages.py:29
 msgid "Finnish"
-msgstr ""
+msgstr "Фински"
 
 #: ../languages/Languages.py:30
 msgid "French"
-msgstr ""
+msgstr "Француски"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Галски"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
-msgstr ""
+msgstr "Грузијски"
 
 #: ../languages/Languages.py:33
 msgid "German"
-msgstr ""
+msgstr "Германски"
 
 #: ../languages/Languages.py:34
 msgid "Greek"
-msgstr ""
+msgstr "Грчки"
 
 #: ../languages/Languages.py:35
 msgid "Hebrew"
-msgstr ""
+msgstr "Еврејски"
 
 #: ../languages/Languages.py:36
 msgid "Hungarian"
-msgstr ""
+msgstr "Унгарски"
 
 #: ../languages/Languages.py:37
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesian"
 
 #: ../languages/Languages.py:38
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #: ../languages/Languages.py:39
 msgid "Japanese"
-msgstr ""
+msgstr "Japanese"
 
 #: ../languages/Languages.py:40
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazakh"
 
 #: ../languages/Languages.py:41
 msgid "Korean"
-msgstr ""
+msgstr "Korean"
 
 #: ../languages/Languages.py:42
 msgid "Latvian"
-msgstr ""
+msgstr "Latvian"
 
 #: ../languages/Languages.py:43
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lithuanian"
 
 #: ../languages/Languages.py:44
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxembourgish"
 
 #: ../languages/Languages.py:45
 msgid "Macedonian"
@@ -164,67 +164,67 @@ msgstr "Македонски"
 
 #: ../languages/Languages.py:46
 msgid "Norwegian"
-msgstr ""
+msgstr "Norwegian"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
-msgstr ""
+msgstr "Persian"
 
 #: ../languages/Languages.py:48
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portuguese (Portugal)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portuguese (Brazil)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
-msgstr ""
+msgstr "Romanian"
 
 #: ../languages/Languages.py:52
 msgid "Russian"
-msgstr ""
+msgstr "Russian"
 
 #: ../languages/Languages.py:53
 msgid "Serbian"
-msgstr ""
+msgstr "Serbian"
 
 #: ../languages/Languages.py:54
 msgid "Slovak"
-msgstr ""
+msgstr "Slovak"
 
 #: ../languages/Languages.py:55
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenian"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "Spanish (Spain)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
-msgstr ""
+msgstr "Swedish"
 
 #: ../languages/Languages.py:58
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 #: ../languages/Languages.py:59
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #: ../languages/Languages.py:60
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainian"
 
 #: ../languages/Languages.py:61
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamese"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
@@ -237,7 +237,7 @@ msgstr ""
 
 #: ../gui/videotreeview.py:157
 msgid "(Already downloaded)"
-msgstr ""
+msgstr "(Веќе спуштено)"
 
 #: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
 #, python-format
@@ -252,43 +252,43 @@ msgstr ""
 #: ../gui/videotreeview.py:166
 #, python-format
 msgid "Format: %s"
-msgstr ""
+msgstr "Формат: %s"
 
 #: ../gui/videotreeview.py:167
 #, python-format
 msgid "Downloads: %d"
-msgstr ""
+msgstr "Спуштања: %d"
 
 #: ../gui/videotreeview.py:168
 #, python-format
 msgid "CDs: %d"
-msgstr ""
+msgstr "Цедеа: %d"
 
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
 msgid "[IMDB Rate: %s]"
-msgstr ""
+msgstr "[IMDB стапка: %s]"
 
 #: ../gui/videotreeview.py:220
 #, python-format
 msgid "(%d subtitles)"
-msgstr ""
+msgstr "(%d преводи)"
 
 #: ../gui/about_ui.py:122
 msgid "About Subdownloader"
-msgstr ""
+msgstr "За Subdownloader"
 
 #: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
-msgstr "За"
+msgstr "За Нас"
 
 #: ../gui/about_ui.py:153
 msgid "Authors"
-msgstr ""
+msgstr "Автори"
 
 #: ../gui/about_ui.py:169
 msgid "License Agreement"
-msgstr ""
+msgstr "Договор за лиценца"
 
 #: ../gui/about_ui.py:170
 msgid "Close"
@@ -296,45 +296,45 @@ msgstr "Затвори"
 
 #: ../gui/uploadlistview.py:33
 msgid "Videofile"
-msgstr ""
+msgstr "Видео датотека"
 
 #: ../gui/uploadlistview.py:33
 msgid "Subtitle"
-msgstr ""
+msgstr "Превод"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
-msgstr ""
+msgstr "Листата на видеото/преводот е празна"
 
 #: ../gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
-msgstr ""
+msgstr "Превод %s се повторува"
 
 #: ../gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
-msgstr ""
+msgstr "Видео датотеката %s се повторува"
 
 #: ../gui/uploadlistview.py:99
 msgid "Some of the upload rows are empty"
-msgstr ""
+msgstr "Некои од редовите за прикачување се празни"
 
 #: ../gui/uploadlistview.py:104
 msgid "Some of the video/subtitles fields are empty"
-msgstr ""
+msgstr "Некои од видео/превод полињата се празни"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
-msgstr ""
+msgstr "Кликните овде за да изберете видео..."
 
 #: ../gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr ""
+msgstr "Кликните овде за да изберете превод..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "Се вчитува..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
@@ -343,20 +343,20 @@ msgstr ""
 #: ../gui/main.py:87
 #, python-format
 msgid "SubDownloader %s"
-msgstr ""
+msgstr "SubDownloader %s"
 
 #: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
-msgstr ""
+msgstr "%d денови до крајот на рокот. Активирајте ја програмата."
 
 #: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
-msgstr ""
+msgstr "Се уште нелогиран"
 
 #: ../gui/main.py:236 ../gui/main_ui.py:740
 msgid "Help Us With 5 USD/EUR"
-msgstr ""
+msgstr "Помогнете ни со 5 USD/EUR"
 
 #: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
 #: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
@@ -373,20 +373,20 @@ msgstr "Грешка"
 #: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
 #: ../gui/login.py:59
 msgid "Error contacting the server. Please try again later"
-msgstr ""
+msgstr "Грешка при контактирање со серверот. Ве молиме обидете се подоцна."
 
 #: ../gui/main.py:289
 #, python-format
 msgid "Unable to find %s"
-msgstr ""
+msgstr "Не може да се најде %s"
 
 #: ../gui/main.py:366
 msgid "How To Use SubDownloader"
-msgstr ""
+msgstr "Како да се користи SubDownloader"
 
 #: ../gui/main.py:367
 msgid "1st Tab:"
-msgstr ""
+msgstr "1-во Јазиче:"
 
 #: ../gui/main.py:367
 msgid ""
@@ -394,6 +394,9 @@ msgid ""
 "videos that need subtitles. SubDownloader will then try to automatically "
 "find available subtitles."
 msgstr ""
+"Одберете ја, од Хиерархијата на Папки од лево, папката која што ги содржи "
+"видеата за кои што требаат преводи. SubDownloader ќе проба автоматски да "
+"најде преводи."
 
 #: ../gui/main.py:368
 msgid "2nd Tab:"
@@ -404,10 +407,12 @@ msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
+"Ако ги немате видеата на вашата направа, можете да ги побарате преводите со "
+"пребарување на насловот/името на видеото."
 
 #: ../gui/main.py:369
 msgid "3rd Tab:"
-msgstr ""
+msgstr "3-то Јазиче:"
 
 #: ../gui/main.py:369
 msgid ""
@@ -415,24 +420,29 @@ msgid ""
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
+"Ако имате најдено преводи од некои друго место што не се во датабазата на "
+"SubDownloader , ве молиме прикачите ги за другите корисници да можат да ги "
+"најдат преводите полесно."
 
 #: ../gui/main.py:370
 msgid "Quid Pro Quo:"
-msgstr ""
+msgstr "Нешто за нешто"
 
 #: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
+"Ако мислите дека оваа програма е корисна и ви има заштедено време, ве молиме "
+"помогнете ни со донирање пари."
 
 #: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
-msgstr ""
+msgstr "Види IMDB инфо"
 
 #: ../gui/main.py:422
 msgid "Set IMDB info..."
-msgstr ""
+msgstr "Подеси IMDB инфо"
 
 #: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
@@ -441,20 +451,20 @@ msgstr "Преземи"
 
 #: ../gui/main.py:431
 msgid "Play video + subtitle"
-msgstr ""
+msgstr "Пушти видео + превод"
 
 #: ../gui/main.py:436
 msgid "View online info"
-msgstr ""
+msgstr "Види онлајн инфо"
 
 #: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
-msgstr ""
+msgstr "Инфо"
 
 #: ../gui/main.py:508
 msgid "New Version Detected"
-msgstr "Нова Верзија е пронајдена"
+msgstr "Нова Верзија Пронајдена"
 
 #: ../gui/main.py:509
 #, python-format
@@ -466,63 +476,69 @@ msgid ""
 "\n"
 "Would you like to download the new version now?"
 msgstr ""
+"Нова верзија на SubDownloader е објавена.\n"
+"\n"
+"Нова верзија: %s\n"
+"Моментална верзиа: %s\n"
+"\n"
+"Дали сакате да ја спуштите новата верзија сега?"
 
 #: ../gui/main.py:534
 msgid "Users online: Updating..."
-msgstr ""
+msgstr "Корисници онлајн: Ажурирање"
 
 #: ../gui/main.py:537
 #, python-format
 msgid "Users online: %s"
-msgstr ""
+msgstr "Корисници онлајн: %s"
 
 #: ../gui/main.py:539
 msgid "Users online: ERROR"
-msgstr ""
+msgstr "Корисници онлајн: ГРЕШКА"
 
 #: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
-msgstr ""
+msgstr "Пријавување..."
 
 #: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
-msgstr ""
+msgstr "&Откажи"
 
 #: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Проверка на автентичност"
 
 #: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
-msgstr ""
+msgstr "Пријавен како %s"
 
 #: ../gui/main.py:568
 #, python-format
 msgid "Login as %s: ERROR"
-msgstr ""
+msgstr "Пријавување како %s: ГРЕШКА"
 
 #: ../gui/main.py:572
 msgid "Login: ERROR"
-msgstr ""
+msgstr "Пријавување: ГРЕШКА"
 
 #: ../gui/main.py:588
 #, python-format
 msgid "SubDownloader %s - %s"
-msgstr ""
+msgstr "SubDownloader %s - %s"
 
 #: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
-msgstr ""
+msgstr "Програма регистрирана"
 
 #: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
-msgstr ""
+msgstr "(Нерегистрирана Програма, %d денови до краен рок)"
 
 #: ../gui/main.py:661
 msgid "Expiration Reminder"
-msgstr ""
+msgstr "Потсетник за Истекување на Рок"
 
 #: ../gui/main.py:661
 #, python-format
@@ -530,6 +546,8 @@ msgid ""
 "The program will expire in %d days.\n"
 "Would you like to activate it now?"
 msgstr ""
+"Програмата ќе истече за %d денови.\n"
+"Дали би сакале да ја активирате сега?"
 
 #: ../gui/main.py:662
 msgid "Activate"
@@ -1191,9 +1209,3 @@ msgstr ""
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr ""
-
-#~ msgid "Not Connected"
-#~ msgstr "Не е поврзано"
-
-#~ msgid "Login:"
-#~ msgstr "Пријава:"

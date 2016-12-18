@@ -3,16 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-08-01 12:20+0000\n"
-"Last-Translator: csola48 <Unknown>\n"
-"Language-Team: csola48 <csola48@gmail.com>\n"
+"PO-Revision-Date: 2011-04-11 08:59+0000\n"
+"Last-Translator: Lőkös Tibor <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"X-Poedit-Country: HUNGARY\n"
-"X-Poedit-Language: Hungarian\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -230,7 +228,7 @@ msgstr "vietnámi"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
-msgstr "Névtelen"
+msgstr "Névtelenül"
 
 #: ../gui/videotreeview.py:154
 #, python-format
@@ -719,6 +717,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org nem válaszol.\n"
+"Lehetséges, hogy túl van terhelve, próbálja meg később."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1234,13 +1234,3 @@ msgstr "Egyéb"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Mentés"
-
-#~ msgid "Not Connected"
-#~ msgstr "Nincs kapcsolat"
-
-#~ msgid "Login:"
-#~ msgstr "Belépés:"
-
-#, python-format
-#~ msgid "Succesfully logged as: %s"
-#~ msgstr "Bejelentkezve: %s"

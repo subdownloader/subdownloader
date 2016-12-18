@@ -3,19 +3,19 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-05-01 11:56+0000\n"
-"Last-Translator: Roman Horník <Unknown>\n"
+"PO-Revision-Date: 2010-11-10 13:34+0000\n"
+"Last-Translator: Jiří Jindra <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
 msgid "Parsing video: %s"
-msgstr "Analyzuje se video: %s"
+msgstr "Analyzování videa: %s"
 
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
@@ -718,6 +718,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org neodpovídá\n"
+"Server může být přetížen, zkuste později."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1176,7 +1178,7 @@ msgstr "Stejné jméno jako mají titulky online"
 
 #: ../gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Původní jazyk nahrácaných titulků"
+msgstr "Původní jazyk nahrávaných titulků"
 
 #: ../gui/preferences_ui.py:283
 msgid "Network Proxy"
@@ -1229,9 +1231,3 @@ msgstr "Ostatní"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Uložit"
-
-#~ msgid "Not Connected"
-#~ msgstr "Nepřipojen"
-
-#~ msgid "Login:"
-#~ msgstr "Login:"

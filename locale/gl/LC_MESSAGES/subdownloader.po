@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-01-27 19:09+0000\n"
+"PO-Revision-Date: 2011-09-12 00:04+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -720,6 +720,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org non responde.\n"
+"Pode que estea sobrecargado, ténteo nuns momentos."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1232,9 +1234,3 @@ msgstr "Outros"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Gardar"
-
-#~ msgid "Not Connected"
-#~ msgstr "Non está conectado"
-
-#~ msgid "Login:"
-#~ msgstr "Conectarse:"

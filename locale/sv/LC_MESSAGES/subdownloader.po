@@ -3,28 +3,28 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2009-11-23 21:43+0000\n"
-"Last-Translator: slarre <Unknown>\n"
+"PO-Revision-Date: 2015-01-18 19:37+0000\n"
+"Last-Translator: Josef Andersson <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
 msgid "Parsing video: %s"
-msgstr ""
+msgstr "Parsrar video: %s"
 
 #: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
 #, python-format
 msgid "Parsing sub: %s"
-msgstr ""
+msgstr "Parsrar undertext: %s"
 
 #: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
 msgid "Finished hashing"
-msgstr ""
+msgstr "Hash kontroll färdig"
 
 #: ../languages/Languages.py:12
 msgid "Albanian"
@@ -60,7 +60,7 @@ msgstr "Baskiska"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "Kinesiska (Kina)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
@@ -80,11 +80,11 @@ msgstr "Holländska"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Engelsk (USA)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Engelsk (Storbritannien)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "Franska"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galiciska"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +176,11 @@ msgstr "Polska"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugisiska (Portugal)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portugisiska (Brasilien)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +204,7 @@ msgstr "Slovenska"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "Spanska (Spanien)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -304,25 +304,25 @@ msgstr "Undertext"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
-msgstr ""
+msgstr "Listan med video/undertexter är tom"
 
 #: ../gui/uploadlistview.py:88
 #, python-format
 msgid "Subtitle %s is repeated"
-msgstr ""
+msgstr "Undertext %s upprepas"
 
 #: ../gui/uploadlistview.py:93
 #, python-format
 msgid "Videofile %s is repeated"
-msgstr ""
+msgstr "Videofil %s upprepas"
 
 #: ../gui/uploadlistview.py:99
 msgid "Some of the upload rows are empty"
-msgstr ""
+msgstr "Några av de uppladdade raderna är tomma"
 
 #: ../gui/uploadlistview.py:104
 msgid "Some of the video/subtitles fields are empty"
-msgstr ""
+msgstr "Några av video/undertext-fälten är tomma"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
@@ -334,11 +334,11 @@ msgstr "Klicka här för att välja undertext..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "Laddar..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
-msgstr ""
+msgstr "Bygger huvuddialog..."
 
 #: ../gui/main.py:87
 #, python-format
@@ -348,7 +348,7 @@ msgstr "SubDownloader %s"
 #: ../gui/main.py:114
 #, python-format
 msgid "%d days to expire. Activate Program."
-msgstr ""
+msgstr "%d dagar kvar till avaktivering. Aktivera programmet."
 
 #: ../gui/main.py:228 ../gui/main.py:579
 msgid "Not logged yet"
@@ -386,7 +386,7 @@ msgstr "Hur Du Använder SubDownloader"
 
 #: ../gui/main.py:367
 msgid "1st Tab:"
-msgstr ""
+msgstr "1:a Fliken:"
 
 #: ../gui/main.py:367
 msgid ""
@@ -399,17 +399,19 @@ msgstr ""
 
 #: ../gui/main.py:368
 msgid "2nd Tab:"
-msgstr ""
+msgstr "2:a Fliken:"
 
 #: ../gui/main.py:368
 msgid ""
 "If you don't have the videos in your machine, you can search subtitles by "
 "introducing the title/name of the video."
 msgstr ""
+"Om du inte har videoklippen på din maskin, kan du söka genom att skriva in "
+"titeln/namnet på videon."
 
 #: ../gui/main.py:369
 msgid "3rd Tab:"
-msgstr ""
+msgstr "3:e Fliken:"
 
 #: ../gui/main.py:369
 msgid ""
@@ -417,16 +419,20 @@ msgid ""
 "SubDownloader database, please upload those subtitles so next users will be "
 "able to find them more easily."
 msgstr ""
+"Om du har hittat undertexter som inte är med i SubDownloaders databas, var "
+"vänlig att ladda upp dessa så andra användare kan hitta dem mycket lättare."
 
 #: ../gui/main.py:370
 msgid "Quid Pro Quo:"
-msgstr ""
+msgstr "Quid Pro Quo:"
 
 #: ../gui/main.py:370
 msgid ""
 "If you think this program is useful and has saved you plenty of time, please "
 "help us by making a donation."
 msgstr ""
+"Om du tycker att detta program är användbart och har sparat dig mycket tid, "
+"var vänlig och hjälp till genom att göra en donation."
 
 #: ../gui/main.py:419 ../gui/main.py:443
 msgid "View IMDB info"
@@ -498,7 +504,7 @@ msgstr "&Avbryt"
 
 #: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Autentisering"
 
 #: ../gui/main.py:561
 #, python-format
@@ -521,16 +527,16 @@ msgstr "SubDownloader %s - %s"
 
 #: ../gui/main.py:607 ../gui/expiration.py:96
 msgid "Program Registered"
-msgstr ""
+msgstr "Program Registrerat"
 
 #: ../gui/main.py:643
 #, python-format
 msgid "(Unregistered Program, %d days to expire)"
-msgstr ""
+msgstr "(Oregistrerat Program, %d dagar kvar)"
 
 #: ../gui/main.py:661
 msgid "Expiration Reminder"
-msgstr ""
+msgstr "Påminnelsemeddelande"
 
 #: ../gui/main.py:661
 #, python-format
@@ -538,6 +544,8 @@ msgid ""
 "The program will expire in %d days.\n"
 "Would you like to activate it now?"
 msgstr ""
+"Programmet kommer gå ut om %d dagar.\n"
+"Vill du aktivera det nu?"
 
 #: ../gui/main.py:662
 msgid "Activate"
@@ -549,7 +557,7 @@ msgstr "Alla språk"
 
 #: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
 msgid "You are not connected to the server. Please reconnect first."
-msgstr ""
+msgstr "Du är inte uppkopplad till servern. Var vänlig anslut först."
 
 #: ../gui/main.py:759
 msgid "Scanning files"
@@ -563,7 +571,7 @@ msgstr "&Avbryt"
 
 #: ../gui/main.py:760
 msgid "Scanning..."
-msgstr ""
+msgstr "Skannar..."
 
 #: ../gui/main.py:786
 msgid "Scan Results"
@@ -571,7 +579,7 @@ msgstr "Sökresultat"
 
 #: ../gui/main.py:786
 msgid "No video has been found!"
-msgstr ""
+msgstr "Inga videos har hittats!"
 
 #: ../gui/main.py:789
 msgid "Searching subtitles..."
@@ -579,7 +587,7 @@ msgstr "Söker undertexter..."
 
 #: ../gui/main.py:790
 msgid "Asking Server..."
-msgstr ""
+msgstr "Frågar Servern..."
 
 #: ../gui/main.py:804
 #, python-format
@@ -642,16 +650,16 @@ msgstr "Ingen undertext vald för nedladdning"
 
 #: ../gui/main.py:1038
 msgid "Downloading..."
-msgstr ""
+msgstr "Hämtar..."
 
 #: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
 msgid "Downloading subtitle %s (%d/%d)"
-msgstr "Laddar ner undertext %s (%d/%d)"
+msgstr "Hämtar undertext %s (%d/%d)"
 
 #: ../gui/main.py:1053
 msgid "Error write permission"
-msgstr "Error, ingen skriv behörighet"
+msgstr "Fel, ingen skrivbehörighet"
 
 #: ../gui/main.py:1054
 #, python-format
@@ -679,6 +687,9 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
+"Lokal: %s\n"
+"Fjärr: %s\n"
+"Hur vill du fortsätta?"
 
 #: ../gui/main.py:1085
 msgid "Skip"
@@ -705,6 +716,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org svarar inte\n"
+"Sidan kan vara överbelastad. försök igen om en liten stund."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -721,7 +734,7 @@ msgstr "Ansluter till server med proxy %s"
 
 #: ../gui/main.py:1188
 msgid "Connected successfully"
-msgstr ""
+msgstr "Anslutningen lyckades"
 
 #: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -729,7 +742,7 @@ msgstr "Välj en katalog"
 
 #: ../gui/main.py:1252
 msgid "Please identify the movie."
-msgstr ""
+msgstr "Vänlig ange filmen."
 
 #: ../gui/main.py:1255
 msgid "Uploading subtitle"
@@ -748,6 +761,8 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"Undertexten laddades upp.\n"
+"Stort Tack!"
 
 #: ../gui/main.py:1296
 msgid "View Subtitle Info"
@@ -768,23 +783,23 @@ msgstr "Error vid anslutning till servern. Starta om och prova igen senare."
 
 #: ../gui/main.py:1328
 msgid "↓ Movie autodetected from .nfo file"
-msgstr ""
+msgstr "↓Filmen identifieras automatiskt från .nfo filen"
 
 #: ../gui/main.py:1331
 msgid "↓ Movie autodetected from database"
-msgstr ""
+msgstr "↓ Filmen identifieras automatiskt från databasen"
 
 #: ../gui/main.py:1370
 msgid "↑ Language autodetected from database"
-msgstr ""
+msgstr "↑ Språket identifieras automatiskt från databasen"
 
 #: ../gui/main.py:1374
 msgid "↑ Language autodetected from subtitle's filename"
-msgstr ""
+msgstr "↑Språket identifieras automatiskt från undertextens filnamn"
 
 #: ../gui/main.py:1378
 msgid "↑ Language autodetected from subtitle's content"
-msgstr ""
+msgstr "↑ Språket identifieras automatiskt från undertextens  innehåll"
 
 #: ../gui/main.py:1428
 msgid "Browse video..."
@@ -796,7 +811,7 @@ msgstr "Bläddra efter undertext..."
 
 #: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
-msgstr ""
+msgstr "Du måste skriva in minst en bokstav under filmens namn"
 
 #: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
@@ -809,7 +824,7 @@ msgstr "Sök"
 
 #: ../gui/main.py:1581
 msgid "Select the directory where to save the subtitle(s)"
-msgstr ""
+msgstr "Välj den katalog där du vill spara undertext(er)"
 
 #: ../gui/main.py:1586
 msgid "Downloading"
@@ -851,6 +866,11 @@ msgid ""
 "If there is no sync problem, please consider re-uploading using "
 "subdownloader. This will automate the search for other users!"
 msgstr ""
+"De(n) nedladdade undertext(er/n) kanske inte är i synk med video "
+"fil(en/erna), vänligen kontrollera detta manuellt.\n"
+"\n"
+"Om det inte finns något synk problem kan du överväga åter-uppladdning med "
+"SubDownloader. Detta kommer att automatisera sökandet åt andra användare!"
 
 #: ../gui/main.py:1678
 msgid "A new version of SubDownloader has been released."
@@ -870,7 +890,7 @@ msgstr "Lösenord:"
 
 #: ../gui/imdbSearch.py:43
 msgid "Please fill out the search title"
-msgstr ""
+msgstr "Vänligen fyll i söktitel"
 
 #: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
 msgid "Please search and select a movie from the list"
@@ -910,7 +930,7 @@ msgstr "Video/undertext hittade:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "Filtrera med:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -918,7 +938,7 @@ msgstr "Spela upp"
 
 #: ../gui/main_ui.py:696
 msgid "Search from Video file(s)"
-msgstr ""
+msgstr "Sök från Video fil(en/er)"
 
 #: ../gui/main_ui.py:698
 msgid "Site:"
@@ -1029,7 +1049,7 @@ msgstr "Logga in"
 
 #: ../gui/main_ui.py:743
 msgid "Log Messages"
-msgstr ""
+msgstr "Logg Meddelanden"
 
 #: ../gui/main_ui.py:744
 msgid "Show/Hide Tree Folder"
@@ -1061,7 +1081,7 @@ msgstr "OK"
 
 #: ../gui/preferences.py:36
 msgid "<AutoDetect>"
-msgstr ""
+msgstr "<AutoDetect>"
 
 #: ../gui/preferences.py:76
 msgid "Select the Video Player executable file"
@@ -1073,19 +1093,19 @@ msgstr "Det nya språket kommer att användas efter omstart av programmet."
 
 #: ../gui/preferences.py:143
 msgid "Enable in your Konqueror/Dolphin/Nautilus"
-msgstr ""
+msgstr "Aktivera i din Konqueror/Dolphin/Nautilus"
 
 #: ../gui/preferences.py:146
 msgid "Enable in your Windows Explorer"
-msgstr ""
+msgstr "Aktivera i din Windows Explorer"
 
 #: ../gui/preferences.py:149
 msgid "Enable in your File Manager"
-msgstr ""
+msgstr "Aktivera i filhanteraren"
 
 #: ../gui/preferences.py:157
 msgid "Predefined Folder cannot be empty"
-msgstr ""
+msgstr "Fördefinierad mapp kan inte vara tomt"
 
 #: ../gui/preferences.py:214
 msgid "Modified proxy settings will take effect after restarting the program"
@@ -1094,7 +1114,7 @@ msgstr "Ändrade proxyinställningar aktiveras efter omstart av programmet"
 #: ../gui/expiration.py:62
 #, python-format
 msgid "The program will expire in %d days."
-msgstr ""
+msgstr "Programmet kommer att avaktiveras om %d dagar."
 
 #: ../gui/expiration.py:63
 msgid "Activate Program"
@@ -1107,7 +1127,7 @@ msgstr "Programmet har avaktiverats efter %d dagars användande."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr ""
+msgstr "Vissa fält är tomma.. fyll i dem."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
@@ -1179,7 +1199,7 @@ msgstr "Språk:"
 
 #: ../gui/preferences_ui.py:289
 msgid "Context Menu:"
-msgstr ""
+msgstr "Pop-up meny:"
 
 #: ../gui/preferences_ui.py:290
 msgid "Enable in your explorer"
@@ -1208,9 +1228,3 @@ msgstr "Andra"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Spara"
-
-#~ msgid "Not Connected"
-#~ msgstr "Inte ansluten"
-
-#~ msgid "Login:"
-#~ msgstr "Logga in:"

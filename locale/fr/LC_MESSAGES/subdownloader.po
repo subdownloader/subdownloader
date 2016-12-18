@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2012-11-11 19:48+0000\n"
-"Last-Translator: Josué Inacio <zestefraicheur@hotmail.com>\n"
+"PO-Revision-Date: 2015-11-21 17:18+0000\n"
+"Last-Translator: Jean-Marc <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-11-16 21:20+0000\n"
-"X-Generator: Launchpad (build 16278)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 "X-Poedit-Language: French\n"
 
 #: ../gui/main_ui.py:728
@@ -19,7 +19,7 @@ msgstr "Commentaires :"
 
 #: ../gui/main_ui.py:729
 msgid "Subtitle Language:"
-msgstr "Langue sous-titres :"
+msgstr "Langue des sous-titres :"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -89,11 +89,11 @@ msgstr "néerlandais"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr "anglais (US)"
+msgstr "Anglais (États-Unis)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr "anglais (UK)"
+msgstr "Anglais (Royaume-Uni)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -105,7 +105,7 @@ msgstr "estonien"
 
 #: ../languages/Languages.py:29
 msgid "Finnish"
-msgstr "finlandais"
+msgstr "finnois"
 
 #: ../languages/Languages.py:30
 msgid "French"
@@ -177,7 +177,7 @@ msgstr "norvégien"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
-msgstr "Persan"
+msgstr "persan"
 
 #: ../languages/Languages.py:48
 msgid "Polish"
@@ -335,11 +335,11 @@ msgstr "Certains champs de vidéos/sous-titres sont vides"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
-msgstr "Cliquez ici pour sélectionner une vidéo…"
+msgstr "Cliquez ici pour sélectionner une vidéo..."
 
 #: ../gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr "Cliquez ici pour sélectionner les sous-titres…"
+msgstr "Cliquez ici pour sélectionner les sous-titres..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
@@ -347,7 +347,7 @@ msgstr "Chargement..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
-msgstr "Construction de la fenêtre principale…"
+msgstr "Construction de la fenêtre principale..."
 
 #: ../gui/main.py:87
 #, python-format
@@ -450,7 +450,7 @@ msgstr "Voir les informations d'IMDB"
 
 #: ../gui/main.py:422
 msgid "Set IMDB info..."
-msgstr "Définir les information IMDB…"
+msgstr "Définir les information IMDB..."
 
 #: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
@@ -468,7 +468,7 @@ msgstr "Voir les informations en ligne"
 #: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
 #: ../gui/expiration.py:95
 msgid "Info"
-msgstr "À propos"
+msgstr "Informations"
 
 #: ../gui/main.py:508
 msgid "New Version Detected"
@@ -493,7 +493,7 @@ msgstr ""
 
 #: ../gui/main.py:534
 msgid "Users online: Updating..."
-msgstr "Utilisateurs en ligne : mise à jour…"
+msgstr "Utilisateurs en ligne : mise à jour..."
 
 #: ../gui/main.py:537
 #, python-format
@@ -506,7 +506,7 @@ msgstr "Utilisateurs en ligne : ERREUR"
 
 #: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
-msgstr "Connexion en cours…"
+msgstr "Connexion..."
 
 #: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
@@ -582,7 +582,7 @@ msgstr "&Abandonner"
 
 #: ../gui/main.py:760
 msgid "Scanning..."
-msgstr "Analyse…"
+msgstr "Analyse..."
 
 #: ../gui/main.py:786
 msgid "Scan Results"
@@ -594,11 +594,11 @@ msgstr "Aucune vidéo n’a été trouvée !"
 
 #: ../gui/main.py:789
 msgid "Searching subtitles..."
-msgstr "Recherche des sous-titres…"
+msgstr "Recherche des sous-titres..."
 
 #: ../gui/main.py:790
 msgid "Asking Server..."
-msgstr "Demande au serveur…"
+msgstr "Demande au serveur..."
 
 #: ../gui/main.py:804
 #, python-format
@@ -637,7 +637,7 @@ msgstr ""
 
 #: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
-msgstr "Récupération des fichiers…"
+msgstr "Téléchargement des fichiers..."
 
 #: ../gui/main.py:946
 msgid "Playing video + sub"
@@ -654,7 +654,7 @@ msgstr "Impossible de lancer le lecteur vidéo"
 
 #: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
-msgstr "Enregistrer sous…"
+msgstr "Enregistrer sous..."
 
 #: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
@@ -662,7 +662,7 @@ msgstr "Aucun sous-titre sélectionné pour le téléchargement"
 
 #: ../gui/main.py:1038
 msgid "Downloading..."
-msgstr "Téléchargement…"
+msgstr "Téléchargement..."
 
 #: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
@@ -684,7 +684,7 @@ msgstr ""
 
 #: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
-msgstr "Enregistrer les sous-titres sous…"
+msgstr "Enregistrer les sous-titres sous..."
 
 #: ../gui/main.py:1084
 msgid "File already exists"
@@ -735,11 +735,11 @@ msgstr ""
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
-msgstr "Connexion au serveur…"
+msgstr "Connexion au serveur..."
 
 #: ../gui/main.py:1169
 msgid "Connecting"
-msgstr "Connexion en cours"
+msgstr "Connexion"
 
 #: ../gui/main.py:1182
 #, python-format
@@ -764,11 +764,11 @@ msgstr "Envoi des sous-titres en cours"
 
 #: ../gui/main.py:1256
 msgid "Uploading..."
-msgstr "Envoi..."
+msgstr "Téléversement..."
 
 #: ../gui/main.py:1288
 msgid "Successful Upload"
-msgstr "Envoi réussi."
+msgstr "Téléversement réussi."
 
 #: ../gui/main.py:1289
 msgid ""
@@ -788,7 +788,7 @@ msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
-"Problème au cours de l'envoi…\n"
+"Problème au cours de l'envoi...\n"
 "Erreur : %s"
 
 #: ../gui/main.py:1305
@@ -819,7 +819,7 @@ msgstr ""
 
 #: ../gui/main.py:1428
 msgid "Browse video..."
-msgstr "Parcourir les vidéos…"
+msgstr "Parcourir les vidéos..."
 
 #: ../gui/main.py:1445
 msgid "Browse subtitle..."
@@ -831,7 +831,7 @@ msgstr "Vous devez entrer au moins un caractère dans le nom du film"
 
 #: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
-msgstr "Recherche en cours…"
+msgstr "Recherche..."
 
 #: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
@@ -943,7 +943,7 @@ msgstr "Rechercher les sous-titres"
 
 #: ../gui/main_ui.py:686
 msgid "Videos/Subtitles found:"
-msgstr "Vidéos/Sous-titres trouvés :"
+msgstr "Vidéos/sous-titres trouvés :"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
@@ -1015,11 +1015,11 @@ msgstr "Nom de la version :"
 
 #: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
 msgid "Upload"
-msgstr "Envoyer"
+msgstr "Téléverser"
 
 #: ../gui/main_ui.py:731
 msgid "Upload subtitles"
-msgstr "Envoyer des sous-titres"
+msgstr "Téléverser les sous-titres"
 
 #: ../gui/main_ui.py:732
 msgid "&Main"
@@ -1063,7 +1063,7 @@ msgstr "Messages d'information"
 
 #: ../gui/main_ui.py:744
 msgid "Show/Hide Tree Folder"
-msgstr "Afficher/Masquer l'arborescence"
+msgstr "Afficher/masquer l'arborescence"
 
 #: ../gui/main_ui.py:745
 msgid "LogOut"
@@ -1071,7 +1071,7 @@ msgstr "Déconnecter"
 
 #: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
 msgid "Translate This Application..."
-msgstr "Traduire cette application…"
+msgstr "Traduire cette application..."
 
 #: ../gui/imdb_ui.py:76
 msgid "IMDB search dialog:"
@@ -1139,7 +1139,7 @@ msgstr "Le programme a expiré après %d jours d'utilisation."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr "Certains champs sont vides… Veuillez les remplir."
+msgstr "Certains champs sont vides... Veuillez les remplir."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
@@ -1167,7 +1167,7 @@ msgstr "Dossier prédéfini :"
 
 #: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
 msgid "Browse..."
-msgstr "Parcourir…"
+msgstr "Parcourir..."
 
 #: ../gui/preferences_ui.py:276
 msgid "Filename of the Subtitle:"
@@ -1189,7 +1189,7 @@ msgstr "Nom de fichier original des sous-titres"
 
 #: ../gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Langue par défaut des sous-titres envoyés"
+msgstr "Langue par défaut des sous-titres téléversés"
 
 #: ../gui/preferences_ui.py:283
 msgid "Network Proxy"

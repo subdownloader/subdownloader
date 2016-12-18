@@ -1,0 +1,1234 @@
+# Slovenian translation for subdownloader
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the subdownloader package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subdownloader\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2010-11-28 13:52+0000\n"
+"Last-Translator: bagr <Unknown>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
+
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
+msgstr "Razčlenjevanje videa: %s"
+
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "Razčlenjevanje podnapisa: %s"
+
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
+msgstr "Zgoščevanje končano"
+
+#: ../languages/Languages.py:12
+msgid "Albanian"
+msgstr "Albanščina"
+
+#: ../languages/Languages.py:13
+msgid "Arabic"
+msgstr "Arabščina"
+
+#: ../languages/Languages.py:14
+msgid "Armenian"
+msgstr "Armenščina"
+
+#: ../languages/Languages.py:15
+msgid "Malay"
+msgstr "Malajščina"
+
+#: ../languages/Languages.py:16
+msgid "Bosnian"
+msgstr "Bosanščina"
+
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
+msgstr "Bolgarščina"
+
+#: ../languages/Languages.py:18
+msgid "Catalan"
+msgstr "Katalonščina"
+
+#: ../languages/Languages.py:19
+msgid "Basque"
+msgstr "Baskovščina"
+
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
+msgstr "Kitajščina"
+
+#: ../languages/Languages.py:21
+msgid "Croatian"
+msgstr "Hrvaščina"
+
+#: ../languages/Languages.py:22
+msgid "Czech"
+msgstr "Češčina"
+
+#: ../languages/Languages.py:23
+msgid "Danish"
+msgstr "Danščina"
+
+#: ../languages/Languages.py:24
+msgid "Dutch"
+msgstr "Nizozemščina"
+
+#: ../languages/Languages.py:25
+msgid "English (US)"
+msgstr "Angleščina (ZDA)"
+
+#: ../languages/Languages.py:26
+msgid "English (UK)"
+msgstr "Angleščina (velika Britanija)"
+
+#: ../languages/Languages.py:27
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: ../languages/Languages.py:28
+msgid "Estonian"
+msgstr "Estonščina"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "Finščina"
+
+#: ../languages/Languages.py:30
+msgid "French"
+msgstr "Francoščina"
+
+#: ../languages/Languages.py:31
+msgid "Galician"
+msgstr "Galicijščina"
+
+#: ../languages/Languages.py:32
+msgid "Georgian"
+msgstr "Gruzinščina"
+
+#: ../languages/Languages.py:33
+msgid "German"
+msgstr "Nemščina"
+
+#: ../languages/Languages.py:34
+msgid "Greek"
+msgstr "Grščina"
+
+#: ../languages/Languages.py:35
+msgid "Hebrew"
+msgstr "Hebrejščina"
+
+#: ../languages/Languages.py:36
+msgid "Hungarian"
+msgstr "Madžarščina"
+
+#: ../languages/Languages.py:37
+msgid "Indonesian"
+msgstr "Indonezijščina"
+
+#: ../languages/Languages.py:38
+msgid "Italian"
+msgstr "Italjanščina"
+
+#: ../languages/Languages.py:39
+msgid "Japanese"
+msgstr "Japonščina"
+
+#: ../languages/Languages.py:40
+msgid "Kazakh"
+msgstr "Kazaščina"
+
+#: ../languages/Languages.py:41
+msgid "Korean"
+msgstr "Korejščina"
+
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr "Latvijščina"
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr "Litvanščina"
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr "Luksemburščina"
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr "Makedonščina"
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr "Norveščina"
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr "Perzijščina"
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr "Poljščina"
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr "Portugalščina (Portugalska)"
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr "Portugalščina (Brazilija)"
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr "Romunščina"
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr "Ruščina"
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr "Srbščina"
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr "Slovaščina"
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr "Slovenščina"
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr "Spanščina (Španija)"
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr "Švedščina"
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr "Tajščina"
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr "Turščina"
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr "Ukrajinščina"
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr "Vietnamščina"
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
+msgid "Anonymous"
+msgstr "Anonimnež"
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr "[Razmerje: %s]"
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr "Že sneto"
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr "Naložnik: %s"
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr "Razmerje: %s"
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr "Format: %s"
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr "Snetki: %d"
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr "CD-ji: %d"
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr "[IMDB Rate: %s]"
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr "(%d podnapisi)"
+
+#: ../gui/about_ui.py:122
+msgid "About Subdownloader"
+msgstr "O programu"
+
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
+msgid "About"
+msgstr "O Programu"
+
+#: ../gui/about_ui.py:153
+msgid "Authors"
+msgstr "Avtorji"
+
+#: ../gui/about_ui.py:169
+msgid "License Agreement"
+msgstr "Licenčni sporazum"
+
+#: ../gui/about_ui.py:170
+msgid "Close"
+msgstr "Zapri"
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "Video"
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "Podnapis"
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "Video/Podnapis seznam je prazen"
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "Podnapis %s se ponavlja"
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr "Video %s se ponavlja"
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "Nekaj naložnih vrstic je praynih"
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr "Nekatera polja videov/podnapisov so prazna"
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "klikni tu za izbiro videa..."
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "klikni tu za izbiro podnapisa..."
+
+#: ../gui/main.py:24
+msgid "Loading..."
+msgstr "Nalaganje ..."
+
+#: ../gui/main.py:56
+msgid "Building main dialog..."
+msgstr "Gradim glavni dialog..."
+
+#: ../gui/main.py:87
+#, python-format
+msgid "SubDownloader %s"
+msgstr "SubDownloader %s"
+
+#: ../gui/main.py:114
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr "%d dni do poteka. Aktiviraj program."
+
+#: ../gui/main.py:228 ../gui/main.py:579
+msgid "Not logged yet"
+msgstr "Ni še prijavljen"
+
+#: ../gui/main.py:236 ../gui/main_ui.py:740
+msgid "Help Us With 5 USD/EUR"
+msgstr "Pomagaj nam z 5 €"
+
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
+msgid "Error"
+msgstr "Napaka"
+
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
+#: ../gui/login.py:59
+msgid "Error contacting the server. Please try again later"
+msgstr "napaka pri povezavi s strežnikom. Poizkusi kasneje."
+
+#: ../gui/main.py:289
+#, python-format
+msgid "Unable to find %s"
+msgstr "Ne najdem %s"
+
+#: ../gui/main.py:366
+msgid "How To Use SubDownloader"
+msgstr "Kako uporabljati SubDownloader"
+
+#: ../gui/main.py:367
+msgid "1st Tab:"
+msgstr "Prvi zavihek"
+
+#: ../gui/main.py:367
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+"izberi mapo s filmi, ki potrebujejo podnapise iz drevesnega seznama na levi. "
+"SubDownloader bo potem poskušal poiskati podnapise."
+
+#: ../gui/main.py:368
+msgid "2nd Tab:"
+msgstr "Drugi zavihek"
+
+#: ../gui/main.py:368
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr "Če videi niso na disku lahko iščeš podnapise po naslovu videa."
+
+#: ../gui/main.py:369
+msgid "3rd Tab:"
+msgstr "Tretji zavihek"
+
+#: ../gui/main.py:369
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+"Če ste našli podnapis ki še ni naložen v SubDownloader podatkovno bazo, "
+"prosim naložite podnapis, da ga bodo naslednji uporabnili lahko lažje našli."
+
+#: ../gui/main.py:370
+msgid "Quid Pro Quo:"
+msgstr "Quid Pro Quo:"
+
+#: ../gui/main.py:370
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+"Če mislite da je ta program uporabne in vam je prihranil veliko časa prosim "
+"pomagajte nam z nakazilom donacije."
+
+#: ../gui/main.py:419 ../gui/main.py:443
+msgid "View IMDB info"
+msgstr "pogley IMDB info"
+
+#: ../gui/main.py:422
+msgid "Set IMDB info..."
+msgstr "Nastavi IMDB info..."
+
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr "Prenos"
+
+#: ../gui/main.py:431
+msgid "Play video + subtitle"
+msgstr "Igraj video + podnapis"
+
+#: ../gui/main.py:436
+msgid "View online info"
+msgstr "Poglej spletne informacije"
+
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
+#: ../gui/expiration.py:95
+msgid "Info"
+msgstr "Informacije"
+
+#: ../gui/main.py:508
+msgid "New Version Detected"
+msgstr "Nova verzija"
+
+#: ../gui/main.py:509
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+"Izšla je nova različica SubDownloader-ja.\n"
+"\n"
+"Nova različica: %s\n"
+"Trenutna različica: %s\n"
+"\n"
+"Bi rad/a pretočil/a novo različico?"
+
+#: ../gui/main.py:534
+msgid "Users online: Updating..."
+msgstr "Uporabniki: Posodabljanje..."
+
+#: ../gui/main.py:537
+#, python-format
+msgid "Users online: %s"
+msgstr "Prijavljni uporabniki: %s"
+
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "Prijavljni uporabniki: ERROR"
+
+#: ../gui/main.py:549 ../gui/main.py:553
+msgid "Logging in..."
+msgstr "Prijavljanje..."
+
+#: ../gui/main.py:549 ../gui/main.py:1168
+msgid "&Cancel"
+msgstr "&Prekliči"
+
+#: ../gui/main.py:550 ../gui/login_ui.py:57
+msgid "Authentication"
+msgstr "Overjanje"
+
+#: ../gui/main.py:561
+#, python-format
+msgid "Logged as %s"
+msgstr "Prijavljen/a kot %s"
+
+#: ../gui/main.py:568
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "Prijavljeni kot %s: ERROR"
+
+#: ../gui/main.py:572
+msgid "Login: ERROR"
+msgstr "Prijava: ERROR"
+
+#: ../gui/main.py:588
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "SubDownloader %s - %s"
+
+#: ../gui/main.py:607 ../gui/expiration.py:96
+msgid "Program Registered"
+msgstr "Program registriran"
+
+#: ../gui/main.py:643
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr "(Neregistriran  program, %d dni do poteka)"
+
+#: ../gui/main.py:661
+msgid "Expiration Reminder"
+msgstr "Opozorilo do poteka."
+
+#: ../gui/main.py:661
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+"Program bo potekel v %d dneh.\n"
+"Ga želite aktivirati zdaj?"
+
+#: ../gui/main.py:662
+msgid "Activate"
+msgstr "Omogoči"
+
+#: ../gui/main.py:694 ../gui/main.py:695
+msgid "All languages"
+msgstr "Vsi jeziki"
+
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
+msgid "You are not connected to the server. Please reconnect first."
+msgstr "Niste povezani z strežnikom. Najprej se povežite."
+
+#: ../gui/main.py:759
+msgid "Scanning files"
+msgstr "Pregledovanje datotek"
+
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
+msgid "&Abort"
+msgstr "&Prekini"
+
+#: ../gui/main.py:760
+msgid "Scanning..."
+msgstr "Pregledovanje ..."
+
+#: ../gui/main.py:786
+msgid "Scan Results"
+msgstr "Rezultati pregledovanja"
+
+#: ../gui/main.py:786
+msgid "No video has been found!"
+msgstr "Noben video ni bil najden!"
+
+#: ../gui/main.py:789
+msgid "Searching subtitles..."
+msgstr "Iskanje podnapisov ..."
+
+#: ../gui/main.py:790
+msgid "Asking Server..."
+msgstr "Povprašujem strežnik..."
+
+#: ../gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr "Iskanje podnapisov ( %d / %d )"
+
+#: ../gui/main.py:842
+msgid "Search finished"
+msgstr "Iskanje zaključeno"
+
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
+msgid "Movie Info"
+msgstr "Informacije o filmu"
+
+#: ../gui/main.py:865 ../gui/main.py:880
+msgid "Sub Info"
+msgstr "Informacije o podnapisu"
+
+#: ../gui/main.py:888
+msgid "You must select a folder first"
+msgstr "Najprej izberi mapo"
+
+#: ../gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr "izberi videe, ki potrebujejo podnapise"
+
+#: ../gui/main.py:912
+msgid "Select the directory that contains your videos"
+msgstr "Izberi mapo, ki vsebuje video"
+
+#: ../gui/main.py:936
+msgid "No default video player has been defined in Settings."
+msgstr "Noben video predvajalnik ni bil definiran v nastavitvah."
+
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
+msgid "Downloading files..."
+msgstr "Snemaje datotek..."
+
+#: ../gui/main.py:946
+msgid "Playing video + sub"
+msgstr "Predvajaj video + podnapis"
+
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "Ne morem sneti podnapisa %s"
+
+#: ../gui/main.py:984
+msgid "Unable to launch videoplayer"
+msgstr "Ne morem zagnati predvalalnika videov"
+
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
+msgid "Save as..."
+msgstr "Shrani kot..."
+
+#: ../gui/main.py:1029 ../gui/main.py:1572
+msgid "No subtitles selected to be downloaded"
+msgstr "Noben podnapis izbran za dolvleko"
+
+#: ../gui/main.py:1038
+msgid "Downloading..."
+msgstr "Prenašanje ..."
+
+#: ../gui/main.py:1047 ../gui/main.py:1121
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "Dolvleka podnapisa %s (%d/%d)"
+
+#: ../gui/main.py:1053
+msgid "Error write permission"
+msgstr "Napaka dovoljena za zapisovanje"
+
+#: ../gui/main.py:1054
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s ni moče shraniti.\n"
+"Preverite obstoj mape in pravico zapisovanja."
+
+#: ../gui/main.py:1068 ../gui/main.py:1105
+msgid "Save subtitle as..."
+msgstr "Shrani podnapis kot..."
+
+#: ../gui/main.py:1084
+msgid "File already exists"
+msgstr "Datoteka že obstaja"
+
+#: ../gui/main.py:1084
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+"Lokalno: %s\n"
+"\n"
+"Oddaljeno: %s\n"
+"\n"
+"Kako želite nadaljevati?"
+
+#: ../gui/main.py:1085
+msgid "Skip"
+msgstr "Preskoči"
+
+#: ../gui/main.py:1087
+msgid "Replace"
+msgstr "Zamenjaj"
+
+#: ../gui/main.py:1088
+msgid "Replace all"
+msgstr "Zamenjaj vse"
+
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Opozorilo"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org se ne odziva\n"
+"Strežnik je verjetno prezaseden, poizkusite kasneje."
+
+#: ../gui/main.py:1168
+msgid "Connecting to server..."
+msgstr "Povezovanje s strežnikom ..."
+
+#: ../gui/main.py:1169
+msgid "Connecting"
+msgstr "Povezujem"
+
+#: ../gui/main.py:1182
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "Poveyovanje s strežnikom z pomočjo proxy %s"
+
+#: ../gui/main.py:1188
+msgid "Connected successfully"
+msgstr "Uspešno povezano."
+
+#: ../gui/main.py:1216 ../gui/preferences.py:67
+msgid "Select a directory"
+msgstr "Izberi mapo"
+
+#: ../gui/main.py:1252
+msgid "Please identify the movie."
+msgstr "Prosimo identificirajte film"
+
+#: ../gui/main.py:1255
+msgid "Uploading subtitle"
+msgstr "Nalagam podnapis"
+
+#: ../gui/main.py:1256
+msgid "Uploading..."
+msgstr "Nalaganje"
+
+#: ../gui/main.py:1288
+msgid "Successful Upload"
+msgstr "Nalaganje uspešno"
+
+#: ../gui/main.py:1289
+msgid ""
+"Subtitles successfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+"Podnapis supešno naložen.\n"
+"Najleša Hvala!"
+
+#: ../gui/main.py:1296
+msgid "View Subtitle Info"
+msgstr "Poglej info o podnapisu"
+
+#: ../gui/main.py:1302
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"Problem pri nalaganju...\n"
+"Napaka: %s"
+
+#: ../gui/main.py:1305
+msgid "Error contacting the server. Please restart or try later"
+msgstr "Napaka pri povezavi na strežnik. Prosim poskusite znova."
+
+#: ../gui/main.py:1328
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "Avtodetekcija filma iz .nfo datoteke"
+
+#: ../gui/main.py:1331
+msgid "↓ Movie autodetected from database"
+msgstr "Avtodetekcija filma iz baze podatkov"
+
+#: ../gui/main.py:1370
+msgid "↑ Language autodetected from database"
+msgstr "Avtodetekcija jezika iz podatkovne baze"
+
+#: ../gui/main.py:1374
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "Avtodetekcija jezika iz imena podnapisa"
+
+#: ../gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "Avtodetekcija jezika iz vsebine podnapisa"
+
+#: ../gui/main.py:1428
+msgid "Browse video..."
+msgstr "Prebrskaj video..."
+
+#: ../gui/main.py:1445
+msgid "Browse subtitle..."
+msgstr "Prebrskaj podnapise"
+
+#: ../gui/main.py:1498
+msgid "You must enter at least one character in movie name"
+msgstr "Vnesti morete vsaj en znak v ime filma"
+
+#: ../gui/main.py:1501 ../gui/main.py:1654
+msgid "Searching..."
+msgstr "Iskanje ..."
+
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr "Išči"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "Izberi Direktorij kjer boste shranili podnapis(e)"
+
+#: ../gui/main.py:1586
+msgid "Downloading"
+msgstr "Prenašanje"
+
+#: ../gui/main.py:1606
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "Prenašanje %s v %s"
+
+#: ../gui/main.py:1622
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+"Napaka prenosa %s\n"
+"Napaka: %s"
+
+#: ../gui/main.py:1644
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+"Napaka pri odzipanju %s\n"
+"Napaka: %s"
+
+#: ../gui/main.py:1649
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "%d podnapisi uspešno prenešeni"
+
+#: ../gui/main.py:1649
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"Prenešen podnapis lahko ni usklajen z video datoteko, proism preglejte.\n"
+"\n"
+"Če ni nobenih usklajenih težav, prosim ponovno  naložite  z uporabo "
+"subdownloader. To bo avtomatiziralo iskanje za ostale uporabnike!"
+
+#: ../gui/main.py:1678
+msgid "A new version of SubDownloader has been released."
+msgstr "Izšla nova verzija SubDownloader"
+
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr "Prijava v OpenSubtitles.org"
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr "Uporabniško ime:"
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../gui/imdbSearch.py:43
+msgid "Please fill out the search title"
+msgstr "Izpolni iskani naslov"
+
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
+msgid "Please search and select a movie from the list"
+msgstr "Išči in izberi film s seznama"
+
+#: ../gui/main_ui.py:678
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: ../gui/main_ui.py:679
+msgid "Select the video/folder that needs subtitles:"
+msgstr "izberi video/mapo, ki potrebuje podnapise"
+
+#: ../gui/main_ui.py:680
+msgid "Select videos that need subtitles"
+msgstr "izberi videe, ki potrebujejo podnapise"
+
+#: ../gui/main_ui.py:681
+msgid "Select videos..."
+msgstr "Izberi videe..."
+
+#: ../gui/main_ui.py:682 ../gui/main_ui.py:684
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr "Klikni tu za iskanje podnapisov filmom v tej mapi"
+
+#: ../gui/main_ui.py:683
+msgid "Select folder..."
+msgstr "Izberi mapo..."
+
+#: ../gui/main_ui.py:685
+msgid "Search subtitles"
+msgstr "Išči podnapise"
+
+#: ../gui/main_ui.py:686
+msgid "Videos/Subtitles found:"
+msgstr "Videi/Podnapisi najdeni:"
+
+#: ../gui/main_ui.py:687
+msgid "Filter by:"
+msgstr "Filtriranje:"
+
+#: ../gui/main_ui.py:694
+msgid "Play"
+msgstr "Predvajaj"
+
+#: ../gui/main_ui.py:696
+msgid "Search from Video file(s)"
+msgstr "išči iz video datotek"
+
+#: ../gui/main_ui.py:698
+msgid "Site:"
+msgstr "Stran:"
+
+#: ../gui/main_ui.py:699
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: ../gui/main_ui.py:700
+msgid "Subtitles found:"
+msgstr "Najdeni podnapisi:"
+
+#: ../gui/main_ui.py:701
+msgid "Filter by :"
+msgstr "Filtriraj po:"
+
+#: ../gui/main_ui.py:704
+msgid "Search by Movie Name"
+msgstr "Iskanje po imenu filma:"
+
+#: ../gui/main_ui.py:705
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr "Izberi videe in podnapise ( naloženi bodo samo podnapisi)"
+
+#: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
+#: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
+#: ../gui/main_ui.py:725 ../gui/main_ui.py:726
+msgid "..."
+msgstr "..."
+
+#: ../gui/main_ui.py:709
+msgid "Empty the list"
+msgstr "Izprazni seznam"
+
+#: ../gui/main_ui.py:713
+msgid "Details:"
+msgstr "Podrobnosti:"
+
+#: ../gui/main_ui.py:718
+msgid "Movie Title:"
+msgstr "Naslov filma:"
+
+#: ../gui/main_ui.py:719
+msgid "Click on the Find button to identify the movie"
+msgstr "klikni Iskanje za prepoznavo filma"
+
+#: ../gui/main_ui.py:720
+msgid "Find"
+msgstr "Iskanje"
+
+#: ../gui/main_ui.py:727
+msgid "Release name:"
+msgstr "Izdano ime:"
+
+#: ../gui/main_ui.py:728
+msgid "Comments:"
+msgstr "Komentarji:"
+
+#: ../gui/main_ui.py:729
+msgid "Subtitle Language:"
+msgstr "Jezik podnapisa:"
+
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "Nalaganje"
+
+#: ../gui/main_ui.py:731
+msgid "Upload subtitles"
+msgstr "Naloži podnapise"
+
+#: ../gui/main_ui.py:732
+msgid "&Main"
+msgstr "&Glavno"
+
+#: ../gui/main_ui.py:733
+msgid "&Help"
+msgstr "&Pomoč"
+
+#: ../gui/main_ui.py:734
+msgid "&Settings"
+msgstr "&Nastavitve"
+
+#: ../gui/main_ui.py:735
+msgid "&View"
+msgstr "&Pogled"
+
+#: ../gui/main_ui.py:736
+msgid "Quit"
+msgstr "Končaj"
+
+#: ../gui/main_ui.py:737
+msgid "Visit HomePage"
+msgstr "Obišči Domačo stran"
+
+#: ../gui/main_ui.py:739
+msgid "Report A Problem"
+msgstr "Prijavi težavo"
+
+#: ../gui/main_ui.py:741
+msgid "&Configure Subdownloader"
+msgstr "&Nastavi Subdownloader"
+
+#: ../gui/main_ui.py:742
+msgid "LogIn"
+msgstr "Prijava"
+
+#: ../gui/main_ui.py:743
+msgid "Log Messages"
+msgstr "Dnevniška sporočila"
+
+#: ../gui/main_ui.py:744
+msgid "Show/Hide Tree Folder"
+msgstr "pokaži/Skrij drevesni pogled map"
+
+#: ../gui/main_ui.py:745
+msgid "LogOut"
+msgstr "Odjava"
+
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "Prevedi ta program..."
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "IMDB iskalnik"
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "Vnesi naslov filma ali IMDB id:"
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "Išči film"
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr "V redu"
+
+#: ../gui/preferences.py:36
+msgid "<AutoDetect>"
+msgstr "<Avtomatska zaznava>"
+
+#: ../gui/preferences.py:76
+msgid "Select the Video Player executable file"
+msgstr "Izberi video predvajalnik (izvršljivo datoteko)"
+
+#: ../gui/preferences.py:81
+msgid "The new language will be displayed after restarting the program."
+msgstr "Nov jezik bo prikazan po ponovnem zagonu"
+
+#: ../gui/preferences.py:143
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "Omogoči v Konquerorju/Dolphinu/Nautilusu"
+
+#: ../gui/preferences.py:146
+msgid "Enable in your Windows Explorer"
+msgstr "Omogoči v Windows Explorerju"
+
+#: ../gui/preferences.py:149
+msgid "Enable in your File Manager"
+msgstr "Omogoči v upravljalniku datotek"
+
+#: ../gui/preferences.py:157
+msgid "Predefined Folder cannot be empty"
+msgstr "Predefinirana mapa ne more biti prazna."
+
+#: ../gui/preferences.py:214
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+"Spremenjene nastavitve proxyja bodo uveljavljene po ponovnem zagonu programa"
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr "Program bo potekel v %d dneh."
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr "Aktiviraj"
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr "Program je potekel po %d dneh uporabe."
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr "Nekatera polja so prazna.. prosim zapolnite jih."
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "Filtriraj najdene po teh jezikih:"
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "Ciljna mapa"
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "Vedno vprašaj uporabnika"
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "Ista mapa kot video"
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "Vnaprej določena mapa:"
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "Brskaj..."
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "Ime podnapisa:"
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "Isto ime kot video"
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr "Isto ime kot video + koda jezika (npr: StarWarsCD1.eng.srt)"
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr "Isto ime kot podnapisi na spletu"
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr "Privzet jezik naloženih podnapisov"
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr "Omrežni posrednik"
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "Gostitelj:"
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "Vrata:"
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr "Omrežje"
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr "Vmesniški jezik:"
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr "Kontekstni meni"
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "Omogoči v brskljalniku"
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr "Zunanji program za predvajanje videa"
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr "predvajalnik videa:"
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "Parametri:"
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0} = pot videa; {1} = pot podnapisa"
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr "Ostali"
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
+msgstr "Shrani"

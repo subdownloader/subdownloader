@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-06-02 22:05+0000\n"
-"Last-Translator: Jiří Jindra <Unknown>\n"
+"PO-Revision-Date: 2014-04-07 22:13+0000\n"
+"Last-Translator: Tobias Bannert <tobannert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -326,19 +326,19 @@ msgstr "Einige Video/Untertitelfelder sind leer"
 
 #: ../gui/uploadlistview.py:208
 msgid "Click here to select video..."
-msgstr "Hier klicken um ein Video auszuwählen..."
+msgstr "Hier klicken, um ein Video auszuwählen …"
 
 #: ../gui/uploadlistview.py:213
 msgid "Click here to select subtitle..."
-msgstr "Hier klicken um Untertitel auszuwählen..."
+msgstr "Hier klicken, um Untertitel auszuwählen …"
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr "Lade..."
+msgstr "Ladevorgang …"
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
-msgstr "Baue Hauptdialog..."
+msgstr "Hauptdialog wird erstellt …"
 
 #: ../gui/main.py:87
 #, python-format
@@ -442,7 +442,7 @@ msgstr "Zeige IMDB Informationen"
 
 #: ../gui/main.py:422
 msgid "Set IMDB info..."
-msgstr "IMDB-Informationen einrichten..."
+msgstr "IMDB-Informationen werden eingerichtet …"
 
 #: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
 #: ../gui/preferences_ui.py:280
@@ -485,7 +485,7 @@ msgstr ""
 
 #: ../gui/main.py:534
 msgid "Users online: Updating..."
-msgstr "Benutzer online: Lade..."
+msgstr "Benutzer online: Aktualisierung …"
 
 #: ../gui/main.py:537
 #, python-format
@@ -498,7 +498,7 @@ msgstr "Benutzer online: FEHLER"
 
 #: ../gui/main.py:549 ../gui/main.py:553
 msgid "Logging in..."
-msgstr "Anmeldung..."
+msgstr "Anmeldung läuft …"
 
 #: ../gui/main.py:549 ../gui/main.py:1168
 msgid "&Cancel"
@@ -573,7 +573,7 @@ msgstr "&Abbrechen"
 
 #: ../gui/main.py:760
 msgid "Scanning..."
-msgstr "Suche..."
+msgstr "Es wird gesucht …"
 
 #: ../gui/main.py:786
 msgid "Scan Results"
@@ -585,11 +585,11 @@ msgstr "Es wurde kein Video gefunden!"
 
 #: ../gui/main.py:789
 msgid "Searching subtitles..."
-msgstr "Suche Untertitel..."
+msgstr "Untertitel werden gesucht …"
 
 #: ../gui/main.py:790
 msgid "Asking Server..."
-msgstr "Anfrage an den Server..."
+msgstr "Anfrage an den Server …"
 
 #: ../gui/main.py:804
 #, python-format
@@ -628,7 +628,7 @@ msgstr ""
 
 #: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
-msgstr "Datein werden heruntergeladen..."
+msgstr "Dateien werden heruntergeladen …"
 
 #: ../gui/main.py:946
 msgid "Playing video + sub"
@@ -645,7 +645,7 @@ msgstr "Videoabspielprogramm konnte nicht gestartet werden"
 
 #: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
 msgid "Save as..."
-msgstr "Speichern unter..."
+msgstr "Speichern unter…"
 
 #: ../gui/main.py:1029 ../gui/main.py:1572
 msgid "No subtitles selected to be downloaded"
@@ -653,7 +653,7 @@ msgstr "Keine Untertitel zum Herunterladen ausgewählt"
 
 #: ../gui/main.py:1038
 msgid "Downloading..."
-msgstr "Daten werden heruntergeladen..."
+msgstr "Es wird heruntergeladen …"
 
 #: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
@@ -675,7 +675,7 @@ msgstr ""
 
 #: ../gui/main.py:1068 ../gui/main.py:1105
 msgid "Save subtitle as..."
-msgstr "Untertitel speichern als..."
+msgstr "Untertitel speichern unter …"
 
 #: ../gui/main.py:1084
 msgid "File already exists"
@@ -721,19 +721,21 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org antwortet nicht\n"
+"Es könnte überladen sein, versuchen Sie es in wenigen Augenblicken nochmal."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
-msgstr "Verbindung zum Server wird hergestellt ..."
+msgstr "Verbindungsaufbau zum Server …"
 
 #: ../gui/main.py:1169
 msgid "Connecting"
-msgstr "Verbindung wird aufgebaut..."
+msgstr "Verbindung wird hergestellt"
 
 #: ../gui/main.py:1182
 #, python-format
 msgid "Connecting to server using proxy %s"
-msgstr "Verbindung über Proxy %s wird aufgebaut..."
+msgstr "Verbindung zum Server wird über Proxy %s hergestellt"
 
 #: ../gui/main.py:1188
 msgid "Connected successfully"
@@ -753,7 +755,7 @@ msgstr "Lade Untertitel hoch"
 
 #: ../gui/main.py:1256
 msgid "Uploading..."
-msgstr "lade hoch..."
+msgstr "Wird hochgeladen …"
 
 #: ../gui/main.py:1288
 msgid "Successful Upload"
@@ -777,7 +779,7 @@ msgid ""
 "Problem while uploading...\n"
 "Error: %s"
 msgstr ""
-"Problem beim Hochladen:\n"
+"Problem beim Hochladen …\n"
 "Fehler: %s"
 
 #: ../gui/main.py:1305
@@ -810,11 +812,11 @@ msgstr ""
 
 #: ../gui/main.py:1428
 msgid "Browse video..."
-msgstr "Filmdatei wählen..."
+msgstr "Filmdatei wählen …"
 
 #: ../gui/main.py:1445
 msgid "Browse subtitle..."
-msgstr "Untertiteldatei wählen..."
+msgstr "Untertiteldatei wählen …"
 
 #: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
@@ -822,7 +824,7 @@ msgstr "Sie müssen mindestens ein Zeichen in Filmname eintragen"
 
 #: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
-msgstr "Suche läuft …"
+msgstr "Suchvorgang …"
 
 #: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
 #: ../gui/preferences_ui.py:270
@@ -836,7 +838,7 @@ msgstr ""
 
 #: ../gui/main.py:1586
 msgid "Downloading"
-msgstr "Lade..."
+msgstr "Es wird heruntergeladen"
 
 #: ../gui/main.py:1606
 #, python-format
@@ -918,7 +920,7 @@ msgstr "Wähle Videos aus die Untertitel benötigen"
 
 #: ../gui/main_ui.py:681
 msgid "Select videos..."
-msgstr "Wähle Videos..."
+msgstr "Videos auswählen …"
 
 #: ../gui/main_ui.py:682 ../gui/main_ui.py:684
 msgid "Click here to Search the subtitles of the movies in that folder"
@@ -926,7 +928,7 @@ msgstr "Klicke hier um für alle Videos in diesem Ordner Untertitel zu suchen"
 
 #: ../gui/main_ui.py:683
 msgid "Select folder..."
-msgstr "Wähle Ordner..."
+msgstr "Ordner auswählen …"
 
 #: ../gui/main_ui.py:685
 msgid "Search subtitles"
@@ -976,7 +978,7 @@ msgstr "Wähle die Videos und Untertitel (nur Untertitel werden hochgeladen):"
 #: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
 #: ../gui/main_ui.py:725 ../gui/main_ui.py:726
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: ../gui/main_ui.py:709
 msgid "Empty the list"
@@ -1068,7 +1070,7 @@ msgstr "Auslooggen"
 
 #: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
 msgid "Translate This Application..."
-msgstr "Diese Anwendung übersetzen..."
+msgstr "Diese Anwendung übersetzen …"
 
 #: ../gui/imdb_ui.py:76
 msgid "IMDB search dialog:"
@@ -1136,7 +1138,7 @@ msgstr "Das Programm läuft nach %d Tagen ab."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr "Einige Felder sind leer.. bitte füllen Sie diese."
+msgstr "Einige Felder sind leer … Bitte füllen Sie diese aus."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
@@ -1164,7 +1166,7 @@ msgstr "Vordefinierter Ordner:"
 
 #: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
 msgid "Browse..."
-msgstr "Durchsuchen..."
+msgstr "Auswählen …"
 
 #: ../gui/preferences_ui.py:276
 msgid "Filename of the Subtitle:"
@@ -1221,7 +1223,7 @@ msgstr "Externe Anwendung für Videowiedergabe"
 
 #: ../gui/preferences_ui.py:292
 msgid "Video Player:"
-msgstr "Videoabspielprogramm:"
+msgstr "Filmwiedergabe:"
 
 #: ../gui/preferences_ui.py:294
 msgid "Parameters:"
@@ -1238,9 +1240,3 @@ msgstr "Weitere"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Speichern"
-
-#~ msgid "Not Connected"
-#~ msgstr "Nicht verbunden"
-
-#~ msgid "Login:"
-#~ msgstr "Anmelden:"

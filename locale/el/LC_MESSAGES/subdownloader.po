@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-10-10 22:04+0000\n"
-"Last-Translator: Marco Rodrigues <Unknown>\n"
+"PO-Revision-Date: 2013-01-15 04:41+0000\n"
+"Last-Translator: Monopatis Dimitris <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -719,6 +719,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"Ο τόπος www.opensubtitles.org δεν ανταποκρίνεται\n"
+"Ενδέχεται να είναι υπερφορτωμένος, ξαναδοκιμάστε λίγο αργότερα."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -969,7 +971,7 @@ msgstr "Αναζήτηση κατά όνομα ταινίας"
 #: ../gui/main_ui.py:705
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
 msgstr ""
-"Επέλεξε τα βίνετο και τους υπότιτλους (μόνο οι υπότιτλοι θα ανεβούν):"
+"Επιλέξτε τα βίντεο και τους υπότιτλους (μόνο οι υπότιτλοι θα ανεβούν):"
 
 #: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
 #: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
@@ -991,7 +993,7 @@ msgstr "Τίτλος Ταινίας:"
 
 #: ../gui/main_ui.py:719
 msgid "Click on the Find button to identify the movie"
-msgstr "Επιλέλξτε το κουμπί Αναζήτηση για να ταυτοποιήσετε την ταινία"
+msgstr "Επιλέξτε το κουμπί Αναζήτηση για να ταυτοποιήσετε την ταινία"
 
 #: ../gui/main_ui.py:720
 msgid "Find"
@@ -1237,6 +1239,3 @@ msgstr "Άλλα"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Αποθήκευση"
-
-#~ msgid "Login:"
-#~ msgstr "Σύνδεση:"

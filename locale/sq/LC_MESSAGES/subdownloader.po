@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-04-21 14:23+0000\n"
-"Last-Translator: j3tm1r <Unknown>\n"
+"PO-Revision-Date: 2014-04-14 18:08+0000\n"
+"Last-Translator: Ermir <ermir1993_bajraktari@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -32,11 +32,11 @@ msgstr "Shqip"
 
 #: ../languages/Languages.py:13
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisht"
 
 #: ../languages/Languages.py:14
 msgid "Armenian"
-msgstr ""
+msgstr "Armenisht"
 
 #: ../languages/Languages.py:15
 msgid "Malay"
@@ -44,15 +44,15 @@ msgstr ""
 
 #: ../languages/Languages.py:16
 msgid "Bosnian"
-msgstr ""
+msgstr "Boshnjake"
 
 #: ../languages/Languages.py:17
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bullgarisht"
 
 #: ../languages/Languages.py:18
 msgid "Catalan"
-msgstr ""
+msgstr "Katalane"
 
 #: ../languages/Languages.py:19
 msgid "Basque"
@@ -60,11 +60,11 @@ msgstr "Baske"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr "Gjuha kineze"
+msgstr "Kinezçe"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
-msgstr "Kroate"
+msgstr "Kroacisht"
 
 #: ../languages/Languages.py:22
 msgid "Czech"
@@ -72,11 +72,11 @@ msgstr "Çekisht"
 
 #: ../languages/Languages.py:23
 msgid "Danish"
-msgstr "Daneze"
+msgstr "Danisht"
 
 #: ../languages/Languages.py:24
 msgid "Dutch"
-msgstr "Hollandisht"
+msgstr "Hollandeze"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
@@ -84,7 +84,7 @@ msgstr "Angleze (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr "Anglisht"
+msgstr "Angleze (MB)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,11 +104,11 @@ msgstr "Frëngjisht"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr "Galiciane"
+msgstr "Galike"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
-msgstr "Gjeorgjisht"
+msgstr "Gjeorgjiane"
 
 #: ../languages/Languages.py:33
 msgid "German"
@@ -124,7 +124,7 @@ msgstr "Hebraishte"
 
 #: ../languages/Languages.py:36
 msgid "Hungarian"
-msgstr "Hungareze"
+msgstr "Hungarisht"
 
 #: ../languages/Languages.py:37
 msgid "Indonesian"
@@ -164,7 +164,7 @@ msgstr "Maqedonisht"
 
 #: ../languages/Languages.py:46
 msgid "Norwegian"
-msgstr "Norvegjeze"
+msgstr "Norvegjisht"
 
 #: ../languages/Languages.py:47
 msgid "Persian"
@@ -192,15 +192,15 @@ msgstr "Rusisht"
 
 #: ../languages/Languages.py:53
 msgid "Serbian"
-msgstr "Serbe"
+msgstr "Serbisht"
 
 #: ../languages/Languages.py:54
 msgid "Slovak"
-msgstr "Sllovake"
+msgstr "Slovakisht"
 
 #: ../languages/Languages.py:55
 msgid "Slovenian"
-msgstr "Sllovene"
+msgstr "Sllovenisht."
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
@@ -208,7 +208,7 @@ msgstr "Spanjisht (Spanjë)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
-msgstr "Suedeze"
+msgstr "Suedisht"
 
 #: ../languages/Languages.py:58
 msgid "Thai"
@@ -224,7 +224,7 @@ msgstr "Ukrainase"
 
 #: ../languages/Languages.py:61
 msgid "Vietnamese"
-msgstr "Vietnameze"
+msgstr "Vietnamisht"
 
 #: ../gui/videotreeview.py:146 ../gui/main.py:560
 msgid "Anonymous"
@@ -237,7 +237,7 @@ msgstr "Shkalla: %s"
 
 #: ../gui/videotreeview.py:157
 msgid "(Already downloaded)"
-msgstr "Tashmë shkarkuar"
+msgstr "Është e shkarkuar tashmë"
 
 #: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
 #, python-format
@@ -267,20 +267,20 @@ msgstr "CD-të: %d"
 #: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
 #, python-format
 msgid "[IMDB Rate: %s]"
-msgstr "[IMDB Shkalla: %s]"
+msgstr "[Vlerësimi i IMDB-së: %s]"
 
 #: ../gui/videotreeview.py:220
 #, python-format
 msgid "(%d subtitles)"
-msgstr "%d e titrave"
+msgstr "(%d titra)"
 
 #: ../gui/about_ui.py:122
 msgid "About Subdownloader"
-msgstr "Rreth Nënshkarkuesit"
+msgstr "Rreth Subdownloader"
 
 #: ../gui/about_ui.py:145 ../gui/main_ui.py:738
 msgid "About"
-msgstr "Rreth"
+msgstr "Rreth nesh"
 
 #: ../gui/about_ui.py:153
 msgid "Authors"
@@ -1191,9 +1191,3 @@ msgstr ""
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr ""
-
-#~ msgid "Not Connected"
-#~ msgstr "Jo i lidhur"
-
-#~ msgid "Login:"
-#~ msgstr "Identifikohu:"

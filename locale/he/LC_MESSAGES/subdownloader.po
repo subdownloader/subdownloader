@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-04-04 00:50+0000\n"
-"Last-Translator: ishai levy <Unknown>\n"
+"PO-Revision-Date: 2012-10-17 15:44+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -176,7 +176,7 @@ msgstr "פולנית"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr "(פורטוגזית (פורטוגל"
+msgstr "פורטוגזית (פורטוגל)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
@@ -300,7 +300,7 @@ msgstr "קובץ וידאו"
 
 #: ../gui/uploadlistview.py:33
 msgid "Subtitle"
-msgstr "כתובית"
+msgstr "כתוביות"
 
 #: ../gui/uploadlistview.py:81
 msgid "The list of video/subtitle is empty"
@@ -716,6 +716,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org לא מגיב\n"
+"יתכן כי האתר עמוס יתר על המידה, נסה שנית בעוד כמה דקות."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1183,7 +1185,7 @@ msgstr "מארח:"
 
 #: ../gui/preferences_ui.py:285
 msgid "Port:"
-msgstr "פתחה:"
+msgstr "פורט:"
 
 #: ../gui/preferences_ui.py:286
 msgid "Network"
@@ -1191,7 +1193,7 @@ msgstr "רשת"
 
 #: ../gui/preferences_ui.py:287
 msgid "Interface Language:"
-msgstr "שפת המנשק:"
+msgstr "שפת הממשק:"
 
 #: ../gui/preferences_ui.py:289
 msgid "Context Menu:"
@@ -1215,7 +1217,7 @@ msgstr "פרמטרים:"
 
 #: ../gui/preferences_ui.py:295
 msgid "{0} = video file path; {1} = subtitle path"
-msgstr "{0} = נתיב קובץ הוידאו; {1} = נתיב הכתובית"
+msgstr "{0} = נתיב קובץ הוידאו; {1} = נתיב הכתוביות"
 
 #: ../gui/preferences_ui.py:296
 msgid "Others"
@@ -1224,9 +1226,3 @@ msgstr "אחרים"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "שמור"
-
-#~ msgid "Not Connected"
-#~ msgstr "לא מחובר"
-
-#~ msgid "Login:"
-#~ msgstr "התחבר:"

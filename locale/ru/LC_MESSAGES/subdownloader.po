@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-06-09 19:26+0000\n"
-"Last-Translator: vspider <Unknown>\n"
+"PO-Revision-Date: 2011-01-20 05:06+0000\n"
+"Last-Translator: Даниил Рыжков <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -717,6 +717,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org не отвечает\n"
+"Возможно, он перегружен, попробуйте еще раз позже."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -1174,11 +1176,11 @@ msgstr "Название, как у субтитров онлайн"
 
 #: ../gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Язык по умолчанию для закачиваемых субтитров"
+msgstr "Язык по умолчанию для загружаемых субтитров"
 
 #: ../gui/preferences_ui.py:283
 msgid "Network Proxy"
-msgstr "сетевая прокси-служба"
+msgstr "Параметры прокси-сервера"
 
 #: ../gui/preferences_ui.py:284
 msgid "Host:"

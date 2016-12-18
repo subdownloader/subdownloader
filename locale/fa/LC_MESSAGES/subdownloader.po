@@ -1,0 +1,1238 @@
+# English (United Kingdom) translation for subdownloader
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the subdownloader package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subdownloader\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2011-04-10 17:38+0000\n"
+"Last-Translator: Pouyan <Unknown>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
+
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
+msgstr "بررسی فیلم:  %s"
+
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "بررسی زیرنویس:  %s"
+
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
+msgstr "پایان بررسی ساختار"
+
+#: ../languages/Languages.py:12
+msgid "Albanian"
+msgstr "آلبانیایی"
+
+#: ../languages/Languages.py:13
+msgid "Arabic"
+msgstr "عربی"
+
+#: ../languages/Languages.py:14
+msgid "Armenian"
+msgstr "ارمنی"
+
+#: ../languages/Languages.py:15
+msgid "Malay"
+msgstr "مالایی"
+
+#: ../languages/Languages.py:16
+msgid "Bosnian"
+msgstr "بوسنیایی"
+
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
+msgstr "بلغاری"
+
+#: ../languages/Languages.py:18
+msgid "Catalan"
+msgstr "کاتالانی"
+
+#: ../languages/Languages.py:19
+msgid "Basque"
+msgstr "بسکو"
+
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
+msgstr "چینی"
+
+#: ../languages/Languages.py:21
+msgid "Croatian"
+msgstr "کروواسیایی"
+
+#: ../languages/Languages.py:22
+msgid "Czech"
+msgstr "چکی"
+
+#: ../languages/Languages.py:23
+msgid "Danish"
+msgstr "دانمارکی"
+
+#: ../languages/Languages.py:24
+msgid "Dutch"
+msgstr "هلندی"
+
+#: ../languages/Languages.py:25
+msgid "English (US)"
+msgstr "انگلیسی (آمریکا)"
+
+#: ../languages/Languages.py:26
+msgid "English (UK)"
+msgstr "انگلیسی (انگلستان)"
+
+#: ../languages/Languages.py:27
+msgid "Esperanto"
+msgstr "اسپرانتور"
+
+#: ../languages/Languages.py:28
+msgid "Estonian"
+msgstr "استونیایی"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "فنلاندی"
+
+#: ../languages/Languages.py:30
+msgid "French"
+msgstr "فرانسوی"
+
+#: ../languages/Languages.py:31
+msgid "Galician"
+msgstr "گالیسیایی"
+
+#: ../languages/Languages.py:32
+msgid "Georgian"
+msgstr "گرجی"
+
+#: ../languages/Languages.py:33
+msgid "German"
+msgstr "آلمانی"
+
+#: ../languages/Languages.py:34
+msgid "Greek"
+msgstr "یونانی"
+
+#: ../languages/Languages.py:35
+msgid "Hebrew"
+msgstr "عبری"
+
+#: ../languages/Languages.py:36
+msgid "Hungarian"
+msgstr "مجاری"
+
+#: ../languages/Languages.py:37
+msgid "Indonesian"
+msgstr "اندونزیایی"
+
+#: ../languages/Languages.py:38
+msgid "Italian"
+msgstr "ایتالیایی"
+
+#: ../languages/Languages.py:39
+msgid "Japanese"
+msgstr "ژاپنی"
+
+#: ../languages/Languages.py:40
+msgid "Kazakh"
+msgstr "قزاقی"
+
+#: ../languages/Languages.py:41
+msgid "Korean"
+msgstr "کره‌ای"
+
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr "لتونیایی"
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr "لیتوانی"
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr "لوکزامبورگی"
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr "مقدونی"
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr "نروژی"
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr "فارسی"
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr "لهستانی"
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr "پرتغالی (پرتغال)‏"
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr "پرتقالی (برزيل)"
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr "رومانیایی"
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr "روسی"
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr "صربی"
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr "اسلواکی"
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr "اسلونیایی"
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr "اسپانیایی (اسپانیا)"
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr "سوئدی"
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr "تایلندی"
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr "ترکی"
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr "اوکراینی"
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr "ویتنامی"
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
+msgid "Anonymous"
+msgstr "ناشناس"
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr "[امتیاز: %s]"
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr "(قبلاً دریافت شده)"
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr "ارسال کننده: %s"
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr "امتیاز: %s"
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr "قالب: %s"
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr "دریافت‌ها: %d"
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr "دیسک‌ها: %d"
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr "[امتیاز IMDB: %s]"
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr "(%d زیرنویس)"
+
+#: ../gui/about_ui.py:122
+msgid "About Subdownloader"
+msgstr "درباره‌ی Subdownloader"
+
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
+msgid "About"
+msgstr "درباره‌ی برنامه"
+
+#: ../gui/about_ui.py:153
+msgid "Authors"
+msgstr "سازندگان"
+
+#: ../gui/about_ui.py:169
+msgid "License Agreement"
+msgstr "توافق‌نامه"
+
+#: ../gui/about_ui.py:170
+msgid "Close"
+msgstr "بستن"
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "فایل فیلم"
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "زیرنویس"
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "این لیست فیلم/زیرنویس خالی است"
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "زیرنویس %s تکرار شده است"
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr "فایل فیلم %s تکرار شده است"
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "بعضی از ردیف‌های ارسال خالی است"
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr "بعضی از کادرهای فیلم/زیرنویس خالی است"
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "برای انتخاب فیلم اینجا را کلیک کنید..."
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "برای انتخاب زیرنویس اینجا را کلیک کنید..."
+
+#: ../gui/main.py:24
+msgid "Loading..."
+msgstr "در حال بارگذاری..."
+
+#: ../gui/main.py:56
+msgid "Building main dialog..."
+msgstr "ساختن پنجره‌های اصلی..."
+
+#: ../gui/main.py:87
+#, python-format
+msgid "SubDownloader %s"
+msgstr "SubDownloader %s"
+
+#: ../gui/main.py:114
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr "%d روز تا ابطال برنامه. برنامه را فعال کنید."
+
+#: ../gui/main.py:228 ../gui/main.py:579
+msgid "Not logged yet"
+msgstr "هنوز وارد نشده"
+
+#: ../gui/main.py:236 ../gui/main_ui.py:740
+msgid "Help Us With 5 USD/EUR"
+msgstr "با پرداخت 5 دلار/یورو به ما کمک کنید"
+
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
+msgid "Error"
+msgstr "خطا"
+
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
+#: ../gui/login.py:59
+msgid "Error contacting the server. Please try again later"
+msgstr "مشکل در ارتباط با رایانه‌ی مرکزی. لطفاً دوباره سعی کنید."
+
+#: ../gui/main.py:289
+#, python-format
+msgid "Unable to find %s"
+msgstr "نمی‌توان %s را پیدا کرد"
+
+#: ../gui/main.py:366
+msgid "How To Use SubDownloader"
+msgstr "چگونه از  SubDownloader استفاده کنیم"
+
+#: ../gui/main.py:367
+msgid "1st Tab:"
+msgstr "برگه‌ی اول:"
+
+#: ../gui/main.py:367
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+"از منوی درختی سمت راست پوشه‌ای را که حاوی فیلم است انتخاب کنید. برنامه‌ی "
+"SubDownloader به طور خودکار به دنبال زیرنویس برای آن‌ها می‌گردد."
+
+#: ../gui/main.py:368
+msgid "2nd Tab:"
+msgstr "برگه‌ی دوم:"
+
+#: ../gui/main.py:368
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr ""
+"اگر فیلم را بر روی رایانه‌ی خود ندارید می‌توانید آن را با وارد کردن "
+"نام/عنوان جستجو کنید."
+
+#: ../gui/main.py:369
+msgid "3rd Tab:"
+msgstr "برگه‌ی سوم:"
+
+#: ../gui/main.py:369
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+"اگر شما جایی زیرنویسی پیدا کردید که در پایگاه داده‌ی SubDownloader نبود، "
+"لطفاً آن‌‎ها را برای ما ارسال کنید تا کاربران دیگر بتوانند آن‌ها را راحت‌تر "
+"پیدا کنند."
+
+#: ../gui/main.py:370
+msgid "Quid Pro Quo:"
+msgstr "به جای:"
+
+#: ../gui/main.py:370
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+"اگر فکر می‌کنید این برنامه مفید است و باعث صرفه‌جویی  در وقت شما می‌شود، به "
+"ما با دادن اعانه کمک کنید."
+
+#: ../gui/main.py:419 ../gui/main.py:443
+msgid "View IMDB info"
+msgstr "دیدن اطلاعات IMDB"
+
+#: ../gui/main.py:422
+msgid "Set IMDB info..."
+msgstr "تنظیم کردن اطلاعات IMDB..."
+
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr "دریافت"
+
+#: ../gui/main.py:431
+msgid "Play video + subtitle"
+msgstr "پخش فیلم + زیرنویس"
+
+#: ../gui/main.py:436
+msgid "View online info"
+msgstr "دیدن اطلاعات آنلاین"
+
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
+#: ../gui/expiration.py:95
+msgid "Info"
+msgstr "اطلاعات"
+
+#: ../gui/main.py:508
+msgid "New Version Detected"
+msgstr "New Version Detected"
+
+#: ../gui/main.py:509
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+"نسخه‌ی جدید برنامه‌ی SubDownloader منتشر شد.\n"
+"\n"
+"نسخه‌ی جدید: %s\n"
+"نسخه‌ی کنونی: %s\n"
+"\n"
+"آیا مایلید نسخه‌ی جدید را دریافت کنید؟"
+
+#: ../gui/main.py:534
+msgid "Users online: Updating..."
+msgstr "کاربران روی خط: در حال به‌روزرسانی..."
+
+#: ../gui/main.py:537
+#, python-format
+msgid "Users online: %s"
+msgstr "کاربران روی خط: %s"
+
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "کاربران روی خط: خطا!"
+
+#: ../gui/main.py:549 ../gui/main.py:553
+msgid "Logging in..."
+msgstr "در حال وارد شدن..."
+
+#: ../gui/main.py:549 ../gui/main.py:1168
+msgid "&Cancel"
+msgstr "انصراف"
+
+#: ../gui/main.py:550 ../gui/login_ui.py:57
+msgid "Authentication"
+msgstr "تأیید هویت"
+
+#: ../gui/main.py:561
+#, python-format
+msgid "Logged as %s"
+msgstr "وارد شده به نام %s"
+
+#: ../gui/main.py:568
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "ورود با نام %s: خطا!"
+
+#: ../gui/main.py:572
+msgid "Login: ERROR"
+msgstr "ورود: خطا!"
+
+#: ../gui/main.py:588
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "SubDownloader %s - %s"
+
+#: ../gui/main.py:607 ../gui/expiration.py:96
+msgid "Program Registered"
+msgstr "برنامه ثبت شد"
+
+#: ../gui/main.py:643
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr "(برنامه‌ی ثبت نشده، تا %d روز دیگر از کار می‌افتد)"
+
+#: ../gui/main.py:661
+msgid "Expiration Reminder"
+msgstr "یادآور زمان ابطال برنامه"
+
+#: ../gui/main.py:661
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+"برنامه تا %d روز دیگر باطل می‌شود.\n"
+"می‌خواهید آن را فعال کنید؟"
+
+#: ../gui/main.py:662
+msgid "Activate"
+msgstr "فعال‌سازی"
+
+#: ../gui/main.py:694 ../gui/main.py:695
+msgid "All languages"
+msgstr "همه‌ی زبان‌ها"
+
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
+msgid "You are not connected to the server. Please reconnect first."
+msgstr "شما به رایانه‌ی مرکزی متصل نیستید. لطفاً ابتدا وصل شوید."
+
+#: ../gui/main.py:759
+msgid "Scanning files"
+msgstr "بررسی فایل‌ها"
+
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
+msgid "&Abort"
+msgstr "&خاتمه"
+
+#: ../gui/main.py:760
+msgid "Scanning..."
+msgstr "در حال اسکن..."
+
+#: ../gui/main.py:786
+msgid "Scan Results"
+msgstr "نتایج جستجو"
+
+#: ../gui/main.py:786
+msgid "No video has been found!"
+msgstr "هیچ ویدیویی پیدا نشد!"
+
+#: ../gui/main.py:789
+msgid "Searching subtitles..."
+msgstr "جستجوی زیرنویس..."
+
+#: ../gui/main.py:790
+msgid "Asking Server..."
+msgstr "درخواست از رایانه‌ی مرکزی..."
+
+#: ../gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr "جستجوی زیرنویس‌ها (%d / %d)"
+
+#: ../gui/main.py:842
+msgid "Search finished"
+msgstr "جستجو پایان یافت"
+
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
+msgid "Movie Info"
+msgstr "اطلاعات فیلم"
+
+#: ../gui/main.py:865 ../gui/main.py:880
+msgid "Sub Info"
+msgstr "اطلاعات زیرنویس"
+
+#: ../gui/main.py:888
+msgid "You must select a folder first"
+msgstr "شما ابتدا باید یک پوشه را انتخاب کنید"
+
+#: ../gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr "فیلم‌هایی را که نیاز به زیرنویس دارند انتخاب کنید"
+
+#: ../gui/main.py:912
+msgid "Select the directory that contains your videos"
+msgstr "پوشه‌ای را که حاوی فیلم‌های شماست انتخاب کنید"
+
+#: ../gui/main.py:936
+msgid "No default video player has been defined in Settings."
+msgstr "هیچ برنامه‌ی پخش کننده‌ای در قسمت تنظیمات تعریف نشده است."
+
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
+msgid "Downloading files..."
+msgstr "دریافت فایل‌ها..."
+
+#: ../gui/main.py:946
+msgid "Playing video + sub"
+msgstr "در حال پخش فیلم + زیرنویس"
+
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "نمی‌توان زیرنویس %s را دریافت کرد"
+
+#: ../gui/main.py:984
+msgid "Unable to launch videoplayer"
+msgstr "نمی‌توان برنامه‌ی پخش را باز کرد"
+
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
+msgid "Save as..."
+msgstr "Save as..."
+
+#: ../gui/main.py:1029 ../gui/main.py:1572
+msgid "No subtitles selected to be downloaded"
+msgstr "هیچ زیرنویسی برای دریافت انتخاب نشده است"
+
+#: ../gui/main.py:1038
+msgid "Downloading..."
+msgstr "درحال دریافت..."
+
+#: ../gui/main.py:1047 ../gui/main.py:1121
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "در حال دریافت زیرنویس %s (%d/%d)"
+
+#: ../gui/main.py:1053
+msgid "Error write permission"
+msgstr "مشکل در دریافت اجازه‌ی نوشتن"
+
+#: ../gui/main.py:1054
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s ذخیره نمی‎‌شود.\n"
+"کنترل کنید که پوشه وجود دارد و شما اجازه‌ی ذخیره کردن فایل را دارید."
+
+#: ../gui/main.py:1068 ../gui/main.py:1105
+msgid "Save subtitle as..."
+msgstr "ذخیره‌ی زیرنویس با نام..."
+
+#: ../gui/main.py:1084
+msgid "File already exists"
+msgstr "این فایل از قبل وجود دارد"
+
+#: ../gui/main.py:1084
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+"محلی: %s\n"
+"\n"
+"از راه دور: %s\n"
+"\n"
+"چگونه می‌خواهید ادامه دهید؟"
+
+#: ../gui/main.py:1085
+msgid "Skip"
+msgstr "پرش"
+
+#: ../gui/main.py:1087
+msgid "Replace"
+msgstr "جای‌گزینی"
+
+#: ../gui/main.py:1088
+msgid "Replace all"
+msgstr "جاي‌گزينی همه"
+
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
+msgstr "انصراف"
+
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "هشدار"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org پاسخگو نیست\n"
+"ممکن است مختل شده‌باشد، لطفا دوباره مراجعه کنید."
+
+#: ../gui/main.py:1168
+msgid "Connecting to server..."
+msgstr "Connecting to server..."
+
+#: ../gui/main.py:1169
+msgid "Connecting"
+msgstr "در حال اتصال‌"
+
+#: ../gui/main.py:1182
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "در حال اتصال به مرکز با واسطه‌ی %s"
+
+#: ../gui/main.py:1188
+msgid "Connected successfully"
+msgstr "اتصال با موفقیت برقرار شد"
+
+#: ../gui/main.py:1216 ../gui/preferences.py:67
+msgid "Select a directory"
+msgstr "یک پوشه را انتخاب کنید"
+
+#: ../gui/main.py:1252
+msgid "Please identify the movie."
+msgstr "لطفاً فیلم را شناسایی کنید."
+
+#: ../gui/main.py:1255
+msgid "Uploading subtitle"
+msgstr "در حال ارسال زیرنویس"
+
+#: ../gui/main.py:1256
+msgid "Uploading..."
+msgstr "Uploading..."
+
+#: ../gui/main.py:1288
+msgid "Successful Upload"
+msgstr "Successful Upload"
+
+#: ../gui/main.py:1289
+msgid ""
+"Subtitles successfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+"زیرنویس دریافت شد.\n"
+"از شما ممنونم!"
+
+#: ../gui/main.py:1296
+msgid "View Subtitle Info"
+msgstr "دیدن اطلاعات زیرنویس"
+
+#: ../gui/main.py:1302
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"مشکل در ارسال...\n"
+"مشکل: %s"
+
+#: ../gui/main.py:1305
+msgid "Error contacting the server. Please restart or try later"
+msgstr "مشکل در ارتباط با مرکز. لطفاً دوباره امتحان کنید."
+
+#: ../gui/main.py:1328
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "↓ فیلم به طور خودکار از روی فایل nfo. شناسایی شد."
+
+#: ../gui/main.py:1331
+msgid "↓ Movie autodetected from database"
+msgstr "↓ فیلم به طور خودکار از روی پایگاه داده شناسایی شد."
+
+#: ../gui/main.py:1370
+msgid "↑ Language autodetected from database"
+msgstr "↑ زبان به طور خودکار از روی پایگاه داده شناسایی شد."
+
+#: ../gui/main.py:1374
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "↑ زبان به طور خودکار از روی نام زیرنویس شناسایی شد."
+
+#: ../gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "↑ زبان به طور خودکار از روی محتویات زیرنویس شناسایی شد."
+
+#: ../gui/main.py:1428
+msgid "Browse video..."
+msgstr "Browse video..."
+
+#: ../gui/main.py:1445
+msgid "Browse subtitle..."
+msgstr "Browse subtitle..."
+
+#: ../gui/main.py:1498
+msgid "You must enter at least one character in movie name"
+msgstr "نام فیلم نیازمند حداقل یک کارکتر است."
+
+#: ../gui/main.py:1501 ../gui/main.py:1654
+msgid "Searching..."
+msgstr "Searching..."
+
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr "جستجو‌"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "پوشه‌ای را که می‌خواهید زیرنویس در آن ذخیره شود را انتخاب کنید"
+
+#: ../gui/main.py:1586
+msgid "Downloading"
+msgstr "Downloading"
+
+#: ../gui/main.py:1606
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "دریافت %s تا %s"
+
+#: ../gui/main.py:1622
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+"مشکل در هنگام دریافت %s:\n"
+"مشکل: %s"
+
+#: ../gui/main.py:1644
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+"مشکل در هنگام بازگشایی %s:\n"
+"مشکل: %s"
+
+#: ../gui/main.py:1649
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "%d زیرنویس با موفقیت دریافت شد"
+
+#: ../gui/main.py:1649
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"زیرنویس دریافت شده ممکن است با فیلم شما از نظر زمانی هم‌آهنگ نباشد، لطفاً "
+"خودتان آن را کنترل کنید.\n"
+"\n"
+"اگر مشکلی نداشت، لطفاً دوباره آن را توسط برنامه ارسال کنید تا دیگران به "
+"راحتی آن را پیدا کنند."
+
+#: ../gui/main.py:1678
+msgid "A new version of SubDownloader has been released."
+msgstr "A new version of SubDownloader has been released."
+
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr "ورود به سامانه‌ی  OpenSubtitles.org"
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr "رمز عبور:"
+
+#: ../gui/imdbSearch.py:43
+msgid "Please fill out the search title"
+msgstr "لطفاً کادر جستجو را پر کنید"
+
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
+msgid "Please search and select a movie from the list"
+msgstr "لطفاً بگردید و یک فیلم را از لیست انتخاب کنید"
+
+#: ../gui/main_ui.py:678
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: ../gui/main_ui.py:679
+msgid "Select the video/folder that needs subtitles:"
+msgstr "فیلم یا پوشه‌ی فیلمی که نیاز به زیرنویس دارد را انتخاب کنید:"
+
+#: ../gui/main_ui.py:680
+msgid "Select videos that need subtitles"
+msgstr "فیلم‌هایی که نیاز به زیرنویس دارند را انتخاب کنید"
+
+#: ../gui/main_ui.py:681
+msgid "Select videos..."
+msgstr "انتخاب فیلم‌ها..."
+
+#: ../gui/main_ui.py:682 ../gui/main_ui.py:684
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr "برای جستجو برای فیلم‌های موجود در پوشه اینجا را کلیک کنید"
+
+#: ../gui/main_ui.py:683
+msgid "Select folder..."
+msgstr "انتخاب پوشه..."
+
+#: ../gui/main_ui.py:685
+msgid "Search subtitles"
+msgstr "جستجوی زیرنویس"
+
+#: ../gui/main_ui.py:686
+msgid "Videos/Subtitles found:"
+msgstr "فیلم/زیرنویس پیدا شده"
+
+#: ../gui/main_ui.py:687
+msgid "Filter by:"
+msgstr "فیلتر کردن بر اساس:"
+
+#: ../gui/main_ui.py:694
+msgid "Play"
+msgstr "پخش"
+
+#: ../gui/main_ui.py:696
+msgid "Search from Video file(s)"
+msgstr "جستجو در فیلم‌ها"
+
+#: ../gui/main_ui.py:698
+msgid "Site:"
+msgstr "منبع:"
+
+#: ../gui/main_ui.py:699
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: ../gui/main_ui.py:700
+msgid "Subtitles found:"
+msgstr "زیرنویس‌های پیدا شده:"
+
+#: ../gui/main_ui.py:701
+msgid "Filter by :"
+msgstr "فیلتر شده توسط:"
+
+#: ../gui/main_ui.py:704
+msgid "Search by Movie Name"
+msgstr "جستجو بر اساس نام فیلم"
+
+#: ../gui/main_ui.py:705
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr "فیلم‌ها و زیرنویس‌ها را انتخاب کنید (فقط زیرنویس‌ها ارسال می‌شوند):"
+
+#: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
+#: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
+#: ../gui/main_ui.py:725 ../gui/main_ui.py:726
+msgid "..."
+msgstr "..."
+
+#: ../gui/main_ui.py:709
+msgid "Empty the list"
+msgstr "خالی کردن لیست"
+
+#: ../gui/main_ui.py:713
+msgid "Details:"
+msgstr "جزئیات:"
+
+#: ../gui/main_ui.py:718
+msgid "Movie Title:"
+msgstr "عنوان فیلم:"
+
+#: ../gui/main_ui.py:719
+msgid "Click on the Find button to identify the movie"
+msgstr "برای شناسایی فیلم روی دکمه‌ی جستجو کلیک کنید"
+
+#: ../gui/main_ui.py:720
+msgid "Find"
+msgstr "جستجو"
+
+#: ../gui/main_ui.py:727
+msgid "Release name:"
+msgstr "نام انتشار:"
+
+#: ../gui/main_ui.py:728
+msgid "Comments:"
+msgstr "توضيحات:"
+
+#: ../gui/main_ui.py:729
+msgid "Subtitle Language:"
+msgstr "زبان زیرنویس:"
+
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "ارسال"
+
+#: ../gui/main_ui.py:731
+msgid "Upload subtitles"
+msgstr "ارسال زیرنویس‌ها"
+
+#: ../gui/main_ui.py:732
+msgid "&Main"
+msgstr "&اصلی‌"
+
+#: ../gui/main_ui.py:733
+msgid "&Help"
+msgstr "&راهنما"
+
+#: ../gui/main_ui.py:734
+msgid "&Settings"
+msgstr "&تنظیمات‌"
+
+#: ../gui/main_ui.py:735
+msgid "&View"
+msgstr "&نما‌"
+
+#: ../gui/main_ui.py:736
+msgid "Quit"
+msgstr "خروج"
+
+#: ../gui/main_ui.py:737
+msgid "Visit HomePage"
+msgstr "مشاهده‌ی وب‌سایت برنامه"
+
+#: ../gui/main_ui.py:739
+msgid "Report A Problem"
+msgstr "گزارش مشکل"
+
+#: ../gui/main_ui.py:741
+msgid "&Configure Subdownloader"
+msgstr "&تنظیم کردن Subdownloader"
+
+#: ../gui/main_ui.py:742
+msgid "LogIn"
+msgstr "ورود"
+
+#: ../gui/main_ui.py:743
+msgid "Log Messages"
+msgstr "گزارش‌ها"
+
+#: ../gui/main_ui.py:744
+msgid "Show/Hide Tree Folder"
+msgstr "نشان دادن/پنهان کردن نمای درختی"
+
+#: ../gui/main_ui.py:745
+msgid "LogOut"
+msgstr "خروج"
+
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "ترجمه کردن این برنامه..."
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "پیام جستجوی IMDB:"
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "عنوان فیلم یا شناسه‌ی IMDB آن را را وارد کنید:"
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "جستجوی فیلم"
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr "تأیید"
+
+#: ../gui/preferences.py:36
+msgid "<AutoDetect>"
+msgstr "<جستجوی خودکار>"
+
+#: ../gui/preferences.py:76
+msgid "Select the Video Player executable file"
+msgstr "فایل اجرایی برنامه‌ی پخش کننده‌ی فیلم را انتخاب کنید"
+
+#: ../gui/preferences.py:81
+msgid "The new language will be displayed after restarting the program."
+msgstr "زبان جدید پس از راه اندازی مجدد برنامه نشان داده می‌شود"
+
+#: ../gui/preferences.py:143
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "فعال سازی در Konqueror/Dolphin/Nautilus شما"
+
+#: ../gui/preferences.py:146
+msgid "Enable in your Windows Explorer"
+msgstr "فعال سازی در مرورگر ویندوز شما"
+
+#: ../gui/preferences.py:149
+msgid "Enable in your File Manager"
+msgstr "فعال سازی در برنامه‌ی مدیریت فایل‌های شما"
+
+#: ../gui/preferences.py:157
+msgid "Predefined Folder cannot be empty"
+msgstr "پوشه‌ی از پیش تعیین شده نمی‌تواند خالی باشد"
+
+#: ../gui/preferences.py:214
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+"تنظیمات تغییر یافته‌ی پراکسی بعد از راه اندازی مجدد برنامه اعمال خواهند شد"
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr "برنامه تا %d روز دیگر از کار می‌افتد."
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr "فعال سازی برنامه"
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr "برنامه پس از %d روز استفاده از کار می‌افتد."
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr "بعضی گزاره‌های خالی هستند.. لطفا آن‌ها را پر کنید."
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "نتایج جستجو را با توجه به این زبان‌ها فیلتر کن:"
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "پوشه‌ی مقصد:"
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "همیشه از کاربر سؤال کن"
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "در پوشه‌ی فیلم"
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "پوشه‌ی از پیش تعریف شده:"
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "مرور..."
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "نام فایل زیرنویس:"
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "همنام فایل فیلم"
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr "همنام فیلم + کد زبان (مثال: StarWarsCD1.eng.srt)"
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr "همنام زیرنویس آنلاین"
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr "زبان پیش‌فرض زیرنویس‌های ارسال شده"
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr "پیشکار شبکه"
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "میزبان:"
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "درگاه:"
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr "شبکه"
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr "زبان برنامه"
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr "منوی راست کلیک"
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "فعال سازی در Explorer"
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr "برنامه‌ای برای پخش فیلم"
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr "پخش کننده‌ی فیلم"
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "پارامترها:"
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0}= مسیر فایل فیلم؛ {1}= مسیر زیرنویس"
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr "غیره"
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
+msgstr "ذخیره"

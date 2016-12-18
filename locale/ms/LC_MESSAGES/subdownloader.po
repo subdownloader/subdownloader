@@ -1,0 +1,1242 @@
+# Malay translation for subdownloader
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the subdownloader package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subdownloader\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2011-02-21 15:21+0000\n"
+"Last-Translator: abuyop <Unknown>\n"
+"Language-Team: Malay <ms@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
+
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
+msgstr "Penghuraian video: %s"
+
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "Penghuraian sari kata: %s"
+
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
+msgstr "Pencincangan selesai"
+
+#: ../languages/Languages.py:12
+msgid "Albanian"
+msgstr "Albania"
+
+#: ../languages/Languages.py:13
+msgid "Arabic"
+msgstr "Arab"
+
+#: ../languages/Languages.py:14
+msgid "Armenian"
+msgstr "Armenia"
+
+#: ../languages/Languages.py:15
+msgid "Malay"
+msgstr "Melayu"
+
+#: ../languages/Languages.py:16
+msgid "Bosnian"
+msgstr "Bosnia"
+
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
+msgstr "Bulgaria"
+
+#: ../languages/Languages.py:18
+msgid "Catalan"
+msgstr "Catalan"
+
+#: ../languages/Languages.py:19
+msgid "Basque"
+msgstr "Basque"
+
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
+msgstr "Cina"
+
+#: ../languages/Languages.py:21
+msgid "Croatian"
+msgstr "Croatia"
+
+#: ../languages/Languages.py:22
+msgid "Czech"
+msgstr "Czech"
+
+#: ../languages/Languages.py:23
+msgid "Danish"
+msgstr "Denmark"
+
+#: ../languages/Languages.py:24
+msgid "Dutch"
+msgstr "Belanda"
+
+#: ../languages/Languages.py:25
+msgid "English (US)"
+msgstr "Inggeris (US)"
+
+#: ../languages/Languages.py:26
+msgid "English (UK)"
+msgstr "Inggeris (UK)"
+
+#: ../languages/Languages.py:27
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: ../languages/Languages.py:28
+msgid "Estonian"
+msgstr "Estonia"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "Finland"
+
+#: ../languages/Languages.py:30
+msgid "French"
+msgstr "Perancis"
+
+#: ../languages/Languages.py:31
+msgid "Galician"
+msgstr "Galicia"
+
+#: ../languages/Languages.py:32
+msgid "Georgian"
+msgstr "Georgia"
+
+#: ../languages/Languages.py:33
+msgid "German"
+msgstr "Jerman"
+
+#: ../languages/Languages.py:34
+msgid "Greek"
+msgstr "Yunani"
+
+#: ../languages/Languages.py:35
+msgid "Hebrew"
+msgstr "Ibrani"
+
+#: ../languages/Languages.py:36
+msgid "Hungarian"
+msgstr "Hungari"
+
+#: ../languages/Languages.py:37
+msgid "Indonesian"
+msgstr "Indonesia"
+
+#: ../languages/Languages.py:38
+msgid "Italian"
+msgstr "Itali"
+
+#: ../languages/Languages.py:39
+msgid "Japanese"
+msgstr "Jepun"
+
+#: ../languages/Languages.py:40
+msgid "Kazakh"
+msgstr "Kazakh"
+
+#: ../languages/Languages.py:41
+msgid "Korean"
+msgstr "Korea"
+
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr "Latvia"
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr "Lithuania"
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr "Luxembourg"
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr "Macedonia"
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr "Norway"
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr "Parsi"
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr "Poland"
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr "Portugis (Portugal)"
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr "Portugis (Brazil)"
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr "Romania"
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr "Rusia"
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr "Serbia"
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr "Slovak"
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr "Slovenia"
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr "Sepanyol (Sepanyol)"
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr "Sweden"
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr "Siam"
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr "Turki"
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr "Ukraine"
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr "Vietnam"
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
+msgid "Anonymous"
+msgstr "Awanama"
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr "[Penarafan: %s]"
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr "(Sudah dimuat turun)"
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr "Pemuat Naik: %s"
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr "Penarafan: %s"
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr "Format: %s"
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr "Muat Turun: %d"
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr "CD: %d"
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr "[Penarafan IMDB: %s]"
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr "(%d sari kata)"
+
+#: ../gui/about_ui.py:122
+msgid "About Subdownloader"
+msgstr "Perihal Subdownloader"
+
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
+msgid "About"
+msgstr "Perihal"
+
+#: ../gui/about_ui.py:153
+msgid "Authors"
+msgstr "Pengarang"
+
+#: ../gui/about_ui.py:169
+msgid "License Agreement"
+msgstr "Perjanjian lesen"
+
+#: ../gui/about_ui.py:170
+msgid "Close"
+msgstr "Tutup"
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "Fail Video"
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "Sari Kata"
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "Senarai video/sari kata adalah kosong"
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "Sari kata %s telah berulang"
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr "Fail video %s telah diulang"
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "Sebahagian daripada baris muat naik adalah kosong"
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr "Sebahagian daripada ruang video/sari kata adalah kosong"
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "Sila klik di sini untuk memilih video..."
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "Sila klik di sini untuk memilih sari kata..."
+
+#: ../gui/main.py:24
+msgid "Loading..."
+msgstr "Memuatkan..."
+
+#: ../gui/main.py:56
+msgid "Building main dialog..."
+msgstr "Membina dialog utama..."
+
+#: ../gui/main.py:87
+#, python-format
+msgid "SubDownloader %s"
+msgstr "SubDownloader %s"
+
+#: ../gui/main.py:114
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr "%d hari lagi  akan luput. Aktifkan Program."
+
+#: ../gui/main.py:228 ../gui/main.py:579
+msgid "Not logged yet"
+msgstr "Tidak mendaftar lagi"
+
+#: ../gui/main.py:236 ../gui/main_ui.py:740
+msgid "Help Us With 5 USD/EUR"
+msgstr "Bantu Kami dengan USD/EUR 5"
+
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
+msgid "Error"
+msgstr "Ralat"
+
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
+#: ../gui/login.py:59
+msgid "Error contacting the server. Please try again later"
+msgstr "Ralat semasa menyambung ke pelayan. Sila cuba lagi kemudian"
+
+#: ../gui/main.py:289
+#, python-format
+msgid "Unable to find %s"
+msgstr "Tidak boleh mencari %s"
+
+#: ../gui/main.py:366
+msgid "How To Use SubDownloader"
+msgstr "Bagaimana Hendak Menggunakan SubDownloader"
+
+#: ../gui/main.py:367
+msgid "1st Tab:"
+msgstr "Tab 1:"
+
+#: ../gui/main.py:367
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+"Pilih, dari Pepohon Folder disebelah kiri, folder yang mana mengandungi "
+"video yang memerlukan sari kata. SubDownloader akan cuba mencari sari kata "
+"yang ada secara automatik."
+
+#: ../gui/main.py:368
+msgid "2nd Tab:"
+msgstr "Tab Ke2:"
+
+#: ../gui/main.py:368
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr ""
+"Jika anda tidak mempunyai video didalam komputer anda, anda juga boleh "
+"menggelintar sari kata dengan memasukkan nama/tajuk video tersebut."
+
+#: ../gui/main.py:369
+msgid "3rd Tab:"
+msgstr "Tab Ke3:"
+
+#: ../gui/main.py:369
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+"Jika anda telah menemui beberapa sari kata yang bukan dari pengkalan data "
+"SubDownloader, sila muat naikkannya supaya pengguna lain dapat mencarinya "
+"dengan mudah."
+
+#: ../gui/main.py:370
+msgid "Quid Pro Quo:"
+msgstr "Quid Pro Quo:"
+
+#: ../gui/main.py:370
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+"Jika anda anggap program ini berguna dan banyak membantu anda menjimatkkan "
+"masa, sila bantu kami dengan pemberian sumbangan."
+
+#: ../gui/main.py:419 ../gui/main.py:443
+msgid "View IMDB info"
+msgstr "Papar maklumat IMDB"
+
+#: ../gui/main.py:422
+msgid "Set IMDB info..."
+msgstr "Tetapkan maklumat IMDB..."
+
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr "Muat Turun"
+
+#: ../gui/main.py:431
+msgid "Play video + subtitle"
+msgstr "Mainkan video + sari kata"
+
+#: ../gui/main.py:436
+msgid "View online info"
+msgstr "Papar maklumat atas talian"
+
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
+#: ../gui/expiration.py:95
+msgid "Info"
+msgstr "Maklumat"
+
+#: ../gui/main.py:508
+msgid "New Version Detected"
+msgstr "Versi Baru Dikesan"
+
+#: ../gui/main.py:509
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+"Versi baru SubDownloader telah dilepaskan.\n"
+"\n"
+"Versi Baru: %s\n"
+"Versi Semasa: %s\n"
+"\n"
+"Adakah anda ingin memuat turun versi baru sekarang?"
+
+#: ../gui/main.py:534
+msgid "Users online: Updating..."
+msgstr "Pengguna atas talian: Mengemaskini..."
+
+#: ../gui/main.py:537
+#, python-format
+msgid "Users online: %s"
+msgstr "Pengguna atas talian: %s"
+
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "Pengguna atas talian: RALAT"
+
+#: ../gui/main.py:549 ../gui/main.py:553
+msgid "Logging in..."
+msgstr "Mendaftar masuk..."
+
+#: ../gui/main.py:549 ../gui/main.py:1168
+msgid "&Cancel"
+msgstr "&Batal"
+
+#: ../gui/main.py:550 ../gui/login_ui.py:57
+msgid "Authentication"
+msgstr "Pengesahihan"
+
+#: ../gui/main.py:561
+#, python-format
+msgid "Logged as %s"
+msgstr "Mendaftar sebagai %s"
+
+#: ../gui/main.py:568
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "Daftar masuk sebagai %s: RALAT"
+
+#: ../gui/main.py:572
+msgid "Login: ERROR"
+msgstr "Daftar Masuk: RALAT"
+
+#: ../gui/main.py:588
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "SubDownloader %s - %s"
+
+#: ../gui/main.py:607 ../gui/expiration.py:96
+msgid "Program Registered"
+msgstr "Program Telah Didaftarkan"
+
+#: ../gui/main.py:643
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr "(Program Belum Didaftarkan, %d hari luput)"
+
+#: ../gui/main.py:661
+msgid "Expiration Reminder"
+msgstr "Peringatan Tamat Tempoh"
+
+#: ../gui/main.py:661
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+"Program akan luput dalam masa %d hari.\n"
+"Adakah anda ingin mengaktifkannya sekarang?"
+
+#: ../gui/main.py:662
+msgid "Activate"
+msgstr "Aktifkan"
+
+#: ../gui/main.py:694 ../gui/main.py:695
+msgid "All languages"
+msgstr "Semua bahasa"
+
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
+msgid "You are not connected to the server. Please reconnect first."
+msgstr ""
+"Anda tidak menyambung ke pelayan. Sila sambung semula terlebih dahulu."
+
+#: ../gui/main.py:759
+msgid "Scanning files"
+msgstr "Mengimbas fail"
+
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
+msgid "&Abort"
+msgstr "Henti P&aksa"
+
+#: ../gui/main.py:760
+msgid "Scanning..."
+msgstr "Mengimbas..."
+
+#: ../gui/main.py:786
+msgid "Scan Results"
+msgstr "Hasil imbasan"
+
+#: ../gui/main.py:786
+msgid "No video has been found!"
+msgstr "Tiada video ditemui!"
+
+#: ../gui/main.py:789
+msgid "Searching subtitles..."
+msgstr "Menggelintar sari kata..."
+
+#: ../gui/main.py:790
+msgid "Asking Server..."
+msgstr "Menanya Pelayan..."
+
+#: ../gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr "Menggelintar sari kata ( %d / %d )"
+
+#: ../gui/main.py:842
+msgid "Search finished"
+msgstr "Gelintar selesai"
+
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
+msgid "Movie Info"
+msgstr "Info Cereka"
+
+#: ../gui/main.py:865 ../gui/main.py:880
+msgid "Sub Info"
+msgstr "Maklumat Sari Kata"
+
+#: ../gui/main.py:888
+msgid "You must select a folder first"
+msgstr "Anda mesti pilih folder terlebih dahulu"
+
+#: ../gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr "Pilih video yang memerlukan sari kata"
+
+#: ../gui/main.py:912
+msgid "Select the directory that contains your videos"
+msgstr "Pilih direktori yang mengandungi video anda"
+
+#: ../gui/main.py:936
+msgid "No default video player has been defined in Settings."
+msgstr "Tiada pemain video lalai telah ditetapkan didalam Tetapan."
+
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
+msgid "Downloading files..."
+msgstr "Memuat turun fail..."
+
+#: ../gui/main.py:946
+msgid "Playing video + sub"
+msgstr "Memainkan video + sari kata"
+
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "Tidak boleh memuat turun sari kata %s"
+
+#: ../gui/main.py:984
+msgid "Unable to launch videoplayer"
+msgstr "Tidak boleh melancarkan pemain video"
+
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
+msgid "Save as..."
+msgstr "Simpan sebagai..."
+
+#: ../gui/main.py:1029 ../gui/main.py:1572
+msgid "No subtitles selected to be downloaded"
+msgstr "Tiada sari kata dipilih untuk dimuat turun"
+
+#: ../gui/main.py:1038
+msgid "Downloading..."
+msgstr "Memuat turun..."
+
+#: ../gui/main.py:1047 ../gui/main.py:1121
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "Memuat turun sari kata %s (%d/%d)"
+
+#: ../gui/main.py:1053
+msgid "Error write permission"
+msgstr "Ralat kebenaran tulis"
+
+#: ../gui/main.py:1054
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s tidak dapat disimpan.\n"
+"Semak sama ada folder sudah wujud dan anda mempunyai kebenaran capai-tulis."
+
+#: ../gui/main.py:1068 ../gui/main.py:1105
+msgid "Save subtitle as..."
+msgstr "Simpan sari kata sebagai..."
+
+#: ../gui/main.py:1084
+msgid "File already exists"
+msgstr "Fail sudah wujud"
+
+#: ../gui/main.py:1084
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+"Setempat: %s\n"
+"\n"
+"Jauh: %s\n"
+"\n"
+"Bagaimana anda hendak teruskan?"
+
+#: ../gui/main.py:1085
+msgid "Skip"
+msgstr "Langkau"
+
+#: ../gui/main.py:1087
+msgid "Replace"
+msgstr "Gantikan"
+
+#: ../gui/main.py:1088
+msgid "Replace all"
+msgstr "Ganti semua"
+
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
+msgstr "Batal"
+
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "Waspada"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitle.org tidak bertindak balas\n"
+"Ia mungkin sudah terlampau sarat, cuba lagi kemudian."
+
+#: ../gui/main.py:1168
+msgid "Connecting to server..."
+msgstr "Menyambung ke pelayan..."
+
+#: ../gui/main.py:1169
+msgid "Connecting"
+msgstr "Menyambung"
+
+#: ../gui/main.py:1182
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "Menyambung ke pelayan menggunakan proksi %s"
+
+#: ../gui/main.py:1188
+msgid "Connected successfully"
+msgstr "Sambungan berjaya"
+
+#: ../gui/main.py:1216 ../gui/preferences.py:67
+msgid "Select a directory"
+msgstr "Pilih direktori"
+
+#: ../gui/main.py:1252
+msgid "Please identify the movie."
+msgstr "Sila kenalpasti cereka."
+
+#: ../gui/main.py:1255
+msgid "Uploading subtitle"
+msgstr "Memut naik sari kata"
+
+#: ../gui/main.py:1256
+msgid "Uploading..."
+msgstr "Memuat naik..."
+
+#: ../gui/main.py:1288
+msgid "Successful Upload"
+msgstr "Muat Naik Berjaya"
+
+#: ../gui/main.py:1289
+msgid ""
+"Subtitles successfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+"Sari kata berjaya dimuat naikkan.\n"
+"Terima Kasih!"
+
+#: ../gui/main.py:1296
+msgid "View Subtitle Info"
+msgstr "Papar Maklumat Sari Kata"
+
+#: ../gui/main.py:1302
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"Masalah semasa memuat naik...\n"
+"Ralat: %s"
+
+#: ../gui/main.py:1305
+msgid "Error contacting the server. Please restart or try later"
+msgstr ""
+"Ralat menyambung ke pelayan. Sila mula semula atau cuba lagi kemudian"
+
+#: ../gui/main.py:1328
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "↓ Cereka dikesan secara automatik dari fail .nfo"
+
+#: ../gui/main.py:1331
+msgid "↓ Movie autodetected from database"
+msgstr "↓ Cereka dikesan secara automatik dari pengkalan data"
+
+#: ../gui/main.py:1370
+msgid "↑ Language autodetected from database"
+msgstr "↑ Bahasa dikesan secara automatik dari pengkalan data"
+
+#: ../gui/main.py:1374
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "↑ Bahasa dikesan secara automatik dari pengkalan data"
+
+#: ../gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "↑ Bahasa dikesan secara automatik dari kandungan sari kata"
+
+#: ../gui/main.py:1428
+msgid "Browse video..."
+msgstr "Layar video..."
+
+#: ../gui/main.py:1445
+msgid "Browse subtitle..."
+msgstr "Layar sari kata..."
+
+#: ../gui/main.py:1498
+msgid "You must enter at least one character in movie name"
+msgstr "Anda mesti masukkan sekurang-kurangnya satu aksara pada nama cereka"
+
+#: ../gui/main.py:1501 ../gui/main.py:1654
+msgid "Searching..."
+msgstr "Menggelintar..."
+
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr "Gelintar"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "Sila pilih lokasi untuk penyimpanan sari kata ini"
+
+#: ../gui/main.py:1586
+msgid "Downloading"
+msgstr "Memuat Turun"
+
+#: ../gui/main.py:1606
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "Memuat turun %s ke %s"
+
+#: ../gui/main.py:1622
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+"Ralat berlaku semasa memuat turun %s:\n"
+"Ralat:%s"
+
+#: ../gui/main.py:1644
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+"Ralat berlaku semasa menyahzip %s:\n"
+"Ralat: %s"
+
+#: ../gui/main.py:1649
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "Sari kata untuk %d telah berjaya dimuat turun."
+
+#: ../gui/main.py:1649
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"Sari kata yang telah dimuat turun berkemungkinan tidak segerak dengan fail "
+"video anda, sila buat semakan secara manual.\n"
+"Jika tiada masalah penyegerakan, sila muat naik semula sari kata tersebut "
+"menggunakan SubDownloader.\n"
+"Langkah ini membolehkan sari kata tersebut di cari oleh pengguna lain!"
+
+#: ../gui/main.py:1678
+msgid "A new version of SubDownloader has been released."
+msgstr "Versi baru SubDownloader telah dikeluarkan."
+
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr "Daftar masuk ke OpenSubtitle.org"
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr "Nama Pengguna:"
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr "Kata Laluan:"
+
+#: ../gui/imdbSearch.py:43
+msgid "Please fill out the search title"
+msgstr "Sila isi tajuk yang akan digelintarkan"
+
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
+msgid "Please search and select a movie from the list"
+msgstr "Sila gelintar dan pilih cereka dari senarai"
+
+#: ../gui/main_ui.py:678
+msgid "SubDownloader"
+msgstr "SubDownloader"
+
+#: ../gui/main_ui.py:679
+msgid "Select the video/folder that needs subtitles:"
+msgstr "Sila pilih video/fail yang memerlukan sari kata:"
+
+#: ../gui/main_ui.py:680
+msgid "Select videos that need subtitles"
+msgstr "Sila pilih video yang memerlukan sari kata"
+
+#: ../gui/main_ui.py:681
+msgid "Select videos..."
+msgstr "Sila pilih video..."
+
+#: ../gui/main_ui.py:682 ../gui/main_ui.py:684
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr ""
+"Klik di sini untuk menggelintar sari kata cereka di dalam fail tersebut"
+
+#: ../gui/main_ui.py:683
+msgid "Select folder..."
+msgstr "Sila pilih fail..."
+
+#: ../gui/main_ui.py:685
+msgid "Search subtitles"
+msgstr "Gelintar sari kata"
+
+#: ../gui/main_ui.py:686
+msgid "Videos/Subtitles found:"
+msgstr "Video/Sari kata ditemui:"
+
+#: ../gui/main_ui.py:687
+msgid "Filter by:"
+msgstr "Tapis berdasarkan:"
+
+#: ../gui/main_ui.py:694
+msgid "Play"
+msgstr "Mainkan"
+
+#: ../gui/main_ui.py:696
+msgid "Search from Video file(s)"
+msgstr "Gelintar dari fail Video"
+
+#: ../gui/main_ui.py:698
+msgid "Site:"
+msgstr "Laman:"
+
+#: ../gui/main_ui.py:699
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: ../gui/main_ui.py:700
+msgid "Subtitles found:"
+msgstr "Sari kata ditemui:"
+
+#: ../gui/main_ui.py:701
+msgid "Filter by :"
+msgstr "Tapis berdasarkan :"
+
+#: ../gui/main_ui.py:704
+msgid "Search by Movie Name"
+msgstr "Gelintar berdasarkan Nama Cereka"
+
+#: ../gui/main_ui.py:705
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr "Sila pilih video dan sari kata (hanya sari kata akan di muat naik):"
+
+#: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
+#: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
+#: ../gui/main_ui.py:725 ../gui/main_ui.py:726
+msgid "..."
+msgstr "..."
+
+#: ../gui/main_ui.py:709
+msgid "Empty the list"
+msgstr "Kosongkan senarai"
+
+#: ../gui/main_ui.py:713
+msgid "Details:"
+msgstr "Perincian:"
+
+#: ../gui/main_ui.py:718
+msgid "Movie Title:"
+msgstr "Tajuk Cereka:"
+
+#: ../gui/main_ui.py:719
+msgid "Click on the Find button to identify the movie"
+msgstr "Klik butang Cari untuk mengenal pasti cereka"
+
+#: ../gui/main_ui.py:720
+msgid "Find"
+msgstr "Cari"
+
+#: ../gui/main_ui.py:727
+msgid "Release name:"
+msgstr "Nama diepaskan:"
+
+#: ../gui/main_ui.py:728
+msgid "Comments:"
+msgstr "Ulasan:"
+
+#: ../gui/main_ui.py:729
+msgid "Subtitle Language:"
+msgstr "Bahasa Sari Kata:"
+
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "Muat Naik"
+
+#: ../gui/main_ui.py:731
+msgid "Upload subtitles"
+msgstr "Muat Naik Sari Kata"
+
+#: ../gui/main_ui.py:732
+msgid "&Main"
+msgstr "&Utama"
+
+#: ../gui/main_ui.py:733
+msgid "&Help"
+msgstr "&Bantuan"
+
+#: ../gui/main_ui.py:734
+msgid "&Settings"
+msgstr "&Tetapan"
+
+#: ../gui/main_ui.py:735
+msgid "&View"
+msgstr "&Papar"
+
+#: ../gui/main_ui.py:736
+msgid "Quit"
+msgstr "Keluar"
+
+#: ../gui/main_ui.py:737
+msgid "Visit HomePage"
+msgstr "Lawati Laman Sesawang"
+
+#: ../gui/main_ui.py:739
+msgid "Report A Problem"
+msgstr "Laporkan Masalah"
+
+#: ../gui/main_ui.py:741
+msgid "&Configure Subdownloader"
+msgstr "&Konfigur SubDownloader"
+
+#: ../gui/main_ui.py:742
+msgid "LogIn"
+msgstr "Daftar Masuk"
+
+#: ../gui/main_ui.py:743
+msgid "Log Messages"
+msgstr "Mesej Log"
+
+#: ../gui/main_ui.py:744
+msgid "Show/Hide Tree Folder"
+msgstr "Papar/Sembunyi Folder Pepohon"
+
+#: ../gui/main_ui.py:745
+msgid "LogOut"
+msgstr "Daftar Keluar"
+
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "Terjemahkan Aplikasi Ini"
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "Dialog gelintar IMDB:"
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "Masukkan Tajuk Cereka atau id IMDB:"
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "Gelintar Cereka"
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr "OK"
+
+#: ../gui/preferences.py:36
+msgid "<AutoDetect>"
+msgstr "<AutoKesan>"
+
+#: ../gui/preferences.py:76
+msgid "Select the Video Player executable file"
+msgstr "Pilih fail boleh laku Pemain Video"
+
+#: ../gui/preferences.py:81
+msgid "The new language will be displayed after restarting the program."
+msgstr "Bahasa baru akan dipaparkan selepas memulakan semula program."
+
+#: ../gui/preferences.py:143
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "Benarkan didalam Konqueror/Dolphin/Nautilus anda"
+
+#: ../gui/preferences.py:146
+msgid "Enable in your Windows Explorer"
+msgstr "Benarkan didalam Windowa Explorer anda"
+
+#: ../gui/preferences.py:149
+msgid "Enable in your File Manager"
+msgstr "Benarkan didalam Pengurus Fail anda"
+
+#: ../gui/preferences.py:157
+msgid "Predefined Folder cannot be empty"
+msgstr "Folder pratakrif tidak boleh kosong"
+
+#: ../gui/preferences.py:214
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr ""
+"Tetapan proksi yang diubahsuai akan berkesan selepas memulakan semula program"
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr "Program akan luput dalam tempoh %d hari."
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr "Aktifkan Program"
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr "Program akan luput selepas %d hari penggunaan."
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr "Beberapa medan kosong.. sila isikannya."
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "Tetapan"
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "Tapiskan hasil gelintar berdasarkan bahasa ini:"
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "Folder destinasi:"
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "Sentiasa tanya pengguna"
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "Sama folder seperti fail video"
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "Folder pratakrif:"
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "Layar..."
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "Nama Fail Sari Kata:"
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "Nama sama seperti fail video"
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr "Nama sama seperti fail video + kod bahasa (cth: StarWarsCD1.eng.srt)"
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr "Nama sama seperti sari kata atas talian"
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr "Bahasa lalai sari kata yang dimuat naik"
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr "Proksi Rangkaian"
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "Hos:"
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "Port:"
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr "Rangkaian"
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr "Bahasa Antara Muka:"
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr "Menu Konteks:"
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "Benarkan didalam pelayar anda"
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr "Aplikasi luaran untuk main balik video"
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr "Pemain Video:"
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "Parameter:"
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0} = laluan fail video; {1} = laluan sari kata"
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr "Lain-lain"
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
+msgstr "Simpan"

@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: OpenSubtitles.org\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-03 23:57+0100\n"
-"PO-Revision-Date: 2010-03-30 21:48+0000\n"
-"Last-Translator: AJenbo <anders@jenbo.dk>\n"
+"PO-Revision-Date: 2013-02-02 00:14+0000\n"
+"Last-Translator: Per Bovbjerg <per.bovbjerg@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-10 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
 
 #: ../FileManagement/FileScan.py:91
 #, python-format
@@ -60,7 +60,7 @@ msgstr "Baskisk"
 
 #: ../languages/Languages.py:20
 msgid "Chinese (China)"
-msgstr ""
+msgstr "Kinesisk (Kina)"
 
 #: ../languages/Languages.py:21
 msgid "Croatian"
@@ -80,11 +80,11 @@ msgstr "Hollandsk"
 
 #: ../languages/Languages.py:25
 msgid "English (US)"
-msgstr ""
+msgstr "Engelsk (US)"
 
 #: ../languages/Languages.py:26
 msgid "English (UK)"
-msgstr ""
+msgstr "Engelsk (UK)"
 
 #: ../languages/Languages.py:27
 msgid "Esperanto"
@@ -104,7 +104,7 @@ msgstr "Fransk"
 
 #: ../languages/Languages.py:31
 msgid "Galician"
-msgstr ""
+msgstr "Galicisk"
 
 #: ../languages/Languages.py:32
 msgid "Georgian"
@@ -176,11 +176,11 @@ msgstr "Polsk"
 
 #: ../languages/Languages.py:49
 msgid "Portuguese (Portugal)"
-msgstr ""
+msgstr "Portugisisk (Portugal)"
 
 #: ../languages/Languages.py:50
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portugisisk (Brasilien)"
 
 #: ../languages/Languages.py:51
 msgid "Romanian"
@@ -204,7 +204,7 @@ msgstr "Slovensk"
 
 #: ../languages/Languages.py:56
 msgid "Spanish (Spain)"
-msgstr ""
+msgstr "Spansk (Spanien)"
 
 #: ../languages/Languages.py:57
 msgid "Swedish"
@@ -334,7 +334,7 @@ msgstr "Klik her for at vælge underteksten..."
 
 #: ../gui/main.py:24
 msgid "Loading..."
-msgstr ""
+msgstr "Indlæser..."
 
 #: ../gui/main.py:56
 msgid "Building main dialog..."
@@ -506,12 +506,12 @@ msgstr "&Annuler"
 
 #: ../gui/main.py:550 ../gui/login_ui.py:57
 msgid "Authentication"
-msgstr ""
+msgstr "Autentificering"
 
 #: ../gui/main.py:561
 #, python-format
 msgid "Logged as %s"
-msgstr "Logged som %s"
+msgstr "Logget som %s"
 
 #: ../gui/main.py:568
 #, python-format
@@ -573,7 +573,7 @@ msgstr "&Afbryd"
 
 #: ../gui/main.py:760
 msgid "Scanning..."
-msgstr ""
+msgstr "Skanner..."
 
 #: ../gui/main.py:786
 msgid "Scan Results"
@@ -581,7 +581,7 @@ msgstr "Skanner resultater"
 
 #: ../gui/main.py:786
 msgid "No video has been found!"
-msgstr ""
+msgstr "Der er ikke blevet fundet nogen video"
 
 #: ../gui/main.py:789
 msgid "Searching subtitles..."
@@ -623,7 +623,7 @@ msgstr "Vælg det bibliotek der indeholder dine videoer"
 
 #: ../gui/main.py:936
 msgid "No default video player has been defined in Settings."
-msgstr "Ingen standart videoafspiller er blevet defineret i Indstillinger."
+msgstr "Ingen standard videoafspiller er blevet defineret i Indstillinger."
 
 #: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
 msgid "Downloading files..."
@@ -652,7 +652,7 @@ msgstr "Ingen undertekster er valgt til download"
 
 #: ../gui/main.py:1038
 msgid "Downloading..."
-msgstr ""
+msgstr "Downloader..."
 
 #: ../gui/main.py:1047 ../gui/main.py:1121
 #, python-format
@@ -720,6 +720,8 @@ msgid ""
 "www.opensubtitles.org is not responding\n"
 "It might be overloaded, try again in a few moments."
 msgstr ""
+"www.opensubtitles.org svarer ikke\n"
+"Serveren kan være overbelastet - prøv igen om lidt."
 
 #: ../gui/main.py:1168
 msgid "Connecting to server..."
@@ -736,7 +738,7 @@ msgstr "Tilslutter til serveren via proxy %s"
 
 #: ../gui/main.py:1188
 msgid "Connected successfully"
-msgstr ""
+msgstr "Forbindelse lykkedes"
 
 #: ../gui/main.py:1216 ../gui/preferences.py:67
 msgid "Select a directory"
@@ -763,6 +765,8 @@ msgid ""
 "Subtitles successfully uploaded.\n"
 "Many Thanks!"
 msgstr ""
+"Undertekster er blevet uploadet med success.\n"
+"Mange tak!"
 
 #: ../gui/main.py:1296
 msgid "View Subtitle Info"
@@ -812,7 +816,7 @@ msgstr "Gennemse undertekst..."
 
 #: ../gui/main.py:1498
 msgid "You must enter at least one character in movie name"
-msgstr ""
+msgstr "Du skal indtaste mindst en karakter i filmnavnet."
 
 #: ../gui/main.py:1501 ../gui/main.py:1654
 msgid "Searching..."
@@ -930,7 +934,7 @@ msgstr "Videoer/Undertekster fundet:"
 
 #: ../gui/main_ui.py:687
 msgid "Filter by:"
-msgstr ""
+msgstr "Filtrer ud fra:"
 
 #: ../gui/main_ui.py:694
 msgid "Play"
@@ -1128,7 +1132,7 @@ msgstr "Dette program er udløbet efter %d dages brug."
 
 #: ../gui/expiration.py:85
 msgid "Some fields are empty.. please fill them."
-msgstr ""
+msgstr "Nogle felter er tomme.. vær venlig at udfylde dem."
 
 #: ../gui/preferences_ui.py:268
 msgid "Settings"
@@ -1176,7 +1180,7 @@ msgstr "Samme navn som den online tilgængelige undertekst"
 
 #: ../gui/preferences_ui.py:281
 msgid "Default language of uploaded subtitles"
-msgstr "Standart sprog for uploadede undetekster"
+msgstr "Standard sprog for uploadede undertekster"
 
 #: ../gui/preferences_ui.py:283
 msgid "Network Proxy"
@@ -1229,9 +1233,3 @@ msgstr "Andre"
 #: ../gui/preferences_ui.py:297
 msgid "Save"
 msgstr "Gem"
-
-#~ msgid "Not Connected"
-#~ msgstr "Ikke Forbundet"
-
-#~ msgid "Login:"
-#~ msgstr "Log ind:"

@@ -1,0 +1,1235 @@
+# Arabic translation for subdownloader
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the subdownloader package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: subdownloader\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-09-03 23:57+0100\n"
+"PO-Revision-Date: 2011-05-19 06:03+0000\n"
+"Last-Translator: nouf <Unknown>\n"
+"Language-Team: Arabic <ar@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
+"X-Generator: Launchpad (build 18298)\n"
+
+#: ../gui/main_ui.py:706 ../gui/main_ui.py:707 ../gui/main_ui.py:708
+#: ../gui/main_ui.py:710 ../gui/main_ui.py:711 ../gui/main_ui.py:712
+#: ../gui/main_ui.py:725 ../gui/main_ui.py:726
+msgid "..."
+msgstr "..."
+
+#: ../FileManagement/FileScan.py:91
+#, python-format
+msgid "Parsing video: %s"
+msgstr "تحليل الفيديو : %s"
+
+#: ../FileManagement/FileScan.py:104 ../FileManagement/FileScan.py:135
+#, python-format
+msgid "Parsing sub: %s"
+msgstr "تحليل الترجمة : %s"
+
+#: ../FileManagement/FileScan.py:105 ../FileManagement/FileScan.py:136
+msgid "Finished hashing"
+msgstr "انتهى انشاء دالة التجزئة (hashing)"
+
+#: ../languages/Languages.py:12
+msgid "Albanian"
+msgstr "الألبانية"
+
+#: ../languages/Languages.py:13
+msgid "Arabic"
+msgstr "العربية"
+
+#: ../languages/Languages.py:14
+msgid "Armenian"
+msgstr "الأرمنية"
+
+#: ../languages/Languages.py:15
+msgid "Malay"
+msgstr "الملايو"
+
+#: ../languages/Languages.py:16
+msgid "Bosnian"
+msgstr "البوسنية"
+
+#: ../languages/Languages.py:17
+msgid "Bulgarian"
+msgstr "البلغاريّة"
+
+#: ../languages/Languages.py:18
+msgid "Catalan"
+msgstr "الكاتالانية"
+
+#: ../languages/Languages.py:19
+msgid "Basque"
+msgstr "الباسكية"
+
+#: ../languages/Languages.py:20
+msgid "Chinese (China)"
+msgstr "الصينية (الصين)"
+
+#: ../languages/Languages.py:21
+msgid "Croatian"
+msgstr "الكرواتية"
+
+#: ../languages/Languages.py:22
+msgid "Czech"
+msgstr "التشيكية"
+
+#: ../languages/Languages.py:23
+msgid "Danish"
+msgstr "الدانماركية"
+
+#: ../languages/Languages.py:24
+msgid "Dutch"
+msgstr "الهولندية"
+
+#: ../languages/Languages.py:25
+msgid "English (US)"
+msgstr "الإنجليزية (الولايات المتحدة)"
+
+#: ../languages/Languages.py:26
+msgid "English (UK)"
+msgstr "الإنجليزية (المملكة المتحدة)"
+
+#: ../languages/Languages.py:27
+msgid "Esperanto"
+msgstr "الإسبرانتو"
+
+#: ../languages/Languages.py:28
+msgid "Estonian"
+msgstr "الإستونية"
+
+#: ../languages/Languages.py:29
+msgid "Finnish"
+msgstr "الفنلندية"
+
+#: ../languages/Languages.py:30
+msgid "French"
+msgstr "الفرنسية"
+
+#: ../languages/Languages.py:31
+msgid "Galician"
+msgstr "الجاليكية"
+
+#: ../languages/Languages.py:32
+msgid "Georgian"
+msgstr "الجورجية"
+
+#: ../languages/Languages.py:33
+msgid "German"
+msgstr "الألمانية"
+
+#: ../languages/Languages.py:34
+msgid "Greek"
+msgstr "اليونانية"
+
+#: ../languages/Languages.py:35
+msgid "Hebrew"
+msgstr "العبرية"
+
+#: ../languages/Languages.py:36
+msgid "Hungarian"
+msgstr "الهنغارية"
+
+#: ../languages/Languages.py:37
+msgid "Indonesian"
+msgstr "الإندونيسية"
+
+#: ../languages/Languages.py:38
+msgid "Italian"
+msgstr "الإيطالية"
+
+#: ../languages/Languages.py:39
+msgid "Japanese"
+msgstr "اليابانية"
+
+#: ../languages/Languages.py:40
+msgid "Kazakh"
+msgstr "الكازاخية"
+
+#: ../languages/Languages.py:41
+msgid "Korean"
+msgstr "الكوريّة"
+
+#: ../languages/Languages.py:42
+msgid "Latvian"
+msgstr "اللاتفية"
+
+#: ../languages/Languages.py:43
+msgid "Lithuanian"
+msgstr "الليتوانية"
+
+#: ../languages/Languages.py:44
+msgid "Luxembourgish"
+msgstr "اللوكسمبرجية"
+
+#: ../languages/Languages.py:45
+msgid "Macedonian"
+msgstr "المقدونية"
+
+#: ../languages/Languages.py:46
+msgid "Norwegian"
+msgstr "النرويجية"
+
+#: ../languages/Languages.py:47
+msgid "Persian"
+msgstr "الفارسية"
+
+#: ../languages/Languages.py:48
+msgid "Polish"
+msgstr "البولندية"
+
+#: ../languages/Languages.py:49
+msgid "Portuguese (Portugal)"
+msgstr "البرتغالية (البرتغال)"
+
+#: ../languages/Languages.py:50
+msgid "Portuguese (Brazil)"
+msgstr "البرتغالية (البرازيل)"
+
+#: ../languages/Languages.py:51
+msgid "Romanian"
+msgstr "الرومانية"
+
+#: ../languages/Languages.py:52
+msgid "Russian"
+msgstr "الروسية"
+
+#: ../languages/Languages.py:53
+msgid "Serbian"
+msgstr "الصربية"
+
+#: ../languages/Languages.py:54
+msgid "Slovak"
+msgstr "السلوفاكية"
+
+#: ../languages/Languages.py:55
+msgid "Slovenian"
+msgstr "السلوفينية"
+
+#: ../languages/Languages.py:56
+msgid "Spanish (Spain)"
+msgstr "الإسبانية (إسبانيا)"
+
+#: ../languages/Languages.py:57
+msgid "Swedish"
+msgstr "السويدية"
+
+#: ../languages/Languages.py:58
+msgid "Thai"
+msgstr "التايلاندية"
+
+#: ../languages/Languages.py:59
+msgid "Turkish"
+msgstr "التركيّة"
+
+#: ../languages/Languages.py:60
+msgid "Ukrainian"
+msgstr "الأوكرانية"
+
+#: ../languages/Languages.py:61
+msgid "Vietnamese"
+msgstr "الفيتنامية"
+
+#: ../gui/videotreeview.py:146 ../gui/main.py:560
+msgid "Anonymous"
+msgstr "مجهول"
+
+#: ../gui/videotreeview.py:154
+#, python-format
+msgid "[Rate: %s]"
+msgstr "[التقييم: %s]"
+
+#: ../gui/videotreeview.py:157
+msgid "(Already downloaded)"
+msgstr "(محملة مسبقا)"
+
+#: ../gui/videotreeview.py:160 ../gui/videotreeview.py:169
+#, python-format
+msgid "Uploader: %s"
+msgstr "الرافع : %s"
+
+#: ../gui/videotreeview.py:165
+#, python-format
+msgid "Rate: %s"
+msgstr "التقييم : %s"
+
+#: ../gui/videotreeview.py:166
+#, python-format
+msgid "Format: %s"
+msgstr "الهيئة : %s"
+
+#: ../gui/videotreeview.py:167
+#, python-format
+msgid "Downloads: %d"
+msgstr "التنزيلات : %d"
+
+#: ../gui/videotreeview.py:168
+#, python-format
+msgid "CDs: %d"
+msgstr "الافراص المضغوطة : %d"
+
+#: ../gui/videotreeview.py:197 ../gui/videotreeview.py:219
+#, python-format
+msgid "[IMDB Rate: %s]"
+msgstr "[التقييم(IMDB): %s]"
+
+#: ../gui/videotreeview.py:220
+#, python-format
+msgid "(%d subtitles)"
+msgstr "(%d ترجمة)"
+
+#: ../gui/about_ui.py:122
+msgid "About Subdownloader"
+msgstr "عن منزّل الترجمات"
+
+#: ../gui/about_ui.py:145 ../gui/main_ui.py:738
+msgid "About"
+msgstr "حول"
+
+#: ../gui/about_ui.py:153
+msgid "Authors"
+msgstr "المؤلّفون"
+
+#: ../gui/about_ui.py:169
+msgid "License Agreement"
+msgstr "اتفاقية الترخيص"
+
+#: ../gui/about_ui.py:170
+msgid "Close"
+msgstr "أغلق"
+
+#: ../gui/uploadlistview.py:33
+msgid "Videofile"
+msgstr "ملف الفيديو"
+
+#: ../gui/uploadlistview.py:33
+msgid "Subtitle"
+msgstr "الترجمة"
+
+#: ../gui/uploadlistview.py:81
+msgid "The list of video/subtitle is empty"
+msgstr "قائمة الفيديو / الترجمة فارغة"
+
+#: ../gui/uploadlistview.py:88
+#, python-format
+msgid "Subtitle %s is repeated"
+msgstr "الترجمة %s مكررة"
+
+#: ../gui/uploadlistview.py:93
+#, python-format
+msgid "Videofile %s is repeated"
+msgstr "ملف الفيديو %s مكرّر"
+
+#: ../gui/uploadlistview.py:99
+msgid "Some of the upload rows are empty"
+msgstr "عدد من الاسطر المحملة فارغة"
+
+#: ../gui/uploadlistview.py:104
+msgid "Some of the video/subtitles fields are empty"
+msgstr "عدة حقول الفيديو / الترجمات  فارغة"
+
+#: ../gui/uploadlistview.py:208
+msgid "Click here to select video..."
+msgstr "انقر هنا لاختيار الفيديو ..."
+
+#: ../gui/uploadlistview.py:213
+msgid "Click here to select subtitle..."
+msgstr "انقر هنا لاختيار الترجمة"
+
+#: ../gui/main.py:24
+msgid "Loading..."
+msgstr "جاري التحميل ..."
+
+#: ../gui/main.py:56
+msgid "Building main dialog..."
+msgstr "بناء النافذة الرئيسية ..."
+
+#: ../gui/main.py:87
+#, python-format
+msgid "SubDownloader %s"
+msgstr "منزّل الترجمات %s"
+
+#: ../gui/main.py:114
+#, python-format
+msgid "%d days to expire. Activate Program."
+msgstr "%d يوما لانتهاء الصلاحية . قم بتفعيل البرنامج."
+
+#: ../gui/main.py:228 ../gui/main.py:579
+msgid "Not logged yet"
+msgstr "لا ولوج مطلقا"
+
+#: ../gui/main.py:236 ../gui/main_ui.py:740
+msgid "Help Us With 5 USD/EUR"
+msgstr "ادعمنا بـ 5 دولار/يورو"
+
+#: ../gui/main.py:281 ../gui/main.py:289 ../gui/main.py:609 ../gui/main.py:616
+#: ../gui/main.py:753 ../gui/main.py:830 ../gui/main.py:896 ../gui/main.py:908
+#: ../gui/main.py:936 ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:984
+#: ../gui/main.py:1029 ../gui/main.py:1133 ../gui/main.py:1247
+#: ../gui/main.py:1252 ../gui/main.py:1302 ../gui/main.py:1305
+#: ../gui/main.py:1572 ../gui/main.py:1622 ../gui/main.py:1644
+#: ../gui/imdbSearch.py:43 ../gui/imdbSearch.py:52 ../gui/imdbSearch.py:79
+#: ../gui/imdbSearch.py:85 ../gui/login.py:59 ../gui/preferences.py:157
+#: ../gui/expiration.py:85 ../gui/expiration.py:100 ../gui/expiration.py:102
+msgid "Error"
+msgstr "خطأ"
+
+#: ../gui/main.py:281 ../gui/main.py:830 ../gui/imdbSearch.py:52
+#: ../gui/login.py:59
+msgid "Error contacting the server. Please try again later"
+msgstr "خطأ في التصال بالخادم. من فضلك حاول مرة اخرى بعد قليل"
+
+#: ../gui/main.py:289
+#, python-format
+msgid "Unable to find %s"
+msgstr "تعذر ايجاد %s"
+
+#: ../gui/main.py:366
+msgid "How To Use SubDownloader"
+msgstr "كيف تستعمل منزّل الترجمات"
+
+#: ../gui/main.py:367
+msgid "1st Tab:"
+msgstr "اللسان الاول :"
+
+#: ../gui/main.py:367
+msgid ""
+"Select, from the Folder Tree on the left, the folder which contains the "
+"videos that need subtitles. SubDownloader will then try to automatically "
+"find available subtitles."
+msgstr ""
+"اختر، من شجرة المجلدات في اليسار ، المجلد الذي يحتوي على الفيديوات التي "
+"تحتاج ترجمات.منزّل الترجمات سيحاول تلقائيا ايجاد الترجمات المتوفرة"
+
+#: ../gui/main.py:368
+msgid "2nd Tab:"
+msgstr "اللسان الثاني :"
+
+#: ../gui/main.py:368
+msgid ""
+"If you don't have the videos in your machine, you can search subtitles by "
+"introducing the title/name of the video."
+msgstr ""
+"ان لم تملك الفيديوات في الجهاز ،بامكانك البحث عن الترجمات بادخال اسم او "
+"عنوان الفيديو"
+
+#: ../gui/main.py:369
+msgid "3rd Tab:"
+msgstr "اللسان الثالث :"
+
+#: ../gui/main.py:369
+msgid ""
+"If you have found some subtitle somewhere else that it's not in "
+"SubDownloader database, please upload those subtitles so next users will be "
+"able to find them more easily."
+msgstr ""
+"اذا وجدت اي ترجمات لا تتوفر في قاعدة بيانات منزّل الترجمات، من فضلك حمّلهم "
+"لكي يتمكن المستخدمون اللاحقون من ايجادها بسهولة"
+
+#: ../gui/main.py:370
+msgid "Quid Pro Quo:"
+msgstr "مساعدة البعض للبعض :"
+
+#: ../gui/main.py:370
+msgid ""
+"If you think this program is useful and has saved you plenty of time, please "
+"help us by making a donation."
+msgstr ""
+"ان كنت تظن ان هذا البرنامج مفيد و يوفر الكثير من الوقت ،فمن جميل فضلك "
+"مساندتنا بالتبرعات"
+
+#: ../gui/main.py:419 ../gui/main.py:443
+msgid "View IMDB info"
+msgstr "عرض معلومات IMDB"
+
+#: ../gui/main.py:422
+msgid "Set IMDB info..."
+msgstr "ضبط معلومات IMDB"
+
+#: ../gui/main.py:428 ../gui/main_ui.py:695 ../gui/main_ui.py:703
+#: ../gui/preferences_ui.py:280
+msgid "Download"
+msgstr "تنزيل"
+
+#: ../gui/main.py:431
+msgid "Play video + subtitle"
+msgstr "اقرأ الفيديو + الترجمة"
+
+#: ../gui/main.py:436
+msgid "View online info"
+msgstr "عرض المعلومات الموجودة على الشبكة"
+
+#: ../gui/main.py:451 ../gui/main.py:888 ../gui/main.py:1498
+#: ../gui/expiration.py:95
+msgid "Info"
+msgstr "معلومات"
+
+#: ../gui/main.py:508
+msgid "New Version Detected"
+msgstr "نسخة جديدة متوفرة"
+
+#: ../gui/main.py:509
+#, python-format
+msgid ""
+"A new version of SubDownloader has been released.\n"
+"\n"
+"New Version: %s\n"
+"Current Version: %s\n"
+"\n"
+"Would you like to download the new version now?"
+msgstr ""
+"نسخة جديدة من منزّل البرامج قد اصدرت.\n"
+"\n"
+"الاصدار الجديد: %s\n"
+"الاصدار الحالي: %s\n"
+"\n"
+"هل تريد تنزيل النسخة الجديدة الان؟"
+
+#: ../gui/main.py:534
+msgid "Users online: Updating..."
+msgstr "المستخدمون المتصلون : تحديث..."
+
+#: ../gui/main.py:537
+#, python-format
+msgid "Users online: %s"
+msgstr "المستخدمون المتصلون : %s"
+
+#: ../gui/main.py:539
+msgid "Users online: ERROR"
+msgstr "المستخدمون المتصلون : خطأ"
+
+#: ../gui/main.py:549 ../gui/main.py:553
+msgid "Logging in..."
+msgstr "جاري الولوج..."
+
+#: ../gui/main.py:549 ../gui/main.py:1168
+msgid "&Cancel"
+msgstr "إلغاء"
+
+#: ../gui/main.py:550 ../gui/login_ui.py:57
+msgid "Authentication"
+msgstr "المصادقة"
+
+#: ../gui/main.py:561
+#, python-format
+msgid "Logged as %s"
+msgstr "تم الولوج ك %s"
+
+#: ../gui/main.py:568
+#, python-format
+msgid "Login as %s: ERROR"
+msgstr "تم الولوج ك %s: خطأ"
+
+#: ../gui/main.py:572
+msgid "Login: ERROR"
+msgstr "ولوج : خطأ"
+
+#: ../gui/main.py:588
+#, python-format
+msgid "SubDownloader %s - %s"
+msgstr "منزّل الترجمات %s - %s"
+
+#: ../gui/main.py:607 ../gui/expiration.py:96
+msgid "Program Registered"
+msgstr "برنامج مُسجّل"
+
+#: ../gui/main.py:643
+#, python-format
+msgid "(Unregistered Program, %d days to expire)"
+msgstr "(برنامج غير مسجّل ، %d يوما باق لانتهاء صلاحيته)"
+
+#: ../gui/main.py:661
+msgid "Expiration Reminder"
+msgstr "مذكّرة انتهاء الصلاحية"
+
+#: ../gui/main.py:661
+#, python-format
+msgid ""
+"The program will expire in %d days.\n"
+"Would you like to activate it now?"
+msgstr ""
+"البرنامج ستنتهي صلاحيته في %d يوم. \n"
+"هل تريد تنشيطه الآن؟"
+
+#: ../gui/main.py:662
+msgid "Activate"
+msgstr "تنشيط"
+
+#: ../gui/main.py:694 ../gui/main.py:695
+msgid "All languages"
+msgstr "كل اللغات"
+
+#: ../gui/main.py:753 ../gui/main.py:896 ../gui/main.py:908
+msgid "You are not connected to the server. Please reconnect first."
+msgstr "أنت لست متّصلا بالخادوم.الرجاء أعد الاتصال أوّلا."
+
+#: ../gui/main.py:759
+msgid "Scanning files"
+msgstr "فحص الملفات"
+
+#: ../gui/main.py:759 ../gui/main.py:789 ../gui/main.py:945
+#: ../gui/main.py:1037 ../gui/main.py:1255 ../gui/main.py:1585
+#: ../gui/main.py:1654
+msgid "&Abort"
+msgstr "إ&جهاض"
+
+#: ../gui/main.py:760
+msgid "Scanning..."
+msgstr "جاري المسح..."
+
+#: ../gui/main.py:786
+msgid "Scan Results"
+msgstr "نتائج الفحص"
+
+#: ../gui/main.py:786
+msgid "No video has been found!"
+msgstr "لم يتم العثور على الفيديو!"
+
+#: ../gui/main.py:789
+msgid "Searching subtitles..."
+msgstr "يجري البحث عن ترجمات..."
+
+#: ../gui/main.py:790
+msgid "Asking Server..."
+msgstr "يجري سؤال الخادوم..."
+
+#: ../gui/main.py:804
+#, python-format
+msgid "Searching subtitles ( %d / %d )"
+msgstr "يجري البحث غن الترجمات ( %d / %d )"
+
+#: ../gui/main.py:842
+msgid "Search finished"
+msgstr "البحث انتهى"
+
+#: ../gui/main.py:859 ../gui/main.py:874 ../gui/main_ui.py:693
+#: ../gui/main_ui.py:702 ../gui/imdb_ui.py:79
+msgid "Movie Info"
+msgstr "معلومات الفيلم"
+
+#: ../gui/main.py:865 ../gui/main.py:880
+msgid "Sub Info"
+msgstr "معلومات الترجمة"
+
+#: ../gui/main.py:888
+msgid "You must select a folder first"
+msgstr "عليك اختيار مجلّد أوّلا"
+
+#: ../gui/main.py:900
+msgid "Select the video(s) that need subtitles"
+msgstr "اخثر الفيديو(هات) التي تحتاج ترجمات"
+
+#: ../gui/main.py:912
+msgid "Select the directory that contains your videos"
+msgstr "اختر المجلد الذي يحتوي على الفيديوهات خاصّتك"
+
+#: ../gui/main.py:936
+msgid "No default video player has been defined in Settings."
+msgstr "لم يتم تعيين أي قارئ فيديو افتراضي في الاعدادات."
+
+#: ../gui/main.py:945 ../gui/main.py:1037 ../gui/main.py:1585
+msgid "Downloading files..."
+msgstr "جاري تنزيل الملفات..."
+
+#: ../gui/main.py:946
+msgid "Playing video + sub"
+msgstr "قراءة الفيديو مع الترجمة"
+
+#: ../gui/main.py:953 ../gui/main.py:956 ../gui/main.py:1133
+#, python-format
+msgid "Unable to download subtitle %s"
+msgstr "تعذّر تنزيل الترجمة %s"
+
+#: ../gui/main.py:984
+msgid "Unable to launch videoplayer"
+msgstr "تعذّر تشغيل قارئ الفيديو"
+
+#: ../gui/main.py:1006 ../gui/main.py:1061 ../gui/main.py:1089
+msgid "Save as..."
+msgstr "حفظ كـ..."
+
+#: ../gui/main.py:1029 ../gui/main.py:1572
+msgid "No subtitles selected to be downloaded"
+msgstr "لم  تحدّد اي ترجمة لكي يتم تنزيلها"
+
+#: ../gui/main.py:1038
+msgid "Downloading..."
+msgstr "تحميل..."
+
+#: ../gui/main.py:1047 ../gui/main.py:1121
+#, python-format
+msgid "Downloading subtitle %s (%d/%d)"
+msgstr "جاري تنزيل الترجمة %s (%d/%d)"
+
+#: ../gui/main.py:1053
+msgid "Error write permission"
+msgstr "خطأ كتابة الإذن"
+
+#: ../gui/main.py:1054
+#, python-format
+msgid ""
+"%s cannot be saved.\n"
+"Check that the folder exists and you have write-access permissions."
+msgstr ""
+"%s لا يمكن حفظها\n"
+"تأكّد ان كان المجلّد موجود و انّك تملك إذني الكتابة و الوصول."
+
+#: ../gui/main.py:1068 ../gui/main.py:1105
+msgid "Save subtitle as..."
+msgstr "حفظ الترجمة كـ ..."
+
+#: ../gui/main.py:1084
+msgid "File already exists"
+msgstr "الملف موجود مسبقاً"
+
+#: ../gui/main.py:1084
+#, python-format
+msgid ""
+"Local: %s\n"
+"\n"
+"Remote: %s\n"
+"\n"
+"How would you like to proceed?"
+msgstr ""
+"المحلّي : %s\n"
+"\n"
+"البعيد : %s\n"
+"\n"
+"كيف تريد المتابعة؟"
+
+#: ../gui/main.py:1085
+msgid "Skip"
+msgstr "تخطّي"
+
+#: ../gui/main.py:1087
+msgid "Replace"
+msgstr "إستبدال"
+
+#: ../gui/main.py:1088
+msgid "Replace all"
+msgstr "استبدال الكل"
+
+#: ../gui/main.py:1090 ../gui/imdb_ui.py:81 ../gui/preferences_ui.py:298
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: ../gui/main.py:1140 ../gui/preferences.py:81 ../gui/preferences.py:214
+msgid "Alert"
+msgstr "تنبيه"
+
+#: ../gui/main.py:1140
+msgid ""
+"www.opensubtitles.org is not responding\n"
+"It might be overloaded, try again in a few moments."
+msgstr ""
+"www.opensubtitles.org لا يستجيب\n"
+"قد يكون الموقع مشغولا, الرجاء المحاولة مرة اخرى لاحقا"
+
+#: ../gui/main.py:1168
+msgid "Connecting to server..."
+msgstr "جاري الاتصال بالخادم..."
+
+#: ../gui/main.py:1169
+msgid "Connecting"
+msgstr "جاري الاتصال"
+
+#: ../gui/main.py:1182
+#, python-format
+msgid "Connecting to server using proxy %s"
+msgstr "جاري الاتصال الى الخادوم باستعمال البروكسي %s"
+
+#: ../gui/main.py:1188
+msgid "Connected successfully"
+msgstr "تم الاتصال بنجاح"
+
+#: ../gui/main.py:1216 ../gui/preferences.py:67
+msgid "Select a directory"
+msgstr "اخترمجلد"
+
+#: ../gui/main.py:1252
+msgid "Please identify the movie."
+msgstr "الرّجاء قم بتعريف الفيلم."
+
+#: ../gui/main.py:1255
+msgid "Uploading subtitle"
+msgstr "جاري رفع الترجمة"
+
+#: ../gui/main.py:1256
+msgid "Uploading..."
+msgstr "جاري عملية رفع البيانات..."
+
+#: ../gui/main.py:1288
+msgid "Successful Upload"
+msgstr "رفع بنجاح"
+
+#: ../gui/main.py:1289
+msgid ""
+"Subtitles successfully uploaded.\n"
+"Many Thanks!"
+msgstr ""
+"تم تحديث الترجمة بنجاح.\n"
+"نشكركم كثيرا!"
+
+#: ../gui/main.py:1296
+msgid "View Subtitle Info"
+msgstr "عرض معلومات الترجمة"
+
+#: ../gui/main.py:1302
+#, python-format
+msgid ""
+"Problem while uploading...\n"
+"Error: %s"
+msgstr ""
+"مشكلة اثناء الرفع...\n"
+"خطأ: %s"
+
+#: ../gui/main.py:1305
+msgid "Error contacting the server. Please restart or try later"
+msgstr "خطأ في الاتصال بالخادوم. الرّجاء اعد التشغيل او حاول لاحقا"
+
+#: ../gui/main.py:1328
+msgid "↓ Movie autodetected from .nfo file"
+msgstr "↓ تمّ التعرّف التلقائي على الفيلم من خلال ملف .nfo"
+
+#: ../gui/main.py:1331
+msgid "↓ Movie autodetected from database"
+msgstr "↓ تمّ التعرّف التلقائي على الفيلم من خلال قاعدة البيانلت"
+
+#: ../gui/main.py:1370
+msgid "↑ Language autodetected from database"
+msgstr "↓ تمّ التعرّف التلقائي على اللّغة من خلال قاعدة البيانلت"
+
+#: ../gui/main.py:1374
+msgid "↑ Language autodetected from subtitle's filename"
+msgstr "↓ تمّ التعرّف التلقائي على اللّغة من خلال اسم ملف الترجمة"
+
+#: ../gui/main.py:1378
+msgid "↑ Language autodetected from subtitle's content"
+msgstr "↓ تمّ التعرّف التلقائي على اللّغة من خلال محتوى الترجمة"
+
+#: ../gui/main.py:1428
+msgid "Browse video..."
+msgstr "استعرض بحثا عن فيديو..."
+
+#: ../gui/main.py:1445
+msgid "Browse subtitle..."
+msgstr "استعرض بحثا عن ترجمة..."
+
+#: ../gui/main.py:1498
+msgid "You must enter at least one character in movie name"
+msgstr "يجب على الاقل ادخال حرف واحد من اسم الفيلم"
+
+#: ../gui/main.py:1501 ../gui/main.py:1654
+msgid "Searching..."
+msgstr "جاري البحث..."
+
+#: ../gui/main.py:1502 ../gui/main.py:1655 ../gui/main_ui.py:697
+#: ../gui/preferences_ui.py:270
+msgid "Search"
+msgstr "بحث"
+
+#: ../gui/main.py:1581
+msgid "Select the directory where to save the subtitle(s)"
+msgstr "اختر المجلّد حيث تريد حفظ الترجمة(ات)"
+
+#: ../gui/main.py:1586
+msgid "Downloading"
+msgstr "جاري التنزيل"
+
+#: ../gui/main.py:1606
+#, python-format
+msgid "Downloading %s to %s"
+msgstr "جاري تنزيل %s الى %s"
+
+#: ../gui/main.py:1622
+#, python-format
+msgid ""
+"An error occured downloading %s:\n"
+"Error:%s"
+msgstr ""
+"حدث خطأ اثناء تنزيل %s:\n"
+"الخطأ : %s"
+
+#: ../gui/main.py:1644
+#, python-format
+msgid ""
+"An error occured unziping %s:\n"
+"Error: %s"
+msgstr ""
+"حدث خطأ اثناء فكّ الضغط %s :\n"
+"الخطأ : %s"
+
+#: ../gui/main.py:1649
+#, python-format
+msgid "%d subtitles downloaded successfully"
+msgstr "%d  ترجمة  تمّ تحميلها بنجاح"
+
+#: ../gui/main.py:1649
+msgid ""
+"The downloaded subtitle(s) may not be in sync with your video file(s), "
+"please check this manually.\n"
+"\n"
+"If there is no sync problem, please consider re-uploading using "
+"subdownloader. This will automate the search for other users!"
+msgstr ""
+"الترجمة(ات) المنزّلة قد لا تكون متزامنة مع ملف(ات) الفيديو الذي(التي) "
+"تملكه(ا)،قم بالتأكد من  هذا يدويا.\n"
+"اذا لم توجد مشكلة المزامنة،الرّجاء خد بعين الاعتبار اعادة رفعها باستعمال "
+"منزّل الترجمات. هذا سيجعل البحث تلقائيا للمستخدمين الاخرين!"
+
+#: ../gui/main.py:1678
+msgid "A new version of SubDownloader has been released."
+msgstr "نسخة جديدة من منزل البرامج تم إصدارها."
+
+#: ../gui/login_ui.py:58
+msgid "Login into OpenSubtitles.org"
+msgstr "دخول إلى OpenSubtitles.org"
+
+#: ../gui/login_ui.py:59
+msgid "Username:"
+msgstr "اسم المستخدم:"
+
+#: ../gui/login_ui.py:60
+msgid "Password:"
+msgstr "كلمة المرور :"
+
+#: ../gui/imdbSearch.py:43
+msgid "Please fill out the search title"
+msgstr "من فضلك , ضع عنوان البحث"
+
+#: ../gui/imdbSearch.py:79 ../gui/imdbSearch.py:85
+msgid "Please search and select a movie from the list"
+msgstr "من فضلك ابحث و اختر الفيلم من القائمة"
+
+#: ../gui/main_ui.py:678
+msgid "SubDownloader"
+msgstr "منزل الترجمات"
+
+#: ../gui/main_ui.py:679
+msgid "Select the video/folder that needs subtitles:"
+msgstr "اختر مجلّد/الفيديو الذي يحتاج الى الترجمة:"
+
+#: ../gui/main_ui.py:680
+msgid "Select videos that need subtitles"
+msgstr "اختر الفيديوهات التي تحتاج الى الترجمة"
+
+#: ../gui/main_ui.py:681
+msgid "Select videos..."
+msgstr "اختر الفيديوهات..."
+
+#: ../gui/main_ui.py:682 ../gui/main_ui.py:684
+msgid "Click here to Search the subtitles of the movies in that folder"
+msgstr "أنقر هنا للبحث عن ترجمات الأفلام في ذلك المجلّد"
+
+#: ../gui/main_ui.py:683
+msgid "Select folder..."
+msgstr "قم بتحديد مجلد ..."
+
+#: ../gui/main_ui.py:685
+msgid "Search subtitles"
+msgstr "ابحث عن الترجمات"
+
+#: ../gui/main_ui.py:686
+msgid "Videos/Subtitles found:"
+msgstr "تم ايجاد الفيديو/الترجمة:"
+
+#: ../gui/main_ui.py:687
+msgid "Filter by:"
+msgstr "تصفية ب:"
+
+#: ../gui/main_ui.py:694
+msgid "Play"
+msgstr "تشغيل"
+
+#: ../gui/main_ui.py:696
+msgid "Search from Video file(s)"
+msgstr "بحث من ملف(ات) الفيديو"
+
+#: ../gui/main_ui.py:698
+msgid "Site:"
+msgstr "الموقع:"
+
+#: ../gui/main_ui.py:699
+msgid "OpenSubtitles.org"
+msgstr "OpenSubtitles.org"
+
+#: ../gui/main_ui.py:700
+msgid "Subtitles found:"
+msgstr "تم ايجاد الترجمة:"
+
+#: ../gui/main_ui.py:701
+msgid "Filter by :"
+msgstr "الترشيح بواسطة :"
+
+#: ../gui/main_ui.py:704
+msgid "Search by Movie Name"
+msgstr "بحث بإستخدام اسم الفيلم"
+
+#: ../gui/main_ui.py:705
+msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
+msgstr "اختر الفيديو و الترجمات (سيتم رفع الترجمات فقط):"
+
+#: ../gui/main_ui.py:709
+msgid "Empty the list"
+msgstr "قم بتفريغ القائمة"
+
+#: ../gui/main_ui.py:713
+msgid "Details:"
+msgstr "التفاصيل:"
+
+#: ../gui/main_ui.py:718
+msgid "Movie Title:"
+msgstr "عنوان الفيلم:"
+
+#: ../gui/main_ui.py:719
+msgid "Click on the Find button to identify the movie"
+msgstr "انقر على زر البحث لتعيين الفيلم"
+
+#: ../gui/main_ui.py:720
+msgid "Find"
+msgstr "ايجاد"
+
+#: ../gui/main_ui.py:727
+msgid "Release name:"
+msgstr "إسم الإصدار:"
+
+#: ../gui/main_ui.py:728
+msgid "Comments:"
+msgstr "التعليقات:"
+
+#: ../gui/main_ui.py:729
+msgid "Subtitle Language:"
+msgstr "لغة الترجمة:"
+
+#: ../gui/main_ui.py:730 ../gui/preferences_ui.py:282
+msgid "Upload"
+msgstr "ارفع"
+
+#: ../gui/main_ui.py:731
+msgid "Upload subtitles"
+msgstr "رفع الترجمات"
+
+#: ../gui/main_ui.py:732
+msgid "&Main"
+msgstr "ال&رئيسي"
+
+#: ../gui/main_ui.py:733
+msgid "&Help"
+msgstr "&مساعدة"
+
+#: ../gui/main_ui.py:734
+msgid "&Settings"
+msgstr "&الإعدادات"
+
+#: ../gui/main_ui.py:735
+msgid "&View"
+msgstr "&عرض"
+
+#: ../gui/main_ui.py:736
+msgid "Quit"
+msgstr "خروج"
+
+#: ../gui/main_ui.py:737
+msgid "Visit HomePage"
+msgstr "قم بزيارة الصفحة الرئيسية"
+
+#: ../gui/main_ui.py:739
+msgid "Report A Problem"
+msgstr "أبلغ عن مشكلة"
+
+#: ../gui/main_ui.py:741
+msgid "&Configure Subdownloader"
+msgstr "ا&عداد منزّل الترجمات"
+
+#: ../gui/main_ui.py:742
+msgid "LogIn"
+msgstr "تسجيل دخول"
+
+#: ../gui/main_ui.py:743
+msgid "Log Messages"
+msgstr "رسائل السجل"
+
+#: ../gui/main_ui.py:744
+msgid "Show/Hide Tree Folder"
+msgstr "اظهار/إخفاء شجرة المجلدات"
+
+#: ../gui/main_ui.py:745
+msgid "LogOut"
+msgstr "تسجيل خروج"
+
+#: ../gui/main_ui.py:746 ../gui/preferences_ui.py:288
+msgid "Translate This Application..."
+msgstr "ترجم هذا التطبيق..."
+
+#: ../gui/imdb_ui.py:76
+msgid "IMDB search dialog:"
+msgstr "نافذة IMDB  للبحث"
+
+#: ../gui/imdb_ui.py:77
+msgid "Enter the Movie Title or IMDB id:"
+msgstr "ادخل عنوان الفيلم او معرّف IMDB"
+
+#: ../gui/imdb_ui.py:78
+msgid "Search Movie"
+msgstr "بحث عن الفيلم"
+
+#: ../gui/imdb_ui.py:80
+msgid "OK"
+msgstr "موافق"
+
+#: ../gui/preferences.py:36
+msgid "<AutoDetect>"
+msgstr "<AutoDetect>"
+
+#: ../gui/preferences.py:76
+msgid "Select the Video Player executable file"
+msgstr "اختر الملف التنفيذي لقارئ الفيديو"
+
+#: ../gui/preferences.py:81
+msgid "The new language will be displayed after restarting the program."
+msgstr "اللغة الجديدة ستعرض بعد اعادة تشغيل البرنامج"
+
+#: ../gui/preferences.py:143
+msgid "Enable in your Konqueror/Dolphin/Nautilus"
+msgstr "تمكين في Konqueror/Dolphin/Nautilus"
+
+#: ../gui/preferences.py:146
+msgid "Enable in your Windows Explorer"
+msgstr "تمكين في مستعرض الوينداوز"
+
+#: ../gui/preferences.py:149
+msgid "Enable in your File Manager"
+msgstr "تمكين في مدير الملفات"
+
+#: ../gui/preferences.py:157
+msgid "Predefined Folder cannot be empty"
+msgstr "المجلد المعرف مسبفا لا يجوز ان يكون فارغا"
+
+#: ../gui/preferences.py:214
+msgid "Modified proxy settings will take effect after restarting the program"
+msgstr "اعدادا ت البروكسي المعدلة تصبح قيد العمل بعد اعادة تشغيل البرنامج"
+
+#: ../gui/expiration.py:62
+#, python-format
+msgid "The program will expire in %d days."
+msgstr "البرنامج ستنتهي صلاحيته خلال %d أيام"
+
+#: ../gui/expiration.py:63
+msgid "Activate Program"
+msgstr "تفعيل البرنامج"
+
+#: ../gui/expiration.py:65
+#, python-format
+msgid "The program has expired after %d days of usage."
+msgstr "انتهت صلاحية البرنامج بعد %d يوم/أيام من الاستخدام"
+
+#: ../gui/expiration.py:85
+msgid "Some fields are empty.. please fill them."
+msgstr "بعض المسارات فارغة ..الرجاء ملؤها."
+
+#: ../gui/preferences_ui.py:268
+msgid "Settings"
+msgstr "الاعدادات"
+
+#: ../gui/preferences_ui.py:269
+msgid "Filter search results by these languages:"
+msgstr "ترشيح نتائج البحث في اللغات التالية :"
+
+#: ../gui/preferences_ui.py:271
+msgid "Destination folder:"
+msgstr "اسم المجلد:"
+
+#: ../gui/preferences_ui.py:272
+msgid "Always ask user"
+msgstr "دائما إسأل المستخدم"
+
+#: ../gui/preferences_ui.py:273
+msgid "Same folder as video file"
+msgstr "نفس مجلد ملف الفيديو"
+
+#: ../gui/preferences_ui.py:274
+msgid "Predefined folder:"
+msgstr "مجلد معرف مسبقا:"
+
+#: ../gui/preferences_ui.py:275 ../gui/preferences_ui.py:293
+msgid "Browse..."
+msgstr "استعرض..."
+
+#: ../gui/preferences_ui.py:276
+msgid "Filename of the Subtitle:"
+msgstr "إسم ملف الترجمة"
+
+#: ../gui/preferences_ui.py:277
+msgid "Same name as video file"
+msgstr "نفس إسم ملف الفيديو"
+
+#: ../gui/preferences_ui.py:278
+msgid "Same name as video file + language code (ex: StarWarsCD1.eng.srt)"
+msgstr "نفس اسم  الكود ملف الفيديو + اللغة (مثل : StarWarsCD1.eng.srt)"
+
+#: ../gui/preferences_ui.py:279
+msgid "Same name as the online subtitle"
+msgstr "نفس اسم الترجمة على الشبكة"
+
+#: ../gui/preferences_ui.py:281
+msgid "Default language of uploaded subtitles"
+msgstr "اللغة الافتراضية للّغات المرفوعة"
+
+#: ../gui/preferences_ui.py:283
+msgid "Network Proxy"
+msgstr "وكيل الشبكة"
+
+#: ../gui/preferences_ui.py:284
+msgid "Host:"
+msgstr "المضيف:"
+
+#: ../gui/preferences_ui.py:285
+msgid "Port:"
+msgstr "المنفذ:"
+
+#: ../gui/preferences_ui.py:286
+msgid "Network"
+msgstr "الشبكة"
+
+#: ../gui/preferences_ui.py:287
+msgid "Interface Language:"
+msgstr "لغة الواجهة"
+
+#: ../gui/preferences_ui.py:289
+msgid "Context Menu:"
+msgstr "فائمة السياق:"
+
+#: ../gui/preferences_ui.py:290
+msgid "Enable in your explorer"
+msgstr "تمكين في المستعرض"
+
+#: ../gui/preferences_ui.py:291
+msgid "External application for video playback"
+msgstr "تطبيق خارجي لتشغيل الفيديو"
+
+#: ../gui/preferences_ui.py:292
+msgid "Video Player:"
+msgstr "قارئ الفيديو"
+
+#: ../gui/preferences_ui.py:294
+msgid "Parameters:"
+msgstr "معاملات:"
+
+#: ../gui/preferences_ui.py:295
+msgid "{0} = video file path; {1} = subtitle path"
+msgstr "{0} = مسار ملف الفيديو ; {1} = مسار الترجمة"
+
+#: ../gui/preferences_ui.py:296
+msgid "Others"
+msgstr "أخرى"
+
+#: ../gui/preferences_ui.py:297
+msgid "Save"
+msgstr "حفظ"
