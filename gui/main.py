@@ -38,7 +38,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QDir, \
     QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QModelIndex, \
     QObject, QPoint, QSettings, QSize, QTime
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QAction, QApplication, QDialog, QDirModel, \
+from PyQt5.QtWidgets import QAction, QApplication, QDialog, QFileSystemModel, \
     QErrorMessage, QFileDialog, QHeaderView, QLabel, QMainWindow, QMenu, \
     QMessageBox, QProgressDialog, QPushButton
 
@@ -137,7 +137,7 @@ class Main(QObject, Ui_MainWindow):
         self.splitter.setSizes([600, 1000])
 
         # SETTING UP FOLDERVIEW
-        model = QDirModel(window)
+        model = QFileSystemModel(window)
         model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
         self.folderView.setModel(model)
 
@@ -155,12 +155,15 @@ class Main(QObject, Ui_MainWindow):
         lastDir = \
             settings.value("mainwindow/workingDirectory", QDir.homePath())
         log.debug('Current directory: %s' % lastDir)
+        model.setRootPath(lastDir)
         path = QDir(lastDir)
         while True:
             self.folderView.expand(model.index(path.absolutePath()))
             if not path.cdUp():
                 break
 
+        self.folderView.setSortingEnabled(True)
+        self.folderView.sortByColumn(0, 0)
         self.folderView.scrollTo(model.index(lastDir))
         self.folderView.clicked.connect(self.onFolderTreeClicked)
         self.buttonFind.clicked.connect(self.onButtonFind)
@@ -336,8 +339,9 @@ class Main(QObject, Ui_MainWindow):
         path = QDir(lastDir)
         window = QMainWindow()
         self.window = window
-        model = QDirModel(window)
+        model = QFileSystemModel(window)
         model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
+        model.setRootPath(lastDir)
         self.folderView.setModel(model)
 
         self.folderView.show()
