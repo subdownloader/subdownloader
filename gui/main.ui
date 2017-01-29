@@ -1346,7 +1346,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="action_HelpHomepage"/>
     <addaction name="separator"/>
     <addaction name="action_HelpBug"/>
-    <addaction name="actionHelp_To_Translate_This_Application"/>
+    <addaction name="action_HelpTranslate"/>
     <addaction name="separator"/>
     <addaction name="action_HelpAbout"/>
    </widget>
@@ -1440,7 +1440,7 @@ p, li { white-space: pre-wrap; }
     <string>LogOut</string>
    </property>
   </action>
-  <action name="actionHelp_To_Translate_This_Application">
+  <action name="action_HelpTranslate">
    <property name="text">
     <string>Translate This Application...</string>
    </property>

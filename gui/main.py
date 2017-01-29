@@ -262,6 +262,7 @@ class Main(QObject, Ui_MainWindow):
         self.action_HelpHomepage.triggered.connect(self.onMenuHelpHomepage)
         self.action_HelpAbout.triggered.connect(self.onMenuHelpAbout)
         self.action_HelpBug.triggered.connect(self.onMenuHelpBug)
+        self.action_HelpTranslate.triggered.connect(self.onMenuHelpTranslate)
         #self.action_HelpDonation.triggered.connect(self.onMenuHelpDonation)
 
         self.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
@@ -697,6 +698,10 @@ class Main(QObject, Ui_MainWindow):
     def onMenuHelpBug(self):
         webbrowser.open(
             "https://github.com/sergiomb2/subdownloader/issues", new=2, autoraise=1)
+
+    def onMenuHelpTranslate(self):
+        webbrowser.open(
+            "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
 
     def onMenuPreferences(self):
         dialog = preferencesDialog(self.window, self)
