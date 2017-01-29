@@ -262,7 +262,7 @@ class Main(QObject, Ui_MainWindow):
         self.action_HelpHomepage.triggered.connect(self.onMenuHelpHomepage)
         self.action_HelpAbout.triggered.connect(self.onMenuHelpAbout)
         self.action_HelpBug.triggered.connect(self.onMenuHelpBug)
-        self.action_HelpDonation.triggered.connect(self.onMenuHelpDonation)
+        #self.action_HelpDonation.triggered.connect(self.onMenuHelpDonation)
 
         self.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
@@ -277,22 +277,22 @@ class Main(QObject, Ui_MainWindow):
         self.status_label = QLabel("v" + APP_VERSION, self.statusbar)
         self.status_label.setIndent(10)
 
-        self.donate_button = QPushButton(
-            "   " + _("Help Us With 5 USD/EUR"))
+        #self.donate_button = QPushButton(
+        #    "   " + _("Help Us With 5 USD/EUR"))
         # self.donate_button.setIndent(10)
 
-        if platform.system() in ("Windows", "Microsoft"):
-            iconpaypal = QIcon()
-            iconpaypal.addPixmap(
-                QPixmap(":/images/paypal.png"), QIcon.Normal, QIcon.On)
-            self.donate_button.setIcon(iconpaypal)
-            self.donate_button.setIconSize(QSize(50, 24))
+        #if platform.system() in ("Windows", "Microsoft"):
+        #    iconpaypal = QIcon()
+        #    iconpaypal.addPixmap(
+        #        QPixmap(":/images/paypal.png"), QIcon.Normal, QIcon.On)
+        #    self.donate_button.setIcon(iconpaypal)
+        #    self.donate_button.setIconSize(QSize(50, 24))
 
-        self.donate_button.clicked.connect(self.onMenuHelpDonation)
+        #self.donate_button.clicked.connect(self.onMenuHelpDonation)
 
         self.statusbar.insertWidget(0, self.status_label)
         self.statusbar.insertWidget(1, self.login_button)
-        self.statusbar.addPermanentWidget(self.donate_button, 0)
+        # self.statusbar.addPermanentWidget(self.donate_button, 0)
         # self.statusbar.addPermanentWidget(self.login_button,0)
         # self.statusbar.addPermanentItem(horizontalLayout_4,2)
         # self.status("")
@@ -692,15 +692,11 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpHomepage(self):
-        webbrowser.open("http://www.subdownloader.net/", new=2, autoraise=1)
+        webbrowser.open("https://github.com/sergiomb2/subdownloader", new=2, autoraise=1)
 
     def onMenuHelpBug(self):
         webbrowser.open(
-            "https://bugs.launchpad.net/subdownloader", new=2, autoraise=1)
-
-    def onMenuHelpDonation(self):
-        webbrowser.open(
-            "http://www.subdownloader.net/donations.html", new=2, autoraise=1)
+            "https://github.com/sergiomb2/subdownloader/issues", new=2, autoraise=1)
 
     def onMenuPreferences(self):
         dialog = preferencesDialog(self.window, self)
