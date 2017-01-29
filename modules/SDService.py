@@ -550,6 +550,7 @@ class SDService(object):
                             # sub.setLanguageName(i["LanguageName"])
                             sub.setRating(i["SubRating"])
                             sub.setUploader(i["UserNickName"])
+                            sub.setDownloadLink(i["SubDownloadLink"])
                             sub.setVideo(video)
 
                             self.log.debug(

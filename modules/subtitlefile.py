@@ -148,6 +148,12 @@ class SubtitleFile(object):
     def getRating(self):
         return self.rating
 
+    def setDownloadLink(self, link):
+        self.download_link = link
+
+    def getDownloadLink(self):
+        return self.download_link
+
     def setExtraInfo(self, info, data):
         self._extraInfo[info] = data
 
