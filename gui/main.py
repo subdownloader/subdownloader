@@ -1827,8 +1827,10 @@ class Main(QObject, Ui_MainWindow):
                 "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"))
 
     def onExpandMovie(self, index):
+        if index.internalPointer() is None:
+            return
         movie = index.internalPointer().data
-        if not movie.subtitles and movie.totalSubs:
+        if type(movie) == Movie and not movie.subtitles and movie.totalSubs:
             self.status_progress = QProgressDialog(
                 _("Searching..."), _("&Abort"), 0, 0, self.window)
             self.status_progress.setWindowTitle(_('Search'))
