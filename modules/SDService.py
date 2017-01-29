@@ -33,7 +33,6 @@ except:
     from urllib.request import urlopen
     from urllib.error import HTTPError, URLError
 
-
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 TEST_URL = 'http://www.google.com'
@@ -469,9 +468,7 @@ class SDService(object):
                 self.log.debug(
                     "Got %i subtitles from server. Uncompressing data..." % len(answer['data']))
                 for sub in answer['data']:
-                    # print subtitles_to_download[sub['idsubtitlefile']]['subtitle_path']
-                    # print
-                    # subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()
+                    #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
                     self.BaseToFile(
                         sub['data'], subtitles_to_download[sub['idsubtitlefile']])
                 return answer['data']
