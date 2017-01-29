@@ -1,5 +1,5 @@
 TARGETS= main_ui.py imdb_ui.py images_rc.py preferences_ui.py about_ui.py \
-	 login_ui.py chooseLanguage_ui.py expiration_ui.py
+	 login_ui.py chooseLanguage_ui.py
 
 IMAGES=$(shell find images -type f -printf "%p ")
 

@@ -9,7 +9,7 @@ import sys
 import os
 import re
 import traceback
-from modules import APP_TITLE, APP_VERSION, SHAREWARE, SDService, subtitlefile, videofile
+from modules import APP_TITLE, APP_VERSION, SDService, subtitlefile, videofile
 
 
 error_dialog = None

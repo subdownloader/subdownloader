@@ -79,9 +79,6 @@ from modules.search import *
 import modules.utils as utils
 import languages.Languages as languages
 
-if SHAREWARE:
-    import gui.expiration as expiration
-
 import logging
 log = logging.getLogger("subdownloader.gui.main")
 splash.showMessage(_("Building main dialog..."))
@@ -145,23 +142,6 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.setModel(model)
 
         settings = QSettings()
-
-        # SHAREWARE PART
-        if SHAREWARE:
-            activation_email = settings.value('activation/email', "")
-            activation_licensekey = settings.value('activation/licensekey', "")
-            activation_fullname = settings.value('activation/fullname', "")
-            if activation_email != "" and activation_licensekey != "" and activation_fullname != "":
-                self.software_registered = True
-            else:
-                self.software_registered = False
-                self.action_ActivateProgram = QAction(self.window)
-                daysLeft = expiration.calculateDaysLeft(time.time())
-                self.action_ActivateProgram.setText(
-                    _("%d days to expire. Activate Program.") % daysLeft)
-                self.action_ActivateProgram.triggered.connect(
-                    self.onActivateMenu)
-                self.menu_Help.addAction(self.action_ActivateProgram)
 
         self.folderView.header().hide()
         self.folderView.hideColumn(3)
@@ -324,25 +304,6 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.WaitCursor)
             # and self.OSDBServer.is_connected():
             if self.establishServerConnection():
-                # thread.start_new_thread(self.update_users, (300, )) #update
-                # the users counter every 5min
-                if platform.system() in ("Windows", "Microsoft"):
-                    thread.start_new_thread(self.detect_software_updates, ())
-                if SHAREWARE:
-                    if not self.software_registered:
-                        thread.start_new_thread(self.getServerTime, ())
-                    else:
-                        activation_email = settings.value(
-                            'activation/email', "")
-                        activation_licensekey = settings.value(
-                            'activation/licensekey', "")
-                        activation_fullname = settings.value(
-                            'activation/fullname', "")
-                        self.checkRegisteredLicense.connect(
-                            self.onCheckedRegisteredLicense)
-                        thread.start_new_thread(
-                            self.checkRegisteredLicense, (activation_email, activation_licensekey, activation_fullname))
-
                 settings = QSettings()
                 if options.username:
                     loginUsername = options.username
@@ -647,17 +608,6 @@ class Main(QObject, Ui_MainWindow):
         elif answer == QMessageBox.Cancel:
             return
 
-    def detect_software_updates(self):
-        # REMARK: to be used by a thread
-        try:
-            result = self.SDDBServer.CheckSoftwareUpdates('SubDownloader')
-            # if APP_VERSION is < than latest_version
-            if utils.compVer(result['latest_version'], APP_VERSION) == 1:
-                self.softwareUpdateDetected.emit(
-                    result['latest_version'], result['link'])
-        except:
-            log.debug('Error while asking server CheckSoftwareUpdates()')
-
     def update_users(self, sleeptime=60):
         # REMARK: to be used by a thread
         while 1:
@@ -734,57 +684,6 @@ class Main(QObject, Ui_MainWindow):
         expirationDialog = expiration.expirationDialog(self.window, self, daysLeft)
         ok = expirationDialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-
-    def onCheckedRegisteredLicense(self, result, email, licensekey, fullname):
-        settings = QSettings()
-        if result == "REGISTERED":
-            self.setTitleBarText(_('Program Registered'))
-        elif result == "DISABLED_TOO_MANY":
-            QMessageBox.about(self.window, _(
-                "Error"), "Your License Key has been disabled because of too many suspicious registrations in a short period of time.\nIf you think this is a mistake contact us at licenses@subdownloader.net")
-            settings.remove('activation/email')
-            settings.remove('activation/licensekey')
-            settings.remove('activation/fullname')
-            self.window.close()
-            sys.exit(1)
-        else:
-            QMessageBox.about(
-                self.window, _("Error"), "Invalid License Key Registration.")
-            settings.remove('activation/email')
-            settings.remove('activation/licensekey')
-            settings.remove('activation/fullname')
-            self.window.close()
-            sys.exit(1)
-
-    def checkRegisteredLicense(self, email, licensekey, fullname):
-        log.debug("Checking Registered License: %s - %s - %s" %
-                  (email, licensekey, fullname))
-        result = self.SDDBServer.xmlrpc_server.CheckSoftwareLicense(
-            APP_VERSION, email, fullname, licensekey, False)
-        log.debug("License Status: %s" % result)
-        self.CheckedRegisteredLicense.emit(result, email, licensekey, fullname)
-
-    def getServerTime(self):
-        try:
-            time.sleep(5)
-            log.debug("Getting time from Server...")
-            server_time = self.SDDBServer.xmlrpc_server.GetTimeStamp()
-            log.debug("Time: %r" % server_time)
-            self.serverTime.emit(server_time)
-        except:
-            pass
-
-    def showExpirationWarning(self, daysLeft):
-        reminderBox = QMessageBox(_("Expiration Reminder"), _("The program will expire in %d days.\nWould you like to activate it now?") %
-                                  daysLeft, QMessageBox.Warning, QMessageBox.Cancel | QMessageBox.Escape, QMessageBox.NoButton, QMessageBox.NoButton, self.window)
-        activateButton = reminderBox.addButton(
-            _("Activate"), QMessageBox.ActionRole)
-        reminderBox.exec_()
-        answer = reminderBox.clickedButton()
-        if answer == activateButton:
-            expirationDialog = expiration.expirationDialog(self, daysLeft)
-            ok = expirationDialog.exec_()
-            QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpAbout(self):
         dialog = aboutDialog(self.window)
@@ -1384,8 +1283,6 @@ class Main(QObject, Ui_MainWindow):
         try:
             self.OSDBServer = SDService(
                 'osdb', server=self.options.server, proxy=self.options.proxy)
-            self.SDDBServer = SDService(
-                'sddb', self.options.server, self.options.proxy)
 
             self.progress(100, _("Connected successfully"))
             QCoreApplication.processEvents()

@@ -8,4 +8,3 @@ MODULES package
 
 APP_TITLE = "SubDownloader"
 APP_VERSION = "2.0.19"
-SHAREWARE = False

@@ -34,7 +34,6 @@ except:
     from urllib.error import HTTPError, URLError
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
-DEFAULT_SDDB_SERVER = "http://sddb.subdownloader.net/xmlrpc/"
 TEST_URL = 'http://www.google.com'
 USER_AGENT = "%s %s" % (APP_TITLE, APP_VERSION)
 CON_TIMEOUT = 300
@@ -133,11 +132,10 @@ class ProxiedTransport(xmlrpclib.Transport):
 class SDService(object):
 
     """
-    Contains the class that represents the OSDB and SDDB RPC Servers.
+    Contains the class that represents the OSDB RPC Server.
     Encapsules all the XMLRPC methods.
 
     Consult the OSDB API methods at http://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC
-    Consult the SDDB API methods at https://sddb.subdownloader.net/xmlrpc/
 
     If it fails to connect directly to the XMLRPC server, it will try to do so through a default proxy.
     Default proxy uses a form to set which URL to open. We will try to change this in later stage.
@@ -158,7 +156,7 @@ class SDService(object):
             if self.type == 'osdb':
                 self.server = DEFAULT_OSDB_SERVER
             else:
-                self.server = DEFAULT_SDDB_SERVER
+                raise
 
         self.proxy = proxy
         self.logged_as = None
