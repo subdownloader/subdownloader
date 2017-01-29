@@ -17,8 +17,6 @@ DEBUG       10
 NOTSET       0
 '''
 
-import argparse
-
 
 class Terminal(object):
 
@@ -104,20 +102,8 @@ class Terminal(object):
         # misc options
         parser.add_argument('-s', '--server', dest='server', default=None,
                             help='Server address of Opensubtitles API')
-
-        class proxyAction(argparse.Action):
-
-            def __init__(self, *args, **kwargs):
-                super(proxyAction, self).__init__(*args, **kwargs)
-
-            def __call__(self, parser, options, value, switch):
-                if value is None:
-                    import random
-                    value = General.default_proxy.format(random.randint(1, 3))
-                setattr(options, self.dest, value)
-
-        parser.add_argument('-P', '--proxy', dest='proxy', nargs='?', action=proxyAction,
-                            help='Proxy to use on internet connections')
+        parser.add_argument("-P", "--proxy", dest="proxy", default=None,
+                            help="Proxy to use on internet connections")
 
     progress_bar_style = [progressbar.Bar(
         left='[', right=']'), progressbar.Percentage(), ' ', progressbar.ETA()]
@@ -131,7 +117,6 @@ class General(object):
     version = '%s v%s' % (APP_TITLE, APP_VERSION)
     rpc_server = 'http://www.opensubtitles.org/xml-rpc'
     search_url = 'http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml'
-    default_proxy = 'http://{}.hidemyass.com/'
 
 
 class Logging(object):
