@@ -30,6 +30,8 @@ class Metadata(object):
     def parse_kaa_metadata(cls, filepath):
         metaRes = cls()
         parseRes = kaa.metadata.parse(filepath)
+        if parseRes is None:
+            return metaRes
         for video in parseRes.video:
             metaRes._addVideo(
                 MetadataVideo(
