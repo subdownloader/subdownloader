@@ -250,6 +250,7 @@ class Main(QObject, Ui_MainWindow):
         self.moviesModel = VideoTreeModel(window)
         self.moviesView.setModel(self.moviesModel)
 
+        self.videoView.clicked.connect(self.onClickMovieTreeView)
         self.moviesView.clicked.connect(self.onClickMovieTreeView)
         self.moviesModel.dataChanged.connect(self.subtitlesMovieCheckedChanged)
 
@@ -1751,8 +1752,10 @@ class Main(QObject, Ui_MainWindow):
 
                 try:
                     url = sub.getExtraInfo("downloadLink")
+                    log.debug("sub.getExtraInfo downloadLink  %s " % (url))
                 except:
                     url = Link().OneLink(0)
+                    log.debug("Link().OneLink downloadLink  %s " % (url))
 #                webbrowser.open( url, new=2, autoraise=1)
                 zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
                 zipFileName = "sub-" + zipFileID + ".zip"
