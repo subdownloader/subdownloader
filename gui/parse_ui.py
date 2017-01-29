@@ -8,7 +8,7 @@ import re
 
 def fixTranslation():
     regex = re.compile(
-        'QtGui\.QApplication\.translate\(".*?",\s(.*),\sNone,\sQtGui\.QApplication\.UnicodeUTF8\)')
+        'QtGui\.QApplication\.translate\(context,\s(text),\sdisambig.*?\)')
     repl = r'_(\1)'
 
     def fix(line):
