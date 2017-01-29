@@ -521,7 +521,7 @@ class SDService(object):
             self.xmlrpc_server.SearchSubtitles(search_array)
             return
 
-        if result['data'] != False:
+        if result is not None and result['data'] != False:
             self.log.debug("Collecting downloaded data")
             moviehashes = {}
             for i in result['data']:

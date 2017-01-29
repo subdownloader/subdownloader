@@ -1394,6 +1394,8 @@ class Main(QObject, Ui_MainWindow):
         except TimeoutFunctionException:
             self.status_progress.close()
             self.showErrorConnection()
+            QCoreApplication.processEvents()
+            return False
 
         except Exception as e:
             traceback.print_exc(e)
