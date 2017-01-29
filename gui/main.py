@@ -1450,7 +1450,7 @@ class Main(QObject, Ui_MainWindow):
             return
         else:
             imdb_id = self.uploadIMDB.itemData(self.uploadIMDB.currentIndex())
-            if imdb_id is not None:  # No IMDB
+            if imdb_id is None:  # No IMDB
                 QMessageBox.about(
                     self.window, _("Error"), _("Please identify the movie."))
                 return
