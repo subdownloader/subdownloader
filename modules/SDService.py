@@ -482,7 +482,7 @@ class SDService(object):
             self.log.error("SearchSubtitles timed out")
             return None
         except xmlrpclib.ProtocolError:
-            self.log.error("Protocol Error on Opensubtitles.com")
+            self.log.error("Protocol Error on Opensubtitles.org")
             return None
 
     def _SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
@@ -569,7 +569,7 @@ class SDService(object):
                 # TODO: search with IMDB id's
                 pass
         else:
-            self.log.info("No subtitles were found on Opensubtitles.com")
+            self.log.info("No subtitles were found on Opensubtitles.org")
             return []
 
     def TryUploadSubtitles(self, videos, no_update=False):

@@ -95,10 +95,10 @@ class Terminal(object):
                             'is found on server. This is the default')
 
         parser.add_argument('-u', '--user', dest='username', default='',
-                            help='Opensubtitles.com username. Must be set in upload mode.'
+                            help='Opensubtitles.org username. Must be set in upload mode.'
                             'Default is blank (anonymous)')
         parser.add_argument('-p', '--password', dest='password', default='',
-                            help='Opensubtitles.com password. Must be set in upload mode.'
+                            help='Opensubtitles.org password. Must be set in upload mode.'
                             'Default is blank (anonymous)')
 
         # misc options
@@ -130,7 +130,7 @@ class General(object):
         '(DIVX,MPEG,AVI,etc) and DVD\'s using fast hashing.' % name
     version = '%s v%s' % (APP_TITLE, APP_VERSION)
     rpc_server = 'http://www.opensubtitles.org/xml-rpc'
-    search_url = 'http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml'
+    search_url = 'http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml'
     default_proxy = 'http://{}.hidemyass.com/'
 
 

@@ -70,12 +70,12 @@ class SearchByName(object):
     def search_movie(self, moviename=None, sublanguageid="eng", MovieID_link=None):
         #xml_url = configuration.General.search_url % (sublanguageid, moviename)
         if MovieID_link:
-            xml_url = "http://www.opensubtitles.com%s" % MovieID_link
+            xml_url = "http://www.opensubtitles.org%s" % MovieID_link
         elif not moviename:
             return None
         else:
             moviename = moviename.replace(" ", "%20")
-            xml_url = "http://www.opensubtitles.com/en/search2/sublanguageid-%s/moviename-%s/xml" % (
+            xml_url = "http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml" % (
                 sublanguageid, moviename)
 
         try:
@@ -103,7 +103,7 @@ class SearchByName(object):
         return movies
 
     def search_subtitles(self, IDSubtitle_link):
-        xml_url = "http://www.opensubtitles.com%s" % IDSubtitle_link
+        xml_url = "http://www.opensubtitles.org%s" % IDSubtitle_link
         xml_page = urlopen(xml_url)
         try:
             search = self.subtitle_info(xml_page.read())
@@ -334,7 +334,7 @@ class SearchByName(object):
                     # It does require the Subtitle ID to downlad, not the
                     # Subtitle File Id
                     sub_obj.setExtraInfo(
-                        'downloadLink', "http://www.opensubtitles.com/download/sub/%s" % sub_obj.getIdOnline())
+                        'downloadLink', "http://www.opensubtitles.org/download/sub/%s" % sub_obj.getIdOnline())
                 if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                     sub['LanguageName'] = entry.getElementsByTagName(
                         'LanguageName')[0].firstChild.data
