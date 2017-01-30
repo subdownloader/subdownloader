@@ -928,7 +928,7 @@ class Main(QObject, Ui_MainWindow):
                 QIcon(":/images/sites/opensubtitles.png"))
             self.buttonIMDBByTitle.setText(_("Sub Info"))
 
-    @pyqtSlot(str, str)
+    @pyqtSlot()
     def onButtonFind(self):
         folder_path = None
         for index in self.folderView.selectedIndexes():
