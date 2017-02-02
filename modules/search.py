@@ -272,7 +272,11 @@ class SearchByName(object):
                                          'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'),
                                          'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'),
                                          }
-                    sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
+                    sub_obj.setIdOnline(sub['IDSubtitle']['IDSubtitle'])
+                if entry.getElementsByTagName('IDSubtitleFile'):
+                    sub['IDSubtitleFile'] = {'IDSubtitleFile': entry.getElementsByTagName('IDSubtitleFile')[0].firstChild.data,
+                    }
+                    sub_obj.setIdFileOnline(sub['IDSubtitleFile']['IDSubtitleFile'])
                 if entry.getElementsByTagName('UserID'):
                     sub['UserID'] = {'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data,
                                      'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'),

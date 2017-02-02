@@ -3,6 +3,8 @@
 import os
 import languages.Languages as languages
 import platform
+import logging
+
 if platform.python_version_tuple()[:2] == ['2', '5']:
     # this is deprecated since python 2.6
     from md5 import md5
@@ -20,6 +22,7 @@ class SubtitleFile(object):
     """
 
     def __init__(self, online, id=None):
+        self.log = logging.getLogger("subdownloader.modules.subtitlefile")
         self._language = None
         self._video = None
         self._online = online
@@ -28,7 +31,11 @@ class SubtitleFile(object):
         self._onlineFileId = ""
         self._id_file_online = ""
         self._extraInfo = {}
+        self._filename = ""
+
+        self.log.debug("is online %s" % online)
         if online:
+            self.log.debug("OnlineId is %s" % id)
             self._onlineId = id
         else:
             self._path = id
@@ -37,18 +44,18 @@ class SubtitleFile(object):
         self._languageXX = None
         self._languageXXX = None
         self._languageName = None
-        self.rating = 0
+        self.rating = 0.0
+        self._size = 0
+        self._hash = None
         if not online:
             self._size = os.path.getsize(self._path)
             self._hash = md5(open(self._path, mode='rb').read()).hexdigest()
 
-#    def __repr__(self):
-# return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size:
-# %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %f>"%
-# (self.isOnline(), self.isLocal(), self.getFilePath(),
-# self.getFileName(), self.getSize(), self.getUploader(),
-# self.getIdOnline(), self.getHash(), self.getLanguageXXX(),
-# self.getRating())
+    def __repr__(self):
+        return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size: # %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %s>" % (self.isOnline(), self.isLocal(), self.getFilePath(),
+         self.getFileName(), self.getSize(), self.getUploader(),
+         self.getIdOnline(), self.getHash(), self.getLanguageXXX(),
+         self.getRating())
 
     def setFileName(self, filename):
         self._filename = filename
