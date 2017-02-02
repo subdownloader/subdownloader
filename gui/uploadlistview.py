@@ -104,7 +104,7 @@ class UploadListModel(QAbstractTableModel):
         # Trying to autodetect the imdb from the server
         videos = []
         for video, sub in zip(self._videos, self._subs):
-            if video != None and subs != None:
+            if video != None and sub != None:
                 tmp_video = VideoFile(video.getFilePath())
                 tmp_video.setSubtitles([sub])
                 videos.append(tmp_video)

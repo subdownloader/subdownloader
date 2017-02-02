@@ -7,12 +7,14 @@ from PyQt5.QtWidgets import QDialog, QHeaderView, QMessageBox
 from gui.imdb_ui import Ui_IMDBSearchDialog
 from gui.imdblistview import ImdbListModel, ImdbListView
 import webbrowser
+import logging
 
 
 class imdbSearchDialog(QDialog):
 
     def __init__(self, parent, main):
         QDialog.__init__(self, parent)
+        self.log = logging.getLogger("subdownloader.gui.imdbSearch")
         self.ui = Ui_IMDBSearchDialog()
         self.ui.setupUi(self)
         self._main = main
@@ -50,7 +52,8 @@ class imdbSearchDialog(QDialog):
                 # In case of empty results
                 if not results or not len(results) or "id" not in results[0]:
                     results = []
-            except:
+            except Exception as e:
+                self.log.debug(e)
                 QMessageBox.about(
                     self, _("Error"), _("Error contacting the server. Please try again later"))
                 results = []
