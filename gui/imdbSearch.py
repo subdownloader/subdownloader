@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, \

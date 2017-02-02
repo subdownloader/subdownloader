@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 """ The GUI to libprs500. Also has ebook library management features. """

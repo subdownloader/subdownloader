@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 import languages.autodetect_lang as autodetect_lang
