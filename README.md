@@ -18,6 +18,11 @@ Optional Python packages:
 - [pymediainfo]: used as fallback for python-kaa-metadata. This package needs [MediaInfo](https://mediaarea.net).
 - [argcomplete]: Bash tab completion for argparse
 
+### Build dependencies
+
+- [python3-qt5-devel][pyQt]: generate the gui from the interface description
+
+
 ## Running the program
 
 ### Graphical Interface
@@ -51,4 +56,4 @@ SubDownloader is licensed under [GPL v3].
    [pymediainfo]: <https://pymediainfo.readthedocs.org/en/latest/>
    [argcomplete]: <https://argcomplete.readthedocs.org/>
    [GPL v3]: <https://www.gnu.org/licenses/gpl-3.0.html>
-   
+
