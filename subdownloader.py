@@ -2,9 +2,9 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 # PYTHON_ARGCOMPLETE_OK
 
-import sys
 import os
 import platform
+import sys
 
 # calculating the folder of SubDownloader src (or .exe)
 if os.path.isfile(sys.path[0]):
@@ -50,33 +50,9 @@ logging.basicConfig(level=options.logging,
                     )
 
 if options.mode == 'gui':
-    import gui.main
+    import subdownloader.client.gui.main
+    subdownloader.client.gui.main.main(options)
 elif options.mode == 'cli':
-    import cli.main
-
-"""
-# add a console logging handler if verbosity is turned on
-if not options.verbose:
-    # define a Handler which writes INFO messages or higher to the sys.stderr
-    console = logging.StreamHandler()
-    console.setLevel(options.logging)
-    # set a format which is simpler for console use
-    if options.output == "nerd":
-        formatter = logging.Formatter("%(levelname)s::%(name)s # %(message)s")
-    elif options.output == "human":
-        formatter = logging.Formatter("%(message)s")
-    # tell the handler to use this format
-    console.setFormatter(formatter)
-    # add the handler to the root logger
-    logging.getLogger('').addHandler(console)
-"""
-# create a logger named 'subdownloader.run'
-log = logging.getLogger("run")
-
-if __name__ == "__main__":
-
-    if options.mode == 'gui':
-        gui.main.main(options)
-    elif options.mode == 'cli':
-        cli = cli.main.Main(options)
-        cli.start_session()
+    import subdownloader.client.cli.main
+    cli = subdownloader.client.cli.main.Main(options)
+    cli.start_session()

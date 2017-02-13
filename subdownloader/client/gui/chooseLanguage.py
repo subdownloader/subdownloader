@@ -1,11 +1,13 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, QItemSelectionModel, QSettings
+import logging
+
+from PyQt5.QtCore import Qt, QItemSelectionModel, QSettings
 from PyQt5.QtWidgets import QMessageBox, QDialog, QListWidgetItem
 
-from languages import Languages, autodetect_lang
-from gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
-import logging
+from languages import Languages
+from subdownloader.client.gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
+
 log = logging.getLogger("subdownloader.gui.chooseLanguage")
 
 

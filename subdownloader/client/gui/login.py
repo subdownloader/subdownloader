@@ -1,10 +1,12 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QSettings
+import logging
+
+from PyQt5.QtCore import Qt, pyqtSlot, QCoreApplication, QSettings
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from gui.login_ui import Ui_LoginDialog
-import logging
+from subdownloader.client.gui.login_ui import Ui_LoginDialog
+
 log = logging.getLogger("subdownloader.gui.login")
 
 

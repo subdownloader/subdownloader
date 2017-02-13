@@ -1,15 +1,15 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QSettings
-from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QLineEdit, \
-    QMessageBox
-
-from gui.preferences_ui import Ui_PreferencesDialog
-import webbrowser
-import languages.Languages as languages
-import time
-import platform
 import logging
+import platform
+import webbrowser
+
+from PyQt5.QtCore import pyqtSlot, QSettings
+from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QMessageBox
+
+import languages.Languages as languages
+from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
+
 log = logging.getLogger("subdownloader.gui.preferences")
 
 

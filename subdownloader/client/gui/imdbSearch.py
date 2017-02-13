@@ -1,13 +1,14 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, \
+import logging
+import webbrowser
+
+from PyQt5.QtCore import Qt, pyqtSlot, QCoreApplication, \
     QEventLoop, QItemSelection, QItemSelectionModel
 from PyQt5.QtWidgets import QDialog, QHeaderView, QMessageBox
+from subdownloader.client.gui.imdb_ui import Ui_IMDBSearchDialog
 
-from gui.imdb_ui import Ui_IMDBSearchDialog
-from gui.imdblistview import ImdbListModel, ImdbListView
-import webbrowser
-import logging
+from subdownloader.client.gui.imdblistview import ImdbListModel
 
 
 class imdbSearchDialog(QDialog):

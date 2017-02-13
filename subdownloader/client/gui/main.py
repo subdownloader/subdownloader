@@ -3,20 +3,15 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 """ Create and launch the GUI """
-import sys
-import re
-import os
-import traceback
-import tempfile
-import time
-import webbrowser
 import base64
-import zlib
-import platform
-import os.path
-import zipfile
 import gettext
 import locale
+import os.path
+import re
+import sys
+import time
+import webbrowser
+import zlib
 
 try:
     import thread
@@ -35,9 +30,9 @@ except ImportError:
 
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QDir, \
     QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QModelIndex, \
-    QObject, QPoint, QSettings, QSize, QTime
-from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QAction, QApplication, QDialog, QFileSystemModel, \
+    QObject, QSettings, QSize, QTime
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, \
     QErrorMessage, QFileDialog, QHeaderView, QLabel, QMainWindow, QMenu, \
     QMessageBox, QProgressDialog, QPushButton
 
@@ -46,8 +41,8 @@ try:
 except ImportError:
     QString = str
 
-from gui.SplashScreen import SplashScreen, NoneSplashScreen
-from FileManagement import get_extension, clear_string, without_extension
+from subdownloader.client.gui.SplashScreen import SplashScreen
+from FileManagement import get_extension, without_extension
 
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
@@ -58,24 +53,23 @@ QCoreApplication.flush()
 from modules import *
 from modules.SDService import SDService, TimeoutFunctionException
 
-from gui import installErrorHandler, Error, extension
+from subdownloader.client.gui import installErrorHandler, Error
 
-from gui.uploadlistview import UploadListModel, UploadListView
-from gui.videotreeview import VideoTreeModel
+from subdownloader.client.gui.uploadlistview import UploadListModel, UploadListView
+from subdownloader.client.gui.videotreeview import VideoTreeModel
 
-from gui.main_ui import Ui_MainWindow
-from gui.imdbSearch import imdbSearchDialog
-from gui.preferences import preferencesDialog
-from gui.about import aboutDialog
+from subdownloader.client.gui.main_ui import Ui_MainWindow
+from subdownloader.client.gui.imdbSearch import imdbSearchDialog
+from subdownloader.client.gui.preferences import preferencesDialog
+from subdownloader.client.gui.about import aboutDialog
 
-from gui.chooseLanguage import chooseLanguageDialog
-from gui.login import loginDialog
+from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
+from subdownloader.client.gui.login import loginDialog
 from FileManagement import FileScan, Subtitle
 from modules.videofile import *
 from modules.subtitlefile import *
 from modules.search import *
 
-import modules.utils as utils
 import languages.Languages as languages
 
 import logging
@@ -351,13 +345,15 @@ class Main(QObject, Ui_MainWindow):
                 break
 
     def SetupInterfaceLang(self):
+        locallocaledir = os.path.join(os.path.dirname(__file__), '..', 'locale')
+        print(locallocaledir)
         if platform.system() == "Linux":
             if self.programFolder == '/usr/share/subdownloader':
                 localedir = '/usr/share/locale/'
             else:
-                localedir = 'locale'
+                localedir = locallocaledir
         else:
-            localedir = 'locale'
+            localedir = locallocaledir
             # Get the local directory since we are not installing anything
             #local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
             # print local_path
