@@ -108,7 +108,7 @@ class NGram:
     def __init__(self):
         if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
             program_folder = sys.path[0]
-        else:  # for Windows is the /program_folder/run.py
+        else:  # for Windows is the /program_folder/subdownloader.py
             program_folder = os.path.dirname(sys.path[0])
         folder = os.path.join(program_folder, 'languages', 'lm')
         ext = '.lm'

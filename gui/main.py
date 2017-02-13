@@ -430,7 +430,7 @@ class Main(QObject, Ui_MainWindow):
     def calculateProgramFolder(self):
         if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
             self.programFolder = sys.path[0]
-        else:  # for Windows is the /program_folder/run.py
+        else:  # for Windows is the /program_folder/subdownloader.py
             self.programFolder = os.path.dirname(sys.path[0])
 
     def showInstructions(self):

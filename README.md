@@ -28,19 +28,19 @@ Optional Python packages:
 ### Graphical Interface
 
 ```sh
-$ ./run.py
+$ ./subdownloader.py
 ```
 
 ### Command Line
 
 ```sh
-$ ./run.py -c
+$ ./subdownloader.py -c
 ```
 
 ### Help
 
 ```sh
-$ ./run.py -h
+$ ./subdownloader.py -h
 ```
 
 ## License

@@ -68,8 +68,8 @@ def distribution_clean(temp_path, exclude_dirs, gui):
         exclude_dirs.append("gui")  # append another unwanted directory
 
         # just a thing to replace some lines on the code
-        sys.stdout.write("Rewriting 'run.py'.")
-        fileName = 'run.py'
+        sys.stdout.write("Rewriting 'subdownloader.py'.")
+        fileName = 'subdownloader.py'
         f = open(os.path.join(temp_path, fileName), "r")
         text = f.read()
         f.close()

@@ -49,9 +49,9 @@ def py2exe(dist_dir, dist_build):
               ('', ['README'])
           ],
           windows=[{
-              'script': 'run.py',
+              'script': 'subdownloader.py',
               'icon_resources': [(1, 'gui/images/icon32.ico')]}],
-          #console=[{'script':'run.py -cli'}],
+          #console=[{'script':'subdownoader.py -cli'}],
           options={'py2exe': {'compressed': 1,
                               'optimize': 2,
                               'includes': [
