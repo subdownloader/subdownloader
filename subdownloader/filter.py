@@ -2,7 +2,8 @@
 
 import logging
 import os.path
-from FileManagement import Subtitle
+
+from subdownloader.FileManagement import Subtitle
 
 try:
     input = raw_input

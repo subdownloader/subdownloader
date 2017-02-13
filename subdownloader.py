@@ -17,7 +17,7 @@ import argparse
 
 sys.path.append(os.path.join(sys.path[0], 'modules'))
 
-import modules.configuration as conf
+import subdownloader.client.configuration as conf
 
 parser = argparse.ArgumentParser(description=conf.General.description)
 conf.Terminal.populate_parser(parser)

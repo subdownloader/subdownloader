@@ -1,18 +1,14 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QAbstractTableModel, \
+import logging
+
+from PyQt5.QtCore import Qt, pyqtSlot, QAbstractTableModel, \
     QItemSelection, QSettings
 from PyQt5.QtWidgets import QTableView
 
-from FileManagement import get_extension, clear_string, without_extension
-import FileManagement.VideoTools as VideoTools
-import FileManagement.Subtitle as Subtitle
-import languages.Languages as languages
+import subdownloader.FileManagement.VideoTools as VideoTools
+from subdownloader import FileManagement as Subtitle
 
-from modules.videofile import *
-from modules.subtitlefile import *
-
-import logging
 log = logging.getLogger("subdownloader.gui.uploadlistview")
 
 
@@ -139,9 +135,9 @@ class UploadListModel(QAbstractTableModel):
                 lang = sub.getLanguage()
                 if lang == None:
                     lang = Subtitle.GetLangFromFilename(sub.getFilePath())
-                    if len(lang) == 2 and lang in languages.ListAll_xx():
-                        all_langs.append(languages.xx2xxx(lang))
-                    elif len(lang) == 3 and lang in languages.ListAll_xxx():
+                    if len(lang) == 2 and lang in Languages.ListAll_xx():
+                        all_langs.append(Languages.xx2xxx(lang))
+                    elif len(lang) == 3 and lang in Languages.ListAll_xxx():
                         all_langs.append(lang)
                 else:
                     all_langs.append(lang)
@@ -176,7 +172,7 @@ class UploadListModel(QAbstractTableModel):
                 max = all_langs.count(lang)
                 max_lang = lang
 
-        xxx_lang = languages.name2xxx(max_lang)
+        xxx_lang = Languages.name2xxx(max_lang)
         log.debug(
             "Majoritary Language Autodetected by content = " + str(xxx_lang))
         if xxx_lang:

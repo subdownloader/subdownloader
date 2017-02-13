@@ -1,14 +1,16 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
+import base64
 import logging
 import os.path
-import base64
 import zlib
-from modules import SDService
-from FileManagement import FileScan, Subtitle
-from modules import filter, progressbar
-import modules.configuration as conf
-import languages.Languages as Languages
+
+import progressbar
+
+import subdownloader.Languages as Languages
+import subdownloader.client.configuration as conf
+from subdownloader import SDService
+from subdownloader.FileManagement import FileScan, Subtitle
 
 try:
     input = raw_input

@@ -21,7 +21,7 @@ class Metadata(object):
         self.videos.append(video)
 
     @classmethod
-    def parse_dummy(filepath):
+    def parse_dummy(cls, filepath):
         log.warning('Using dummy metadata parser.')
         return None
 

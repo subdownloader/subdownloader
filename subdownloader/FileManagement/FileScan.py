@@ -1,14 +1,15 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-import sys
+import logging
 import os.path
 import re  # To extract the imdb regexp from the NFO files
-import logging
-from FileManagement import get_extension
+
+import subdownloader.subtitlefile as subtitlefile
+import subdownloader.videofile as videofile
+from subdownloader.FileManagement import get_extension
+
+import subdownloader.metadata as metadata
 from . import RecursiveParser
-import modules.videofile as videofile
-import modules.subtitlefile as subtitlefile
-import modules.metadata as metadata
 
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 

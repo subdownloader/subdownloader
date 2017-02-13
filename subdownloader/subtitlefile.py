@@ -1,9 +1,9 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-import os
-import languages.Languages as languages
-import platform
 import logging
+import os
+import platform
+from subdownloader import Languages
 
 if platform.python_version_tuple()[:2] == ['2', '5']:
     # this is deprecated since python 2.6
@@ -117,8 +117,8 @@ class SubtitleFile(object):
         if xx == 'gr':
             xx = 'el'
         self._languageXX = xx
-        self._languageXXX = languages.xx2xxx(xx)
-        self._languageName = languages.xx2name(xx)
+        self._languageXXX = Languages.xx2xxx(xx)
+        self._languageName = Languages.xx2name(xx)
 
     def getLanguageXX(self):
         if self._languageXX:
@@ -128,8 +128,8 @@ class SubtitleFile(object):
 
     def setLanguageXXX(self, xxx):
         self._languageXXX = xxx
-        self._languageXX = languages.xxx2xx(xxx)
-        self._languageName = languages.xxx2name(xxx)
+        self._languageXX = Languages.xxx2xx(xxx)
+        self._languageName = Languages.xxx2name(xxx)
 
     def getLanguageXXX(self):
         if self._languageXXX:
@@ -145,8 +145,8 @@ class SubtitleFile(object):
 
     def setLanguageName(self, language):
         self._languageName = language
-        self._languageXXX = languages.name2xxx(language)
-        self._languageXX = languages.name2xx(language)
+        self._languageXX = Languages.name2xx(language)
+        self._languageXXX = Languages.name2xxx(language)
 
     def setRating(self, rating):
         self.rating = rating

@@ -9,22 +9,18 @@ try:
     import httplib
 except ImportError:
     import http.client as httplib
-from io import BytesIO
-
 import base64
-import os
 import gzip
-import zlib
 import logging
-import traceback
-import threading
 import sys
+import threading
+import traceback
+from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
-from modules import APP_TITLE, APP_VERSION
-import modules.videofile as videofile
-import modules.subtitlefile as subtitlefile
-from FileManagement import Subtitle
+from subdownloader import APP_TITLE, APP_VERSION
+import subdownloader.videofile as videofile
+import subdownloader.subtitlefile as subtitlefile
 import socket
 try:
     from urllib2 import urlopen, HTTPError, URLError

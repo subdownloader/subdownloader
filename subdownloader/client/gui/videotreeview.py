@@ -1,18 +1,14 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, pyqtSignal, QAbstractItemModel, \
-    QAbstractListModel, QModelIndex, QPoint, QRect, QSize
-from PyQt5.QtGui import QColor, QFont, QIcon
-
-from modules.videofile import VideoFile
-from modules.subtitlefile import SubtitleFile
-from modules.search import Movie
-
-import languages.Languages as languages
-
-from . import images_rc
-
 import logging
+
+from PyQt5.QtCore import Qt, QAbstractItemModel, \
+    QModelIndex, QSize
+from PyQt5.QtGui import QColor, QFont, QIcon
+from subdownloader.subtitlefile import SubtitleFile
+from subdownloader.videofile import VideoFile
+
+from subdownloader.search import Movie
 
 log = logging.getLogger("subdownloader.gui.videotreeview")
 

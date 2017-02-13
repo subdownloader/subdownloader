@@ -4,12 +4,11 @@
 __docformat__ = "epytext"
 __author__ = "Ivan Garcia <contact@ivangarcia.org>"
 
-import sys
 import os
 import re
 import traceback
-from modules import APP_TITLE, APP_VERSION, SDService, subtitlefile, videofile
 
+from subdownloader import APP_TITLE
 
 error_dialog = None
 

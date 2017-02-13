@@ -2,9 +2,10 @@
 
 import logging
 import os.path
-from modules import progressbar
-from modules import APP_TITLE
-from modules import APP_VERSION
+
+from subdownloader import APP_TITLE
+from subdownloader import APP_VERSION
+import progressbar
 
 '''
 Logging levels:

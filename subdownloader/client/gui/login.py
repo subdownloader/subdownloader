@@ -12,11 +12,11 @@ log = logging.getLogger("subdownloader.gui.login")
 
 class loginDialog(QDialog):
 
-    def __init__(self, parent):
+    def __init__(self, parent, main):
         QDialog.__init__(self, parent)
         self.ui = Ui_LoginDialog()
         self.ui.setupUi(self)
-        self._main = parent
+        self._main = main
         settings = QSettings()
 
         self.ui.buttonBox.accepted.connect(self.onButtonAccept)

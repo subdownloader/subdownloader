@@ -1,9 +1,8 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
-from xml.dom import minidom
 import xml.parsers.expat
-import sys
+from xml.dom import minidom
 
 try:
     from urllib2 import urlopen
@@ -14,12 +13,12 @@ OnlyLink = ''
 FilmLink = ''
 
 try:
-    from modules import subtitlefile
+    from subdownloader import subtitlefile
 except ImportError:
     import sys
     import os
     sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
-    from modules import subtitlefile
+    from subdownloader import subtitlefile
 
 
 class Link:

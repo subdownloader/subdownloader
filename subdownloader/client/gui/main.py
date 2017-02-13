@@ -7,9 +7,11 @@ import base64
 import gettext
 import locale
 import os.path
+import platform
 import re
 import sys
 import time
+import traceback
 import webbrowser
 import zlib
 
@@ -42,16 +44,16 @@ except ImportError:
     QString = str
 
 from subdownloader.client.gui.SplashScreen import SplashScreen
-from FileManagement import get_extension, without_extension
+from subdownloader.FileManagement import get_extension, without_extension
 
 # create splash screen and show messages to the user
 app = QApplication(sys.argv)
 splash = SplashScreen()
-splash.showMessage(_("Loading..."))
+splash.showMessage("Loading...") #FIXME: add translation!
 QCoreApplication.flush()
 
-from modules import *
-from modules.SDService import SDService, TimeoutFunctionException
+import subdownloader.Languages
+from subdownloader.SDService import SDService, TimeoutFunctionException
 
 from subdownloader.client.gui import installErrorHandler, Error
 
@@ -65,12 +67,11 @@ from subdownloader.client.gui.about import aboutDialog
 
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
 from subdownloader.client.gui.login import loginDialog
-from FileManagement import FileScan, Subtitle
-from modules.videofile import *
-from modules.subtitlefile import *
-from modules.search import *
-
-import languages.Languages as languages
+from subdownloader.FileManagement import FileScan, Subtitle
+from subdownloader import APP_TITLE, APP_VERSION
+from subdownloader.search import *
+from subdownloader.videofile import VideoFile
+from subdownloader.subtitlefile import SubtitleFile
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
@@ -309,7 +310,7 @@ class Main(QObject, Ui_MainWindow):
                 else:
                     loginUsername = settings.value("options/LoginUsername", "")
                     loginPassword = settings.value("options/LoginPassword", "")
-                self.login_user(loginUsername, loginPassword, self.window)
+                self.login_user(loginUsername, loginPassword)
                 # thread.start_new_thread(self.OSDBServer.NoOperation, (900, ))
                 # #check expire session every 15min
             else:
@@ -346,7 +347,6 @@ class Main(QObject, Ui_MainWindow):
 
     def SetupInterfaceLang(self):
         locallocaledir = os.path.join(os.path.dirname(__file__), '..', 'locale')
-        print(locallocaledir)
         if platform.system() == "Linux":
             if self.programFolder == '/usr/share/subdownloader':
                 localedir = '/usr/share/locale/'
@@ -375,7 +375,7 @@ class Main(QObject, Ui_MainWindow):
         if not lc:
             user_locale = 'en'  # In case of language not found
         else:
-            if lc in languages.ListAll_locale():
+            if lc in subdownloader.Languages.ListAll_locale():
                 user_locale = lc
             else:
                 user_locale = lc.split('_')[0]
@@ -623,13 +623,13 @@ class Main(QObject, Ui_MainWindow):
             time.sleep(sleeptime)
 
     def onButtonLogin(self):
-        dialog = loginDialog(self.window)
+        dialog = loginDialog(self.window, self)
         ok = dialog.exec_()
 
-    def login_user(self, username, password, window):
+    def login_user(self, username, password):
         #self.window.setLoginStatus.emit("Trying to login...")
         self.status_progress = QProgressDialog(
-            _("Logging in..."), _("&Cancel"), 0, 0, window)
+            _("Logging in..."), _("&Cancel"), 0, 0, self.window)
         self.status_progress.setWindowTitle(_("Authentication"))
         self.status_progress.setCancelButton(None)
         self.status_progress.show()
@@ -711,7 +711,7 @@ class Main(QObject, Ui_MainWindow):
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(_("All languages"), "")
         self.filterLanguageForTitle.addItem(_("All languages"), "")
-        for lang in languages.LANGUAGES:
+        for lang in subdownloader.Languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(
                 _(lang["LanguageName"]),  lang["SubLanguageID"])
             self.filterLanguageForTitle.addItem(
@@ -1296,7 +1296,7 @@ class Main(QObject, Ui_MainWindow):
             return False
 
         except Exception as e:
-            traceback.print_exc(e)
+            traceback.print_exc()#(e)
             #self.progress(0, "Error contacting the server")
             self.status_progress.close()
             # replace by a dialog with button.

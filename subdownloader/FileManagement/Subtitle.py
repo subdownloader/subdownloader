@@ -1,13 +1,14 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
-import re
-import sys
-import os
 import logging
-import modules.videofile as videofile
-import modules.subtitlefile as subtitlefile
-from FileManagement import FileScan, get_extension, clear_string, without_extension
-from languages import Languages, autodetect_lang
+import os
+import re
+
+import subdownloader.subtitlefile as subtitlefile
+import subdownloader.videofile as videofile
+from languages import autodetect_lang
+from subdownloader import Languages
+from subdownloader.FileManagement import get_extension, clear_string, without_extension
 
 log = logging.getLogger("subdownloader.FileManagement.Subtitle")
 
