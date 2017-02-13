@@ -5,7 +5,7 @@ SubDownloader is a Free Open-Source tool written in Python for automatic downloa
 ## Dependencies
 
 Required:
-- [Python]: version 2 or 3
+- [Python]: version 2.7+ or 3
 - Python packages:
   * [argparse]: parsing command line options (standard since Python 3.2)
   * [python-progressbar]: command line interface

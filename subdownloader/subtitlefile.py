@@ -5,11 +5,7 @@ import os
 import platform
 from subdownloader import Languages
 
-if platform.python_version_tuple()[:2] == ['2', '5']:
-    # this is deprecated since python 2.6
-    from md5 import md5
-else:
-    from hashlib import md5
+from hashlib import md5
 
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
 SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)
