@@ -10,8 +10,8 @@ PYRCC=pyrcc5
 
 all: $(TARGETS)
 
-%_ui.py : %.ui parse_ui.py Makefile
-	$(PYUIC) $< | python parse_ui.py -- $(TARGETS)> $@
+%_ui.py : %.ui ui_parser.py Makefile
+	$(PYUIC) $< | python ui_parser.py -- $(TARGETS)> $@
 
 %_rc.py : %.qrc $(IMAGES) Makefile
 	$(PYRCC) $< > $@
