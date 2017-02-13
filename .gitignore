@@ -14,3 +14,6 @@
 
 # Release tarballs
 *.tar.gz
+
+# IDE artifacts
+.idea
