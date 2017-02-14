@@ -371,7 +371,6 @@ class Main(QObject, Ui_MainWindow):
             if not interface_lang:
                 # Use system default locale
                 interface_lang = user_locale
-                settings.setValue("options/interfaceLang", user_locale)
             else:
                 pass  # interface_lang = interface_lang
 

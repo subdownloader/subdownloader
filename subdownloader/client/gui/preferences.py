@@ -65,6 +65,7 @@ class PreferencesDialog(QDialog):
         self.ui.optionUlDefaultLanguage.addItem(_("<AutoDetect>"), "")
 
 
+        self.ui.optionInterfaceLanguage.addItem(_('<system_locale>'), "")
         for lang_locale in self._main.interface_langs:
             languageName = language.locale2name(lang_locale)
             if not languageName:
