@@ -47,9 +47,10 @@ class Filter(object):
                         subtitle_filename = Subtitle.subtitle_name_gen(
                             video.get_filepath())
                     else:
-                        subtitle_filename = subtitle.get_filepath()
-                    subtitles_to_download[subtitle.getIdFileOnline()] = os.path.join(
-                        video.get_folderpath(), subtitle_filename)
+                        if len(subtitle.getIdFileOnline()) > 0:
+                            subtitle_filename = subtitle.get_filepath()
+                            subtitles_to_download[subtitle.getIdFileOnline()] = os.path.join(
+                            video.get_folderpath(), subtitle_filename)
             elif video.getTotalOnlineSubtitles() > 1:
                 choice = 'auto_'
                 if self.interactive:
