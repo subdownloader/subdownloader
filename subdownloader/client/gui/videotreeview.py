@@ -150,7 +150,7 @@ class VideoTreeModel(QAbstractItemModel):
                 line = "[%s]" % _(sub.getLanguageName())
 
                 if hasattr(sub, "_filename"):  # if hash searching
-                    line += "    %s  " % sub.getFileName()
+                    line += "    %s  " % sub.get_filepath()
                     if sub.getRating() != '0.0':  # if the rate is not 0
                         line += _("[Rate: %s]") % str(sub.getRating())
 
@@ -203,10 +203,10 @@ class VideoTreeModel(QAbstractItemModel):
                         info += " " + \
                             _("[IMDB Rate: %s]") % movie_info[
                                 "MovieImdbRating"]
-                    info += " <%s>" % data.getFileName()
+                    info += " <%s>" % data.get_filepath()
                     return info
                 else:
-                    return data.getFileName()
+                    return data.get_filepath()
 
             return None
         elif type(data) == Movie:  # It's a MOVIE item

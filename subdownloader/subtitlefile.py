@@ -1,13 +1,18 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+import hashlib
 import logging
 import os
-from hashlib import md5
 
 from subdownloader.languages import Languages
 
+log = logging.getLogger('subdownloader.subtitlefile')
+
+"""
+List of known subtitle extensions.
+"""
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
-SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)
 
 
 class SubtitleFile(object):
@@ -44,18 +49,18 @@ class SubtitleFile(object):
         self._hash = None
         if not online:
             self._size = os.path.getsize(self._path)
-            self._hash = md5(open(self._path, mode='rb').read()).hexdigest()
+            self._hash = hashlib.md5(open(self._path, mode='rb').read()).hexdigest()
 
     def __repr__(self):
         return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size: # %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %s>" % (self.isOnline(), self.isLocal(), self.getFilePath(),
-         self.getFileName(), self.getSize(), self.getUploader(),
-         self.getIdOnline(), self.getHash(), self.getLanguageXXX(),
-         self.getRating())
+                                                                                                                                                         self.get_filepath(), self.getSize(), self.getUploader(),
+                                                                                                                                                         self.getIdOnline(), self.get_hash(), self.getLanguageXXX(),
+                                                                                                                                                         self.getRating())
 
     def setFileName(self, filename):
         self._filename = filename
 
-    def getFileName(self):
+    def get_filepath(self):
         return self._filename
 
     def setVideo(self, _video):
@@ -98,7 +103,7 @@ class SubtitleFile(object):
     def setHash(self, hash):
         self._hash = hash
 
-    def getHash(self):
+    def get_hash(self):
         return self._hash
 
     def setLanguage(self, language):

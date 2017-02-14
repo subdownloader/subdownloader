@@ -115,7 +115,7 @@ def score_subtitles(video, subtitle_list):
     elif isinstance(subtitle_list, dict):
         sub_dict = dict(zip(subtitle_list.keys(), [0] * len(subtitle_list)))
     for sub in sub_dict:
-        sub_name = subtitle_list[sub].getFileName()
+        sub_name = subtitle_list[sub].get_filepath()
         # fetch the seperating character
         if re.search("\W", sub_name):
             sep_ch = re.search("\W", sub_name).group(0)

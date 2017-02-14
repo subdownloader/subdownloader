@@ -1,16 +1,26 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+import os.path
+try:
+    import thread
+except ImportError:
+    import _thread as thread
 
 from PyQt5.QtCore import Qt, pyqtSlot, QAbstractTableModel, \
     QItemSelection, QSettings
 from PyQt5.QtWidgets import QTableView
 
 import subdownloader.FileManagement.VideoTools as VideoTools
+from subdownloader.languages import Languages
+from subdownloader.subtitlefile import SubtitleFile
+from subdownloader.videofile import VideoFile
 from subdownloader import FileManagement as Subtitle
 
 log = logging.getLogger("subdownloader.gui.uploadlistview")
 
+#FIXME: translation
+_ = lambda x: x
 
 class UploadListModel(QAbstractTableModel):
     def __init__(self, parent):
@@ -42,7 +52,7 @@ class UploadListModel(QAbstractTableModel):
 
             if index == 0:
                 self._main.releaseUpdated.emit(
-                    self.calculateReleaseName(video.getFilePath()))
+                    self.calculateReleaseName(video.get_filepath()))
 
             index += 1
 
@@ -101,7 +111,7 @@ class UploadListModel(QAbstractTableModel):
         videos = []
         for video, sub in zip(self._videos, self._subs):
             if video != None and sub != None:
-                tmp_video = VideoFile(video.getFilePath())
+                tmp_video = VideoFile(video.get_filepath())
                 tmp_video.setSubtitles([sub])
                 videos.append(tmp_video)
         if videos:
@@ -344,7 +354,7 @@ class UploadListView(QTableView):
                     video = VideoFile(fileName)
                     self.model().layoutAboutToBeChanged.emit()
                     self.model().addVideos(row, [video])
-                    subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                    subtitle = Subtitle.AutoDetectSubtitle(video.get_filepath())
                     if subtitle:
                         sub = SubtitleFile(False, subtitle)
                         self.model().addSubs(row, [sub])

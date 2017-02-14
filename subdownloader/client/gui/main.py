@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 """ Create and launch the GUI """
 import base64
@@ -70,18 +69,18 @@ from subdownloader.client.gui.login import loginDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader import APP_TITLE, APP_VERSION
 from subdownloader.search import *
-from subdownloader.videofile import VideoFile
-from subdownloader.subtitlefile import SubtitleFile
+from subdownloader.videofile import VideoFile, VIDEOS_EXT
+from subdownloader.subtitlefile import SubtitleFile, SUBTITLES_EXT
+
+#FIXME: translations
+_ = lambda x: x
 
 import logging
 log = logging.getLogger("subdownloader.gui.main")
 splash.showMessage(_("Building main dialog..."))
 
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
-
+SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)
+SELECT_VIDEOS = "Video Files (*.%s)" % " *.".join(VIDEOS_EXT)
 
 class Main(QObject, Ui_MainWindow):
 
@@ -399,21 +398,12 @@ class Main(QObject, Ui_MainWindow):
         except IOError:
             isTrans = False
 
+        # FIXME: better installation of _
         if isTrans:
-            # needed for the _ in the __init__ plugin (menuentry traduction)
-            try:
-                unicode(b'a')  # Python 3+ does not have a unicode type
-
-                def __translate(s):
-                    return gettext.translation("subdownloader", localedir=localedir, languages=[interface_lang], fallback=True).ugettext(s)
-                builtins._ = __translate
-                #builtins._ = lambda s : gettext.translation("subdownloader",localedir = localedir,languages=[interface_lang],fallback=True).ugettext(s)
-            except NameError:
-                builtins._ = lambda s: gettext.translation(
-                    "subdownloader", localedir=localedir, languages=[interface_lang], fallback=True).gettext(s)
-
+            gettext.translation("subdownloader", localedir=localedir,
+                               languages=[interface_lang], fallback=True).install()
         else:
-            builtins._ = lambda x: x
+            gettext.NullTranslations().install()
 
     def chooseInterfaceLanguage(self, user_locale):
         self.choosenLanguage = 'en'  # By default
@@ -681,9 +671,6 @@ class Main(QObject, Ui_MainWindow):
 
     @pyqtSlot()
     def onActivateMenu(self):
-        daysLeft = expiration.calculateDaysLeft(time.time())
-        expirationDialog = expiration.expirationDialog(self.window, self, daysLeft)
-        ok = expirationDialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpAbout(self):
@@ -713,11 +700,11 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForTitle.addItem(_("All languages"), "")
         for lang in Languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(
-                _(lang["LanguageName"]),  lang["SubLanguageID"])
+                _(lang["LanguageName"]), lang["LanguageID"])
             self.filterLanguageForTitle.addItem(
-                _(lang["LanguageName"]), lang["SubLanguageID"])
+                _(lang["LanguageName"]), lang["LanguageID"])
             self.uploadLanguages.addItem(
-                _(lang["LanguageName"]), lang["SubLanguageID"])
+                _(lang["LanguageName"]), lang["LanguageID"])
 
         settings = QSettings()
         optionUploadLanguage = settings.value("options/uploadLanguage", "eng")
@@ -848,14 +835,14 @@ class Main(QObject, Ui_MainWindow):
                         # Hashes of the local subtitles
                         for sub in subs_found:
                             hashes_subs_found[
-                                sub.getHash()] = sub.getFilePath()
+                                sub.get_hash()] = sub.get_filepath()
 
                         # are the online subtitles already in our folder?
                         for video in videoSearchResults:
                             for sub in video._subs:
-                                if sub.getHash() in hashes_subs_found:
+                                if sub.get_hash() in hashes_subs_found:
                                     sub._path = hashes_subs_found[
-                                        sub.getHash()]
+                                        sub.get_hash()]
                                     sub._online = False
 
                     if videoSearchResults:
@@ -872,9 +859,9 @@ class Main(QObject, Ui_MainWindow):
 
                     if 'videoSearchResults' in locals():
                         video_osdb_hashes = [
-                            video.calculateOSDBHash() for video in videoSearchResults]
+                            video.get_hash() for video in videoSearchResults]
 
-                        video_filesizes = [video.getSize()
+                        video_filesizes = [video.get_size()
                                            for video in videoSearchResults]
                         video_movienames = [
                             video.getMovieName() for video in videoSearchResults]
@@ -945,7 +932,7 @@ class Main(QObject, Ui_MainWindow):
             settings = QSettings()
             currentDir = settings.value("mainwindow/workingDirectory", "")
             fileNames, t = QFileDialog.getOpenFileNames(None, _(
-                "Select the video(s) that need subtitles"), currentDir, videofile.SELECT_VIDEOS)
+                "Select the video(s) that need subtitles"), currentDir, SELECT_VIDEOS)
             fileNames = [fileName for fileName in fileNames]
             if fileNames:
                 settings.setValue(
@@ -992,7 +979,7 @@ class Main(QObject, Ui_MainWindow):
             return
         else:
             subtitle = self.videoModel.getSelectedItem().data
-            moviePath = subtitle.getVideo().getFilePath()
+            moviePath = subtitle.getVideo().get_filepath()
             subtitleFileID = subtitle.getIdFileOnline()
             # This should work in all the OS, creating a temporary file
             tempSubFilePath = QDir.temp().absoluteFilePath("subdownloader.tmp.srt")
@@ -1009,11 +996,11 @@ class Main(QObject, Ui_MainWindow):
                     {subtitleFileID: tempSubFilePath})
                 if not ok:
                     QMessageBox.about(self.window, _("Error"), _(
-                        "Unable to download subtitle %s") % subtitle.getFileName())
+                        "Unable to download subtitle %s") % subtitle.get_filepath())
             except Exception as e:
                 traceback.print_exc(e)
                 QMessageBox.about(self.window, _("Error"), _(
-                    "Unable to download subtitle %s") % subtitle.getFileName())
+                    "Unable to download subtitle %s") % subtitle.get_filepath())
             finally:
                 self.status_progress.close()
                 self.window.setCursor(Qt.ArrowCursor)
@@ -1048,31 +1035,31 @@ class Main(QObject, Ui_MainWindow):
         # Creating the Subtitle Filename
         optionSubtitleName = \
             settings.value("options/subtitleName", "SAME_VIDEO")
-        sub_extension = get_extension(subtitle.getFileName().lower())
+        sub_extension = get_extension(subtitle.get_filepath().lower())
         if optionSubtitleName == "SAME_VIDEO":
             subFileName = without_extension(
-                video.getFileName()) + "." + sub_extension
+                video.get_filepath()) + "." + sub_extension
         elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
             subFileName = without_extension(
-                video.getFileName()) + "." + subtitle.getLanguageXXX() + "." + sub_extension
+                video.get_filepath()) + "." + subtitle.getLanguageXXX() + "." + sub_extension
         elif optionSubtitleName == "SAME_VIDEOPLUSLANGANDUPLOADER":
-            subFileName = without_extension(video.getFileName(
+            subFileName = without_extension(video.get_filepath(
             )) + "." + subtitle.getLanguageXXX() + "." + subtitle.getUploader() + "." + sub_extension
         elif optionSubtitleName == "SAME_ONLINE":
-            subFileName = subtitle.getFileName()
+            subFileName = subtitle.get_filepath()
 
         # Creating the Folder Destination
         optionWhereToDownload = \
             settings.value("options/whereToDownload", "SAME_FOLDER")
         if optionWhereToDownload == "ASK_FOLDER":
-            folderPath = video.getFolderPath()
+            folderPath = video.get_folderpath()
             dir = QDir(folderPath)
             downloadFullPath = dir.filePath(subFileName)
             downloadFullPath, t = QFileDialog.getSaveFileName(
                 None, _("Save as..."), downloadFullPath, sub_extension).__str__()
             log.debug("Downloading to: %r" % downloadFullPath)
         elif optionWhereToDownload == "SAME_FOLDER":
-            folderPath = video.getFolderPath()
+            folderPath = video.get_folderpath()
             dir = QDir(folderPath)
             downloadFullPath = os.path.join(folderPath, subFileName)
             log.debug("Downloading to: %r" % downloadFullPath)
@@ -1219,11 +1206,11 @@ class Main(QObject, Ui_MainWindow):
                         success_downloaded += 1
                     else:
                         QMessageBox.about(self.window, _("Error"), _(
-                            "Unable to download subtitle %s") % sub.getFileName())
+                            "Unable to download subtitle %s") % sub.get_filepath())
             except Exception as e:
                 traceback.print_exc(e)
                 QMessageBox.about(self.window, _("Error"), _(
-                    "Unable to download subtitle %s") % sub.getFileName())
+                    "Unable to download subtitle %s") % sub.get_filepath())
             finally:
                 count += percentage
         self.status("%d from %d subtitles downloaded successfully" %
@@ -1324,7 +1311,7 @@ class Main(QObject, Ui_MainWindow):
             self.uploadModel.layoutAboutToBeChanged.emit()
             for row, video in enumerate(videos_found):
                 self.uploadModel.addVideos(row, [video])
-                subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                subtitle = Subtitle.AutoDetectSubtitle(video.get_filepath())
                 if subtitle:
                     sub = SubtitleFile(False, subtitle)
                     self.uploadModel.addSubs(row, [sub])
@@ -1383,12 +1370,12 @@ class Main(QObject, Ui_MainWindow):
                     curr_sub = self.uploadModel._subs[i]
                     curr_video = self.uploadModel._videos[i]
                     if curr_sub:  # Make sure is not an empty row with None
-                        buf = open(curr_sub.getFilePath(), mode='rb').read()
+                        buf = open(curr_sub.get_filepath(), mode='rb').read()
                         curr_sub_content = base64.encodestring(
                             zlib.compress(buf))
                         cd = "cd" + str(i)
-                        movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': curr_sub.getFileName(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.getSize(
-                        ), 'movietimems': curr_video.getTimeMS(), 'moviefps': curr_video.getFPS(), 'moviefilename': curr_video.getFileName(), 'subcontent': curr_sub_content}
+                        movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.get_size(
+                        ), 'movietimems': curr_video.get_time_ms(), 'moviefps': curr_video.get_fps(), 'moviefilename': curr_video.get_filepath(), 'subcontent': curr_sub_content}
 
                 try:
                     info = self.OSDBServer.UploadSubtitles(movie_info)
@@ -1548,14 +1535,14 @@ class Main(QObject, Ui_MainWindow):
 
         if col == UploadListView.COL_VIDEO:
             fileName, t = QFileDialog.getOpenFileName(
-                None, _("Browse video..."), currentDir, videofile.SELECT_VIDEOS)
+                None, _("Browse video..."), currentDir, SELECT_VIDEOS)
             if fileName:
                 settings.setValue(
                     "mainwindow/workingDirectory", QFileInfo(fileName).absolutePath())
                 video = VideoFile(fileName)
                 self.uploadModel.layoutAboutToBeChanged.emit()
                 self.uploadModel.addVideos(row, [video])
-                subtitle = Subtitle.AutoDetectSubtitle(video.getFilePath())
+                subtitle = Subtitle.AutoDetectSubtitle(video.get_filepath())
                 if subtitle:
                     sub = SubtitleFile(False, subtitle)
                     self.uploadModel.addSubs(row, [sub])
@@ -1568,7 +1555,7 @@ class Main(QObject, Ui_MainWindow):
 
         else:
             fileName, t = QFileDialog.getOpenFileName(
-                None, _("Browse subtitle..."), currentDir, subtitlefile.SELECT_SUBTITLES)
+                None, _("Browse subtitle..."), currentDir, SELECT_SUBTITLES)
             if fileName:
                 settings.setValue(
                     "mainwindow/workingDirectory", QFileInfo(fileName).absolutePath())
@@ -1613,7 +1600,7 @@ class Main(QObject, Ui_MainWindow):
                     predefinedVideoPlayer = {
                         'programPath': path,  'parameters': player['parameters']}
                     break
-                except WindowsError:
+                except (WindowsError, OSError) as e:
                     log.debug("Cannot find registry for %s" %
                               player['regRoot'])
         elif platform.system() == "Darwin":  # MACOSX
@@ -1779,11 +1766,11 @@ class Main(QObject, Ui_MainWindow):
                         dlOK += 1
                     else:
                         QMessageBox.about(self.window, _("Error"), _(
-                            "Unable to download subtitle %s") % sub.getFileName())
+                            "Unable to download subtitle %s") % sub.get_filepath())
                 except Exception as e:
                     log.debug(e)
                     QMessageBox.about(self.window, _("Error"), _(
-                        "Unable to download subtitle %s") % sub.getFileName())
+                        "Unable to download subtitle %s") % sub.get_filepath())
                     QMessageBox.critical(self.window, _("Error"), _(
                         "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
                 QCoreApplication.processEvents()
@@ -1832,9 +1819,9 @@ class Main(QObject, Ui_MainWindow):
             self.window.setCursor(Qt.ArrowCursor)
 
 
-def onUpgradeDetected():
-    QMessageBox.about(
-        self.window, _("A new version of SubDownloader has been released."))
+    def onUpgradeDetected(self):
+        QMessageBox.about(
+            self.window, _("A new version of SubDownloader has been released."))
 
 
 def main(options):

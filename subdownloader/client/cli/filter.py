@@ -37,28 +37,28 @@ class Filter(object):
                 choice = 'y'
                 if self.interactive:
                     self.log.info("Only one subtitle was found for %s: %s" % (
-                        video.getFileName(), subtitle.getFileName()))
+                        video.get_filepath(), subtitle.get_filepath()))
                     choice = input("Is that correct? [Y/n]").lower() or 'y'
                 if choice == 'y':
                     self.log.debug(
-                        "- adding: %s: %s" % (subtitle.getIdFileOnline(), subtitle.getFileName()))
+                        "- adding: %s: %s" % (subtitle.getIdFileOnline(), subtitle.get_filepath()))
                     #subtitles_to_download[subtitle.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle.getFileName()), 'video': video}
                     if self.rename_subs:
                         subtitle_filename = Subtitle.subtitle_name_gen(
-                            video.getFileName())
+                            video.get_filepath())
                     else:
-                        subtitle_filename = subtitle.getFileName()
+                        subtitle_filename = subtitle.get_filepath()
                     subtitles_to_download[subtitle.getIdFileOnline()] = os.path.join(
-                        video.getFolderPath(), subtitle_filename)
+                        video.get_folderpath(), subtitle_filename)
             elif video.getTotalOnlineSubtitles() > 1:
                 choice = 'auto_'
                 if self.interactive:
                     self.log.info(
-                        "Looks like \"%s\" has more than one subtitle candidate." % video.getFileName())
+                        "Looks like \"%s\" has more than one subtitle candidate." % video.get_filepath())
                     choices = ['auto']
                     for i, sub in enumerate(video.getOnlineSubtitles()):
                         self.log.info("[%i] %s (rate: %s)" %
-                                      (i, sub.getFileName(), sub.getRating()))
+                                      (i, sub.get_filepath(), sub.getRating()))
                         choices += [str(i)]
                     self.log.info(
                         "[auto] Subdownloader will select one for you.")
@@ -81,28 +81,28 @@ class Filter(object):
                     # FIXME: seems u sending a dictionary, but this function
                     # needs a list
                     sub_match = Subtitle.AutoDetectSubtitle(
-                        video.getFilePath(), sub_list=subpath_list)
+                        video.get_filepath(), sub_list=subpath_list)
                     if sub_match:
                         self.log.debug("Subtitle choosen by match")
                         sub_choice = subpath_list[sub_match]
                     else:
                         self.log.debug("Subtitle choosen by rating")
                         sub_choice = best_rated_sub
-                    self.log.debug("- adding: %s" % (sub_choice.getFileName()))
+                    self.log.debug("- adding: %s" % (sub_choice.get_filepath()))
 
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), sub_choice.getFileName()), 'video': video}
                 if self.rename_subs:
                     subtitle_filename = Subtitle.subtitle_name_gen(
-                        video.getFileName())
+                        video.get_filepath())
                 else:
-                    subtitle_filename = sub_choice.getFileName()
+                    subtitle_filename = sub_choice.get_filepath()
 
 #                subtitle_filename = Subtitle.subtitle_name_gen(video.getFileName())
                 #subtitles_to_download[sub_choice.getIdFileOnline()] = {'subtitle_path': os.path.join(video.getFolderPath(), subtitle_filename), 'video': video}
                 subtitles_to_download[sub_choice.getIdFileOnline()] = os.path.join(
-                    video.getFolderPath(), subtitle_filename)
+                    video.get_folderpath(), subtitle_filename)
             else:
                 self.log.info(
-                    "No subtitle was downloaded \"%s\". Maybe you already have it?" % video.getFileName())
+                    "No subtitle was downloaded \"%s\". Maybe you already have it?" % video.get_filepath())
 
         return subtitles_to_download

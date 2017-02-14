@@ -43,14 +43,14 @@ class Main(SDService.SDService):
             self.do_matching(self.videos, self.subs)
             result = "\n"
             for video in self.videos:
-                video_name = video.getFileName()
+                video_name = video.get_filepath()
                 if video.hasSubtitles():
                     if video.getTotalLocalSubtitles() == 1:
-                        sub_name = video.getSubtitles()[0].getFileName()
+                        sub_name = video.getSubtitles()[0].get_filepath()
                     elif video.getTotalLocalSubtitles() > 1:
                         sub_name = ""
                         for sub in video.getSubtitles():
-                            sub_name += "%s, " % sub.getFileName()
+                            sub_name += "%s, " % sub.get_filepath()
                 else:
                     sub_name = "NO MATCH"
                 result += "%s -> %s\n" % (video_name, sub_name)
@@ -88,7 +88,7 @@ class Main(SDService.SDService):
                                 # (nos)
                                 nos_sub = video.getSubtitle(hash)
                                 self.log.debug(
-                                    "Not on server - %s - jailing..." % nos_sub.getFileName())
+                                    "Not on server - %s - jailing..." % nos_sub.get_filepath())
                                 video.setNOSSubtitle(nos_sub)
 
             videoSearchResults = self.SearchSubtitles(
@@ -96,14 +96,14 @@ class Main(SDService.SDService):
             if self.options.test:
                 for (i, video) in enumerate(self.videos):
                     #details = check_result['data'][0]
-                    if video.getHash():
+                    if video.get_hash():
                         cd = 'cd%i' % (i + 1)
                         curr_video = video
                         curr_sub = curr_video.getSubtitles()[0]
                         user_choices = {'moviereleasename': 'NA',
                                         'movieaka': 'NA',
-                                        'moviefilename': curr_video.getFileName(),
-                                        'subfilename': curr_sub.getFileName(),
+                                        'moviefilename': curr_video.get_filepath(),
+                                        'subfilename': curr_sub.get_filepath(),
                                         'sublanguageid': curr_sub.getLanguage(),
                                         }
                         # interactive mode
@@ -126,12 +126,6 @@ class Main(SDService.SDService):
 
             else:
                 self.handle_operation(self.options.operation)
-
-            video_hashes = [video.calculateOSDBHash()
-                            for video in videoSearchResults]
-            video_filesizes = [video.getSize() for video in videoSearchResults]
-            video_movienames = [video.getMovieName()
-                                for video in videoSearchResults]
 
             self.logout()
 
@@ -191,10 +185,10 @@ class Main(SDService.SDService):
             for video in self.videos:
                 self.log.info("-" * 30)
                 self.log.info("- %s (%s)" %
-                              (video.getFileName(), video.getHash()))
+                              (video.get_filepath(), video.get_hash()))
                 for sub in video.getSubtitles():
                     self.log.info("  [%s] - %s" %
-                                  (sub.getLanguage(), sub.getFileName()))
+                                  (sub.getLanguage(), sub.get_filepath()))
 
     def check_directory(self):
         """ search for videos and subtitles in the given path """
@@ -239,17 +233,17 @@ class Main(SDService.SDService):
         for i, video in enumerate(videos):
             if self.options.logging > logging.DEBUG and self.options.verbose:
                 progress.update(i + 1)
-            self.log.debug("Processing %s..." % video.getFileName())
+            self.log.debug("Processing %s..." % video.get_filepath())
 
             possible_subtitle = Subtitle.AutoDetectSubtitle(
-                video.getFilePath())
+                video.get_filepath())
             #self.log.debug("possible subtitle is: %s"% possible_subtitle)
             sub_match = None
             for subtitle in subtitles:
                 sub_match = None
-                if possible_subtitle == subtitle.getFilePath():
+                if possible_subtitle == subtitle.get_filepath():
                     sub_match = subtitle
-                    self.log.debug("Match found: %s" % sub_match.getFileName())
+                    self.log.debug("Match found: %s" % sub_match.get_filepath())
                     break
             if sub_match:
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
@@ -290,14 +284,14 @@ class Main(SDService.SDService):
             for (i, video) in enumerate(videos):
                 # for details in check_result['data']:
                 details = check_result['data'][0]
-                if video.getHash() == details['MovieHash']:
+                if video.get_hash() == details['MovieHash']:
                     cd = 'cd%i' % (i + 1)
                     curr_video = video
                     curr_sub = curr_video.getSubtitles()[0]
                     user_choices = {'moviereleasename': details['MovieName'],
                                     'movieaka': details['MovieNameEng'],
-                                    'moviefilename': curr_video.getFileName(),
-                                    'subfilename': curr_sub.getFileName(),
+                                    'moviefilename': curr_video.get_filepath(),
+                                    'subfilename': curr_sub.get_filepath(),
                                     'sublanguageid': curr_sub.getLanguage(),
                                     }
                     # interactive mode
@@ -320,12 +314,12 @@ class Main(SDService.SDService):
 
                     # cook subtitle content
                     self.log.debug("Compressing subtitle...")
-                    buf = open(curr_sub.getFilePath(), mode='rb').read()
+                    buf = open(curr_sub.get_filepath(), mode='rb').read()
                     curr_sub_content = base64.encodestring(zlib.compress(buf))
 
                     # transfer info
-                    movie_info[cd] = {'subhash': curr_sub.getHash(), 'subfilename': user_choices['subfilename'], 'moviehash': details['MovieHash'], 'moviebytesize': details[
-                        'MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.getFPS(), 'moviefilename': user_choices['moviefilename'], 'subcontent': curr_sub_content}
+                    movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': user_choices['subfilename'], 'moviehash': details['MovieHash'], 'moviebytesize': details[
+                        'MovieByteSize'], 'movietimems': details['MovieTimeMS'], 'moviefps': curr_video.get_fps(), 'moviefilename': user_choices['moviefilename'], 'subcontent': curr_sub_content}
                     break
 
             movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': user_choices['moviereleasename'], 'movieaka': user_choices[

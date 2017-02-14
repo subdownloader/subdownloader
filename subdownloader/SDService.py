@@ -337,7 +337,7 @@ class SDService(object):
 
     def _GetSubLanguages(self, language):
         """Return all suported subtitles languages in a dictionary
-        If language var is set, returns SubLanguageID for it
+        If language var is set, returns LanguageID for it
         """
         self.log.debug("----------------")
         self.log.debug("GetSubLanguages RPC method starting...")
@@ -350,7 +350,7 @@ class SDService(object):
             if language:
                 for lang in info['data']:
                     if lang['ISO639'] == language:
-                        return lang['SubLanguageID']
+                        return lang['LanguageID']
             return info['data']
         except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
@@ -386,7 +386,7 @@ class SDService(object):
             video = hashes
             hashes = []
             for sub in video.getSubtitles():
-                hashes.append(sub.getHash())
+                hashes.append(sub.get_hash())
             self.log.debug("...done")
         try:
             info = self.xmlrpc_server.CheckSubHash(self._token, hashes)
@@ -496,7 +496,7 @@ class SDService(object):
             self.log.debug("Building search array with video objects info")
             for video in videos:
                 array = {'sublanguageid': language, 'moviehash':
-                         video.getHash(), 'moviebytesize': video.getSize()}
+                         video.get_hash(), 'moviebytesize': str(video.get_size())}
                 self.log.debug(" - adding: %s" % array)
                 search_array.append(array)
         elif imdb_ids:
@@ -527,11 +527,11 @@ class SDService(object):
             if videos:
                 videos_result = []
                 for video in videos:
-                    if video.getHash() in moviehashes:
-                        osdb_info = moviehashes[video.getHash()]
+                    if video.get_hash() in moviehashes:
+                        osdb_info = moviehashes[video.get_hash()]
                         subtitles = []
                         self.log.debug("- %s (%s)" %
-                                       (video.getFileName(), video.getHash()))
+                                       (video.get_filepath(), video.get_hash()))
                         for i in osdb_info:
                             sub = subtitlefile.SubtitleFile(
                                 online=True, id=i["IDSubtitle"])
@@ -549,7 +549,7 @@ class SDService(object):
                             sub.setVideo(video)
 
                             self.log.debug(
-                                "  [%s] - %s" % (sub.getLanguage(), sub.getFileName()))
+                                "  [%s] - %s" % (sub.getLanguage(), sub.get_filepath()))
                             subtitles.append(sub)
 
                         # Let's get the IMDB info which is majority in the
@@ -590,8 +590,8 @@ class SDService(object):
             if video.getTotalLocalSubtitles() > 0:
                 cd = 'cd%i' % (i + 1)
                 subtitle = video.getSubtitles()[0]
-                array_ = {'subhash': subtitle.getHash(), 'subfilename': subtitle.getFileName(), 'moviehash': video.getHash(
-                ), 'moviebytesize': video.getSize(), 'moviefps': video.getFPS(), 'moviefilename': video.getFileName()}
+                array_ = {'subhash': subtitle.get_hash(), 'subfilename': subtitle.get_filepath(), 'moviehash': video.get_hash(
+                ), 'moviebytesize': str(video.get_size()), 'moviefps': video.get_fps(), 'moviefilename': video.get_filepath()}
                 self.log.debug(" - adding %s: %s" % (cd, array_))
                 array[cd] = array_
             else:
@@ -600,7 +600,7 @@ class SDService(object):
                         "'%s' has no subtitles. Stopping method." % video.getMovieName())
                 else:
                     self.log.debug(
-                        "'%s' has no subtitles. Stopping method." % video.getFileName())
+                        "'%s' has no subtitles. Stopping method." % video.get_filepath())
                 return False
 
         self.log.debug("Communicating with server...")
@@ -891,7 +891,7 @@ class SDService(object):
         video_array = []
         for video in videos:
             array = {
-                'moviehash': video.getHash(), 'moviesize': video.getSize()}
+                'moviehash': video.get_hash(), 'moviesize': str(video.get_size())}
             video_array.append(array)
         try:
             info = self.xmlrpc_server.SearchToMail(
