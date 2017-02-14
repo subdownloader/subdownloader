@@ -7,8 +7,8 @@ import zlib
 
 import progressbar
 
-import subdownloader.Languages as Languages
 import subdownloader.client.configuration as conf
+import subdownloader.languages.Languages as Languages
 from subdownloader import SDService
 from subdownloader.FileManagement import FileScan, Subtitle
 

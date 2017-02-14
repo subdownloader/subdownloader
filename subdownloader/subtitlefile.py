@@ -2,10 +2,9 @@
 
 import logging
 import os
-import platform
-from subdownloader import Languages
-
 from hashlib import md5
+
+from subdownloader.languages import Languages
 
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
 SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)

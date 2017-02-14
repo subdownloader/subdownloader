@@ -20,10 +20,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-try:
-    from exceptions import KeyboardInterrupt
-except:
-    pass
 import os
 import re
 import sys
@@ -106,11 +102,7 @@ class _NGram:
 class NGram:
 
     def __init__(self):
-        if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
-            program_folder = sys.path[0]
-        else:  # for Windows is the /program_folder/subdownloader.py
-            program_folder = os.path.dirname(sys.path[0])
-        folder = os.path.join(program_folder, 'languages', 'lm')
+        folder = os.path.join(os.path.dirname(__file__), 'lm')
         ext = '.lm'
         self.ngrams = dict()
         folder = os.path.join(folder, '*' + ext)

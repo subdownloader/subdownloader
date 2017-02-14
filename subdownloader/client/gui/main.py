@@ -52,7 +52,7 @@ splash = SplashScreen()
 splash.showMessage("Loading...") #FIXME: add translation!
 QCoreApplication.flush()
 
-import subdownloader.Languages
+from subdownloader.languages import Languages
 from subdownloader.SDService import SDService, TimeoutFunctionException
 
 from subdownloader.client.gui import installErrorHandler, Error
@@ -375,7 +375,7 @@ class Main(QObject, Ui_MainWindow):
         if not lc:
             user_locale = 'en'  # In case of language not found
         else:
-            if lc in subdownloader.Languages.ListAll_locale():
+            if lc in Languages.ListAll_locale():
                 user_locale = lc
             else:
                 user_locale = lc.split('_')[0]
@@ -711,7 +711,7 @@ class Main(QObject, Ui_MainWindow):
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(_("All languages"), "")
         self.filterLanguageForTitle.addItem(_("All languages"), "")
-        for lang in subdownloader.Languages.LANGUAGES:
+        for lang in Languages.LANGUAGES:
             self.filterLanguageForVideo.addItem(
                 _(lang["LanguageName"]),  lang["SubLanguageID"])
             self.filterLanguageForTitle.addItem(

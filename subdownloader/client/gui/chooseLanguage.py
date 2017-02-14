@@ -5,8 +5,8 @@ import logging
 from PyQt5.QtCore import Qt, QItemSelectionModel, QSettings
 from PyQt5.QtWidgets import QMessageBox, QDialog, QListWidgetItem
 
-from subdownloader import Languages
 from subdownloader.client.gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
+from subdownloader.languages import Languages
 
 log = logging.getLogger("subdownloader.gui.chooseLanguage")
 

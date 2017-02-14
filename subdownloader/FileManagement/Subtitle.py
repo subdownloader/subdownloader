@@ -6,9 +6,9 @@ import re
 
 import subdownloader.subtitlefile as subtitlefile
 import subdownloader.videofile as videofile
-from languages import autodetect_lang
-from subdownloader import Languages
+from subdownloader.languages import Languages
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
+from subdownloader.languages import autodetect_lang, Languages
 
 log = logging.getLogger("subdownloader.FileManagement.Subtitle")
 
