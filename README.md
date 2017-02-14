@@ -43,6 +43,10 @@ $ ./subdownloader.py -c
 $ ./subdownloader.py -h
 ```
 
+## Credits
+
+The [original developers][subdownloader-launchpad] of the subdownloader program.
+
 ## License
 
 SubDownloader is licensed under [GPL v3].
@@ -56,4 +60,4 @@ SubDownloader is licensed under [GPL v3].
    [pymediainfo]: <https://pymediainfo.readthedocs.org/en/latest/>
    [argcomplete]: <https://argcomplete.readthedocs.org/>
    [GPL v3]: <https://www.gnu.org/licenses/gpl-3.0.html>
-
+   [subdownloader-launchpad]: https://launchpad.net/subdownloader
