@@ -23,10 +23,13 @@ class VideoFile(object):
         self._hash = self.calculateOSDBHash()
         try:
             data = metadata.parse(filepath)
-            self._fps = data.videos[0].framerate
-            if not self._fps:
+            videos = data.get_metadata()
+            if len(videos) > 0:
+                self._fps = videos[0].framerate
+                self._timeMS = videos[0].duration_ms
+            else:
                 self._fps = 0
-            self._timeMS = data.videos[0].duration_ms
+                self._timeMS = 0
         except:
             traceback.print_exc()
             self._fps = 0
