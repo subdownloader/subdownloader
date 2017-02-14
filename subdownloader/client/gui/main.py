@@ -52,7 +52,7 @@ splash.showMessage("Loading...") #FIXME: add translation!
 QCoreApplication.flush()
 
 from subdownloader.languages import Languages
-from subdownloader.SDService import SDService, TimeoutFunctionException
+from subdownloader.provider.SDService import SDService, TimeoutFunctionException
 
 from subdownloader.client.gui import installErrorHandler, Error
 

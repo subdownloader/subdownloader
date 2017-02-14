@@ -9,8 +9,8 @@ import progressbar
 
 import subdownloader.client.configuration as conf
 import subdownloader.languages.Languages as Languages
-from subdownloader import SDService
 from subdownloader.FileManagement import FileScan, Subtitle
+from subdownloader.provider import SDService
 from .filter import Filter
 
 try:
