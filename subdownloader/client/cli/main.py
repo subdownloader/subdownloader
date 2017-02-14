@@ -8,7 +8,7 @@ import zlib
 import progressbar
 
 import subdownloader.client.configuration as conf
-import subdownloader.languages.Languages as Languages
+import subdownloader.languages.language as language
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.provider import SDService
 from .filter import Filter
@@ -104,7 +104,7 @@ class Main(SDService.SDService):
                                         'movieaka': 'NA',
                                         'moviefilename': curr_video.get_filepath(),
                                         'subfilename': curr_sub.get_filepath(),
-                                        'sublanguageid': curr_sub.getLanguage(),
+                                        'sublanguageid': curr_sub.getLanguage().xxx(),
                                         }
                         # interactive mode
                         if self.options.mode == 'cli' and self.interactive:
@@ -188,7 +188,7 @@ class Main(SDService.SDService):
                               (video.get_filepath(), video.get_hash()))
                 for sub in video.getSubtitles():
                     self.log.info("  [%s] - %s" %
-                                  (sub.getLanguage(), sub.get_filepath()))
+                                  (sub.getLanguage().xxx(), sub.get_filepath()))
 
     def check_directory(self):
         """ search for videos and subtitles in the given path """
@@ -247,7 +247,7 @@ class Main(SDService.SDService):
                     break
             if sub_match:
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
-                sub_match.setLanguage(Languages.name2xxx(sub_lang))
+                sub_match.setLanguage(language.name2xxx(sub_lang))
                 video.addSubtitle(sub_match)
         if self.options.logging > logging.DEBUG and self.options.verbose:
             progress.finish()
@@ -292,7 +292,7 @@ class Main(SDService.SDService):
                                     'movieaka': details['MovieNameEng'],
                                     'moviefilename': curr_video.get_filepath(),
                                     'subfilename': curr_sub.get_filepath(),
-                                    'sublanguageid': curr_sub.getLanguage(),
+                                    'sublanguageid': curr_sub.getLanguage().xxx(),
                                     }
                     # interactive mode
                     if self.options.mode == 'cli' and self.interactive:

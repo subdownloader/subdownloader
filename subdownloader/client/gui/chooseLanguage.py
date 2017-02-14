@@ -6,7 +6,7 @@ from PyQt5.QtCore import Qt, QItemSelectionModel, QSettings
 from PyQt5.QtWidgets import QMessageBox, QDialog, QListWidgetItem
 
 from subdownloader.client.gui.chooseLanguage_ui import Ui_ChooseLanguageDialog
-from subdownloader.languages import Languages
+from subdownloader.languages import language
 
 log = logging.getLogger("subdownloader.gui.chooseLanguage")
 
@@ -23,7 +23,7 @@ class chooseLanguageDialog(QDialog):
         self.ui.OKButton.clicked.connect(self.onOkButton)
 
         for lang_locale in self._main.interface_langs:
-            languageName = Languages.locale2name(lang_locale)
+            languageName = language.locale2name(lang_locale)
             if not languageName:
                 languageName = lang_locale
             item = QListWidgetItem(languageName)

@@ -21,6 +21,7 @@ log = logging.getLogger("subdownloader.WebService")
 from subdownloader import APP_TITLE, APP_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
+from subdownloader.languages.language import Language
 import socket
 try:
     from urllib2 import urlopen, HTTPError, URLError
@@ -33,6 +34,14 @@ TEST_URL = 'http://www.google.com'
 USER_AGENT = "%s %s" % (APP_TITLE, APP_VERSION)
 CON_TIMEOUT = 300
 
+
+# FIXME: fix buggy opensubtitles behavior for greek ISO639-1
+# def setLanguageXX(self, xx):
+#    # FIXME: fix in opensubtitle provider
+#    # greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
+#    if xx == 'gr':
+#        xx = 'el'
+#    self._language = Language.from_xx(xx)
 
 def test_connection(url, timeout=CON_TIMEOUT):
     defTimeOut = socket.getdefaulttimeout()
@@ -540,7 +549,7 @@ class SDService(object):
                             sub.setFileName(i["SubFileName"])
                             # This method will autogenerate the XX and the
                             # LanguageName
-                            sub.setLanguageXXX(i["SubLanguageID"])
+                            sub.setLanguage(Language.from_xxx(i["SubLanguageID"]))
                             # sub.setLanguageXX(i["ISO639"])
                             # sub.setLanguageName(i["LanguageName"])
                             sub.setRating(i["SubRating"])
@@ -549,7 +558,7 @@ class SDService(object):
                             sub.setVideo(video)
 
                             self.log.debug(
-                                "  [%s] - %s" % (sub.getLanguage(), sub.get_filepath()))
+                                "  [%s] - %s" % (sub.getLanguage().xxx(), sub.get_filepath()))
                             subtitles.append(sub)
 
                         # Let's get the IMDB info which is majority in the

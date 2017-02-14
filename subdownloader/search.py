@@ -12,13 +12,8 @@ except ImportError:
 OnlyLink = ''
 FilmLink = ''
 
-try:
-    from subdownloader import subtitlefile
-except ImportError:
-    import sys
-    import os
-    sys.path.append(os.path.dirname(os.path.dirname(os.getcwd())))
-    from subdownloader import subtitlefile
+from subdownloader.languages.language import Language
+from subdownloader import subtitlefile
 
 
 class Link:
@@ -174,8 +169,8 @@ class SearchByName(object):
             if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
                 sub['LanguageName'] = entry.getElementsByTagName(
                     'LanguageName')[0].firstChild.data
-                sub_obj.setLanguageXX(
-                    entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639'))
+                sub_obj.setLanguage(Language.from_xx(
+                    entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639')))
             if entry.getElementsByTagName('SubtitleFile'):
                 SubtitleFile = {}
                 _SubtitleFile = entry.getElementsByTagName('SubtitleFile')[0]
@@ -331,7 +326,7 @@ class SearchByName(object):
                                      'LinkSearch': entry.getElementsByTagName('ISO639')[0].getAttribute('LinkSearch'),
                                      'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'),
                                      }
-                    sub_obj.setLanguageXX(sub['ISO639']['ISO639'])
+                    sub_obj.setLanguage(Language.from_xx(sub['ISO639']['ISO639']))
                     #sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
                     # It does require the Subtitle ID to downlad, not the
                     # Subtitle File Id

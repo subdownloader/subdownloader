@@ -55,7 +55,7 @@ class VideoTreeModel(QAbstractItemModel):
             for video in videoResults:
                 videoNode = self.root.addChild(video)
                 for sub in video._subs:
-                    sub_lang_xxx = sub.getLanguageXXX()
+                    sub_lang_xxx = sub.getLanguage().xxx()
                     # Filter subtitles by Language
                     if (not filter) or (sub_lang_xxx in filter):
                         videoNode.addChild(sub)
@@ -70,7 +70,7 @@ class VideoTreeModel(QAbstractItemModel):
                     # We'll recount the number of subtitles after filtering
                     movieNode.data.totalSubs = 0
                 for sub in movie.subtitles:
-                    sub_lang_xxx = sub.getLanguageXXX()
+                    sub_lang_xxx = sub.getLanguage().xxx()
                     # Filter subtitles by Language
                     if (not filter) or (sub_lang_xxx in filter):
                         movieNode.addChild(sub)
@@ -123,10 +123,11 @@ class VideoTreeModel(QAbstractItemModel):
         if type(data) == SubtitleFile:  # It's a SUBTITLE treeitem.
             sub = data
             if role == Qt.DecorationRole:
+                xx = data.getLanguage().xx()
                 if sub.isLocal():
-                    return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Disabled)
+                    return QIcon(':/images/flags/%s.png' % xx).pixmap(QSize(24, 24), QIcon.Disabled)
                 else:
-                    return QIcon(':/images/flags/%s.png' % data.getLanguageXX()).pixmap(QSize(24, 24), QIcon.Normal)
+                    return QIcon(':/images/flags/%s.png' % xx).pixmap(QSize(24, 24), QIcon.Normal)
 
             if role == Qt.ForegroundRole:
                 if sub.isLocal():
@@ -147,7 +148,7 @@ class VideoTreeModel(QAbstractItemModel):
                     uploader = _('Anonymous')
 
                 # Constructing the row text to show in the TreeView
-                line = "[%s]" % _(sub.getLanguageName())
+                line = "[%s]" % _(sub.getLanguage().name())
 
                 if hasattr(sub, "_filename"):  # if hash searching
                     line += "    %s  " % sub.get_filepath()
@@ -161,7 +162,7 @@ class VideoTreeModel(QAbstractItemModel):
                     line += "  " + _("Uploader: %s") % uploader
                     return line
                 else:  # Subtitle found from movie name
-                    line = "[%s]    " % _(sub.getLanguageName())
+                    line = "[%s]    " % _(sub.getLanguage().name())
                     if sub.getRating() != '0.0':  # if the rate is not 0
                         line += _("Rate: %s") % str(sub.getRating())
                     line += "  " + \
@@ -256,7 +257,7 @@ class VideoTreeModel(QAbstractItemModel):
         movieNode = index.internalPointer()
         movieNode.children = []
         for sub in movie.subtitles:
-            sub_lang_xxx = sub.getLanguageXXX()
+            sub_lang_xxx = sub.getLanguage().xxx()
             # Filter subtitles by Language
             if (not filter) or (filter == sub_lang_xxx):
                 movieNode.addChild(sub)

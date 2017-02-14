@@ -2,12 +2,14 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import re
-import os.path
+import langdetect
 import logging
+
+from subdownloader.util import asciify
 
 log = logging.getLogger("subdownloader.languages.Languages")
 
-#FIXME: translation..
+# FIXME: translation..
 _ = lambda x: x
 
 
@@ -16,6 +18,176 @@ class NotALanguageException(ValueError):
     Exception to inform that some value is not a valid Language.
     """
     pass
+
+class Language:
+    """
+    Instances of the class represent a language.
+    """
+    def __init__(self, entry):
+        """
+        Create a new Language object. Values should be strings.
+        :param entry: dict having keys: ('locale', 'ISO639', 'LanguageID', 'LanguageName')
+        """
+        self._locale = entry['locale']
+        self._iso639 = entry['ISO639']
+        self._langid = entry['LanguageID']
+        self._name = entry['LanguageName']
+
+    def locale(self):
+        """
+        Get locale of Language
+        :return: locale as string
+        """
+        return self._locale
+
+    def xx(self):
+        """
+        Get ISO639 of Language
+        :return: ISO639 as string
+        """
+        return self._iso639
+
+    def xxx(self):
+        """
+        Get LanguageID of Language
+        :return: LanguageID as string
+        """
+        return self._langid
+
+    def name(self):
+        """
+        Return readable name of Language
+        :return: Readable name as string
+        """
+        return self._name
+
+    def __eq__(self, other):
+        """
+        Check if other is the same as self.
+        :param other: other object
+        :return: True if other is the same as self
+        """
+        if other is None:
+            return False
+        if type(self) != type(other):
+            return False
+        return self._iso639 == other._iso639
+
+    def __hash__(self):
+        """
+        Return hash of this object.
+        :return: hash integer
+        """
+        return hash(self._iso639)
+
+    def __repr__(self):
+        """
+        Return representation of this instance
+        :return: string representation of self
+        """
+        return '<Language:xx={}>'.format(self._iso639)
+
+    @classmethod
+    def from_locale(cls, locale):
+        """
+        Create a new Language instance from a locale string
+        :param locale: locale as string
+        :return: Language instance with instance.locale() == locale
+        """
+        locale = str(locale)
+        return cls._from_XYZ('locale', locale)
+
+    @classmethod
+    def from_xx(cls, xx):
+        """
+        Create a new Language instance from a ISO639 string
+        :param xx: ISO639 as string
+        :return: Language instance with instance.xx() == xx
+        """
+        xx = str(xx).lower()
+        if xx == 'gr':
+            xx = 'el'
+        return cls._from_XYZ('ISO639', xx)
+
+    @classmethod
+    def from_xxx(cls, xxx):
+        """
+        Create a new Language instance from a LanguageID string
+        :param xxx: LanguageID as string
+        :return: Language instance with instance.xxx() == xxx
+        """
+        xxx = str(xxx).lower()
+        return cls._from_XYZ('LanguageID', xxx)
+
+    @classmethod
+    def from_name(cls, name):
+        """
+        Create a new Language instance from a name as string
+        :param name: name as string
+        :return: Language instance with instance.name() == name
+        """
+        name = str(name).lower()
+        return cls._from_XYZ('LanguageName', name)
+
+    @classmethod
+    def _from_XYZ(cls, xyzkey, xyzvalue):
+        """
+        Private helper function to create new Language instance.
+        :param xyzkey: one of ('locale', 'ISO639', 'LanguageID', 'LanguageName')
+        :param xyzvalue: corresponding value of xyzkey
+        :return: Language instance
+        """
+        for l in LANGUAGES:
+            if l[xyzkey] == xyzvalue:
+                return cls(l)
+        raise NotALanguageException('Illegal language {}: {}'.format(xyzkey, xyzvalue))
+
+    @classmethod
+    def from_unknown(cls, value, xx=True, xxx=True, locale=True, name=True):
+        """
+        Try to create a Language instance having only some limited data about the Language.
+        If no corresponding Language is found, a NotALanguageException is thrown.
+        :param value: data known about the language as string
+        :param xx: True if the value may be a locale
+        :param xxx: True if the value may be a LanguageID
+        :param locale: True if the value may be a locale
+        :param name: True if the value may be a LanguageName
+        :return: Language Instance if a matching Language was found
+        """
+        # Use 2 lists instead of dict ==> order known
+        keys = ['ISO639', 'LanguageID', 'locale', 'LanguageName']
+        truefalses = [xx, xxx, locale, name]
+        for key, doKey in zip(keys, truefalses):
+            if doKey:
+                try:
+                    return cls._from_XYZ(key, value)
+                except:
+                    pass
+        raise NotALanguageException('Illegal language "{}"'.format(value))
+
+    @classmethod
+    def from_file(cls, filename, chunk_size=-1):
+        """
+        Try do determine the language of a text file.
+        :param filename: string file path
+        :param chunk_size: amount of bytes of file to read to determine language
+        :return: Language instance if detection succeeded, otherwise a NotALanguageException is thrown
+        """
+        log.debug('Language.from_file: "{}", chunk={} ...'.format(filename, chunk_size))
+        with open(filename, 'rb') as f:
+            data = f.read(chunk_size)
+        data_ascii = asciify(data)
+        try:
+            lang_xx = langdetect.detect(data_ascii)
+            lang = cls.from_xx(lang_xx)
+            log.debug('... Success: language={}'.format(lang))
+            return lang
+        except NotALanguageException:
+            log.debug('... Failed: Detector returned unknown language "{}"'.format(lang_xx))
+            raise
+        except:
+            log.debug('... Failed:  Language detector library failed')
+            raise NotALanguageException('Could not detect language from subtitle content')
 
 
 def ListAll_xx():

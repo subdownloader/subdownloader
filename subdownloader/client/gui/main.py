@@ -51,7 +51,7 @@ splash = SplashScreen()
 splash.showMessage("Loading...") #FIXME: add translation!
 QCoreApplication.flush()
 
-from subdownloader.languages import Languages
+from subdownloader.languages import language
 from subdownloader.provider.SDService import SDService, TimeoutFunctionException
 
 from subdownloader.client.gui import installErrorHandler, Error
@@ -374,7 +374,7 @@ class Main(QObject, Ui_MainWindow):
         if not lc:
             user_locale = 'en'  # In case of language not found
         else:
-            if lc in Languages.ListAll_locale():
+            if lc in language.ListAll_locale():
                 user_locale = lc
             else:
                 user_locale = lc.split('_')[0]
@@ -698,7 +698,7 @@ class Main(QObject, Ui_MainWindow):
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(_("All languages"), "")
         self.filterLanguageForTitle.addItem(_("All languages"), "")
-        for lang in Languages.LANGUAGES:
+        for lang in language.LANGUAGES:
             self.filterLanguageForVideo.addItem(
                 _(lang["LanguageName"]), lang["LanguageID"])
             self.filterLanguageForTitle.addItem(
@@ -780,6 +780,7 @@ class Main(QObject, Ui_MainWindow):
                     path, recursively=True, report_progress=self.progress)
                 # progressWindow.destroy()
             except FileScan.UserActionCanceled:
+                self.status_progress.close()
                 # print "user canceled"
                 return
 
@@ -1041,10 +1042,10 @@ class Main(QObject, Ui_MainWindow):
                 video.get_filepath()) + "." + sub_extension
         elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
             subFileName = without_extension(
-                video.get_filepath()) + "." + subtitle.getLanguageXXX() + "." + sub_extension
+                video.get_filepath()) + "." + subtitle.getLanguage().xxx() + "." + sub_extension
         elif optionSubtitleName == "SAME_VIDEOPLUSLANGANDUPLOADER":
             subFileName = without_extension(video.get_filepath(
-            )) + "." + subtitle.getLanguageXXX() + "." + subtitle.getUploader() + "." + sub_extension
+            )) + "." + subtitle.getLanguage().xxx() + "." + subtitle.getUploader() + "." + sub_extension
         elif optionSubtitleName == "SAME_ONLINE":
             subFileName = subtitle.get_filepath()
 
@@ -1173,11 +1174,11 @@ class Main(QObject, Ui_MainWindow):
                         destinationPath)
                     fNameCtr = 0  # Counter used to generate a unique filename
                     suggestedFileName = suggBaseName + '.' + \
-                        sub.getLanguageXXX() + suggFileExt
+                        sub.getLanguage().xxx() + suggFileExt
                     while (os.path.exists(suggestedFileName)):
                         fNameCtr += 1
                         suggestedFileName = suggBaseName + '.' + \
-                            sub.getLanguageXXX() + '-' + \
+                            sub.getLanguage().xxx() + '-' + \
                             str(fNameCtr) + suggFileExt
                     fileName, t = QFileDialog.getSaveFileName(
                         None, _("Save subtitle as..."), suggestedFileName, 'All (*.*)')

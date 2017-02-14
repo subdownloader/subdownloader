@@ -6,9 +6,8 @@ import re
 
 import subdownloader.subtitlefile as subtitlefile
 import subdownloader.videofile as videofile
-from subdownloader.languages import Languages
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
-from subdownloader.languages import autodetect_lang, Languages
+from subdownloader.languages import autodetect_lang, language
 
 log = logging.getLogger("subdownloader.FileManagement.Subtitle")
 
@@ -146,7 +145,7 @@ def GetLangFromFilename(filepath):
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = open(filepath, mode='rb').read()
-        Languages.CleanTagsFile(subtitle_content)
+        language.CleanTagsFile(subtitle_content)
         # Initializing the Language Detector
         n = autodetect_lang._NGram()
         l = autodetect_lang.NGram()

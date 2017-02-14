@@ -12,7 +12,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QAbstractTableModel, \
 from PyQt5.QtWidgets import QTableView
 
 import subdownloader.FileManagement.VideoTools as VideoTools
-from subdownloader.languages import Languages
+from subdownloader.languages import language
 from subdownloader.subtitlefile import SubtitleFile
 from subdownloader.videofile import VideoFile
 from subdownloader import FileManagement as Subtitle
@@ -145,9 +145,9 @@ class UploadListModel(QAbstractTableModel):
                 lang = sub.getLanguage()
                 if lang == None:
                     lang = Subtitle.GetLangFromFilename(sub.getFilePath())
-                    if len(lang) == 2 and lang in Languages.ListAll_xx():
-                        all_langs.append(Languages.xx2xxx(lang))
-                    elif len(lang) == 3 and lang in Languages.ListAll_xxx():
+                    if len(lang) == 2 and lang in language.ListAll_xx():
+                        all_langs.append(language.xx2xxx(lang))
+                    elif len(lang) == 3 and lang in language.ListAll_xxx():
                         all_langs.append(lang)
                 else:
                     all_langs.append(lang)
@@ -182,7 +182,7 @@ class UploadListModel(QAbstractTableModel):
                 max = all_langs.count(lang)
                 max_lang = lang
 
-        xxx_lang = Languages.name2xxx(max_lang)
+        xxx_lang = language.name2xxx(max_lang)
         log.debug(
             "Majoritary Language Autodetected by content = " + str(xxx_lang))
         if xxx_lang:

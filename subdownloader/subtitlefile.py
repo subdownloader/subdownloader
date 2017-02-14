@@ -5,7 +5,7 @@ import hashlib
 import logging
 import os
 
-from subdownloader.languages import Languages
+from subdownloader.languages.language import Language
 
 log = logging.getLogger('subdownloader.subtitlefile')
 
@@ -41,21 +41,24 @@ class SubtitleFile(object):
             self._path = id
             self.setFileName(os.path.basename(self._path))
         self._uploader = None
-        self._languageXX = None
-        self._languageXXX = None
-        self._languageName = None
         self.rating = 0.0
         self._size = 0
         self._hash = None
         if not online:
             self._size = os.path.getsize(self._path)
             self._hash = hashlib.md5(open(self._path, mode='rb').read()).hexdigest()
+        self._languageXX = None
+        self._languageXXX = None
+        self._languageName = None
 
     def __repr__(self):
-        return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size: # %s, uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %s>" % (self.isOnline(), self.isLocal(), self.getFilePath(),
-                                                                                                                                                         self.get_filepath(), self.getSize(), self.getUploader(),
-                                                                                                                                                         self.getIdOnline(), self.get_hash(), self.getLanguageXXX(),
-                                                                                                                                                         self.getRating())
+        xxx = self._language.xxx() if self._language else 'UNKNOWN'
+        return "<SubtitleFile online: %s, local: %s, path: %s, file: %s, size: # %s," \
+               " uploader: %s, onlineId: %s, hash: %s, language: %s, rating: %s>" % (
+            self.isOnline(), self.isLocal(), self.getFilePath(),
+            self.get_filepath(), self.getSize(), self.getUploader(),
+            self.getIdOnline(), self.get_hash(), xxx,
+            self.getRating())
 
     def setFileName(self, filename):
         self._filename = filename
@@ -107,46 +110,11 @@ class SubtitleFile(object):
         return self._hash
 
     def setLanguage(self, language):
-        self.setLanguageXXX(language)
+        self._language = language
 
     def getLanguage(self):
-        return self.getLanguageXXX()
-
-    def setLanguageXX(self, xx):
-        # greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
-        if xx == 'gr':
-            xx = 'el'
-        self._languageXX = xx
-        self._languageXXX = Languages.xx2xxx(xx)
-        self._languageName = Languages.xx2name(xx)
-
-    def getLanguageXX(self):
-        if self._languageXX:
-            return self._languageXX.lower()
-        else:
-            return None
-
-    def setLanguageXXX(self, xxx):
-        self._languageXXX = xxx
-        self._languageXX = Languages.xxx2xx(xxx)
-        self._languageName = Languages.xxx2name(xxx)
-
-    def getLanguageXXX(self):
-        if self._languageXXX:
-            return self._languageXXX.lower()
-        else:
-            return None
-
-    def getLanguageName(self):
-        if self._languageName:
-            return self._languageName
-        else:
-            return None
-
-    def setLanguageName(self, language):
-        self._languageName = language
-        self._languageXX = Languages.name2xx(language)
-        self._languageXXX = Languages.name2xxx(language)
+        # FIXME: return
+        return self._language
 
     def setRating(self, rating):
         self.rating = rating
