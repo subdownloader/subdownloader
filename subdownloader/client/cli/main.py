@@ -11,6 +11,7 @@ import subdownloader.client.configuration as conf
 import subdownloader.languages.Languages as Languages
 from subdownloader import SDService
 from subdownloader.FileManagement import FileScan, Subtitle
+from .filter import Filter
 
 try:
     input = raw_input
@@ -176,7 +177,7 @@ class Main(SDService.SDService):
 
     def handle_operation(self, operation):
         if operation == "download":
-            _filter = filter.Filter(
+            _filter = Filter(
                 self.videos, interactive=self.options.interactive, rename_subs=self.options.renaming)
             self.DownloadSubtitles(_filter.subtitles_to_download())
 
@@ -184,7 +185,7 @@ class Main(SDService.SDService):
             self.do_upload(self.videos)
 
         elif operation == "list":
-            _filter = filter.Filter(
+            _filter = Filter(
                 self.videos, interactive=self.options.interactive)
 #            print _filter.subtitles_to_download()
             for video in self.videos:
