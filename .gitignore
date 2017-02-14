@@ -1,6 +1,3 @@
-# Bazaar scm
-.bzr*
-
 # Merge conflict artifacts
 *.orig
 *.rej
