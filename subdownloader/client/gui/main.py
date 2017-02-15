@@ -42,6 +42,7 @@ try:
 except ImportError:
     QString = str
 
+from subdownloader.callback import ProgressCallback
 from subdownloader.client.gui.SplashScreen import SplashScreen
 from subdownloader.FileManagement import get_extension, without_extension
 
@@ -774,10 +775,11 @@ class Main(QObject, Ui_MainWindow):
                 _("Scanning files"), _("&Abort"), 0, 100, self.window)
             self.status_progress.setWindowTitle(_("Scanning..."))
             self.status_progress.forceShow()
-            self.progress(-1)
+            callback = self._get_callback(_("Scanning files"), _("Scanning finished"))
+            callback.set_range(0, 100)
             try:
                 videos_found, subs_found = FileScan.ScanFilesFolders(
-                    path, recursively=True, report_progress=self.progress)
+                    path, callback=callback, recursively=True)
                 # progressWindow.destroy()
             except FileScan.UserActionCanceled:
                 self.status_progress.close()
@@ -1237,7 +1239,6 @@ class Main(QObject, Ui_MainWindow):
             self.status_progress.setValue(val)
 
         for i in range(1000):
-            i = i * 5
             QCoreApplication.processEvents()
 
     def status(self, msg):
@@ -1306,7 +1307,7 @@ class Main(QObject, Ui_MainWindow):
         if directory:
             settings.setValue("mainwindow/workingDirectory", directory)
             videos_found, subs_found = FileScan.ScanFolder(
-                directory, recursively=False, report_progress=None)
+                directory, callback=None, recursively=False)
             log.info("Videos found: %i Subtitles found: %i" %
                      (len(videos_found), len(subs_found)))
             self.uploadModel.layoutAboutToBeChanged.emit()
@@ -1824,6 +1825,30 @@ class Main(QObject, Ui_MainWindow):
         QMessageBox.about(
             self.window, _("A new version of SubDownloader has been released."))
 
+    def _get_callback(self, title_msg, finished_msg):
+        class GuiProgressCallback(ProgressCallback):
+            def __init__(self, main, title_msg, finished_msg):
+                ProgressCallback.__init__(self)
+                self._main = main
+                self._finished_msg = finished_msg
+                def finished_cb():
+                    self._main.progress(self._finished_msg)
+                self.set_finished_cb(finished_cb)
+
+            def updated(self, value, percentage):
+                self._main.status_progress.setValue(value)
+
+            def finished(self, value):
+                self._main.status_progress.setValue(value)
+                self._main.status_progress.setWindowTitle(self._finished_msg)
+                self._main.status_progress.close()
+
+            def rangeChanged(self, minimum, maximum):
+                self._main.status_progress.setMinimum(minimum)
+                self._main.status_progress.setMaximum(maximum)
+
+        return GuiProgressCallback(self, title_msg, finished_msg)
+
 
 def main(options):
     log.debug("Building main dialog")
@@ -1842,6 +1867,7 @@ def main(options):
     Main(window, "", options)
 
     return app.exec_()
+
 
 # if __name__ == "__main__":
 #    sys.exit(main())

@@ -5,12 +5,12 @@ import logging
 import os.path
 import zlib
 
-import progressbar
-
 import subdownloader.client.configuration as conf
 import subdownloader.languages.language as language
 from subdownloader.FileManagement import FileScan, Subtitle
+from subdownloader.callback import ProgressCallback
 from subdownloader.provider import SDService
+from subdownloader.client.cli.callback import DEFAULT_WIDGETS, ProgressBarCallback
 from .filter import Filter
 
 try:
@@ -192,18 +192,8 @@ class Main(object):
     def check_directory(self):
         """ search for videos and subtitles in the given path """
         self.log.info("Scanning %s ..." % self.options.videofile)
-        if self.options.logging == logging.DEBUG or not self.options.verbose:
-            report_progress = progress_end = None
-        elif self.options.verbose:
-            # for cli progressbar
-            progress = progressbar.ProgressBar(
-                widgets=conf.Terminal.progress_bar_style).start()
-            report_progress = progress.update
-            progress_end = progress.finish
-#        else:
-#            report_progress = progress_end = None
-        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile,
-                                                       report_progress=report_progress, progress_end=progress_end)
+        callback = self._get_callback()
+        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, callback=callback) #report_progress=report_progress, progress_end=progress_end)
         self.log.info("Videos found: %i Subtitles found: %i" %
                       (len(self.videos), len(self.subs)))
         if len(self.videos):
@@ -225,13 +215,11 @@ class Main(object):
             return -1
 
     def do_matching(self, videos, subtitles):
-        if self.options.logging > logging.DEBUG and self.options.verbose:
-            progress = progressbar.ProgressBar(
-                widgets=conf.Terminal.progress_bar_style, maxval=len(videos)).start()
+        callback = self._get_callback()
+        callback.set_range(0, len(videos))
 
         for i, video in enumerate(videos):
-            if self.options.logging > logging.DEBUG and self.options.verbose:
-                progress.update(i + 1)
+            callback.update(i + 1)
             self.log.debug("Processing %s..." % video.get_filepath())
 
             possible_subtitle = Subtitle.AutoDetectSubtitle(
@@ -248,8 +236,7 @@ class Main(object):
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
                 sub_match.setLanguage(language.name2xxx(sub_lang))
                 video.addSubtitle(sub_match)
-        if self.options.logging > logging.DEBUG and self.options.verbose:
-            progress.finish()
+        callback.finish(len(videos))
 
     def do_upload(self, videos):
         self.log.debug("----------------")
@@ -325,3 +312,10 @@ class Main(object):
                 'movieaka'], 'sublanguageid': user_choices['sublanguageid'], 'subauthorcomment': "Upload by SubDownloader2.0 - www.subdownloader.net"}  # details['SubAuthorComment']}
 
             return self.provider.UploadSubtitles(movie_info)
+
+    def _get_callback(self):
+        if self.options.logging > logging.DEBUG or self.options.verbose:
+            callback = ProgressBarCallback(DEFAULT_WIDGETS)
+        else:
+            callback = ProgressCallback()
+        return callback
