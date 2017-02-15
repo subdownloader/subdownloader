@@ -112,7 +112,7 @@ def ScanFolder(folderpath, callback=None, recursively=True):
             count += percentage
             callback.update(count)  # ,_("Parsing sub: %s") % filepath)
     callback.update(100)  # ,_("Finished hashing"))
-    callback.finish(100)
+    callback.finish()
 
     return videos_found, subs_found
 

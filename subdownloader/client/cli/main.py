@@ -236,7 +236,7 @@ class Main(object):
                 sub_lang = Subtitle.AutoDetectLang(sub_match.getFilePath())
                 sub_match.setLanguage(language.name2xxx(sub_lang))
                 video.addSubtitle(sub_match)
-        callback.finish(len(videos))
+        callback.finish()
 
     def do_upload(self, videos):
         self.log.debug("----------------")

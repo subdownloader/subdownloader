@@ -48,9 +48,8 @@ class ProgressBarCallback(ProgressCallback):
         """
         self._bar.update(value)
 
-    def finished(self, ok, *args, **kwargs):
+    def finished(self, *args, **kwargs):
         """
         Inform this ProgressBarCallback that the action is finished
-        :param ok: True if action was successful
         """
         self._bar.finish()

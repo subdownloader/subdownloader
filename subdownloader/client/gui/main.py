@@ -628,7 +628,7 @@ class Main(QObject, Ui_MainWindow):
                 if not username:
                     username = _('Anonymous')
                 self.login_button.setText(_("Logged as %s") % username)
-                callback.finish(1)
+                callback.finish()
                 self.login_button.setEnabled(False)
                 self.action_Login.setEnabled(False)
                 self.action_LogOut.setEnabled(True)
@@ -636,12 +636,12 @@ class Main(QObject, Ui_MainWindow):
             # We try anonymous login in case the normal user login has failed
             elif username:
                 self.login_button.setText(_("Login as %s: ERROR") % username)
-                callback.finish(0)
+                callback.finish()
                 return False
         except Exception as e:
             self.login_button.setText(_("Login: ERROR"))
             traceback.print_exc(e)
-            callback.finish(0)
+            callback.finish()
             return False
 
     def onButtonLogOut(self):
@@ -774,7 +774,7 @@ class Main(QObject, Ui_MainWindow):
 
             log.debug("Videos found: %s" % videos_found)
             log.debug("Subtitles found: %s" % subs_found)
-            self.status_progress.close()
+            callback.finish()
             self.hideInstructions()
             self.window.setCursor(Qt.ArrowCursor)
             # Populating the items in the VideoListView
@@ -853,7 +853,7 @@ class Main(QObject, Ui_MainWindow):
 
 #                                thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
 
-                callback.finish(total)
+                callback.finish()
                 self.window.setCursor(Qt.ArrowCursor)
                 self.buttonFind.setEnabled(True)
 
@@ -981,7 +981,7 @@ class Main(QObject, Ui_MainWindow):
                 QMessageBox.about(self.window, _("Error"), _(
                     "Unable to download subtitle %s") % subtitle.get_filepath())
             finally:
-                callback.finish(1)
+                callback.finish()
                 self.window.setCursor(Qt.ArrowCursor)
 
             params = []
@@ -1192,7 +1192,7 @@ class Main(QObject, Ui_MainWindow):
                     "Unable to download subtitle %s") % sub.get_filepath())
             finally:
                 count += percentage
-        callback.finish(total_subs, success_downloaded, total_subs)
+        callback.finish(success_downloaded, total_subs)
 
     def showErrorConnection(self):
         QMessageBox.about(self.window, _("Alert"), _(
@@ -1216,12 +1216,14 @@ class Main(QObject, Ui_MainWindow):
             QCoreApplication.processEvents()
 
     def establishServerConnection(self):
-        self.status_progress = QProgressDialog(
-            _("Connecting to server..."), _("&Cancel"), 0, 0, self.window)
-        self.status_progress.setWindowTitle(_('Connecting'))
-        self.status_progress.setCancelButton(None)
-        self.status_progress.show()
-        self.progress(0)
+        # def _get_callback(self, titleMsg, labelMsg, finishedMsg, updatedMsg=None, cancellable=True):
+        if self.options.proxy:
+            updatedMsg = _("Connecting to server using proxy %s") % self.options.proxy
+        else:
+            updatedMsg = ""
+        callback = self._get_callback(_('Connecting'), _("Connecting to server..."), _("Connected successfully"),
+                                      updatedMsg, cancellable=False)
+        callback.set_range(0, 1)
 
         settings = QSettings()
         settingsProxyHost = settings.value("options/ProxyHost", "")
@@ -1233,28 +1235,22 @@ class Main(QObject, Ui_MainWindow):
                 self.options.proxy = str(
                     settingsProxyHost + ":" + str(settingsProxyPort))
 
-        if self.options.proxy:
-            self.progress(
-                0, _("Connecting to server using proxy %s") % self.options.proxy)
-
         try:
             self.OSDBServer = SDService(
                 'osdb', server=self.options.server, proxy=self.options.proxy)
-
-            self.progress(100, _("Connected successfully"))
-            QCoreApplication.processEvents()
-            self.status_progress.close()
+            callback.finish()
             return True
         except TimeoutFunctionException:
-            self.status_progress.close()
+            # FIXME: callback finish should display a failed message on exception
+            callback.finish()
             self.showErrorConnection()
-            QCoreApplication.processEvents()
+            QCoreApplication.processEvents() # FIXME: needed?
             return False
 
         except Exception as e:
             traceback.print_exc()#(e)
-            #self.progress(0, "Error contacting the server")
-            self.status_progress.close()
+            # FIXME: callback finish should display a failed message on exception
+            callback.finish()
             # replace by a dialog with button.
             QCoreApplication.processEvents()
             return False
@@ -1817,16 +1813,18 @@ class Main(QObject, Ui_MainWindow):
                 if self._updatedMsg:
                     updatedMsg = self._updatedMsg.__mod__(args)
                     self.status_progress.setLabelText(updatedMsg)
+                QCoreApplication.processEvents()
 
-            def on_finish(self, value, *args, **kwargs):
-                self.status_progress.setValue(value)
+            def on_finish(self, *args, **kwargs):
                 windowTitle = self._finishedMsg.__mod__(args)
                 self.status_progress.setWindowTitle(windowTitle)
                 self.status_progress.close()
+                QCoreApplication.processEvents()
 
             def on_rangeChange(self, minimum, maximum):
                 self.status_progress.setMinimum(minimum)
                 self.status_progress.setMaximum(maximum)
+                QCoreApplication.processEvents()
 
             def on_cancel(self):
                 self._cancelled = True

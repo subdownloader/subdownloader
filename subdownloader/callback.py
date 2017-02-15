@@ -74,15 +74,14 @@ class ProgressCallback(object):
         self.log.debug('update({})'.format(value))
         self.on_update(value, *args, **kwargs)
 
-    def finish(self, value, *args, **kwargs):
+    def finish(self, *args, **kwargs):
         """
         Call this function to inform that the operation is finished.
-        :param value: any data
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
-        self.log.debug('finish({}) called'.format(value))
-        self.on_finish(value, *args, **kwargs)
+        self.log.debug('finish() called'.format())
+        self.on_finish(*args, **kwargs)
 
     def cancel(self):
         """
@@ -110,15 +109,14 @@ class ProgressCallback(object):
         if self._onUpdateCb:
             self._onUpdateCb(value, *args, **kwargs)
 
-    def on_finish(self, value, *args, **kwargs):
+    def on_finish(self, *args, **kwargs):
         """
         Override this function if a custom finish action is required.
-        :param value: The parameter of finish is passed unchanged
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
         if self._onFinishCb:
-            self._onFinishCb(value)
+            self._onFinishCb(*args, **kwargs)
 
     def on_cancel(self):
         """
