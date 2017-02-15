@@ -4,6 +4,8 @@ import logging
 import platform
 import webbrowser
 
+from subdownloader.languages import language
+
 from PyQt5.QtCore import pyqtSlot, QSettings
 from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QMessageBox
 
@@ -37,7 +39,7 @@ class preferencesDialog(QDialog):
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
-        for num, lang in enumerate(Languages.LANGUAGES):
+        for num, lang in enumerate(language.LANGUAGES):
             lang_xxx = lang["LanguageID"]
             self.ui.optionDefaultUploadLanguage.addItem(
                 _(lang["LanguageName"]), lang_xxx)
@@ -58,7 +60,7 @@ class preferencesDialog(QDialog):
                     self.filterLanguages[lang_xxx])
 
         for lang_locale in self._main.interface_langs:
-            languageName = Languages.locale2name(lang_locale)
+            languageName = language.locale2name(lang_locale)
             if not languageName:
                 languageName = lang_locale
             self.ui.optionInterfaceLanguage.addItem(
