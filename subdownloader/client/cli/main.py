@@ -19,7 +19,7 @@ except NameError:
     pass
 
 
-class Main(SDService.SDService):
+class Main(object):
 
     def __init__(self, cli_options):
         self.options = cli_options
@@ -57,18 +57,17 @@ class Main(SDService.SDService):
             self.log.debug(result)
 
         self.log.debug("Starting XMLRPC session...")
-        SDService.SDService.__init__(
-            self, 'osdb', server=self.options.server, proxy=self.options.proxy)
+        self.provider = SDService.SDService('osdb', server=self.options.server, proxy=self.options.proxy)
         try:
-            self.login(self.options.username, self.options.password)
+            self.provider.login(self.options.username, self.options.password)
         except Exception as e:
             self.log.error(e)
             return
 
-        if self.is_connected():
+        if self.provider.is_connected():
             # set language
             if len(self.options.language) == 2:
-                lang_id = self.GetSubLanguages(self.options.language)
+                lang_id = self.provider.GetSubLanguages(self.options.language)
             elif len(self.options.language) == 3:
                 lang_id = self.options.language
             else:
@@ -81,7 +80,7 @@ class Main(SDService.SDService):
                     "Overwriting local subtitles is set. Searching for victims...")
                 for video in self.videos:
                     if video.hasSubtitles():
-                        check_result = self.CheckSubHash(video)
+                        check_result = self.provider.CheckSubHash(video)
                         for hash in check_result:
                             if check_result[hash] == '0':
                                 # we found a subtitle that's not on server
@@ -91,7 +90,7 @@ class Main(SDService.SDService):
                                     "Not on server - %s - jailing..." % nos_sub.get_filepath())
                                 video.setNOSSubtitle(nos_sub)
 
-            videoSearchResults = self.SearchSubtitles(
+            videoSearchResults = self.provider.SearchSubtitles(
                 language=lang_id, videos=self.videos)
             if self.options.test:
                 for (i, video) in enumerate(self.videos):
@@ -127,7 +126,7 @@ class Main(SDService.SDService):
             else:
                 self.handle_operation(self.options.operation)
 
-            self.logout()
+            self.provider.logout()
 
     def minimum_parameters(self):
         """Check for minimum parameters integrity"""
@@ -173,7 +172,7 @@ class Main(SDService.SDService):
         if operation == "download":
             _filter = Filter(
                 self.videos, interactive=self.options.interactive, rename_subs=self.options.renaming)
-            self.DownloadSubtitles(_filter.subtitles_to_download())
+            self.provider.DownloadSubtitles(_filter.subtitles_to_download())
 
         elif operation == "upload":
             self.do_upload(self.videos)
@@ -255,7 +254,7 @@ class Main(SDService.SDService):
     def do_upload(self, videos):
         self.log.debug("----------------")
         self.log.debug("UploadSubtitles RPC method starting...")
-        check_result = self.TryUploadSubtitles(videos)
+        check_result = self.provider.TryUploadSubtitles(videos)
         if isinstance(check_result, bool) and not check_result:
             self.log.info(
                 "One or more videos don't have subtitles associated. Stopping upload.")
@@ -325,4 +324,4 @@ class Main(SDService.SDService):
             movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': user_choices['moviereleasename'], 'movieaka': user_choices[
                 'movieaka'], 'sublanguageid': user_choices['sublanguageid'], 'subauthorcomment': "Upload by SubDownloader2.0 - www.subdownloader.net"}  # details['SubAuthorComment']}
 
-            return self.UploadSubtitles(movie_info)
+            return self.provider.UploadSubtitles(movie_info)
