@@ -1307,13 +1307,9 @@ class Main(QObject, Ui_MainWindow):
                     self.window, _("Error"), _("Please identify the movie."))
                 return
             else:
-                self.status_progress = QProgressDialog(
-                    _("Uploading subtitle"), _("&Abort"), 0, 0, self.window)
-                self.status_progress.setWindowTitle(_("Uploading..."))
+                #def _get_callback(self, titleMsg, labelMsg, finishedMsg, updatedMsg=None, cancellable=True):
+                callback = self._get_callback(_("Uploading..."), _("Uploading subtitle"), "")
                 self.window.setCursor(Qt.WaitCursor)
-                self.status_progress.forceShow()
-                self.progress(0)
-                QCoreApplication.processEvents()
 
                 log.debug("Compressing subtitle...")
                 details = {}
@@ -1331,7 +1327,9 @@ class Main(QObject, Ui_MainWindow):
                 movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details[
                     'movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
 
-                for i in range(self.uploadModel.getTotalRows()):
+                nb = self.uploadModel.getTotalRows()
+                callback.set_range(0, nb)
+                for i in range(nb):
                     curr_sub = self.uploadModel._subs[i]
                     curr_video = self.uploadModel._videos[i]
                     if curr_sub:  # Make sure is not an empty row with None
@@ -1341,10 +1339,11 @@ class Main(QObject, Ui_MainWindow):
                         cd = "cd" + str(i)
                         movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.get_size(
                         ), 'movietimems': curr_video.get_time_ms(), 'moviefps': curr_video.get_fps(), 'moviefilename': curr_video.get_filepath(), 'subcontent': curr_sub_content}
+                    callback.update(i)
 
                 try:
                     info = self.OSDBServer.UploadSubtitles(movie_info)
-                    self.status_progress.close()
+                    callback.finish()
                     if info['status'] == "200 OK":
                         successBox = QMessageBox(_("Successful Upload"),
                                                  _(
@@ -1365,7 +1364,7 @@ class Main(QObject, Ui_MainWindow):
                         QMessageBox.about(self.window, _("Error"), _(
                             "Problem while uploading...\nError: %s") % info['status'])
                 except:
-                    self.status_progress.close()
+                    callback.finish()
                     QMessageBox.about(self.window, _("Error"), _(
                         "Error contacting the server. Please restart or try later"))
                 self.window.setCursor(Qt.ArrowCursor)
@@ -1811,11 +1810,13 @@ class Main(QObject, Ui_MainWindow):
             def on_update(self, value, *args, **kwargs):
                 self.status_progress.setValue(value)
                 if self._updatedMsg:
+                    # FIXME: let the caller format the strings
                     updatedMsg = self._updatedMsg.__mod__(args)
                     self.status_progress.setLabelText(updatedMsg)
                 QCoreApplication.processEvents()
 
             def on_finish(self, *args, **kwargs):
+                # FIXME: let the caller format the strings
                 windowTitle = self._finishedMsg.__mod__(args)
                 self.status_progress.setWindowTitle(windowTitle)
                 self.status_progress.close()
