@@ -39,15 +39,16 @@ class ProgressBarCallback(ProgressCallback):
         ProgressCallback.set_range(self, minimum, maximum)
         self._bar.maxval = maximum
 
-    def on_update(self, value, percentage):
+    def on_update(self, value, *args, **kwargs):
         """
         Update the progressbar with the new value and percentage
         :param value: value as integer
-        :param percentage: percentage as float in range [0, 100]. Can be equal to value if no range is set.
+        :param args: extra positional arguments to pass on
+        :param kwargs: extra keyword arguments to pass on
         """
         self._bar.update(value)
 
-    def finished(self, ok):
+    def finished(self, ok, *args, **kwargs):
         """
         Inform this ProgressBarCallback that the action is finished
         :param ok: True if action was successful

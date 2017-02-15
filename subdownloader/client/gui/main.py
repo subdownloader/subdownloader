@@ -806,7 +806,7 @@ class Main(QObject, Ui_MainWindow):
 #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
                 while i < total:
                     videos_piece = videos_found[i:min(i + 10, total)]
-                    callback.update(i)
+                    callback.update(i, i+1, (i+1)/total)
                     if callback.canceled():
                         self.window.setCursor(Qt.ArrowCursor)
                         return
@@ -1065,19 +1065,19 @@ class Main(QObject, Ui_MainWindow):
         answer = None
         success_downloaded = 0
 
-        self.status_progress = QProgressDialog(
-            _("Downloading files..."), _("&Abort"), 0, 100, self.window)
-        self.status_progress.setWindowTitle(_('Downloading...'))
-        self.status_progress.forceShow()
+        callback = self._get_callback(_('Downloading...'),
+                                      _("Downloading files..."),
+                                      _("%d from %d subtitles downloaded successfully"),
+                                      _("Downloading subtitle %s (%d/%d)"))
+        callback.set_range(0, total_subs)
         for i, sub in enumerate(subs):
-            if not self.progress():
+            if callback.canceled():
                 break
             destinationPath = self.getDownloadPath(sub.getVideo(), sub)
             if not destinationPath:
                 break
             log.debug("Trying to download subtitle '%s'" % destinationPath)
-            self.progress(count, _("Downloading subtitle %s (%d/%d)") %
-                          (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
+            callback.update(i, QFileInfo(destinationPath).fileName(), i + 1, total_subs)
 
             # Check if we have write permissions, otherwise show warning window
             while True:
@@ -1176,8 +1176,8 @@ class Main(QObject, Ui_MainWindow):
                 elif answer == cancelButton:
                     break  # Break out of DL loop - cancel was pushed
             QCoreApplication.processEvents()
-            self.progress(count, _("Downloading subtitle %s (%d/%d)") %
-                          (QFileInfo(destinationPath).fileName(), i + 1, total_subs))
+            # FIXME: redundant update?
+            callback.update(i, QFileInfo(destinationPath).fileName(), i + 1, total_subs)
             try:
                 if not skip_all:
                     log.debug("Downloading subtitle '%s'" % destinationPath)
@@ -1192,9 +1192,7 @@ class Main(QObject, Ui_MainWindow):
                     "Unable to download subtitle %s") % sub.get_filepath())
             finally:
                 count += percentage
-        self.status("%d from %d subtitles downloaded successfully" %
-                    (success_downloaded, total_subs))
-        self.progress(100)
+        callback.finish(total_subs, success_downloaded, total_subs)
 
     def showErrorConnection(self):
         QMessageBox.about(self.window, _("Alert"), _(
@@ -1216,13 +1214,6 @@ class Main(QObject, Ui_MainWindow):
 
         for i in range(1000):
             QCoreApplication.processEvents()
-
-    def status(self, msg):
-        self.status_progress.setMaximum(100)
-        # self.status_progress.reset()
-        # self.status_progress.setLabelText(msg)
-        self.progress(100)
-        QCoreApplication.processEvents()
 
     def establishServerConnection(self):
         self.status_progress = QProgressDialog(
@@ -1821,14 +1812,16 @@ class Main(QObject, Ui_MainWindow):
 
                 self.status_progress.show()
 
-            def on_update(self, value, percentage):
+            def on_update(self, value, *args, **kwargs):
                 self.status_progress.setValue(value)
                 if self._updatedMsg:
-                    self.status_progress.setLabelText(self._updatedMsg % (value, percentage))
+                    updatedMsg = self._updatedMsg.__mod__(args)
+                    self.status_progress.setLabelText(updatedMsg)
 
-            def on_finish(self, value):
+            def on_finish(self, value, *args, **kwargs):
                 self.status_progress.setValue(value)
-                self.status_progress.setWindowTitle(self._finishedMsg)
+                windowTitle = self._finishedMsg.__mod__(args)
+                self.status_progress.setWindowTitle(windowTitle)
                 self.status_progress.close()
 
             def on_rangeChange(self, minimum, maximum):

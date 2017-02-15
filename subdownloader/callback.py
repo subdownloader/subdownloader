@@ -53,29 +53,36 @@ class ProgressCallback(object):
         """
         return self._min, self._max
 
-    def update(self, value):
+    def to_percentage(self, value):
+        """
+        Convert value to percentage. Pass through value if the range is invalid.
+        :param value: value to convert to a percentage
+        """
+        if self.range_initialized() or (self._min != self._max):
+            return 100 * float(value - self._min) / (self._max - self._min)
+        else:
+            return value
+
+    def update(self, value, *args, **kwargs):
         """
         Call this function to inform that an update is available.
         This function does NOT call finish when value == maximum.
-        :param value: The current index/position of the action. (Should be, but must not be, in the range [max, min]
+        :param value: The current index/position of the action. (Should be, but must not be, in the range [min, max])
+        :param args: extra positional arguments to pass on
+        :param kwargs: extra keyword arguments to pass on
         """
         self.log.debug('update({})'.format(value))
-        if self.range_initialized() or (self._min == self._max):
-            percentage = 100 * float(value - self._min) / (self._max - self._min)
-            self.log.debug('percentage = {:.2f}% range=({},{})'.format(
-                percentage, self._min, self._max))
-            self.on_update(value, percentage)
-        else:
-            self.log.debug('calling updated with range uninitialized')
-            self.on_update(value, value)
+        self.on_update(value, *args, **kwargs)
 
-    def finish(self, value):
+    def finish(self, value, *args, **kwargs):
         """
         Call this function to inform that the operation is finished.
         :param value: any data
+        :param args: extra positional arguments to pass on
+        :param kwargs: extra keyword arguments to pass on
         """
         self.log.debug('finish({}) called'.format(value))
-        self.on_finish(value)
+        self.on_finish(value, *args, **kwargs)
 
     def cancel(self):
         """
@@ -93,19 +100,22 @@ class ProgressCallback(object):
         if self._onRangeChangeCb:
             self._onRangeChangeCb(minimum, maximum)
 
-    def on_update(self, value, percentage):
+    def on_update(self, value, *args, **kwargs):
         """
         Override this function if a custom update action is required.
-        :param value: The value that has been passed to update
-        :param percentage: A percentage. If the range is invalid, same as value.
+        :param value: The current index/position of the action. (Should be, but must not be, in the range [min, max])
+        :param args: extra positional arguments to pass on
+        :param kwargs: extra keyword arguments to pass on
         """
         if self._onUpdateCb:
-            self._onUpdateCb(value, percentage)
+            self._onUpdateCb(value, *args, **kwargs)
 
-    def on_finish(self, value):
+    def on_finish(self, value, *args, **kwargs):
         """
         Override this function if a custom finish action is required.
         :param value: The parameter of finish is passed unchanged
+        :param args: extra positional arguments to pass on
+        :param kwargs: extra keyword arguments to pass on
         """
         if self._onFinishCb:
             self._onFinishCb(value)
