@@ -680,11 +680,11 @@ class Main(QObject, Ui_MainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def onMenuHelpHomepage(self):
-        webbrowser.open("https://github.com/sergiomb2/subdownloader", new=2, autoraise=1)
+        webbrowser.open("https://github.com/subdownloader/subdownloader", new=2, autoraise=1)
 
     def onMenuHelpBug(self):
         webbrowser.open(
-            "https://github.com/sergiomb2/subdownloader/issues", new=2, autoraise=1)
+            "https://github.com/subdownloader/subdownloader/issues", new=2, autoraise=1)
 
     def onMenuHelpTranslate(self):
         webbrowser.open(
