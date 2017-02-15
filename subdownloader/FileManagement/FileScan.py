@@ -15,10 +15,6 @@ from . import RecursiveParser
 log = logging.getLogger("subdownloader.FileManagement.FileScan")
 
 
-class UserActionCanceled(Exception):
-    pass
-
-
 def FakeProgress(count=None, msg=""):
     if not count:
         return -1

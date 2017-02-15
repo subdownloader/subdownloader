@@ -771,20 +771,11 @@ class Main(QObject, Ui_MainWindow):
             if not type(path) == list:
                 path = [path]
 
-            self.status_progress = QProgressDialog(
-                _("Scanning files"), _("&Abort"), 0, 100, self.window)
-            self.status_progress.setWindowTitle(_("Scanning..."))
-            self.status_progress.forceShow()
-            callback = self._get_callback(_("Scanning files"), _("Scanning finished"))
+            callback = self._get_callback(_("Scanning..."), _("Scanning files"), _("Scanning finished"))
             callback.set_range(0, 100)
-            try:
-                videos_found, subs_found = FileScan.ScanFilesFolders(
-                    path, callback=callback, recursively=True)
-                # progressWindow.destroy()
-            except FileScan.UserActionCanceled:
-                self.status_progress.close()
-                # print "user canceled"
-                return
+
+            videos_found, subs_found = FileScan.ScanFilesFolders(
+                path, callback=callback, recursively=True)
 
             log.debug("Videos found: %s" % videos_found)
             log.debug("Subtitles found: %s" % subs_found)
@@ -1825,29 +1816,33 @@ class Main(QObject, Ui_MainWindow):
         QMessageBox.about(
             self.window, _("A new version of SubDownloader has been released."))
 
-    def _get_callback(self, title_msg, finished_msg):
+    def _get_callback(self, titleMsg, labelMsg, finishedMsg):
         class GuiProgressCallback(ProgressCallback):
-            def __init__(self, main, title_msg, finished_msg):
+            # FIXME: subclass QProgressDialog?
+            def __init__(self, parent, titleMsg, labelMsg, finishedMsg):
                 ProgressCallback.__init__(self)
-                self._main = main
-                self._finished_msg = finished_msg
-                def finished_cb():
-                    self._main.progress(self._finished_msg)
-                self.set_finished_cb(finished_cb)
+                self.status_progress = QProgressDialog(
+                    labelMsg, _("&Cancel"), 0, 0, parent.window)
+                self.status_progress.setWindowTitle(titleMsg)
+                self.status_progress.show()
+                self._finishedMsg = finishedMsg
 
             def updated(self, value, percentage):
-                self._main.status_progress.setValue(value)
+                self.status_progress.setValue(value)
+                QCoreApplication.processEvents()
 
             def finished(self, value):
-                self._main.status_progress.setValue(value)
-                self._main.status_progress.setWindowTitle(self._finished_msg)
-                self._main.status_progress.close()
+                self.status_progress.setValue(value)
+                self.status_progress.setWindowTitle(self._finishedMsg)
+                self.status_progress.close()
+                QCoreApplication.processEvents()
 
             def rangeChanged(self, minimum, maximum):
-                self._main.status_progress.setMinimum(minimum)
-                self._main.status_progress.setMaximum(maximum)
+                self.status_progress.setMinimum(minimum)
+                self.status_progress.setMaximum(maximum)
+                QCoreApplication.processEvents()
 
-        return GuiProgressCallback(self, title_msg, finished_msg)
+        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg)
 
 
 def main(options):
