@@ -11,22 +11,23 @@ class ProgressCallback(object):
     Or you can simply pass a updated and finished callback.
     """
     def __init__(self, minimum=None, maximum=None,
-                 updatedCb=None, finishedCb=None, rangeChangedCb=None):
+                 onUpdateCb=None, onFinishCb=None, onRangeChangeCb=None, onCancelCb=None):
         """
         Create a a new ProgressCallback object.
         :param minimum: minimum value of the range (None if no percentage is required)
         :param maximum: maximum value of the range (None if no percentage is required)
-        :param updatedCb: callback when an update is available (no ratelimit). See updated for prototype.
-        :param finishedCb: callback when the action has finished (no ratelimit). See finished for prototype.
-        :param rangeChangedCb: callback when the range has changed (no ratelimit). See rangeChanged for prototype.
+        :param onUpdateCb: callback when an update is available (no ratelimit). See on_update for prototype.
+        :param onFinishCb: callback when the action has finished (no ratelimit). See on_finish for prototype.
+        :param onRangeChangeCb: callback when the range has changed (no ratelimit). See on_rangeChange for prototype.
         """
         self.log = logging.getLogger('subdownloader.callback.ProgressCallback')
         self.log.debug('init: min={}, max={}'.format(minimum, maximum))
         self._min = minimum
         self._max = maximum
-        self._updatedCb = updatedCb
-        self._finishedCb = finishedCb
-        self._rangeChangedCb = rangeChangedCb
+        self._onUpdateCb = onUpdateCb
+        self._onFinishCb = onFinishCb
+        self._onRangeChangeCb = onRangeChangeCb
+        self._onCancelCb = onCancelCb
 
     def range_initialized(self):
         """
@@ -43,7 +44,7 @@ class ProgressCallback(object):
         """
         self._min = minimum
         self._max = maximum
-        self.rangeChanged(minimum, maximum)
+        self.on_rangeChange(minimum, maximum)
 
     def get_range(self):
         """
@@ -58,15 +59,15 @@ class ProgressCallback(object):
         This function does NOT call finish when value == maximum.
         :param value: The current index/position of the action. (Should be, but must not be, in the range [max, min]
         """
-        self.log.debug('update({}) called'.format(value))
+        self.log.debug('update({})'.format(value))
         if self.range_initialized() or (self._min == self._max):
             percentage = 100 * float(value - self._min) / (self._max - self._min)
             self.log.debug('percentage = {:.2f}% range=({},{})'.format(
                 percentage, self._min, self._max))
-            self.updated(value, percentage)
+            self.on_update(value, percentage)
         else:
             self.log.debug('calling updated with range uninitialized')
-            self.updated(value, value)
+            self.on_update(value, value)
 
     def finish(self, value):
         """
@@ -74,51 +75,44 @@ class ProgressCallback(object):
         :param value: any data
         """
         self.log.debug('finish({}) called'.format(value))
-        self.finished(value)
+        self.on_finish(value)
 
-    def set_updated_cb(self, cb):
+    def cancel(self):
         """
-        Set the function that should be called upon an update.
-        :param cb: a function (see updated for prototype)
+        Call this function to inform that the operation has been cancelled.
         """
-        self._updatedCb = cb
+        self.log.debug('cancel() called')
+        self.on_cancel()
 
-    def set_finished_cb(self, cb):
-        """
-        Set the function that should be called upon finish.
-        :param cb: a function (see finished for prototype)
-        """
-        self._finishedCb = cb
-
-    def set_rangeChanged_cb(self, cb):
-        """
-        Set the function that should be called upon change of range.
-        :param cb: a function (see rangeChanged for prototype)
-        """
-        self._rangeChangedCb = cb
-
-    def rangeChanged(self, minimum, maximum):
+    def on_rangeChange(self, minimum, maximum):
         """
         Override this function if a custom action is required upon range change.
         :param minimum: New minimum value
         :param maximum: New maximum value
         """
-        if self._rangeChangedCb:
-            self._rangeChangedCb(minimum, maximum)
+        if self._onRangeChangeCb:
+            self._onRangeChangeCb(minimum, maximum)
 
-    def updated(self, value, percentage):
+    def on_update(self, value, percentage):
         """
-        Override this function if a custom updated action is required.
+        Override this function if a custom update action is required.
         :param value: The value that has been passed to update
         :param percentage: A percentage. If the range is invalid, same as value.
         """
-        if self._updatedCb:
-            self._updatedCb(value, percentage)
+        if self._onUpdateCb:
+            self._onUpdateCb(value, percentage)
 
-    def finished(self, value):
+    def on_finish(self, value):
         """
-        Override this function if a custom finished action is required.
+        Override this function if a custom finish action is required.
         :param value: The parameter of finish is passed unchanged
         """
-        if self._finishedCb:
-            self._finishedCb(value)
+        if self._onFinishCb:
+            self._onFinishCb(value)
+
+    def on_cancel(self):
+        """
+        Override this function if a custom cancel action is required
+        """
+        if self._onCancelCb:
+            self._onCancelCb()

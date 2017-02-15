@@ -793,26 +793,21 @@ class Main(QObject, Ui_MainWindow):
                     self.window, _("Scan Results"), _("No video has been found!"))
             else:
                 self.window.setCursor(Qt.WaitCursor)
-                self.status_progress = QProgressDialog(
-                    _("Searching subtitles..."), _("&Abort"), 0, 100, self.window)
-                self.status_progress.setWindowTitle(_("Asking Server..."))
-                self.status_progress.forceShow()
-                self.progress(1)
+                callback = self._get_callback(_("Asking Server..."), _("Searching subtitles..."), _("Search finished"),
+                                              _("Searching subtitles ( %d / %d )"))
                 i = 0
                 total = len(videos_found)
+
+                callback.set_range(0, total)
                 # TODO: Hashes bigger than 12 MB not working correctly.
 #                    if self.SDDBServer: #only sending those hashes bigger than 12MB
 #                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
 #                        if videos_sddb:
 #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
                 while i < total:
-                    next = min(i + 10, total)
-                    videos_piece = videos_found[i:next]
-                    progress_percentage = int(i * 100 / total)
-                    self.progress(
-                        progress_percentage, _("Searching subtitles ( %d / %d )") % (i, total))
-                    if not self.progress():
-                        # print "canceled"
+                    videos_piece = videos_found[i:min(i + 10, total)]
+                    callback.update(i)
+                    if callback.canceled():
                         self.window.setCursor(Qt.ArrowCursor)
                         return
                     videoSearchResults = self.OSDBServer.SearchSubtitles(
@@ -858,9 +853,7 @@ class Main(QObject, Ui_MainWindow):
 
 #                                thread.start_new_thread(self.SDDBServer.sendHash, (video_hashes,video_movienames,  video_filesizes,  ))
 
-                self.status_progress.setLabelText(_("Search finished"))
-                self.progress(-1)
-                self.status_progress.close()
+                callback.finish(total)
                 self.window.setCursor(Qt.ArrowCursor)
                 self.buttonFind.setEnabled(True)
 
@@ -974,12 +967,9 @@ class Main(QObject, Ui_MainWindow):
             tempSubFilePath = QDir.temp().absoluteFilePath("subdownloader.tmp.srt")
             log.debug(
                 "Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
-            self.status_progress = QProgressDialog(
-                _("Downloading files..."), _("&Abort"), 0, 0, self.window)
-            self.status_progress.setWindowTitle(_("Playing video + sub"))
+            callback = self._get_callback(_("Playing video + sub"), _("Downloading files..."), "")
             self.window.setCursor(Qt.BusyCursor)
-            self.status_progress.show()
-            self.progress(-1)
+            callback.update(-1)
             try:
                 ok = self.OSDBServer.DownloadSubtitles(
                     {subtitleFileID: tempSubFilePath})
@@ -991,7 +981,7 @@ class Main(QObject, Ui_MainWindow):
                 QMessageBox.about(self.window, _("Error"), _(
                     "Unable to download subtitle %s") % subtitle.get_filepath())
             finally:
-                self.status_progress.close()
+                callback.finish(1)
                 self.window.setCursor(Qt.ArrowCursor)
 
             params = []
@@ -1811,35 +1801,47 @@ class Main(QObject, Ui_MainWindow):
         QMessageBox.about(
             self.window, _("A new version of SubDownloader has been released."))
 
-    def _get_callback(self, titleMsg, labelMsg, finishedMsg, cancellable=True):
-        class GuiProgressCallback(ProgressCallback):
-            # FIXME: subclass QProgressDialog?
-            def __init__(self, parent, titleMsg, labelMsg, finishedMsg, cancellable=True):
+    def _get_callback(self, titleMsg, labelMsg, finishedMsg, updatedMsg=None, cancellable=True):
+        class GuiProgressCallback(ProgressCallback, QObject):
+            def __init__(self, parent, titleMsg, labelMsg, finishedMsg, updatedMsg, cancellable):
                 ProgressCallback.__init__(self)
+                QObject.__init__(self, parent)
                 self.status_progress = QProgressDialog(
-                    labelMsg, _("&Cancel"), 0, 0, parent.window)
+                    labelMsg, _("&Cancel"), 0, 1, parent.window)
                 self.status_progress.setWindowTitle(titleMsg)
-                self.status_progress.show()
                 self._finishedMsg = finishedMsg
+                self._updatedMsg = updatedMsg
+
+                self._cancelled = False
                 if not cancellable:
                     self.status_progress.setCancelButton(None)
+                self.status_progress.canceled.connect(self.on_cancel)
 
-            def updated(self, value, percentage):
+                self.set_range(0, 1)
+
+                self.status_progress.show()
+
+            def on_update(self, value, percentage):
                 self.status_progress.setValue(value)
-                QCoreApplication.processEvents() #FIXME: needed?
+                if self._updatedMsg:
+                    self.status_progress.setLabelText(self._updatedMsg % (value, percentage))
 
-            def finished(self, value):
+            def on_finish(self, value):
                 self.status_progress.setValue(value)
                 self.status_progress.setWindowTitle(self._finishedMsg)
                 self.status_progress.close()
-                QCoreApplication.processEvents() # FIXME: needed?
 
-            def rangeChanged(self, minimum, maximum):
+            def on_rangeChange(self, minimum, maximum):
                 self.status_progress.setMinimum(minimum)
                 self.status_progress.setMaximum(maximum)
-                QCoreApplication.processEvents() # FIXME: needed?
 
-        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg, cancellable)
+            def on_cancel(self):
+                self._cancelled = True
+
+            def canceled(self):
+                return self._cancelled
+
+        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg, updatedMsg, cancellable)
 
 
 def main(options):

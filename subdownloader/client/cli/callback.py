@@ -39,7 +39,7 @@ class ProgressBarCallback(ProgressCallback):
         ProgressCallback.set_range(self, minimum, maximum)
         self._bar.maxval = maximum
 
-    def updated(self, value, percentage):
+    def on_update(self, value, percentage):
         """
         Update the progressbar with the new value and percentage
         :param value: value as integer
