@@ -619,13 +619,8 @@ class Main(QObject, Ui_MainWindow):
 
     def login_user(self, username, password):
         #self.window.setLoginStatus.emit("Trying to login...")
-        self.status_progress = QProgressDialog(
-            _("Logging in..."), _("&Cancel"), 0, 0, self.window)
-        self.status_progress.setWindowTitle(_("Authentication"))
-        self.status_progress.setCancelButton(None)
-        self.status_progress.show()
+        callback = self._get_callback(_("Authentication"), _("Logging in..."), "", cancellable=False)
         self.login_button.setText(_("Logging in..."))
-        self.progress(0)
 
         QCoreApplication.processEvents()
         try:
@@ -633,7 +628,7 @@ class Main(QObject, Ui_MainWindow):
                 if not username:
                     username = _('Anonymous')
                 self.login_button.setText(_("Logged as %s") % username)
-                self.status_progress.close()
+                callback.finish(1)
                 self.login_button.setEnabled(False)
                 self.action_Login.setEnabled(False)
                 self.action_LogOut.setEnabled(True)
@@ -641,12 +636,12 @@ class Main(QObject, Ui_MainWindow):
             # We try anonymous login in case the normal user login has failed
             elif username:
                 self.login_button.setText(_("Login as %s: ERROR") % username)
-                self.status_progress.close()
+                callback.finish(0)
                 return False
         except Exception as e:
             self.login_button.setText(_("Login: ERROR"))
             traceback.print_exc(e)
-            self.status_progress.close()
+            callback.finish(0)
             return False
 
     def onButtonLogOut(self):
@@ -1816,33 +1811,35 @@ class Main(QObject, Ui_MainWindow):
         QMessageBox.about(
             self.window, _("A new version of SubDownloader has been released."))
 
-    def _get_callback(self, titleMsg, labelMsg, finishedMsg):
+    def _get_callback(self, titleMsg, labelMsg, finishedMsg, cancellable=True):
         class GuiProgressCallback(ProgressCallback):
             # FIXME: subclass QProgressDialog?
-            def __init__(self, parent, titleMsg, labelMsg, finishedMsg):
+            def __init__(self, parent, titleMsg, labelMsg, finishedMsg, cancellable=True):
                 ProgressCallback.__init__(self)
                 self.status_progress = QProgressDialog(
                     labelMsg, _("&Cancel"), 0, 0, parent.window)
                 self.status_progress.setWindowTitle(titleMsg)
                 self.status_progress.show()
                 self._finishedMsg = finishedMsg
+                if not cancellable:
+                    self.status_progress.setCancelButton(None)
 
             def updated(self, value, percentage):
                 self.status_progress.setValue(value)
-                QCoreApplication.processEvents()
+                QCoreApplication.processEvents() #FIXME: needed?
 
             def finished(self, value):
                 self.status_progress.setValue(value)
                 self.status_progress.setWindowTitle(self._finishedMsg)
                 self.status_progress.close()
-                QCoreApplication.processEvents()
+                QCoreApplication.processEvents() # FIXME: needed?
 
             def rangeChanged(self, minimum, maximum):
                 self.status_progress.setMinimum(minimum)
                 self.status_progress.setMaximum(maximum)
-                QCoreApplication.processEvents()
+                QCoreApplication.processEvents() # FIXME: needed?
 
-        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg)
+        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg, cancellable)
 
 
 def main(options):
