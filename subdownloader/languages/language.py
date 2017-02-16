@@ -23,6 +23,7 @@ class Language:
     """
     Instances of the class represent a language.
     """
+
     def __init__(self, id):
         """
         Create a new Language object. Values should be strings.
@@ -89,40 +90,56 @@ class Language:
         """
         Create a new Language instance from a locale string
         :param locale: locale as string
-        :return: Language instance with instance.locale() == locale
+        :return: Language instance with instance.locale() == locale if locale is valid else instance of Unknown Language
         """
         locale = str(locale)
-        return cls._from_XYZ('locale', locale)
+        try:
+            return cls._from_XYZ('locale', locale)
+        except NotALanguageException:
+            log.warning('Unknown locale: {}'.format(locale))
+            return UnknownLanguage(locale)
 
     @classmethod
     def from_xx(cls, xx):
         """
         Create a new Language instance from a ISO639 string
         :param xx: ISO639 as string
-        :return: Language instance with instance.xx() == xx
+        :return: Language instance with instance.xx() == xx if xx is valid else instance of UnknownLanguage
         """
         xx = str(xx).lower()
-        return cls._from_XYZ('ISO639', xx)
+        try:
+            return cls._from_XYZ('ISO639', xx)
+        except NotALanguageException:
+            log.warning('Unknown ISO639: {}'.format(xx))
+            return UnknownLanguage(xx)
 
     @classmethod
     def from_xxx(cls, xxx):
         """
         Create a new Language instance from a LanguageID string
         :param xxx: LanguageID as string
-        :return: Language instance with instance.xxx() == xxx
+        :return: Language instance with instance.xxx() == xxx if xxx is valid else instance of UnknownLanguage
         """
         xxx = str(xxx).lower()
-        return cls._from_XYZ('LanguageID', xxx)
+        try:
+            return cls._from_XYZ('LanguageID', xxx)
+        except NotALanguageException:
+            log.warning('Unknown LanguageId: {}'.format(xxx))
+            return UnknownLanguage(xxx)
 
     @classmethod
     def from_name(cls, name):
         """
         Create a new Language instance from a name as string
         :param name: name as string
-        :return: Language instance with instance.name() == name
+        :return: Language instance with instance.name() == name if name is valid else instance of UnknownLanguage
         """
         name = str(name).lower()
-        return cls._from_XYZ('LanguageName', name)
+        try:
+            return cls._from_XYZ('LanguageName', name)
+        except NotALanguageException:
+            log.warning('Unknown LanguageName: {}'.format(name))
+            return UnknownLanguage(name)
 
     @classmethod
     def _from_XYZ(cls, xyzkey, xyzvalue):
@@ -184,6 +201,15 @@ class Language:
         except:
             log.debug('... Failed:  Language detector library failed')
             raise NotALanguageException('Could not detect language from subtitle content')
+
+
+class UnknownLanguage(Language):
+    def __init__(self, code):
+        Language.__init__(self, 0)
+        self._code = code
+
+    def name(self):
+        return Language.name(self) % (self._code)
 
 
 def ListAll_xx():
@@ -260,12 +286,25 @@ def CleanTagsFile(text):
     p = re.compile(b'<.*?>')
     return p.sub(b'', text)
 
+
+def legal_languages():
+    """
+    Return a list of dicts of legal languages
+    :return: list of dicts of legal languages
+    """
+    return LANGUAGES[1:]
+
 """
     List of dict of known languages.
 """
 
 LANGUAGES = [
     {
+        'locale': ['unknown'],
+        'ISO639': ['unknown'],
+        'LanguageID': ['unknown'],
+        'LanguageName': [('%s')]
+    }, {
         'locale': ['sq'],
         'ISO639': ['sq'],
         'LanguageID': ['alb'],
@@ -527,5 +566,3 @@ LANGUAGES = [
         'LanguageName': [_('Vietnamese')]
     }
 ]
-
-

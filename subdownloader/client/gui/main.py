@@ -692,7 +692,7 @@ class Main(QObject, Ui_MainWindow):
     def InitializeFilterLanguages(self):
         self.filterLanguageForVideo.addItem(_("All languages"), "")
         self.filterLanguageForTitle.addItem(_("All languages"), "")
-        for lang in language.LANGUAGES:
+        for lang in language.legal_languages():
             self.filterLanguageForVideo.addItem(
                 _(lang["LanguageName"][0]), lang["LanguageID"][0])
             self.filterLanguageForTitle.addItem(
@@ -1588,12 +1588,8 @@ class Main(QObject, Ui_MainWindow):
 
         else:
             self.buttonSearchByName.setEnabled(False)
-            self.status_progress = QProgressDialog(
-                _("Searching..."), "&Abort", 0, 0, self.window)
-            self.status_progress.setWindowTitle(_('Search'))
-            self.status_progress.forceShow()
+            callback = self._get_callback(_('Search'), _("Searching..."), "")
             self.window.setCursor(Qt.WaitCursor)
-            self.progress(-1)
             self.moviesModel.clearTree()
             # This was a solution found to refresh the treeView
             self.moviesView.expandAll()
@@ -1607,7 +1603,7 @@ class Main(QObject, Ui_MainWindow):
             # like a string of forbidden chars (pr the other way around, string
             # of good chars)
             search_text = re.sub('\'', '', search_text)
-            self.progress(0)
+            callback.update(0)
             # This should be in a thread to be able to Cancel
             movies = s.search_movie(search_text, 'all')
             if movies == 2:
@@ -1621,7 +1617,7 @@ class Main(QObject, Ui_MainWindow):
                 self.moviesView.collapseAll()
             QCoreApplication.processEvents()
             self.window.setCursor(Qt.ArrowCursor)
-            self.status_progress.close()
+            callback.finish()
             self.buttonSearchByName.setEnabled(True)
 
     @pyqtSlot(str)

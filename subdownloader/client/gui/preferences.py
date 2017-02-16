@@ -39,7 +39,7 @@ class preferencesDialog(QDialog):
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
-        for num, lang in enumerate(language.LANGUAGES):
+        for num, lang in enumerate(language.legal_languages()):
             lang_xxx = lang["LanguageID"][0]
             self.ui.optionDefaultUploadLanguage.addItem(
                 _(lang["LanguageName"][0]), lang_xxx)
