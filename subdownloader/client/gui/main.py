@@ -430,8 +430,6 @@ class Main(QObject, Ui_MainWindow):
                                         _("2nd Tab:"), _(
                                             "If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."),
                                         _("3rd Tab:"), _("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
-        introduction += '<p><b>%s</b><br>%s</p>' % (_("Quid Pro Quo:"), _(
-            "If you think this program is useful and has saved you plenty of time, please help us by making a donation."))
 
         self.introductionHelp.setHtml(introduction)
         self.videoView.hide()
