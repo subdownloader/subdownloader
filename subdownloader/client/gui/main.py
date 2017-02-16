@@ -34,7 +34,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QDir, \
     QObject, QSettings, QSize, QTime
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, \
-    QErrorMessage, QFileDialog, QHeaderView, QLabel, QMainWindow, QMenu, \
+    QFileDialog, QHeaderView, QLabel, QMainWindow, QMenu, \
     QMessageBox, QProgressDialog, QPushButton
 
 try:
@@ -54,8 +54,6 @@ QCoreApplication.flush()
 
 from subdownloader.languages import language
 from subdownloader.provider.SDService import SDService, TimeoutFunctionException
-
-from subdownloader.client.gui import installErrorHandler, Error
 
 from subdownloader.client.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.client.gui.videotreeview import VideoTreeModel
@@ -91,19 +89,6 @@ class Main(QObject, Ui_MainWindow):
     releaseUpdated = pyqtSignal(str)
     softwareUpdateDetected = pyqtSignal(str, str)
     loginStatusChanged = pyqtSignal(str)
-
-    def report_error(func):
-        """
-        Decorator to ensure that unhandled exceptions are displayed
-        to users via the GUI
-        """
-        def function(*args, **kwargs):
-            try:
-                return func(*args, **kwargs)
-            except Exception as e:
-                Error("There was an error calling " + func.__name__, e)
-                raise
-        return function
 
     def __init__(self, window, log_packets, options):
         QObject.__init__(self)
@@ -1807,7 +1792,6 @@ def main(options):
     window = QMainWindow()
     window.setWindowTitle(APP_TITLE)
     window.setWindowIcon(QIcon(":/icon"))
-    installErrorHandler(QErrorMessage(window))
     QCoreApplication.setOrganizationName("SubDownloader")
     QCoreApplication.setApplicationName(APP_TITLE)
 
@@ -1816,7 +1800,3 @@ def main(options):
     Main(window, "", options)
 
     return app.exec_()
-
-
-# if __name__ == "__main__":
-#    sys.exit(main())
