@@ -5,6 +5,7 @@ import os
 
 """
 Name of the project.
+Forks MUST change this to a non-ambiguous alternative namex.
 """
 TITLE = 'SubDownloader'
 
