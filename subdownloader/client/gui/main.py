@@ -1673,8 +1673,6 @@ class Main(QObject, Ui_MainWindow):
             QMessageBox.about(
                 self.window, _("Error"), _("No subtitles selected to be downloaded"))
             return
-        percentage = 100 / total_subs
-        count = 0
         answer = None
         success_downloaded = 0
 
@@ -1685,11 +1683,9 @@ class Main(QObject, Ui_MainWindow):
         if zipDestDir:
             settings.setValue("mainwindow/workingDirectory", zipDestDir)
 
-        self.status_progress = QProgressDialog(
-            _("Downloading files..."), _("&Abort"), 0, 100, self.window)
-        self.status_progress.setWindowTitle(_('Downloading'))
-        self.status_progress.show()
-        self.progress(0)
+        callback = self._get_callback(_('Downloading'), _("Downloading files..."), "",
+                                      updatedMsg=_("Downloading %s to %s"))
+        callback.set_range(0, len(subs))
 
 # Download and unzip files automatically. We might want to move this to an
 # external module, perhaps?
@@ -1698,48 +1694,46 @@ class Main(QObject, Ui_MainWindow):
 
         for i, sub in enumerate(subs):
             # Skip rest of loop if Abort was pushed in progress bar
-            if not self.status_progress.wasCanceled():
+            if callback.canceled():
+                break
 
-                try:
-                    url = sub.getExtraInfo("downloadLink")
-                    log.debug("sub.getExtraInfo downloadLink  %s " % (url))
-                except:
-                    url = Link().OneLink(0)
-                    log.debug("Link().OneLink downloadLink  %s " % (url))
+            try:
+                url = sub.getExtraInfo("downloadLink")
+                log.debug("sub.getExtraInfo downloadLink  %s " % (url))
+            except:
+                url = Link().OneLink(0)
+                log.debug("Link().OneLink downloadLink  %s " % (url))
 #                webbrowser.open( url, new=2, autoraise=1)
-                zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
-                zipFileName = "sub-" + zipFileID + ".srt"
+            zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
+            zipFileName = "sub-" + zipFileID + ".srt"
 
-                try:
-                    zipDestFile = os.path.join(zipDestDir, zipFileName).decode(
-                        sys.getfilesystemencoding())
-                except:
-                    zipDestFile = (zipDestDir + '/' + zipFileName)
-                log.debug("About to download %s %s to %s" % (i, sub.__repr__, zipDestFile))
-                log.debug("IdFileOnline: %s" % (sub.getIdFileOnline()))
-                count += percentage
-                self.progress(count, _("Downloading %s to %s") %
-                              (sub.getIdFileOnline(), zipDestDir))
+            try:
+                zipDestFile = os.path.join(zipDestDir, zipFileName).decode(
+                    sys.getfilesystemencoding())
+            except:
+                zipDestFile = (zipDestDir + '/' + zipFileName)
+            log.debug("About to download %s %s to %s" % (i, sub.__repr__, zipDestFile))
+            log.debug("IdFileOnline: %s" % (sub.getIdFileOnline()))
+            callback.update(i, sub.getIdFileOnline(), zipDestDir)
 
-                # Download the file from opensubtitles.org
-                # Note that we take for granted it will be in .zip format! Might not be so for other sites
-                # This should be tested for when more sites are added or find
-                # true filename like browser does FIXME
-                try:
-                    if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline(): zipDestFile}):
-                        dlOK += 1
-                    else:
-                        QMessageBox.about(self.window, _("Error"), _(
-                            "Unable to download subtitle %s") % sub.get_filepath())
-                except Exception as e:
-                    log.debug(e)
+            # Download the file from opensubtitles.org
+            # Note that we take for granted it will be in .zip format! Might not be so for other sites
+            # This should be tested for when more sites are added or find
+            # true filename like browser does FIXME
+            try:
+                if self.OSDBServer.DownloadSubtitles({sub.getIdFileOnline(): zipDestFile}):
+                    dlOK += 1
+                else:
                     QMessageBox.about(self.window, _("Error"), _(
                         "Unable to download subtitle %s") % sub.get_filepath())
-                    QMessageBox.critical(self.window, _("Error"), _(
-                        "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
-                QCoreApplication.processEvents()
-        self.progress(100)
-        self.status_progress.close()
+            except Exception as e:
+                log.debug(e)
+                QMessageBox.about(self.window, _("Error"), _(
+                    "Unable to download subtitle %s") % sub.get_filepath())
+                QMessageBox.critical(self.window, _("Error"), _(
+                    "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
+            QCoreApplication.processEvents()
+        callback.finish()
         if (dlOK > 0):
             QMessageBox.about(self.window, _("%d subtitles downloaded successfully") % (unzipedOK), _(
                 "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"))
