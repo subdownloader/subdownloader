@@ -311,8 +311,8 @@ LANGUAGES = [
         'LanguageID': ['chi'],
         'LanguageName': [_('Chinese (China)')]
     }, {
-        'locale': ['zh'],
-        'ISO639': ['zh'],
+        'locale': ['zh', 'zt'],
+        'ISO639': ['zh', 'zt'],
         'LanguageID': ['zht'],
         'LanguageName': [_('Chinese (traditional)')]
     }, {
