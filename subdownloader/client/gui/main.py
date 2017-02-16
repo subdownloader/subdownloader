@@ -61,7 +61,7 @@ from subdownloader.client.gui.videotreeview import VideoTreeModel
 from subdownloader.client.gui.main_ui import Ui_MainWindow
 from subdownloader.client.gui.imdbSearch import imdbSearchDialog
 from subdownloader.client.gui.preferences import preferencesDialog
-from subdownloader.client.gui.about import aboutDialog
+from subdownloader.client.gui.about import AboutDialog
 
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
 from subdownloader.client.gui.login import loginDialog
@@ -75,11 +75,12 @@ from subdownloader.subtitlefile import SubtitleFile, SUBTITLES_EXT
 _ = lambda x: x
 
 import logging
-log = logging.getLogger("subdownloader.gui.main")
+log = logging.getLogger("subdownloader.client.gui.main")
 splash.showMessage(_("Building main dialog..."))
 
-SELECT_SUBTITLES = "Subtitle Files (*.%s)" % " *.".join(SUBTITLES_EXT)
-SELECT_VIDEOS = "Video Files (*.%s)" % " *.".join(VIDEOS_EXT)
+SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
+SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
+
 
 class Main(QObject, Ui_MainWindow):
 
@@ -649,9 +650,9 @@ class Main(QObject, Ui_MainWindow):
     def onActivateMenu(self):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
+    @pyqtSlot()
     def onMenuHelpAbout(self):
-        dialog = aboutDialog(self.window)
-        dialog.ui.label_version.setText(APP_VERSION)
+        dialog = AboutDialog(self.window)
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
