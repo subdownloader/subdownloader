@@ -446,6 +446,11 @@ LANGUAGES = [
         'LanguageID': ['nor'],
         'LanguageName': [_('Norwegian')]
     }, {
+        'locale': ['oc'],
+        'ISO639': ['oc'],
+        'LanguageID': ['oci'],
+        'LanguageName': [_('Occitan')]
+    }, {
         'locale': ['fa'],
         'ISO639': ['fa'],
         'LanguageID': ['per'],
