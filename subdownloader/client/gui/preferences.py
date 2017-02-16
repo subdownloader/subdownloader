@@ -23,11 +23,11 @@ class PreferencesDialog(QDialog):
         self.ui.setupUi(self)
         self._main = main
         settings = QSettings()
-        # OPTIONS events
-        self.ui.optionsButtonApplyChanges.clicked.connect(
-            self.onOptionsButtonApplyChanges)
-        self.ui.optionsButtonCancel.clicked.connect(
-            self.onOptionsButtonCancel)
+
+        self.ui.buttonApplyChanges.clicked.connect(
+            self.onApplyChanges)
+        self.ui.buttonCancel.clicked.connect(
+            self.onCancel)
         self.ui.optionButtonChooseFolder.clicked.connect(
             self.onOptionButtonChooseFolder)
         self.ui.optionDownloadFolderPredefined.clicked.connect(
@@ -35,30 +35,37 @@ class PreferencesDialog(QDialog):
         self.ui.optionVideoAppChooseLocation.clicked.connect(
             self.onOptionVideoAppChooseLocation)
         self.ui.helpTranslateButton.clicked.connect(
-            self.onOptionHelpTranslateButton)
+            self.onHelpTranslate)
 
         self.onOptionDownloadFolderPredefined()
         self.filterLanguages = {}
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
+
+        nb_columns_languages = 3
         for num, lang in enumerate(language.legal_languages()):
+            row = num // nb_columns_languages
+            column = num % nb_columns_languages
+
             lang_xxx = lang["LanguageID"][0]
             self.ui.optionDefaultUploadLanguage.addItem(
                 _(lang["LanguageName"][0]), lang_xxx)
             # Adding checkboxes for the Search...Filter by ...
             self.filterLanguages[lang_xxx] = QCheckBox(
-                _(lang["LanguageName"][0]), self.ui.scrollAreaWidgetContents)
-            if num % 4 == 1:
-                self.ui.optionFilterLangLayout_1.addWidget(
-                    self.filterLanguages[lang_xxx])
-            elif num % 4 == 2:
-                self.ui.optionFilterLangLayout_2.addWidget(
-                    self.filterLanguages[lang_xxx])
-            elif num % 4 == 3:
-                self.ui.optionFilterLangLayout_3.addWidget(
-                    self.filterLanguages[lang_xxx])
-            else:
-                self.ui.optionFilterLangLayout_4.addWidget(
-                    self.filterLanguages[lang_xxx])
+                _(lang["LanguageName"][0]), self.ui.scrollAreaWidgetSearch)
+            self.ui.scrollAreaWidgetLayoutSearch.addWidget(self.filterLanguages[lang_xxx], row, column)
+            if False:
+                if num % 4 == 1:
+                    self.ui.optionFilterLangLayout_1.addWidget(
+                        self.filterLanguages[lang_xxx])
+                elif num % 4 == 2:
+                    self.ui.optionFilterLangLayout_2.addWidget(
+                        self.filterLanguages[lang_xxx])
+                elif num % 4 == 3:
+                    self.ui.optionFilterLangLayout_3.addWidget(
+                        self.filterLanguages[lang_xxx])
+                else:
+                    self.ui.optionFilterLangLayout_4.addWidget(
+                        self.filterLanguages[lang_xxx])
 
         for lang_locale in self._main.interface_langs:
             languageName = language.locale2name(lang_locale)
@@ -75,7 +82,7 @@ class PreferencesDialog(QDialog):
             self.onOptionInterfaceLanguage)
 
     @pyqtSlot()
-    def onOptionHelpTranslateButton(self):
+    def onHelpTranslate(self):
         webbrowser.open(
             "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
 
@@ -188,7 +195,7 @@ class PreferencesDialog(QDialog):
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
     @pyqtSlot()
-    def onOptionsButtonApplyChanges(self):
+    def onApplyChanges(self):
         log.debug("Saving Options Settings")
         # Fields validation
         if self.ui.optionDownloadFolderPredefined.isChecked() and self.ui.optionPredefinedFolderText.text() == "":
@@ -272,5 +279,5 @@ class PreferencesDialog(QDialog):
         pass
 
     @pyqtSlot()
-    def onOptionsButtonCancel(self):
+    def onCancel(self):
         self.reject()

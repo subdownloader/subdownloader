@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>428</height>
+    <width>718</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,6 +30,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
+    <widget class="QWidget" name="widget" native="true"/>
+   </item>
+   <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
@@ -40,13 +43,16 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabSearch">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <attribute name="title">
        <string>Search</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLabel" name="label_56">
+        <widget class="QLabel" name="labelSearchFilerByLanguage">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -59,13 +65,16 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
          <property name="text">
           <string>Filter search results by these languages:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QScrollArea" name="scrollArea">
+        <widget class="QScrollArea" name="scrollAreaSearch">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -81,43 +90,18 @@
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
+         <widget class="QWidget" name="scrollAreaWidgetSearch">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>682</width>
-            <height>281</height>
+            <width>678</width>
+            <height>365</height>
            </rect>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <layout class="QVBoxLayout" name="vbox_B">
            <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_1">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_2">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_3">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="optionFilterLangLayout_4">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-            </layout>
+            <layout class="QGridLayout" name="scrollAreaWidgetLayoutSearch"/>
            </item>
           </layout>
          </widget>
@@ -125,7 +109,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_6">
+     <widget class="QWidget" name="tabDownload">
       <attribute name="title">
        <string>Download</string>
       </attribute>
@@ -142,46 +126,71 @@
          <property name="title">
           <string>Destination folder:</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="verticalLayout_B">
           <item>
-           <widget class="QRadioButton" name="optionDownloadFolderAsk">
-            <property name="text">
-             <string>Always ask user</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="optionDownloadFolderSame">
-            <property name="text">
-             <string>Same folder as video file</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <layout class="QHBoxLayout" name="horizontalLayout_B">
             <item>
-             <widget class="QRadioButton" name="optionDownloadFolderPredefined">
+             <widget class="QScrollArea" name="scrollArea_B">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_B">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>656</width>
+                 <height>67</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QRadioButton" name="optionDownloadFolderAsk">
               <property name="text">
-               <string>Predefined folder:</string>
+               <string>Always ask user</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="optionPredefinedFolderText">
-              <property name="readOnly">
+             <widget class="QRadioButton" name="optionDownloadFolderSame">
+              <property name="text">
+               <string>Same folder as video file</string>
+              </property>
+              <property name="checked">
                <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="optionButtonChooseFolder">
-              <property name="text">
-               <string>Browse...</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QRadioButton" name="optionDownloadFolderPredefined">
+                <property name="text">
+                 <string>Predefined folder:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="optionPredefinedFolderText">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="optionButtonChooseFolder">
+                <property name="text">
+                 <string>Browse...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
@@ -236,7 +245,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_8">
+     <widget class="QWidget" name="tabUpload">
       <attribute name="title">
        <string>Upload</string>
       </attribute>
@@ -279,7 +288,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_9">
+     <widget class="QWidget" name="tabNetwork">
       <attribute name="title">
        <string>Network</string>
       </attribute>
@@ -342,7 +351,7 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_7">
+     <widget class="QWidget" name="tabOthers">
       <attribute name="title">
        <string>Others</string>
       </attribute>
@@ -485,31 +494,31 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
-      <spacer>
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>498</width>
-         <height>36</height>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="optionsButtonApplyChanges">
+      <widget class="QPushButton" name="buttonCancel">
        <property name="text">
-        <string>Save</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="optionsButtonCancel">
+      <widget class="QPushButton" name="buttonApplyChanges">
        <property name="text">
-        <string>Cancel</string>
+        <string>Save</string>
        </property>
       </widget>
      </item>
