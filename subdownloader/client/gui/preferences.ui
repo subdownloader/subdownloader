@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>722</width>
-    <height>383</height>
+    <height>428</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -86,8 +86,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>148</height>
+            <width>682</width>
+            <height>281</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -308,7 +308,7 @@
          <x>20</x>
          <y>30</y>
          <width>241</width>
-         <height>67</height>
+         <height>80</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">

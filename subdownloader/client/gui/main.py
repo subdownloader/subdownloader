@@ -696,11 +696,11 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForTitle.addItem(_("All languages"), "")
         for lang in language.LANGUAGES:
             self.filterLanguageForVideo.addItem(
-                _(lang["LanguageName"]), lang["LanguageID"])
+                _(lang["LanguageName"][0]), lang["LanguageID"][0])
             self.filterLanguageForTitle.addItem(
-                _(lang["LanguageName"]), lang["LanguageID"])
+                _(lang["LanguageName"][0]), lang["LanguageID"][0])
             self.uploadLanguages.addItem(
-                _(lang["LanguageName"]), lang["LanguageID"])
+                _(lang["LanguageName"][0]), lang["LanguageID"][0])
 
         settings = QSettings()
         optionUploadLanguage = settings.value("options/uploadLanguage", "eng")

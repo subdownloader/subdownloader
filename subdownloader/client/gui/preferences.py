@@ -40,12 +40,12 @@ class preferencesDialog(QDialog):
         self.filterLanguages = {}
         self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
         for num, lang in enumerate(language.LANGUAGES):
-            lang_xxx = lang["LanguageID"]
+            lang_xxx = lang["LanguageID"][0]
             self.ui.optionDefaultUploadLanguage.addItem(
-                _(lang["LanguageName"]), lang_xxx)
+                _(lang["LanguageName"][0]), lang_xxx)
             # Adding checkboxes for the Search...Filter by ...
             self.filterLanguages[lang_xxx] = QCheckBox(
-                _(lang["LanguageName"]), self.ui.scrollAreaWidgetContents)
+                _(lang["LanguageName"][0]), self.ui.scrollAreaWidgetContents)
             if num % 4 == 1:
                 self.ui.optionFilterLangLayout_1.addWidget(
                     self.filterLanguages[lang_xxx])

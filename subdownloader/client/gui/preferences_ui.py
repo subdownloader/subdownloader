@@ -12,7 +12,7 @@ class Ui_PreferencesDialog(object):
     def setupUi(self, PreferencesDialog):
         PreferencesDialog.setObjectName("PreferencesDialog")
         PreferencesDialog.setWindowModality(QtCore.Qt.WindowModal)
-        PreferencesDialog.resize(722, 383)
+        PreferencesDialog.resize(722, 428)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -52,7 +52,7 @@ class Ui_PreferencesDialog(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 98, 148))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 682, 281))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -160,7 +160,7 @@ class Ui_PreferencesDialog(object):
         self.label_52.setFont(font)
         self.label_52.setObjectName("label_52")
         self.layoutWidget1 = QtWidgets.QWidget(self.tab_9)
-        self.layoutWidget1.setGeometry(QtCore.QRect(20, 30, 241, 67))
+        self.layoutWidget1.setGeometry(QtCore.QRect(20, 30, 241, 80))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.gridLayout = QtWidgets.QGridLayout(self.layoutWidget1)
         self.gridLayout.setObjectName("gridLayout")
@@ -265,7 +265,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
 
     def retranslateUi(self, PreferencesDialog):
