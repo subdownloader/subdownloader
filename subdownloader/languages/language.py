@@ -102,8 +102,6 @@ class Language:
         :return: Language instance with instance.xx() == xx
         """
         xx = str(xx).lower()
-        if xx == 'gr':
-            xx = 'el'
         return cls._from_XYZ('ISO639', xx)
 
     @classmethod
@@ -383,8 +381,8 @@ LANGUAGES = [
         'LanguageID': ['ger'],
         'LanguageName': [_('German')]
     }, {
-        'locale': ['el'],
-        'ISO639': ['el'],
+        'locale': ['el', 'gr'],
+        'ISO639': ['el', 'gr'],
         'LanguageID': ['ell'],
         'LanguageName': [_('Greek')]
     }, {
