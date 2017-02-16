@@ -71,7 +71,6 @@
     <file>images/search.png</file>
     <file>images/clear-right.png</file>
     <file>images/configure.png</file>
-    <file>images/download.png</file>
     <file>images/up.png</file>
     <file>images/upload.png</file>
   </qresource>
