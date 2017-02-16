@@ -266,13 +266,10 @@ class Main(QObject, Ui_MainWindow):
         self.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
-        self.status_progress = None  # QProgressBar(self.statusbar)
-        #self.status_progress.setProperty("value", 0)
         self.login_button = QPushButton(_("Not logged yet"))
         self.action_Login.triggered.connect(self.onButtonLogin)
         self.login_button.clicked.connect(self.onButtonLogin)
         self.action_LogOut.triggered.connect(self.onButtonLogOut)
-        # self.status_progress.setOrientation(Qt.Horizontal)
         self.status_label = QLabel("v" + APP_VERSION, self.statusbar)
         self.status_label.setIndent(10)
 
@@ -1196,23 +1193,6 @@ class Main(QObject, Ui_MainWindow):
         QMessageBox.about(self.window, _("Alert"), _(
             "www.opensubtitles.org is not responding\nIt might be overloaded, try again in a few moments."))
 
-    """Control the STATUS BAR PROGRESS"""
-
-    def progress(self, val=None, msg=None):
-        # by calling progres(), it will return False if it has been canceled
-        if (val == None and msg == None):
-            return not self.status_progress.wasCanceled()
-
-        if msg != None:
-            self.status_progress.setLabelText(msg)
-        if val < 0:
-            self.status_progress.setMaximum(0)
-        else:
-            self.status_progress.setValue(val)
-
-        for i in range(1000):
-            QCoreApplication.processEvents()
-
     def establishServerConnection(self):
         # def _get_callback(self, titleMsg, labelMsg, finishedMsg, updatedMsg=None, cancellable=True):
         if self.options.proxy:
@@ -1370,7 +1350,6 @@ class Main(QObject, Ui_MainWindow):
     def uploadCleanWindow(self):
         self.uploadReleaseText.setText("")
         self.uploadComments.setText("")
-        self.progress(0)
         self.upload_autodetected_lang = ""
         self.upload_autodetected_imdb = ""
         # Note: We don't reset the language
