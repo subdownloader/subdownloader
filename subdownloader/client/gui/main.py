@@ -1737,16 +1737,13 @@ class Main(QObject, Ui_MainWindow):
             return
         movie = index.internalPointer().data
         if type(movie) == Movie and not movie.subtitles and movie.totalSubs:
-            self.status_progress = QProgressDialog(
-                _("Searching..."), _("&Abort"), 0, 0, self.window)
-            self.status_progress.setWindowTitle(_('Search'))
-            self.status_progress.forceShow()
+            callback = self._get_callback(_('Search'), _("Searching..."), "")
             self.window.setCursor(Qt.WaitCursor)
 
             s = SearchByName()
             selectedLanguageXXX = self.filterLanguageForTitle.itemData(
                 self.filterLanguageForTitle.currentIndex())
-            self.progress(0)  # To view/refresh the qprogressdialog
+            callback.update(0)
             temp_movie = s.search_movie(
                 None, 'all', MovieID_link=movie.MovieSiteLink)
             # The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
@@ -1756,8 +1753,8 @@ class Main(QObject, Ui_MainWindow):
             except IndexError:
                 QMessageBox.about(
                     self.window, _("Info"), _("This is a TV series and it cannot be handled."))
-                self.status_progress.close()
-                self.status_progress.destroy()
+                self.window.setCursor(Qt.ArrowCursor)
+                callback.finish()
                 return
             except AttributeError:
                 # this means only one subtitle was returned
@@ -1766,9 +1763,8 @@ class Main(QObject, Ui_MainWindow):
             self.moviesModel.updateMovie(index, selectedLanguageXXX)
             self.moviesView.collapse(index)
             self.moviesView.expand(index)
-            self.status_progress.close()
-            QCoreApplication.processEvents()
             self.window.setCursor(Qt.ArrowCursor)
+            callback.finish()
 
 
     def onUpgradeDetected(self):
