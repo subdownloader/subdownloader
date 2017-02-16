@@ -57,11 +57,11 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_sd">
+      <widget class="QLabel" name="label_project">
        <property name="font">
         <font>
          <family>Tahoma</family>
-         <pointsize>10</pointsize>
+         <pointsize>24</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>

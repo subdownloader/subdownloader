@@ -27,16 +27,16 @@ class Ui_AboutDialog(object):
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label_sd = QtWidgets.QLabel(AboutDialog)
+        self.label_project = QtWidgets.QLabel(AboutDialog)
         font = QtGui.QFont()
         font.setFamily("Tahoma")
-        font.setPointSize(10)
+        font.setPointSize(24)
         font.setBold(True)
         font.setItalic(True)
         font.setWeight(75)
-        self.label_sd.setFont(font)
-        self.label_sd.setObjectName("label_sd")
-        self.horizontalLayout.addWidget(self.label_sd)
+        self.label_project.setFont(font)
+        self.label_project.setObjectName("label_project")
+        self.horizontalLayout.addWidget(self.label_project)
         self.label_version = QtWidgets.QLabel(AboutDialog)
         font = QtGui.QFont()
         font.setFamily("Tahoma")
@@ -132,7 +132,7 @@ class Ui_AboutDialog(object):
     def retranslateUi(self, AboutDialog):
         _translate = QtCore.QCoreApplication.translate
         AboutDialog.setWindowTitle(_("About Subdownloader"))
-        self.label_sd.setText(_translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.label_project.setText(_translate("AboutDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:600; font-style:italic;\">\n"

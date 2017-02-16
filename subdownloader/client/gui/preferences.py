@@ -12,10 +12,10 @@ from PyQt5.QtWidgets import QCheckBox, QDialog, QFileDialog, QMessageBox
 
 from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
 
-log = logging.getLogger("subdownloader.gui.preferences")
+log = logging.getLogger("subdownloader.client.gui.preferences")
 
 
-class preferencesDialog(QDialog):
+class PreferencesDialog(QDialog):
 
     def __init__(self, parent, main):
         QDialog.__init__(self, parent)

@@ -1,5 +1,2 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
-
-'''
-CLI package
-'''
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 # PYTHON_ARGCOMPLETE_OK
 
 import os

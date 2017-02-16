@@ -60,7 +60,7 @@ from subdownloader.client.gui.videotreeview import VideoTreeModel
 
 from subdownloader.client.gui.main_ui import Ui_MainWindow
 from subdownloader.client.gui.imdbSearch import imdbSearchDialog
-from subdownloader.client.gui.preferences import preferencesDialog
+from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
@@ -660,7 +660,7 @@ class Main(QObject, Ui_MainWindow):
         webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     def onMenuPreferences(self):
-        dialog = preferencesDialog(self.window, self)
+        dialog = PreferencesDialog(self.window, self)
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 

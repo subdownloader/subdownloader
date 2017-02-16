@@ -3,8 +3,21 @@
 
 import os
 
+"""
+Name of the project.
+"""
 TITLE = 'SubDownloader'
+
+
+"""
+Version of the project.
+"""
 VERSION = '2.0.19'
+
+"""
+Year of last change.
+"""
+YEAR = 2017
 
 
 WEBSITE_MAIN = 'https://github.com/subdownloader/subdownloader'

@@ -18,7 +18,13 @@ class AboutDialog(QDialog):
         QDialog.__init__(self, parent, flags=Qt.WindowFlags())
         self.ui = Ui_AboutDialog()
         self.ui.setupUi(self)
+
+        self.setWindowTitle(_('About {project}').format(project=project.TITLE))
+
+        self.ui.label_project.setText(project.TITLE)
+
         self.ui.label_version.setText(project.VERSION)
+
         self.ui.txtAbout.setText(
             '<b>{homepage_str}:</b><br />'
             '<a href="{website_homepage}">{website_homepage}</a><br />'
@@ -51,7 +57,7 @@ class AboutDialog(QDialog):
     def get_license(self):
         license = '<p>{license_title}</p><p>{license_freesoftware}</p>' \
                   '<p>{license_distribution}</p><p>{license_address}</p>'.format(
-            license_title=_('Copyright (c) 2007-2017, Subdownloader Developers</p>'),
+            license_title=_('Copyright (c) 2007-{year}, Subdownloader Developers</p>').format(year=project.YEAR),
             license_freesoftware=_('This program is free software; you can redistribute it and/or modify it '
                                    'under the terms of the GNU General Public License as published by the Free Software '
                                 'Foundation; either version 3 of the License, or (at your option) any later version.'),
