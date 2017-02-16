@@ -105,14 +105,11 @@ def ScanFolder(folderpath, callback=None, recursively=True):
     subs_found = []
     # only work the subtitles if any were found
     if len(files_found):
-        percentage = 100 / len(files_found)
-        count = 0
+        callback.set_range(0, len(files_found))
         for i, filepath in enumerate(files_found):
             subs_found.append(
                 subtitlefile.SubtitleFile(online=False, id=filepath))
-            count += percentage
-            callback.update(count)  # ,_("Parsing sub: %s") % filepath)
-    callback.update(100)  # ,_("Finished hashing"))
+            callback.update(i)  # ,_("Parsing sub: %s") % filepath)
     callback.finish()
 
     return videos_found, subs_found

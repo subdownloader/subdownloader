@@ -315,7 +315,7 @@ class Main(object):
             return self.provider.UploadSubtitles(movie_info)
 
     def _get_callback(self):
-        if self.options.logging > logging.DEBUG or self.options.verbose:
+        if self.options.loglevel > logging.DEBUG or self.options.verbose:
             callback = ProgressBarCallback(DEFAULT_WIDGETS)
         else:
             callback = ProgressCallback()

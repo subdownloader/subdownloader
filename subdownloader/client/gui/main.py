@@ -66,7 +66,7 @@ from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
 from subdownloader.client.gui.login import loginDialog
 from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader import APP_TITLE, APP_VERSION
+from subdownloader.project import TITLE, VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 from subdownloader.search import *
 from subdownloader.videofile import VideoFile, VIDEOS_EXT
 from subdownloader.subtitlefile import SubtitleFile, SUBTITLES_EXT
@@ -106,7 +106,7 @@ class Main(QObject, Ui_MainWindow):
         self.SetupInterfaceLang()
         self.setupUi(window)
         window.closeEvent = self.close_event
-        window.setWindowTitle(_("SubDownloader %s") % APP_VERSION)
+        window.setWindowTitle(_("SubDownloader %s") % VERSION)
         # Fill Out the Filters Language SelectBoxes
         self.filterLangChangedPermanent.connect(
             self.onFilterLangChangedPermanent)
@@ -256,7 +256,7 @@ class Main(QObject, Ui_MainWindow):
         self.action_Login.triggered.connect(self.onButtonLogin)
         self.login_button.clicked.connect(self.onButtonLogin)
         self.action_LogOut.triggered.connect(self.onButtonLogOut)
-        self.status_label = QLabel("v" + APP_VERSION, self.statusbar)
+        self.status_label = QLabel("v" + VERSION, self.statusbar)
         self.status_label.setIndent(10)
 
         #self.donate_button = QPushButton(
@@ -376,17 +376,12 @@ class Main(QObject, Ui_MainWindow):
                 pass  # interface_lang = interface_lang
 
         log.debug('Interface language: %s' % interface_lang)
-        try:
-            isTrans = gettext.translation(
-                domain="subdownloader", localedir=localedir, languages=[interface_lang], fallback=True)
-        except IOError:
-            isTrans = False
 
         # FIXME: better installation of _
-        if isTrans:
-            gettext.translation("subdownloader", localedir=localedir,
-                               languages=[interface_lang], fallback=True).install()
-        else:
+        try:
+            gettext.translation(
+                domain="subdownloader", localedir=localedir, languages=[interface_lang], fallback=True).install()
+        except IOError:
             gettext.NullTranslations().install()
 
     def chooseInterfaceLanguage(self, user_locale):
@@ -569,7 +564,7 @@ class Main(QObject, Ui_MainWindow):
     def OnSoftwareUpdateDetected(self, new_version, update_link):
         warningBox = QMessageBox(_("New Version Detected"),
                                  _("A new version of SubDownloader has been released.\n\nNew Version: %s\nCurrent Version: %s\n\n"
-                                   "Would you like to download the new version now?") % (new_version, APP_VERSION),
+                                   "Would you like to download the new version now?") % (new_version, VERSION),
                                  QMessageBox.Information,
                                  QMessageBox.Yes | QMessageBox.Default,
                                  QMessageBox.Cancel | QMessageBox.Escape,
@@ -637,7 +632,7 @@ class Main(QObject, Ui_MainWindow):
 
     def setTitleBarText(self, text):
         self.window.setWindowTitle(
-            _("SubDownloader %s - %s") % (APP_VERSION, text))
+            _("SubDownloader %s - %s") % (VERSION, text))
 
     def onChangeTitleBarText(self, title):
         self.setTitleBarText(title)
@@ -653,19 +648,16 @@ class Main(QObject, Ui_MainWindow):
     @pyqtSlot()
     def onMenuHelpAbout(self):
         dialog = AboutDialog(self.window)
-        ok = dialog.exec_()
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
+        dialog.exec_()
 
     def onMenuHelpHomepage(self):
-        webbrowser.open("https://github.com/subdownloader/subdownloader", new=2, autoraise=1)
+        webbrowser.open(WEBSITE_MAIN, new=2, autoraise=1)
 
     def onMenuHelpBug(self):
-        webbrowser.open(
-            "https://github.com/subdownloader/subdownloader/issues", new=2, autoraise=1)
+        webbrowser.open(WEBSITE_ISSUES, new=2, autoraise=1)
 
     def onMenuHelpTranslate(self):
-        webbrowser.open(
-            "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
+        webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     def onMenuPreferences(self):
         dialog = preferencesDialog(self.window, self)
@@ -1791,10 +1783,10 @@ def main(options):
 #    splash = SplashScreen()
 #    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
     window = QMainWindow()
-    window.setWindowTitle(APP_TITLE)
+    window.setWindowTitle(TITLE)
     window.setWindowIcon(QIcon(":/icon"))
     QCoreApplication.setOrganizationName("SubDownloader")
-    QCoreApplication.setApplicationName(APP_TITLE)
+    QCoreApplication.setApplicationName(TITLE)
 
     splash.finish(window)
     log.debug("Showing main dialog")
