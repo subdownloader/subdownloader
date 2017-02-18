@@ -19,53 +19,51 @@ class PreferencesDialog(QDialog):
 
     def __init__(self, parent, main):
         QDialog.__init__(self, parent)
+
         self.ui = Ui_PreferencesDialog()
         self.ui.setupUi(self)
-        self._main = main
-        settings = QSettings()
 
+        self._main = main
+
+        # 0. Preferences dialog
         self.ui.buttonApplyChanges.clicked.connect(
             self.onApplyChanges)
         self.ui.buttonCancel.clicked.connect(
             self.onCancel)
-        self.ui.optionButtonChooseFolder.clicked.connect(
-            self.onOptionButtonChooseFolder)
-        self.ui.optionDownloadFolderPredefined.clicked.connect(
-            self.onOptionDownloadFolderPredefined)
-        self.ui.optionVideoAppChooseLocation.clicked.connect(
-            self.onOptionVideoAppChooseLocation)
-        self.ui.helpTranslateButton.clicked.connect(
-            self.onHelpTranslate)
 
-        self.onOptionDownloadFolderPredefined()
+        # 1. Search tab
         self.filterLanguages = {}
-        self.ui.optionDefaultUploadLanguage.addItem(_("<AutoDetect>"), "")
-
-        nb_columns_languages = 3
+        nb_columns_languages = 4
         for num, lang in enumerate(language.legal_languages()):
             row = num // nb_columns_languages
             column = num % nb_columns_languages
 
             lang_xxx = lang["LanguageID"][0]
-            self.ui.optionDefaultUploadLanguage.addItem(
+            self.ui.optionUlDefaultLanguage.addItem(
                 _(lang["LanguageName"][0]), lang_xxx)
             # Adding checkboxes for the Search...Filter by ...
             self.filterLanguages[lang_xxx] = QCheckBox(
                 _(lang["LanguageName"][0]), self.ui.scrollAreaWidgetSearch)
             self.ui.scrollAreaWidgetLayoutSearch.addWidget(self.filterLanguages[lang_xxx], row, column)
-            if False:
-                if num % 4 == 1:
-                    self.ui.optionFilterLangLayout_1.addWidget(
-                        self.filterLanguages[lang_xxx])
-                elif num % 4 == 2:
-                    self.ui.optionFilterLangLayout_2.addWidget(
-                        self.filterLanguages[lang_xxx])
-                elif num % 4 == 3:
-                    self.ui.optionFilterLangLayout_3.addWidget(
-                        self.filterLanguages[lang_xxx])
-                else:
-                    self.ui.optionFilterLangLayout_4.addWidget(
-                        self.filterLanguages[lang_xxx])
+
+        # 2. Download tab
+        self.ui.optionDlDestinationUser.toggled.connect(
+            self.ui.textDlDestinationUser.setEnabled)
+        self.ui.optionDlDestinationUser.toggled.connect(
+            self.ui.buttonDlDestinationUser.setEnabled)
+        self.ui.optionDlDestinationUser.toggled.emit(False)
+
+        self.ui.buttonDlDestinationUser.clicked.connect(
+            self.onDlDestinationUser)
+
+        # 5. Others tab
+        self.ui.buttonVideoAppLocationChoose.clicked.connect(
+            self.onOptionVideoAppChooseLocation)
+        self.ui.buttonHelpTranslation.clicked.connect(
+            self.onHelpTranslate)
+
+        self.ui.optionUlDefaultLanguage.addItem(_("<AutoDetect>"), "")
+
 
         for lang_locale in self._main.interface_langs:
             languageName = language.locale2name(lang_locale)
@@ -74,9 +72,9 @@ class PreferencesDialog(QDialog):
             self.ui.optionInterfaceLanguage.addItem(
                 _(languageName), lang_locale)
 
-        self.ui.optionDefaultUploadLanguage.adjustSize()
+        self.ui.optionUlDefaultLanguage.adjustSize()
         self.ui.optionInterfaceLanguage.adjustSize()
-        self.readOptionsSettings(settings)
+        self.readOptionsSettings()
 
         self.ui.optionInterfaceLanguage.currentIndexChanged.connect(
             self.onOptionInterfaceLanguage)
@@ -87,11 +85,11 @@ class PreferencesDialog(QDialog):
             "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
 
     @pyqtSlot()
-    def onOptionButtonChooseFolder(self):
+    def onDlDestinationUser(self):
         directory = QFileDialog.getExistingDirectory(
             None, _("Select a directory"), "")
         if directory:
-            self.ui.optionPredefinedFolderText.setText(directory)
+            self.ui.textDlDestinationUser.setText(directory)
 
     @pyqtSlot()
     def onOptionVideoAppChooseLocation(self):
@@ -109,40 +107,32 @@ class PreferencesDialog(QDialog):
         QMessageBox.about(self, _("Alert"), _(
             "The new language will be displayed after restarting the program."))
 
-    @pyqtSlot()
-    def onOptionDownloadFolderPredefined(self):
-        if self.ui.optionDownloadFolderPredefined.isChecked():
-            self.ui.optionPredefinedFolderText.setEnabled(True)
-            self.ui.optionButtonChooseFolder.setEnabled(True)
-        else:
-            self.ui.optionPredefinedFolderText.setEnabled(False)
-            self.ui.optionButtonChooseFolder.setEnabled(False)
-
-    def readOptionsSettings(self, settings):
+    def readOptionsSettings(self):
         log.debug("Reading Options Settings")
+        settings = QSettings()
         optionWhereToDownload = \
             settings.value("options/whereToDownload", "SAME_FOLDER")
         if optionWhereToDownload == "ASK_FOLDER":
-            self.ui.optionDownloadFolderAsk.setChecked(True)
+            self.ui.optionDlDestinationAsk.setChecked(True)
         elif optionWhereToDownload == "SAME_FOLDER":
-            self.ui.optionDownloadFolderSame.setChecked(True)
+            self.ui.optionDlDestinationSame.setChecked(True)
         elif optionWhereToDownload == "PREDEFINED_FOLDER":
-            self.ui.optionDownloadFolderPredefined.setChecked(True)
+            self.ui.optionDlDestinationUser.setChecked(True)
 
         folder = settings.value("options/whereToDownloadFolder", "")
-        self.ui.optionPredefinedFolderText.setText(folder)
+        self.ui.textDlDestinationUser.setText(folder)
 
         optionSubtitleName = \
             settings.value("options/subtitleName", "SAME_VIDEO")
         if optionSubtitleName == "SAME_VIDEO":
-            self.ui.optionDownloadSameFilename.setChecked(True)
+            self.ui.optionSubFnSame.setChecked(True)
         elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
-            self.ui.optionDownloadSameFilenamePlusLang.setChecked(True)
+            self.ui.optionSubFnSameLang.setChecked(True)
         elif optionSubtitleName == "SAME_VIDEOPLUSLANGANDUPLOADER":
-            self.ui.optionDownloadSameFilenamePlusLangAndUploader.setChecked(
+            self.ui.optionSubFnSameLangUploader.setChecked(
                 True)
         elif optionSubtitleName == "SAME_ONLINE":
-            self.ui.optionDownloadOnlineSubName.setChecked(True)
+            self.ui.optionSubFnOnline.setChecked(True)
 
         # Search
         optionFilterSearchLang = \
@@ -154,10 +144,10 @@ class PreferencesDialog(QDialog):
         # Upload
         optionUploadLanguage = \
             settings.value("options/uploadLanguage", "eng")
-        index = self.ui.optionDefaultUploadLanguage.findData(
+        index = self.ui.optionUlDefaultLanguage.findData(
             optionUploadLanguage)
         if index != -1:
-            self.ui.optionDefaultUploadLanguage.setCurrentIndex(index)
+            self.ui.optionUlDefaultLanguage.setCurrentIndex(index)
 
         optionInterfaceLanguage = \
             settings.value("options/interfaceLang", "en")
@@ -198,29 +188,29 @@ class PreferencesDialog(QDialog):
     def onApplyChanges(self):
         log.debug("Saving Options Settings")
         # Fields validation
-        if self.ui.optionDownloadFolderPredefined.isChecked() and self.ui.optionPredefinedFolderText.text() == "":
+        if self.ui.optionDlDestinationUser.isChecked() and self.ui.textDlDestinationUser.text() == "":
             QMessageBox.about(
                 self, _("Error"), _("Predefined Folder cannot be empty"))
             return
-        # Writting settings
+        # Writing settings
         settings = QSettings()
-        if self.ui.optionDownloadFolderAsk.isChecked():
+        if self.ui.optionDlDestinationAsk.isChecked():
             settings.setValue("options/whereToDownload", "ASK_FOLDER")
-        elif self.ui.optionDownloadFolderSame.isChecked():
+        elif self.ui.optionDlDestinationSame.isChecked():
             settings.setValue("options/whereToDownload", "SAME_FOLDER")
-        elif self.ui.optionDownloadFolderPredefined.isChecked():
+        elif self.ui.optionDlDestinationUser.isChecked():
             settings.setValue("options/whereToDownload", "PREDEFINED_FOLDER")
-            folder = self.ui.optionPredefinedFolderText.text()
+            folder = self.ui.textDlDestinationUser.text()
             settings.setValue("options/whereToDownloadFolder", folder)
 
-        if self.ui.optionDownloadSameFilename.isChecked():
+        if self.ui.optionSubFnSame.isChecked():
             settings.setValue("options/subtitleName", "SAME_VIDEO")
-        elif self.ui.optionDownloadSameFilenamePlusLang.isChecked():
+        elif self.ui.optionSubFnSameLang.isChecked():
             settings.setValue("options/subtitleName", "SAME_VIDEOPLUSLANG")
-        elif self.ui.optionDownloadSameFilenamePlusLangAndUploader.isChecked():
+        elif self.ui.optionSubFnSameLangUploader.isChecked():
             settings.setValue(
                 "options/subtitleName", "SAME_VIDEOPLUSLANGANDUPLOADER")
-        elif self.ui.optionDownloadOnlineSubName.isChecked():
+        elif self.ui.optionSubFnSameLangUploader.isChecked():
             settings.setValue("options/subtitleName", "SAME_ONLINE")
 
         # Search tab
@@ -235,8 +225,8 @@ class PreferencesDialog(QDialog):
         self._main.filterLangChangedPermanent.emit(",".join(checked_languages))
 
         # Upload tab
-        optionUploadLanguage = self.ui.optionDefaultUploadLanguage.itemData(
-            self.ui.optionDefaultUploadLanguage.currentIndex())
+        optionUploadLanguage = self.ui.optionUlDefaultLanguage.itemData(
+            self.ui.optionUlDefaultLanguage.currentIndex())
         settings.setValue("options/uploadLanguage", optionUploadLanguage)
         self._main.language_updated.emit(optionUploadLanguage, "")
 
