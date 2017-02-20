@@ -16,13 +16,17 @@ log = logging.getLogger('subdownloader.client.internationalization')
 def i18n_install(lc=None):
     """
     Install internationalization support for the clients using the specified locale.
-    If there is no support for the locale, a fallback translator will be installed.
-    :param lc: locale to install. If None, the system locale will be used.
+    If there is no support for the locale, the default locale will be used.
+    As last resort, a null translator will be installed.
+    :param lc: locale to install. If None, the system default locale will be used.
     """
     log.debug('i18n_install( {lc} ) called.'.format(lc=lc))
     if lc is None:
         lc, encoding = locale.getlocale()
         log.debug('locale.getlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
+    if lc is None:
+        lc, encoding = locale.getdefaultlocale()
+        log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
     if lc is None:
         gettext.NullTranslations().install()
     else:
