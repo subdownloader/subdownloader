@@ -28,11 +28,17 @@ def i18n_install(lc=None):
         lc, encoding = locale.getdefaultlocale()
         log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
     if lc is None:
+        log.debug('i18n_install(): installing NullTranslator')
         gettext.NullTranslations().install()
     else:
         i18n_support_locale(lc)  # Call i18n_support_locale to log the supported locales
         child_locales = i18n_locale_fallbacks_calculate(lc)
 
+        log.debug('i18n_install(): installing gettext.translation(domain={domain}, localedir={localedir}, '
+                  'languages={languages}, fallback={fallback})'.format(domain=project.PROJECT_TITLE.lower(),
+                                                                       localedir=i18n_get_path(),
+                                                                       languages=child_locales,
+                                                                       fallback=True))
         gettext.translation(
             domain=project.PROJECT_TITLE.lower(), localedir=i18n_get_path(),
             languages=child_locales, fallback=True).install()

@@ -9,13 +9,14 @@ Required:
 - Python packages:
   * [argparse]: parsing command line options (standard since Python 3.2)
   * [python-progressbar]: command line interface
-- [Qt]: graphical interface.
-  * Qt: Libraries.
+- Graphical interface:
+  * [Qt]: graphical interface
   * [pyQt]: Python bindings (version 4)
 
-Optional Python packages:
+Optional:
 - [kaa-metadata]: currently only available for Python 2
 - [pymediainfo]: used as fallback for python-kaa-metadata. This package needs [MediaInfo](https://mediaarea.net).
+- [langdetect]: language detection of subtitles by their contents 
 - [argcomplete]: Bash tab completion for argparse
 
 ### Build dependencies
@@ -57,7 +58,8 @@ SubDownloader is licensed under [GPL v3].
    [Qt]: <https://www.qt.io/>
    [pyQt]: <https://riverbankcomputing.com/software/pyqt/intro>
    [kaa-metadata]: <https://github.com/freevo/kaa-metadata>
-   [pymediainfo]: <https://pymediainfo.readthedocs.org/en/latest/>
+   [pymediainfo]: <https://pymediainfo.readthedocs.org/>
    [argcomplete]: <https://argcomplete.readthedocs.org/>
+   [langdetect]: <https://github.com/Mimino666/langdetect>
    [GPL v3]: <https://www.gnu.org/licenses/gpl-3.0.html>
    [subdownloader-launchpad]: https://launchpad.net/subdownloader

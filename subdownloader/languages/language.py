@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-import re
-import langdetect
 import logging
+import re
+import sys
+import traceback
+
+try:
+    import langdetect
+except ImportError:
+    langdetect = None
 
 from subdownloader.util import asciify
 
@@ -187,6 +193,9 @@ class Language:
         :return: Language instance if detection succeeded, otherwise a NotALanguageException is thrown
         """
         log.debug('Language.from_file: "{}", chunk={} ...'.format(filename, chunk_size))
+        if langdetect is None:
+            log.debug('... Failed: langdetect not installed.')
+            raise NotALanguageException('Could not detect language from subtitle content: langdetect not installed.')
         with open(filename, 'rb') as f:
             data = f.read(chunk_size)
         data_ascii = asciify(data)
@@ -199,9 +208,15 @@ class Language:
             log.debug('... Failed: Detector returned unknown language "{}"'.format(lang_xx))
             raise
         except:
-            log.debug('... Failed:  Language detector library failed')
-            raise NotALanguageException('Could not detect language from subtitle content')
+            e_type, e_value, e_traceback = sys.exc_info()
+            log.debug('... Failed:  Language detector library throws exception:')
+            for line in traceback.format_exception(e_type, e_value, e_traceback):
+                log.debug('traceback: {line}'.format(line))
+            raise NotALanguageException('Could not detect language from subtitle content: unknown exception.')
 
+    @classmethod
+    def can_detect_from_file(cls):
+        return langdetect is not None
 
 class UnknownLanguage(Language):
     def __init__(self, code):
