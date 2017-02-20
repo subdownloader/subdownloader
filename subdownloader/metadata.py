@@ -105,9 +105,7 @@ except ImportError:
         Metadata.parse = Metadata._parse_pymediainfo
     except ImportError:
         Metadata.parse = Metadata._parse_dummy
-        log.warning('Failed to import metadata module.')
-        log.warning('This means you will be unable to automatically')
-        log.warning('download or upload your subtitles with all details.')
+        log.warning('No metadata module available.')
 
 
 def parse(filepath):
