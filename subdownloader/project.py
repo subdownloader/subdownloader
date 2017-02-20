@@ -7,18 +7,18 @@ import os
 Name of the project.
 Forks MUST change this to a non-ambiguous alternative namex.
 """
-TITLE = 'SubDownloader'
+PROJECT_TITLE = 'SubDownloader'
 
 
 """
 Version of the project.
 """
-VERSION = '2.0.19'
+PROJECT_VERSION = '2.0.19'
 
 """
 Year of last change.
 """
-YEAR = 2017
+PROJECT_YEAR = 2017
 
 
 WEBSITE_MAIN = 'https://github.com/subdownloader/subdownloader'

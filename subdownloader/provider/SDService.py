@@ -18,7 +18,7 @@ import traceback
 from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
-from subdownloader.project import TITLE, VERSION
+from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION
 import subdownloader.videofile as videofile
 import subdownloader.subtitlefile as subtitlefile
 from subdownloader.languages.language import Language
@@ -31,7 +31,7 @@ except:
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 TEST_URL = 'http://www.google.com'
-USER_AGENT = "%s %s" % (TITLE, VERSION)
+USER_AGENT = "%s %s" % (PROJECT_TITLE, PROJECT_VERSION)
 CON_TIMEOUT = 300
 
 
@@ -733,7 +733,7 @@ class SDService(object):
         self.log.debug("----------------")
         self.log.debug("GetAvailableTranslations RPC method starting...")
         if not program:
-            program = TITLE.lower()
+            program = PROJECT_TITLE.lower()
         info = self.xmlrpc_server.GetAvailableTranslations(
             self._token, program)
         self.log.debug("GetAvailableTranslations finished in %s with status %s." % (
@@ -827,7 +827,7 @@ class SDService(object):
         self.log.debug("----------------")
         self.log.debug("CheckSoftwareUpdates RPC method starting...")
         if not app:
-            app = TITLE.lower()
+            app = PROJECT_TITLE.lower()
         try:
             info = self.xmlrpc_server.CheckSoftwareUpdates(app)
         except xmlrpclib.ProtocolError as e:

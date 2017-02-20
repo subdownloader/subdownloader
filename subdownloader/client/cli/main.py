@@ -6,7 +6,6 @@ import logging
 import os.path
 import zlib
 
-import subdownloader.client.configuration as conf
 import subdownloader.languages.language as language
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.callback import ProgressCallback
@@ -107,7 +106,7 @@ class Main(object):
                                         'sublanguageid': curr_sub.getLanguage().xxx(),
                                         }
                         # interactive mode
-                        if self.options.mode == 'cli' and self.interactive:
+                        if self.options.mode == 'cli' and self.options.interactive:
                             self.log.info("Upload the following information:")
                             for (i, choice) in enumerate(user_choices):
                                 self.log.info(
@@ -315,7 +314,7 @@ class Main(object):
             return self.provider.UploadSubtitles(movie_info)
 
     def _get_callback(self):
-        if self.options.loglevel > logging.DEBUG or self.options.verbose:
+        if self.options.loglevel > logging.DEBUG:
             callback = ProgressBarCallback(DEFAULT_WIDGETS)
         else:
             callback = ProgressCallback()

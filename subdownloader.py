@@ -5,13 +5,16 @@
 import os
 import sys
 
-from subdownloader.client.configuration import install_i18n_early, install_logger, parse_args
+from subdownloader.client.logger import logging_file_install, logging_install
+from subdownloader.client.internationalization import i18n_install
+from subdownloader.client.arguments import parse_arguments
 
 sys.path.append(os.path.join(sys.path[0], 'modules'))
 
-install_i18n_early()
-options = parse_args()
-install_logger(options.loglevel, options.logfile)
+logging_file_install(None)
+i18n_install()
+options = parse_arguments()
+logging_install(options.loglevel, options.logfile)
 
 if options.mode == 'gui':
     import subdownloader.client.gui.main

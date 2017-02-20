@@ -66,7 +66,7 @@ from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
 from subdownloader.client.gui.login import loginDialog
 from subdownloader.FileManagement import FileScan, Subtitle
-from subdownloader.project import TITLE, VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
+from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 from subdownloader.search import *
 from subdownloader.videofile import VideoFile, VIDEOS_EXT
 from subdownloader.subtitlefile import SubtitleFile, SUBTITLES_EXT
@@ -106,7 +106,7 @@ class Main(QObject, Ui_MainWindow):
         self.SetupInterfaceLang()
         self.setupUi(window)
         window.closeEvent = self.close_event
-        window.setWindowTitle(_("SubDownloader %s") % VERSION)
+        window.setWindowTitle(_("SubDownloader %s") % PROJECT_VERSION)
         # Fill Out the Filters Language SelectBoxes
         self.filterLangChangedPermanent.connect(
             self.onFilterLangChangedPermanent)
@@ -256,7 +256,7 @@ class Main(QObject, Ui_MainWindow):
         self.action_Login.triggered.connect(self.onButtonLogin)
         self.login_button.clicked.connect(self.onButtonLogin)
         self.action_LogOut.triggered.connect(self.onButtonLogOut)
-        self.status_label = QLabel("v" + VERSION, self.statusbar)
+        self.status_label = QLabel("v" + PROJECT_VERSION, self.statusbar)
         self.status_label.setIndent(10)
 
         #self.donate_button = QPushButton(
@@ -563,7 +563,7 @@ class Main(QObject, Ui_MainWindow):
     def OnSoftwareUpdateDetected(self, new_version, update_link):
         warningBox = QMessageBox(_("New Version Detected"),
                                  _("A new version of SubDownloader has been released.\n\nNew Version: %s\nCurrent Version: %s\n\n"
-                                   "Would you like to download the new version now?") % (new_version, VERSION),
+                                   "Would you like to download the new version now?") % (new_version, PROJECT_VERSION),
                                  QMessageBox.Information,
                                  QMessageBox.Yes | QMessageBox.Default,
                                  QMessageBox.Cancel | QMessageBox.Escape,
@@ -631,7 +631,7 @@ class Main(QObject, Ui_MainWindow):
 
     def setTitleBarText(self, text):
         self.window.setWindowTitle(
-            _("SubDownloader %s - %s") % (VERSION, text))
+            _("SubDownloader %s - %s") % (PROJECT_VERSION, text))
 
     def onChangeTitleBarText(self, title):
         self.setTitleBarText(title)
@@ -1782,10 +1782,10 @@ def main(options):
 #    splash = SplashScreen()
 #    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
     window = QMainWindow()
-    window.setWindowTitle(TITLE)
+    window.setWindowTitle(PROJECT_TITLE)
     window.setWindowIcon(QIcon(":/icon"))
     QCoreApplication.setOrganizationName("SubDownloader")
-    QCoreApplication.setApplicationName(TITLE)
+    QCoreApplication.setApplicationName(PROJECT_TITLE)
 
     splash.finish(window)
     log.debug("Showing main dialog")
