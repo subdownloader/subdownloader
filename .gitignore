@@ -6,6 +6,9 @@
 *_LOCAL_*
 *_REMOTE_*
 
+# Qt creator artifacts
+*.autosave
+
 # Python byte code
 *.pyc
 

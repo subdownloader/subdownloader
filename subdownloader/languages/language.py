@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+import itertools
 import logging
 import re
 import sys
@@ -13,7 +14,7 @@ except ImportError:
 
 from subdownloader.util import asciify
 
-log = logging.getLogger("subdownloader.languages.Languages")
+log = logging.getLogger("subdownloader.languages.language")
 
 # FIXME: translation..
 _ = lambda x: x
@@ -65,6 +66,13 @@ class Language:
         """
         return LANGUAGES[self._id]['LanguageName'][0]
 
+    def generic_name(self):
+        """
+        Return readable name of Language
+        :return: Readable name as string
+        """
+        return self.name()
+
     def __eq__(self, other):
         """
         Check if other is the same as self.
@@ -82,7 +90,7 @@ class Language:
         Return hash of this object.
         :return: hash integer
         """
-        return hash(LANGUAGES[self._id]['ISO639'][0])
+        return hash(self._id)
 
     def __repr__(self):
         """
@@ -99,6 +107,8 @@ class Language:
         :return: Language instance with instance.locale() == locale if locale is valid else instance of Unknown Language
         """
         locale = str(locale)
+        if locale is 'unknown':
+            return UnknownLanguage(xx)
         try:
             return cls._from_XYZ('locale', locale)
         except NotALanguageException:
@@ -113,6 +123,8 @@ class Language:
         :return: Language instance with instance.xx() == xx if xx is valid else instance of UnknownLanguage
         """
         xx = str(xx).lower()
+        if xx is 'unknown':
+            return UnknownLanguage(xx)
         try:
             return cls._from_XYZ('ISO639', xx)
         except NotALanguageException:
@@ -127,6 +139,8 @@ class Language:
         :return: Language instance with instance.xxx() == xxx if xxx is valid else instance of UnknownLanguage
         """
         xxx = str(xxx).lower()
+        if xxx is 'unknown':
+            return UnknownLanguage(xxx)
         try:
             return cls._from_XYZ('LanguageID', xxx)
         except NotALanguageException:
@@ -141,6 +155,8 @@ class Language:
         :return: Language instance with instance.name() == name if name is valid else instance of UnknownLanguage
         """
         name = str(name).lower()
+        if name is 'unknown' or name is _('unknown'):
+            return UnknownLanguage(name)
         try:
             return cls._from_XYZ('LanguageName', name)
         except NotALanguageException:
@@ -155,6 +171,8 @@ class Language:
         :param xyzvalue: corresponding value of xyzkey
         :return: Language instance
         """
+        if xyzvalue == 'unknown' or xyzvalue == _('unknown'):
+            return UnknownLanguage(xyzvalue)
         for id, l in enumerate(LANGUAGES):
             for langvalue in l[xyzkey]:
                 if langvalue == xyzvalue:
@@ -176,6 +194,7 @@ class Language:
         # Use 2 lists instead of dict ==> order known
         keys = ['ISO639', 'LanguageID', 'locale', 'LanguageName']
         truefalses = [xx, xxx, locale, name]
+        value = value.lower()
         for key, doKey in zip(keys, truefalses):
             if doKey:
                 try:
@@ -218,14 +237,56 @@ class Language:
     def can_detect_from_file(cls):
         return langdetect is not None
 
+
 class UnknownLanguage(Language):
     def __init__(self, code):
         Language.__init__(self, 0)
         self._code = code
 
-    def name(self):
-        return Language.name(self) % (self._code)
+    @classmethod
+    def create_generic(cls):
+        """
+        Return a UnknownLanguage instance..
+        :return: UnknownLanguage instance.
+        """
+        return cls(_('unknown'))
 
+    def name(self):
+        """
+        Return readable name of Language. Contains info about the unknown Language.
+        :return: Readable name as string
+        """
+        return self._code
+
+    def generic_name(self):
+        """
+        Return readable name of Language. Contains no info about the unknown Language.
+        :return: Readable name as string
+        """
+        return Language.name(self)
+
+    def __eq__(self, other):
+        """
+        Tests if other has the same type of this and the same unknown language code.
+        :return: True if other is of the same type and has the same unknown language code
+        """
+        if not Language.__eq__(self, other):
+            return False
+        return self._code == other._code
+
+    def __hash__(self):
+        """
+        Return hash of this object.
+        :return: hash integer
+        """
+        return hash((self._id, self._code))
+
+    def __repr__(self):
+        """
+        Return representation of this instance
+        :return: string representation of self
+        """
+        return '<UnknownLanguage:code={code}>'.format(code=self._code)
 
 def ListAll_xx():
     temp = []
@@ -304,13 +365,21 @@ def CleanTagsFile(text):
 
 def legal_languages():
     """
-    Return a list of dicts of legal languages
-    :return: list of dicts of legal languages
+    Return an iterator of all Language objects including the UnknownLanguage
+    :return: iterator of Language objects
     """
-    return LANGUAGES[1:]
+    return map(Language, range(1, len(LANGUAGES)))
+
+def languages():
+    """
+    Return an iterator of all Language objects, excluding the UnknownLanguage
+    :return: iterator of all Language objects
+    """
+    return itertools.chain([UnknownLanguage.create_generic()], legal_languages())
 
 """
-    List of dict of known languages.
+    List of dict of languages.
+    The unknown language is at index 0.
 """
 
 LANGUAGES = [
@@ -318,7 +387,7 @@ LANGUAGES = [
         'locale': ['unknown'],
         'ISO639': ['unknown'],
         'LanguageID': ['unknown'],
-        'LanguageName': [('%s')]
+        'LanguageName': [_('Unknown')]
     }, {
         'locale': ['sq'],
         'ISO639': ['sq'],

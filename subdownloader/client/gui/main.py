@@ -82,6 +82,7 @@ SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
 SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
 
 
+
 class Main(QObject, Ui_MainWindow):
 
     filterLangChangedPermanent = pyqtSignal(str)
@@ -398,15 +399,22 @@ class Main(QObject, Ui_MainWindow):
             self.programFolder = os.path.dirname(sys.path[0])
 
     def showInstructions(self):
-        introduction = '<p align="center"><h2>%s</h2></p>' \
-            '<p><b>%s</b><br>%s</p>' \
-            '<p><b>%s</b><br>%s</p>'\
-            '<p><b>%s</b><br>%s</p>' % (_("How To Use SubDownloader"),
-                                        _("1st Tab:"), _(
-                                            "Select, from the Folder Tree on the left, the folder which contains the videos that need subtitles. SubDownloader will then try to automatically find available subtitles."),
-                                        _("2nd Tab:"), _(
-                                            "If you don't have the videos in your machine, you can search subtitles by introducing the title/name of the video."),
-                                        _("3rd Tab:"), _("If you have found some subtitle somewhere else that it's not in SubDownloader database, please upload those subtitles so next users will be able to find them more easily."))
+        introduction = '<p align="center"><h2>{title}</h2></p>' \
+            '<p><b>{tab1header}</b><br>{tab1content}</p>' \
+            '<p><b>{tab2header}</b><br>{tab2content}/p>'\
+            '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
+                title=_("How To Use {title}").format(title=PROJECT_TITLE),
+                tab1header=_("1st Tab:"),
+                tab2header=_("2nd Tab:"),
+                tab3header=_("3rd Tab:"),
+                tab1content=_("Select, from the Folder Tree on the left, the folder which contains the videos "
+                              "that need subtitles. {project} will then try to automatically find available "
+                              "subtitles.").format(project=PROJECT_TITLE),
+                tab2content=_("If you don't have the videos in your machine, ou can search subtitles by "
+                               "introducing the title/name of the video."),
+                tab3content=_("If you have found some subtitle somewhere else that is not in {project}'s database, "
+                               "please upload those subtitles so next users will be able to "
+                               "find them more easily.").format(project=PROJECT_TITLE))
 
         self.introductionHelp.setHtml(introduction)
         self.videoView.hide()
@@ -668,11 +676,11 @@ class Main(QObject, Ui_MainWindow):
         self.filterLanguageForTitle.addItem(_("All languages"), "")
         for lang in language.legal_languages():
             self.filterLanguageForVideo.addItem(
-                _(lang["LanguageName"][0]), lang["LanguageID"][0])
+                _(lang.name()), lang.xxx())
             self.filterLanguageForTitle.addItem(
-                _(lang["LanguageName"][0]), lang["LanguageID"][0])
+                _(lang.name()), lang.xxx())
             self.uploadLanguages.addItem(
-                _(lang["LanguageName"][0]), lang["LanguageID"][0])
+                _(lang.name()), lang.xxx())
 
         settings = QSettings()
         optionUploadLanguage = settings.value("options/uploadLanguage", "eng")

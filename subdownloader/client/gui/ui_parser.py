@@ -59,7 +59,7 @@ fixes = [
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(
-        description='Parse Qt4 generated _ui.py files.')
+        description='Parse Qt5 generated _ui.py files.')
     parser.add_argument('files', metavar='FILE', type=str, nargs='*',
                         help='Assume files to exist.')
 
