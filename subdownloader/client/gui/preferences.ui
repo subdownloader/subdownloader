@@ -22,9 +22,6 @@
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
-     <property name="tabShape">
-      <enum>QTabWidget::Triangular</enum>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -99,19 +96,19 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_B">
           <item>
-           <widget class="QRadioButton" name="optionDlDestinationAsk">
-            <property name="text">
-             <string>Always ask user</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QRadioButton" name="optionDlDestinationSame">
             <property name="text">
              <string>Same folder as video file</string>
             </property>
             <property name="checked">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optionDlDestinationAsk">
+            <property name="text">
+             <string>Always ask user</string>
             </property>
            </widget>
           </item>
@@ -125,11 +122,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="textDlDestinationUser">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
+             <widget class="QLineEdit" name="inputDlDestinationUser"/>
             </item>
             <item>
              <widget class="QPushButton" name="buttonDlDestinationUser">
@@ -253,7 +246,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="1" column="1">
-           <widget class="QLineEdit" name="optionProxyHost"/>
+           <widget class="QLineEdit" name="inputProxyHost"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="textProxyHost">
@@ -270,20 +263,17 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="optionProxyPort">
+           <widget class="QSpinBox" name="inputProxyPort">
             <property name="maximum">
              <number>99999</number>
-            </property>
-            <property name="value">
-             <number>8080</number>
             </property>
            </widget>
           </item>
          </layout>
          <zorder>textProxyHost</zorder>
-         <zorder>optionProxyHost</zorder>
+         <zorder>inputProxyHost</zorder>
          <zorder>textProxyPort</zorder>
-         <zorder>optionProxyPort</zorder>
+         <zorder>inputProxyPort</zorder>
         </widget>
        </item>
        <item>
@@ -369,7 +359,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="optionVideoAppLocation"/>
+           <widget class="QLineEdit" name="inputVideoAppLocation"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="textVideoAppParams">
@@ -379,7 +369,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="optionVideoAppParams"/>
+           <widget class="QLineEdit" name="inputVideoAppParams"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="textVideoAppLocation">
@@ -442,15 +432,35 @@
        <property name="text">
         <string>Save</string>
        </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabsPreferences</tabstop>
+  <tabstop>scrollAreaSearch</tabstop>
+  <tabstop>optionDlDestinationSame</tabstop>
+  <tabstop>optionDlDestinationUser</tabstop>
+  <tabstop>inputDlDestinationUser</tabstop>
+  <tabstop>buttonDlDestinationUser</tabstop>
+  <tabstop>optionSubFnSame</tabstop>
+  <tabstop>optionSubFnSameLang</tabstop>
+  <tabstop>optionSubFnSameLangUploader</tabstop>
+  <tabstop>optionSubFnOnline</tabstop>
+  <tabstop>optionUlDefaultLanguage</tabstop>
+  <tabstop>inputProxyHost</tabstop>
+  <tabstop>inputProxyPort</tabstop>
+  <tabstop>optionInterfaceLanguage</tabstop>
+  <tabstop>buttonHelpTranslation</tabstop>
+  <tabstop>optionIntegrationExplorer</tabstop>
+  <tabstop>inputVideoAppLocation</tabstop>
+  <tabstop>buttonVideoAppLocationChoose</tabstop>
+  <tabstop>inputVideoAppParams</tabstop>
+  <tabstop>buttonApplyChanges</tabstop>
+  <tabstop>buttonCancel</tabstop>
+ </tabstops>
  <resources>
   <include location="images.qrc"/>
  </resources>
