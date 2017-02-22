@@ -42,10 +42,24 @@ class AboutDialog(QDialog):
                 websites_issues=project.WEBSITE_ISSUES,
             )
         )
-        authors = [
-            '{name} &lt;<a href="mailto:{mail}" >{mail}</a>&gt;<br />'.format(name=author.name(), mail=author.mail())
-                for author in project.read_authors()]
-        self.ui.txtAuthors.setText(''.join(authors))
+
+        def authors_to_string(list_authors):
+            list_lines = ['{name} &lt;<a href="mailto:{mail}" >{mail}</a>&gt;<br />'.format(
+                name=author.name(),mail=author.mail())
+                    for author in list_authors]
+            return ''.join(list_lines)
+
+        developers_lines = authors_to_string(project.DEVELOPERS)
+        translators_lines = authors_to_string(project.TRANSLATORS)
+
+        self.ui.txtAuthors.setText('<b>{developers}</b><br />'
+                                   '{developers_lines}'
+                                   '<br />'
+                                   '<b>{translators}</b><br />'
+                                   '{translators_lines}'.format(developers=_('Developers'),
+                                                                translators=_('Translators'),
+                                                                developers_lines=developers_lines,
+                                                                translators_lines=translators_lines))
 
         self.ui.txtLicense.setText(self.get_license())
 

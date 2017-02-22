@@ -45,6 +45,16 @@ class Author(object):
             mail=self.mail()
         )
 
+DEVELOPERS = [
+    Author('Ivan Garcia', 'ivangarcia@subdownloader.net'),
+    Author('Marco Ferreira', 'mferreira@subdownloader.net'),
+    Author('Marco Rodrigues', 'gothicx@gmail.com'),
+    Author('Anonymous Maarten', 'anonymous.maarten@gmail.com'),
+    Author('Sergio Basto', 'sergio@serjux.com'),
+    ]
+
+TRANSLATORS = [
+]
 
 def subdownloader_path():
     """
@@ -52,15 +62,3 @@ def subdownloader_path():
     :return: string of the path
     """
     return os.path.dirname(os.path.realpath(__file__))
-
-
-def read_authors():
-    result = []
-    authormails_str = open(os.path.join(subdownloader_path(), 'AUTHORS'), 'r').read()
-    for authormail_str in authormails_str.split('\n'):
-        try:
-            name, mail = authormail_str.split(':')
-            result.append(Author(name, mail))
-        except ValueError:
-            pass
-    return result
