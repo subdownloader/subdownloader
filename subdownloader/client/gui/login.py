@@ -1,30 +1,45 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
 
-from PyQt5.QtCore import Qt, pyqtSlot, QCoreApplication, QSettings
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QSettings
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from subdownloader.client.gui.login_ui import Ui_LoginDialog
 
-log = logging.getLogger("subdownloader.gui.login")
+log = logging.getLogger('subdownloader.client.gui.login')
 
 
-class loginDialog(QDialog):
+class LoginDialog(QDialog):
+
+    login_password_changed = pyqtSignal(str, str)
+
+
+    DEFAULT_USERNAME = ''
+    DEFAULT_PASSWORD = ''
 
     def __init__(self, parent, main):
         QDialog.__init__(self, parent)
         self.ui = Ui_LoginDialog()
         self.ui.setupUi(self)
         self._main = main
-        settings = QSettings()
+
+        self._username = self.DEFAULT_USERNAME
+        self._password = self.DEFAULT_PASSWORD
+
+        self.settings = QSettings()
 
         self.ui.buttonBox.accepted.connect(self.onButtonAccept)
         self.ui.buttonBox.rejected.connect(self.onButtonClose)
-        username = settings.value("options/LoginUsername", "")
-        password = settings.value("options/LoginPassword", "")
-        self.ui.optionLoginUsername.setText(username)
-        self.ui.optionLoginPassword.setText(password)
+
+    def readSettings(self):
+        self._username = self.settings.value('options/LoginUsername', self.DEFAULT_USERNAME)
+        self.ui.optionLoginUsername.setText(self._username)
+
+        self._password = self.settings.value('options/LoginPassword', self.DEFAULT_PASSWORD)
+        self.ui.optionLoginPassword.setText(self._password)
+
 
     @pyqtSlot()
     def onButtonClose(self):
@@ -32,32 +47,29 @@ class loginDialog(QDialog):
 
     @pyqtSlot()
     def onButtonAccept(self):
-        settings = QSettings()
-        newUsername = self.ui.optionLoginUsername.text()
-        newPassword = self.ui.optionLoginPassword.text()
-        oldUsername = settings.value("options/LoginUsername", "")
-        oldPassword = settings.value("options/LoginPassword", "")
+        self._username= self.ui.optionLoginUsername.text()
+        self._password = self.ui.optionLoginPassword.text()
+        oldUsername = self.settings.value('options/LoginUsername', self.DEFAULT_USERNAME)
+        oldPassword = self.settings.value('options/LoginPassword', self.DEFAULT_PASSWORD)
 
-        if newUsername != oldUsername or newPassword != oldPassword:
-            settings.setValue("options/LoginUsername", newUsername)
-            settings.setValue("options/LoginPassword", newPassword)
+        if self._username != oldUsername or self._password != oldPassword:
+            self.settings.setValue('options/LoginUsername', self._username)
+            self.settings.setValue('options/LoginPassword', self._password)
+            self.login_password_changed.emit(self._username, self._password)
 
         self.connect()
         self.accept()  # We close the window
 
     def connect(self):
-        username = self.ui.optionLoginUsername.text()
-        password = self.ui.optionLoginPassword.text()
-
         self.setCursor(Qt.WaitCursor)
         if not hasattr(self, 'OSDBServer'):
             # and self.OSDBServer.is_connected():
             if not self._main.establishServerConnection():
                 self.setCursor(Qt.ArrowCursor)
-                QMessageBox.about(self, _("Error"), _(
-                    "Error contacting the server. Please try again later"))
+                QMessageBox.about(self, _('Error'), _(
+                    'Error contacting the server. Please try again later'))
                 return
 
-        self._main.login_user(username, password)
+        self._main.login_user(self._username, self._password)
         self.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()

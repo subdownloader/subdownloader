@@ -64,15 +64,12 @@ from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 
 from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
-from subdownloader.client.gui.login import loginDialog
+from subdownloader.client.gui.login import LoginDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 from subdownloader.search import *
 from subdownloader.videofile import VideoFile, VIDEOS_EXT
 from subdownloader.subtitlefile import SubtitleFile, SUBTITLES_EXT
-
-#FIXME: translations
-_ = lambda x: x
 
 import logging
 log = logging.getLogger("subdownloader.client.gui.main")
@@ -80,7 +77,6 @@ splash.showMessage(_("Building main dialog..."))
 
 SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
 SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
-
 
 
 class Main(QObject, Ui_MainWindow):
@@ -597,7 +593,7 @@ class Main(QObject, Ui_MainWindow):
             time.sleep(sleeptime)
 
     def onButtonLogin(self):
-        dialog = loginDialog(self.window, self)
+        dialog = LoginDialog(self.window, self)
         ok = dialog.exec_()
 
     def login_user(self, username, password):

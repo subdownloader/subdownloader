@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>290</width>
-    <height>154</height>
+    <height>182</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,9 +30,9 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QFormLayout" name="formLayout_2">
         <item row="0" column="0">
-         <widget class="QLabel" name="label_57">
+         <widget class="QLabel" name="textUsername">
           <property name="text">
            <string>Username:</string>
           </property>
@@ -42,7 +42,7 @@
          <widget class="QLineEdit" name="optionLoginUsername"/>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_58">
+         <widget class="QLabel" name="textPassword">
           <property name="text">
            <string>Password:</string>
           </property>

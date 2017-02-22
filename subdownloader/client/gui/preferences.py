@@ -6,15 +6,15 @@ import os
 import platform
 import webbrowser
 
+from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
 from subdownloader.languages import language
+from subdownloader.project import WEBSITE_TRANSLATE
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir, QSettings, Qt
 from PyQt5.QtWidgets import QCheckBox, QCompleter, QDialog, QDirModel, QFileDialog, QMessageBox
 
-from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
-
 log = logging.getLogger("subdownloader.client.gui.preferences")
-#FIXME: add more logging
+# FIXME: add more logging
 
 
 class PreferencesDialog(QDialog):
@@ -441,8 +441,7 @@ class PreferencesDialog(QDialog):
 
     @pyqtSlot()
     def onHelpTranslate(self):
-        webbrowser.open(
-            "http://www.subdownloader.net/translate.html", new=2, autoraise=1)
+        webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     @pyqtSlot()
     def onButtonVideoAppLocationChoose(self):
