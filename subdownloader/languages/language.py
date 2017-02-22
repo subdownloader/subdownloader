@@ -94,10 +94,27 @@ class Language:
 
     def __repr__(self):
         """
-        Return representation of this instance
+        Return string representation of this instance.
         :return: string representation of self
         """
         return '<Language:xx={}>'.format(LANGUAGES[self._id]['ISO639'])
+
+    def raw_data(self):
+        """
+        Return raw internal represenation of this instance.
+        :return: raw internal representation
+        """
+        return self._id
+
+    @classmethod
+    def from_raw_data(cls, raw_data):
+        """
+        Return Language Instance from raw_data.
+        :return: Language instance
+        """
+        if raw_data == 0:
+            return UnknownLanguage.create_generic()
+        return cls(raw_data)
 
     @classmethod
     def from_locale(cls, locale):

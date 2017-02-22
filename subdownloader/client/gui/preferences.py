@@ -131,21 +131,11 @@ class PreferencesDialog(QDialog):
 
         # - Default Subtitle Language
 
-        self._uploadLanguage = self.DEFAULT_ULFN
+        self._uploadLanguage = self.DEFAULT_UL_LANG
 
-        ulItalicFont = self.ui.optionUlDefaultLanguage.font()
-        ulItalicFont.setItalic(True)
+        self.ui.optionUlDefaultLanguage.set_unknown_text(_('Auto Detect'))
 
-        for lang in language.languages():
-            # FIXME: don't add language as UserData
-            # FIXME: create LanguageComboBox
-            self.ui.optionUlDefaultLanguage.addItem(_(lang.generic_name()), lang)
-
-        self.ui.optionUlDefaultLanguage.setItemText(0, _('Auto Detect'))
-        self.ui.optionUlDefaultLanguage.setItemData(0, ulItalicFont, Qt.FontRole)
-        self.ui.optionUlDefaultLanguage.adjustSize()
-
-        self.ui.optionUlDefaultLanguage.currentIndexChanged.connect(self.onOptionUlDefaultLanguageIndexChange)
+        self.ui.optionUlDefaultLanguage.selected_language_changed.connect(self.onOptionUlDefaultLanguageChange)
 
         # 4. Network tab
 
@@ -220,19 +210,10 @@ class PreferencesDialog(QDialog):
 
         # - Default Subtitle Language
 
-        optionUploadLanguage = self.settings.value('options/uploadLanguage', self.DEFAULT_ULFN.xxx())
+        optionUploadLanguage = self.settings.value('options/uploadLanguage', self.DEFAULT_UL_LANG.xxx())
         uploadLanguage = language.Language.from_xxx(optionUploadLanguage)
 
-        index = self.ui.optionUlDefaultLanguage.findData(uploadLanguage)
-        if index != -1:
-            self.ui.optionUlDefaultLanguage.setCurrentIndex(index)
-
-        for index in range(self.ui.optionUlDefaultLanguage.count()):
-            if self.ui.optionUlDefaultLanguage.itemData(index, Qt.UserRole) == uploadLanguage:
-                self.ui.optionUlDefaultLanguage.setCurrentIndex(index)
-                break
-
-
+        self.ui.optionUlDefaultLanguage.set_selected_language(uploadLanguage)
 
         optionInterfaceLanguage = self.settings.value("options/interfaceLang", "en")
         index = self.ui.optionInterfaceLanguage.findData(optionInterfaceLanguage)
@@ -346,7 +327,7 @@ class PreferencesDialog(QDialog):
     def validate(self):
         # Download Destination Validation
         dlDestinationUser = self.ui.inputDlDestinationUser.text()
-        if self._dlDestinationType is self.DLDESTINATIONTYPE_PREDEFINEDFOLDER and not os.path.isdir(dlDestinationUser):
+        if self._dlDestinationType == self.DLDESTINATIONTYPE_PREDEFINEDFOLDER and not os.path.isdir(dlDestinationUser):
             QMessageBox.about(
                 self, _("Error"), _("Predefined Folder is invalid"))
             return False
@@ -429,11 +410,11 @@ class PreferencesDialog(QDialog):
 
     defaultUploadLanguageChanged = pyqtSignal(language.Language)
 
-    DEFAULT_ULFN = language.UnknownLanguage.create_generic()
+    DEFAULT_UL_LANG = language.UnknownLanguage.create_generic()
 
-    @pyqtSlot(int)
-    def onOptionUlDefaultLanguageIndexChange(self, index):
-        self._uploadLanguage = self.ui.optionUlDefaultLanguage.itemData(index, Qt.UserRole)
+    @pyqtSlot(language.Language)
+    def onOptionUlDefaultLanguageChange(self, lang):
+        self._uploadLanguage = lang
         self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
     def actionContextMenu(self, action, os):

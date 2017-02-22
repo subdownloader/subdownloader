@@ -109,7 +109,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.layoutTabUpload = QtWidgets.QGridLayout()
         self.layoutTabUpload.setObjectName("layoutTabUpload")
-        self.optionUlDefaultLanguage = QtWidgets.QComboBox(self.tabUpload)
+        self.optionUlDefaultLanguage = LanguageComboBox(self.tabUpload)
         self.optionUlDefaultLanguage.setFrame(True)
         self.optionUlDefaultLanguage.setObjectName("optionUlDefaultLanguage")
         self.layoutTabUpload.addWidget(self.optionUlDefaultLanguage, 1, 2, 1, 1)
@@ -275,4 +275,5 @@ class Ui_PreferencesDialog(object):
         self.buttonCancel.setText(_("Cancel"))
         self.buttonApplyChanges.setText(_("Save"))
 
+from subdownloader.client.gui.languageComboBox import LanguageComboBox
 from . import images_rc
