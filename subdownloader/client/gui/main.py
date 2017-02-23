@@ -1725,6 +1725,7 @@ class Main(QObject, Ui_MainWindow):
 
 
 def main(options):
+    global app
     log.debug("Building main dialog")
 #    app = QApplication(sys.argv)
 #    splash = SplashScreen()
@@ -1739,4 +1740,6 @@ def main(options):
     log.debug("Showing main dialog")
     Main(window, "", options)
 
-    return app.exec_()
+    res = app.exec_()
+    app = None
+    return res
