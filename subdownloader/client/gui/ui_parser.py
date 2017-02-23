@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python3
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import sys
