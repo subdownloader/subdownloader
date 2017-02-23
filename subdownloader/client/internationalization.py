@@ -31,8 +31,8 @@ def i18n_install(lc=None):
         log.debug('i18n_install(): installing NullTranslator')
         gettext.NullTranslations().install()
     else:
-        i18n_support_locale(lc)  # Call i18n_support_locale to log the supported locales
-        child_locales = i18n_locale_fallbacks_calculate(lc)
+        child_locales = i18n_support_locale(lc)  # Call i18n_support_locale to log the supported locales
+        # child_locales = i18n_locale_fallbacks_calculate(lc)
 
         log.debug('i18n_install(): installing gettext.translation(domain={domain}, localedir={localedir}, '
                   'languages={languages}, fallback={fallback})'.format(domain=project.PROJECT_TITLE.lower(),
@@ -64,21 +64,21 @@ def i18n_locale_fallbacks_calculate(lc):
     return locales
 
 
-def i18n_support_locale(lc):
+def i18n_support_locale(lc_parent):
     """
     Find out whether lc is supported. Returns all child locales (and eventually lc) which do have support.
     :param lc: Locale for which we want to know the child locales that are supported
     :return: list of supported locales
     """
-    log.debug('i18n_support_locale( locale="{locale}" ) called'.format(locale=lc))
-    all_locales = i18n_locale_fallbacks_calculate(lc)
+    log.debug('i18n_support_locale( locale="{locale}" ) called'.format(locale=lc_parent))
+    all_locales = i18n_locale_fallbacks_calculate(lc_parent)
     locales = []
 
     locale_dir = i18n_get_path()
     mo_file = '{project}.mo'.format(project=project.PROJECT_TITLE.lower())
 
-    for locale in all_locales:
-        locale_path = os.path.join(locale_dir, locale, 'LC_MESSAGES')
+    for lc in all_locales:
+        locale_path = os.path.join(locale_dir, lc, 'LC_MESSAGES')
         log.debug('Locale data in "{locale_path}"?'.format(locale_path=locale_path))
         if os.path.isdir(locale_path) and mo_file in os.listdir(locale_path):
             log.debug('Found! "{locale_path}" contains {mo_file}.'.format(locale_path=locale_path, mo_file=mo_file))
@@ -103,22 +103,22 @@ def i18n_get_path():
         return local_locale_path
 
 
-def i18n_get_languages():
+def i18n_get_supported_locales():
     """
-    List all languages that have internationalization data for this program
+    List all locales that have internationalization data for this program
     :return: List of locales
     """
     locale_dir = i18n_get_path()
     log.debug('Scanning translation files .mo in locale folder: {}'.format(locale_dir))
     langs = []
-    mo_file = '{project}.mo'.format(project.PROJECT_TITLE)
+    mo_file = '{project}.mo'.format(project=project.PROJECT_TITLE.lower())
     for lc in os.listdir(locale_dir):
-        try:
-            locale_path = os.path.join(locale_dir, lc, 'LC_MESSAGES')
-            if mo_file in os.listdir(locale_path):
-                os.debug('Locale {lang} has {mo_file}.'.format(locale, mo_file))
-                langs.append(lc)
-        except OSError:
-            os.debug('Locale {lang} has NO {mo_file}.'.format(locale, mo_file))
-            pass
+        if os.path.isdir(os.path.join(locale_dir, lc)):
+            try:
+                locale_path = os.path.join(locale_dir, lc, 'LC_MESSAGES')
+                if mo_file in os.listdir(locale_path):
+                    langs.append(lc)
+            except OSError:
+                pass
+    log.debug('Detected: {langs}'.format(langs=langs))
     return langs

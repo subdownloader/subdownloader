@@ -134,6 +134,7 @@ class PreferencesDialog(QDialog):
         self._uploadLanguage = self.DEFAULT_UL_LANG
 
         self.ui.optionUlDefaultLanguage.set_unknown_text(_('Auto Detect'))
+        self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         self.ui.optionUlDefaultLanguage.selected_language_changed.connect(self.onOptionUlDefaultLanguageChange)
 
@@ -142,14 +143,15 @@ class PreferencesDialog(QDialog):
         self.ui.inputProxyPort.setRange(0, 65535)
 
         # 5. Others tab
-        self.ui.optionInterfaceLanguage.addItem(_('<system_locale>'))
-        for lang_locale in self._main.interface_langs:
-            languageName = language.locale2name(lang_locale)
-            if not languageName:
-                languageName = lang_locale
-            self.ui.optionInterfaceLanguage.addItem(
-                _(languageName), lang_locale)
-        self.ui.optionInterfaceLanguage.adjustSize()
+
+        # - Interface Language
+
+        self._interfaceLang = self.DEFAULT_INTERFACE_LANG
+
+        self.ui.optionInterfaceLanguage.set_unknown_text(_('System Language'))
+        self.ui.optionUlDefaultLanguage.set_selected_language(self._interfaceLang)
+
+        self.ui.optionInterfaceLanguage.selected_language_changed.connect(self.onOptionInterfaceLanguageChange)
 
         self.ui.buttonVideoAppLocationChoose.clicked.connect(
             self.onButtonVideoAppLocationChoose)
@@ -160,11 +162,8 @@ class PreferencesDialog(QDialog):
 
         self.readSettings()
 
-        self.ui.optionInterfaceLanguage.currentIndexChanged.connect(
-            self.onOptionInterfaceLanguage)
-
     def readSettings(self):
-        log.debug('Reading Options Settings')
+        log.debug('readSettings: start')
         self.settings.sync()
 
         # 1. Search tab
@@ -215,27 +214,29 @@ class PreferencesDialog(QDialog):
 
         self.ui.optionUlDefaultLanguage.set_selected_language(uploadLanguage)
 
-        optionInterfaceLanguage = self.settings.value("options/interfaceLang", "en")
-        index = self.ui.optionInterfaceLanguage.findData(optionInterfaceLanguage)
-        if index != -1:
-            self.ui.optionInterfaceLanguage.setCurrentIndex(index)
-
-        optionIntegrationExplorer = self.settings.value(
-            "options/IntegrationExplorer", False)
-        self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer)
-
         # 4. Network tab
+
         self.ui.inputProxyHost.setText(
             self.settings.value("options/ProxyHost", ""))
         self.ui.inputProxyPort.setValue(int(
             self.settings.value("options/ProxyPort", 8080)))
 
+        # 5. Others tab
+
+        # - Interface Language
+
+        optionInterfaceLanguage = self.settings.value('options/interfaceLang', self.DEFAULT_INTERFACE_LANG.locale())
+        lang = language.Language.from_locale(optionInterfaceLanguage)
+        self.ui.optionInterfaceLanguage.set_selected_language(lang)
+
+        optionIntegrationExplorer = self.settings.value(
+            "options/IntegrationExplorer", False)
+        self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer)
+
         programPath = self.settings.value("options/VideoPlayerPath", "")
         parameters = self.settings.value("options/VideoPlayerParameters", "")
         self.ui.inputVideoAppLocation.setText(programPath)
         self.ui.inputVideoAppParams.setText(parameters)
-
-        # 5. Others tab
 
         # Context menu for Explorer
         if platform.system() == "Linux":
@@ -251,9 +252,11 @@ class PreferencesDialog(QDialog):
                 _("Enable in your File Manager"))
             self.ui.optionIntegrationExplorer.setEnabled(False)
 
+        log.debug('readSettings: finish')
+
     @pyqtSlot()
     def saveSettings(self):
-        log.debug("Saving Options Settings")
+        log.debug('saveSettings: start')
 
         # 1. Search tab
 
@@ -265,12 +268,6 @@ class PreferencesDialog(QDialog):
         # 2. Downloads tab
 
         # - Download Destination
-
-        # Predefined Download Destination Validation
-        if self.ui.optionDlDestinationUser.isChecked() and self.ui.inputDlDestinationUser.text() == "":
-            QMessageBox.about(
-                self, _("Error"), _("Predefined Folder cannot be empty"))
-            return False
 
         self.settings.setValue('options/whereToDownload', self._dlDestinationType)
         self.settings.setValue('options/whereToDownloadFolder', self._dlDestinationPredefined)
@@ -286,11 +283,13 @@ class PreferencesDialog(QDialog):
         self.settings.setValue('options/uploadLanguage', self._uploadLanguage.xxx())
         self._main.language_updated.emit(self._uploadLanguage.xxx(), "")
 
-        # Writing settings
+        # 5. Others tab
 
-        optionInterfaceLanguage = self.ui.optionInterfaceLanguage.itemData(
-            self.ui.optionInterfaceLanguage.currentIndex())
-        self.settings.setValue("options/interfaceLang", optionInterfaceLanguage)
+        # - Interface Language
+
+        self.settings.setValue('options/interfaceLang', self._interfaceLang.locale())
+
+        # Writing settings
 
         IEoldValue = self.settings.value(
             "options/IntegrationExplorer", False)
@@ -320,7 +319,7 @@ class PreferencesDialog(QDialog):
         self.settings.setValue("options/VideoPlayerPath", programPath)
         self.settings.setValue("options/VideoPlayerParameters", parameters)
         self.settings.sync()
-        return True
+        log.debug('saveSettings: finish')
 
     # 0. Interface
 
@@ -417,6 +416,17 @@ class PreferencesDialog(QDialog):
         self._uploadLanguage = lang
         self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
+    # 5. Others tab
+
+    interfaceLanguageChange = pyqtSignal(language.Language)
+
+    DEFAULT_INTERFACE_LANG = language.UnknownLanguage.create_generic()
+
+    @pyqtSlot(language.Language)
+    def onOptionInterfaceLanguageChange(self, lang):
+        self._interfaceLang = lang
+        QMessageBox.about(self, _('Alert'), _('The new language will be displayed after restarting the program.'))
+
     def actionContextMenu(self, action, os):
         pass
 
@@ -434,8 +444,3 @@ class PreferencesDialog(QDialog):
             self, _("Select the Video Player executable file"), "", extensions)
         if fileName:
             self.ui.inputVideoAppLocation.setText(fileName)
-
-    @pyqtSlot(int)
-    def onOptionInterfaceLanguage(self, option):
-        QMessageBox.about(self, _('Alert'), _(
-            'The new language will be displayed after restarting the program.'))

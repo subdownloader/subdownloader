@@ -162,7 +162,7 @@ class Ui_PreferencesDialog(object):
         self.textInterfaceLanguage.setMinimumSize(QtCore.QSize(224, 0))
         self.textInterfaceLanguage.setObjectName("textInterfaceLanguage")
         self.gridLayout.addWidget(self.textInterfaceLanguage, 0, 0, 1, 1)
-        self.optionInterfaceLanguage = QtWidgets.QComboBox(self.groupInterface)
+        self.optionInterfaceLanguage = InterfaceLanguageComboBox(self.groupInterface)
         self.optionInterfaceLanguage.setObjectName("optionInterfaceLanguage")
         self.gridLayout.addWidget(self.optionInterfaceLanguage, 0, 1, 1, 1)
         self.buttonHelpTranslation = QtWidgets.QPushButton(self.groupInterface)
@@ -275,5 +275,5 @@ class Ui_PreferencesDialog(object):
         self.buttonCancel.setText(_("Cancel"))
         self.buttonApplyChanges.setText(_("Save"))
 
-from subdownloader.client.gui.languageComboBox import LanguageComboBox
+from subdownloader.client.gui.languageComboBox import InterfaceLanguageComboBox, LanguageComboBox
 from . import images_rc
