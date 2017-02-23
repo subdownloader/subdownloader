@@ -1,6 +1,7 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+import os
 
 log = logging.getLogger('subdownloader.modules.metadata')
 
@@ -19,7 +20,6 @@ class MetadataVideoTrack(object):
         self.duration_ms = duration_ms
         self.framerate = framerate
 
-# FIXME: add libmediainfodll?
 # FIXME: add ffprobe? ffprobe -v quiet -print_format json -show_format -show_streams ${VIDEO}
 
 
@@ -92,20 +92,32 @@ class Metadata(object):
                     )
                 )
 
+log.debug('Importing metadata parsing module ...')
 try:
+    log.debug('Trying kaa.metadata ...')
     import kaa.metadata
-    log.debug('Using kaa.metadata')
+    log.debug('... Succeeded')
+    log.debug('parsing module = kaa.metadata')
     # Not interested in any output of the metadata package
     logging.getLogger('metadata').setLevel(logging.CRITICAL)
     Metadata.parse = Metadata._parse_kaa_metadata
 except ImportError:
+    log.debug('... Failed!')
     try:
+        log.debug('Trying pymediainfo ...')
         import pymediainfo
-        log.debug('Using pymediainfo')
+        try:
+            pymediainfo.MediaInfo.parse(os.path.realpath(__file__))
+        except OSError:
+            raise ImportError
+        log.debug('... Succeeded')
+        log.debug('parsing module = pymediainfo')
         Metadata.parse = Metadata._parse_pymediainfo
     except ImportError:
+        log.debug('... Failed!')
+        log.debug('parsing module = dummy parser')
         Metadata.parse = Metadata._parse_dummy
-        log.warning('No metadata module available.')
+log.debug('... Importing finished')
 
 
 def parse(filepath):
