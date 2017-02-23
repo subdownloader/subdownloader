@@ -397,7 +397,7 @@ class Main(QObject, Ui_MainWindow):
     def showInstructions(self):
         introduction = '<p align="center"><h2>{title}</h2></p>' \
             '<p><b>{tab1header}</b><br>{tab1content}</p>' \
-            '<p><b>{tab2header}</b><br>{tab2content}/p>'\
+            '<p><b>{tab2header}</b><br>{tab2content}</p>'\
             '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
                 title=_("How To Use {title}").format(title=PROJECT_TITLE),
                 tab1header=_("1st Tab:"),
