@@ -226,8 +226,8 @@ class PreferencesDialog(QDialog):
         # - Interface Language
 
         optionInterfaceLanguage = self.settings.value('options/interfaceLang', self.DEFAULT_INTERFACE_LANG.locale())
-        lang = language.Language.from_locale(optionInterfaceLanguage)
-        self.ui.optionInterfaceLanguage.set_selected_language(lang)
+        self._interfaceLang = language.Language.from_locale(optionInterfaceLanguage)
+        self.ui.optionInterfaceLanguage.set_selected_language(self._interfaceLang)
 
         optionIntegrationExplorer = self.settings.value(
             "options/IntegrationExplorer", False)
@@ -424,8 +424,9 @@ class PreferencesDialog(QDialog):
 
     @pyqtSlot(language.Language)
     def onOptionInterfaceLanguageChange(self, lang):
-        self._interfaceLang = lang
-        QMessageBox.about(self, _('Alert'), _('The new language will be displayed after restarting the program.'))
+        if self._interfaceLang != lang:
+            self._interfaceLang = lang
+            QMessageBox.about(self, _('Alert'), _('The new language will be displayed after restarting the program.'))
 
     def actionContextMenu(self, action, os):
         pass
