@@ -127,6 +127,25 @@ class Main(QObject, Ui_MainWindow):
         self.folderView.hideColumn(1)
         self.folderView.show()
 
+        introduction = '<p align="center"><h2>{title}</h2></p>' \
+            '<p><b>{tab1header}</b><br>{tab1content}</p>' \
+            '<p><b>{tab2header}</b><br>{tab2content}</p>'\
+            '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
+                title=_("How To Use {title}").format(title=PROJECT_TITLE),
+                tab1header=_("1st Tab:"),
+                tab2header=_("2nd Tab:"),
+                tab3header=_("3rd Tab:"),
+                tab1content=_("Select, from the Folder Tree on the left, the folder which contains the videos "
+                              "that need subtitles. {project} will then try to automatically find available "
+                              "subtitles.").format(project=PROJECT_TITLE),
+                tab2content=_("If you don't have the videos in your machine, ou can search subtitles by "
+                               "introducing the title/name of the video."),
+                tab3content=_("If you have found some subtitle somewhere else that is not in {project}'s database, "
+                               "please upload those subtitles so next users will be able to "
+                               "find them more easily.").format(project=PROJECT_TITLE))
+        self.introductionHelp.setHtml(introduction)
+
+        self.tabsMain.setCurrentIndex(0)
         self.showInstructions()
 
         # Loop to expand the current directory in the folderview.
@@ -351,41 +370,10 @@ class Main(QObject, Ui_MainWindow):
             self.programFolder = os.path.dirname(sys.path[0])
 
     def showInstructions(self):
-        introduction = '<p align="center"><h2>{title}</h2></p>' \
-            '<p><b>{tab1header}</b><br>{tab1content}</p>' \
-            '<p><b>{tab2header}</b><br>{tab2content}</p>'\
-            '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
-                title=_("How To Use {title}").format(title=PROJECT_TITLE),
-                tab1header=_("1st Tab:"),
-                tab2header=_("2nd Tab:"),
-                tab3header=_("3rd Tab:"),
-                tab1content=_("Select, from the Folder Tree on the left, the folder which contains the videos "
-                              "that need subtitles. {project} will then try to automatically find available "
-                              "subtitles.").format(project=PROJECT_TITLE),
-                tab2content=_("If you don't have the videos in your machine, ou can search subtitles by "
-                               "introducing the title/name of the video."),
-                tab3content=_("If you have found some subtitle somewhere else that is not in {project}'s database, "
-                               "please upload those subtitles so next users will be able to "
-                               "find them more easily.").format(project=PROJECT_TITLE))
-
-        self.introductionHelp.setHtml(introduction)
-        self.videoView.hide()
-        self.label_filterBy.hide()
-        self.label_videosFound.hide()
-        self.filterLanguageForVideo.hide()
-        self.buttonDownload.hide()
-        self.buttonIMDB.hide()
-        self.buttonPlay.hide()
+        self.stackedSearchResult.setCurrentWidget(self.pageIntroduction)
 
     def hideInstructions(self):
-        self.videoView.show()
-        self.label_filterBy.show()
-        self.label_videosFound.show()
-        self.filterLanguageForVideo.show()
-        self.buttonDownload.show()
-        self.buttonIMDB.show()
-        self.buttonPlay.show()
-        self.introductionHelp.hide()
+        self.stackedSearchResult.setCurrentWidget(self.pageSearchResult)
 
     def openExternalUrl(self, url):
         webbrowser.open(str(url), new=2, autoraise=1)
@@ -406,7 +394,7 @@ class Main(QObject, Ui_MainWindow):
     def onContext(self, point):  # Create a menu
         menu = QMenu("Menu", self.window)
         # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        if self.tabs.currentIndex() == 0:
+        if self.tabsMain.currentIndex() == 0:
             listview = self.videoView
         else:
             listview = self.moviesView
@@ -431,7 +419,7 @@ class Main(QObject, Ui_MainWindow):
                 downloadAction = QAction(
                     QIcon(":/images/download.png"), _("Download"), self)
                 # Video tab, TODO:Replace me with a enum
-                if self.tabs.currentIndex() == 0:
+                if self.tabsMain.currentIndex() == 0:
                     downloadAction.triggered.connect(self.onButtonDownload)
                     playAction = QAction(
                         QIcon(":/images/play.png"), _("Play video + subtitle"), self)
@@ -462,7 +450,7 @@ class Main(QObject, Ui_MainWindow):
 
     def onViewOnlineInfo(self):
         # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        if self.tabs.currentIndex() == 0:
+        if self.tabsMain.currentIndex() == 0:
             listview = self.videoView
         else:
             listview = self.moviesView

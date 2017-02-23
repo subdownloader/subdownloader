@@ -33,6 +33,7 @@ class PreferencesDialog(QDialog):
             self.onApplyChanges)
         self.ui.buttonCancel.clicked.connect(
             self.onCancel)
+        self.ui.tabsPreferences.setCurrentIndex(0)
 
         # 1. Search tab
 

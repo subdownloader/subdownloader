@@ -196,41 +196,36 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <layout class="QGridLayout" name="layoutTabUpload">
-         <item row="1" column="2">
-          <widget class="LanguageComboBox" name="optionUlDefaultLanguage">
-           <property name="frame">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="textUlDefaultLanguage">
-           <property name="minimumSize">
-            <size>
-             <width>339</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Default language of uploaded subtitles</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="spacerTabUpload">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
+        <widget class="QFrame" name="uploadFrame">
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="textUlDefaultLanguage">
+            <property name="minimumSize">
+             <size>
+              <width>339</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Default language of uploaded subtitles</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="LanguageComboBox" name="optionUlDefaultLanguage">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -244,26 +239,32 @@
          <property name="title">
           <string>Network Proxy</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="inputProxyHost"/>
-          </item>
-          <item row="1" column="0">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
            <widget class="QLabel" name="textProxyHost">
             <property name="text">
              <string>Host:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="inputProxyHost"/>
+          </item>
+          <item row="1" column="0">
            <widget class="QLabel" name="textProxyPort">
             <property name="text">
              <string>Port:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="1" column="1">
            <widget class="QSpinBox" name="inputProxyPort">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="maximum">
              <number>99999</number>
             </property>
@@ -316,7 +317,14 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="InterfaceLanguageComboBox" name="optionInterfaceLanguage"/>
+           <widget class="InterfaceLanguageComboBox" name="optionInterfaceLanguage">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="buttonHelpTranslation">
@@ -461,7 +469,6 @@
   <tabstop>optionSubFnSameLang</tabstop>
   <tabstop>optionSubFnSameLangUploader</tabstop>
   <tabstop>optionSubFnOnline</tabstop>
-  <tabstop>optionUlDefaultLanguage</tabstop>
   <tabstop>inputProxyHost</tabstop>
   <tabstop>inputProxyPort</tabstop>
   <tabstop>optionInterfaceLanguage</tabstop>

@@ -1,3 +1,5 @@
+PACKAGE=subdownloader.client.gui
+
 TARGETS= main_ui.py imdb_ui.py images_rc.py preferences_ui.py about_ui.py \
 	 login_ui.py chooseLanguage_ui.py
 
@@ -11,7 +13,7 @@ PYRCC=pyrcc5
 all: $(TARGETS)
 
 %_ui.py : %.ui ui_parser.py Makefile
-	$(PYUIC) $< | python ui_parser.py -- $(TARGETS)> $@
+	$(PYUIC) --import-from="$(PACKAGE)" $< | python ui_parser.py > $@
 
 %_rc.py : %.qrc $(IMAGES) Makefile
 	$(PYRCC) $< > $@

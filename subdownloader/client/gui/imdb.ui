@@ -138,7 +138,7 @@
   <customwidget>
    <class>ImdbListView</class>
    <extends>QTableView</extends>
-   <header>imdblistview.h</header>
+   <header>subdownloader.client.gui.imdblistview</header>
   </customwidget>
  </customwidgets>
  <resources>

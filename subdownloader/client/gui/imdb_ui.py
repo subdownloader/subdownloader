@@ -15,10 +15,12 @@ class Ui_IMDBSearchDialog(object):
         IMDBSearchDialog.resize(522, 406)
         IMDBSearchDialog.setModal(True)
         self.vboxlayout = QtWidgets.QVBoxLayout(IMDBSearchDialog)
+        self.vboxlayout.setObjectName("vboxlayout")
         self.label = QtWidgets.QLabel(IMDBSearchDialog)
         self.label.setObjectName("label")
         self.vboxlayout.addWidget(self.label)
         self.hboxlayout = QtWidgets.QHBoxLayout()
+        self.hboxlayout.setObjectName("hboxlayout")
         self.movieSearch = QtWidgets.QLineEdit(IMDBSearchDialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -79,5 +81,5 @@ class Ui_IMDBSearchDialog(object):
         self.okButton.setText(_("OK"))
         self.cancelButton.setText(_("Cancel"))
 
-from .imdblistview import ImdbListView
-from . import images_rc
+from subdownloader.client.gui.imdblistview import ImdbListView
+from subdownloader.client.gui import images_rc
