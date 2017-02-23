@@ -44,6 +44,7 @@ except ImportError:
 
 from subdownloader.callback import ProgressCallback
 from subdownloader.client.gui.SplashScreen import SplashScreen
+from subdownloader.client.internationalization import i18n_install
 from subdownloader.FileManagement import get_extension, without_extension
 
 # create splash screen and show messages to the user
@@ -326,59 +327,14 @@ class Main(QObject, Ui_MainWindow):
                 break
 
     def SetupInterfaceLang(self):
-        locallocaledir = os.path.join(os.path.dirname(__file__), '..', 'locale')
-        if platform.system() == "Linux":
-            if self.programFolder == '/usr/share/subdownloader':
-                localedir = '/usr/share/locale/'
-            else:
-                localedir = locallocaledir
-        else:
-            localedir = locallocaledir
-            # Get the local directory since we are not installing anything
-            #local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
-            # print local_path
-
-        log.debug('Scanning translation files .mo in folder: %s' % localedir)
-        self.interface_langs = []
-        for root, dirs, files in os.walk(localedir):
-            if re.search(".*locale$", os.path.split(root)[0]):
-                _lang = os.path.split(root)[-1]
-
-            if 'subdownloader.mo' in files:
-                self.interface_langs.append(_lang)
-
-        log.debug('Found these translations languages: %r' %
-                  self.interface_langs)
-
-        # Check the system default locale
-        lc, encoding = locale.getdefaultlocale()
-        if not lc:
-            user_locale = 'en'  # In case of language not found
-        else:
-            if lc in language.ListAll_locale():
-                user_locale = lc
-            else:
-                user_locale = lc.split('_')[0]
-
         settings = QSettings()
-        interface_lang = settings.value("options/interfaceLang", "")
-        if not len(self.interface_langs):
-            interface_lang = 'en'
-        else:
-            if not interface_lang:
-                # Use system default locale
-                interface_lang = user_locale
-            else:
-                pass  # interface_lang = interface_lang
+        interface_locale = settings.value('options/interfaceLang', language.UnknownLanguage.create_generic().locale())
+        interface_lang = language.Language.from_locale(interface_locale)
 
-        log.debug('Interface language: %s' % interface_lang)
+        if interface_lang.is_generic():
+            interface_locale = None
 
-        # FIXME: better installation of _
-        try:
-            gettext.translation(
-                domain="subdownloader", localedir=localedir, languages=[interface_lang], fallback=True).install()
-        except IOError:
-            gettext.NullTranslations().install()
+        i18n_install(interface_locale)
 
     def chooseInterfaceLanguage(self, user_locale):
         self.choosenLanguage = 'en'  # By default

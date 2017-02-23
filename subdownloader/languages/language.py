@@ -79,6 +79,9 @@ class Language(str):
         """
         return self.name()
 
+    def is_generic(self):
+        return False
+
     def __eq__(self, other):
         """
         Check if other is the same as self.
@@ -272,14 +275,14 @@ class UnknownLanguage(Language):
         Return a UnknownLanguage instance..
         :return: UnknownLanguage instance.
         """
-        return cls(_('unknown'))
+        return cls('unknown') # NO internationalisation!
 
     def name(self):
         """
         Return readable name of Language. Contains info about the unknown Language.
         :return: Readable name as string
         """
-        return self._code
+        return _(self._code)
 
     def generic_name(self):
         """
@@ -287,6 +290,9 @@ class UnknownLanguage(Language):
         :return: Readable name as string
         """
         return Language.name(self)
+
+    def is_generic(self):
+        return self._code == 'unknown' # NO internationalisation!
 
     def __eq__(self, other):
         """

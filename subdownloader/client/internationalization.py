@@ -71,13 +71,13 @@ def i18n_support_locale(lc_parent):
     :return: list of supported locales
     """
     log.debug('i18n_support_locale( locale="{locale}" ) called'.format(locale=lc_parent))
-    all_locales = i18n_locale_fallbacks_calculate(lc_parent)
+    lc_childs = i18n_locale_fallbacks_calculate(lc_parent)
     locales = []
 
     locale_dir = i18n_get_path()
     mo_file = '{project}.mo'.format(project=project.PROJECT_TITLE.lower())
 
-    for lc in all_locales:
+    for lc in lc_childs:
         locale_path = os.path.join(locale_dir, lc, 'LC_MESSAGES')
         log.debug('Locale data in "{locale_path}"?'.format(locale_path=locale_path))
         if os.path.isdir(locale_path) and mo_file in os.listdir(locale_path):
