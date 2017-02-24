@@ -86,7 +86,6 @@ class Main(QMainWindow):
     language_updated = pyqtSignal(str, str)
     imdbDetected = pyqtSignal(str, str, str)
     releaseUpdated = pyqtSignal(str)
-    softwareUpdateDetected = pyqtSignal(str, str)
     loginStatusChanged = pyqtSignal(str)
 
     def __init__(self, parent, log_packets, options):
@@ -231,8 +230,6 @@ class Main(QMainWindow):
         self.imdbDetected.connect(self.onUploadIMDBNewSelection)
 
         self.releaseUpdated.connect(self.OnChangeReleaseName)
-
-        self.softwareUpdateDetected.connect(self.OnSoftwareUpdateDetected)
 
         self.ui.label_autodetect_imdb.hide()
         self.ui.label_autodetect_lang.hide()
@@ -506,21 +503,6 @@ class Main(QMainWindow):
     def close_event(self, e):
         self.write_settings()
         e.accept()
-
-    def OnSoftwareUpdateDetected(self, new_version, update_link):
-        warningBox = QMessageBox(_("New Version Detected"),
-                                 _("A new version of SubDownloader has been released.\n\nNew Version: %s\nCurrent Version: %s\n\n"
-                                   "Would you like to download the new version now?") % (new_version, PROJECT_VERSION),
-                                 QMessageBox.Information,
-                                 QMessageBox.Yes | QMessageBox.Default,
-                                 QMessageBox.Cancel | QMessageBox.Escape,
-                                 QMessageBox.NoButton,
-                                 self)
-        answer = warningBox.exec_()
-        if answer == QMessageBox.Yes:
-            webbrowser.open(update_link, new=2, autoraise=1)
-        elif answer == QMessageBox.Cancel:
-            return
 
     def update_users(self, sleeptime=60):
         # REMARK: to be used by a thread
