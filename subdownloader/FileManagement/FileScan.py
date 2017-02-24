@@ -51,9 +51,8 @@ def ScanFilesFolders(filepaths, callback, recursively=True):
         else:
             if get_extension(path).lower() in videofile.VIDEOS_EXT:
                 all_videos_found.append(videofile.VideoFile(path))
-             # Interested to know which subtitles we have in the same folder
-            all_subs_found += ScanSubtitlesFolder(os.path.dirname(
-                path), callback, recursively=False)
+            # Interested to know which subtitles we have in the same folder
+            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path), callback, recursively=False)
     return all_videos_found, all_subs_found
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
@@ -115,13 +114,12 @@ def ScanFolder(folderpath, callback=None, recursively=True):
     return videos_found, subs_found
 
 
-def ScanSubtitlesFolder(folderpath, recursively=True, report_progress=None, progress_end=None):
-    if report_progress == None:
-        report_progress = FakeProgress
+def ScanSubtitlesFolder(folderpath, callback, recursively=True):
 
     # Let's reset the progress bar to 0%
-    report_progress(0)
+    callback.update(0)
     # Scanning Subs
+    parser = RecursiveParser.RecursiveParser()
     if recursively:
         files_found = parser.getRecursiveFileList(
             folderpath, subtitlefile.SUBTITLES_EXT)
@@ -131,6 +129,7 @@ def ScanSubtitlesFolder(folderpath, recursively=True, report_progress=None, prog
             if os.path.isfile(os.path.join(folderpath, filename)) and get_extension(filename).lower() in subtitlefile.SUBTITLES_EXT:
                 files_found.append(os.path.join(folderpath, filename))
 
+    callback.set_range(0, len(files_found))
     subs_found = []
     # only work the subtitles if any were found
     if len(files_found):
@@ -139,11 +138,7 @@ def ScanSubtitlesFolder(folderpath, recursively=True, report_progress=None, prog
         for i, filepath in enumerate(files_found):
             subs_found.append(
                 subtitlefile.SubtitleFile(online=False, id=filepath))
-            count += percentage
-            report_progress(count, _("Parsing sub: %s") % os.path.basename(
-                filepath))
-    report_progress(100, _("Finished hashing"))
-    if progress_end:
-        progress_end()
+            callback.update(i) #, _("Parsing sub: %s") % os.path.basename(filepath))
+    callback.finish() #_("Finished hashing"))
 
     return subs_found
