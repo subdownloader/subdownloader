@@ -16,7 +16,6 @@ class ImdbListModel(QAbstractTableModel):
         QAbstractTableModel.__init__(self, parent)
         self._imdb = []
         self._headers = ["Id"]
-        self._main = None
         self.rowSelected = None
 
     def setImdbResults(self, results):

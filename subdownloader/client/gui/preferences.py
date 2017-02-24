@@ -19,13 +19,11 @@ log = logging.getLogger("subdownloader.client.gui.preferences")
 
 class PreferencesDialog(QDialog):
 
-    def __init__(self, parent, main):
+    def __init__(self, parent):
         QDialog.__init__(self, parent)
 
         self.ui = Ui_PreferencesDialog()
         self.ui.setupUi(self)
-
-        self._main = main
 
         # 0. Dialog
 
@@ -264,7 +262,7 @@ class PreferencesDialog(QDialog):
         checked_languages = [lang[0].xxx() for lang in filter(lambda x:x[1], self._search_languages.items())]
         checked_languages_str = ','.join(checked_languages)
         self.settings.setValue("options/filterSearchLang", checked_languages_str)
-        self._main.filterLangChangedPermanent.emit(checked_languages_str)
+        self.parent().filterLangChangedPermanent.emit(checked_languages_str)
 
         # 2. Downloads tab
 
@@ -282,7 +280,7 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         self.settings.setValue('options/uploadLanguage', self._uploadLanguage.xxx())
-        self._main.language_updated.emit(self._uploadLanguage.xxx(), "")
+        self.parent().language_updated.emit(self._uploadLanguage.xxx(), "")
 
         # 5. Others tab
 

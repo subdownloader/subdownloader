@@ -13,12 +13,11 @@ from subdownloader.client.gui.imdblistview import ImdbListModel
 
 class imdbSearchDialog(QDialog):
 
-    def __init__(self, parent, main):
+    def __init__(self, parent):
         QDialog.__init__(self, parent)
         self.log = logging.getLogger("subdownloader.gui.imdbSearch")
         self.ui = Ui_IMDBSearchDialog()
         self.ui.setupUi(self)
-        self._main = main
 
         self.ui.searchMovieButton.clicked.connect(self.onSearchMovieButton)
         self.ui.movieInfoButton.clicked.connect(self.onMovieInfoButton)
@@ -33,7 +32,6 @@ class imdbSearchDialog(QDialog):
         self.imdbModel = ImdbListModel(self)
         self.ui.searchResultsView.setModel(self.imdbModel)
         # FIXME: This connection should be cleaner.
-        self.imdbModel._main = self
         self.imdbSelectionModel = QItemSelectionModel(self.imdbModel)
         self.ui.searchResultsView.setSelectionModel(self.imdbSelectionModel)
         self.imdbSelectionModel.selectionChanged.connect(
@@ -48,13 +46,13 @@ class imdbSearchDialog(QDialog):
         else:
             self.setCursor(Qt.WaitCursor)
             try:
-                results = self._main.OSDBServer.SearchMoviesOnIMDB(
+                results = self.parent().OSDBServer.SearchMoviesOnIMDB(
                     self.ui.movieSearch.text())
                 # In case of empty results
                 if not results or not len(results) or "id" not in results[0]:
                     results = []
             except Exception as e:
-                self.log.debug(e)
+                self.log.exception('Error contacting OSDBServer.SearchMoviesOnIMDB')
                 QMessageBox.about(
                     self, _("Error"), _("Error contacting the server. Please try again later"))
                 results = []
@@ -99,7 +97,7 @@ class imdbSearchDialog(QDialog):
                 self, _("Error"), _("Please search and select a movie from the list"))
         else:
             selection = self.imdbModel.getSelectedImdb()
-            self._main.imdbDetected.emit(
+            self.parent().imdbDetected.emit(
                 selection["id"], selection["title"], "search")
             self.accept()
 

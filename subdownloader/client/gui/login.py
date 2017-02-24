@@ -19,11 +19,10 @@ class LoginDialog(QDialog):
     DEFAULT_USERNAME = ''
     DEFAULT_PASSWORD = ''
 
-    def __init__(self, parent, main):
+    def __init__(self, parent):
         QDialog.__init__(self, parent)
         self.ui = Ui_LoginDialog()
         self.ui.setupUi(self)
-        self._main = main
 
         self._username = self.DEFAULT_USERNAME
         self._password = self.DEFAULT_PASSWORD
@@ -64,12 +63,12 @@ class LoginDialog(QDialog):
         self.setCursor(Qt.WaitCursor)
         if not hasattr(self, 'OSDBServer'):
             # and self.OSDBServer.is_connected():
-            if not self._main.establishServerConnection():
+            if not self.parent().establishServerConnection():
                 self.setCursor(Qt.ArrowCursor)
                 QMessageBox.about(self, _('Error'), _(
                     'Error contacting the server. Please try again later'))
                 return
 
-        self._main.login_user(self._username, self._password)
+        self.parent().login_user(self._username, self._password)
         self.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
