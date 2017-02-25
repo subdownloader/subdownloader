@@ -2,6 +2,7 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+import signal
 import sys
 
 from PyQt5.QtCore import QCoreApplication
@@ -45,5 +46,7 @@ def run(options):
     splash.finish(main_window)
 
     log.debug('Starting application event loop ...')
+
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
     res = app.exec_()
     return res
