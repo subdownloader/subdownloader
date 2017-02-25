@@ -64,7 +64,6 @@ from subdownloader.client.gui.imdbSearch import imdbSearchDialog
 from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 
-from subdownloader.client.gui.chooseLanguage import chooseLanguageDialog
 from subdownloader.client.gui.login import LoginDialog
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
@@ -351,14 +350,6 @@ class Main(QMainWindow):
             interface_locale = None
 
         i18n_install(interface_locale)
-
-    def chooseInterfaceLanguage(self, user_locale):
-        self.choosenLanguage = 'en'  # By default
-        dialog = chooseLanguageDialog(self, user_locale)
-        dialog.show()
-        ok = dialog.exec_()
-        QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-        return self.choosenLanguage
 
     def calculateProgramFolder(self):
         if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
