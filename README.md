@@ -29,7 +29,7 @@ Optional:
 ### Graphical Interface
 
 ```sh
-$ ./subdownloader.py
+$ ./subdownloader.py -g
 ```
 
 ### Command Line
