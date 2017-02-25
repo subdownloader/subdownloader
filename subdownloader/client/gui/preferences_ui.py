@@ -157,10 +157,6 @@ class Ui_PreferencesDialog(object):
         self.inputProxyPort.setMaximum(99999)
         self.inputProxyPort.setObjectName("inputProxyPort")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.inputProxyPort)
-        self.textProxyHost.raise_()
-        self.inputProxyHost.raise_()
-        self.textProxyPort.raise_()
-        self.inputProxyPort.raise_()
         self.verticalLayout_4.addWidget(self.groupNetworkProxy)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_4.addItem(spacerItem)
@@ -228,12 +224,12 @@ class Ui_PreferencesDialog(object):
         self.layoutPreferencesDialogButtons.setObjectName("layoutPreferencesDialogButtons")
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.layoutPreferencesDialogButtons.addItem(spacerItem2)
-        self.buttonCancel = QtWidgets.QPushButton(PreferencesDialog)
-        self.buttonCancel.setObjectName("buttonCancel")
-        self.layoutPreferencesDialogButtons.addWidget(self.buttonCancel)
         self.buttonApplyChanges = QtWidgets.QPushButton(PreferencesDialog)
         self.buttonApplyChanges.setObjectName("buttonApplyChanges")
         self.layoutPreferencesDialogButtons.addWidget(self.buttonApplyChanges)
+        self.buttonCancel = QtWidgets.QPushButton(PreferencesDialog)
+        self.buttonCancel.setObjectName("buttonCancel")
+        self.layoutPreferencesDialogButtons.addWidget(self.buttonCancel)
         self.verticalLayout_5.addLayout(self.layoutPreferencesDialogButtons)
 
         self.retranslateUi(PreferencesDialog)
@@ -256,8 +252,7 @@ class Ui_PreferencesDialog(object):
         PreferencesDialog.setTabOrder(self.optionIntegrationExplorer, self.inputVideoAppLocation)
         PreferencesDialog.setTabOrder(self.inputVideoAppLocation, self.buttonVideoAppLocationChoose)
         PreferencesDialog.setTabOrder(self.buttonVideoAppLocationChoose, self.inputVideoAppParams)
-        PreferencesDialog.setTabOrder(self.inputVideoAppParams, self.buttonApplyChanges)
-        PreferencesDialog.setTabOrder(self.buttonApplyChanges, self.buttonCancel)
+        PreferencesDialog.setTabOrder(self.inputVideoAppParams, self.buttonCancel)
 
     def retranslateUi(self, PreferencesDialog):
         _translate = QtCore.QCoreApplication.translate
@@ -292,8 +287,8 @@ class Ui_PreferencesDialog(object):
         self.textVideoAppLocation.setText(_("Video Player:"))
         self.textVideoAppHelp.setText(_("{0} = video file path; {1} = subtitle path"))
         self.tabsPreferences.setTabText(self.tabsPreferences.indexOf(self.tabOthers), _("Others"))
-        self.buttonCancel.setText(_("Cancel"))
         self.buttonApplyChanges.setText(_("Save"))
+        self.buttonCancel.setText(_("Cancel"))
 
 from subdownloader.client.gui.languageComboBox import InterfaceLanguageComboBox, LanguageComboBox
 from subdownloader.client.gui import images_rc

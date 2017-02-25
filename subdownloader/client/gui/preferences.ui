@@ -271,10 +271,6 @@
            </widget>
           </item>
          </layout>
-         <zorder>textProxyHost</zorder>
-         <zorder>inputProxyHost</zorder>
-         <zorder>textProxyPort</zorder>
-         <zorder>inputProxyPort</zorder>
         </widget>
        </item>
        <item>
@@ -429,16 +425,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonCancel">
+      <widget class="QPushButton" name="buttonApplyChanges">
        <property name="text">
-        <string>Cancel</string>
+        <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonApplyChanges">
+      <widget class="QPushButton" name="buttonCancel">
        <property name="text">
-        <string>Save</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
@@ -477,7 +473,6 @@
   <tabstop>inputVideoAppLocation</tabstop>
   <tabstop>buttonVideoAppLocationChoose</tabstop>
   <tabstop>inputVideoAppParams</tabstop>
-  <tabstop>buttonApplyChanges</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <resources>
