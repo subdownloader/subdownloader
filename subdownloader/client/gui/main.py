@@ -3,8 +3,6 @@
 
 """ Create and launch the GUI """
 import base64
-import gettext
-import locale
 import os.path
 import platform
 import re
@@ -34,8 +32,8 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QDir, \
     QObject, QSettings, QSize, QTime
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, \
-    QFileDialog, QHeaderView, QLabel, QMainWindow, QMenu, \
-    QMessageBox, QProgressDialog, QPushButton
+    QFileDialog, QHeaderView, QMainWindow, QMenu, \
+    QMessageBox, QProgressDialog
 
 try:
     from PyQt5.QtCore import QString
@@ -268,32 +266,17 @@ class Main(QMainWindow):
         self.ui.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
-        self.login_button = QPushButton(_("Not logged yet"), self.ui.statusbar)
+        # self.ui.button_login = QPushButton(_("Not logged yet"), self.ui.statusbar)
         self.ui.action_Login.triggered.connect(self.onButtonLogin)
-        self.login_button.clicked.connect(self.onButtonLogin)
+        self.ui.button_login.clicked.connect(self.onButtonLogin)
         self.ui.action_LogOut.triggered.connect(self.onButtonLogOut)
-        self.status_label = QLabel("v" + PROJECT_VERSION, self.ui.statusbar)
-        self.status_label.setIndent(10)
 
-        #self.donate_button = QPushButton(
-        #    "   " + _("Help Us With 5 USD/EUR"))
-        # self.donate_button.setIndent(10)
+        self.ui.label_version.setText(PROJECT_VERSION)
+        # self.ui.label_status.setIndent(10)
+        # self.status_label.setIndent(10)
 
-        #if platform.system() in ("Windows", "Microsoft"):
-        #    iconpaypal = QIcon()
-        #    iconpaypal.addPixmap(
-        #        QPixmap(":/images/paypal.png"), QIcon.Normal, QIcon.On)
-        #    self.donate_button.setIcon(iconpaypal)
-        #    self.donate_button.setIconSize(QSize(50, 24))
-
-        #self.donate_button.clicked.connect(self.onMenuHelpDonation)
-
-        self.ui.statusbar.insertWidget(0, self.status_label)
-        self.ui.statusbar.insertWidget(1, self.login_button)
-        # self.statusbar.addPermanentWidget(self.donate_button, 0)
-        # self.statusbar.addPermanentWidget(self.login_button,0)
-        # self.statusbar.addPermanentItem(horizontalLayout_4,2)
-        # self.status("")
+        # self.ui.statusbar.addWidget(self.status_label)
+        # self.ui.statusbar.addWidget(self.ui.button_login)
 
         if not options.test:
             # print
@@ -516,34 +499,34 @@ class Main(QMainWindow):
     def login_user(self, username, password):
         #self.setLoginStatus.emit("Trying to login...")
         callback = self._get_callback(_("Authentication"), _("Logging in..."), "", cancellable=False)
-        self.login_button.setText(_("Logging in..."))
+        self.ui.button_login.setText(_("Logging in..."))
 
         QCoreApplication.processEvents()
         try:
             if self.OSDBServer._login(username, password):
                 if not username:
                     username = _('Anonymous')
-                self.login_button.setText(_("Logged as %s") % username)
+                self.ui.button_login.setText(_("Logged in as %s") % username)
                 callback.finish()
-                self.login_button.setEnabled(False)
+                self.ui.button_login.setEnabled(False)
                 self.ui.action_Login.setEnabled(False)
                 self.ui.action_LogOut.setEnabled(True)
                 return True
             # We try anonymous login in case the normal user login has failed
             elif username:
-                self.login_button.setText(_("Login as %s: ERROR") % username)
+                self.ui.button_login.setText(_("Login as %s: ERROR") % username)
                 callback.finish()
                 return False
         except Exception as e:
-            self.login_button.setText(_("Login: ERROR"))
+            self.ui.button_login.setText(_("Login: ERROR"))
             traceback.print_exc(e)
             callback.finish()
             return False
 
     def onButtonLogOut(self):
         self.OSDBServer.logout()
-        self.login_button.setText(_("Not logged yet"))
-        self.login_button.setEnabled(True)
+        self.ui.button_login.setText(_("Log in"))
+        self.ui.button_login.setEnabled(True)
         self.ui.action_Login.setEnabled(True)
         self.ui.action_LogOut.setEnabled(False)
 
@@ -558,7 +541,7 @@ class Main(QMainWindow):
         self.setTitleBarText(title)
 
     def onChangeLoginStatus(self, statusMsg):
-        self.login_button.setText(statusMsg)
+        self.ui.button_login.setText(statusMsg)
         QCoreApplication.processEvents()
 
     @pyqtSlot()
