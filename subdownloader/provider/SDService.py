@@ -12,7 +12,6 @@ except ImportError:
 import base64
 import gzip
 import logging
-import sys
 import threading
 import traceback
 from io import BytesIO
@@ -91,7 +90,7 @@ class TimeoutFunction:
             t.start()
             result = self.function(*args)
         except Exception as e:
-            self.log.error("%s", sys.exc_info())
+            self.log.exception("exception in TimeoutFunction.__call__(*args)")
             raise
         finally:
             #signal.signal(signal.SIGALRM, old)
@@ -191,8 +190,8 @@ class SDService(object):
         except TimeoutFunctionException as e:
             self.log.error("Connection timed out. Maybe you need a proxy.")
             raise
-        except Exception as e:
-            self.log.error("connect: Unexpected error: %s", sys.exc_info())
+        except:
+            self.log.exception("connect: Unexpected error")
             raise
         finally:
             self.log.debug("connection connected %s" % connect)
@@ -227,9 +226,8 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error: %s", sys.exc_info())
+        except:
+            self.log.exception("Connection to the server failed/other error")
             raise
 
     def is_connected(self):
@@ -248,11 +246,8 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("ServerInfo timed out")
 
-        except Exception as e:
-            print(type(e))     # the exception instance
-            print(e.args)      # arguments stored in .args
-            print(e)           # __str__ allows args to printed directly
-            self.log.error("ServerInfo error connection.")
+        except:
+            self.log.exception("ServerInfo error connection.")
             raise
 
     """This simple function returns basic server info,
@@ -270,8 +265,8 @@ class SDService(object):
             return login(username, password)
         except TimeoutFunctionException:
             self.log.error("login timed out")
-        except Exception as e:
-            self.log.error("login: other issue:%s", sys.exc_info()[0])
+        except:
+            self.log.exception("login: other issue")
             raise
 
     def _login(self, username="", password=""):
@@ -287,7 +282,7 @@ class SDService(object):
             self.log.debug("Login ended in %s with status: %s" %
                            (info['seconds'], info['status']))
         except:
-            self.log.exception("Unexpected error: %s", sys.exc_info()[0])
+            self.log.exception("Unexpected error")
             self._token = None
             return False
 
@@ -324,9 +319,8 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error: %s", sys.exc_info())
+        except:
+            self.log.exception("Connection to the server failed/other error")
             raise
         finally:
             # force token reset
@@ -367,9 +361,8 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.debug("Connection to the server failed/other error")
             raise
 
     def CheckSubHash(self, hashes):
@@ -413,9 +406,8 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.exception("Connection to the server failed/other error")
             raise
 
     def DownloadSubtitles(self, subtitles):
@@ -456,9 +448,8 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.exception("Connection to the server failed/other error")
             raise
         else:
             if "data" in answer:
@@ -836,9 +827,9 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.exception(
+                "Connection to the server failed/other error")
             raise
         else:
             # we have something to show
@@ -878,9 +869,9 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.exception(
+                "Connection to the server failed/other error")
             raise
 
     def SearchToMail(self, videos, languages):
@@ -913,9 +904,9 @@ class SDService(object):
         except xmlrpclib.Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
-        except Exception as e:
-            self.log.debug(
-                "Connection to the server failed/other error:%s", sys.exc_info())
+        except:
+            self.log.exception(
+                "Connection to the server failed/other error")
             raise
 
     def BaseToFile(self, base_data, path):

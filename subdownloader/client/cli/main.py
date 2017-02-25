@@ -60,8 +60,8 @@ class Main(object):
         self.provider = SDService.SDService(proxy=self.options.proxy)
         try:
             self.provider.login(self.options.username, self.options.password)
-        except Exception as e:
-            self.log.error(e)
+        except:
+            self.log.exception('exception in start_session()')
             return
 
         if self.provider.is_connected():
