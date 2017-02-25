@@ -3,9 +3,10 @@
 
 import logging
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QSettings
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QSettings
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
+from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.login_ui import Ui_LoginDialog
 
 log = logging.getLogger('subdownloader.client.gui.login')
@@ -14,7 +15,6 @@ log = logging.getLogger('subdownloader.client.gui.login')
 class LoginDialog(QDialog):
 
     login_password_changed = pyqtSignal(str, str)
-
 
     DEFAULT_USERNAME = ''
     DEFAULT_PASSWORD = ''
@@ -60,15 +60,18 @@ class LoginDialog(QDialog):
         self.accept()  # We close the window
 
     def connect(self):
-        self.setCursor(Qt.WaitCursor)
-        if not hasattr(self, 'OSDBServer'):
-            # and self.OSDBServer.is_connected():
-            if not self.parent().establishServerConnection():
-                self.setCursor(Qt.ArrowCursor)
+        if not self.parent().get_state().connected():
+            callback = ProgressCallbackWidget(self)
+            callback.set_block(True)
+
+            connected = self.parent().get_state().connect(callback)
+
+            if not connected:
                 QMessageBox.about(self, _('Error'), _(
                     'Error contacting the server. Please try again later'))
                 return
 
-        self.parent().login_user(self._username, self._password)
-        self.setCursor(Qt.ArrowCursor)
+        callback = ProgressCallbackWidget(self)
+        callback.set_block(True)
+        self.parent().get_state().login_user(self._username, self._password, callback)
         QCoreApplication.processEvents()

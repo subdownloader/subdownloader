@@ -145,7 +145,7 @@ class SDService(object):
     Default proxy uses a form to set which URL to open. We will try to change this in later stage.
     """
 
-    def __init__(self, type, server=None, proxy=None):
+    def __init__(self, type='osdb', server=None, proxy=None):
         self.log = logging.getLogger("subdownloader.SDService.SDService")
         self.log.debug(
             "Creating Server with server = %s and proxy = %r" % (server, proxy))
@@ -287,7 +287,7 @@ class SDService(object):
             self.log.debug("Login ended in %s with status: %s" %
                            (info['seconds'], info['status']))
         except:
-            self.log.debug("Unexpected error: %s", sys.exc_info()[0])
+            self.log.exception("Unexpected error: %s", sys.exc_info()[0])
             self._token = None
             return False
 

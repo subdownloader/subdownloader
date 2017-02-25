@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>714</width>
-    <height>650</height>
+    <height>667</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,9 +15,6 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
-  </property>
-  <property name="windowTitle">
-   <string>SubDownloader</string>
   </property>
   <property name="windowIcon">
    <iconset resource="images.qrc">
@@ -44,7 +41,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tabSearchFile">
+        <widget class="SearchFileWidget" name="tabSearchFileWidget">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -54,453 +51,6 @@
          <attribute name="title">
           <string>Search from Video file(s)</string>
          </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <property name="spacing">
-           <number>1</number>
-          </property>
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QFrame" name="frame">
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="sizeConstraint">
-              <enum>QLayout::SetMinimumSize</enum>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QSplitter" name="splitter">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <widget class="QFrame" name="frame_2">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_3">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
-                   <item>
-                    <widget class="QLabel" name="label_11">
-                     <property name="text">
-                      <string>Select the video/folder that needs subtitles:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Expanding</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>88</width>
-                       <height>13</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_6">
-                   <item>
-                    <spacer name="horizontalSpacer">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>88</width>
-                       <height>31</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="buttonSearchSelectVideos">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>Select videos that need subtitles</string>
-                     </property>
-                     <property name="text">
-                      <string>Select videos...</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="images.qrc">
-                       <normaloff>:/images/open_video.png</normaloff>:/images/open_video.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>16</width>
-                       <height>16</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="buttonSearchSelectFolder">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>Click here to Search the subtitles of the movies in that folder</string>
-                     </property>
-                     <property name="text">
-                      <string>Select folder...</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="images.qrc">
-                       <normaloff>:/images/open_folder.png</normaloff>:/images/open_folder.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>16</width>
-                       <height>16</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QTreeView" name="folderView">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="verticalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAsNeeded</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_4">
-                   <item>
-                    <widget class="QPushButton" name="buttonRefresh">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Refresh list</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="buttonFind">
-                     <property name="enabled">
-                      <bool>false</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <weight>75</weight>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Click here to Search the subtitles of the movies in that folder</string>
-                     </property>
-                     <property name="text">
-                      <string>Search subtitles</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="images.qrc">
-                       <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>16</width>
-                       <height>16</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QFrame" name="groupBox_videosFound">
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_8">
-                 <item>
-                  <widget class="QStackedWidget" name="stackedSearchResult">
-                   <property name="currentIndex">
-                    <number>0</number>
-                   </property>
-                   <widget class="QWidget" name="pageIntroduction">
-                    <layout class="QVBoxLayout" name="verticalLayout_11">
-                     <property name="leftMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="topMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="rightMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="bottomMargin">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <widget class="QTextBrowser" name="introductionHelp"/>
-                     </item>
-                    </layout>
-                   </widget>
-                   <widget class="QWidget" name="pageSearchResult">
-                    <layout class="QVBoxLayout" name="verticalLayout_12">
-                     <item>
-                      <layout class="QHBoxLayout" name="layoutTopVideos" stretch="0,0,0,1">
-                       <item>
-                        <widget class="QLabel" name="label_videosFound">
-                         <property name="text">
-                          <string>Videos/Subtitles found:</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="spacer_3">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeType">
-                          <enum>QSizePolicy::Expanding</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>88</width>
-                           <height>13</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_filterBy">
-                         <property name="maximumSize">
-                          <size>
-                           <width>16777215</width>
-                           <height>30</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <weight>75</weight>
-                           <bold>true</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Filter by:</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="filterLanguageForVideo">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>100</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QTreeView" name="videoView">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="verticalScrollBarPolicy">
-                        <enum>Qt::ScrollBarAsNeeded</enum>
-                       </property>
-                       <property name="alternatingRowColors">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="layoutBottomVideos">
-                       <property name="bottomMargin">
-                        <number>0</number>
-                       </property>
-                       <item>
-                        <widget class="QPushButton" name="buttonIMDB">
-                         <property name="enabled">
-                          <bool>false</bool>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Movie Info</string>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="images.qrc">
-                           <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
-                         </property>
-                         <property name="iconSize">
-                          <size>
-                           <width>32</width>
-                           <height>16</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_2">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>0</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="buttonPlay">
-                         <property name="enabled">
-                          <bool>false</bool>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Play</string>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="images.qrc">
-                           <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="buttonDownload">
-                         <property name="enabled">
-                          <bool>false</bool>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <weight>75</weight>
-                           <bold>true</bold>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Download</string>
-                         </property>
-                         <property name="icon">
-                          <iconset resource="images.qrc">
-                           <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                    </layout>
-                   </widget>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
         </widget>
         <widget class="QWidget" name="tabSearchName">
          <attribute name="title">
@@ -1423,6 +973,9 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_HelpAbout">
    <property name="text">
+    <string>About...</string>
+   </property>
+   <property name="iconText">
     <string>About</string>
    </property>
   </action>
@@ -1441,12 +994,12 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Configure Subdownloader</string>
+    <string>&amp;Configure Subdownloader...</string>
    </property>
   </action>
   <action name="action_Login">
    <property name="text">
-    <string>LogIn</string>
+    <string>Log in...</string>
    </property>
   </action>
   <action name="action_LogMessages">
@@ -1476,7 +1029,7 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>LogOut</string>
+    <string>Log Out</string>
    </property>
   </action>
   <action name="action_HelpTranslate">
@@ -1490,6 +1043,12 @@ p, li { white-space: pre-wrap; }
    <class>UploadListView</class>
    <extends>QTableView</extends>
    <header>subdownloader.client.gui.uploadlistview</header>
+  </customwidget>
+  <customwidget>
+   <class>SearchFileWidget</class>
+   <extends>QWidget</extends>
+   <header>subdownloader.client.gui.searchFileWidget</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

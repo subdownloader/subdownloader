@@ -115,11 +115,11 @@ class UploadListModel(QAbstractTableModel):
                 tmp_video.setSubtitles([sub])
                 videos.append(tmp_video)
         if videos:
-            results = self._main.OSDBServer.TryUploadSubtitles(
+            results = self._main.get_state().get_OSDBServer().TryUploadSubtitles(
                 videos, no_update=True)
             video_imdb = None
             if results['alreadyindb'] == 0 and results['data']:
-                video_imdb = self._main.OSDBServer.getBestImdbInfo(
+                video_imdb = self._main.get_state().get_OSDBServer().getBestImdbInfo(
                     results['data'])
             elif results['alreadyindb'] == 1:
                 #import pprint

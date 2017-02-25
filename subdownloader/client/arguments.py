@@ -110,8 +110,6 @@ def get_argument_parser():
 
     # online options
     onlineGroup = parser.add_argument_group('online', 'Change parameters related to the online provider.')
-    onlineGroup.add_argument('-s', '--server', dest='server', default=None,
-                             help=_('Server address of Opensubtitles API.'))
     onlineGroup.add_argument("-P", "--proxy", dest="proxy", default=None,
                              help=_('Proxy to use on internet connections.'))
 

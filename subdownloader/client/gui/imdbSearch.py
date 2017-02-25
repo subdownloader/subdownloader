@@ -46,7 +46,7 @@ class imdbSearchDialog(QDialog):
         else:
             self.setCursor(Qt.WaitCursor)
             try:
-                results = self.parent().OSDBServer.SearchMoviesOnIMDB(
+                results = self.parent().get_state().get_OSDBServer().SearchMoviesOnIMDB(
                     self.ui.movieSearch.text())
                 # In case of empty results
                 if not results or not len(results) or "id" not in results[0]:
