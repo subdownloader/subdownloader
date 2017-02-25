@@ -1,15 +1,12 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+#!/usr/bin/env python
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-"""
-Module implementing a splashscreen
-"""
-
-import os.path
+import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtWidgets import QApplication, QSplashScreen
-
+from subdownloader.client.gui import images_rc
 
 class SplashScreen(QSplashScreen):
 
@@ -21,12 +18,10 @@ class SplashScreen(QSplashScreen):
         """
         Constructor
         """
-        img_path = os.path.join(os.getcwd(), 'gui', 'images', 'splash.png')
-        pixmap = QPixmap(img_path)
+        pixmap = QPixmap(':/images/splash.png')
         self.labelAlignment = Qt.Alignment(
             Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute)
-        QSplashScreen.__init__(self, pixmap)
-        self.show()
+        QSplashScreen.__init__(self, pixmap, Qt.WindowStaysOnTopHint)
         QApplication.flush()
 
     def showMessage(self, msg):

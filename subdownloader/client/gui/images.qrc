@@ -73,5 +73,6 @@
     <file>images/configure.png</file>
     <file>images/up.png</file>
     <file>images/upload.png</file>
+    <file>images/splash.png</file>
   </qresource>
 </RCC>

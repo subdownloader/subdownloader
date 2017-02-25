@@ -7,8 +7,6 @@ import os.path
 import platform
 import re
 import sys
-import time
-import traceback
 import webbrowser
 import zlib
 
@@ -27,11 +25,11 @@ try:
 except ImportError:
     from subprocess import getstatusoutput
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QDir, \
-    QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QModelIndex, \
-    QSettings, QSize, QTime
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, \
+    QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, \
+    QSettings, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, \
+from PyQt5.QtWidgets import QAction, QApplication, \
     QFileDialog, QHeaderView, QMainWindow, QMenu, \
     QMessageBox, QProgressDialog
 
@@ -41,14 +39,8 @@ except ImportError:
     QString = str
 
 from subdownloader.callback import ProgressCallback
-from subdownloader.client.gui.SplashScreen import SplashScreen
+from subdownloader.client.gui.splashScreen import SplashScreen
 from subdownloader.client.internationalization import i18n_install
-
-# create splash screen and show messages to the user
-app = QApplication(sys.argv)
-splash = SplashScreen()
-splash.showMessage("Loading...") #FIXME: add translation!
-QCoreApplication.flush()
 
 from subdownloader.languages import language
 
@@ -70,10 +62,8 @@ from subdownloader.search import *
 from subdownloader.videofile import VideoFile
 from subdownloader.subtitlefile import SubtitleFile
 
-
 import logging
 log = logging.getLogger("subdownloader.client.gui.main")
-splash.showMessage(_("Building main dialog..."))
 
 
 class Main(QMainWindow):
@@ -414,13 +404,6 @@ class Main(QMainWindow):
 
     def onMenuQuit(self):
         self.close()
-
-    def setTitleBarText(self, text):
-        self.setWindowTitle(
-            _("SubDownloader %s - %s") % (PROJECT_VERSION, text))
-
-    def onChangeTitleBarText(self, title):
-        self.setTitleBarText(title)
 
     def onChangeLoginStatus(self, statusMsg):
         self.ui.button_login.setText(statusMsg)
@@ -1075,27 +1058,3 @@ class Main(QMainWindow):
 
         return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg, updatedMsg, cancellable)
 
-
-def main(options):
-    global app
-    log.debug("Building main dialog")
-#    app = QApplication(sys.argv)
-#    splash = SplashScreen()
-#    splash.showMessage(QApplication.translate("subdownloader", "Building main dialog..."))
-    window = QMainWindow()
-    QCoreApplication.setOrganizationName("SubDownloader")
-    QCoreApplication.setApplicationName(PROJECT_TITLE)
-
-    splash.finish(window)
-
-    log.debug('Building main window ...')
-    main_window = Main(None, "", options)
-    log.debug('... Building FINISHED')
-
-    log.debug('Showing main window')
-    main_window.show()
-
-    log.debug('Starting application event loop ...')
-    res = app.exec_()
-    app = None
-    return res
