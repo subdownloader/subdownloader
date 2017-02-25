@@ -26,7 +26,7 @@ def run(options):
     QCoreApplication.setApplicationName(PROJECT_TITLE)
     splash = SplashScreen()
     splash.showMessage(_("Loading...")) # FIXME: move main() function or Main class to separate file before including subdownloader and gui files.
-    splash.show()
+    # splash.show()
     app.processEvents()
 
     from subdownloader.client.gui.main import Main
@@ -44,6 +44,7 @@ def run(options):
     main_window.show()
     log.debug('Finishing splash screen0')
     splash.finish(main_window)
+    main_window.raise_()
 
     log.debug('Starting application event loop ...')
 
