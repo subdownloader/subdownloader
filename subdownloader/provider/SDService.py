@@ -359,7 +359,7 @@ class SDService(object):
             if language:
                 for lang in info['data']:
                     if lang['ISO639'] == language:
-                        return lang['LanguageID']
+                        return lang['SubLanguageID']
             return info['data']
         except xmlrpclib.ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
