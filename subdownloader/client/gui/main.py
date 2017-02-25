@@ -114,6 +114,7 @@ class Main(QMainWindow):
         self.read_settings()
         # self.treeView.reset()
         self.ui.splitter.setSizes([600, 1000])
+        self.ui.splitter.setChildrenCollapsible(False)
 
         # SETTING UP FOLDERVIEW
         model = QFileSystemModel(self)
