@@ -18,7 +18,8 @@ logging_install(options.loglevel, options.logfile)
 
 if options.mode == 'gui':
     import subdownloader.client.gui.main
-    subdownloader.client.gui.main.main(options)
+    return_code = subdownloader.client.gui.main.main(options)
+    sys.exit(return_code)
 elif options.mode == 'cli':
     import subdownloader.client.cli.main
     cli = subdownloader.client.cli.main.Main(options)
