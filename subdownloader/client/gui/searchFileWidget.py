@@ -11,14 +11,14 @@ from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelInde
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileSystemModel, QMenu, QMessageBox, QWidget
 
-from subdownloader.project import PROJECT_TITLE
 from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.videotreeview import VideoTreeModel
-from subdownloader.languages import language
 
+from subdownloader.languages import language
+from subdownloader.project import PROJECT_TITLE
 from subdownloader.FileManagement import FileScan
 from subdownloader.search import Movie
 from subdownloader.subtitlefile import SubtitleFile
@@ -166,6 +166,7 @@ class SearchFileWidget(QWidget):
         if index != -1:
             self.ui.filterLanguageForVideo.setCurrentIndex(index)
 
+    @pyqtSlot(int)
     def onFilterLanguageVideo(self, index):
         selectedLanguageXXX = self.ui.filterLanguageForVideo.itemData(index)
         log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)

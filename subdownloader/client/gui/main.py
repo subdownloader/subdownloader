@@ -5,7 +5,6 @@
 import base64
 import os.path
 import platform
-import re
 import sys
 import webbrowser
 import zlib
@@ -29,9 +28,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, \
     QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, \
     QSettings, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QApplication, \
-    QFileDialog, QHeaderView, QMainWindow, QMenu, \
-    QMessageBox, QProgressDialog
+from PyQt5.QtWidgets import QFileDialog, QHeaderView, QMainWindow, QMessageBox, QProgressDialog
 
 try:
     from PyQt5.QtCore import QString
@@ -39,26 +36,22 @@ except ImportError:
     QString = str
 
 from subdownloader.callback import ProgressCallback
-from subdownloader.client.gui.splashScreen import SplashScreen
 from subdownloader.client.internationalization import i18n_install
 
 from subdownloader.languages import language
 
 from subdownloader.client.gui.uploadlistview import UploadListModel, UploadListView
-from subdownloader.client.gui.videotreeview import VideoTreeModel
-
 from subdownloader.client.gui.main_ui import Ui_MainWindow
 from subdownloader.client.gui.imdbSearch import imdbSearchDialog
 from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-
 from subdownloader.client.gui.login import LoginDialog
+
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 from subdownloader.client.gui import SELECT_SUBTITLES, SELECT_VIDEOS
-from subdownloader.search import *
 from subdownloader.videofile import VideoFile
 from subdownloader.subtitlefile import SubtitleFile
 
@@ -87,7 +80,8 @@ class Main(QMainWindow):
 
         self._state = State(self, options)
 
-        self.ui.tabSearchFileWidget.set_state(self._state)
+        self.ui.tabSearchFile.set_state(self._state)
+        self.ui.tabSearchName.set_state(self._state)
 
         self._state.login_status_changed.connect(self.on_login_state_changed)
 
@@ -98,12 +92,12 @@ class Main(QMainWindow):
 
         self.closeEvent = self.close_event
         # Fill Out the Filters Language SelectBoxes
-        self.filterLangChangedPermanent.connect(self.onFilterLangChangedPermanent)
-        self.filterLangChangedPermanent.connect(self.ui.tabSearchFileWidget.onFilterLangChangedPermanent)
+        self.filterLangChangedPermanent.connect(self.ui.tabSearchFile.onFilterLangChangedPermanent)
+        self.filterLangChangedPermanent.connect(self.ui.tabSearchName.onFilterLangChangedPermanent)
         self.InitializeFilterLanguages()
         self.read_settings()
 
-        self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFileWidget)
+        self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFile)
 
         # SETTING UP UPLOAD_VIEW
         self.uploadModel = UploadListModel(self)
@@ -154,22 +148,6 @@ class Main(QMainWindow):
         # self.ui.uploadDetailsGroupBox.adjustSize()
         # self.adjustSize()
 
-        # Search by Name
-        self.ui.buttonSearchByName.clicked.connect(self.onButtonSearchByTitle)
-        self.ui.movieNameText.returnPressed.connect(self.onButtonSearchByTitle)
-        self.ui.buttonDownloadByTitle.clicked.connect(
-            self.onButtonDownloadByTitle)
-
-        self.ui.buttonIMDBByTitle.clicked.connect(self.onViewOnlineInfo)
-        self.moviesModel = VideoTreeModel(self)
-        self.ui.moviesView.setModel(self.moviesModel)
-
-        self.ui.moviesView.clicked.connect(self.onClickMovieTreeView)
-        self.moviesModel.dataChanged.connect(self.subtitlesMovieCheckedChanged)
-
-        self.ui.moviesView.expanded.connect(self.onExpandMovie)
-        self.ui.moviesView.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.ui.moviesView.customContextMenuRequested.connect(self.onContext)
 
         # Menu options
         self.ui.action_Quit.triggered.connect(self.onMenuQuit)
@@ -262,9 +240,6 @@ class Main(QMainWindow):
         else:  # for Windows is the /program_folder/subdownloader.py
             self.programFolder = os.path.dirname(sys.path[0])
 
-    def openExternalUrl(self, url):
-        webbrowser.open(str(url), new=2, autoraise=1)
-
     def dragEnterEvent(self, event):
         # print event.mimeData().formats().join(" ")
         if event.mimeData().hasFormat("text/plain") or event.mimeData().hasFormat("text/uri-list"):
@@ -277,89 +252,6 @@ class Main(QMainWindow):
             paths = [str(u.toLocalFile())
                      for u in event.mimeData().urls()]
             self.SearchVideos(paths)
-
-    def onContext(self, point):  # Create a menu
-        # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
-        menu = QMenu("Menu", self)
-        # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        listview = self.ui.moviesView
-        index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
-        if treeItem != None:
-            if type(treeItem.data) == VideoFile:
-                video = treeItem.data
-                movie_info = video.getMovieInfo()
-                if movie_info:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("View IMDB info"), self)
-                    subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                else:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("Set IMDB info..."), self)
-                    subWebsiteAction.triggered.connect(self.onSetIMDBInfo)
-                menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == SubtitleFile:  # Subtitle
-                treeItem.checked = True
-                self.videoModel.dataChanged.emit(index, index)
-                downloadAction = QAction(
-                    QIcon(":/images/download.png"), _("Download"), self)
-                # Video tab, TODO:Replace me with a enum
-                if self.ui.tabsMain.currentIndex() == 0:
-                    downloadAction.triggered.connect(self.onButtonDownload)
-                    playAction = QAction(
-                        QIcon(":/images/play.png"), _("Play video + subtitle"), self)
-                    playAction.triggered.connect(self.onButtonPlay)
-                    menu.addAction(playAction)
-                else:
-                    downloadAction.triggered.connect(
-                        self.onButtonDownloadByTitle)
-                subWebsiteAction = QAction(
-                    QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
-
-                menu.addAction(downloadAction)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == Movie:
-                movie = treeItem.data
-                subWebsiteAction = QAction(
-                    QIcon(":/images/info.png"), _("View IMDB info"), self)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
-
-        # Show the context menu.
-        menu.exec_(listview.mapToGlobal(point))
-
-    def onSetIMDBInfo(self):
-        QMessageBox.about(
-            self, _("Info"), "Not implemented yet. Sorry...")
-
-    def onViewOnlineInfo(self):
-        # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
-        # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        listview = self.ui.moviesView
-        index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
-
-        if type(treeItem.data) == VideoFile:
-            video = self.videoModel.getSelectedItem().data
-            movie_info = video.getMovieInfo()
-            if movie_info:
-                imdb = movie_info["IDMovieImdb"]
-                if imdb:
-                    webbrowser.open(
-                        "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
-        elif type(treeItem.data) == SubtitleFile:  # Subtitle
-            sub = treeItem.data
-            if sub.isOnline():
-                webbrowser.open(
-                    "http://www.opensubtitles.org/en/subtitles/%s/" % sub.getIdOnline(), new=2, autoraise=1)
-
-        elif type(treeItem.data) == Movie:
-            movie = self.moviesModel.getSelectedItem().data
-            imdb = movie.IMDBId
-            if imdb:
-                webbrowser.open(
-                    "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
 
     def read_settings(self):
         settings = QSettings()
@@ -433,10 +325,7 @@ class Main(QMainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def InitializeFilterLanguages(self):
-        self.ui.filterLanguageForTitle.addItem(_("All languages"), "")
         for lang in language.legal_languages():
-            self.ui.filterLanguageForTitle.addItem(
-                _(lang.name()), lang.xxx())
             self.ui.uploadLanguages.addItem(
                 _(lang.name()), lang.xxx())
 
@@ -446,57 +335,14 @@ class Main(QMainWindow):
         if index != -1:
             self.ui.uploadLanguages.setCurrentIndex(index)
 
-        self.ui.filterLanguageForTitle.adjustSize()
         self.ui.uploadLanguages.adjustSize()
 
         optionFilterLanguage = settings.value("options/filterSearchLang", "")
 
         self.filterLangChangedPermanent.emit(optionFilterLanguage)
 
-        self.ui.filterLanguageForTitle.currentIndexChanged.connect(
-            self.onFilterLanguageSearchName)
-        self.ui.uploadLanguages.activated.connect(
-            self.onUploadSelectLanguage)
         self.language_updated.connect(
             self.onUploadLanguageDetection)
-
-    def onFilterLanguageVideo(self, index):
-        selectedLanguageXXX = self.ui.filterLanguageForVideo.itemData(index)
-        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
-        self.ui.videoView.clearSelection()
-
-        # self.videoModel.layoutAboutToBeChanged.emit()
-        self.videoModel.clearTree()
-        # self.videoModel.layoutChanged.emit()
-        # self.videoView.expandAll()
-        if selectedLanguageXXX:
-            self.videoModel.setLanguageFilter(selectedLanguageXXX)
-            # Let's select by default the most rated subtitle for each video
-            self.videoModel.selectMostRatedSubtitles()
-            self.subtitlesCheckedChanged()
-        else:
-            self.videoModel.setLanguageFilter(None)
-            self.videoModel.unselectSubtitles()
-            self.subtitlesCheckedChanged()
-
-        self.ui.videoView.expandAll()
-
-    def onClickMovieTreeView(self, index):
-        treeItem = self.moviesModel.getSelectedItem(index)
-        if type(treeItem.data) == Movie:
-            movie = treeItem.data
-            if movie.IMDBId:
-                self.ui.buttonIMDBByTitle.setEnabled(True)
-                self.ui.buttonIMDBByTitle.setIcon(QIcon(":/images/info.png"))
-                self.ui.buttonIMDBByTitle.setText(_("Movie Info"))
-        else:
-            treeItem.checked = not(treeItem.checked)
-            self.moviesModel.dataChanged.emit(
-                index, index)
-            self.ui.buttonIMDBByTitle.setEnabled(True)
-            self.ui.buttonIMDBByTitle.setIcon(
-                QIcon(":/images/sites/opensubtitles.png"))
-            self.ui.buttonIMDBByTitle.setText(_("Sub Info"))
 
     def showErrorConnection(self):
         QMessageBox.about(self, _("Alert"), _(
@@ -827,63 +673,6 @@ class Main(QMainWindow):
             settings.setValue(
                 "options/VideoPlayerParameters", predefinedVideoPlayer['parameters'])
 
-    def onButtonSearchByTitle(self):
-        if not self.ui.movieNameText.text().strip():
-            QMessageBox.about(self, _("Info"), _(
-                "You must enter at least one character in movie name"))
-
-        else:
-            self.ui.buttonSearchByName.setEnabled(False)
-            callback = self._get_callback(_('Search'), _("Searching..."), "")
-            self.setCursor(Qt.WaitCursor)
-            self.moviesModel.clearTree()
-            # This was a solution found to refresh the treeView
-            self.ui.moviesView.expandAll()
-            QCoreApplication.processEvents()
-            s = SearchByName()
-            selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(self.ui.filterLanguageForTitle.currentIndex())
-            search_text = self.ui.movieNameText.text()
-            # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
-            # like a string of forbidden chars (pr the other way around, string
-            # of good chars)
-            search_text = re.sub('\'', '', search_text)
-            callback.update(0)
-            # This should be in a thread to be able to Cancel
-            movies = s.search_movie(search_text, 'all')
-            if movies == 2:
-                QMessageBox.about(self, _("Info"), _(
-                    "The server is momentarily unavailable. Please try later."))
-                sys.exit(1)
-            self.moviesModel.setMovies(movies, selectedLanguageXXX)
-            if len(movies) == 1:
-                self.ui.moviesView.expandAll()
-            else:
-                self.ui.moviesView.collapseAll()
-            QCoreApplication.processEvents()
-            self.setCursor(Qt.ArrowCursor)
-            callback.finish()
-            self.ui.buttonSearchByName.setEnabled(True)
-
-    @pyqtSlot(str)
-    def onFilterLangChangedPermanent(self, languages):
-        languages_array = languages.split(",")
-
-        if len(languages_array) > 1:
-            index = self.ui.filterLanguageForTitle.findData(languages)
-            if index == -1:
-                self.ui.filterLanguageForTitle.addItem(languages, languages)
-        index = self.ui.filterLanguageForTitle.findData(languages)
-        if index != -1:
-            self.ui.filterLanguageForTitle.setCurrentIndex(index)
-
-    def onFilterLanguageSearchName(self, index):
-        selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(index)
-        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
-        self.ui.moviesView.clearSelection()
-        self.moviesModel.clearTree()
-        self.moviesModel.setLanguageFilter(selectedLanguageXXX)
-        self.ui.moviesView.expandAll()
-
     def onUploadSelectLanguage(self, index):
         self.upload_autodetected_lang = "selected"
         self.ui.label_autodetect_lang.hide()
@@ -891,122 +680,6 @@ class Main(QMainWindow):
     def onUploadSelectImdb(self, index):
         self.upload_autodetected_imdb = "selected"
         self.ui.label_autodetect_imdb.hide()
-
-    def subtitlesMovieCheckedChanged(self):
-        subs = self.moviesModel.getCheckedSubtitles()
-        if subs:
-            self.ui.buttonDownloadByTitle.setEnabled(True)
-        else:
-            self.ui.buttonDownloadByTitle.setEnabled(False)
-
-    def onButtonDownloadByTitle(self):
-        subs = self.moviesModel.getCheckedSubtitles()
-        total_subs = len(subs)
-        if not subs:
-            QMessageBox.about(
-                self, _("Error"), _("No subtitles selected to be downloaded"))
-            return
-        answer = None
-        success_downloaded = 0
-
-        settings = QSettings()
-        path = settings.value("mainwindow/workingDirectory", "")
-        zipDestDir = QFileDialog.getExistingDirectory(
-            None, _("Select the directory where to save the subtitle(s)"), path)
-        if not zipDestDir:
-            return
-        if zipDestDir:
-            settings.setValue("mainwindow/workingDirectory", zipDestDir)
-
-        callback = self._get_callback(_('Downloading'), _("Downloading files..."), "",
-                                      updatedMsg=_("Downloading %s to %s"))
-        callback.set_range(0, len(subs))
-
-# Download and unzip files automatically. We might want to move this to an
-# external module, perhaps?
-        unzipedOK = 0
-        dlOK = 0
-
-        for i, sub in enumerate(subs):
-            # Skip rest of loop if Abort was pushed in progress bar
-            if callback.canceled():
-                break
-
-            try:
-                url = sub.getExtraInfo("downloadLink")
-                log.debug("sub.getExtraInfo downloadLink  %s " % (url))
-            except:
-                url = Link().OneLink(0)
-                log.debug("Link().OneLink downloadLink  %s " % (url))
-#                webbrowser.open( url, new=2, autoraise=1)
-            zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
-            zipFileName = "sub-" + zipFileID + ".srt"
-
-            try:
-                zipDestFile = os.path.join(zipDestDir, zipFileName).decode(
-                    sys.getfilesystemencoding())
-            except:
-                zipDestFile = (zipDestDir + '/' + zipFileName)
-            log.debug("About to download %s %s to %s" % (i, sub.__repr__, zipDestFile))
-            log.debug("IdFileOnline: %s" % (sub.getIdFileOnline()))
-            callback.update(i, sub.getIdFileOnline(), zipDestDir)
-
-            # Download the file from opensubtitles.org
-            # Note that we take for granted it will be in .zip format! Might not be so for other sites
-            # This should be tested for when more sites are added or find
-            # true filename like browser does FIXME
-            try:
-                if self.get_state().download_subtitles({sub.getIdFileOnline(): zipDestFile}):
-                    dlOK += 1
-                else:
-                    QMessageBox.about(self, _("Error"), _(
-                        "Unable to download subtitle %s") % sub.get_filepath())
-            except Exception as e:
-                log.debug(e)
-                QMessageBox.about(self, _("Error"), _(
-                    "Unable to download subtitle %s") % sub.get_filepath())
-                QMessageBox.critical(self, _("Error"), _(
-                    "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
-            QCoreApplication.processEvents()
-        callback.finish()
-        if (dlOK > 0):
-            QMessageBox.about(self, _("%d subtitles downloaded successfully") % (unzipedOK), _(
-                "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"))
-
-    def onExpandMovie(self, index):
-        if index.internalPointer() is None:
-            return
-        movie = index.internalPointer().data
-        if type(movie) == Movie and not movie.subtitles and movie.totalSubs:
-            callback = self._get_callback(_('Search'), _("Searching..."), "")
-            self.setCursor(Qt.WaitCursor)
-
-            s = SearchByName()
-            selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(
-                self.ui.filterLanguageForTitle.currentIndex())
-            callback.update(0)
-            temp_movie = s.search_movie(
-                None, 'all', MovieID_link=movie.MovieSiteLink)
-            # The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
-            # print temp_movie
-            try:
-                movie.subtitles = temp_movie[0].subtitles
-            except IndexError:
-                QMessageBox.about(
-                    self, _("Info"), _("This is a TV series and it cannot be handled."))
-                self.setCursor(Qt.ArrowCursor)
-                callback.finish()
-                return
-            except AttributeError:
-                # this means only one subtitle was returned
-                movie.subtitles = [temp_movie[1]]
-            # The treeview is filtered by language
-            self.moviesModel.updateMovie(index, selectedLanguageXXX)
-            self.ui.moviesView.collapse(index)
-            self.ui.moviesView.expand(index)
-            self.setCursor(Qt.ArrowCursor)
-            callback.finish()
-
 
     def onUpgradeDetected(self):
         QMessageBox.about(

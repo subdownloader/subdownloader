@@ -1,7 +1,7 @@
 PACKAGE=subdownloader.client.gui
 
 TARGETS= main_ui.py imdb_ui.py images_rc.py preferences_ui.py about_ui.py \
-	 login_ui.py searchFileWidget_ui.py
+	 login_ui.py searchNameWidget_ui.py searchFileWidget_ui.py
 
 IMAGES=$(shell find images -type f -printf "%p ")
 
