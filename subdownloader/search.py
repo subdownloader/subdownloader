@@ -16,6 +16,7 @@ FilmLink = ''
 from subdownloader.languages.language import Language
 from subdownloader import subtitlefile
 
+log = logging.getLogger("subdownloader.search")
 
 class Link:
 
@@ -59,7 +60,7 @@ class Movie(object):
 class SearchByName(object):
 
     def __init__(self):
-        self.log = logging.getLogger("subdownloader.modules.search")
+        pass
 
     def search_movie(self, moviename=None, sublanguageid="eng", MovieID_link=None):
         #xml_url = configuration.General.search_url % (sublanguageid, moviename)
@@ -78,19 +79,19 @@ class SearchByName(object):
             return(2)
 
         try:
-            self.log.debug("Getting data from '%s'" % xml_url)
+            log.debug("Getting data from '%s'" % xml_url)
             search = self.parse_results(xml_page.read())
         # this will happen when only one result is found
         except xml.parsers.expat.ExpatError:
-            self.log.debug("Getting data from '%s/xml'" % xml_page.url)
+            log.debug("Getting data from '%s/xml'" % xml_page.url)
             xml_page = urlopen("%s/xml" % xml_page.url)
             search = self.parse_results(xml_page.read())
 
         if search:
-            self.log.debug("Returning data")
+            log.debug("Returning data")
             movies = search
         else:
-            self.log.debug("No data found. Trying '%s'" % xml_page.url)
+            log.debug("No data found. Trying '%s'" % xml_page.url)
             xml_page = urlopen("%s" % xml_page.url)
             movies = self.subtitle_info(xml_page.read())
 

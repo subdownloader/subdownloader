@@ -14,6 +14,8 @@ List of known subtitle extensions.
 """
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
 
+log = logging.getLogger("subdownloader.modules.subtitlefile")
+
 
 class SubtitleFile(object):
 
@@ -22,7 +24,6 @@ class SubtitleFile(object):
     """
 
     def __init__(self, online, id=None):
-        self.log = logging.getLogger("subdownloader.modules.subtitlefile")
         self._language = None
         self._video = None
         self._online = online
@@ -33,9 +34,9 @@ class SubtitleFile(object):
         self._extraInfo = {}
         self._filename = ""
 
-        self.log.debug("is online %s" % online)
+        log.debug("is online %s" % online)
         if online:
-            self.log.debug("OnlineId is %s" % id)
+            log.debug("OnlineId is %s" % id)
             self._onlineId = id
         else:
             self._path = id
