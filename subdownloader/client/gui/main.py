@@ -46,8 +46,7 @@ from subdownloader.client.gui.imdbSearch import imdbSearchDialog
 from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.client.gui.login import LoginDialog
+from subdownloader.client.gui.login import LoginDialog, login_parent_state
 
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
@@ -172,27 +171,6 @@ class Main(QMainWindow):
         # self.ui.statusbar.addWidget(self.status_label)
         # self.ui.statusbar.addWidget(self.ui.button_login)
 
-        if not options.test:
-            self.setCursor(Qt.WaitCursor)
-
-            callback = ProgressCallbackWidget(self)
-            callback.set_block(True)
-
-            if self.get_state().connect(callback=callback):
-                settings = QSettings()
-                if options.username:
-                    loginUsername = options.username
-                    loginPassword = options.password
-                else:
-                    loginUsername = settings.value("options/LoginUsername", "")
-                    loginPassword = settings.value("options/LoginPassword", "")
-                callback = ProgressCallbackWidget(self)
-                callback.set_block(True)
-                self.get_state().login_user(loginUsername, loginPassword, callback=callback)
-            else:
-                QMessageBox.about(self, _("Error"), _(
-                    "Error contacting the server. Please try again later"))
-            self.setCursor(Qt.ArrowCursor)
         QCoreApplication.processEvents()
 
         if options.videofile:
@@ -239,6 +217,9 @@ class Main(QMainWindow):
             self.programFolder = sys.path[0]
         else:  # for Windows is the /program_folder/subdownloader.py
             self.programFolder = os.path.dirname(sys.path[0])
+
+    def log_in_default(self):
+        return login_parent_state(self, self.get_state())
 
     def dragEnterEvent(self, event):
         # print event.mimeData().formats().join(" ")

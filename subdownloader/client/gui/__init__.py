@@ -46,6 +46,9 @@ def run(options):
     splash.finish(main_window)
     main_window.raise_()
 
+    if not options.test:
+        main_window.log_in_default()
+
     log.debug('Starting application event loop ...')
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)

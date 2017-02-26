@@ -45,7 +45,7 @@ class State(QObject):
         return self._OSDBServer
 
     @pyqtSlot()
-    def connect(self, callback=None):
+    def connect_server(self, callback=None):
         # FIXME: start timer. To avoid timeout. Ping server, every XX seconds.
 
         if not callback:
@@ -93,11 +93,22 @@ class State(QObject):
     LOGIN_STATUS_LOGGED_IN = 1
     LOGIN_STATUS_BUSY = 2
 
+    DEFAULT_USERNAME = ''
+    DEFAULT_PASSWORD = ''
+
     @pyqtSlot(str, str)
-    def login_user(self, username, password, callback=None):
+    def login_user(self, username=None, password=None, callback=None):
         # FIXME: add logging!
         if not callback:
             callback = ProgressCallback()
+
+        if not username:
+            settings = QSettings()
+            username = settings.value('options/LoginUsername', self.DEFAULT_USERNAME)
+            password = settings.value('options/LoginPassword', self.DEFAULT_PASSWORD)
+
+        if not password:
+            password = self.DEFAULT_PASSWORD
 
         if self._proxy:
             updated_text = _('Connecting to server using proxy {proxy}').format(proxy=self._proxy)

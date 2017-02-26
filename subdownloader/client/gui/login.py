@@ -16,16 +16,14 @@ class LoginDialog(QDialog):
 
     login_password_changed = pyqtSignal(str, str)
 
-    DEFAULT_USERNAME = ''
-    DEFAULT_PASSWORD = ''
-
     def __init__(self, parent):
         QDialog.__init__(self, parent)
         self.ui = Ui_LoginDialog()
         self.ui.setupUi(self)
 
-        self._username = self.DEFAULT_USERNAME
-        self._password = self.DEFAULT_PASSWORD
+        # FIXME: no parent.get_state()
+        self._username = parent.get_state().DEFAULT_USERNAME
+        self._password = parent.get_state().DEFAULT_USERNAME
 
         self.settings = QSettings()
 
@@ -39,7 +37,6 @@ class LoginDialog(QDialog):
         self._password = self.settings.value('options/LoginPassword', self.DEFAULT_PASSWORD)
         self.ui.optionLoginPassword.setText(self._password)
 
-
     @pyqtSlot()
     def onButtonClose(self):
         self.reject()
@@ -48,30 +45,37 @@ class LoginDialog(QDialog):
     def onButtonAccept(self):
         self._username= self.ui.optionLoginUsername.text()
         self._password = self.ui.optionLoginPassword.text()
-        oldUsername = self.settings.value('options/LoginUsername', self.DEFAULT_USERNAME)
-        oldPassword = self.settings.value('options/LoginPassword', self.DEFAULT_PASSWORD)
+        oldUsername = self.settings.value('options/LoginUsername', self.parent().get_state().DEFAULT_USERNAME)
+        oldPassword = self.settings.value('options/LoginPassword', self.parent().get_state().DEFAULT_PASSWORD)
 
         if self._username != oldUsername or self._password != oldPassword:
             self.settings.setValue('options/LoginUsername', self._username)
             self.settings.setValue('options/LoginPassword', self._password)
             self.login_password_changed.emit(self._username, self._password)
 
-        self.connect()
+        login_parent_state(self, self.parent().get_state())
         self.accept()  # We close the window
 
-    def connect(self):
-        if not self.parent().get_state().connected():
-            callback = ProgressCallbackWidget(self)
-            callback.set_block(True)
 
-            connected = self.parent().get_state().connect(callback)
-
-            if not connected:
-                QMessageBox.about(self, _('Error'), _(
-                    'Error contacting the server. Please try again later'))
-                return
-
-        callback = ProgressCallbackWidget(self)
+def login_parent_state(parent, state):
+    if not state.connected():
+        callback = ProgressCallbackWidget(parent)
         callback.set_block(True)
-        self.parent().get_state().login_user(self._username, self._password, callback)
-        QCoreApplication.processEvents()
+
+        connected = state.connect_server(callback=callback)
+
+        if not connected:
+            QMessageBox.about(parent, _('Error'), _(
+                'Error contacting the server. Please try again later.'))
+            return False
+
+    callback = ProgressCallbackWidget(parent)
+    callback.set_block(True)
+
+    logged_in = state.login_user(callback=callback)
+    if not logged_in:
+        QMessageBox.about(parent, _('Error'), _(
+            'Error logging in into the server. Please try again later.'))
+        return False
+    QCoreApplication.processEvents()
+    return True
