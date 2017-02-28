@@ -14,7 +14,7 @@ OnlyLink = ''
 FilmLink = ''
 
 from subdownloader.languages.language import Language
-from subdownloader import subtitlefile
+from subdownloader.FileManagement import subtitlefile
 
 log = logging.getLogger("subdownloader.search")
 

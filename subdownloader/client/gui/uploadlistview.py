@@ -14,8 +14,8 @@ from PyQt5.QtWidgets import QTableView
 
 import subdownloader.FileManagement.VideoTools as VideoTools
 from subdownloader.languages import language
-from subdownloader.subtitlefile import SubtitleFile
-from subdownloader.videofile import VideoFile
+from subdownloader.FileManagement.subtitlefile import SubtitleFile
+from subdownloader.FileManagement.videofile import VideoFile
 from subdownloader.FileManagement import Subtitle
 
 log = logging.getLogger("subdownloader.client.gui.uploadlistview")

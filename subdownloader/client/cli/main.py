@@ -11,7 +11,7 @@ from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.callback import ProgressCallback
 from subdownloader.provider import SDService
 from subdownloader.client.cli.callback import DEFAULT_WIDGETS, ProgressBarCallback
-from .filter import Filter
+from subdownloader.client.cli.filter import Filter
 
 try:
     input = raw_input

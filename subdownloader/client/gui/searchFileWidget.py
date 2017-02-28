@@ -10,19 +10,18 @@ import webbrowser
 from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, Qt, QTime
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileSystemModel, QMenu, QMessageBox, QWidget
+from subdownloader.FileManagement.search import Movie
+from subdownloader.FileManagement.subtitlefile import SubtitleFile
 
+from subdownloader.FileManagement import FileScan
+from subdownloader.FileManagement.videofile import VideoFile
 from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.videotreeview import VideoTreeModel
-
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE
-from subdownloader.FileManagement import FileScan
-from subdownloader.search import Movie
-from subdownloader.subtitlefile import SubtitleFile
-from subdownloader.videofile import VideoFile
 
 log = logging.getLogger('subdownloader.client.gui.searchWidget')
 

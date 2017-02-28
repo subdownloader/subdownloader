@@ -2,7 +2,7 @@
 
 import logging
 
-import subdownloader.videofile as videofile
+import subdownloader.FileManagement.videofile as videofile
 from subdownloader.FileManagement import get_extension
 
 log = logging.getLogger("subdownloader.FileManagement.Video")

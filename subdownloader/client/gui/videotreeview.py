@@ -5,10 +5,10 @@ import logging
 from PyQt5.QtCore import Qt, QAbstractItemModel, \
     QModelIndex, QSize
 from PyQt5.QtGui import QColor, QFont, QIcon
-from subdownloader.subtitlefile import SubtitleFile
-from subdownloader.videofile import VideoFile
+from subdownloader.FileManagement.search import Movie
+from subdownloader.FileManagement.subtitlefile import SubtitleFile
 
-from subdownloader.search import Movie
+from subdownloader.FileManagement.videofile import VideoFile
 
 log = logging.getLogger("subdownloader.gui.videotreeview")
 

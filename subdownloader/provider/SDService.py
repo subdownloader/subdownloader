@@ -18,8 +18,8 @@ from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION
-import subdownloader.videofile as videofile
-import subdownloader.subtitlefile as subtitlefile
+import subdownloader.FileManagement.videofile as videofile
+import subdownloader.FileManagement.subtitlefile as subtitlefile
 from subdownloader.languages.language import Language
 import socket
 try:

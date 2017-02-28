@@ -21,9 +21,9 @@ try:
 except ImportError:
     from subprocess import getstatusoutput
 
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QFileDialog, QMainWindow, QMessageBox, QProgressDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QProgressDialog
 
 from subdownloader.callback import ProgressCallback
 from subdownloader.client.internationalization import i18n_install
@@ -36,9 +36,7 @@ from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.login import LoginDialog, login_parent_state
 
-from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
-from subdownloader.subtitlefile import SubtitleFile
 
 import logging
 log = logging.getLogger("subdownloader.client.gui.main")

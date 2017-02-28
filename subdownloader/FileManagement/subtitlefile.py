@@ -5,8 +5,6 @@ import hashlib
 import logging
 import os
 
-from subdownloader.languages.language import Language
-
 log = logging.getLogger('subdownloader.subtitlefile')
 
 """

@@ -5,8 +5,9 @@ import logging
 import os
 import re
 
-import subdownloader.subtitlefile as subtitlefile
-import subdownloader.videofile as videofile
+import subdownloader.FileManagement.subtitlefile as subtitlefile
+
+import subdownloader.FileManagement.videofile as videofile
 from subdownloader.FileManagement import get_extension, clear_string, without_extension
 from subdownloader.languages import autodetect_lang, language
 

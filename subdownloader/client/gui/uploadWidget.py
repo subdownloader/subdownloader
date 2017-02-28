@@ -13,7 +13,7 @@ import zlib
 
 from subdownloader.languages import language
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QSettings
 from PyQt5.QtWidgets import QFileDialog, QHeaderView, QMessageBox, QWidget
 
 from subdownloader.FileManagement import FileScan, Subtitle
@@ -23,8 +23,8 @@ from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.uploadlistview import UploadListModel, UploadListView
 from subdownloader.client.gui.uploadWidget_ui import Ui_UploadWidget
 from subdownloader.client.gui.state import State
-from subdownloader.videofile import VideoFile
-from subdownloader.subtitlefile import SubtitleFile
+from subdownloader.FileManagement.videofile import VideoFile
+from subdownloader.FileManagement.subtitlefile import SubtitleFile
 
 log = logging.getLogger('subdownloader.client.gui.uploadWidget')
 

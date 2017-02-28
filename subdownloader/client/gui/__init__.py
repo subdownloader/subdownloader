@@ -8,11 +8,10 @@ import sys
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication
 
+from subdownloader.FileManagement.subtitlefile import SUBTITLES_EXT
+from subdownloader.FileManagement.videofile import VIDEOS_EXT
 from subdownloader.client.gui.splashScreen import SplashScreen
-
 from subdownloader.project import PROJECT_TITLE
-from subdownloader.videofile import VIDEOS_EXT
-from subdownloader.subtitlefile import SUBTITLES_EXT
 
 SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
 SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
