@@ -150,18 +150,12 @@ class SearchFileWidget(QWidget):
         self.ui.filterLanguageForVideo.selected_language_changed.connect(
             self.onFilterLanguageVideo)
 
-    @pyqtSlot(str)
+    @pyqtSlot(list)
     def onFilterLangChangedPermanent(self, languages):
-        languages_array = languages.split(",")
 
-        if len(languages_array) > 1:
-            index = self.ui.filterLanguageForVideo.findData(languages)
-            if index == -1:
-                self.ui.filterLanguageForVideo.addItem(languages, languages)
-
-        index = self.ui.filterLanguageForVideo.findData(languages)
-        if index != -1:
-            self.ui.filterLanguageForVideo.setCurrentIndex(index)
+        if len(languages) > 0:
+            lang = languages[0]
+            index = self.ui.filterLanguageForVideo.set_selected_language(lang)
 
     @pyqtSlot(language.Language)
     def onFilterLanguageVideo(self, lang):

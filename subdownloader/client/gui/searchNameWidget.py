@@ -113,9 +113,11 @@ class SearchNameWidget(QWidget):
             callback.finish()
             self.ui.buttonSearchByName.setEnabled(True)
 
-    @pyqtSlot(str)
+    @pyqtSlot(list)
     def onFilterLangChangedPermanent(self, languages):
-        languages_array = languages.split(",")
+        # FIXME: use languages instead of these calculated values
+        languages_array = [lang.xxx() for lang in languages]
+        languages = ','.join(languages_array)
 
         if len(languages_array) > 1:
             index = self.ui.filterLanguageForTitle.findData(languages)
@@ -149,7 +151,7 @@ class SearchNameWidget(QWidget):
         log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
         self.ui.moviesView.clearSelection()
         self.moviesModel.clearTree()
-        self.moviesModel.setLanguageFilter(selectedLanguageXXX)
+        self.moviesModel.setLanguageFilter(language.Language.from_xxx(selectedLanguageXXX))
         self.ui.moviesView.expandAll()
 
     @pyqtSlot()

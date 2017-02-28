@@ -259,10 +259,10 @@ class PreferencesDialog(QDialog):
 
         # 1. Search tab
 
-        checked_languages = [lang[0].xxx() for lang in filter(lambda x:x[1], self._search_languages.items())]
-        checked_languages_str = ','.join(checked_languages)
+        checked_languages = [lang[0] for lang in filter(lambda x:x[1], self._search_languages.items())]
+        checked_languages_str = ','.join([lang.xxx() for lang in checked_languages])
         self.settings.setValue("options/filterSearchLang", checked_languages_str)
-        self.parent().filterLangChangedPermanent.emit(checked_languages_str)
+        self.parent().filterLangChangedPermanent.emit(checked_languages)
 
         # 2. Downloads tab
 
@@ -280,7 +280,7 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         self.settings.setValue('options/uploadLanguage', self._uploadLanguage.xxx())
-        self.parent().language_updated.emit(self._uploadLanguage.xxx(), "")
+        self.parent().get_upload_widget().language_updated.emit(self._uploadLanguage.xxx(), "")
 
         # 5. Others tab
 

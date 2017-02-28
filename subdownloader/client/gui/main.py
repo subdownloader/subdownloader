@@ -44,7 +44,7 @@ log = logging.getLogger("subdownloader.client.gui.main")
 
 class Main(QMainWindow):
 
-    filterLangChangedPermanent = pyqtSignal(str)
+    filterLangChangedPermanent = pyqtSignal(list)
     loginStatusChanged = pyqtSignal(str)
 
     def __init__(self, parent, log_packets, options):
@@ -110,6 +110,15 @@ class Main(QMainWindow):
 
     def get_state(self):
         return self._state
+
+    def get_search_file_widget(self):
+        return self.ui.tabSearchFile
+
+    def get_search_name_widget(self):
+        return self.ui.tabSearchName
+
+    def get_upload_widget(self):
+        return self.ui.tabUpload
 
     @pyqtSlot(int, str)
     def on_login_state_changed(self, state, message):
@@ -227,9 +236,10 @@ class Main(QMainWindow):
     def InitializeFilterLanguages(self):
         settings = QSettings()
 
-        optionFilterLanguage = settings.value("options/filterSearchLang", "")
+        optionFilterLanguages = settings.value("options/filterSearchLang", "")
+        languages = [language.Language.from_xxx(lang_str) for lang_str in optionFilterLanguages.split('.')]
 
-        self.filterLangChangedPermanent.emit(optionFilterLanguage)
+        self.filterLangChangedPermanent.emit(languages)
 
     def showErrorConnection(self):
         QMessageBox.about(self, _("Alert"), _(
