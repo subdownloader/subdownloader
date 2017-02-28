@@ -141,8 +141,8 @@ class Ui_SearchFileWidget(object):
         self.label_filterBy.setFont(font)
         self.label_filterBy.setObjectName("label_filterBy")
         self.layoutTopVideos.addWidget(self.label_filterBy)
-        self.filterLanguageForVideo = QtWidgets.QComboBox(self.pageSearchResult)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        self.filterLanguageForVideo = LanguageComboBox(self.pageSearchResult)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.filterLanguageForVideo.sizePolicy().hasHeightForWidth())
@@ -223,4 +223,5 @@ class Ui_SearchFileWidget(object):
         self.buttonPlay.setText(_("Play"))
         self.buttonDownload.setText(_("Download"))
 
+from subdownloader.client.gui.languageComboBox import LanguageComboBox
 from subdownloader.client.gui import images_rc

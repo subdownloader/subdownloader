@@ -317,9 +317,9 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="filterLanguageForVideo">
+                 <widget class="LanguageComboBox" name="filterLanguageForVideo">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -455,6 +455,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LanguageComboBox</class>
+   <extends>QComboBox</extends>
+   <header>subdownloader.client.gui.languageComboBox</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

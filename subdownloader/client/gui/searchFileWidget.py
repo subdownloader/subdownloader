@@ -10,26 +10,30 @@ import webbrowser
 from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, Qt, QTime
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileSystemModel, QMenu, QMessageBox, QWidget
-from subdownloader.FileManagement.search import Movie
-from subdownloader.FileManagement.subtitlefile import SubtitleFile
 
 from subdownloader.FileManagement import FileScan
 from subdownloader.FileManagement.videofile import VideoFile
+from subdownloader.FileManagement.search import Movie
+from subdownloader.FileManagement.subtitlefile import SubtitleFile
+from subdownloader.languages import language
+from subdownloader.project import PROJECT_TITLE
+
 from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.videotreeview import VideoTreeModel
-from subdownloader.languages import language
-from subdownloader.project import PROJECT_TITLE
 
-log = logging.getLogger('subdownloader.client.gui.searchWidget')
+log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 
 
 class SearchFileWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.ui = Ui_SearchFileWidget()
+
+        self.fileModel = None
+        self.videoModel = None
 
         self.setupUi()
 
@@ -49,10 +53,11 @@ class SearchFileWidget(QWidget):
         self.ui.splitter.setSizes([600, 1000])
         self.ui.splitter.setChildrenCollapsible(False)
 
-        # SETTING UP FOLDERVIEW
-        model = QFileSystemModel(self)
-        model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
-        self.ui.folderView.setModel(model)
+        # set up folder view
+
+        self.fileModel = QFileSystemModel(self)
+        self.fileModel.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
+        self.ui.folderView.setModel(self.fileModel)
 
         settings = QSettings()
         self.initializeFilterLanguages()
@@ -61,7 +66,6 @@ class SearchFileWidget(QWidget):
         self.ui.folderView.hideColumn(3)
         self.ui.folderView.hideColumn(2)
         self.ui.folderView.hideColumn(1)
-        self.ui.folderView.show()
 
         introduction = '<p align="center"><h2>{title}</h2></p>' \
             '<p><b>{tab1header}</b><br>{tab1content}</p>' \
@@ -86,16 +90,16 @@ class SearchFileWidget(QWidget):
         # Loop to expand the current directory in the folderview.
         lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath())
         log.debug('Current directory: %s' % lastDir)
-        model.setRootPath(lastDir)
+        self.fileModel.setRootPath(lastDir)
         path = QDir(lastDir)
         while True:
-            self.ui.folderView.expand(model.index(path.absolutePath()))
+            self.ui.folderView.expand(self.fileModel.index(path.absolutePath()))
             if not path.cdUp():
                 break
 
         self.ui.folderView.setSortingEnabled(True)
         self.ui.folderView.sortByColumn(0, 0)
-        self.ui.folderView.scrollTo(model.index(lastDir))
+        self.ui.folderView.scrollTo(self.fileModel.index(lastDir))
         self.ui.folderView.clicked.connect(self.onFolderTreeClicked)
         self.ui.buttonFind.clicked.connect(self.onButtonFind)
         self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
@@ -141,15 +145,9 @@ class SearchFileWidget(QWidget):
             log.warning('unknown state')
 
     def initializeFilterLanguages(self):
-        self.ui.filterLanguageForVideo.addItem(_("All languages"), "")
+        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
 
-        for lang in language.legal_languages():
-            self.ui.filterLanguageForVideo.addItem(
-                _(lang.name()), lang.xxx())
-
-        self.ui.filterLanguageForVideo.adjustSize()
-
-        self.ui.filterLanguageForVideo.currentIndexChanged.connect(
+        self.ui.filterLanguageForVideo.selected_language_changed.connect(
             self.onFilterLanguageVideo)
 
     @pyqtSlot(str)
@@ -165,26 +163,25 @@ class SearchFileWidget(QWidget):
         if index != -1:
             self.ui.filterLanguageForVideo.setCurrentIndex(index)
 
-    @pyqtSlot(int)
-    def onFilterLanguageVideo(self, index):
-        selectedLanguageXXX = self.ui.filterLanguageForVideo.itemData(index)
-        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
+    @pyqtSlot(language.Language)
+    def onFilterLanguageVideo(self, lang):
+        log.debug('Filtering subtitles by language: {}'.format(lang))
+
         self.ui.videoView.clearSelection()
 
         # self.videoModel.layoutAboutToBeChanged.emit()
         self.videoModel.clearTree()
         # self.videoModel.layoutChanged.emit()
         # self.videoView.expandAll()
-        if selectedLanguageXXX:
-            self.videoModel.setLanguageFilter(selectedLanguageXXX)
-            # Let's select by default the most rated subtitle for each video
-            self.videoModel.selectMostRatedSubtitles()
-            self.subtitlesCheckedChanged()
-        else:
+        if isinstance(lang, language.UnknownLanguage):
             self.videoModel.setLanguageFilter(None)
             self.videoModel.unselectSubtitles()
-            self.subtitlesCheckedChanged()
+        else:
+            self.videoModel.setLanguageFilter(lang)
+            # Let's select by default the most rated subtitle for each video
+            self.videoModel.selectMostRatedSubtitles()
 
+        self.subtitlesCheckedChanged()
         self.ui.videoView.expandAll()
 
     def subtitlesCheckedChanged(self):
@@ -664,8 +661,7 @@ class SearchFileWidget(QWidget):
                     if videoSearchResults:
                         self.videoModel.setVideos(
                             videoSearchResults, filter=None, append=True)
-                        self.onFilterLanguageVideo(
-                            self.ui.filterLanguageForVideo.currentIndex())
+                        self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
                         # This was a solution found to refresh the treeView
                         self.ui.videoView.expandAll()
                     elif videoSearchResults == None:

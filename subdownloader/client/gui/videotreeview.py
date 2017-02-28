@@ -102,6 +102,7 @@ class VideoTreeModel(QAbstractItemModel):
         # self.clearTree()
         self.languageFilter = lang
         if lang:
+            lang = lang.xxx()
             lang = lang.split(",")
         if self.videoResultsBackup:
             self.setVideos(self.videoResultsBackup, lang)
