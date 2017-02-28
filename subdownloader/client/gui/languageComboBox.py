@@ -49,7 +49,9 @@ class AbstractLanguageComboBox(QComboBox):
         self.adjustSize()
 
         self.currentIndexChanged.connect(self.onCurrentIndexChanged)
+
         self.setCurrentIndex(0)
+        self._current_language = language.Language.from_raw_data(self.itemData(0, Qt.UserRole))
 
     @pyqtSlot(int)
     def onCurrentIndexChanged(self, index):
