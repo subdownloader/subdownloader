@@ -1,4 +1,5 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
 import os.path
@@ -17,10 +18,8 @@ from subdownloader.subtitlefile import SubtitleFile
 from subdownloader.videofile import VideoFile
 from subdownloader import FileManagement as Subtitle
 
-log = logging.getLogger("subdownloader.gui.uploadlistview")
+log = logging.getLogger("subdownloader.client.gui.uploadlistview")
 
-#FIXME: translation
-_ = lambda x: x
 
 class UploadListModel(QAbstractTableModel):
     def __init__(self, parent):
@@ -90,10 +89,10 @@ class UploadListModel(QAbstractTableModel):
                 else:
                     valid_subs.append(self._subs[i].getFilePath())
             if self._videos[i]:
-                if valid_videos.count(self._videos[i].getFilePath()) > 0:
+                if valid_videos.count(self._videos[i].get_filepath()) > 0:
                     return False, _('Videofile %s is repeated') % str(i + 1)
                 else:
-                    valid_videos.append(self._videos[i].getFilePath())
+                    valid_videos.append(self._videos[i].get_filepath())
 
             if not self._subs[i] and not self._videos[i]:
                 if i != self.getTotalRows() - 1:
@@ -217,12 +216,12 @@ class UploadListModel(QAbstractTableModel):
                 if self._videos[row] == None:
                     text = _("Click here to select video...")
                 else:
-                    text = self._videos[row].getFileName()
+                    text = self._videos[row].get_filename()
             elif col == UploadListView.COL_SUB:
                 if self._subs[row] == None:
                     text = _("Click here to select subtitle...")
                 else:
-                    text = self._subs[row].getFileName()
+                    text = self._subs[row].getFilePath()
             if text == None:
                 text = "Unknown"
             return text

@@ -34,8 +34,6 @@ class SearchNameWidget(QWidget):
         self._state = None
 
     def set_state(self, state):
-        if self._state:
-            self._state.login_status_changed.disconnect(self.on_login_state_changed)
         self._state = state
         self._state.login_status_changed.connect(self.on_login_state_changed)
 
@@ -44,6 +42,8 @@ class SearchNameWidget(QWidget):
 
     def setupUi(self):
         self.ui.setupUi(self)
+
+        self.initializeFilterLanguages()
 
         self.ui.buttonSearchByName.clicked.connect(self.onButtonSearchByTitle)
         self.ui.movieNameText.returnPressed.connect(self.onButtonSearchByTitle)
@@ -127,7 +127,7 @@ class SearchNameWidget(QWidget):
         if index != -1:
             self.ui.filterLanguageForTitle.setCurrentIndex(index)
 
-    def InitializeFilterLanguages(self):
+    def initializeFilterLanguages(self):
         self.ui.filterLanguageForTitle.addItem(_("All languages"), "")
 
         for lang in language.legal_languages():
@@ -145,7 +145,7 @@ class SearchNameWidget(QWidget):
         self.ui.filterLanguageForTitle.currentIndexChanged.connect(
             self.onFilterLanguageSearchName)
 
-    @pyqtSlot(QModelIndex)
+    @pyqtSlot(int)
     def onFilterLanguageSearchName(self, index):
         selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(index)
         log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)

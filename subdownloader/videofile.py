@@ -94,7 +94,7 @@ class VideoFile(object):
 
     def get_filename(self):
         """
-        Get filename of thie VideoFile
+        Get filename of this VideoFile
         :return: file name as string
         """
         return os.path.basename(self._filepath)
