@@ -16,7 +16,7 @@ import subdownloader.FileManagement.VideoTools as VideoTools
 from subdownloader.languages import language
 from subdownloader.subtitlefile import SubtitleFile
 from subdownloader.videofile import VideoFile
-from subdownloader import FileManagement as Subtitle
+from subdownloader.FileManagement import Subtitle
 
 log = logging.getLogger("subdownloader.client.gui.uploadlistview")
 
