@@ -63,6 +63,7 @@ class ProgressCallbackWidget(ProgressCallback):
                 self.status_progress.setCancelButton(None)
 
     def show(self):
+        # FIXME: status_progress may be None if on_update is called BEFORE show..
         self.status_progress = QProgressDialog(self._parent, Qt.Window)
         self.status_progress.canceled.connect(self.on_cancel)
 

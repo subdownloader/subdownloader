@@ -162,6 +162,8 @@ class UploadWidget(QWidget):
                 callback.set_block(True)
                 callback.set_cancellable(False)
 
+                callback.show()
+
                 log.debug("Compressing subtitle...")
                 details = {}
                 details['IDMovieImdb'] = imdb_id
@@ -183,10 +185,10 @@ class UploadWidget(QWidget):
                     curr_sub = self.uploadModel._subs[i]
                     curr_video = self.uploadModel._videos[i]
                     if curr_sub:  # Make sure is not an empty row with None
-                        buf = open(curr_sub.get_filepath(), mode='rb').read()
+                        buf = open(curr_sub.getFilePath(), mode='rb').read()
                         curr_sub_content = base64.encodestring(zlib.compress(buf))
                         cd = "cd" + str(i)
-                        movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.calculateOSDBHash(), 'moviebytesize': curr_video.get_size(
+                        movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.get_hash(), 'moviebytesize': curr_video.get_size(
                         ), 'movietimems': curr_video.get_time_ms(), 'moviefps': curr_video.get_fps(), 'moviefilename': curr_video.get_filepath(), 'subcontent': curr_sub_content}
                     callback.update(i)
 
