@@ -54,9 +54,8 @@ class Main(QMainWindow):
         self.setWindowIcon(QIcon(":/icon"))
 
         self.ui = Ui_MainWindow()
-        self.calculateProgramFolder()
-        self.SetupInterfaceLang()
-        self.ui.setupUi(self)
+
+        self.setupUi()
 
         self._state = State(self, options)
 
@@ -76,10 +75,18 @@ class Main(QMainWindow):
         self.InitializeFilterLanguages()
         self.read_settings()
 
+        if options.videofile:
+            if os.path.exists(options.videofile):
+                self.SearchVideos(options.videofile)
+            else:
+                QMessageBox.about(
+                    self, _("Error"), _("Unable to find %s") % options.videofile)
+
+    def setupUi(self):
+        self.calculateProgramFolder()
+        self.SetupInterfaceLang()
+        self.ui.setupUi(self)
         self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFile)
-
-
-
 
         # Menu options
         self.ui.action_Quit.triggered.connect(self.onMenuQuit)
@@ -100,13 +107,6 @@ class Main(QMainWindow):
         self.ui.label_version.setText(PROJECT_VERSION)
 
         QCoreApplication.processEvents()
-
-        if options.videofile:
-            if os.path.exists(options.videofile):
-                self.SearchVideos(options.videofile)
-            else:
-                QMessageBox.about(
-                    self, _("Error"), _("Unable to find %s") % options.videofile)
 
     def get_state(self):
         return self._state

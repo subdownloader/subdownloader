@@ -9,7 +9,7 @@ import webbrowser
 
 from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, Qt, QTime
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QFileDialog, QFileSystemModel, QMenu, QMessageBox, QWidget
+from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
 
 from subdownloader.FileManagement import FileScan
 from subdownloader.FileManagement.videofile import VideoFile
@@ -49,23 +49,45 @@ class SearchFileWidget(QWidget):
 
     def setupUi(self):
         self.ui.setupUi(self)
+        settings = QSettings()
 
         self.ui.splitter.setSizes([600, 1000])
         self.ui.splitter.setChildrenCollapsible(False)
 
-        # set up folder view
+        # Set up folder view
+
+        lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath())
+        log.debug('Current directory: {currentDir}'.format(currentDir=lastDir))
 
         self.fileModel = QFileSystemModel(self)
-        self.fileModel.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
+        self.fileModel.setFilter(QDir.AllDirs | QDir.Dirs | QDir.Drives | QDir.NoDotAndDotDot | QDir.Readable | QDir.Executable | QDir.Writable)
+        self.fileModel.setRootPath(lastDir)
+
+        self.fileModel.iconProvider().setOptions(QFileIconProvider.DontUseCustomDirectoryIcons)
+
+        # rootPath should be emtpy string
+        # Upstream report: https://bugreports.qt.io/browse/QTBUG-22689
+        # self.fileModel.setRootPath('')
         self.ui.folderView.setModel(self.fileModel)
 
-        settings = QSettings()
-        self.initializeFilterLanguages()
-
-        self.ui.folderView.header().hide()
+        self.ui.folderView.setHeaderHidden(True)
         self.ui.folderView.hideColumn(3)
         self.ui.folderView.hideColumn(2)
         self.ui.folderView.hideColumn(1)
+
+        self.ui.folderView.setSortingEnabled(True)
+        self.ui.folderView.sortByColumn(0, Qt.AscendingOrder)
+
+        lastDirIndex = self.fileModel.index(lastDir)
+        self.ui.folderView.expand(lastDirIndex)
+        self.ui.folderView.scrollTo(lastDirIndex)
+
+        self.ui.folderView.clicked.connect(self.onFolderTreeClicked)
+        self.ui.buttonFind.clicked.connect(self.onButtonFind)
+
+        self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
+
+        # Set up introduction
 
         introduction = '<p align="center"><h2>{title}</h2></p>' \
             '<p><b>{tab1header}</b><br>{tab1content}</p>' \
@@ -87,24 +109,9 @@ class SearchFileWidget(QWidget):
 
         self.showInstructions()
 
-        # Loop to expand the current directory in the folderview.
-        lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath())
-        log.debug('Current directory: %s' % lastDir)
-        self.fileModel.setRootPath(lastDir)
-        path = QDir(lastDir)
-        while True:
-            self.ui.folderView.expand(self.fileModel.index(path.absolutePath()))
-            if not path.cdUp():
-                break
-
-        self.ui.folderView.setSortingEnabled(True)
-        self.ui.folderView.sortByColumn(0, 0)
-        self.ui.folderView.scrollTo(self.fileModel.index(lastDir))
-        self.ui.folderView.clicked.connect(self.onFolderTreeClicked)
-        self.ui.buttonFind.clicked.connect(self.onButtonFind)
-        self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
-
         # SETTING UP SEARCH_VIDEO_VIEW
+
+        self.initializeFilterLanguages()
         self.videoModel = VideoTreeModel(self)
         self.ui.videoView.setModel(self.videoModel)
         self.ui.videoView.activated.connect(self.onClickVideoTreeView)
@@ -140,7 +147,7 @@ class SearchFileWidget(QWidget):
         elif state == State.LOGIN_STATUS_LOGGED_IN:
             self.ui.buttonSearchSelectFolder.setEnabled(True)
             self.ui.buttonSearchSelectVideos.setEnabled(True)
-            self.ui.buttonFind.setEnabled(True)
+            self.ui.buttonFind.setEnabled(self.get_current_selected_folder() is not None)
         else:
             log.warning('unknown state')
 
@@ -152,27 +159,22 @@ class SearchFileWidget(QWidget):
 
     @pyqtSlot(list)
     def onFilterLangChangedPermanent(self, languages):
-
         if len(languages) > 0:
             lang = languages[0]
-            index = self.ui.filterLanguageForVideo.set_selected_language(lang)
+            self.ui.filterLanguageForVideo.set_selected_language(lang)
 
     @pyqtSlot(language.Language)
     def onFilterLanguageVideo(self, lang):
         log.debug('Filtering subtitles by language: {}'.format(lang))
 
         self.ui.videoView.clearSelection()
-
-        # self.videoModel.layoutAboutToBeChanged.emit()
         self.videoModel.clearTree()
-        # self.videoModel.layoutChanged.emit()
-        # self.videoView.expandAll()
+
         if isinstance(lang, language.UnknownLanguage):
             self.videoModel.setLanguageFilter(None)
             self.videoModel.unselectSubtitles()
         else:
             self.videoModel.setLanguageFilter(lang)
-            # Let's select by default the most rated subtitle for each video
             self.videoModel.selectMostRatedSubtitles()
 
         self.subtitlesCheckedChanged()
@@ -193,21 +195,183 @@ class SearchFileWidget(QWidget):
     def hideInstructions(self):
         self.ui.stackedSearchResult.setCurrentWidget(self.ui.pageSearchResult)
 
-    """What to do when a Folder in the tree is clicked"""
-
     @pyqtSlot(QModelIndex)
     def onFolderTreeClicked(self, index):
+        """What to do when a Folder in the tree is clicked"""
         if index.isValid():
-            now = QTime.currentTime()
-            if now > self.timeLastSearch.addMSecs(500):
-                if not self.ui.folderView.model().hasChildren(index):
-                    settings = QSettings()
-                    folder_path = self.ui.folderView.model().filePath(index)
-                    settings.setValue(
-                        "mainwindow/workingDirectory", folder_path)
-                    self.SearchVideos(folder_path)
-                    self.timeLastSearch = QTime.currentTime()
-                self.ui.buttonFind.setEnabled(True)
+            # if not self.fileModel.hasChildren(index):
+            settings = QSettings()
+            folder_path = self.fileModel.filePath(index)
+            settings.setValue('mainwindow/workingDirectory', folder_path)
+            self.ui.buttonFind.setEnabled(True)
+
+    def get_current_selected_folder(self):
+        folder_path = self.fileModel.filePath(self.ui.folderView.currentIndex())
+        if not folder_path:
+            return None
+        return folder_path
+
+    @pyqtSlot()
+    def onButtonFind(self):
+        now = QTime.currentTime()
+        if now < self.timeLastSearch.addMSecs(500):
+            return
+        folder_path = self.get_current_selected_folder()
+
+        settings = QSettings()
+        settings.setValue('mainwindow/workingDirectory', folder_path)
+        self.SearchVideos(folder_path)
+
+        self.timeLastSearch = QTime.currentTime()
+
+    @pyqtSlot()
+    def onButtonRefresh(self):
+        currentPath = self.get_current_selected_folder()
+        if not currentPath:
+            settings = QSettings()
+            currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
+
+        self.fileModel.setRootPath(currentPath)
+        self.ui.folderView.collapseAll()
+
+        currentPathIndex = self.fileModel.index(currentPath)
+        self.ui.folderView.expand(currentPathIndex)
+        self.ui.folderView.scrollTo(currentPathIndex)
+
+        self.ui.folderView.show()
+
+    @pyqtSlot()
+    def onButtonSearchSelectFolder(self):
+        settings = QSettings()
+        path = settings.value('mainwindow/workingDirectory', QDir.homePath())
+        folder_path = QFileDialog.getExistingDirectory(self, _('Select the directory that contains your videos'), path)
+        if folder_path:
+            settings.setValue('mainwindow/workingDirectory', folder_path)
+            self.SearchVideos(folder_path)
+
+    @pyqtSlot()
+    def onButtonSearchSelectVideos(self):
+        settings = QSettings()
+        currentDir = settings.value('mainwindow/workingDirectory', QDir.homePath())
+        fileNames, t = QFileDialog.getOpenFileNames(self, _('Select the video(s) that need subtitles'),
+                                                    currentDir, SELECT_VIDEOS)
+        if fileNames:
+            settings.setValue('mainwindow/workingDirectory', QFileInfo(fileNames[0]).absolutePath())
+            self.SearchVideos(fileNames)
+
+    def SearchVideos(self, path):
+        self.ui.buttonFind.setEnabled(False)
+        if not self.get_state().connected():
+            QMessageBox.about(self, _("Error"), _('You are not connected to the server. Please reconnect first.'))
+        else:
+            # Scan recursively the selected directory finding subtitles and
+            # videos
+            if not type(path) == list:
+                path = [path]
+
+            callback = ProgressCallbackWidget(self)
+            callback.set_title_text(_("Scanning..."))
+            callback.set_label_text(_("Scanning files"))
+            callback.set_finished_text(_("Scanning finished"))
+            callback.set_block(True)
+            callback.set_range(0, 100)
+            # FIXME: remove set_cancellable(False) once FileScan.ScanFilesFolders is made cancellable
+            callback.set_cancellable(False)
+
+            callback.show()
+
+            try:
+                videos_found, subs_found = FileScan.ScanFilesFolders(
+                    path, callback=callback, recursively=True)
+            except OSError:
+                callback.cancel()
+                QMessageBox.warning(self, _('Error'), _('Some directories not accessible.'))
+
+            log.debug("Videos found: %s" % videos_found)
+            log.debug("Subtitles found: %s" % subs_found)
+            self.hideInstructions()
+            # Populating the items in the VideoListView
+            self.videoModel.clearTree()
+            self.ui.videoView.expandAll()
+            self.videoModel.setVideos(videos_found)
+            self.ui.videoView.setModel(self.videoModel)
+            self.videoModel.videoResultsBackup = []
+            # This was a solution found to refresh the treeView
+            self.ui.videoView.expandAll()
+            # Searching our videohashes in the OSDB database
+            QCoreApplication.processEvents()
+
+            if not videos_found:
+                QMessageBox.about(
+                    self, _("Scan Results"), _("No video has been found!"))
+            else:
+                i = 0
+                total = len(videos_found)
+
+                callback = ProgressCallbackWidget(self)
+                callback.set_title_text(_("Asking Server..."))
+                callback.set_label_text(_("Searching subtitles..."))
+                callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
+                callback.set_finished_text(_("Search finished"))
+                callback.set_block(True)
+                callback.set_range(0, total)
+
+                callback.show()
+
+                # TODO: Hashes bigger than 12 MB not working correctly.
+                #                    if self.SDDBServer: #only sending those hashes bigger than 12MB
+                #                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
+                #                        if videos_sddb:
+                #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
+                while i < total:
+                    videos_piece = videos_found[i:min(i + 10, total)]
+                    callback.update(i, i + 1, total)
+                    if callback.canceled():
+                        break
+                    videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles(
+                        "", videos_piece)
+                    i += 10
+
+                    if (videoSearchResults and subs_found):
+                        hashes_subs_found = {}
+                        # Hashes of the local subtitles
+                        for sub in subs_found:
+                            hashes_subs_found[
+                                sub.get_hash()] = sub.get_filepath()
+
+                        # are the online subtitles already in our folder?
+                        for video in videoSearchResults:
+                            for sub in video._subs:
+                                if sub.get_hash() in hashes_subs_found:
+                                    sub._path = hashes_subs_found[
+                                        sub.get_hash()]
+                                    sub._online = False
+
+                    if videoSearchResults:
+                        self.videoModel.setVideos(
+                            videoSearchResults, filter=None, append=True)
+                        self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
+                        # This was a solution found to refresh the treeView
+                        self.ui.videoView.expandAll()
+                    elif videoSearchResults == None:
+                        QMessageBox.about(self, _("Error"), _(
+                            "Error contacting the server. Please try again later"))
+                        return
+
+                    if 'videoSearchResults' in locals():
+                        video_osdb_hashes = [
+                            video.get_hash() for video in videoSearchResults]
+
+                        video_filesizes = [video.get_size()
+                                           for video in videoSearchResults]
+                        video_movienames = [
+                            video.getMovieName() for video in videoSearchResults]
+
+                callback.finish()
+        self.ui.buttonFind.setEnabled(True)
+
+                # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
+                # self.OSDBServer.CheckSubHash(sub_hashes)
 
     @pyqtSlot()
     def onButtonPlay(self):
@@ -273,35 +437,6 @@ class SearchFileWidget(QWidget):
                 QMessageBox.about(
                     self, _("Error"), _("Unable to launch videoplayer"))
 
-    @pyqtSlot()
-    def onButtonFind(self):
-        folder_path = None
-        for index in self.ui.folderView.selectedIndexes():
-            folder_path = str(self.ui.folderView.model().filePath(index))
-
-        if not folder_path:
-            QMessageBox.about(self, _("Info"), _("You must select a folder first"))
-        else:
-            settings = QSettings()
-            settings.setValue("mainwindow/workingDirectory", folder_path)
-            self.SearchVideos(folder_path)
-    @pyqtSlot()
-    def onButtonRefresh(self):
-        settings = QSettings()
-        lastDir = settings.value("mainwindow/workingDirectory", QDir.homePath())
-        path = QDir(lastDir)
-        model = QFileSystemModel(self)
-        model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
-        model.setRootPath(lastDir)
-        self.ui.folderView.setModel(model)
-
-        self.ui.folderView.show()
-
-        while True:
-            self.ui.folderView.expand(model.index(path.absolutePath()))
-            if not path.cdUp():
-                break
-
     @pyqtSlot(QModelIndex)
     def onClickVideoTreeView(self, index):
         treeItem = self.videoModel.getSelectedItem(index)
@@ -345,15 +480,13 @@ class SearchFileWidget(QWidget):
                 downloadAction = QAction(
                     QIcon(":/images/download.png"), _("Download"), self)
                 # Video tab, TODO:Replace me with a enum
-                if self.ui.tabsMain.currentIndex() == 0:
-                    downloadAction.triggered.connect(self.onButtonDownload)
-                    playAction = QAction(
-                        QIcon(":/images/play.png"), _("Play video + subtitle"), self)
-                    playAction.triggered.connect(self.onButtonPlay)
-                    menu.addAction(playAction)
-                else:
-                    downloadAction.triggered.connect(
-                        self.onButtonDownloadByTitle)
+
+                downloadAction.triggered.connect(self.onButtonDownload)
+                playAction = QAction(
+                    QIcon(":/images/play.png"), _("Play video + subtitle"), self)
+                playAction.triggered.connect(self.onButtonPlay)
+                menu.addAction(playAction)
+
                 subWebsiteAction = QAction(
                     QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
 
@@ -369,35 +502,6 @@ class SearchFileWidget(QWidget):
 
         # Show the context menu.
         menu.exec_(listview.mapToGlobal(point))
-
-    def onButtonSearchSelectFolder(self):
-        if not self.get_state().connected():
-            QMessageBox.about(self, _("Error"), _(
-                "You are not connected to the server. Please reconnect first."))
-        else:
-            settings = QSettings()
-            path = settings.value("mainwindow/workingDirectory", "")
-            directory = QFileDialog.getExistingDirectory(
-                None, _("Select the directory that contains your videos"), path)
-            if directory:
-                settings.setValue("mainwindow/workingDirectory", directory)
-                folder_path = directory
-                self.SearchVideos(folder_path)
-
-    def onButtonSearchSelectVideos(self):
-        if not self.get_state().connected():
-            QMessageBox.about(self, _("Error"), _(
-                "You are not connected to the server. Please reconnect first."))
-        else:
-            settings = QSettings()
-            currentDir = settings.value("mainwindow/workingDirectory", "")
-            fileNames, t = QFileDialog.getOpenFileNames(None, _(
-                "Select the video(s) that need subtitles"), currentDir, SELECT_VIDEOS)
-            fileNames = [fileName for fileName in fileNames]
-            if fileNames:
-                settings.setValue(
-                    "mainwindow/workingDirectory", QFileInfo(fileNames[0]).absolutePath())
-                self.SearchVideos(fileNames)
 
     def onButtonDownload(self):
         # We download the subtitle in the same folder than the video
@@ -568,112 +672,8 @@ class SearchFileWidget(QWidget):
             if imdb:
                 webbrowser.open(
                     "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
-
-    def SearchVideos(self, path):
-        self.ui.buttonFind.setEnabled(False)
-        if not self.get_state().connected():
-            QMessageBox.about(self, _("Error"), _(
-                "You are not connected to the server. Please reconnect first."))
-        else:
-            # Scan recursively the selected directory finding subtitles and
-            # videos
-            if not type(path) == list:
-                path = [path]
-
-            callback = ProgressCallbackWidget(self)
-            callback.set_title_text(_("Scanning..."))
-            callback.set_label_text(_("Scanning files"))
-            callback.set_finished_text(_("Scanning finished"))
-            callback.set_block(True)
-            callback.set_range(0, 100)
-
-            callback.show()
-
-            videos_found, subs_found = FileScan.ScanFilesFolders(
-                path, callback=callback, recursively=True)
-
-            log.debug("Videos found: %s" % videos_found)
-            log.debug("Subtitles found: %s" % subs_found)
-            self.hideInstructions()
-            # Populating the items in the VideoListView
-            self.videoModel.clearTree()
-            self.ui.videoView.expandAll()
-            self.videoModel.setVideos(videos_found)
-            self.ui.videoView.setModel(self.videoModel)
-            self.videoModel.videoResultsBackup = []
-            # This was a solution found to refresh the treeView
-            self.ui.videoView.expandAll()
-            # Searching our videohashes in the OSDB database
-            QCoreApplication.processEvents()
-
-            if not videos_found:
-                QMessageBox.about(
-                    self, _("Scan Results"), _("No video has been found!"))
-            else:
-                i = 0
-                total = len(videos_found)
-
-                callback = ProgressCallbackWidget(self)
-                callback.set_title_text(_("Asking Server..."))
-                callback.set_label_text(_("Searching subtitles..."))
-                callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
-                callback.set_finished_text(_("Search finished"))
-                callback.set_block(True)
-                callback.set_range(0, total)
-
-                callback.show()
-
-                # TODO: Hashes bigger than 12 MB not working correctly.
-#                    if self.SDDBServer: #only sending those hashes bigger than 12MB
-#                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
-#                        if videos_sddb:
-#                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
-                while i < total:
-                    videos_piece = videos_found[i:min(i + 10, total)]
-                    callback.update(i, i+1, (i+1)/total)
-                    if callback.canceled():
-                        return
-                    videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles(
-                        "", videos_piece)
-                    i += 10
-
-                    if(videoSearchResults and subs_found):
-                        hashes_subs_found = {}
-                        # Hashes of the local subtitles
-                        for sub in subs_found:
-                            hashes_subs_found[
-                                sub.get_hash()] = sub.get_filepath()
-
-                        # are the online subtitles already in our folder?
-                        for video in videoSearchResults:
-                            for sub in video._subs:
-                                if sub.get_hash() in hashes_subs_found:
-                                    sub._path = hashes_subs_found[
-                                        sub.get_hash()]
-                                    sub._online = False
-
-                    if videoSearchResults:
-                        self.videoModel.setVideos(
-                            videoSearchResults, filter=None, append=True)
-                        self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
-                        # This was a solution found to refresh the treeView
-                        self.ui.videoView.expandAll()
-                    elif videoSearchResults == None:
-                        QMessageBox.about(self, _("Error"), _(
-                            "Error contacting the server. Please try again later"))
-                        return
-
-                    if 'videoSearchResults' in locals():
-                        video_osdb_hashes = [
-                            video.get_hash() for video in videoSearchResults]
-
-                        video_filesizes = [video.get_size()
-                                           for video in videoSearchResults]
-                        video_movienames = [
-                            video.getMovieName() for video in videoSearchResults]
-
-                callback.finish()
-                self.ui.buttonFind.setEnabled(True)
-
-            # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
-            # self.OSDBServer.CheckSubHash(sub_hashes)
+    @pyqtSlot()
+    def onSetIMDBInfo(self):
+        #FIXME: DUPLICATED WITH SEARCHNAMEWIDGET
+        QMessageBox.about(
+            self, _("Info"), "Not implemented yet. Sorry...")

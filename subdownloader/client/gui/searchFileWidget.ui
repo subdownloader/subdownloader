@@ -10,9 +10,6 @@
     <height>518</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
@@ -120,7 +117,7 @@
                <string>Select videos...</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/open_video.png</normaloff>:/images/open_video.png</iconset>
               </property>
               <property name="iconSize">
@@ -146,7 +143,7 @@
                <string>Select folder...</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/open_folder.png</normaloff>:/images/open_folder.png</iconset>
               </property>
               <property name="iconSize">
@@ -160,17 +157,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QTreeView" name="folderView">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="verticalScrollBarPolicy">
-             <enum>Qt::ScrollBarAsNeeded</enum>
-            </property>
-           </widget>
+           <widget class="QTreeView" name="folderView"/>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -178,12 +165,6 @@
              <widget class="QPushButton" name="buttonRefresh">
               <property name="enabled">
                <bool>true</bool>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>40</height>
-               </size>
               </property>
               <property name="font">
                <font>
@@ -204,12 +185,6 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>40</height>
-               </size>
-              </property>
               <property name="font">
                <font>
                 <weight>75</weight>
@@ -223,7 +198,7 @@
                <string>Search subtitles</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
               </property>
               <property name="iconSize">
@@ -342,9 +317,6 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="verticalScrollBarPolicy">
-                 <enum>Qt::ScrollBarAsNeeded</enum>
-                </property>
                 <property name="alternatingRowColors">
                  <bool>true</bool>
                 </property>
@@ -360,17 +332,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>40</height>
-                   </size>
-                  </property>
                   <property name="text">
                    <string>Movie Info</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -399,17 +365,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>40</height>
-                   </size>
-                  </property>
                   <property name="text">
                    <string>Play</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
                   </property>
                  </widget>
@@ -418,12 +378,6 @@
                  <widget class="QPushButton" name="buttonDownload">
                   <property name="enabled">
                    <bool>false</bool>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>40</height>
-                   </size>
                   </property>
                   <property name="font">
                    <font>
@@ -435,7 +389,7 @@
                    <string>Download</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
                   </property>
                  </widget>
