@@ -82,13 +82,25 @@ class Metadata(object):
         Private function to parse video at filepath, using pymediainfo framework.
         :param filepath: path of video to parse as string
         """
+        log.debug('pymediainfo: parsing "{filepath}" ...'.format(filepath=filepath))
         parseRes = pymediainfo.MediaInfo.parse(filepath)
+        log.debug('... parsing FINISHED')
         for track in parseRes.tracks:
+            log.debug('... found track type: "{track_type}"'.format(track_type=track.track_type))
+            log.debug(dir(track))
             if track.track_type == 'Video':
+                duration_ms = track.duration
+                framerate = track.frame_rate
+                log.debug('mode={}'.format(track.frame_rate_mode))
+                if duration_ms is None or framerate is None:
+                    log.debug('... Video track does not have duration and/or framerate.')
+                    continue
+                log.debug('... duration = {duration_ms} ms, framerate = {framerate} fps'.format(duration_ms=duration_ms,
+                                                                                               framerate=framerate))
                 self._add_metadata(
                     MetadataVideoTrack(
-                        duration_ms=track.duration,
-                        framerate=float(track.frame_rate)
+                        duration_ms=duration_ms,
+                        framerate=float(framerate)
                     )
                 )
 
