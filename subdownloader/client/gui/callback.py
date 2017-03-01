@@ -45,6 +45,7 @@ class ProgressCallbackWidget(ProgressCallback):
         self._finished_text = finished_label
 
     def reinit(self):
+        # FIXME: use QProgressDialog.reset
         self.set_title_text(self._title_text)
         self.set_label_text(self._label_text)
         self.set_updated_text(self._updated_text)
@@ -64,7 +65,9 @@ class ProgressCallbackWidget(ProgressCallback):
 
     def show(self):
         # FIXME: status_progress may be None if on_update is called BEFORE show..
-        self.status_progress = QProgressDialog(self._parent, Qt.Window)
+        # FIXME: rename to start..
+        self.status_progress = QProgressDialog(self._parent, Qt.Dialog)
+        self.status_progress.setWindowModality(Qt.WindowModal);
         self.status_progress.canceled.connect(self.on_cancel)
 
         self.status_progress.setWindowTitle(self._title_text)
@@ -74,12 +77,12 @@ class ProgressCallbackWidget(ProgressCallback):
 
         if self.range_initialized():
             minimum, maximum = self.get_range()
-            self.status_progress.setMinimum(minimum)
-            self.status_progress.setMaximum(maximum)
+        self.status_progress.setMinimum(minimum)
+        self.status_progress.setMaximum(maximum)
 
         self.status_progress.show()
         if self._block:
-            self.status_progress.setCursor(Qt.WaitCursor)
+            self._parent.setCursor(Qt.WaitCursor)
 
     def on_update(self, value, *args, **kwargs):
         self.status_progress.setValue(value)
@@ -108,7 +111,7 @@ class ProgressCallbackWidget(ProgressCallback):
     def on_cancel(self):
         self._canceled = True
         if self._block:
-            self.status_progress.setCursor(Qt.ArrowCursor)
+            self._parent.setCursor(Qt.ArrowCursor)
 
     def canceled(self):
         return self._canceled
