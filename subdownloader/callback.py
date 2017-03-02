@@ -3,31 +3,23 @@
 
 import logging
 
+log = logging.getLogger('subdownloader.callback.ProgressCallback')
+
 
 class ProgressCallback(object):
     """
     This class allows calling function to be informed of eventual progress.
-    Subclasses should only override the 'updated' and 'finished' members functions.
-    Or you can simply pass a updated and finished callback.
+    Subclasses should only override the on_*** function members.
     """
-    def __init__(self, minimum=None, maximum=None,
-                 onUpdateCb=None, onFinishCb=None, onRangeChangeCb=None, onCancelCb=None):
+    def __init__(self, minimum=None, maximum=None):
         """
         Create a a new ProgressCallback object.
         :param minimum: minimum value of the range (None if no percentage is required)
         :param maximum: maximum value of the range (None if no percentage is required)
-        :param onUpdateCb: callback when an update is available (no ratelimit). See on_update for prototype.
-        :param onFinishCb: callback when the action has finished (no ratelimit). See on_finish for prototype.
-        :param onRangeChangeCb: callback when the range has changed (no ratelimit). See on_rangeChange for prototype.
         """
-        self.log = logging.getLogger('subdownloader.callback.ProgressCallback')
-        self.log.debug('init: min={}, max={}'.format(minimum, maximum))
+        log.debug('init: min={min}, max={max}'.format(min=minimum, max=maximum))
         self._min = minimum
         self._max = maximum
-        self._onUpdateCb = onUpdateCb
-        self._onFinishCb = onFinishCb
-        self._onRangeChangeCb = onRangeChangeCb
-        self._onCancelCb = onCancelCb
 
     def range_initialized(self):
         """
@@ -35,7 +27,7 @@ class ProgressCallback(object):
         """
         return None not in self.get_range()
 
-    def set_range(self, minimum=None, maximum=None):
+    def set_range(self, minimum, maximum):
         """
         Set a range.
         The range is passed unchanged to the rangeChanged member function.
@@ -53,15 +45,15 @@ class ProgressCallback(object):
         """
         return self._min, self._max
 
-    def to_percentage(self, value):
+    def get_child_progress(self, parent_min, parent_max):
         """
-        Convert value to percentage. Pass through value if the range is invalid.
-        :param value: value to convert to a percentage
+        Create a new child ProgressCallback.
+        Minimum and maximum values of the child are mapped to parent_min and parent_max of this parent ProgressCallback.
+        :param parent_min: minimum value of the child is mapped to parent_min of this parent ProgressCallback
+        :param parent_max: maximum value of the child is mapped to parent_max of this parent ProgressCallback
+        :return: instance of SubProgressCallback
         """
-        if self.range_initialized() or (self._min != self._max):
-            return 100 * float(value - self._min) / (self._max - self._min)
-        else:
-            return value
+        return SubProgressCallback(parent=self, parent_min=parent_min, parent_max=parent_max)
 
     def update(self, value, *args, **kwargs):
         """
@@ -71,7 +63,7 @@ class ProgressCallback(object):
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
-        self.log.debug('update({})'.format(value))
+        log.debug('update(value={value}, args={args}, kwargs={kwargs})'.format(value=value, args=args, kwargs=kwargs))
         self.on_update(value, *args, **kwargs)
 
     def finish(self, *args, **kwargs):
@@ -80,14 +72,14 @@ class ProgressCallback(object):
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
-        self.log.debug('finish() called'.format())
+        log.debug('finish(args={args}, kwargs={kwargs})'.format(args=args, kwargs=kwargs))
         self.on_finish(*args, **kwargs)
 
     def cancel(self):
         """
         Call this function to inform that the operation has been cancelled.
         """
-        self.log.debug('cancel() called')
+        log.debug('cancel()')
         self.on_cancel()
 
     def on_rangeChange(self, minimum, maximum):
@@ -96,8 +88,7 @@ class ProgressCallback(object):
         :param minimum: New minimum value
         :param maximum: New maximum value
         """
-        if self._onRangeChangeCb:
-            self._onRangeChangeCb(minimum, maximum)
+        pass
 
     def on_update(self, value, *args, **kwargs):
         """
@@ -106,8 +97,7 @@ class ProgressCallback(object):
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
-        if self._onUpdateCb:
-            self._onUpdateCb(value, *args, **kwargs)
+        pass
 
     def on_finish(self, *args, **kwargs):
         """
@@ -115,12 +105,46 @@ class ProgressCallback(object):
         :param args: extra positional arguments to pass on
         :param kwargs: extra keyword arguments to pass on
         """
-        if self._onFinishCb:
-            self._onFinishCb(*args, **kwargs)
+        pass
 
     def on_cancel(self):
         """
         Override this function if a custom cancel action is required
         """
-        if self._onCancelCb:
-            self._onCancelCb()
+        pass
+
+
+class SubProgressCallback(ProgressCallback):
+    """
+    A SubProgressCallback is a ProgressCallback that will map updates to the parent updates.
+    """
+    def __init__(self, parent, parent_min, parent_max):
+        """
+        Initialize a new SubProgresCallback.
+        The range [min, max) of this SubProgressCallback are mapped to [parent_min, parent_max) of the parent callback.
+        :param parent: The parent ProgressCallback
+        :param parent_min: The minimum value of the parent
+        :param parent_max: The maximum value of the parent
+        """
+        ProgressCallback.__init__(self)
+        self._parent = parent
+        self._parent_min = parent_min
+        self._parent_max = parent_max
+
+    def on_update(self, value, *args, **kwargs):
+        """
+        Inform the parent of progress.
+        :param value: The value of this subprogresscallback
+        :param args: Extra positional arguments
+        :param kwargs: Extra keyword arguments
+        """
+        sub_progress = (value - self._min) / (self._max - self._min)
+        parent_value = self._parent_min + sub_progress * (self._parent_max - self._parent_min)
+        self._parent.update(parent_value, *args, **kwargs)
+
+    def on_cancel(self):
+        """
+        If a SubProgressCallback is canceled, cancel the parent ProgressCallback.
+        :return:
+        """
+        self._parent.cancel()
