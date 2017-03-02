@@ -39,11 +39,11 @@ class LoginDialog(QDialog):
 
     @pyqtSlot()
     def onButtonClose(self):
-        self.reject()
+        pass
 
     @pyqtSlot()
     def onButtonAccept(self):
-        self._username= self.ui.optionLoginUsername.text()
+        self._username = self.ui.optionLoginUsername.text()
         self._password = self.ui.optionLoginPassword.text()
         oldUsername = self.settings.value('options/LoginUsername', self.parent().get_state().DEFAULT_USERNAME)
         oldPassword = self.settings.value('options/LoginPassword', self.parent().get_state().DEFAULT_PASSWORD)
@@ -53,8 +53,7 @@ class LoginDialog(QDialog):
             self.settings.setValue('options/LoginPassword', self._password)
             self.login_password_changed.emit(self._username, self._password)
 
-        login_parent_state(self, self.parent().get_state())
-        self.accept()  # We close the window
+        login_parent_state(self.parent(), self.parent().get_state())
 
 
 def login_parent_state(parent, state):
