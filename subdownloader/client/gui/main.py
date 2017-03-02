@@ -1,20 +1,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+import logging
 import os.path
 import platform
 import sys
 import webbrowser
-
-try:
-    import thread
-except ImportError:
-    import _thread as thread
-
-try:
-    from urllib2 import urlopen
-except ImportError:
-    from urllib.request import urlopen
 
 try:
     from commands import getstatusoutput
@@ -23,12 +14,11 @@ except ImportError:
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QProgressDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
-from subdownloader.callback import ProgressCallback
 from subdownloader.client.internationalization import i18n_install
-
 from subdownloader.languages import language
+from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 
 from subdownloader.client.gui.main_ui import Ui_MainWindow
 from subdownloader.client.gui.preferences import PreferencesDialog
@@ -36,10 +26,8 @@ from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.login import LoginDialog, login_parent_state
 
-from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 
-import logging
-log = logging.getLogger("subdownloader.client.gui.main")
+log = logging.getLogger('subdownloader.client.gui.main')
 
 
 class Main(QMainWindow):
@@ -51,7 +39,7 @@ class Main(QMainWindow):
         QMainWindow.__init__(self, parent)
 
         self.setWindowTitle(PROJECT_TITLE)
-        self.setWindowIcon(QIcon(":/icon"))
+        self.setWindowIcon(QIcon(':/icon'))
 
         self.ui = Ui_MainWindow()
 
@@ -80,7 +68,7 @@ class Main(QMainWindow):
                 self.SearchVideos(options.videofile)
             else:
                 QMessageBox.about(
-                    self, _("Error"), _("Unable to find %s") % options.videofile)
+                    self, _('Error'), _('Unable to find {file}').format(file=options.videofile))
 
     def setupUi(self):
         self.calculateProgramFolder()
@@ -88,25 +76,20 @@ class Main(QMainWindow):
         self.ui.setupUi(self)
         self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFile)
 
-        # Menu options
+        # Menu and button options
+        self.ui.action_Login.triggered.connect(self.onButtonLogin)
+        self.ui.button_login.clicked.connect(self.onButtonLogin)
+        self.ui.action_LogOut.triggered.connect(self.onButtonLogOut)
         self.ui.action_Quit.triggered.connect(self.onMenuQuit)
+        self.ui.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.ui.action_HelpHomepage.triggered.connect(self.onMenuHelpHomepage)
         self.ui.action_HelpAbout.triggered.connect(self.onMenuHelpAbout)
         self.ui.action_HelpBug.triggered.connect(self.onMenuHelpBug)
         self.ui.action_HelpTranslate.triggered.connect(self.onMenuHelpTranslate)
-        #self.ui.action_HelpDonation.triggered.connect(self.onMenuHelpDonation)
 
-        self.ui.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
-        # self.ui.button_login = QPushButton(_("Not logged yet"), self.ui.statusbar)
-        self.ui.action_Login.triggered.connect(self.onButtonLogin)
-        self.ui.button_login.clicked.connect(self.onButtonLogin)
-        self.ui.action_LogOut.triggered.connect(self.onButtonLogOut)
-
         self.ui.label_version.setText(PROJECT_VERSION)
-
-        QCoreApplication.processEvents()
 
     def get_state(self):
         return self._state
@@ -159,8 +142,7 @@ class Main(QMainWindow):
         return login_parent_state(self, self.get_state())
 
     def dragEnterEvent(self, event):
-        # print event.mimeData().formats().join(" ")
-        if event.mimeData().hasFormat("text/plain") or event.mimeData().hasFormat("text/uri-list"):
+        if event.mimeData().hasFormat('text/plain') or event.mimeData().hasFormat('text/uri-list'):
             event.accept()
         else:
             event.ignore()
@@ -172,21 +154,21 @@ class Main(QMainWindow):
 
     def read_settings(self):
         settings = QSettings()
-        size = settings.value("mainwindow/size", QSize(1000, 400))
+        size = settings.value('mainwindow/size', QSize(1000, 400))
         self.resize(size)
         # FIXME: default position?
-        pos = settings.value("mainwindow/pos", "")
-        if pos != "":
+        pos = settings.value('mainwindow/pos', '')
+        if pos != '':
             self.move(pos)
 
-        programPath = settings.value("options/VideoPlayerPath", "")
-        if programPath == "":  # If not found videoplayer
+        programPath = settings.value('options/VideoPlayerPath', '')
+        if programPath == '':  # If not found videoplayer
             self.initializeVideoPlayer(settings)
 
     def write_settings(self):
         settings = QSettings()
-        settings.setValue("mainwindow/size", self.size())
-        settings.setValue("mainwindow/pos", self.pos())
+        settings.setValue('mainwindow/size', self.size())
+        settings.setValue('mainwindow/pos', self.pos())
 
     def close_event(self, e):
         self.write_settings()
@@ -198,7 +180,7 @@ class Main(QMainWindow):
 
     def onButtonLogOut(self):
         self.get_state().logout()
-        self.ui.button_login.setText(_("Log in"))
+        self.ui.button_login.setText(_('Log in'))
         self.ui.button_login.setEnabled(True)
         self.ui.action_Login.setEnabled(True)
         self.ui.action_LogOut.setEnabled(False)
@@ -236,21 +218,14 @@ class Main(QMainWindow):
     def InitializeFilterLanguages(self):
         settings = QSettings()
 
-        optionFilterLanguages = settings.value("options/filterSearchLang", "")
+        optionFilterLanguages = settings.value('options/filterSearchLang', '')
         languages = [language.Language.from_xxx(lang_str) for lang_str in optionFilterLanguages.split('.')]
 
         self.filterLangChangedPermanent.emit(languages)
 
-    def showErrorConnection(self):
-        QMessageBox.about(self, _("Alert"), _(
-            "www.opensubtitles.org is not responding\nIt might be overloaded, try again in a few moments."))
-
-
-
-
     def initializeVideoPlayer(self, settings):
         predefinedVideoPlayer = None
-        if platform.system() == "Linux":
+        if platform.system() == 'Linux':
             linux_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'},
                              {'executable': 'vlc',
                                  'parameters': '{0} --sub-file {1}'},
@@ -258,13 +233,13 @@ class Main(QMainWindow):
             for player in linux_players:
                 # 1st video player to find
                 status, path = getstatusoutput(
-                    "which %s" % player["executable"])
+                    'which "{executable}"'.format(executable=player["executable"]))
                 if status == 0:
                     predefinedVideoPlayer = {
                         'programPath': path,  'parameters': player['parameters']}
                     break
 
-        elif platform.system() in ("Windows", "Microsoft"):
+        elif platform.system() in ('Windows', 'Microsoft'):
             import _winreg
             windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey': '', 'parameters': '{0} --sub-file {1}'},
                                {'regRoot': _winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey': 'ExePath', 'parameters': '{0} /sub {1}'}]
@@ -272,17 +247,16 @@ class Main(QMainWindow):
             for player in windows_players:
                 try:
                     registry = _winreg.OpenKey(
-                        player['regRoot'],  player["regFolder"])
+                        player['regRoot'],  player['regFolder'])
                     path, type = _winreg.QueryValueEx(
-                        registry, player["regKey"])
-                    log.debug("Video Player found at: %s" % repr(path))
+                        registry, player['regKey'])
+                    log.debug('Video Player found at: {path}'.format(path=repr(path)))
                     predefinedVideoPlayer = {
                         'programPath': path,  'parameters': player['parameters']}
                     break
                 except (WindowsError, OSError) as e:
-                    log.debug("Cannot find registry for %s" %
-                              player['regRoot'])
-        elif platform.system() == "Darwin":  # MACOSX
+                    log.debug('Cannot find registry for {regRoot}'.format(regRoot=player['regRoot']))
+        elif platform.system() == 'Darwin':  # MACOSX
             macos_players = [{'path': '/usr/bin/open', 'parameters': '-a /Applications/VLC.app {0} --sub-file {1}'},
                              {'path': '/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX',
                                  'parameters': '{0} -sub {1}'},
@@ -294,61 +268,6 @@ class Main(QMainWindow):
 
         if predefinedVideoPlayer:
             settings.setValue(
-                "options/VideoPlayerPath", predefinedVideoPlayer['programPath'])
+                'options/VideoPlayerPath', predefinedVideoPlayer['programPath'])
             settings.setValue(
-                "options/VideoPlayerParameters", predefinedVideoPlayer['parameters'])
-
-    def onUploadSelectLanguage(self, index):
-        self.upload_autodetected_lang = "selected"
-        self.ui.label_autodetect_lang.hide()
-
-    def onUpgradeDetected(self):
-        QMessageBox.about(
-            self, _("A new version of SubDownloader has been released."))
-
-    def _get_callback(self, titleMsg, labelMsg, finishedMsg, updatedMsg=None, cancellable=True):
-        class GuiProgressCallback(ProgressCallback):
-            def __init__(self, parent, titleMsg, labelMsg, finishedMsg, updatedMsg, cancellable):
-                ProgressCallback.__init__(self)
-                self.status_progress = QProgressDialog(labelMsg, _("&Cancel"), 0, 1, parent)
-                self.status_progress.setWindowTitle(titleMsg)
-                self._finishedMsg = finishedMsg
-                self._updatedMsg = updatedMsg
-
-                self._cancelled = False
-                if not cancellable:
-                    self.status_progress.setCancelButton(None)
-                self.status_progress.canceled.connect(self.on_cancel)
-
-                self.set_range(0, 1)
-
-                self.status_progress.show()
-
-            def on_update(self, value, *args, **kwargs):
-                self.status_progress.setValue(value)
-                if self._updatedMsg:
-                    # FIXME: let the caller format the strings
-                    updatedMsg = self._updatedMsg.__mod__(args)
-                    self.status_progress.setLabelText(updatedMsg)
-                QCoreApplication.processEvents()
-
-            def on_finish(self, *args, **kwargs):
-                # FIXME: let the caller format the strings
-                windowTitle = self._finishedMsg.__mod__(args)
-                self.status_progress.setWindowTitle(windowTitle)
-                self.status_progress.close()
-                QCoreApplication.processEvents()
-
-            def on_rangeChange(self, minimum, maximum):
-                self.status_progress.setMinimum(minimum)
-                self.status_progress.setMaximum(maximum)
-                QCoreApplication.processEvents()
-
-            def on_cancel(self):
-                self._cancelled = True
-
-            def canceled(self):
-                return self._cancelled
-
-        return GuiProgressCallback(self, titleMsg, labelMsg, finishedMsg, updatedMsg, cancellable)
-
+                'options/VideoPlayerParameters', predefinedVideoPlayer['parameters'])
