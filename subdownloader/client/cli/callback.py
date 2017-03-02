@@ -30,7 +30,7 @@ class ProgressBarCallback(ProgressCallback):
         self._bar = progressbar.ProgressBar(widgets=widgets)
         self._bar.start()
 
-    def set_range(self, minimum=None, maximum=None):
+    def set_range(self, minimum, maximum):
         """
         Set the range of this ProgressBarCallback
         :param minimum: minimum as integer

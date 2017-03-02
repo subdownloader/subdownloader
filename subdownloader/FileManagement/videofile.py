@@ -2,12 +2,12 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
-import os.path
+import os
 import struct
 
 from subdownloader import metadata
 
-log = logging.getLogger('subdownloader.videofile')
+log = logging.getLogger('subdownloader.FileManagement.videofile')
 
 """
 List of known video extensions.
@@ -32,7 +32,7 @@ class NotAVideoException(Exception):
         self._filePath = filePath
 
     def __str__(self):
-        return '{0} is not a video. Error is {1}.'.format(self._filePath, self._e)
+        return '"{filePath}" is not a video. Error is "{e}".'.format(filePath=self._filePath, e=self._e)
 
 
 class VideoFile(object):
@@ -51,7 +51,7 @@ class VideoFile(object):
             self._filepath = os.path.realpath(filepath)
             self._size = os.path.getsize(filepath)
             # FIXME: calculate hash on request?
-            self._hash = self._calculate_OSDB_hash()
+            self._osdb_hash = self._calculate_OSDB_hash()
         except Exception as e:
             raise NotAVideoException(filepath, e)
         # Initialize metadata on request.
@@ -112,7 +112,7 @@ class VideoFile(object):
         :return: hash as string
         """
         self._read_metadata()
-        return self._hash
+        return self._osdb_hash
 
     def get_fps(self):
         """

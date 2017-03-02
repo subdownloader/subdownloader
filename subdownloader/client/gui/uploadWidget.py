@@ -394,7 +394,7 @@ class UploadWidget(QWidget):
             self, _("Select a directory"), path)
         if directory:
             settings.setValue("mainwindow/workingDirectory", directory)
-            videos_found, subs_found = FileScan.ScanFolder(
+            videos_found, subs_found = FileScan.scan_folder(
                 directory, callback=None, recursively=False)
             log.info("Videos found: %i Subtitles found: %i" %
                      (len(videos_found), len(subs_found)))

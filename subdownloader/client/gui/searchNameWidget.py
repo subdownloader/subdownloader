@@ -356,6 +356,7 @@ class SearchNameWidget(QWidget):
 
     @pyqtSlot()
     def onSetIMDBInfo(self):
+        #FIXME: DUPLICATED WITH SEARCHFILEWIDGET
         QMessageBox.about(
             self, _("Info"), "Not implemented yet. Sorry...")
 
@@ -376,4 +377,3 @@ class SearchNameWidget(QWidget):
             self.ui.buttonIMDBByTitle.setIcon(
                 QIcon(":/images/sites/opensubtitles.png"))
             self.ui.buttonIMDBByTitle.setText(_("Sub Info"))
-

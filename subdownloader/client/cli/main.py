@@ -194,7 +194,7 @@ class Main(object):
         """ search for videos and subtitles in the given path """
         log.info("Scanning %s ..." % self.options.videofile)
         callback = self._get_callback()
-        (self.videos, self.subs) = FileScan.ScanFolder(self.options.videofile, callback=callback) #report_progress=report_progress, progress_end=progress_end)
+        (self.videos, self.subs) = FileScan.scan_folder(self.options.videofile, callback=callback) #report_progress=report_progress, progress_end=progress_end)
         log.info("Videos found: %i Subtitles found: %i" %
                       (len(self.videos), len(self.subs)))
         if len(self.videos):

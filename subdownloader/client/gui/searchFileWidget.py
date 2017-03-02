@@ -27,6 +27,7 @@ from subdownloader.client.gui.state import State
 from subdownloader.client.gui.videotreeview import VideoTreeModel
 
 log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
+# FIXME: add logging
 
 
 class SearchFileWidget(QWidget):
@@ -241,7 +242,7 @@ class SearchFileWidget(QWidget):
 
         settings = QSettings()
         settings.setValue('mainwindow/workingDirectory', folder_path)
-        self.SearchVideos(folder_path)
+        self.search_videos([folder_path])
 
         self.timeLastSearch = QTime.currentTime()
 
@@ -287,7 +288,7 @@ class SearchFileWidget(QWidget):
         folder_path = QFileDialog.getExistingDirectory(self, _('Select the directory that contains your videos'), path)
         if folder_path:
             settings.setValue('mainwindow/workingDirectory', folder_path)
-            self.SearchVideos(folder_path)
+            self.search_videos([folder_path])
 
     @pyqtSlot()
     def onButtonSearchSelectVideos(self):
@@ -297,120 +298,118 @@ class SearchFileWidget(QWidget):
                                                     currentDir, SELECT_VIDEOS)
         if fileNames:
             settings.setValue('mainwindow/workingDirectory', QFileInfo(fileNames[0]).absolutePath())
-            self.SearchVideos(fileNames)
+            self.search_videos(fileNames)
 
-    def SearchVideos(self, path):
-        self.ui.buttonFind.setEnabled(False)
+    def search_videos(self, paths):
         if not self.get_state().connected():
             QMessageBox.about(self, _("Error"), _('You are not connected to the server. Please reconnect first.'))
-        else:
-            # Scan recursively the selected directory finding subtitles and
-            # videos
-            if not type(path) == list:
-                path = [path]
-
-            callback = ProgressCallbackWidget(self)
-            callback.set_title_text(_("Scanning..."))
-            callback.set_label_text(_("Scanning files"))
-            callback.set_finished_text(_("Scanning finished"))
-            callback.set_block(True)
-            callback.set_range(0, 100)
-            # FIXME: remove set_cancellable(False) once FileScan.ScanFilesFolders is made cancellable
-            callback.set_cancellable(False)
-
-            callback.show()
-
-            try:
-                videos_found, subs_found = FileScan.ScanFilesFolders(
-                    path, callback=callback, recursively=True)
-            except OSError:
-                callback.cancel()
-                QMessageBox.warning(self, _('Error'), _('Some directories not accessible.'))
-
-            log.debug("Videos found: %s" % videos_found)
-            log.debug("Subtitles found: %s" % subs_found)
-            self.hideInstructions()
-            # Populating the items in the VideoListView
-            self.videoModel.clearTree()
-            self.ui.videoView.expandAll()
-            self.videoModel.setVideos(videos_found)
-            self.ui.videoView.setModel(self.videoModel)
-            self.videoModel.videoResultsBackup = []
-            # This was a solution found to refresh the treeView
-            self.ui.videoView.expandAll()
-            # Searching our videohashes in the OSDB database
-            QCoreApplication.processEvents()
-
-            if not videos_found:
-                QMessageBox.about(
-                    self, _("Scan Results"), _("No video has been found!"))
-            else:
-                i = 0
-                total = len(videos_found)
-
-                callback = ProgressCallbackWidget(self)
-                callback.set_title_text(_("Asking Server..."))
-                callback.set_label_text(_("Searching subtitles..."))
-                callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
-                callback.set_finished_text(_("Search finished"))
-                callback.set_block(True)
-                callback.set_range(0, total)
-
-                callback.show()
-
-                # TODO: Hashes bigger than 12 MB not working correctly.
-                #                    if self.SDDBServer: #only sending those hashes bigger than 12MB
-                #                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
-                #                        if videos_sddb:
-                #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
-                while i < total:
-                    videos_piece = videos_found[i:min(i + 10, total)]
-                    callback.update(i, i + 1, total)
-                    if callback.canceled():
-                        break
-                    videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles(
-                        "", videos_piece)
-                    i += 10
-
-                    if (videoSearchResults and subs_found):
-                        hashes_subs_found = {}
-                        # Hashes of the local subtitles
-                        for sub in subs_found:
-                            hashes_subs_found[
-                                sub.get_hash()] = sub.get_filepath()
-
-                        # are the online subtitles already in our folder?
-                        for video in videoSearchResults:
-                            for sub in video._subs:
-                                if sub.get_hash() in hashes_subs_found:
-                                    sub._path = hashes_subs_found[
-                                        sub.get_hash()]
-                                    sub._online = False
-
-                    if videoSearchResults:
-                        self.videoModel.setVideos(videoSearchResults, filter=None, append=True)
-                        self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
-                        # This was a solution found to refresh the treeView
-                        self.ui.videoView.expandAll()
-                    elif videoSearchResults == None:
-                        QMessageBox.about(self, _("Error"), _(
-                            "Error contacting the server. Please try again later"))
-                        return
-
-                    if 'videoSearchResults' in locals():
-                        video_osdb_hashes = [
-                            video.get_hash() for video in videoSearchResults]
-
-                        video_filesizes = [video.get_size()
-                                           for video in videoSearchResults]
-                        video_movienames = [
-                            video.getMovieName() for video in videoSearchResults]
-
-                callback.finish()
+            return
+        self.ui.buttonFind.setEnabled(False)
+        self._search_videos_raw(paths)
         self.ui.buttonFind.setEnabled(True)
 
-                # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
-                # self.OSDBServer.CheckSubHash(sub_hashes)
+    def _search_videos_raw(self, paths):
+        # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
+        callback = ProgressCallbackWidget(self)
+        callback.set_title_text(_("Scanning..."))
+        callback.set_label_text(_("Scanning files"))
+        callback.set_finished_text(_("Scanning finished"))
+        callback.set_block(True)
+
+        try:
+            videos_found, subs_found = FileScan.scan_paths(paths, callback=callback, recursively=True)
+        except OSError:
+            callback.cancel()
+            QMessageBox.warning(self, _('Error'), _('Some directories are not accessible.'))
+
+        if callback.canceled():
+            return
+
+        callback.finish()
+
+        log.debug("Videos found: %s" % videos_found)
+        log.debug("Subtitles found: %s" % subs_found)
+        self.hideInstructions()
+
+        # Populating the items in the VideoListView
+        self.videoModel.clearTree()
+        self.ui.videoView.expandAll()
+        self.videoModel.setVideos(videos_found)
+        self.videoModel.videoResultsBackup = []
+        # This was a solution found to refresh the treeView
+        self.ui.videoView.expandAll()
+        # Searching our videohashes in the OSDB database
+        QCoreApplication.processEvents()
+
+        if not videos_found:
+            QMessageBox.about(self, _("Scan Results"), _("No video has been found!"))
+            return
+
+        i = 0
+        total = len(videos_found)
+
+        # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
+        callback = ProgressCallbackWidget(self)
+        callback.set_title_text(_("Asking Server..."))
+        callback.set_label_text(_("Searching subtitles..."))
+        callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
+        callback.set_finished_text(_("Search finished"))
+        callback.set_block(True)
+        callback.set_range(0, total)
+
+        callback.show()
+
+        # TODO: Hashes bigger than 12 MB not working correctly.
+        #                    if self.SDDBServer: #only sending those hashes bigger than 12MB
+        #                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
+        #                        if videos_sddb:
+        #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
+        while i < total:
+            if callback.canceled():
+                break
+            videos_piece = videos_found[i:min(i + 10, total)]
+            callback.update(i, i + 1, total)
+            videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles("", videos_piece)
+            i += 10
+
+            if (videoSearchResults and subs_found):
+                hashes_subs_found = {}
+                # Hashes of the local subtitles
+                for sub in subs_found:
+                    hashes_subs_found[
+                        sub.get_hash()] = sub.get_filepath()
+
+                # are the online subtitles already in our folder?
+                for video in videoSearchResults:
+                    for sub in video._subs:
+                        if sub.get_hash() in hashes_subs_found:
+                            sub._path = hashes_subs_found[
+                                sub.get_hash()]
+                            sub._online = False
+
+            if videoSearchResults:
+                self.videoModel.setVideos(videoSearchResults, filter=None, append=True)
+                self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
+                # This was a solution found to refresh the treeView
+                self.ui.videoView.expandAll()
+            elif videoSearchResults == None:
+                QMessageBox.about(self, _("Error"), _(
+                    "Error contacting the server. Please try again later"))
+                break
+
+            if 'videoSearchResults' in locals():
+                video_osdb_hashes = [
+                    video.get_hash() for video in videoSearchResults]
+
+                video_filesizes = [video.get_size()
+                                   for video in videoSearchResults]
+                video_movienames = [
+                    video.getMovieName() for video in videoSearchResults]
+
+        callback.finish()
+
+        # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
+        # self.OSDBServer.CheckSubHash(sub_hashes)
 
     @pyqtSlot()
     def onButtonPlay(self):
@@ -430,6 +429,7 @@ class SearchFileWidget(QWidget):
             log.debug(
                 "Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
 
+            # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
             callback = ProgressCallbackWidget(self)
             callback.set_title_text(_("Playing video + sub"))
             callback.set_label_text(_("Downloading files..."))
@@ -555,6 +555,7 @@ class SearchFileWidget(QWidget):
         answer = None
         success_downloaded = 0
 
+        # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
         callback = ProgressCallbackWidget(self)
         callback.set_title_text(_('Downloading...'))
         callback.set_label_text(_("Downloading files..."))

@@ -1,27 +1,26 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
 
-from PyQt5.QtCore import Qt, QAbstractItemModel, \
-    QModelIndex, QSize
+from PyQt5.QtCore import Qt, QAbstractItemModel, QModelIndex, QSize
 from PyQt5.QtGui import QColor, QFont, QIcon
+
 from subdownloader.FileManagement.search import Movie
 from subdownloader.FileManagement.subtitlefile import SubtitleFile
-
 from subdownloader.FileManagement.videofile import VideoFile
 
-log = logging.getLogger("subdownloader.gui.videotreeview")
+log = logging.getLogger('subdownloader.client.gui.videotreeview')
 
 
 class Node:
-
     def __init__(self, data, parent=None):
         self.data = data
         self.checked = False
         self.parent = parent
         self.children = []
 
-    def addChild(self, data):
+    def add_child(self, data):
         node = Node(data, self)
         self.children.append(node)
         return node
@@ -37,15 +36,14 @@ class VideoTreeModel(QAbstractItemModel):
 
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
-        self.root = Node("")
+        self.root = Node('')
         self.selectedNode = None
         self.languageFilter = None
-        self.videoResultsBackup = None
+        self.videoResultsBackup = []
         self.moviesResultsBackup = None
-        # self.setupTree(self.root)
 
     def setVideos(self, videoResults, filter=None, append=False):
-        log.debug("setVideos-> len(videoResults) = %d " % len(videoResults))
+        log.debug('VideoTreeModel.setVideos(#videoResults={nbVideoResults})'.format(nbVideoResults=len(videoResults)))
         if append:
             self.videoResultsBackup += videoResults
         else:
@@ -53,19 +51,19 @@ class VideoTreeModel(QAbstractItemModel):
 
         if videoResults:
             for video in videoResults:
-                videoNode = self.root.addChild(video)
+                videoNode = self.root.add_child(video)
                 for sub in video._subs:
                     sub_lang_xxx = sub.getLanguage().xxx()
                     # Filter subtitles by Language
                     if (not filter) or (sub_lang_xxx in filter):
-                        videoNode.addChild(sub)
+                        videoNode.add_child(sub)
 
     def setMovies(self, moviesResults, filter=None):
         self.moviesResultsBackup = moviesResults
 
         if moviesResults:
             for movie in moviesResults:
-                movieNode = self.root.addChild(movie)
+                movieNode = self.root.add_child(movie)
                 if len(movie.subtitles):
                     # We'll recount the number of subtitles after filtering
                     movieNode.data.totalSubs = 0
@@ -73,7 +71,7 @@ class VideoTreeModel(QAbstractItemModel):
                     sub_lang_xxx = sub.getLanguage().xxx()
                     # Filter subtitles by Language
                     if (not filter) or (sub_lang_xxx in filter):
-                        movieNode.addChild(sub)
+                        movieNode.add_child(sub)
                         movieNode.data.totalSubs += 1
 
     def clearTree(self):
@@ -109,26 +107,17 @@ class VideoTreeModel(QAbstractItemModel):
         elif self.moviesResultsBackup:
             self.setMovies(self.moviesResultsBackup, lang)
 
-    def columnCount(self, parent):
-        if parent.isValid():
-            return 1  # Only 1 column
-        else:
-            # header
-            return 1  # len(self.root.data)
-
     def data(self, index, role):
         if not index.isValid():
             return None
         data = index.internalPointer().data
 
-        if type(data) == SubtitleFile:  # It's a SUBTITLE treeitem.
+        if type(data) == SubtitleFile:
             sub = data
             if role == Qt.DecorationRole:
                 xx = data.getLanguage().xx()
-                if sub.isLocal():
-                    return QIcon(':/images/flags/%s.png' % xx).pixmap(QSize(24, 24), QIcon.Disabled)
-                else:
-                    return QIcon(':/images/flags/%s.png' % xx).pixmap(QSize(24, 24), QIcon.Normal)
+                iconMode = QIcon.Disabled if sub.isLocal() else QIcon.Normal
+                return QIcon(':/images/flags/{xx}.png'.format(xx=xx)).pixmap(QSize(24, 24), iconMode)
 
             if role == Qt.ForegroundRole:
                 if sub.isLocal():
@@ -176,14 +165,13 @@ class VideoTreeModel(QAbstractItemModel):
                     line += "  " + _("Uploader: %s") % uploader
                     return line
             return None
-        elif type(data) == VideoFile:  # It's a VIDEOFILE treeitem.
+        elif type(data) == VideoFile:
             if role == Qt.ForegroundRole:
                 return QColor(Qt.blue)
 
             movie_info = data.getMovieInfo()
             if role == Qt.DecorationRole:
                 if movie_info:
-                    # TODO: Show this icon bigger.
                     return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
                 else:
                     return None
@@ -211,19 +199,18 @@ class VideoTreeModel(QAbstractItemModel):
                     return data.get_filepath()
 
             return None
-        elif type(data) == Movie:  # It's a MOVIE item
+        elif type(data) == Movie:
             if role == Qt.ForegroundRole:
                 return QColor(Qt.blue)
 
             movie = data
             if role == Qt.DecorationRole:
-                return QIcon(':/images/info.png')
+                return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
 
             if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
 
             if role == Qt.DisplayRole:
-                movieName = movie.MovieName
                 info = "%s [%s]" % (movie.MovieName,  movie.MovieYear)
                 if movie.IMDBRating:
                     info += "  " + _("[IMDB Rate: %s]") % movie.IMDBRating
@@ -238,6 +225,9 @@ class VideoTreeModel(QAbstractItemModel):
                 return info
 
             return None
+        else:
+            log.error('VideoTreeModel.data(): illegal data type')
+            return None
 
     def flags(self, index):
         if not index.isValid():
@@ -250,9 +240,6 @@ class VideoTreeModel(QAbstractItemModel):
         elif type(data) == Movie:  # It's a Movie  treeitem.
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
 
-    def getTopNodes(self):
-        return [self.index(parentItem.row(), 0) for parentItem in self.root.children]
-
     def updateMovie(self, index, filter=None):
         movie = index.internalPointer().data
         movieNode = index.internalPointer()
@@ -261,7 +248,7 @@ class VideoTreeModel(QAbstractItemModel):
             sub_lang_xxx = sub.getLanguage().xxx()
             # Filter subtitles by Language
             if (not filter) or (filter == sub_lang_xxx):
-                movieNode.addChild(sub)
+                movieNode.add_child(sub)
 
     def getSelectedItem(self, index=None):
         if index == None:  # We want to know the current Selected Item
@@ -282,21 +269,25 @@ class VideoTreeModel(QAbstractItemModel):
         return checkedSubs
 
     def headerData(self, section, orientation, role):
-        #  if orientation == Qt.Horizontal and role == Qt.DisplayRole:
-        # return self.root.data[section]
-
-        return None  # Hide headers
+        """
+        Return header for row and column
+        :param section: row or column number
+        :param orientation: Qt.Horizontal or Qt.Vertical
+        :param role: Qt.DiaplayRole
+        :return: requested header data = None (no header)
+        """
+        return None
 
     def index(self, row, column, parent):
         if row < 0 or column < 0 or row >= self.rowCount(parent) or column >= self.columnCount(parent):
             return QModelIndex()
 
-        if not parent.isValid():
-            parentItem = self.root
-        else:
+        if parent.isValid():
             parentItem = parent.internalPointer()
+        else:
+            parentItem = self.root
 
-        if row > len(parentItem.children) - 1:
+        if row >= len(parentItem.children):
             return QModelIndex()
 
         childItem = parentItem.children[row]
@@ -311,8 +302,6 @@ class VideoTreeModel(QAbstractItemModel):
 
         childItem = index.internalPointer()
         parentItem = childItem.parent
-        # if parentItem == None:
-        # return QModelIndex()
 
         if parentItem == self.root:
             return QModelIndex()
@@ -320,24 +309,32 @@ class VideoTreeModel(QAbstractItemModel):
         return self.createIndex(parentItem.row(), 0, parentItem)
 
     def rowCount(self, parent):
-        if parent.column() > 0:
-            return 0
-
-        if not parent.isValid():
-            parentItem = self.root
-        else:
+        if parent.isValid():
             parentItem = parent.internalPointer()
+        else:
+            parentItem = self.root
 
         if type(parentItem.data) == Movie:
+            # FIXME: len(movie.subtitles) == #subtitles fetched, movie.totalSubs == #subtitles on server
+            # ==> be able to fetch more subtitles until len(movie.subtitles) == movie.totalsubtitles
             movie = parentItem.data
-            if not len(movie.subtitles):
-                # To put a 0 in the future, the 1 is just to show it's working
+            if movie.subtitles:
+                # We have local subtitles for this move
+                return len(movie.subtitles)
+            else:
+                # Mo local subtitles for this movie ==> available on server?
                 if movie.totalSubs > 0:
-                    # movie.totalSubs (that way the scrollbar doesn't expand
-                    # also)
+                    # if the server has some, fake one child (1 row)
                     return 1
                 else:
+                    # the server has none, so no child (0 rows)
                     return 0
-            return len(movie.subtitles)
         else:
             return len(parentItem.children)
+
+    def columnCount(self, parent):
+        if parent.isValid():
+            return 1
+        else:
+            # header
+            return 1

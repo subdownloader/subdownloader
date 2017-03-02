@@ -18,8 +18,8 @@ from subdownloader.FileManagement import subtitlefile
 
 log = logging.getLogger("subdownloader.search")
 
-class Link:
 
+class Link:
     def OneLink(self, OnlyLink):
         global FilmLink
         if OnlyLink == 0:

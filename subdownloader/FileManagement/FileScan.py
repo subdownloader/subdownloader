@@ -5,20 +5,12 @@ import logging
 import os
 import re
 
-import subdownloader.FileManagement.subtitlefile as subtitlefile
-import subdownloader.FileManagement.videofile as videofile
-import subdownloader.metadata as metadata
-from subdownloader.FileManagement import get_extension
+from subdownloader import metadata
+from subdownloader.FileManagement import get_extension, subtitlefile, videofile
 from subdownloader.callback import ProgressCallback
 from subdownloader.FileManagement import RecursiveParser
 
-log = logging.getLogger("subdownloader.FileManagement.FileScan")
-
-
-def FakeProgress(count=None, msg=""):
-    if not count:
-        return -1
-    pass
+log = logging.getLogger('subdownloader.FileManagement.FileScan')
 
 
 def AutoDetectNFOfile(videofolder):
@@ -36,51 +28,51 @@ def AutoDetectNFOfile(videofolder):
     return None
 
 
-def ScanFilesFolders(filepaths, callback, recursively=True):
+def scan_paths(paths, callback, recursively=True):
+    log.debug('scan_paths(paths={paths}, callback=..., recursively={recursively}'.format(paths=paths,
+                                                                                         recursively=recursively))
     all_videos_found = []
     all_subs_found = []
-    for path in filepaths:
-        log.debug("Scanning: %s" % path)
+
+    callback.set_range(0, len(paths))
+    callback.show()
+
+    for pathi, path in enumerate(paths):
+        child_callback = callback.get_child_progress(pathi, pathi + 1)
+        if callback.canceled():
+            log.debug('scan_paths: callback.canceled() == True ==> Finish')
+            break
+        log.debug('scan_paths: scanning "{path}"'.format(path=path))
 
         if os.path.isdir(path):
-            videos_found, subs_found = ScanFolder(
-                path, callback, recursively=True)
+            videos_found, subs_found = scan_folder(path, child_callback, recursively=recursively)
             all_videos_found += videos_found
             all_subs_found += subs_found
         else:
             if get_extension(path).lower() in videofile.VIDEOS_EXT:
                 all_videos_found.append(videofile.VideoFile(path))
             # Interested to know which subtitles we have in the same folder
-            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path), callback, recursively=False)
+            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path), child_callback, recursively=False)
+
+    log.debug('scan_paths() finished: #videos={nb_videos}, #subs={nb_subs}'.format(nb_videos=len(all_videos_found),
+                                                                                   nb_subs=len(all_subs_found)))
+
+    callback.finish()
     return all_videos_found, all_subs_found
 
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
 
 
-def ScanFolder(folderpath, callback=None, recursively=True):
-    # Let's reset the progress bar to 0%
-    log.debug("Scanning Folder %s" % folderpath)
-
-    if callback is None:
-        callback = ProgressCallback()
-
-    callback.set_range(0, 100)
-    # Let's reset the progress bar to 0%
-    callback.update(0)
+def scan_folder(folder_path, callback, recursively=True):
+    log.debug('scan_folder(folder_path={folder_path}, callback=..., recursively={recursively})'.format(
+        folder_path=folder_path, recursively=recursively))
 
     parser = RecursiveParser.RecursiveParser()
-    files_found = []
-    try:
-        # it's a file
-        open(folderpath, 'r')
-        if get_extension(folderpath).lower() in videofile.VIDEOS_EXT:
-            files_found.append(folderpath)
-        folderpath = os.path.dirname(folderpath)
-    except IOError:
-        # it's a directory
-        # Scanning VIDEOS
-        files_found = parser.getRecursiveFileList(
-            folderpath, videofile.VIDEOS_EXT)
+
+    files_found = parser.getRecursiveFileList(folder_path, videofile.VIDEOS_EXT)
+
+    callback.set_range(0, 100)
+    callback.update(0)
 
     videos_found = []
     # only work the video files if any were found
@@ -95,11 +87,12 @@ def ScanFolder(folderpath, callback=None, recursively=True):
 
             # ,_("Parsing video: %s")% os.path.basename(filepath))
             callback.update(count)
+
     callback.update(0)
 
     # Scanning Subs
     files_found = parser.getRecursiveFileList(
-        folderpath, subtitlefile.SUBTITLES_EXT)
+        folder_path, subtitlefile.SUBTITLES_EXT)
     subs_found = []
     # only work the subtitles if any were found
     if len(files_found):

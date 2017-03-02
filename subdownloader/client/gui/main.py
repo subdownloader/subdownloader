@@ -148,9 +148,10 @@ class Main(QMainWindow):
             event.ignore()
 
     def dropEvent(self, event):
+        # FIXME: test + add to SearchFileWidget?
         if event.mimeData().hasFormat('text/uri-list'):
             paths = [str(u.toLocalFile()) for u in event.mimeData().urls()]
-            self.ui.tabSearchFile.SearchVideos(paths)
+            self.ui.tabSearchFile.search_videos(paths)
 
     def read_settings(self):
         settings = QSettings()
