@@ -34,6 +34,8 @@ class SearchFileWidget(QWidget):
         QWidget.__init__(self)
         self.ui = Ui_SearchFileWidget()
 
+        self._refreshing = False
+
         self.fileModel = None
         self.proxyFileModel = None
         self.videoModel = None
@@ -65,8 +67,8 @@ class SearchFileWidget(QWidget):
         self.fileModel = QFileSystemModel(self)
         self.fileModel.setFilter(QDir.AllDirs | QDir.Dirs | QDir.Drives | QDir.NoDotAndDotDot | QDir.Readable | QDir.Executable | QDir.Writable)
         self.fileModel.iconProvider().setOptions(QFileIconProvider.DontUseCustomDirectoryIcons)
-
-        self.fileModel.setRootPath('')
+        self.fileModel.setRootPath(QDir.rootPath())
+        self.fileModel.directoryLoaded.connect(self.onFileModelDirectoryLoaded)
 
         self.proxyFileModel = QSortFilterProxyModel(self)
         self.proxyFileModel.setSortRole(Qt.DisplayRole)
@@ -83,11 +85,10 @@ class SearchFileWidget(QWidget):
         index = self.fileModel.index(lastDir)
         proxyIndex = self.proxyFileModel.mapFromSource(index)
         self.ui.folderView.scrollTo(proxyIndex)
-        self.fileModel.directoryLoaded.connect(self.fileModelDirectoryLoaded)
 
+        self.ui.folderView.expanded.connect(self.onFolderViewExpanded)
         self.ui.folderView.clicked.connect(self.onFolderTreeClicked)
         self.ui.buttonFind.clicked.connect(self.onButtonFind)
-
         self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
 
         # Set up introduction
@@ -141,7 +142,7 @@ class SearchFileWidget(QWidget):
         # self.ui.videoView.clicked.connect(self.onClickMovieTreeView)
 
     @pyqtSlot(str)
-    def fileModelDirectoryLoaded(self, path):
+    def onFileModelDirectoryLoaded(self, path):
         settings = QSettings()
         lastDir = settings.value('mainwindow/workingDirectory', QDir.homePath())
         qDirLastDir = QDir(lastDir)
@@ -149,9 +150,8 @@ class SearchFileWidget(QWidget):
         if qDirLastDir.path() == path:
             index = self.fileModel.index(lastDir)
             proxyIndex = self.proxyFileModel.mapFromSource(index)
-            self.ui.folderView.scrollTo(proxyIndex, QAbstractItemView.PositionAtBottom)
+            self.ui.folderView.scrollTo(proxyIndex)#, QAbstractItemView.PositionAtBottom)
             self.ui.folderView.setCurrentIndex(proxyIndex)
-            self.fileModel.directoryLoaded.disconnect(self.fileModelDirectoryLoaded)
 
     @pyqtSlot(int, str)
     def on_login_state_changed(self, state, message):
@@ -222,7 +222,7 @@ class SearchFileWidget(QWidget):
         settings = QSettings()
         folder_path = self.fileModel.filePath(index)
         settings.setValue('mainwindow/workingDirectory', folder_path)
-        self.ui.buttonFind.setEnabled(True)
+        # self.ui.buttonFind.setEnabled(self.get_state().)
 
     def get_current_selected_folder(self):
         proxyIndex = self.ui.folderView.currentIndex()
@@ -252,13 +252,33 @@ class SearchFileWidget(QWidget):
             settings = QSettings()
             currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
 
-        self.fileModel.setRootPath(currentPath)
+        self._refreshing = True
+
         self.ui.folderView.collapseAll()
 
+        currentPath = self.get_current_selected_folder()
+        if not currentPath:
+            settings = QSettings()
+            currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
+
         index = self.fileModel.index(currentPath)
-        proxyIndex = self.proxyFileModel.mapFromSource(index)
-        self.ui.folderView.expand(proxyIndex)
-        self.ui.folderView.scrollTo(proxyIndex)
+
+        self.ui.folderView.scrollTo(self.proxyFileModel.mapFromSource(index))
+
+    @pyqtSlot(QModelIndex)
+    def onFolderViewExpanded(self, proxyIndex):
+        if self._refreshing:
+            expandedPath = self.fileModel.filePath(self.proxyFileModel.mapToSource(proxyIndex))
+            if expandedPath == QDir.rootPath():
+                currentPath = self.get_current_selected_folder()
+                if not currentPath:
+                    settings = QSettings()
+                    currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
+
+                index = self.fileModel.index(currentPath)
+
+                self.ui.folderView.scrollTo(self.proxyFileModel.mapFromSource(index))
+                self._refreshing = False
 
     @pyqtSlot()
     def onButtonSearchSelectFolder(self):
@@ -427,7 +447,7 @@ class SearchFileWidget(QWidget):
                     QMessageBox.about(self, _("Error"), _(
                         "Unable to download subtitle %s") % subtitle.get_filepath())
             except Exception as e:
-                traceback.print_exc(e)
+                log.exception('Unable to download subtitle {}'.format(subtitle.get_filepath()))
                 QMessageBox.about(self, _("Error"), _(
                     "Unable to download subtitle %s") % subtitle.get_filepath())
             finally:
@@ -452,7 +472,7 @@ class SearchFileWidget(QWidget):
                 if not pid:
                     os.execvpe(os.P_NOWAIT, programPath, params, os.environ)
             except Exception as e:
-                traceback.print_exc(e)
+                log.exception('Unable to launch videoplayer')
                 QMessageBox.about(
                     self, _("Error"), _("Unable to launch videoplayer"))
 
@@ -659,7 +679,7 @@ class SearchFileWidget(QWidget):
                         QMessageBox.about(self, _("Error"), _(
                             "Unable to download subtitle %s") % sub.get_filepath())
             except Exception as e:
-                traceback.print_exc(e)
+                log.exception('Unable to Download subtitle {}'.format(sub.get_filepath()))
                 QMessageBox.about(self, _("Error"), _(
                     "Unable to download subtitle %s") % sub.get_filepath())
         callback.finish(success_downloaded, total_subs)
