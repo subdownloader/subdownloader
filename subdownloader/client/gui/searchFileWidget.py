@@ -7,9 +7,11 @@ import platform
 import traceback
 import webbrowser
 
-from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, Qt, QTime
+from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
+    QSortFilterProxyModel, Qt, QTime
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
+from PyQt5.QtWidgets import QAbstractItemView, QAction, QFileDialog, QFileIconProvider, QFileSystemModel, \
+    QMenu, QMessageBox, QWidget
 
 from subdownloader.FileManagement import FileScan
 from subdownloader.FileManagement.videofile import VideoFile
@@ -33,6 +35,7 @@ class SearchFileWidget(QWidget):
         self.ui = Ui_SearchFileWidget()
 
         self.fileModel = None
+        self.proxyFileModel = None
         self.videoModel = None
 
         self.setupUi()
@@ -61,26 +64,26 @@ class SearchFileWidget(QWidget):
 
         self.fileModel = QFileSystemModel(self)
         self.fileModel.setFilter(QDir.AllDirs | QDir.Dirs | QDir.Drives | QDir.NoDotAndDotDot | QDir.Readable | QDir.Executable | QDir.Writable)
-        self.fileModel.setRootPath(lastDir)
-
         self.fileModel.iconProvider().setOptions(QFileIconProvider.DontUseCustomDirectoryIcons)
 
-        # rootPath should be emtpy string
-        # Upstream report: https://bugreports.qt.io/browse/QTBUG-22689
-        # self.fileModel.setRootPath('')
-        self.ui.folderView.setModel(self.fileModel)
+        self.fileModel.setRootPath('')
+
+        self.proxyFileModel = QSortFilterProxyModel(self)
+        self.proxyFileModel.setSortRole(Qt.DisplayRole)
+        self.proxyFileModel.setSourceModel(self.fileModel)
+        self.proxyFileModel.sort(0, Qt.AscendingOrder)
+        self.proxyFileModel.setSortCaseSensitivity(Qt.CaseInsensitive)
+        self.ui.folderView.setModel(self.proxyFileModel)
 
         self.ui.folderView.setHeaderHidden(True)
         self.ui.folderView.hideColumn(3)
         self.ui.folderView.hideColumn(2)
         self.ui.folderView.hideColumn(1)
 
-        self.ui.folderView.setSortingEnabled(True)
-        self.ui.folderView.sortByColumn(0, Qt.AscendingOrder)
-
-        lastDirIndex = self.fileModel.index(lastDir)
-        self.ui.folderView.expand(lastDirIndex)
-        self.ui.folderView.scrollTo(lastDirIndex)
+        index = self.fileModel.index(lastDir)
+        proxyIndex = self.proxyFileModel.mapFromSource(index)
+        self.ui.folderView.scrollTo(proxyIndex)
+        self.fileModel.directoryLoaded.connect(self.fileModelDirectoryLoaded)
 
         self.ui.folderView.clicked.connect(self.onFolderTreeClicked)
         self.ui.buttonFind.clicked.connect(self.onButtonFind)
@@ -93,18 +96,18 @@ class SearchFileWidget(QWidget):
             '<p><b>{tab1header}</b><br>{tab1content}</p>' \
             '<p><b>{tab2header}</b><br>{tab2content}</p>'\
             '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
-                title=_("How To Use {title}").format(title=PROJECT_TITLE),
-                tab1header=_("1st Tab:"),
-                tab2header=_("2nd Tab:"),
-                tab3header=_("3rd Tab:"),
-                tab1content=_("Select, from the Folder Tree on the left, the folder which contains the videos "
-                              "that need subtitles. {project} will then try to automatically find available "
-                              "subtitles.").format(project=PROJECT_TITLE),
-                tab2content=_("If you don't have the videos in your machine, ou can search subtitles by "
-                               "introducing the title/name of the video."),
-                tab3content=_("If you have found some subtitle somewhere else that is not in {project}'s database, "
-                               "please upload those subtitles so next users will be able to "
-                               "find them more easily.").format(project=PROJECT_TITLE))
+                title=_('How To Use {title}').format(title=PROJECT_TITLE),
+                tab1header=_('1st Tab:'),
+                tab2header=_('2nd Tab:'),
+                tab3header=_('3rd Tab:'),
+                tab1content=_('Select, from the Folder Tree on the left, the folder which contains the videos '
+                              'that need subtitles. {project} will then try to automatically find available '
+                              'subtitles.').format(project=PROJECT_TITLE),
+                tab2content=_('If you don\'t have the videos in your machine, you can search subtitles by '
+                              'introducing the title/name of the video.').format(project=PROJECT_TITLE),
+                tab3content=_('If you have found some subtitle somewhere else that is not in {project}\'s database, '
+                              'please upload those subtitles so next users will be able to '
+                              'find them more easily.').format(project=PROJECT_TITLE))
         self.ui.introductionHelp.setHtml(introduction)
 
         self.showInstructions()
@@ -136,6 +139,19 @@ class SearchFileWidget(QWidget):
 
         # FIXME: ok to drop this conect?
         # self.ui.videoView.clicked.connect(self.onClickMovieTreeView)
+
+    @pyqtSlot(str)
+    def fileModelDirectoryLoaded(self, path):
+        settings = QSettings()
+        lastDir = settings.value('mainwindow/workingDirectory', QDir.homePath())
+        qDirLastDir = QDir(lastDir)
+        qDirLastDir.cdUp()
+        if qDirLastDir.path() == path:
+            index = self.fileModel.index(lastDir)
+            proxyIndex = self.proxyFileModel.mapFromSource(index)
+            self.ui.folderView.scrollTo(proxyIndex, QAbstractItemView.PositionAtBottom)
+            self.ui.folderView.setCurrentIndex(proxyIndex)
+            self.fileModel.directoryLoaded.disconnect(self.fileModelDirectoryLoaded)
 
     @pyqtSlot(int, str)
     def on_login_state_changed(self, state, message):
@@ -180,6 +196,7 @@ class SearchFileWidget(QWidget):
         self.subtitlesCheckedChanged()
         self.ui.videoView.expandAll()
 
+    @pyqtSlot()
     def subtitlesCheckedChanged(self):
         subs = self.videoModel.getCheckedSubtitles()
         if subs:
@@ -196,17 +213,21 @@ class SearchFileWidget(QWidget):
         self.ui.stackedSearchResult.setCurrentWidget(self.ui.pageSearchResult)
 
     @pyqtSlot(QModelIndex)
-    def onFolderTreeClicked(self, index):
+    def onFolderTreeClicked(self, proxyIndex):
         """What to do when a Folder in the tree is clicked"""
-        if index.isValid():
-            # if not self.fileModel.hasChildren(index):
-            settings = QSettings()
-            folder_path = self.fileModel.filePath(index)
-            settings.setValue('mainwindow/workingDirectory', folder_path)
-            self.ui.buttonFind.setEnabled(True)
+        if not proxyIndex.isValid():
+            return
+
+        index = self.proxyFileModel.mapToSource(proxyIndex)
+        settings = QSettings()
+        folder_path = self.fileModel.filePath(index)
+        settings.setValue('mainwindow/workingDirectory', folder_path)
+        self.ui.buttonFind.setEnabled(True)
 
     def get_current_selected_folder(self):
-        folder_path = self.fileModel.filePath(self.ui.folderView.currentIndex())
+        proxyIndex = self.ui.folderView.currentIndex()
+        index = self.proxyFileModel.mapToSource(proxyIndex)
+        folder_path = self.fileModel.filePath(index)
         if not folder_path:
             return None
         return folder_path
@@ -234,11 +255,10 @@ class SearchFileWidget(QWidget):
         self.fileModel.setRootPath(currentPath)
         self.ui.folderView.collapseAll()
 
-        currentPathIndex = self.fileModel.index(currentPath)
-        self.ui.folderView.expand(currentPathIndex)
-        self.ui.folderView.scrollTo(currentPathIndex)
-
-        self.ui.folderView.show()
+        index = self.fileModel.index(currentPath)
+        proxyIndex = self.proxyFileModel.mapFromSource(index)
+        self.ui.folderView.expand(proxyIndex)
+        self.ui.folderView.scrollTo(proxyIndex)
 
     @pyqtSlot()
     def onButtonSearchSelectFolder(self):
@@ -348,8 +368,7 @@ class SearchFileWidget(QWidget):
                                     sub._online = False
 
                     if videoSearchResults:
-                        self.videoModel.setVideos(
-                            videoSearchResults, filter=None, append=True)
+                        self.videoModel.setVideos(videoSearchResults, filter=None, append=True)
                         self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
                         # This was a solution found to refresh the treeView
                         self.ui.videoView.expandAll()
