@@ -131,7 +131,6 @@ class State(QObject):
             if not login_result:
                 # We try anonymous login in case the normal user login has failed
                 if username:
-                    callback.reinit()
                     callback.show()
                     username = ''
                     password = ''

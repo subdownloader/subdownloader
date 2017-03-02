@@ -14,7 +14,6 @@ log = logging.getLogger('subdownloader.client.gui.callback')
 class ProgressCallbackWidget(ProgressCallback):
     def __init__(self, parent):
         ProgressCallback.__init__(self)
-        self._canceled = False
 
         self.status_progress = None
         self._parent = parent
@@ -25,9 +24,15 @@ class ProgressCallbackWidget(ProgressCallback):
         self._finished_text = ''
         self._cancellable = True
 
-        self.reinit()
+        self.status_progress = QProgressDialog(self._parent, Qt.Dialog)
+
+        self.status_progress.setWindowModality(Qt.WindowModal);
 
         self.set_range(0, 1)
+
+    def __del__(self):
+        self.status_progress.close()
+        del self.status_progress
 
     def set_block(self, block):
         self._block = block
@@ -44,39 +49,27 @@ class ProgressCallbackWidget(ProgressCallback):
     def set_finished_text(self, finished_label):
         self._finished_text = finished_label
 
-    def reinit(self):
-        # FIXME: use QProgressDialog.reset
-        self.set_title_text(self._title_text)
-        self.set_label_text(self._label_text)
-        self.set_updated_text(self._updated_text)
-        self.set_finished_text(self._finished_text)
-
-        self.set_block(self._block)
-        self.set_cancellable(self._cancellable)
-
     def set_cancellable(self, cancellable):
         if not self._cancellable and cancellable:
             log.warning('ProgressCallbackWidget.set_cancellable({cancellable}): invalid operation',format(
                 cancellable=cancellable))
         self._cancellable = cancellable
-        if self.status_progress:
-            if not cancellable:
-                self.status_progress.setCancelButton(None)
+        if not cancellable:
+            self.status_progress.setCancelButton(None)
 
     def show(self):
         # FIXME: status_progress may be None if on_update is called BEFORE show..
         # FIXME: rename to start..
-        self.status_progress = QProgressDialog(self._parent, Qt.Dialog)
-        self.status_progress.setWindowModality(Qt.WindowModal);
-        self.status_progress.canceled.connect(self.on_cancel)
+        self.status_progress.reset()
+
+        self.set_block(self._block)
+        self.set_cancellable(self._cancellable)
 
         self.status_progress.setWindowTitle(self._title_text)
         self.status_progress.setLabelText(self._label_text)
 
-        self.set_cancellable(self._cancellable)
+        minimum, maximum = self.get_range()
 
-        if self.range_initialized():
-            minimum, maximum = self.get_range()
         self.status_progress.setMinimum(minimum)
         self.status_progress.setMaximum(maximum)
 
@@ -95,23 +88,22 @@ class ProgressCallbackWidget(ProgressCallback):
     def on_finish(self, *args, **kwargs):
         # FIXME: let the caller format the strings
         finishedMsg = self._finished_text.__mod__(args)
-        self.status_progress.setLabelText(finishedMsg)
+        # self.status_progress.setLabelText(finishedMsg)
+        self.status_progress.hide()
         if self._block:
-            self.status_progress.setCursor(Qt.ArrowCursor) # FIXME: restoreCursor? setCursor only in this class!!
-        self.status_progress.close()
-        self.status_progress = None
+            self._parent.setCursor(Qt.ArrowCursor) # FIXME: restoreCursor? setCursor only in this class!!
         QCoreApplication.processEvents()
 
     def on_rangeChange(self, minimum, maximum):
-        if self.status_progress:
-            self.status_progress.setMinimum(minimum)
-            self.status_progress.setMaximum(maximum)
+        self.status_progress.setMinimum(minimum)
+        self.status_progress.setMaximum(maximum)
         QCoreApplication.processEvents()
 
     def on_cancel(self):
-        self._canceled = True
+        self.status_progress.cancel()
         if self._block:
             self._parent.setCursor(Qt.ArrowCursor)
+        QCoreApplication.processEvents()
 
     def canceled(self):
-        return self._canceled
+        return self.status_progress.wasCanceled()

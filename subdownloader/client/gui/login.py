@@ -66,7 +66,9 @@ def login_parent_state(parent, state):
         if not connected:
             QMessageBox.about(parent, _('Error'), _(
                 'Error contacting the server. Please try again later.'))
+            callback.cancel()
             return False
+    callback.finish()
 
     callback = ProgressCallbackWidget(parent)
     callback.set_block(True)
@@ -75,6 +77,9 @@ def login_parent_state(parent, state):
     if not logged_in:
         QMessageBox.about(parent, _('Error'), _(
             'Error logging in into the server. Please try again later.'))
+        callback.cancel()
         return False
+    callback.finish()
+
     QCoreApplication.processEvents()
     return True
