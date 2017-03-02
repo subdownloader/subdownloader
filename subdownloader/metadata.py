@@ -87,7 +87,6 @@ class Metadata(object):
         log.debug('... parsing FINISHED')
         for track in parseRes.tracks:
             log.debug('... found track type: "{track_type}"'.format(track_type=track.track_type))
-            log.debug(dir(track))
             if track.track_type == 'Video':
                 duration_ms = track.duration
                 framerate = track.frame_rate
