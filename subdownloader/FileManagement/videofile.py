@@ -72,10 +72,10 @@ class VideoFile(object):
             return
         try:
             data = metadata.parse(self._filepath)
-            videos = data.get_metadata()
-            if len(videos) > 0:
-                self._fps = videos[0].framerate
-                self._time_ms = videos[0].duration_ms
+            videotracks = data.get_videotracks()
+            if len(videotracks) > 0:
+                self._fps = videotracks[0].get_framerate()
+                self._time_ms = videotracks[0].get_duration_ms()
         except:
             # Two possibilities: the parser failed or the file is no video
             # FIXME: log exception

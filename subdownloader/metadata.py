@@ -17,8 +17,14 @@ class MetadataVideoTrack(object):
         :param duration_ms: Duration of the video track (in milliseconds)
         :param framerate: Frame rate of the video track (in frames per second)
         """
-        self.duration_ms = duration_ms
-        self.framerate = framerate
+        self._duration_ms = duration_ms
+        self._framerate = framerate
+
+    def get_framerate(self):
+        return self._framerate
+
+    def get_duration_ms(self):
+        return self._duration_ms
 
 # FIXME: add ffprobe? ffprobe -v quiet -print_format json -show_format -show_streams ${VIDEO}
 
@@ -31,28 +37,21 @@ class Metadata(object):
         """
         Create a mew Metadata instance.
         """
-        self._videos = []
+        self._video_tracks = []
 
     def _add_metadata(self, metadata):
         """
         Private method to add a new MetadataVideoTrack instance
         :param metadata: metadata of a video track
         """
-        self._videos.append(metadata)
+        self._video_tracks.append(metadata)
 
-    def nb_videotracks(self):
-        """
-        Return number of video tracks
-        :return: number of video tracks as integer
-        """
-        return len(self._videos)
-
-    def get_metadata(self):
+    def get_videotracks(self):
         """
         Get metadata of all tracks
         :return: metadata of all tracks as a list
         """
-        return self._videos
+        return self._video_tracks
 
     def _parse_dummy(self, filepath):
         """
@@ -103,33 +102,44 @@ class Metadata(object):
                     )
                 )
 
+parser = None
+
 log.debug('Importing metadata parsing module ...')
-try:
-    log.debug('Trying kaa.metadata ...')
-    import kaa.metadata
-    log.debug('... Succeeded')
-    log.debug('parsing module = kaa.metadata')
-    # Not interested in any output of the metadata package
-    logging.getLogger('metadata').setLevel(logging.CRITICAL)
-    Metadata.parse = Metadata._parse_kaa_metadata
-except ImportError:
-    log.debug('... Failed!')
+
+if not parser:
+    try:
+        log.debug('Trying kaa.metadata ...')
+        import kaa.metadata
+        log.debug('... Succeeded')
+
+        # Not interested in any output of the metadata package
+        logging.getLogger('metadata').setLevel(logging.ERROR)
+
+        log.debug('parsing module = kaa.metadata')
+        parser = Metadata._parse_kaa_metadata
+    except ImportError:
+        log.debug('... Failed!')
+
+if not parser:
     try:
         log.debug('Trying pymediainfo ...')
         import pymediainfo
-        try:
-            pymediainfo.MediaInfo.parse(os.path.realpath(__file__))
-        except OSError:
-            raise ImportError
-        log.debug('... Succeeded')
-        log.debug('parsing module = pymediainfo')
-        Metadata.parse = Metadata._parse_pymediainfo
+        if pymediainfo.MediaInfo.can_parse:
+            log.debug('... Succeeded')
+            log.debug('parsing module = pymediainfo')
+            parser = Metadata._parse_pymediainfo
+        else:
+            log.debug('... Failed!')
     except ImportError:
         log.debug('... Failed!')
-        log.debug('parsing module = dummy parser')
-        Metadata.parse = Metadata._parse_dummy
-log.debug('... Importing finished')
 
+if not parser:
+    log.debug('parsing module = dummy parser')
+    parser = Metadata._parse_dummy
+
+Metadata.parse = parser
+
+log.debug('... Importing metadata parsing module finished')
 
 def parse(filepath):
     """

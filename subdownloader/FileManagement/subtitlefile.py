@@ -5,14 +5,12 @@ import hashlib
 import logging
 import os
 
-log = logging.getLogger('subdownloader.subtitlefile')
+log = logging.getLogger('subdownloader.FileManagement.subtitlefile')
 
 """
 List of known subtitle extensions.
 """
 SUBTITLES_EXT = ["srt", "sub", "txt", "ssa", "smi", "ass", "mpl"]
-
-log = logging.getLogger("subdownloader.modules.subtitlefile")
 
 
 class SubtitleFile(object):
