@@ -18,6 +18,7 @@ class ProgressCallbackWidget(ProgressCallback):
         self.status_progress = None
         self._parent = parent
         self._block = False
+
         self._label_text = ''
         self._title_text = ''
         self._updated_text = ''

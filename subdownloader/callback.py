@@ -21,6 +21,8 @@ class ProgressCallback(object):
         self._min = minimum
         self._max = maximum
 
+        self._canceled = False
+
     def range_initialized(self):
         """
         Check whether a range is set.
@@ -80,6 +82,7 @@ class ProgressCallback(object):
         Call this function to inform that the operation has been cancelled.
         """
         log.debug('cancel()')
+        self._canceled = True
         self.on_cancel()
 
     def on_rangeChange(self, minimum, maximum):
@@ -114,6 +117,14 @@ class ProgressCallback(object):
         pass
 
 
+    def canceled(self):
+        """
+        Return true when the progress has been canceled.
+        :return: Boolean value
+        """
+        return self._canceled
+
+
 class SubProgressCallback(ProgressCallback):
     """
     A SubProgressCallback is a ProgressCallback that will map updates to the parent updates.
@@ -138,8 +149,10 @@ class SubProgressCallback(ProgressCallback):
         :param args: Extra positional arguments
         :param kwargs: Extra keyword arguments
         """
-        sub_progress = (value - self._min) / (self._max - self._min)
-        parent_value = self._parent_min + sub_progress * (self._parent_max - self._parent_min)
+        parent_value = self._parent_min
+        if self._max != self._min:
+            sub_progress = (value - self._min) / (self._max - self._min)
+            parent_value = self._parent_min + sub_progress * (self._parent_max - self._parent_min)
         self._parent.update(parent_value, *args, **kwargs)
 
     def on_cancel(self):

@@ -21,9 +21,8 @@ class State(QObject):
     def __init__(self, parent, options):
         QObject.__init__(self, parent)
 
-        self._OSDBServer = None
-
         self._proxy = options.proxy
+        self._OSDBServer = SDService(proxy=self._proxy)
 
         self.read_settings()
 
@@ -38,7 +37,7 @@ class State(QObject):
                 self._proxy = '{proxy_host}:{proxy_port}'.format(proxy_host=proxy_host, proxy_port=proxy_port)
 
     def connected(self):
-        return self._OSDBServer is not None
+        return self._OSDBServer.connected()
 
     def get_OSDBServer(self):
         # FIXME: method MUST disappear
@@ -67,10 +66,9 @@ class State(QObject):
         callback.show()
 
         try:
-            self._OSDBServer = SDService(proxy=self._proxy)
-            # self._OSDBServer.connect() # FIXME: separate provider creation and connection
+            connect_res = self._OSDBServer.connect()
             callback.finish()
-            return True
+            return connect_res
         except TimeoutFunctionException:
             # FIXME get rid of TimeoutFunctionException
             # FIXME: callback finish should display a failed message on exception
@@ -171,25 +169,22 @@ class State(QObject):
         # FIXME: define interface!
         return self._OSDBServer.UploadSubtitles(data)
 
-    def getDownloadPath(self, video, subtitle):
+    def getDownloadPath(self, subtitle):
+        video = subtitle.get_parent().get_parent().get_parent()
         downloadFullPath = ""
         settings = QSettings()
 
         # Creating the Subtitle Filename
-        optionSubtitleName = \
-            settings.value("options/subtitleName", "SAME_VIDEO")
-        sub_extension = get_extension(subtitle.get_filepath().lower())
-        if optionSubtitleName == "SAME_VIDEO":
-            subFileName = without_extension(
-                video.get_filepath()) + "." + sub_extension
-        elif optionSubtitleName == "SAME_VIDEOPLUSLANG":
-            subFileName = without_extension(
-                video.get_filepath()) + "." + subtitle.getLanguage().xxx() + "." + sub_extension
-        elif optionSubtitleName == "SAME_VIDEOPLUSLANGANDUPLOADER":
-            subFileName = without_extension(video.get_filepath(
-            )) + "." + subtitle.getLanguage().xxx() + "." + subtitle.getUploader() + "." + sub_extension
-        elif optionSubtitleName == "SAME_ONLINE":
-            subFileName = subtitle.get_filepath()
+        optionSubtitleName = settings.value('options/subtitleName', 'SAME_VIDEO')
+        sub_extension = get_extension(subtitle.get_filename().lower())
+        if optionSubtitleName == 'SAME_VIDEO':
+            subFileName = without_extension(video.get_filepath()) + "." + sub_extension
+        elif optionSubtitleName == 'SAME_VIDEOPLUSLANG':
+            subFileName = without_extension(video.get_filepath()) + "." + subtitle.get_language().xxx() + "." + sub_extension
+        elif optionSubtitleName == 'SAME_VIDEOPLUSLANGANDUPLOADER':
+            subFileName = without_extension(video.get_filepath()) + "." + subtitle.get_language().xxx() + "." + subtitle.get_uploader() + "." + sub_extension
+        elif optionSubtitleName == 'SAME_ONLINE':
+            subFileName = os.path.join(os.path.dirname(video.get_filepath()), subtitle.get_filename())
 
         # Creating the Folder Destination
         optionWhereToDownload = \
@@ -199,7 +194,7 @@ class State(QObject):
             dir = QDir(folderPath)
             downloadFullPath = dir.filePath(subFileName)
             downloadFullPath, t = QFileDialog.getSaveFileName(
-                None, _("Save as..."), downloadFullPath, sub_extension).__str__()
+                None, _("Save as..."), downloadFullPath, sub_extension)
             log.debug("Downloading to: %r" % downloadFullPath)
         elif optionWhereToDownload == "SAME_FOLDER":
             folderPath = video.get_folderpath()

@@ -68,7 +68,7 @@ def login_parent_state(parent, state):
                 'Error contacting the server. Please try again later.'))
             callback.cancel()
             return False
-    callback.finish()
+        callback.finish()
 
     callback = ProgressCallbackWidget(parent)
     callback.set_block(True)

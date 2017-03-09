@@ -50,6 +50,7 @@ def run(options):
 
     log.debug('Starting application event loop ...')
 
+    # restore default interrupt handler for signal interrupt (CTRL+C interrupt)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     res = app.exec_()
     return res

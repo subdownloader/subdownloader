@@ -150,7 +150,6 @@ class Ui_SearchFileWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.videoView.sizePolicy().hasHeightForWidth())
         self.videoView.setSizePolicy(sizePolicy)
-        self.videoView.setAlternatingRowColors(True)
         self.videoView.setObjectName("videoView")
         self.verticalLayout_12.addWidget(self.videoView)
         self.layoutBottomVideos = QtWidgets.QHBoxLayout()

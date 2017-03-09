@@ -4,27 +4,28 @@
 import logging
 import os
 import platform
-import traceback
 import webbrowser
 
 from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
     QSortFilterProxyModel, Qt, QTime
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAbstractItemView, QAction, QFileDialog, QFileIconProvider, QFileSystemModel, \
-    QMenu, QMessageBox, QWidget
+from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
 
-from subdownloader.FileManagement import FileScan
-from subdownloader.FileManagement.videofile import VideoFile
+from subdownloader.callback import ProgressCallback
+from subdownloader.filescan import scan_videopaths
 from subdownloader.FileManagement.search import Movie
-from subdownloader.FileManagement.subtitlefile import SubtitleFile
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE
+from subdownloader.video2 import VideoFile
+from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
+from subdownloader.util import write_stream
+from subdownloader.provider.SDService import ProviderConnectionError #FIXME: move to provider
 
 from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.videotreeview import VideoTreeModel
+from subdownloader.client.gui.videomodel2 import VideoModel
 
 log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 # FIXME: add logging
@@ -117,7 +118,8 @@ class SearchFileWidget(QWidget):
         # SETTING UP SEARCH_VIDEO_VIEW
 
         self.initializeFilterLanguages()
-        self.videoModel = VideoTreeModel(self)
+        self.videoModel = VideoModel(self)
+        self.ui.videoView.setHeaderHidden(True)
         self.ui.videoView.setModel(self.videoModel)
         self.ui.videoView.activated.connect(self.onClickVideoTreeView)
         self.ui.videoView.clicked.connect(self.onClickVideoTreeView)
@@ -184,8 +186,8 @@ class SearchFileWidget(QWidget):
     def onFilterLanguageVideo(self, lang):
         log.debug('Filtering subtitles by language: {}'.format(lang))
 
-        self.ui.videoView.clearSelection()
-        self.videoModel.clearTree()
+        # self.ui.videoView.clearSelection()
+        self.videoModel.clear()
 
         if isinstance(lang, language.UnknownLanguage):
             self.videoModel.setLanguageFilter(None)
@@ -199,13 +201,11 @@ class SearchFileWidget(QWidget):
 
     @pyqtSlot()
     def subtitlesCheckedChanged(self):
-        subs = self.videoModel.getCheckedSubtitles()
+        subs = self.videoModel.get_checked_subtitles()
         if subs:
             self.ui.buttonDownload.setEnabled(True)
-            self.ui.buttonPlay.setEnabled(True)
         else:
             self.ui.buttonDownload.setEnabled(False)
-            self.ui.buttonPlay.setEnabled(False)
 
     def showInstructions(self):
         self.ui.stackedSearchResult.setCurrentWidget(self.ui.pageIntroduction)
@@ -232,6 +232,10 @@ class SearchFileWidget(QWidget):
         if not folder_path:
             return None
         return folder_path
+
+    def get_current_selected_item_videomodel(self):
+        current_index = self.ui.videoView.currentIndex()
+        return self.videoModel.getSelectedItem(current_index)
 
     @pyqtSlot()
     def onButtonFind(self):
@@ -317,7 +321,7 @@ class SearchFileWidget(QWidget):
         callback.set_block(True)
 
         try:
-            videos_found, subs_found = FileScan.scan_paths(paths, callback=callback, recursively=True)
+            local_videos, local_subs = scan_videopaths(paths, callback=callback, recursive=True)
         except OSError:
             callback.cancel()
             QMessageBox.warning(self, _('Error'), _('Some directories are not accessible.'))
@@ -327,85 +331,41 @@ class SearchFileWidget(QWidget):
 
         callback.finish()
 
-        log.debug("Videos found: %s" % videos_found)
-        log.debug("Subtitles found: %s" % subs_found)
+        log.debug("Videos found: %s" % local_videos)
+        log.debug("Subtitles found: %s" % local_subs)
         self.hideInstructions()
 
-        # Populating the items in the VideoListView
-        self.videoModel.clearTree()
-        self.ui.videoView.expandAll()
-        self.videoModel.setVideos(videos_found)
-        self.videoModel.videoResultsBackup = []
-        # This was a solution found to refresh the treeView
-        self.ui.videoView.expandAll()
-        # Searching our videohashes in the OSDB database
         QCoreApplication.processEvents()
 
-        if not videos_found:
+        if not local_videos:
             QMessageBox.about(self, _("Scan Results"), _("No video has been found!"))
             return
 
-        i = 0
-        total = len(videos_found)
+        total = len(local_videos)
 
         # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
-        callback = ProgressCallbackWidget(self)
-        callback.set_title_text(_("Asking Server..."))
-        callback.set_label_text(_("Searching subtitles..."))
-        callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
-        callback.set_finished_text(_("Search finished"))
+        # callback = ProgressCallbackWidget(self)
+        # callback.set_title_text(_("Asking Server..."))
+        # callback.set_label_text(_("Searching subtitles..."))
+        # callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
+        # callback.set_finished_text(_("Search finished"))
         callback.set_block(True)
         callback.set_range(0, total)
 
         callback.show()
 
-        # TODO: Hashes bigger than 12 MB not working correctly.
-        #                    if self.SDDBServer: #only sending those hashes bigger than 12MB
-        #                        videos_sddb = [video for video in videos_found if int(video.getSize()) > 12000000]
-        #                        if videos_sddb:
-        #                                thread.start_new_thread(self.SDDBServer.SearchSubtitles, ('',videos_sddb, ))
-        while i < total:
-            if callback.canceled():
-                break
-            videos_piece = videos_found[i:min(i + 10, total)]
-            callback.update(i, i + 1, total)
-            videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles("", videos_piece)
-            i += 10
+        callback.set_range(0, 2)
 
-            if (videoSearchResults and subs_found):
-                hashes_subs_found = {}
-                # Hashes of the local subtitles
-                for sub in subs_found:
-                    hashes_subs_found[
-                        sub.get_hash()] = sub.get_filepath()
+        download_callback = callback.get_child_progress(0, 1)
+        # videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles("", videos_piece)
+        remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
 
-                # are the online subtitles already in our folder?
-                for video in videoSearchResults:
-                    for sub in video._subs:
-                        if sub.get_hash() in hashes_subs_found:
-                            sub._path = hashes_subs_found[
-                                sub.get_hash()]
-                            sub._online = False
+        self.videoModel.set_videos(local_videos)
+        # self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
 
-            if videoSearchResults:
-                self.videoModel.setVideos(videoSearchResults, filter=None, append=True)
-                self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
-                # This was a solution found to refresh the treeView
-                self.ui.videoView.expandAll()
-            elif videoSearchResults == None:
-                QMessageBox.about(self, _("Error"), _(
-                    "Error contacting the server. Please try again later"))
-                break
-
-            if 'videoSearchResults' in locals():
-                video_osdb_hashes = [
-                    video.get_hash() for video in videoSearchResults]
-
-                video_filesizes = [video.get_size()
-                                   for video in videoSearchResults]
-                video_movienames = [
-                    video.getMovieName() for video in videoSearchResults]
-
+        if remote_subs is None:
+            QMessageBox.about(self, _("Error"), _(
+                "Error contacting the server. Please try again later"))
         callback.finish()
 
         # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
@@ -414,95 +374,110 @@ class SearchFileWidget(QWidget):
     @pyqtSlot()
     def onButtonPlay(self):
         settings = QSettings()
-        programPath = settings.value("options/VideoPlayerPath", "")
-        parameters = settings.value("options/VideoPlayerParameters", "")
+        programPath = settings.value('options/VideoPlayerPath', '')
+        parameters = settings.value('options/VideoPlayerParameters', '')
         if programPath == '':
-            QMessageBox.about(self, _("Error"), _(
-                "No default video player has been defined in Settings."))
+            QMessageBox.about(self, _('Error'), _(
+                'No default video player has been defined in Settings.'))
             return
-        else:
-            subtitle = self.videoModel.getSelectedItem().data
-            moviePath = subtitle.getVideo().get_filepath()
-            subtitleFileID = subtitle.getIdFileOnline()
-            # This should work in all the OS, creating a temporary file
-            tempSubFilePath = QDir.temp().absoluteFilePath("subdownloader.tmp.srt")
-            log.debug(
-                "Temporary subtitle will be downloaded into: %s" % tempSubFilePath)
 
+        selected_subtitle = self.get_current_selected_item_videomodel()
+        if isinstance(selected_subtitle, SubtitleFileNetwork):
+            selected_subtitle = selected_subtitle.get_subtitles()[0]
+
+        if isinstance(selected_subtitle, LocalSubtitleFile):
+            subtitle_file_path = selected_subtitle.get_filepath()
+        elif isinstance(selected_subtitle, RemoteSubtitleFile):
+            subtitle_file_path = QDir.temp().absoluteFilePath('subdownloader.tmp.srt')
+            log.debug('Temporary subtitle will be downloaded into: {temp_path}'.format(temp_path=subtitle_file_path))
             # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
             callback = ProgressCallbackWidget(self)
-            callback.set_title_text(_("Playing video + sub"))
-            callback.set_label_text(_("Downloading files..."))
-            callback.set_finished_text(_("Downloading finished"))
+            callback.set_title_text(_('Playing video + sub'))
+            callback.set_label_text(_('Downloading files...'))
+            callback.set_finished_text(_('Downloading finished'))
             callback.set_block(True)
             callback.set_range(0, 100)
-
             callback.show()
-
-            callback.update(-1)
             try:
-                ok = self.get_state().get_OSDBServer().DownloadSubtitles(
-                    {subtitleFileID: tempSubFilePath})
-                if not ok:
-                    QMessageBox.about(self, _("Error"), _(
-                        "Unable to download subtitle %s") % subtitle.get_filepath())
-            except Exception as e:
-                log.exception('Unable to download subtitle {}'.format(subtitle.get_filepath()))
-                QMessageBox.about(self, _("Error"), _(
-                    "Unable to download subtitle %s") % subtitle.get_filepath())
-            finally:
+                subtitle_stream = selected_subtitle.download(self.get_state().get_OSDBServer(), callback=callback)
+            except ProviderConnectionError:
+                log.debug('Unable to download subtitle "{}"'.format(selected_subtitle.get_filename()), exc_info=True)
+                QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(
+                    subtitle=selected_subtitle.get_filename()))
                 callback.finish()
+                return
+            callback.finish()
+            write_stream(subtitle_stream, subtitle_file_path)
 
-            params = []
+        video = selected_subtitle.get_parent().get_parent().get_parent()
 
-            for param in parameters.split(" "):
-                if platform.system() in ("Windows", "Microsoft"):
-                    param = param.replace('{0}', '"' + moviePath + '"')
-                else:
-                    param = param.replace('{0}', moviePath)
-                param = param.replace('{1}',  tempSubFilePath)
-                params.append(param)
+        def windows_escape(text):
+            return'"{text}"'.format(text=text.replace('"', '\\"'))
 
-            params.insert(0, '"' + programPath + '"')
-            log.info("Running this command:\n%s %s" % (programPath, params))
+        params = [windows_escape(programPath)]
+
+        for param in parameters.split(' '):
+            param = param.format(video.get_filepath(), subtitle_file_path)
+            if platform.system() in ('Windows', 'Microsoft'):
+                param = windows_escape(param)
+            params.append(param)
+
+        pid = None
+        log.info('Running this command: {params}'.format(params=params))
+        try:
+            log.debug('Trying os.spawnvpe ...')
+            pid = os.spawnvpe(os.P_NOWAIT, programPath, params, os.environ)
+            log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
+        except AttributeError:
+            log.debug('... FAILED', exc_info=True)
+        except Exception as e:
+            log.debug('... FAILED', exc_info=True)
+        if pid is None:
             try:
-                os.spawnvpe(os.P_NOWAIT, programPath, params, os.environ)
-            except AttributeError:
+                log.debug('Trying os.fork ...')
                 pid = os.fork()
                 if not pid:
+                    log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
                     os.execvpe(os.P_NOWAIT, programPath, params, os.environ)
-            except Exception as e:
-                log.exception('Unable to launch videoplayer')
-                QMessageBox.about(
-                    self, _("Error"), _("Unable to launch videoplayer"))
+            except:
+                log.debug('... FAIL', exc_info=True)
+        if pid is None:
+            QMessageBox.about(
+                self, _('Error'), _('Unable to launch videoplayer'))
 
     @pyqtSlot(QModelIndex)
     def onClickVideoTreeView(self, index):
-        treeItem = self.videoModel.getSelectedItem(index)
-        if type(treeItem.data) == VideoFile:
-            video = treeItem.data
-            if video.getMovieInfo():
-                self.ui.buttonIMDB.setEnabled(True)
-                self.ui.buttonIMDB.setIcon(QIcon(":/images/info.png"))
-                self.ui.buttonIMDB.setText(_("Movie Info"))
+        data_item = self.videoModel.getSelectedItem(index)
+
+        if isinstance(data_item, SubtitleFile):
+            self.ui.buttonPlay.setEnabled(True)
         else:
-            treeItem.checked = not(treeItem.checked)
-            self.videoModel.dataChanged.emit(index, index)
+            self.ui.buttonPlay.setEnabled(False)
+
+        if isinstance(data_item, VideoFile):
+            video = data_item
+            if True: # video.getMovieInfo():
+                self.ui.buttonIMDB.setEnabled(True)
+                self.ui.buttonIMDB.setIcon(QIcon(':/images/info.png'))
+                self.ui.buttonIMDB.setText(_('Movie Info'))
+        elif isinstance(data_item, RemoteSubtitleFile):
             self.ui.buttonIMDB.setEnabled(True)
-            self.ui.buttonIMDB.setIcon(QIcon(":/images/sites/opensubtitles.png"))
-            self.ui.buttonIMDB.setText(_("Sub Info"))
+            self.ui.buttonIMDB.setIcon(QIcon(':/images/sites/opensubtitles.png'))
+            self.ui.buttonIMDB.setText(_('Subtitle Info'))
+        else:
+            self.ui.buttonIMDB.setEnabled(False)
 
     def onContext(self, point):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
-        menu = QMenu("Menu", self)
+        menu = QMenu('Menu', self)
 
         listview = self.ui.videoView
 
         index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
-        if treeItem != None:
-            if type(treeItem.data) == VideoFile:
-                video = treeItem.data
+        data_item = listview.model().getSelectedItem(index)
+        if data_item is not None:
+            if isinstance(data_item, VideoFile):
+                video = data_item
                 movie_info = video.getMovieInfo()
                 if movie_info:
                     subWebsiteAction = QAction(
@@ -513,9 +488,7 @@ class SearchFileWidget(QWidget):
                         QIcon(":/images/info.png"), _("Set IMDB info..."), self)
                     subWebsiteAction.triggered.connect(self.onSetIMDBInfo)
                 menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == SubtitleFile:  # Subtitle
-                treeItem.checked = True
-                self.videoModel.dataChanged.emit(index, index)
+            elif isinstance(data_item, SubtitleFile):
                 downloadAction = QAction(
                     QIcon(":/images/download.png"), _("Download"), self)
                 # Video tab, TODO:Replace me with a enum
@@ -532,8 +505,7 @@ class SearchFileWidget(QWidget):
                 menu.addAction(downloadAction)
                 subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
                 menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == Movie:
-                movie = treeItem.data
+            elif isinstance(data_item, Movie):
                 subWebsiteAction = QAction(
                     QIcon(":/images/info.png"), _("View IMDB info"), self)
                 subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
@@ -544,7 +516,7 @@ class SearchFileWidget(QWidget):
 
     def onButtonDownload(self):
         # We download the subtitle in the same folder than the video
-        subs = self.videoModel.getCheckedSubtitles()
+        subs = self.videoModel.get_checked_subtitles()
         replace_all = False
         skip_all = False
         if not subs:
@@ -569,7 +541,7 @@ class SearchFileWidget(QWidget):
         for i, sub in enumerate(subs):
             if callback.canceled():
                 break
-            destinationPath = self.get_state().getDownloadPath(sub.getVideo(), sub)
+            destinationPath = self.get_state().getDownloadPath(sub)
             if not destinationPath:
                 break
             log.debug("Trying to download subtitle '%s'" % destinationPath)
@@ -608,8 +580,7 @@ class SearchFileWidget(QWidget):
             if answer == QMessageBox.Discard:
                 continue  # Continue the next subtitle
 
-            optionWhereToDownload = \
-                QSettings().value("options/whereToDownload", "SAME_FOLDER")
+            optionWhereToDownload = QSettings().value("options/whereToDownload", "SAME_FOLDER")
             # Check if doesn't exists already, otherwise show fileExistsBox
             # dialog
             if QFileInfo(destinationPath).exists() and not replace_all and not skip_all and optionWhereToDownload != "ASK_FOLDER":
@@ -674,40 +645,41 @@ class SearchFileWidget(QWidget):
             try:
                 if not skip_all:
                     log.debug("Downloading subtitle '%s'" % destinationPath)
-                    if self.get_state().get_OSDBServer().DownloadSubtitles({sub.getIdFileOnline(): destinationPath}):
-                        success_downloaded += 1
-                    else:
-                        QMessageBox.about(self, _("Error"), _(
-                            "Unable to download subtitle %s") % sub.get_filepath())
+                    download_callback = ProgressCallback()  # FIXME
+                    data_stream = sub.download(
+                        provider_instance=self.get_state().get_OSDBServer(),
+                        callback=download_callback,
+                    )
+                    write_stream(data_stream, destinationPath)
             except Exception as e:
-                log.exception('Unable to Download subtitle {}'.format(sub.get_filepath()))
+                log.exception('Unable to Download subtitle {}'.format(sub.get_filename()))
                 QMessageBox.about(self, _("Error"), _(
-                    "Unable to download subtitle %s") % sub.get_filepath())
+                    "Unable to download subtitle %s") % sub.get_filename())
         callback.finish(success_downloaded, total_subs)
 
     def onViewOnlineInfo(self):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
         # Tab for SearchByHash TODO:replace this 0 by an ENUM value
+        self.videoModel.getSelectedItem()
         listview = self.ui.videoView
         index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
+        data_item = self.videoModel.getSelectedItem(index)
 
-        if type(treeItem.data) == VideoFile:
-            video = self.videoModel.getSelectedItem().data
+        if isinstance(data_item, VideoFile):
+            video = data_item
             movie_info = video.getMovieInfo()
             if movie_info:
                 imdb = movie_info["IDMovieImdb"]
                 if imdb:
                     webbrowser.open(
                         "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
-        elif type(treeItem.data) == SubtitleFile:  # Subtitle
-            sub = treeItem.data
-            if sub.isOnline():
-                webbrowser.open(
-                    "http://www.opensubtitles.org/en/subtitles/%s/" % sub.getIdOnline(), new=2, autoraise=1)
 
-        elif type(treeItem.data) == Movie:
-            movie = self.moviesModel.getSelectedItem().data
+        elif isinstance(data_item, RemoteSubtitleFile):
+            sub = data_item
+            webbrowser.open(sub.get_link(), new=2, autoraise=1)
+
+        elif isinstance(data_item, Movie):
+            movie = data_item
             imdb = movie.IMDBId
             if imdb:
                 webbrowser.open(

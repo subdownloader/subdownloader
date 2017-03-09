@@ -6,8 +6,9 @@ import os
 import struct
 
 from subdownloader import metadata
+from subdownloader.subtitle2 import SubtitleFileCollection
 
-log = logging.getLogger('subdownloader.FileManagement.videofile')
+log = logging.getLogger('subdownloader.video2')
 
 """
 List of known video extensions.
@@ -53,16 +54,14 @@ class VideoFile(object):
             # FIXME: calculate hash on request?
             self._osdb_hash = self._calculate_OSDB_hash()
         except Exception as e:
+            log.exception('Could not calculate filepath, size and/or osdb hash of "{path}"'.format(path=filepath))
             raise NotAVideoException(filepath, e)
         # Initialize metadata on request.
         self._metadata_init = False
         self._fps = 0
         self._time_ms = 0
 
-        self._subs = []
-        self.nos_subs = []
-        self._osdb_info = {}
-        self._movie_info = {}
+        self._subtitles = SubtitleFileCollection(parent=self)
 
     def _read_metadata(self):
         """
@@ -71,18 +70,23 @@ class VideoFile(object):
         if self._metadata_init:
             return
         try:
+            log.debug('Reading metadata of "{path}" ...'.format(path=self._filepath))
             data = metadata.parse(self._filepath)
-            videos = data.get_videotracks()
-            if len(videos) > 0:
-                self._fps = videos[0].framerate
-                self._time_ms = videos[0].duration_ms
-        except:
+            videotracks = data.get_videotracks()
+            if len(videotracks) > 0:
+                self._fps = videotracks[0].get_framerate()
+                self._time_ms = videotracks[0].get_duration_ms()
+        except Exception:
+            log.debug('... FAIL')
+            log.exception('Exception was thrown.')
             # Two possibilities: the parser failed or the file is no video
-            # FIXME: log exception
-            pass
         self._metadata_init = True
 
     def get_filepath(self):
+        """
+        Get the full file path of this VideoFile
+        :return: file path as a string
+        """
         return self._filepath
 
     def get_folderpath(self):
@@ -106,12 +110,11 @@ class VideoFile(object):
         """
         return self._size
 
-    def get_hash(self):
+    def get_osdb_hash(self):
         """
         Get the hash of this local videofile
         :return: hash as string
         """
-        self._read_metadata()
         return self._osdb_hash
 
     def get_fps(self):
@@ -130,121 +133,30 @@ class VideoFile(object):
         self._read_metadata()
         return self._time_ms
 
-    def setOsdbInfo(self, info):
-        self._osdb_info = info
-
-    def getOsdbInfo(self):
-        return self._osdb_info
-
-    def hasOsdbInfo(self):
-        return len(self._osdb_info) != 0
-
-    def hasMovieName(self):
-        try:
-            return self._movie_info["MovieName"] != ""
-        except:
-            return False
-
-    def getMovieName(self):
-        try:
-            return self._movie_info["MovieName"]
-        except:
-            return ""
-
-    def hasMovieNameEng(self):
-        try:
-            return self._osdb_info["MovieNameEng"] != ""
-        except NameError:
-            return False
-
-    def getMovieNameEng(self):
-        return self._osdb_info["MovieNameEng"]
-
-    def hasSubtitles(self):
-        return len(self._subs) != 0
-
-    def setSubtitles(self, subs):
-        if len(self._subs):
-            for sub in subs:
-                self.addSubtitle(sub)
-        else:
-            self._subs = subs
-
-    def addSubtitle(self, sub):
-        if isinstance(sub, list):
-            self._subs + sub
-        else:
-            for _sub in self._subs:
-                if sub.get_hash() == _sub.get_hash():
-                    return False
-            self._subs.append(sub)
-            return True
-
-    def getSubtitle(self, hash):
-        """returns the subtitle by its hash if any"""
-        for sub in self.getSubtitles():
-            if sub.get_hash() == hash:
-                return sub
-        return None
-
-    def getSubtitles(self):
-        """return only local subtitles"""
-        return self._subs
-
-    def getOneSubtitle(self):
-        return self._subs[0]
-
-    def getOnlineSubtitles(self):
-        subs = []
-        for sub in self.getSubtitles():
-            if sub.isOnline():
-                subs.append(sub)
-        return subs
-
-    def getTotalSubtitles(self):
-        """return total number of subtitles, local and remote"""
-        local = len(self._subs) + len(self.nos_subs)
-        try:
-            return len(self._osdb_info) + local
-        except NameError:
-            return local
-
-    def getTotalOnlineSubtitles(self):
-        return len(self.getOnlineSubtitles())
-
-    def getTotalLocalSubtitles(self):
-        return len(self.getSubtitles())
-
-    def setNOSSubtitle(self, sub):
-        """ transfer a subtitle from general list to 'not on server'
+    def get_subtitles(self):
         """
-        self.nos_subs.append(sub)
-        self._subs.pop(self._subs.index(sub))
+        Get the subtitles of this video in a SubtitleFileCollection
+        :return: instance of SubtitleFileCollection
+        """
+        return self._subtitles
 
-    def remNOSSubtitle(self, sub):
-        """removes a subtitle from NOS list"""
-        self.nos_subs.pop(self.nos_subs.index(sub))
-
-    def getNOSSubtitles(self):
-        return self.nos_subs
-
-    def hasNOSSubtitles(self):
-        return len(self.nos_subs) != 0
-
-    def setMovieInfo(self, info):
-        self._movie_info = info
-
-    def getMovieInfo(self):
-        return self._movie_info
+    def add_subtitle(self, subtitle):
+        """
+        Add subtitle to the the subtitle collection of this video.
+        :param subtitle: subtitle to add
+        """
+        self._subtitles.add_subtitle(subtitle)
 
     def _calculate_OSDB_hash(self):
         """
         Calculate OSDB (OpenSubtitleDataBase) hash of this VideoFile
         :return: hash as string
         """
+        log.debug('_calculate_OSDB_hash() of "{path}" ...'.format(path=self._filepath))
         f = open(self._filepath, 'rb')
 
         filesize = os.fstat(f.fileno()).st_size
+        log.debug('... filesize={filesize} bytes'.format(filesize=filesize))
 
         blockSize = min(filesize, 64 << 10) # 64kiB
 
@@ -254,18 +166,18 @@ class VideoFile(object):
             nbll=blockSize // bytesize,
             memberformat=longlongformat)
 
-        hash = filesize
+        hash_int = filesize
 
         buffer = f.read(blockSize)
         longlongs = struct.unpack(format, buffer)
-        hash += sum(longlongs)
+        hash_int += sum(longlongs)
 
         f.seek(-blockSize, os.SEEK_END)
         buffer = f.read(blockSize)
         longlongs = struct.unpack(format, buffer)
-        hash += sum(longlongs)
+        hash_int += sum(longlongs)
 
         f.close()
-        returnedhash = '{:016x}'.format(hash)[-16:]
-        log.debug('hash("{}")={}'.format(self.get_filepath(), returnedhash))
-        return returnedhash
+        hash_str = '{:016x}'.format(hash_int)[-16:]
+        log.debug('hash("{}")={}'.format(self.get_filepath(), hash_str))
+        return hash_str

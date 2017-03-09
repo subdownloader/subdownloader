@@ -117,7 +117,7 @@
                <string>Select videos...</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="images.qrc">
                 <normaloff>:/images/open_video.png</normaloff>:/images/open_video.png</iconset>
               </property>
               <property name="iconSize">
@@ -143,7 +143,7 @@
                <string>Select folder...</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="images.qrc">
                 <normaloff>:/images/open_folder.png</normaloff>:/images/open_folder.png</iconset>
               </property>
               <property name="iconSize">
@@ -198,7 +198,7 @@
                <string>Search subtitles</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="images.qrc">
                 <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
               </property>
               <property name="iconSize">
@@ -317,9 +317,6 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="alternatingRowColors">
-                 <bool>true</bool>
-                </property>
                </widget>
               </item>
               <item>
@@ -336,7 +333,7 @@
                    <string>Movie Info</string>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="images.qrc">
                     <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -369,7 +366,7 @@
                    <string>Play</string>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="images.qrc">
                     <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
                   </property>
                  </widget>
@@ -389,7 +386,7 @@
                    <string>Download</string>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="images.qrc">
                     <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
                   </property>
                  </widget>
