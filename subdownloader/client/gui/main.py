@@ -60,7 +60,7 @@ class Main(QMainWindow):
         # Fill Out the Filters Language SelectBoxes
         self.permanent_language_filter_changed.connect(self.ui.tabSearchFile.on_permanent_language_filter_change)
         self.permanent_language_filter_changed.connect(self.ui.tabSearchName.on_permanent_language_filter_change)
-        self.initialize_permanent_language_filter()
+        self.permanent_language_filter_changed.emit(self.get_state().get_permanent_language_filter())
         self.read_settings()
 
         if options.videofile:
@@ -215,14 +215,6 @@ class Main(QMainWindow):
         dialog = PreferencesDialog(self)
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-
-    def initialize_permanent_language_filter(self):
-        settings = QSettings()
-
-        languages_str = settings.value('options/filterSearchLang', '')
-        if languages_str:
-            languages = [language.Language.from_xxx(lang_str) for lang_str in languages_str.split('.')]
-            self.permanent_language_filter_changed.emit(languages)
 
     def initializeVideoPlayer(self, settings):
         predefinedVideoPlayer = None

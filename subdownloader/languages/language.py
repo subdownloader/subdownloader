@@ -134,7 +134,7 @@ class Language(str):
         """
         locale = str(locale)
         if locale is 'unknown':
-            return UnknownLanguage(xx)
+            return UnknownLanguage(locale)
         try:
             return cls._from_XYZ('locale', locale)
         except NotALanguageException:

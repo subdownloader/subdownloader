@@ -6,15 +6,15 @@ import os
 import platform
 import webbrowser
 
-from PyQt5.QtCore import pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
     QSortFilterProxyModel, Qt, QTime
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
 
 from subdownloader.callback import ProgressCallback
 from subdownloader.filescan import scan_videopaths
+from subdownloader.languages.language import Language
 from subdownloader.FileManagement.search import Movie
-from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.video2 import VideoFile
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
@@ -32,6 +32,9 @@ log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 
 
 class SearchFileWidget(QWidget):
+
+    language_filter_change = pyqtSignal(list)
+
     def __init__(self):
         QWidget.__init__(self)
         self.ui = Ui_SearchFileWidget()
@@ -115,9 +118,12 @@ class SearchFileWidget(QWidget):
 
         self.showInstructions()
 
-        # SETTING UP SEARCH_VIDEO_VIEW
+        # Set up video view
 
-        self.initializeFilterLanguages()
+        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
+        self.ui.filterLanguageForVideo.selected_language_changed.connect(self.on_language_combobox_filter_change)
+        # self.ui.filterLanguageForVideo.selected_language_changed.connect(self.onFilterLanguageVideo)
+
         self.videoModel = VideoModel(self)
         self.ui.videoView.setHeaderHidden(True)
         self.ui.videoView.setModel(self.videoModel)
@@ -125,6 +131,7 @@ class SearchFileWidget(QWidget):
         self.ui.videoView.clicked.connect(self.onClickVideoTreeView)
         self.ui.videoView.customContextMenuRequested.connect(self.onContext)
         self.videoModel.dataChanged.connect(self.subtitlesCheckedChanged)
+        self.language_filter_change.connect(self.videoModel.on_filter_languages_change)
 
         self.ui.buttonSearchSelectVideos.clicked.connect(
             self.onButtonSearchSelectVideos)
@@ -153,7 +160,7 @@ class SearchFileWidget(QWidget):
         if qDirLastDir.path() == path:
             index = self.fileModel.index(lastDir)
             proxyIndex = self.proxyFileModel.mapFromSource(index)
-            self.ui.folderView.scrollTo(proxyIndex)#, QAbstractItemView.PositionAtBottom)
+            self.ui.folderView.scrollTo(proxyIndex)
             self.ui.folderView.setCurrentIndex(proxyIndex)
 
     @pyqtSlot(int, str)
@@ -170,35 +177,17 @@ class SearchFileWidget(QWidget):
         else:
             log.warning('unknown state')
 
-    def initializeFilterLanguages(self):
-        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
-
-        self.ui.filterLanguageForVideo.selected_language_changed.connect(
-            self.onFilterLanguageVideo)
-
-    @pyqtSlot(list)
-    def on_permanent_language_filter_change(self, languages):
-        if len(languages) > 0:
-            # FIXME: prioritize language selection
-            lang = languages[0]
-            self.ui.filterLanguageForVideo.set_selected_language(lang)
-
-    @pyqtSlot(language.Language)
-    def onFilterLanguageVideo(self, lang):
-        log.debug('Filtering subtitles by language: {}'.format(lang))
-
-        # self.ui.videoView.clearSelection()
-        self.videoModel.clear()
-
-        if isinstance(lang, language.UnknownLanguage):
-            self.videoModel.setLanguageFilter(None)
-            self.videoModel.unselectSubtitles()
+    @pyqtSlot(Language)
+    def on_language_combobox_filter_change(self, language):
+        if language.is_generic():
+            self.language_filter_change.emit(self.get_state().get_permanent_language_filter())
         else:
-            self.videoModel.setLanguageFilter(lang)
-            self.videoModel.selectMostRatedSubtitles()
+            self.language_filter_change.emit([language])
 
-        self.subtitlesCheckedChanged()
-        self.ui.videoView.expandAll()
+    def on_permanent_language_filter_change(self, languages):
+        selected_language = self.ui.filterLanguageForVideo.get_selected_language()
+        if selected_language.is_generic():
+            self.language_filter_change.emit(languages)
 
     @pyqtSlot()
     def subtitlesCheckedChanged(self):
@@ -661,7 +650,6 @@ class SearchFileWidget(QWidget):
     def onViewOnlineInfo(self):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
         # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        self.videoModel.getSelectedItem()
         listview = self.ui.videoView
         index = listview.currentIndex()
         data_item = self.videoModel.getSelectedItem(index)

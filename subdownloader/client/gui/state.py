@@ -8,6 +8,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QObject, 
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
+from subdownloader.languages.language import Language
 
 from subdownloader.FileManagement import get_extension, without_extension
 from subdownloader.provider.SDService import SDService, TimeoutFunctionException
@@ -35,6 +36,16 @@ class State(QObject):
             proxy_port = int(settings.value("options/ProxyPort", 8080))
             if proxy_host:
                 self._proxy = '{proxy_host}:{proxy_port}'.format(proxy_host=proxy_host, proxy_port=proxy_port)
+
+    def get_permanent_language_filter(self):
+        settings = QSettings()
+
+        languages_str = settings.value('options/filterSearchLang', '')
+        if languages_str:
+            languages = [Language.from_xxx(lang_str) for lang_str in languages_str.split(',')]
+            return languages
+        else:
+            return []
 
     def connected(self):
         return self._OSDBServer.connected()

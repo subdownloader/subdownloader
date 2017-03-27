@@ -3,7 +3,7 @@
 
 import logging
 
-from PyQt5.QtCore import Qt, QAbstractItemModel, QModelIndex, QSize
+from PyQt5.QtCore import pyqtSlot, Qt, QAbstractItemModel, QModelIndex, QSize
 from PyQt5.QtGui import QColor, QFont, QIcon, QPalette
 
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFileNetwork, SubtitleFile_Storage
@@ -39,6 +39,9 @@ class Node:
         self._children.append(node)
         return node
 
+    def remove_child(self, node):
+        self._children.remove(node)
+
     def index(self, child):
         return self._children.index(child)
 
@@ -51,23 +54,33 @@ class Node:
         else:
             return 0
 
+    def clone(self, parent=None):
+        node = Node(data=self._data, parent=parent)
+        node._checked = self._checked
+        for child in self.get_children():
+            node._children.append(child.clone(parent=node))
+        return node
+
 
 class VideoModel(QAbstractItemModel):
 
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
+        self._all_root = Node(data=None, parent=None)
         self._root = Node(data=None, parent=None)
-        self.selectedNode = None
-        self.languageFilter = None
+        self._language_filter = []
+
+    @pyqtSlot(list)
+    def on_filter_languages_change(self, languages):
+        self._language_filter = list(languages)
+        self._apply_filters()
 
     def set_videos(self, videos):
         log.debug('set_videos(#videos={nbVideos})'.format(nbVideos=len(videos)))
 
-        self.beginResetModel()
-
-        self._root = Node(data=None, parent=None)
+        self._all_root = Node(data=None, parent=None)
         for video in videos:
-            video_node = self._root.add_child(video)
+            video_node = self._all_root.add_child(video)
             for subtitle_network in video.get_subtitles().get_subtitle_networks():
                 subtitle_network_node = video_node.add_child(subtitle_network)
                 for subtitle in subtitle_network.get_subtitles():
@@ -75,39 +88,25 @@ class VideoModel(QAbstractItemModel):
                     if isinstance(subtitle, LocalSubtitleFile):
                         subtitle_node.set_checked(True)
 
-        self.endResetModel()
+        self._apply_filters()
 
     def clear(self):
         log.debug("Clearing VideoTree")
+
+        self._all_root = Node(data=None, parent=None)
+        self._apply_filters()
+
+    def _apply_filters(self):
         self.beginResetModel()
-
-        self.selectedNode = None
-        self.languageFilter = None
-
-        self._root = Node(data=None, parent=None)
-
+        self._root = self._all_root.clone()
+        nodes_video = list(self._root.get_children())
+        for node_video in nodes_video:
+            nodes_subtitle_network = list(node_video.get_children())
+            for node_subtitle_network in nodes_subtitle_network:
+                subtitle_network = node_subtitle_network.get_data()
+                if self._language_filter and subtitle_network.get_language() not in self._language_filter:
+                    node_video.remove_child(node_subtitle_network)
         self.endResetModel()
-
-    def selectMostRatedSubtitles(self):
-        for video in self._root._children:
-            if len(video._children):
-                # We supposed that the first subtitle is the most rated one
-                subtitle = video._children[0]
-                if not (subtitle.get_data()).isLocal():
-                    subtitle.checked = True
-
-    def unselectSubtitles(self):
-        for video in self._root._children:
-            for subtitle in video._children:
-                subtitle.checked = False
-
-    def setLanguageFilter(self, lang):
-        # self.clearTree()
-        self.languageFilter = lang
-        # FIXME: apply filter on the fly...
-        if lang:
-            lang = lang.xxx()
-            lang = lang.split(",")
 
     def setData(self, index, any, role=None):
         if not index.isValid():
@@ -331,10 +330,7 @@ class VideoModel(QAbstractItemModel):
         if row < 0 or column < 0: # or row >= self.rowCount(parent) or column >= self.columnCount(parent):
             return QModelIndex()
 
-        if not parent:
-            parent = QModelIndex()
-
-        if not parent.isValid():
+        if not parent or not parent.isValid():
             parent_item = self._root
         else:
             parent_item = parent.internalPointer()
@@ -352,7 +348,7 @@ class VideoModel(QAbstractItemModel):
         child_item = index.internalPointer()
         parent_item = child_item.get_parent()
 
-        if parent_item == self._root:
+        if not parent_item or parent_item == self._root:
             return QModelIndex()
 
         return self.createIndex(parent_item.parent_index(), 0, parent_item)
