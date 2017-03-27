@@ -32,7 +32,7 @@ log = logging.getLogger('subdownloader.client.gui.main')
 
 class Main(QMainWindow):
 
-    filterLangChangedPermanent = pyqtSignal(list)
+    permanent_language_filter_changed = pyqtSignal(list)
     loginStatusChanged = pyqtSignal(str)
 
     def __init__(self, parent, log_packets, options):
@@ -58,9 +58,9 @@ class Main(QMainWindow):
 
         self.closeEvent = self.close_event
         # Fill Out the Filters Language SelectBoxes
-        self.filterLangChangedPermanent.connect(self.ui.tabSearchFile.onFilterLangChangedPermanent)
-        self.filterLangChangedPermanent.connect(self.ui.tabSearchName.onFilterLangChangedPermanent)
-        self.InitializeFilterLanguages()
+        self.permanent_language_filter_changed.connect(self.ui.tabSearchFile.on_permanent_language_filter_change)
+        self.permanent_language_filter_changed.connect(self.ui.tabSearchName.on_permanent_language_filter_change)
+        self.initialize_permanent_language_filter()
         self.read_settings()
 
         if options.videofile:
@@ -216,13 +216,13 @@ class Main(QMainWindow):
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
-    def InitializeFilterLanguages(self):
+    def initialize_permanent_language_filter(self):
         settings = QSettings()
 
-        optionFilterLanguages = settings.value('options/filterSearchLang', '')
-        languages = [language.Language.from_xxx(lang_str) for lang_str in optionFilterLanguages.split('.')]
-
-        self.filterLangChangedPermanent.emit(languages)
+        languages_str = settings.value('options/filterSearchLang', '')
+        if languages_str:
+            languages = [language.Language.from_xxx(lang_str) for lang_str in languages_str.split('.')]
+            self.permanent_language_filter_changed.emit(languages)
 
     def initializeVideoPlayer(self, settings):
         predefinedVideoPlayer = None

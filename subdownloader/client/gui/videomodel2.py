@@ -128,11 +128,13 @@ class VideoModel(QAbstractItemModel):
                 current_checked = self.data(index, role)
                 checked = any == Qt.Checked
                 if current_checked == Qt.Unchecked:
+                    # Check only one remote subtitle
                     for node_subtitle in node_network_subtitles:
                         if isinstance(node_subtitle.get_data(), RemoteSubtitleFile):
                             node_subtitle.set_checked(True)
                             break
                 else:
+                    # If currently checked, uncheck all. If partially checked, check all.
                     for node_subtitle in node_network_subtitles:
                         if isinstance(node_subtitle.get_data(), RemoteSubtitleFile):
                             node_subtitle.set_checked(checked)

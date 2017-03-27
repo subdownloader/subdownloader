@@ -114,18 +114,14 @@ class SearchNameWidget(QWidget):
             self.ui.buttonSearchByName.setEnabled(True)
 
     @pyqtSlot(list)
-    def onFilterLangChangedPermanent(self, languages):
+    def on_permanent_language_filter_change(self, languages):
         # FIXME: use languages instead of these calculated values
         languages_array = [lang.xxx() for lang in languages]
-        languages = ','.join(languages_array)
 
-        if len(languages_array) > 1:
-            index = self.ui.filterLanguageForTitle.findData(languages)
-            if index == -1:
-                self.ui.filterLanguageForTitle.addItem(languages, languages)
-        index = self.ui.filterLanguageForTitle.findData(languages)
-        if index != -1:
-            self.ui.filterLanguageForTitle.setCurrentIndex(index)
+        if len(languages_array) > 0:
+            index = self.ui.filterLanguageForTitle.findData(languages_array[0])
+            if index != -1:
+                self.ui.filterLanguageForTitle.setCurrentIndex(index)
 
     def initializeFilterLanguages(self):
         self.ui.filterLanguageForTitle.addItem(_("All languages"), "")

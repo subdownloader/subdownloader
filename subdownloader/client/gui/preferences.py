@@ -262,7 +262,7 @@ class PreferencesDialog(QDialog):
         checked_languages = [lang[0] for lang in filter(lambda x:x[1], self._search_languages.items())]
         checked_languages_str = ','.join([lang.xxx() for lang in checked_languages])
         self.settings.setValue("options/filterSearchLang", checked_languages_str)
-        self.parent().filterLangChangedPermanent.emit(checked_languages)
+        self.parent().permanent_language_filter_changed.emit(checked_languages)
 
         # 2. Downloads tab
 

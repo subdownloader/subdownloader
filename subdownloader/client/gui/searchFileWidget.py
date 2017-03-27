@@ -177,8 +177,9 @@ class SearchFileWidget(QWidget):
             self.onFilterLanguageVideo)
 
     @pyqtSlot(list)
-    def onFilterLangChangedPermanent(self, languages):
+    def on_permanent_language_filter_change(self, languages):
         if len(languages) > 0:
+            # FIXME: prioritize language selection
             lang = languages[0]
             self.ui.filterLanguageForVideo.set_selected_language(lang)
 
