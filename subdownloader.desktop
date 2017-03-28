@@ -2,7 +2,7 @@
 Version=1.0
 Name=SubDownloader
 Comment=Application to download/upload subtitles of your movies.
-Exec=subdownloader
+Exec=subdownloader -g
 Icon=subdownloader
 MimeType=video/avi;
 StartupNotify=false
