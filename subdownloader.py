@@ -9,7 +9,7 @@ from subdownloader.client.logger import logging_file_install, logging_install
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.client.arguments import parse_arguments
 
-sys.path.append(os.path.join(sys.path[0], 'modules'))
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'subdownloader', 'modules'))
 
 logging_file_install(None)
 i18n_install()
