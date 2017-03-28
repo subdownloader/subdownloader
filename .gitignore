@@ -6,14 +6,15 @@
 *_LOCAL_*
 *_REMOTE_*
 
-# Qt creator artifacts
-*.autosave
-
 # Python byte code
 *.pyc
 
-# Release tarballs
+# Release artifacts
+build
+dist
+*.egg-info
 *.tar.gz
 
 # IDE artifacts
 .idea
+*.autosave
