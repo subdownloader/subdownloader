@@ -11,9 +11,14 @@ PROJECT_TITLE = 'SubDownloader'
 
 
 """
-Version of the project.
+Tuple, containing the version of the project.
 """
-PROJECT_VERSION = '2.0.19'
+PROJECT_VERSION = (2, 0, 19)
+
+"""
+String, containing the version of the project.
+"""
+PROJECT_VERSION_STR = ".".join([str(i) for i in PROJECT_VERSION])
 
 """
 Year of last change.

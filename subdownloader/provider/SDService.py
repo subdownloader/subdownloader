@@ -22,7 +22,7 @@ log = logging.getLogger("subdownloader.WebService")
 
 from subdownloader.http import url_stream
 from subdownloader.languages.language import Language, NotALanguageException
-from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION
+from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
 from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.util import unzip_stream, unzip_bytes
@@ -39,7 +39,7 @@ except:
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 TEST_URL = 'http://www.google.com'
-USER_AGENT = "%s %s" % (PROJECT_TITLE, PROJECT_VERSION)
+USER_AGENT = "%s %s" % (PROJECT_TITLE, PROJECT_VERSION_STR)
 CON_TIMEOUT = 300
 
 

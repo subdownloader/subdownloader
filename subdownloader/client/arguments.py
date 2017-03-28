@@ -34,7 +34,7 @@ def get_argument_parser():
 
     parser.add_argument('--version', action='version',
                         version='{project} {version}'.format(project=project.PROJECT_TITLE,
-                                                             version=project.PROJECT_VERSION))
+                                                             version=project.PROJECT_VERSION_STR))
 
     # internal application options
 
