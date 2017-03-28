@@ -5,7 +5,6 @@ import argparse
 import logging
 
 from subdownloader import project
-from subdownloader.client import project_get_description
 from subdownloader.client.logger import LOGGING_LOGNOTHING
 
 
@@ -30,7 +29,7 @@ def get_argument_parser():
     Get a parser that is able to parse program arguments.
     :return: instance of arparse.ArgumentParser
     """
-    parser = argparse.ArgumentParser(description=project_get_description())
+    parser = argparse.ArgumentParser(description=project.get_description())
 
     parser.add_argument('--version', action='version',
                         version='{project} {version}'.format(project=project.PROJECT_TITLE,

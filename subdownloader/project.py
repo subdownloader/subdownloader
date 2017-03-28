@@ -7,8 +7,7 @@ import os
 Name of the project.
 Forks MUST change this to a non-ambiguous alternative namex.
 """
-PROJECT_TITLE = 'SubDownloader'
-
+PROJECT_TITLE = "SubDownloader"
 
 """
 Tuple, containing the version of the project.
@@ -21,9 +20,24 @@ String, containing the version of the project.
 PROJECT_VERSION_STR = ".".join([str(i) for i in PROJECT_VERSION])
 
 """
+License of the project
+"""
+PROJECT_LICENSE = "GPLv3"
+
+"""
 Year of last change.
 """
 PROJECT_YEAR = 2017
+
+"""
+Author collective name
+"""
+PROJECT_AUTHOR_COLLECTIVE = "{title} Developers".format(title=PROJECT_TITLE)
+
+"""
+Maintainer e-mail address
+"""
+PROJECT_MAINTAINER_MAIL = "anonymous.maarten@gmail.com"
 
 
 WEBSITE_MAIN = 'https://github.com/subdownloader/subdownloader'
@@ -31,6 +45,16 @@ WEBSITE_HELP = 'https://github.com/subdownloader/subdownloader'
 WEBSITE_ISSUES = 'https://github.com/subdownloader/subdownloader/issues'
 WEBSITE_RELEASES = 'https://github.com/subdownloader/subdownloader/releases'
 WEBSITE_TRANSLATE = 'http://www.subdownloader.net/translate.html'
+
+
+def get_description():
+    """
+    Get description of the project.
+    :return: description as a string
+    """
+    return _('{project} is a Free Open-Source tool written in PYTHON '
+             'for automatic download/upload subtitles for videofiles '
+             '(DIVX,MPEG,AVI,etc) and DVD\'s using fast hashing.'.format(project=PROJECT_TITLE))
 
 
 class Author(object):

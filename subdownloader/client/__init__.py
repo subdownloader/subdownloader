@@ -5,16 +5,6 @@ import os
 from subdownloader.project import PROJECT_TITLE
 
 
-def project_get_description():
-    """
-    Get description of the project.
-    :return: description as a string
-    """
-    return _('{project} is a Free Open-Source tool written in PYTHON '
-             'for automatic download/upload subtitles for videofiles '
-             '(DIVX,MPEG,AVI,etc) and DVD\'s using fast hashing.'.format(project=PROJECT_TITLE))
-
-
 def client_get_path():
     """
     Get path to the client modules.
