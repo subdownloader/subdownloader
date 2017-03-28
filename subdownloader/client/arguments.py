@@ -8,7 +8,7 @@ from subdownloader import project
 from subdownloader.client.logger import LOGGING_LOGNOTHING
 
 
-def parse_arguments():
+def parse_arguments(args):
     """
     Parse the program arguments.
     :return: argparse.Namespace object with the parsed arguments
@@ -21,7 +21,7 @@ def parse_arguments():
     except ImportError:
         pass
 
-    return parser.parse_args()
+    return parser.parse_args(args=args)
 
 
 def get_argument_parser():
