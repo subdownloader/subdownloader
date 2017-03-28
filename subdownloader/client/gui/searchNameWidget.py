@@ -91,11 +91,10 @@ class SearchNameWidget(QWidget):
 
     @pyqtSlot(list)
     def on_language_filter_change(self, languages):
-        languages_xxx = ",".join(["all" if language.is_generic() else language.xxx() for language in languages])
-        log.debug("Filtering subtitles by language: %s" % languages_xxx)
+        log.debug("Filtering subtitles by language: {languages}".format(languages=languages))
         self.ui.moviesView.clearSelection()
         self.moviesModel.clearTree()
-        self.moviesModel.setLanguageFilter(Language.from_xxx(languages_xxx))
+        self.moviesModel.setLanguageFilter(languages=languages)
         self.ui.moviesView.expandAll()
 
     @pyqtSlot()
@@ -128,6 +127,7 @@ class SearchNameWidget(QWidget):
                     "The server is momentarily unavailable. Please try later."))
                 callback.finish()
                 self.ui.buttonSearchByName.setEnabled(True)
+                return
             self.moviesModel.setMovies(movies, selected_language_xxx)
             if len(movies) == 1:
                 self.ui.moviesView.expandAll()

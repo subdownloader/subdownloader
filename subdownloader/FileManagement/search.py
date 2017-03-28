@@ -6,10 +6,10 @@ import xml.parsers.expat
 from xml.dom import minidom
 
 try:
-    from urllib2 import urlopen, URLError, quote
-except ImportError:
     from urllib.parse import quote
-    from urllib.request import urlopen, URLError
+    from urllib.request import HTTPError, urlopen, URLError
+except ImportError:
+    from urllib2 import HTTPError, urlopen, URLError, quote
 
 from subdownloader.languages.language import Language
 from subdownloader.FileManagement import subtitlefile
@@ -72,6 +72,19 @@ class SearchByName(object):
     def __init__(self):
         pass
 
+    def _signal_connection_failed(self):
+        # FIXME: set flag/... to signal users that the connection has failed
+        pass
+
+    def _safe_exec(self, query, default):
+        try:
+            result = query()
+            return result
+        except HTTPError:
+            self._signal_connection_failed()
+            log.debug("Query failed", exc_info=True)
+            return default
+
     def search_movie(self, languages, moviename=None, MovieID_link=None):
         if MovieID_link:
             xml_url = "http://www.opensubtitles.org%s" % MovieID_link
@@ -83,19 +96,36 @@ class SearchByName(object):
             xml_url = "http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml" % (
                 languages_xxx, moviename)
 
-        try:
-            xml_page = urlopen(xml_url)
-        except URLError:
+        def run_query():
+            return urlopen(xml_url)
+        xml_page = self._safe_exec(run_query, None)
+
+        if xml_page is None:
             return None
 
-        try:
-            log.debug("Getting data from '%s'" % xml_url)
-            search = self.parse_results(xml_page.read())
-        # this will happen when only one result is found
-        except xml.parsers.expat.ExpatError:
-            log.debug("Getting data from '%s/xml'" % xml_page.url)
-            xml_page = urlopen("%s/xml" % xml_page.url)
-            search = self.parse_results(xml_page.read())
+        search = None
+        if not search:
+            try:
+                log.debug("Parsing results from '{url}' ...".format(url=xml_url))
+                search = self.parse_results(xml_page.read())
+                log.debug("... SUCCESS")
+            except xml.parsers.expat.ExpatError:
+                log.debug("... FAILED")
+
+        if not search:
+            xml_url = "{url}/xml".format(url=xml_page.url)
+            def run_query():
+                return urlopen(xml_url)
+            self._safe_exec(run_query, None)
+            if xml_page is None:
+                return None
+            try:
+                log.debug("Parsing results from '{url}' ...".format(url=xml_url))
+                search = self.parse_results(xml_page.read())
+                log.debug("... SUCCESS")
+            except xml.parsers.expat.ExpatError:
+                log.debug("... FAILED")
+                return None
 
         if search:
             log.debug("Returning data")

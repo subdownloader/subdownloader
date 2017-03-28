@@ -96,16 +96,14 @@ class VideoTreeModel(QAbstractItemModel):
             for subtitle in video.children:
                 subtitle.checked = False
 
-    def setLanguageFilter(self, lang):
+    def setLanguageFilter(self, languages):
         # self.clearTree()
-        self.languageFilter = lang
-        if lang:
-            lang = lang.xxx()
-            lang = lang.split(",")
+        self.languageFilter = languages
+        languages_str = [language.xxx() for language in languages]
         if self.videoResultsBackup:
-            self.setVideos(self.videoResultsBackup, lang)
+            self.setVideos(self.videoResultsBackup, languages_str)
         elif self.moviesResultsBackup:
-            self.setMovies(self.moviesResultsBackup, lang)
+            self.setMovies(self.moviesResultsBackup, languages_str)
 
     def data(self, index, role):
         if not index.isValid():

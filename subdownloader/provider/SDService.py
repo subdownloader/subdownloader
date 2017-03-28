@@ -2,9 +2,11 @@
 # Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
 
 try:
-    import xmlrpclib
-except ImportError:
     from xmlrpc import client as xmlrpclib
+    from xmlrpc.client import ProtocolError
+except ImportError:
+    import xmlrpclib
+    from xmlrpclib import ProtocolError
 try:
     import httplib
 except ImportError:
@@ -228,6 +230,7 @@ class SDService(object):
                 self.log.error("Unable to connect. Try setting a proxy.")
                 return False
         except xmlrpclib.ProtocolError as e:
+            self._connection_failed()
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
         except xmlrpclib.Fault as e:
@@ -283,15 +286,18 @@ class SDService(object):
         """
         self.log.debug("----------------")
         self.log.debug("Logging in (username: %s)..." % username)
-        try:
-            info = self._xmlrpc_server.LogIn(
+
+        def run_query():
+            return self._xmlrpc_server.LogIn(
                 username, password, self.language, self.user_agent)
-            self.log.debug("Login ended in %s with status: %s" %
-                           (info['seconds'], info['status']))
-        except:
-            self.log.exception("Unexpected error")
+
+        info = self._safe_exec(run_query, None)
+        if info is None:
             self._token = None
             return False
+
+        self.log.debug("Login ended in %s with status: %s" %
+                       (info['seconds'], info['status']))
 
         if info['status'] == "200 OK":
             self.log.debug("Session ID: %s" % info['token'])
@@ -960,7 +966,21 @@ class SDService(object):
 
     @classmethod
     def name(cls):
-        return 'opensubtitles'
+        return "opensubtitles"
+
+    def _signal_connection_failed(self):
+        # FIXME: set flag/... to signal users that the connection has failed
+        pass
+
+    def _safe_exec(self, query, default):
+        try:
+            result = query()
+            return result
+        except ProtocolError:
+            self._signal_connection_failed()
+            log.debug("Query failed", exc_info=True)
+            return default
+
 
     def search_videos(self, videos, callback, languages=None):
         limit = 500
@@ -988,7 +1008,12 @@ class SDService(object):
                 }
                 queries.append(query)
                 hash_video[video.get_osdb_hash()] = video
-            result = self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': limit})
+
+            def run_query():
+                return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': limit})
+            result = self._safe_exec(run_query, None)
+            if result is None:
+                return remote_subtitles
             self.check_result(result)
             for rsub_raw in result['data']:
                 try:

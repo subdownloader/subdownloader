@@ -148,6 +148,7 @@ class State(QObject):
 
             if not login_result:
                 self.login_status_changed.emit(self.LOGIN_STATUS_LOGGED_OUT, _("Login: ERROR"))
+                return False
 
             username_display = username if username else _('Anonymous')
             message = _("Logged in as {username}").format(username=username_display)
