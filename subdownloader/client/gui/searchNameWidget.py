@@ -7,7 +7,7 @@ import re
 import sys
 import webbrowser
 
-from PyQt5.QtCore import pyqtSlot, QCoreApplication, QModelIndex, QPoint, QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QModelIndex, QPoint, QSettings, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMessageBox, QWidget
 from subdownloader.FileManagement.search import Link, Movie, SearchByName
@@ -18,12 +18,15 @@ from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchNameWidget_ui import Ui_SearchNameWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.videotreeview import VideoTreeModel
-from subdownloader.languages import language
+from subdownloader.languages.language import Language, UnknownLanguage
 
 log = logging.getLogger('subdownloader.client.gui.searchNameWidget')
 
 
 class SearchNameWidget(QWidget):
+
+    language_filter_change = pyqtSignal(list)
+
     def __init__(self):
         QWidget.__init__(self)
         self.ui = Ui_SearchNameWidget()
@@ -41,7 +44,10 @@ class SearchNameWidget(QWidget):
     def setupUi(self):
         self.ui.setupUi(self)
 
-        self.initializeFilterLanguages()
+        self.ui.filterLanguage.set_unknown_text(_("All languages"))
+        self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
+
+        self.language_filter_change.connect(self.on_language_filter_change)
 
         self.ui.buttonSearchByName.clicked.connect(self.onButtonSearchByTitle)
         self.ui.movieNameText.returnPressed.connect(self.onButtonSearchByTitle)
@@ -70,11 +76,32 @@ class SearchNameWidget(QWidget):
         else:
             log.warning('unknown state')
 
+    @pyqtSlot(Language)
+    def on_language_combobox_filter_change(self, language):
+        if language.is_generic():
+            self.language_filter_change.emit(self.get_state().get_permanent_language_filter())
+        else:
+            self.language_filter_change.emit([language])
+
+    @pyqtSlot(list)
+    def on_permanent_language_filter_change(self, languages):
+        selected_language = self.ui.filterLanguage.get_selected_language()
+        if selected_language.is_generic():
+            self.language_filter_change.emit(languages)
+
+    @pyqtSlot(list)
+    def on_language_filter_change(self, languages):
+        languages_xxx = ",".join(["all" if language.is_generic() else language.xxx() for language in languages])
+        log.debug("Filtering subtitles by language: %s" % languages_xxx)
+        self.ui.moviesView.clearSelection()
+        self.moviesModel.clearTree()
+        self.moviesModel.setLanguageFilter(Language.from_xxx(languages_xxx))
+        self.ui.moviesView.expandAll()
+
     @pyqtSlot()
     def onButtonSearchByTitle(self):
         if not self.ui.movieNameText.text().strip():
-            QMessageBox.about(self, _("Info"), _(
-                "You must enter at least one character in movie name"))
+            QMessageBox.about(self, _("Info"), _("You must enter at least one character in movie name"))
         else:
             self.ui.buttonSearchByName.setEnabled(False)
 
@@ -85,70 +112,29 @@ class SearchNameWidget(QWidget):
             callback.set_block(True)
 
             callback.show()
+            callback.update(0)
 
             self.moviesModel.clearTree()
             # This was a solution found to refresh the treeView
             self.ui.moviesView.expandAll()
-            QCoreApplication.processEvents()
             s = SearchByName()
-            selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(self.ui.filterLanguageForTitle.currentIndex())
+            selected_language = self.ui.filterLanguage.get_selected_language()
+            selected_language_xxx = None if selected_language.is_generic() else selected_language.xxx()
             search_text = self.ui.movieNameText.text()
-            # Fix for user entering "'" in search field. If we find more chars that breaks things we'll handle this in a better way,
-            # like a string of forbidden chars (pr the other way around, string
-            # of good chars)
-            search_text = re.sub('\'', '', search_text)
-            callback.update(0)
             # This should be in a thread to be able to Cancel
-            movies = s.search_movie(search_text, 'all')
-            if movies == 2:
+            movies = s.search_movie(languages=[UnknownLanguage.create_generic()], moviename=search_text)
+            if movies is None:
                 QMessageBox.about(self, _("Info"), _(
                     "The server is momentarily unavailable. Please try later."))
-                sys.exit(1)
-            self.moviesModel.setMovies(movies, selectedLanguageXXX)
+                callback.finish()
+                self.ui.buttonSearchByName.setEnabled(True)
+            self.moviesModel.setMovies(movies, selected_language_xxx)
             if len(movies) == 1:
                 self.ui.moviesView.expandAll()
             else:
                 self.ui.moviesView.collapseAll()
-            QCoreApplication.processEvents()
             callback.finish()
             self.ui.buttonSearchByName.setEnabled(True)
-
-    @pyqtSlot(list)
-    def on_permanent_language_filter_change(self, languages):
-        # FIXME: use languages instead of these calculated values
-        languages_array = [lang.xxx() for lang in languages]
-
-        if len(languages_array) > 0:
-            index = self.ui.filterLanguageForTitle.findData(languages_array[0])
-            if index != -1:
-                self.ui.filterLanguageForTitle.setCurrentIndex(index)
-
-    def initializeFilterLanguages(self):
-        self.ui.filterLanguageForTitle.addItem(_("All languages"), "")
-
-        for lang in language.legal_languages():
-            self.ui.filterLanguageForTitle.addItem(
-                _(lang.name()), lang.xxx())
-
-        settings = QSettings()
-        optionUploadLanguage = settings.value("options/uploadLanguage", "eng")
-        index = self.ui.filterLanguageForTitle.findData(optionUploadLanguage)
-        if index != -1:
-            self.ui.filterLanguageForTitle.setCurrentIndex(index)
-
-        self.ui.filterLanguageForTitle.adjustSize()
-
-        self.ui.filterLanguageForTitle.currentIndexChanged.connect(
-            self.onFilterLanguageSearchName)
-
-    @pyqtSlot(int)
-    def onFilterLanguageSearchName(self, index):
-        selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(index)
-        log.debug("Filtering subtitles by language: %s" % selectedLanguageXXX)
-        self.ui.moviesView.clearSelection()
-        self.moviesModel.clearTree()
-        self.moviesModel.setLanguageFilter(language.Language.from_xxx(selectedLanguageXXX))
-        self.ui.moviesView.expandAll()
 
     @pyqtSlot()
     def subtitlesMovieCheckedChanged(self):
@@ -235,9 +221,13 @@ class SearchNameWidget(QWidget):
                     "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
             QCoreApplication.processEvents()
         callback.finish()
-        if (dlOK > 0):
-            QMessageBox.about(self, _("%d subtitles downloaded successfully") % (unzippedOK), _(
-                "The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n\nIf there is no sync problem, please consider re-uploading using subdownloader. This will automate the search for other users!"))
+        if dlOK:
+            QMessageBox.about(
+                self,
+                _("{} subtitles downloaded successfully").format(unzippedOK),
+                _("The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n"
+                  "\nIf there is no sync problem, please consider re-uploading using subdownloader. "
+                  "This will automate the search for other users!"))
 
     @pyqtSlot(QModelIndex)
     def onExpandMovie(self, index):
@@ -255,11 +245,10 @@ class SearchNameWidget(QWidget):
             callback.show()
 
             s = SearchByName()
-            selectedLanguageXXX = self.ui.filterLanguageForTitle.itemData(
-                self.ui.filterLanguageForTitle.currentIndex())
+            selected_language = self.ui.filterLanguage.get_selected_language()
+            selected_language_xxx = None if selected_language.is_generic() else selected_language.xxx()
             callback.update(0)
-            temp_movie = s.search_movie(
-                None, 'all', MovieID_link=movie.MovieSiteLink)
+            temp_movie = s.search_movie(languages=[UnknownLanguage.create_generic()], MovieID_link=movie.MovieSiteLink)
             # The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
             # print temp_movie
             try:
@@ -273,7 +262,7 @@ class SearchNameWidget(QWidget):
                 # this means only one subtitle was returned
                 movie.subtitles = [temp_movie[1]]
             # The treeview is filtered by language
-            self.moviesModel.updateMovie(index, selectedLanguageXXX)
+            self.moviesModel.updateMovie(index, selected_language_xxx)
             self.ui.moviesView.collapse(index)
             self.ui.moviesView.expand(index)
             callback.finish()

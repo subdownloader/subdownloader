@@ -28,7 +28,7 @@
        </widget>
       </item>
       <item row="1" column="4">
-       <widget class="QComboBox" name="searchSitesCombo">
+       <widget class="LanguageComboBox" name="searchSitesCombo">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -44,13 +44,6 @@
            <normaloff>:/images/sites/opensubtitles.png</normaloff>:/images/sites/opensubtitles.png</iconset>
          </property>
         </item>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>Subtitles found:</string>
-        </property>
        </widget>
       </item>
       <item row="3" column="3">
@@ -70,7 +63,7 @@
        </widget>
       </item>
       <item row="3" column="4">
-       <widget class="QComboBox" name="filterLanguageForTitle">
+       <widget class="LanguageComboBox" name="filterLanguage">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -109,6 +102,13 @@
         </property>
         <property name="flat">
          <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>Subtitles found:</string>
         </property>
        </widget>
       </item>
@@ -196,6 +196,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LanguageComboBox</class>
+   <extends>QComboBox</extends>
+   <header>subdownloader.client.gui.languageComboBox</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

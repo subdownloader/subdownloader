@@ -6,17 +6,18 @@ import xml.parsers.expat
 from xml.dom import minidom
 
 try:
-    from urllib2 import urlopen
+    from urllib2 import urlopen, URLError, quote
 except ImportError:
-    from urllib.request import urlopen
-
-OnlyLink = ''
-FilmLink = ''
+    from urllib.parse import quote
+    from urllib.request import urlopen, URLError
 
 from subdownloader.languages.language import Language
 from subdownloader.FileManagement import subtitlefile
 
-log = logging.getLogger("subdownloader.search")
+OnlyLink = ''
+FilmLink = ''
+
+log = logging.getLogger("subdownloader.FileManagement.search")
 
 
 class Link:
@@ -33,20 +34,29 @@ class Movie(object):
 
     def __init__(self, movieInfo):
         # movieInfo is a dict
-        self.MovieName = movieInfo['MovieName']
-        self.MovieSiteLink = str(movieInfo['MovieID']['Link'])
-        self.IMDBLink = str(movieInfo['MovieID']['LinkImdb'])
-        self.IMDBId = movieInfo["MovieImdbID"]
-        self.IMDBRating = str(movieInfo['MovieImdbRating'])
-        self.MovieYear = str(movieInfo['MovieYear'])
+        self.MovieName = movieInfo.get("MovieName", None)
+        try:
+            self.MovieSiteLink = str(movieInfo["MovieID"]["Link"])
+        except KeyError:
+            self.MovieSiteLink = None
+        try:
+            self.IMDBLink = str(movieInfo["MovieID"]["LinkImdb"])
+        except KeyError:
+            self.IMDBLink = None
+        self.IMDBId = movieInfo.get("MovieImdbID", None)
+        self.IMDBRating = movieInfo.get("MovieImdbRating", None)
+        self.MovieYear = movieInfo.get("MovieYear", None)
         # this ID will be used when calling the 2nd step function to get the
         # Subtitle Details
-        self.MovieId = int(movieInfo['MovieID']['MovieID'])
+        try:
+            self.MovieId = int(movieInfo["MovieID"]["MovieID"])
+        except (KeyError, ValueError):
+            self.MovieId = None
         self.subtitles = []  # this is a list of Subtitle objects
         try:
             # Sometimes we get the TotalSubs in the 1st step before we get the
             # details of the subtitles
-            self.totalSubs = int(movieInfo['TotalSubs'])
+            self.totalSubs = int(movieInfo["TotalSubs"])
         except KeyError:
             self.totalSubs = self.get_total_subs()
 
@@ -62,21 +72,21 @@ class SearchByName(object):
     def __init__(self):
         pass
 
-    def search_movie(self, moviename=None, sublanguageid="eng", MovieID_link=None):
-        #xml_url = configuration.General.search_url % (sublanguageid, moviename)
+    def search_movie(self, languages, moviename=None, MovieID_link=None):
         if MovieID_link:
             xml_url = "http://www.opensubtitles.org%s" % MovieID_link
         elif not moviename:
             return None
         else:
-            moviename = moviename.replace(" ", "%20")
+            moviename = quote(moviename)
+            languages_xxx = ",".join(["all" if language.is_generic() else language.xxx() for language in languages])
             xml_url = "http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml" % (
-                sublanguageid, moviename)
+                languages_xxx, moviename)
 
         try:
             xml_page = urlopen(xml_url)
-        except:
-            return(2)
+        except URLError:
+            return None
 
         try:
             log.debug("Getting data from '%s'" % xml_url)
@@ -397,10 +407,8 @@ class SearchByName(object):
 
 # For testing purposes
 if __name__ == "__main__":
-    import pprint
     s = SearchByName()
-    res = s.search_movie("anamorph", "por,pob")
-    # pprint.pprint(res)
+    res = s.search_movie(languages=[Language.from_xxx("por"), Language.from_xxx("pob")], moviename="anamorph")
     for movie in res:
-        pprint.pprint(movie)
+        print(movie)
         print(len(movie.subtitles))
