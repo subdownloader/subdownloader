@@ -166,7 +166,7 @@ class SearchNameWidget(QWidget):
 
         callback.set_title_text(_('Downloading'))
         callback.set_label_text(_("Downloading files..."))
-        callback.set_updated_text(_("Downloading %s to %s"))
+        callback.set_updated_text(_("Downloading {0} to {1}"))
         callback.set_block(True)
 
         callback.set_range(0, len(subs))
@@ -215,10 +215,11 @@ class SearchNameWidget(QWidget):
                         "Unable to download subtitle %s") % sub.get_filepath())
             except Exception as e:
                 log.debug(e)
-                QMessageBox.about(self, _("Error"), _(
-                    "Unable to download subtitle %s") % sub.get_filepath())
-                QMessageBox.critical(self, _("Error"), _(
-                    "An error occured downloading %s:\nError:%s") % (url, e), QMessageBox.Abort)
+                QMessageBox.about(self, _("Error"),
+                    _("Unable to download subtitle %s") % sub.get_filepath())
+                QMessageBox.critical(self, _("Error"),
+                    _("An error occurred downloading \"{url}\":\nError:{error_str}").format(url=url, error_str=e),
+                    QMessageBox.Abort)
             QCoreApplication.processEvents()
         callback.finish()
         if dlOK:

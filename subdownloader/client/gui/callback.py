@@ -82,13 +82,13 @@ class ProgressCallbackWidget(ProgressCallback):
         self.status_progress.setValue(value)
         if self._updated_text:
             # FIXME: let the caller format the strings
-            updatedMsg = self._updated_text.__mod__(args)
+            updatedMsg = self._updated_text.format(*args)
             self.status_progress.setLabelText(updatedMsg)
         QCoreApplication.processEvents()
 
     def on_finish(self, *args, **kwargs):
         # FIXME: let the caller format the strings
-        finishedMsg = self._finished_text.__mod__(args)
+        finishedMsg = self._finished_text.format(*args)
         # self.status_progress.setLabelText(finishedMsg)
         self.status_progress.hide()
         if self._block:

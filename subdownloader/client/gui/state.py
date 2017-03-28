@@ -181,7 +181,7 @@ class State(QObject):
         # FIXME: define interface!
         return self._OSDBServer.UploadSubtitles(data)
 
-    def getDownloadPath(self, subtitle):
+    def getDownloadPath(self, parent, subtitle):
         video = subtitle.get_parent().get_parent().get_parent()
         downloadFullPath = ""
         settings = QSettings()
@@ -206,7 +206,7 @@ class State(QObject):
             dir = QDir(folderPath)
             downloadFullPath = dir.filePath(subFileName)
             downloadFullPath, t = QFileDialog.getSaveFileName(
-                None, _("Save as..."), downloadFullPath, sub_extension)
+                parent, _("Save as..."), downloadFullPath, sub_extension)
             log.debug("Downloading to: %r" % downloadFullPath)
         elif optionWhereToDownload == "SAME_FOLDER":
             folderPath = video.get_folderpath()

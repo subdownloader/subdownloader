@@ -519,10 +519,10 @@ class SearchFileWidget(QWidget):
 
         # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
         callback = ProgressCallbackWidget(self)
-        callback.set_title_text(_('Downloading...'))
+        callback.set_title_text(_("Downloading..."))
         callback.set_label_text(_("Downloading files..."))
-        callback.set_updated_text(_("Downloading subtitle %s (%d/%d)"))
-        callback.set_finished_text(_("%d from %d subtitles downloaded successfully"))
+        callback.set_updated_text(_("Downloading subtitle {0} ({1}/{2})"))
+        callback.set_finished_text(_("{0} from {1} subtitles downloaded successfully"))
         callback.set_block(True)
         callback.set_range(0, total_subs)
 
@@ -531,7 +531,7 @@ class SearchFileWidget(QWidget):
         for i, sub in enumerate(subs):
             if callback.canceled():
                 break
-            destinationPath = self.get_state().getDownloadPath(sub)
+            destinationPath = self.get_state().getDownloadPath(self, sub)
             if not destinationPath:
                 break
             log.debug("Trying to download subtitle '%s'" % destinationPath)
@@ -580,7 +580,8 @@ class SearchFileWidget(QWidget):
                 fileExistsBox = QMessageBox(
                     QMessageBox.Warning,
                     _("File already exists"),
-                    _("Local: %s\n\nRemote: %s\n\nHow would you like to proceed?") % (destinationPath, QFileInfo(destinationPath).fileName()),
+                    _("Local: {local}\n\nRemote: {remote}\n\nHow would you like to proceed?").format(
+                        locale=destinationPath, remote=QFileInfo(destinationPath).fileName()),
                     QMessageBox.NoButton,
                     self)
                 skipButton = fileExistsBox.addButton(
