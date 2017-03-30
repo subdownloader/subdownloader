@@ -4,6 +4,7 @@ recursive-include subdownloader/client/locale *.po
 recursive-include subdownloader/client/locale *.mo
 recursive-include subdownloader/client/locale *.pot
 
+include subdownloader/client/gui/images.qrc
 include subdownloader/client/gui/*.ui
 include subdownloader/client/gui/Makefile
 recursive-include subdownloader/client/gui/images *.gif
