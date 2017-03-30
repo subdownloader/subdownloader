@@ -21,7 +21,7 @@ from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
 from subdownloader.http import url_stream
-from subdownloader.languages.language import Language, NotALanguageException
+from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
 from subdownloader.subtitle2 import RemoteSubtitleFile
@@ -1025,8 +1025,11 @@ class SDService(object):
                     remote_link = rsub_raw['SubtitlesLink']
                     remote_uploader = rsub_raw['UserNickName']
                     remote_language_raw = rsub_raw['SubLanguageID']
-                    remote_language = Language.from_unknown(remote_language_raw,
-                                                            locale=False, name=False)
+                    try:
+                        remote_language = Language.from_unknown(remote_language_raw,
+                                                                locale=False, name=False)
+                    except NotALanguageException:
+                        remote_language = UnknownLanguage(remote_language_raw)
                     remote_rating = float(rsub_raw['SubRating'])
                     remote_subtitle = OpenSubtitles_SubtitleFile(
                         filename=remote_filename,
@@ -1039,11 +1042,13 @@ class SDService(object):
                         language=remote_language,
                         rating=remote_rating,
                     )
-                    hash_video[rsub_raw['MovieHash']].add_subtitle(remote_subtitle)
+                    movie_hash = '{:>016}'.format(rsub_raw['MovieHash'])
+                    hash_video[movie_hash].add_subtitle(remote_subtitle)
 
                     remote_subtitles.append(remote_subtitle)
-                except (KeyError, ValueError, NotALanguageException):
+                except (KeyError, ValueError):
                     log.exception('Error parsing result of SearchSubtitles(...)')
+                    log.error('Offending query is: {queries}'.format(queries=queries))
                     log.error('Offending result is: {remote_sub}'.format(remote_sub=rsub_raw))
 
         callback.finish()
