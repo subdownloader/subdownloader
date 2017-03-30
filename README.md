@@ -11,11 +11,11 @@ Required:
   * [python-progressbar]: command line interface
 - Graphical interface:
   * [Qt]: graphical interface
-  * [pyQt]: Python bindings (version 4)
+  * [pyQt]: Python bindings (version 5)
 
 Optional:
 - [kaa-metadata]: currently only available for Python 2
-- [pymediainfo]: used as fallback for python-kaa-metadata. This package needs [MediaInfo](https://mediaarea.net).
+- [pymediainfo]: used as fallback for python-kaa-metadata. This package needs [MediaInfo](https://mediaarea.net). Version 2.1.6 or higher.
 - [langdetect]: language detection of subtitles by their contents 
 - [argcomplete]: Bash tab completion for argparse
 
