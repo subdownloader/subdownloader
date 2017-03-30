@@ -26,7 +26,6 @@ from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.login import LoginDialog, login_parent_state
 
-
 log = logging.getLogger('subdownloader.client.gui.main')
 
 
@@ -43,9 +42,9 @@ class Main(QMainWindow):
 
         self.ui = Ui_MainWindow()
 
-        self.setupUi()
-
         self._state = State(self, options)
+
+        self.setup_ui()
 
         self.ui.tabSearchFile.set_state(self._state)
         self.ui.tabSearchName.set_state(self._state)
@@ -70,9 +69,9 @@ class Main(QMainWindow):
                 QMessageBox.about(
                     self, _('Error'), _('Unable to find {file}').format(file=options.videofile))
 
-    def setupUi(self):
+    def setup_ui(self):
         self.calculateProgramFolder()
-        self.SetupInterfaceLang()
+        self.setup_interface_language()
         self.ui.setupUi(self)
         self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFile)
 
@@ -90,6 +89,17 @@ class Main(QMainWindow):
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
         self.ui.label_version.setText(PROJECT_VERSION_STR)
+
+        self._state.interface_language_changed.connect(self.on_interface_language_changed)
+
+    def retranslate(self):
+        pass
+
+    @pyqtSlot(language.Language)
+    def on_interface_language_changed(self, language):
+        self.setup_interface_language()
+        self.ui.retranslateUi(self)
+        self.retranslate()
 
     def get_state(self):
         return self._state
@@ -122,7 +132,8 @@ class Main(QMainWindow):
         else:
             log.warning('unknown state')
 
-    def SetupInterfaceLang(self):
+    @staticmethod
+    def setup_interface_language():
         settings = QSettings()
         interface_locale = settings.value('options/interfaceLang', language.UnknownLanguage.create_generic().locale())
         interface_lang = language.Language.from_locale(interface_locale)
@@ -130,7 +141,7 @@ class Main(QMainWindow):
         if interface_lang.is_generic():
             interface_locale = None
 
-        i18n_install(interface_locale)
+        i18n_install(lc=interface_locale)
 
     def calculateProgramFolder(self):
         if os.path.isdir(sys.path[0]):  # for Linux is /program_folder/
@@ -212,7 +223,7 @@ class Main(QMainWindow):
         webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     def onMenuPreferences(self):
-        dialog = PreferencesDialog(self)
+        dialog = PreferencesDialog(self, state=self._state)
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 

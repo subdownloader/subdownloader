@@ -19,8 +19,10 @@ log = logging.getLogger("subdownloader.client.gui.preferences")
 
 class PreferencesDialog(QDialog):
 
-    def __init__(self, parent):
+    def __init__(self, parent, state):
         QDialog.__init__(self, parent)
+
+        self._state = state
 
         self.ui = Ui_PreferencesDialog()
         self.ui.setupUi(self)
@@ -145,12 +147,11 @@ class PreferencesDialog(QDialog):
 
         # - Interface Language
 
-        self._interfaceLang = self.DEFAULT_INTERFACE_LANG
-
+        self._original_interface_language = language.UnknownLanguage.create_generic()
         self.ui.optionInterfaceLanguage.set_unknown_text(_('System Language'))
-        self.ui.optionUlDefaultLanguage.set_selected_language(self._interfaceLang)
+        self.ui.optionUlDefaultLanguage.set_selected_language(self.DEFAULT_INTERFACE_LANG)
 
-        self.ui.optionInterfaceLanguage.selected_language_changed.connect(self.onOptionInterfaceLanguageChange)
+        # - Video Application Location
 
         self.ui.buttonVideoAppLocationChoose.clicked.connect(
             self.onButtonVideoAppLocationChoose)
@@ -225,8 +226,8 @@ class PreferencesDialog(QDialog):
         # - Interface Language
 
         optionInterfaceLanguage = self.settings.value('options/interfaceLang', self.DEFAULT_INTERFACE_LANG.locale())
-        self._interfaceLang = language.Language.from_locale(optionInterfaceLanguage)
-        self.ui.optionInterfaceLanguage.set_selected_language(self._interfaceLang)
+        self._original_interface_language = language.Language.from_locale(optionInterfaceLanguage)
+        self.ui.optionInterfaceLanguage.set_selected_language(self._original_interface_language)
 
         optionIntegrationExplorer = self.settings.value(
             "options/IntegrationExplorer", False)
@@ -286,7 +287,10 @@ class PreferencesDialog(QDialog):
 
         # - Interface Language
 
-        self.settings.setValue('options/interfaceLang', self._interfaceLang.locale())
+        new_interface_language = self.ui.optionInterfaceLanguage.get_selected_language()
+        self.settings.setValue('options/interfaceLang', new_interface_language.locale())
+        if self._original_interface_language != new_interface_language:
+            self._state.interface_language_changed.emit(new_interface_language)
 
         # Writing settings
 
@@ -420,12 +424,6 @@ class PreferencesDialog(QDialog):
     interfaceLanguageChange = pyqtSignal(language.Language)
 
     DEFAULT_INTERFACE_LANG = language.UnknownLanguage.create_generic()
-
-    @pyqtSlot(language.Language)
-    def onOptionInterfaceLanguageChange(self, lang):
-        if self._interfaceLang != lang:
-            self._interfaceLang = lang
-            QMessageBox.about(self, _('Alert'), _('The new language will be displayed after restarting the program.'))
 
     def actionContextMenu(self, action, os):
         pass

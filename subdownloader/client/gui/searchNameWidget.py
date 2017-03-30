@@ -29,22 +29,23 @@ class SearchNameWidget(QWidget):
 
     def __init__(self):
         QWidget.__init__(self)
-        self.ui = Ui_SearchNameWidget()
 
-        self.setupUi()
         self._state = None
+
+        self.ui = Ui_SearchNameWidget()
+        self.setup_ui()
 
     def set_state(self, state):
         self._state = state
         self._state.login_status_changed.connect(self.on_login_state_changed)
+        self._state.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state
 
-    def setupUi(self):
+    def setup_ui(self):
         self.ui.setupUi(self)
 
-        self.ui.filterLanguage.set_unknown_text(_("All languages"))
         self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
 
         self.language_filter_change.connect(self.on_language_filter_change)
@@ -63,6 +64,16 @@ class SearchNameWidget(QWidget):
         self.ui.moviesView.expanded.connect(self.onExpandMovie)
         self.ui.moviesView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.moviesView.customContextMenuRequested.connect(self.onContext)
+
+        self.retranslate()
+
+    def retranslate(self):
+        self.ui.filterLanguage.set_unknown_text(_("All languages"))
+
+    @pyqtSlot(Language)
+    def on_interface_language_changed(self, language):
+        self.ui.retranslateUi(self)
+        self.retranslate()
 
     @pyqtSlot(int, str)
     def on_login_state_changed(self, state, message):

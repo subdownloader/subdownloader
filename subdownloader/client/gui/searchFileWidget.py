@@ -37,7 +37,6 @@ class SearchFileWidget(QWidget):
 
     def __init__(self):
         QWidget.__init__(self)
-        self.ui = Ui_SearchFileWidget()
 
         self._refreshing = False
 
@@ -45,19 +44,22 @@ class SearchFileWidget(QWidget):
         self.proxyFileModel = None
         self.videoModel = None
 
-        self.setupUi()
-
         self._state = None
+
         self.timeLastSearch = QTime.currentTime()
+
+        self.ui = Ui_SearchFileWidget()
+        self.setup_ui()
 
     def set_state(self, state):
         self._state = state
         self._state.login_status_changed.connect(self.on_login_state_changed)
+        self._state.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state
 
-    def setupUi(self):
+    def setup_ui(self):
         self.ui.setupUi(self)
         settings = QSettings()
 
@@ -97,30 +99,9 @@ class SearchFileWidget(QWidget):
         self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
 
         # Set up introduction
-
-        introduction = '<p align="center"><h2>{title}</h2></p>' \
-            '<p><b>{tab1header}</b><br>{tab1content}</p>' \
-            '<p><b>{tab2header}</b><br>{tab2content}</p>'\
-            '<p><b>{tab3header}</b><br>{tab3content}</p>'.format(
-                title=_('How To Use {title}').format(title=PROJECT_TITLE),
-                tab1header=_('1st Tab:'),
-                tab2header=_('2nd Tab:'),
-                tab3header=_('3rd Tab:'),
-                tab1content=_('Select, from the Folder Tree on the left, the folder which contains the videos '
-                              'that need subtitles. {project} will then try to automatically find available '
-                              'subtitles.').format(project=PROJECT_TITLE),
-                tab2content=_('If you don\'t have the videos in your machine, you can search subtitles by '
-                              'introducing the title/name of the video.').format(project=PROJECT_TITLE),
-                tab3content=_('If you have found some subtitle somewhere else that is not in {project}\'s database, '
-                              'please upload those subtitles so next users will be able to '
-                              'find them more easily.').format(project=PROJECT_TITLE))
-        self.ui.introductionHelp.setHtml(introduction)
-
         self.showInstructions()
 
         # Set up video view
-
-        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
         self.ui.filterLanguageForVideo.selected_language_changed.connect(self.on_language_combobox_filter_change)
         # self.ui.filterLanguageForVideo.selected_language_changed.connect(self.onFilterLanguageVideo)
 
@@ -148,8 +129,36 @@ class SearchFileWidget(QWidget):
         self.ui.videoView.__class__.dropEvent = self.dropEvent
         self.ui.videoView.setAcceptDrops(1)
 
-        # FIXME: ok to drop this conect?
+        # FIXME: ok to drop this connect?
         # self.ui.videoView.clicked.connect(self.onClickMovieTreeView)
+
+        self.retranslate()
+
+    def retranslate(self):
+        introduction = '<p align="center"><h2>{title}</h2></p>' \
+            '<p><b>{tab1header}</b><br/>{tab1content}</p>' \
+            '<p><b>{tab2header}</b><br/>{tab2content}</p>'\
+            '<p><b>{tab3header}</b><br/>{tab3content}</p>'.format(
+                title=_('How To Use {title}').format(title=PROJECT_TITLE),
+                tab1header=_('1st Tab:'),
+                tab2header=_('2nd Tab:'),
+                tab3header=_('3rd Tab:'),
+                tab1content=_('Select, from the Folder Tree on the left, the folder which contains the videos '
+                              'that need subtitles. {project} will then try to automatically find available '
+                              'subtitles.').format(project=PROJECT_TITLE),
+                tab2content=_('If you don\'t have the videos in your machine, you can search subtitles by '
+                              'introducing the title/name of the video.').format(project=PROJECT_TITLE),
+                tab3content=_('If you have found some subtitle somewhere else that is not in {project}\'s database, '
+                              'please upload those subtitles so next users will be able to '
+                              'find them more easily.').format(project=PROJECT_TITLE))
+        self.ui.introductionHelp.setHtml(introduction)
+
+        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
+
+    @pyqtSlot(Language)
+    def on_interface_language_changed(self, language):
+        self.ui.retranslateUi(self)
+        self.retranslate()
 
     @pyqtSlot(str)
     def onFileModelDirectoryLoaded(self, path):

@@ -37,21 +37,24 @@ class UploadWidget(QWidget):
 
     def __init__(self):
         QWidget.__init__(self)
-        self.ui = Ui_UploadWidget()
 
         self.upload_autodetected_lang = ""
         self.upload_autodetected_imdb = ""
 
-        self.setupUi()
+        self._state = None
+
+        self.ui = Ui_UploadWidget()
+        self.setup_ui()
 
     def set_state(self, state):
         self._state = state
         self._state.login_status_changed.connect(self.on_login_state_changed)
+        self._state.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state
 
-    def setupUi(self):
+    def setup_ui(self):
         self.ui.setupUi(self)
         self.initializeFilterLanguages()
 
@@ -119,6 +122,14 @@ class UploadWidget(QWidget):
             title = settings.value("title")
             self.ui.uploadIMDB.addItem("%s : %s" % (imdbId, title), imdbId)
         settings.endArray()
+
+    def retranslate(self):
+        pass
+
+    @pyqtSlot(language.Language)
+    def on_interface_language_changed(self, language):
+        self.ui.retranslateUi(self)
+        self.retranslate()
 
     # UPLOAD METHODS
 

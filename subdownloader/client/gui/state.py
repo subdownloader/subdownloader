@@ -19,6 +19,9 @@ log = logging.getLogger('subdownloader.client.gui.state')
 
 
 class State(QObject):
+
+    interface_language_changed = pyqtSignal(Language)
+
     def __init__(self, parent, options):
         QObject.__init__(self, parent)
 
