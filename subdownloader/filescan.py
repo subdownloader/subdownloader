@@ -5,7 +5,7 @@ import logging
 import os
 
 from subdownloader.subtitle2 import LocalSubtitleFile, SubtitleFileNetwork, SUBTITLES_EXT
-from subdownloader.video2 import VideoFile, VIDEOS_EXT
+from subdownloader.video2 import NotAVideoException, VideoFile, VIDEOS_EXT
 
 log = logging.getLogger('subdownloader.filescan')
 
@@ -103,7 +103,10 @@ def merge_path_subvideo(path_subvideos, callback):
         subtitles = [LocalSubtitleFile(filepath=os.path.join(path, sub_str)) for sub_str in subs_str]
         all_subtitles.extend(subtitles)
         for vid_str in vids_str:
-            video = VideoFile(os.path.join(path, vid_str))
+            try:
+                video = VideoFile(os.path.join(path, vid_str))
+            except NotAVideoException:
+                continue
             all_videos.append(video)
 
             for subtitle in subtitles:

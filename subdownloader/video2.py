@@ -155,27 +155,30 @@ class VideoFile(object):
         log.debug('_calculate_OSDB_hash() of "{path}" ...'.format(path=self._filepath))
         f = open(self._filepath, 'rb')
 
-        filesize = os.fstat(f.fileno()).st_size
-        log.debug('... filesize={filesize} bytes'.format(filesize=filesize))
+        file_size = os.fstat(f.fileno()).st_size
+        log.debug('... file_size ={file_size} bytes'.format(file_size=file_size))
 
-        blockSize = min(filesize, 64 << 10) # 64kiB
+        longlong_format = 'Q'  # unsigned long long little endian
+        size_longlong = struct.calcsize(longlong_format)
 
-        longlongformat = 'Q'  # unsigned long long little endian
-        bytesize = struct.calcsize(longlongformat)
-        format = '<{nbll}{memberformat}'.format(
-            nbll=blockSize // bytesize,
-            memberformat=longlongformat)
+        block_size = min(file_size , 64 << 10)  # 64kiB
+        block_size = block_size & ~0x7  # Lower round on 8
 
-        hash_int = filesize
+        nb_longlong = block_size // size_longlong
+        format = '<{nbll}{member_format}'.format(
+            nbll=nb_longlong,
+            member_format=longlong_format)
 
-        buffer = f.read(blockSize)
-        longlongs = struct.unpack(format, buffer)
-        hash_int += sum(longlongs)
+        hash_int = file_size
 
-        f.seek(-blockSize, os.SEEK_END)
-        buffer = f.read(blockSize)
-        longlongs = struct.unpack(format, buffer)
-        hash_int += sum(longlongs)
+        buffer = f.read(block_size)
+        list_longlong = struct.unpack(format, buffer)
+        hash_int += sum(list_longlong)
+
+        f.seek(-block_size, os.SEEK_END)
+        buffer = f.read(block_size)
+        list_longlong = struct.unpack(format, buffer)
+        hash_int += sum(list_longlong)
 
         f.close()
         hash_str = '{:016x}'.format(hash_int)[-16:]
