@@ -5,18 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: subdownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-29 00:46+0200\n"
-"PO-Revision-Date: 2012-05-06 13:29+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Zazaki <zza@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
+"POT-Creation-Date: 2017-03-30 06:43+0200\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
-"X-Generator: Launchpad (build 18298)\n"
 
 #: subdownloader/project.py:55
 #, python-brace-format

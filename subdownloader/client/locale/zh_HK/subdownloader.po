@@ -1,22 +1,22 @@
+# #-#-#-#-#  subdownloader.po  #-#-#-#-#
 # Chinese (Hong Kong) translation for subdownloader
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the subdownloader package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: subdownloader\n"
+"Project-Id-Version: SubDownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-29 00:46+0200\n"
-"PO-Revision-Date: 2014-11-22 05:06+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Chinese (Hong Kong) <zh_HK@li.org>\n"
-"Language: zh_HK\n"
+"POT-Creation-Date: 2017-03-30 06:43+0200\n"
+"Language: zh-hk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
-"X-Generator: Launchpad (build 18298)\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"X-Generator: POEditor.com\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 
 #: subdownloader/project.py:55
 #, python-brace-format

@@ -1,22 +1,22 @@
+# #-#-#-#-#  subdownloader.po  #-#-#-#-#
 # Traditional Chinese translation for subdownloader
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the subdownloader package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: subdownloader\n"
+"Project-Id-Version: SubDownloader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-29 00:46+0200\n"
-"PO-Revision-Date: 2009-11-16 03:35+0000\n"
-"Last-Translator: Ethan Chang <ethan.ch@gmail.com>\n"
-"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-03-30 06:43+0200\n"
+"Language: zh-TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-12-17 04:20+0000\n"
-"X-Generator: Launchpad (build 18298)\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"X-Generator: POEditor.com\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 
 #: subdownloader/project.py:55
 #, python-brace-format
@@ -274,7 +274,13 @@ msgstr ""
 #: subdownloader/client/arguments.py:60
 #, fuzzy
 msgid "logging"
-msgstr "登入中…"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"登入中…\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"登入中…"
 
 #: subdownloader/client/arguments.py:60
 msgid "Change the amount of logging done."
@@ -301,7 +307,13 @@ msgstr ""
 #: subdownloader/client/arguments.py:77
 #, fuzzy
 msgid "Path name of the log file."
-msgstr "跟影片檔的名稱相同"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"跟影片檔的名稱相同\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"跟影片檔的名稱相同"
 
 #: subdownloader/client/arguments.py:80
 msgid "cli"
@@ -334,7 +346,13 @@ msgstr ""
 #: subdownloader/client/arguments.py:98
 #, fuzzy
 msgid "Upload a subtitle."
-msgstr "上傳字幕"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"上傳字幕\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"上傳字幕"
 
 #: subdownloader/client/arguments.py:100
 msgid "List available subtitles without downloading."
@@ -372,12 +390,24 @@ msgstr ""
 #: subdownloader/client/gui/about.py:37
 #, fuzzy
 msgid "Homepage"
-msgstr "造訪首頁"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"造訪首頁\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"造訪首頁"
 
 #: subdownloader/client/gui/about.py:38
 #, fuzzy
 msgid "New versions on"
-msgstr "已偵測到新版本"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"已偵測到新版本\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"已偵測到新版本"
 
 #: subdownloader/client/gui/about.py:39
 msgid "Bugs and new requests"
@@ -533,7 +563,13 @@ msgstr "詳細資料："
 #: subdownloader/client/gui/uploadWidget_ui.py:294
 #, fuzzy
 msgid "UploadWidget"
-msgstr "上傳中..."
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"上傳中...\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"上傳中..."
 
 #: subdownloader/client/gui/uploadWidget_ui.py:291
 msgid "Movie Title:"
@@ -617,7 +653,13 @@ msgstr "與影片檔的名稱相同 + 語言碼(例: StarWarsCD1.eng.srt)"
 msgid ""
 "Same name as video file + language code + Uploader name (ex: StarWarsCD1.eng."
 "JohnDoe.srt)"
-msgstr "與影片檔的名稱相同 + 語言碼(例: StarWarsCD1.eng.srt)"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"與影片檔的名稱相同 + 語言碼(例: StarWarsCD1.eng.srt)\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"與影片檔的名稱相同 + 語言碼(例: StarWarsCD1.eng.srt)"
 
 #: subdownloader/client/gui/preferences_ui.py:271
 msgid "Same name as the online subtitle"
@@ -654,7 +696,13 @@ msgstr "網路"
 #: subdownloader/client/gui/preferences_ui.py:279
 #, fuzzy
 msgid "Interface"
-msgstr "介面語言:"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"介面語言:\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"介面語言:"
 
 #: subdownloader/client/gui/preferences_ui.py:280
 msgid "Interface Language:"
@@ -708,7 +756,13 @@ msgstr "關於Subdownloader"
 #: subdownloader/client/gui/about_ui.py:151
 #, fuzzy
 msgid "AboutDialog"
-msgstr "關於"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"關於\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"關於"
 
 #: subdownloader/client/gui/about_ui.py:149
 #: subdownloader/client/gui/main_ui.py:161
@@ -828,7 +882,13 @@ msgstr "選擇一個資料夾"
 #: subdownloader/client/gui/state.py:65 subdownloader/client/gui/state.py:123
 #, fuzzy, python-brace-format
 msgid "Connecting to server using proxy {proxy}"
-msgstr "使用 %s 代理伺服器連接伺服器中"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"使用 %s 代理伺服器連接伺服器中\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"使用 %s 代理伺服器連接伺服器中"
 
 #: subdownloader/client/gui/state.py:69
 msgid "Connecting"
@@ -854,7 +914,13 @@ msgstr "登入中…"
 #: subdownloader/client/gui/state.py:129
 #, fuzzy
 msgid "Authenticated successfully"
-msgstr "%d 個字幕下載成功"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"%d 個字幕下載成功\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"%d 個字幕下載成功"
 
 #: subdownloader/client/gui/state.py:150 subdownloader/client/gui/state.py:159
 msgid "Login: ERROR"
@@ -863,13 +929,25 @@ msgstr "登入: 錯誤"
 #: subdownloader/client/gui/state.py:154
 #, fuzzy, python-brace-format
 msgid "Logged in as {username}"
-msgstr "已登入為 %s"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"已登入為 %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"已登入為 %s"
 
 #: subdownloader/client/gui/state.py:167 subdownloader/client/gui/main.py:184
 #: subdownloader/client/gui/main_ui.py:153
 #, fuzzy
 msgid "Log in"
-msgstr "登入中…"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"登入中…\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"登入中…"
 
 #: subdownloader/client/gui/state.py:209
 #: subdownloader/client/gui/searchFileWidget.py:554
@@ -910,12 +988,24 @@ msgstr "找到的字幕:"
 #: subdownloader/client/gui/login.py:68
 #, fuzzy
 msgid "Error contacting the server. Please try again later."
-msgstr "接觸伺服器時發生錯誤. 請稍後再試"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"接觸伺服器時發生錯誤. 請稍後再試\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"接觸伺服器時發生錯誤. 請稍後再試"
 
 #: subdownloader/client/gui/login.py:79
 #, fuzzy
 msgid "Error logging in into the server. Please try again later."
-msgstr "接觸伺服器時發生錯誤. 請稍後再試"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"接觸伺服器時發生錯誤. 請稍後再試\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"接觸伺服器時發生錯誤. 請稍後再試"
 
 #: subdownloader/client/gui/uploadlistview.py:30
 msgid "Videofile"
@@ -958,7 +1048,13 @@ msgstr "在這點選來選擇字幕..."
 #: subdownloader/client/gui/searchFileWidget.py:105
 #, fuzzy, python-brace-format
 msgid "How To Use {title}"
-msgstr "如何使用 SubDownloader"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"如何使用 SubDownloader\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"如何使用 SubDownloader"
 
 #: subdownloader/client/gui/searchFileWidget.py:106
 msgid "1st Tab:"
@@ -979,6 +1075,12 @@ msgid ""
 "videos that need subtitles. {project} will then try to automatically find "
 "available subtitles."
 msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"在左邊的樹狀目錄中, 選擇需要字幕的影片目錄. SubDownloader 即會試著自動找尋可"
+"用的字幕.\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 "在左邊的樹狀目錄中, 選擇需要字幕的影片目錄. SubDownloader 即會試著自動找尋可"
 "用的字幕."
 
@@ -995,6 +1097,12 @@ msgid ""
 "database, please upload those subtitles so next users will be able to find "
 "them more easily."
 msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"如果您在其它地方找到的字幕是 SubDownloader 資料庫沒有的, 請上傳這些字幕讓其他"
+"使用者將能夠更容易地找到它們.\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 "如果您在其它地方找到的字幕是 SubDownloader 資料庫沒有的, 請上傳這些字幕讓其他"
 "使用者將能夠更容易地找到它們."
 
@@ -1026,7 +1134,13 @@ msgstr "掃描檔案"
 #: subdownloader/client/gui/searchFileWidget.py:310
 #, fuzzy
 msgid "Scanning finished"
-msgstr "掃描檔案"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"掃描檔案\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"掃描檔案"
 
 #: subdownloader/client/gui/searchFileWidget.py:317
 msgid "Some directories are not accessible."
@@ -1057,12 +1171,24 @@ msgstr "下載檔案中..."
 #: subdownloader/client/gui/searchFileWidget.py:387
 #, fuzzy
 msgid "Downloading finished"
-msgstr "下載檔案中..."
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"下載檔案中...\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"下載檔案中..."
 
 #: subdownloader/client/gui/searchFileWidget.py:395
 #, fuzzy, python-brace-format
 msgid "Unable to download subtitle \"{subtitle}\""
-msgstr "下載不了字幕 %s"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"下載不了字幕 %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"下載不了字幕 %s"
 
 #: subdownloader/client/gui/searchFileWidget.py:436
 msgid "Unable to launch videoplayer"
@@ -1071,7 +1197,13 @@ msgstr "影片播放器開不起來"
 #: subdownloader/client/gui/searchFileWidget.py:456
 #, fuzzy
 msgid "Subtitle Info"
-msgstr "檢視字幕訊息"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"檢視字幕訊息\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"檢視字幕訊息"
 
 #: subdownloader/client/gui/searchFileWidget.py:474
 #: subdownloader/client/gui/searchFileWidget.py:500
@@ -1106,12 +1238,24 @@ msgstr ""
 #: subdownloader/client/gui/searchFileWidget.py:524
 #, fuzzy, python-brace-format
 msgid "Downloading subtitle {0} ({1}/{2})"
-msgstr "正在下載字幕 %s (%d/%d)"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"正在下載字幕 %s (%d/%d)\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"正在下載字幕 %s (%d/%d)"
 
 #: subdownloader/client/gui/searchFileWidget.py:525
 #, fuzzy, python-brace-format
 msgid "{0} from {1} subtitles downloaded successfully"
-msgstr "%d 個字幕下載成功"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"%d 個字幕下載成功\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"%d 個字幕下載成功"
 
 #: subdownloader/client/gui/searchFileWidget.py:544
 msgid "Error write permission"
@@ -1144,6 +1288,15 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"本地: %s\n"
+"\n"
+"遠端: %s\n"
+"\n"
+"你想要怎樣繼續?\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 "本地: %s\n"
 "\n"
 "遠端: %s\n"
@@ -1201,7 +1354,13 @@ msgstr "下載中"
 #: subdownloader/client/gui/searchNameWidget.py:169
 #, fuzzy, python-brace-format
 msgid "Downloading {0} to {1}"
-msgstr "正在下載從 %s 到 %s"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"正在下載從 %s 到 %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"正在下載從 %s 到 %s"
 
 #: subdownloader/client/gui/searchNameWidget.py:221
 #, fuzzy, python-brace-format
@@ -1209,13 +1368,25 @@ msgid ""
 "An error occurred downloading \"{url}\":\n"
 "Error:{error_str}"
 msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"下載 %s 時發生一個錯誤:\n"
+"錯誤: %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
 "下載 %s 時發生一個錯誤:\n"
 "錯誤: %s"
 
 #: subdownloader/client/gui/searchNameWidget.py:228
 #, fuzzy
 msgid "{} subtitles downloaded successfully"
-msgstr "%d 個字幕下載成功"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"%d 個字幕下載成功\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"%d 個字幕下載成功"
 
 #: subdownloader/client/gui/searchNameWidget.py:229
 msgid ""
@@ -1281,7 +1452,13 @@ msgstr "播放"
 #: subdownloader/client/gui/main.py:71
 #, fuzzy, python-brace-format
 msgid "Unable to find {file}"
-msgstr "找不到 %s"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"找不到 %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"找不到 %s"
 
 #: subdownloader/client/gui/main_ui.py:149
 msgid "Search from Video file(s)"
@@ -1298,7 +1475,13 @@ msgstr "上傳字幕"
 #: subdownloader/client/gui/main_ui.py:152
 #, fuzzy
 msgid "version:"
-msgstr "波斯文"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"波斯文\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"波斯文"
 
 #: subdownloader/client/gui/main_ui.py:154
 msgid "&Main"
@@ -1327,7 +1510,13 @@ msgstr "造訪首頁"
 #: subdownloader/client/gui/main_ui.py:160
 #, fuzzy
 msgid "About..."
-msgstr "關於"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"關於\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"關於"
 
 #: subdownloader/client/gui/main_ui.py:162
 msgid "Report A Problem"
@@ -1336,12 +1525,24 @@ msgstr "提交一個問題"
 #: subdownloader/client/gui/main_ui.py:163
 #, fuzzy
 msgid "&Configure Subdownloader..."
-msgstr "設定 Subdownloader(&C)"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"設定 Subdownloader(&C)\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"設定 Subdownloader(&C)"
 
 #: subdownloader/client/gui/main_ui.py:164
 #, fuzzy
 msgid "Log in..."
-msgstr "登入中…"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"登入中…\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"登入中…"
 
 #: subdownloader/client/gui/main_ui.py:165
 msgid "Log Messages"
@@ -1388,12 +1589,24 @@ msgstr "建構主要對話框中..."
 #: subdownloader/client/gui/preferences.py:135
 #, fuzzy
 msgid "Auto Detect"
-msgstr "<AutoDetect>"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"<AutoDetect>\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"<AutoDetect>"
 
 #: subdownloader/client/gui/preferences.py:150
 #, fuzzy
 msgid "System Language"
-msgstr "字幕語文:"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"字幕語文:\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"字幕語文:"
 
 #: subdownloader/client/gui/preferences.py:247
 msgid "Enable in your Windows Explorer"
@@ -1415,12 +1628,24 @@ msgstr "在重新啟動本程式後, 修改過的代理伺服器設定才會生�
 #: subdownloader/client/gui/preferences.py:330
 #, fuzzy
 msgid "Predefined Folder is invalid"
-msgstr "預定的資料夾:"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"預定的資料夾:\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"預定的資料夾:"
 
 #: subdownloader/client/gui/preferences.py:380
 #, fuzzy
 msgid "Not a directory"
-msgstr "選擇一個資料夾"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"選擇一個資料夾\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"選擇一個資料夾"
 
 #: subdownloader/client/gui/preferences.py:380
 #, python-brace-format
@@ -1443,7 +1668,13 @@ msgstr ""
 #: subdownloader/client/gui/videomodel2.py:256
 #, fuzzy
 msgid "Already downloaded"
-msgstr "(已經下載的)"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"(已經下載的)\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"(已經下載的)"
 
 #: subdownloader/client/gui/videomodel2.py:263
 #, python-brace-format
@@ -1453,7 +1684,13 @@ msgstr ""
 #: subdownloader/client/gui/videomodel2.py:264
 #, fuzzy, python-brace-format
 msgid "Uploader: {uploader}"
-msgstr "上傳者: %s"
+msgstr ""
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
+"#-#-#-#-#  subdownloader.po (subdownloader)  #-#-#-#-#\n"
+"上傳者: %s\n"
+"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"上傳者: %s"
 
 #~ msgid "Parsing video: %s"
 #~ msgstr "解析視頻: %s"
