@@ -1,4 +1,3 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: SubDownloader\n"
@@ -8,9 +7,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
-"X-Generator: POEditor.com\n"
-"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
+"X-Generator: Poedit 1.8.8\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
 #: subdownloader/project.py:55
 #, python-brace-format
@@ -69,9 +69,8 @@ msgid "Chinese (China)"
 msgstr "Chinees (China)"
 
 #: subdownloader/languages/language.py:469
-#, fuzzy
 msgid "Chinese (traditional)"
-msgstr "Chinees (China)"
+msgstr "Chinees (traditioneel)"
 
 #: subdownloader/languages/language.py:474
 msgid "Croatian"
@@ -270,9 +269,8 @@ msgid "Set the language of the subtitle for download and upload."
 msgstr "Stel de taal van de ondertiteling in voor down- en upload."
 
 #: subdownloader/client/arguments.py:60
-#, fuzzy
 msgid "logging"
-msgstr "Bezig met aanmelden..."
+msgstr "loggen"
 
 #: subdownloader/client/arguments.py:60
 msgid "Change the amount of logging done."
@@ -299,9 +297,8 @@ msgid "Don't log anything to stderr or stdout"
 msgstr "Log niets naar stderr of stdout."
 
 #: subdownloader/client/arguments.py:77
-#, fuzzy
 msgid "Path name of the log file."
-msgstr "Zelfde naam als het videobestand"
+msgstr "Zelfde naam als het videobestand."
 
 #: subdownloader/client/arguments.py:80
 msgid "cli"
@@ -336,9 +333,8 @@ msgid "Download a subtitle. This is the default."
 msgstr "Download een ondertitel. Dit is de standaard."
 
 #: subdownloader/client/arguments.py:98
-#, fuzzy
 msgid "Upload a subtitle."
-msgstr "Ondertitels uploaden"
+msgstr "Ondertitels uploaden."
 
 #: subdownloader/client/arguments.py:100
 msgid "List available subtitles without downloading."
@@ -378,14 +374,12 @@ msgid "About {project}"
 msgstr "Over {project}"
 
 #: subdownloader/client/gui/about.py:37
-#, fuzzy
 msgid "Homepage"
-msgstr "Homepagina bezoeken"
+msgstr "Project website"
 
 #: subdownloader/client/gui/about.py:38
-#, fuzzy
 msgid "New versions on"
-msgstr "Nieuwe versie gedetecteerd"
+msgstr "Nieuwe versies op"
 
 #: subdownloader/client/gui/about.py:39
 msgid "Bugs and new requests"
@@ -553,9 +547,8 @@ msgstr "Details:"
 
 #: subdownloader/client/gui/uploadWidget_ui.py:287
 #: subdownloader/client/gui/uploadWidget_ui.py:294
-#, fuzzy
 msgid "UploadWidget"
-msgstr "Bezig met uploaden..."
+msgstr "UploadWidget"
 
 #: subdownloader/client/gui/uploadWidget_ui.py:291
 msgid "Movie Title:"
@@ -637,13 +630,12 @@ msgstr ""
 "srt)"
 
 #: subdownloader/client/gui/preferences_ui.py:270
-#, fuzzy
 msgid ""
 "Same name as video file + language code + Uploader name (ex: StarWarsCD1.eng."
 "JohnDoe.srt)"
 msgstr ""
-"Dezelfde naam als het videobestand + taal afkorting (bijv: StarWarsCD1.dut."
-"srt)"
+"Dezelfde naam als het videobestand + taal afkorting + Uploader naam (bijv: "
+"StarWarsCD1.dut.JohnDoe.srt)"
 
 #: subdownloader/client/gui/preferences_ui.py:271
 msgid "Same name as the online subtitle"
@@ -678,9 +670,8 @@ msgid "Network"
 msgstr "Netwerk"
 
 #: subdownloader/client/gui/preferences_ui.py:279
-#, fuzzy
 msgid "Interface"
-msgstr "Taal van programma:"
+msgstr "Interface"
 
 #: subdownloader/client/gui/preferences_ui.py:280
 msgid "Interface Language:"
@@ -732,9 +723,8 @@ msgstr "Over SubDownloader"
 #: subdownloader/client/gui/about_ui.py:139
 #: subdownloader/client/gui/about_ui.py:144
 #: subdownloader/client/gui/about_ui.py:151
-#, fuzzy
 msgid "AboutDialog"
-msgstr "Over"
+msgstr "AboutDialoog"
 
 #: subdownloader/client/gui/about_ui.py:149
 #: subdownloader/client/gui/main_ui.py:161
@@ -859,9 +849,9 @@ msgid "Select a directory"
 msgstr "Selecteer een woordenboek"
 
 #: subdownloader/client/gui/state.py:65 subdownloader/client/gui/state.py:123
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connecting to server using proxy {proxy}"
-msgstr "Bezig met verbinden via proxy %s"
+msgstr "Bezig met verbinden via proxy {proxy}"
 
 #: subdownloader/client/gui/state.py:69
 msgid "Connecting"
@@ -885,24 +875,22 @@ msgid "Logging in..."
 msgstr "Bezig met aanmelden..."
 
 #: subdownloader/client/gui/state.py:129
-#, fuzzy
 msgid "Authenticated successfully"
-msgstr "Succesvol verbonden"
+msgstr "Succesvol aangemeld"
 
 #: subdownloader/client/gui/state.py:150 subdownloader/client/gui/state.py:159
 msgid "Login: ERROR"
 msgstr "Inloggen: FOUT"
 
 #: subdownloader/client/gui/state.py:154
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Logged in as {username}"
-msgstr "Ingelogd als %s"
+msgstr "Ingelogd als {username}"
 
 #: subdownloader/client/gui/state.py:167 subdownloader/client/gui/main.py:184
 #: subdownloader/client/gui/main_ui.py:153
-#, fuzzy
 msgid "Log in"
-msgstr "Bezig met aanmelden..."
+msgstr "Meld aan"
 
 #: subdownloader/client/gui/state.py:209
 #: subdownloader/client/gui/searchFileWidget.py:554
@@ -941,14 +929,12 @@ msgid "Subtitles found:"
 msgstr "Gevonden ondertitels:"
 
 #: subdownloader/client/gui/login.py:68
-#, fuzzy
 msgid "Error contacting the server. Please try again later."
-msgstr "Fout bij het verbinden met de server, probeer het later nog een keer"
+msgstr "Fout bij het verbinden met de server, probeer het later nog een keer."
 
 #: subdownloader/client/gui/login.py:79
-#, fuzzy
 msgid "Error logging in into the server. Please try again later."
-msgstr "Fout bij het verbinden met de server, probeer het later nog een keer"
+msgstr "Fout bij het inloggen in de server. Probeer het later nog een keer."
 
 #: subdownloader/client/gui/uploadlistview.py:30
 msgid "Videofile"
@@ -989,9 +975,9 @@ msgid "Click here to select subtitle..."
 msgstr "Klik hier om een ondertiteling te selecteren..."
 
 #: subdownloader/client/gui/searchFileWidget.py:105
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "How To Use {title}"
-msgstr "Hoe u SubDownloader moet gebruiken"
+msgstr "Hoe {title} gebruiken"
 
 #: subdownloader/client/gui/searchFileWidget.py:106
 msgid "1st Tab:"
@@ -1006,15 +992,15 @@ msgid "3rd Tab:"
 msgstr "3de tab:"
 
 #: subdownloader/client/gui/searchFileWidget.py:109
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Select, from the Folder Tree on the left, the folder which contains the "
 "videos that need subtitles. {project} will then try to automatically find "
 "available subtitles."
 msgstr ""
 "Selecteer uit de mapstructuur links,  de map met de videobestanden waar u "
-"ondertiteling voor zoekt. SubDownloader zal dan proberen automatisch de "
-"juiste ondertiteling te vinden."
+"ondertiteling voor zoekt. {project} zal dan proberen automatisch de juiste "
+"ondertiteling te vinden."
 
 #: subdownloader/client/gui/searchFileWidget.py:112
 msgid ""
@@ -1025,14 +1011,14 @@ msgstr ""
 "filmtitel."
 
 #: subdownloader/client/gui/searchFileWidget.py:114
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "If you have found some subtitle somewhere else that is not in {project}'s "
 "database, please upload those subtitles so next users will be able to find "
 "them more easily."
 msgstr ""
-"Als u een ondertiteling heeft gevonden die nog niet in de SubDownloader "
-"database staat, upload deze dan a.u.b. zodat andere gebruikers ze "
+"Als u een ondertiteling heeft gevonden die nog niet in de database van "
+"{project} staat, upload deze dan a.u.b. zodat andere gebruikers ze "
 "gemakkelijk kunnen vinden."
 
 #: subdownloader/client/gui/searchFileWidget.py:123
@@ -1061,9 +1047,8 @@ msgid "Scanning files"
 msgstr "Bezig met het scannen van bestanden"
 
 #: subdownloader/client/gui/searchFileWidget.py:310
-#, fuzzy
 msgid "Scanning finished"
-msgstr "Bezig met het scannen van bestanden"
+msgstr "Scannen voltooid"
 
 #: subdownloader/client/gui/searchFileWidget.py:317
 msgid "Some directories are not accessible."
@@ -1092,23 +1077,21 @@ msgid "Downloading files..."
 msgstr "Bezig met het downloaden van bestanden..."
 
 #: subdownloader/client/gui/searchFileWidget.py:387
-#, fuzzy
 msgid "Downloading finished"
-msgstr "Bezig met het downloaden van bestanden..."
+msgstr "Downloaden voltooid"
 
 #: subdownloader/client/gui/searchFileWidget.py:395
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Unable to download subtitle \"{subtitle}\""
-msgstr "Kan ondertiteling %s niet downloaden"
+msgstr "Kan ondertiteling \"{subtitle}\" niet downloaden"
 
 #: subdownloader/client/gui/searchFileWidget.py:436
 msgid "Unable to launch videoplayer"
 msgstr "Kan het video afspeel programma neit starten"
 
 #: subdownloader/client/gui/searchFileWidget.py:456
-#, fuzzy
 msgid "Subtitle Info"
-msgstr "Bekijk info over ondertiteling"
+msgstr "Ondertiteling info"
 
 #: subdownloader/client/gui/searchFileWidget.py:474
 #: subdownloader/client/gui/searchFileWidget.py:500
@@ -1141,14 +1124,14 @@ msgid "Downloading..."
 msgstr "Bezig met downloaden..."
 
 #: subdownloader/client/gui/searchFileWidget.py:524
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Downloading subtitle {0} ({1}/{2})"
-msgstr "Bezig met downloaden van ondertiteling %s ( %d / %d )"
+msgstr "Bezig met downloaden van ondertiteling {0} ( {1} / {2} )"
 
 #: subdownloader/client/gui/searchFileWidget.py:525
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{0} from {1} subtitles downloaded successfully"
-msgstr "%d ondertitelingen zijn succesvol gedownload"
+msgstr "{0} van {1} ondertitelingen succesvol gedownloaded"
 
 #: subdownloader/client/gui/searchFileWidget.py:544
 msgid "Error write permission"
@@ -1173,7 +1156,7 @@ msgid "File already exists"
 msgstr "Bestand bestaat reeds"
 
 #: subdownloader/client/gui/searchFileWidget.py:583
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Local: {local}\n"
 "\n"
@@ -1181,9 +1164,9 @@ msgid ""
 "\n"
 "How would you like to proceed?"
 msgstr ""
-"Lokaal: %s\n"
+"Lokaal: {local}\n"
 "\n"
-"Op server: %s\n"
+"Op server: {remote}\n"
 "\n"
 "Hoe wilt u verder gaan?"
 
@@ -1236,23 +1219,22 @@ msgid "Downloading"
 msgstr "Bezig met downloaden"
 
 #: subdownloader/client/gui/searchNameWidget.py:169
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Downloading {0} to {1}"
-msgstr "Bezig met downloaden van %s naar %s"
+msgstr "Bezig met downloaden van {0} naar {1}"
 
 #: subdownloader/client/gui/searchNameWidget.py:221
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "An error occurred downloading \"{url}\":\n"
 "Error:{error_str}"
 msgstr ""
-"Er is een fout opgetreden bij het downloaden van: %s\n"
-"Fout: %s"
+"Er is een fout opgetreden bij het downloaden van: \"{url}\"\n"
+"Fout: {error_str}"
 
 #: subdownloader/client/gui/searchNameWidget.py:228
-#, fuzzy
 msgid "{} subtitles downloaded successfully"
-msgstr "%d ondertitelingen zijn succesvol gedownload"
+msgstr "{} ondertitelingen zijn succesvol gedownload"
 
 #: subdownloader/client/gui/searchNameWidget.py:229
 msgid ""
@@ -1320,9 +1302,9 @@ msgid "Play"
 msgstr "Afspelen"
 
 #: subdownloader/client/gui/main.py:71
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Unable to find {file}"
-msgstr "Kan '%s' niet vinden"
+msgstr "Kan '{file}' niet vinden"
 
 #: subdownloader/client/gui/main_ui.py:149
 msgid "Search from Video file(s)"
@@ -1337,9 +1319,8 @@ msgid "Upload subtitles"
 msgstr "Ondertitels uploaden"
 
 #: subdownloader/client/gui/main_ui.py:152
-#, fuzzy
 msgid "version:"
-msgstr "Perzisch"
+msgstr "versie:"
 
 #: subdownloader/client/gui/main_ui.py:154
 msgid "&Main"
@@ -1366,27 +1347,20 @@ msgid "Visit HomePage"
 msgstr "Homepagina bezoeken"
 
 #: subdownloader/client/gui/main_ui.py:160
-#, fuzzy
 msgid "About..."
-msgstr ""
-"#-#-#-#-#  output_file (SubDownloader)  #-#-#-#-#\n"
-"Over...\n"
-"#-#-#-#-#  subdownloader.po  #-#-#-#-#\n"
-"Over"
+msgstr "Over..."
 
 #: subdownloader/client/gui/main_ui.py:162
 msgid "Report A Problem"
 msgstr "Rapporteer een probleem"
 
 #: subdownloader/client/gui/main_ui.py:163
-#, fuzzy
 msgid "&Configure Subdownloader..."
-msgstr "&Configureer Subdownloader"
+msgstr "&Configureer Subdownloader..."
 
 #: subdownloader/client/gui/main_ui.py:164
-#, fuzzy
 msgid "Log in..."
-msgstr "Bezig met aanmelden..."
+msgstr "Log in..."
 
 #: subdownloader/client/gui/main_ui.py:165
 msgid "Log Messages"
@@ -1431,14 +1405,12 @@ msgid "Building main dialog..."
 msgstr "Opbouwen van het hoofdvenster..."
 
 #: subdownloader/client/gui/preferences.py:135
-#, fuzzy
 msgid "Auto Detect"
-msgstr "<AutomatischDetecteren>"
+msgstr "Automatisch Detecteren"
 
 #: subdownloader/client/gui/preferences.py:150
-#, fuzzy
 msgid "System Language"
-msgstr "Taal van ondertiteling:"
+msgstr "Systeemtaal"
 
 #: subdownloader/client/gui/preferences.py:247
 msgid "Enable in your Windows Explorer"
@@ -1460,14 +1432,12 @@ msgstr ""
 "het programma"
 
 #: subdownloader/client/gui/preferences.py:330
-#, fuzzy
 msgid "Predefined Folder is invalid"
-msgstr "Vooraf ingestelde map:"
+msgstr "Vooraf ingestelde map ongeldig"
 
 #: subdownloader/client/gui/preferences.py:380
-#, fuzzy
 msgid "Not a directory"
-msgstr "Selecteer een woordenboek"
+msgstr "Geen folder"
 
 #: subdownloader/client/gui/preferences.py:380
 #, python-brace-format
@@ -1490,9 +1460,8 @@ msgid "{nb_providers} provider(s)"
 msgstr "{nb_providers} provider(s)"
 
 #: subdownloader/client/gui/videomodel2.py:256
-#, fuzzy
 msgid "Already downloaded"
-msgstr "(Reeds gedownload)"
+msgstr "Reeds gedownloaded"
 
 #: subdownloader/client/gui/videomodel2.py:263
 #, python-brace-format
@@ -1500,152 +1469,6 @@ msgid "Rating: {rating}"
 msgstr "Beoordeling: {rating}"
 
 #: subdownloader/client/gui/videomodel2.py:264
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Uploader: {uploader}"
-msgstr "Geüpload door: %s"
-
-#~ msgid "Parsing video: %s"
-#~ msgstr "Bezig met verwerken van video: %s"
-
-#~ msgid "Parsing sub: %s"
-#~ msgstr "Bezig met verwerken van ondertiteling: %s"
-
-#~ msgid "Finished hashing"
-#~ msgstr "Hashen voltooid"
-
-#~ msgid "SubDownloader %s"
-#~ msgstr "SubDownloader %s"
-
-#~ msgid "%d days to expire. Activate Program."
-#~ msgstr "Nog %d voor dat de testversie is verlopen. Activeer het programma."
-
-#~ msgid "Not logged yet"
-#~ msgstr "Nog niet gelogged"
-
-#~ msgid "Help Us With 5 USD/EUR"
-#~ msgstr "Steun ons met €5,-"
-
-#~ msgid "Quid Pro Quo:"
-#~ msgstr "Quid Pro Quo:"
-
-#~ msgid ""
-#~ "If you think this program is useful and has saved you plenty of time, "
-#~ "please help us by making a donation."
-#~ msgstr ""
-#~ "Als u denkt dat dit programma nuttig is en het heeft u veel tijd "
-#~ "bespaard, help ons dan door een donatie te doen."
-
-#~ msgid ""
-#~ "A new version of SubDownloader has been released.\n"
-#~ "\n"
-#~ "New Version: %s\n"
-#~ "Current Version: %s\n"
-#~ "\n"
-#~ "Would you like to download the new version now?"
-#~ msgstr ""
-#~ "Een nieuwe versie van SubDownloader is uitgegeven.\n"
-#~ "\n"
-#~ "Nieuwe versie: %s\n"
-#~ "Huidige versie: %s\n"
-#~ "\n"
-#~ "Wilt u de nieuwe versie nu downloaden?"
-
-#~ msgid "Users online: Updating..."
-#~ msgstr "Online gebruikers: Bezig met updaten..."
-
-#~ msgid "Users online: %s"
-#~ msgstr "Online gebruikers: %s"
-
-#~ msgid "Users online: ERROR"
-#~ msgstr "Online gebruiker: FOUT"
-
-#~ msgid "&Cancel"
-#~ msgstr "&Annuleren"
-
-#~ msgid "Login as %s: ERROR"
-#~ msgstr "Inloggen als %s: FOUT"
-
-#~ msgid "SubDownloader %s - %s"
-#~ msgstr "SubDownloader %s - %s"
-
-#~ msgid "Program Registered"
-#~ msgstr "Het programma is geregistreerd"
-
-#~ msgid "(Unregistered Program, %d days to expire)"
-#~ msgstr ""
-#~ "(Niet-geregistreerd programma, nog %d dagen totdat de testversie verloopt)"
-
-#~ msgid "Expiration Reminder"
-#~ msgstr "Herrinering dat de testversie binnenkort verloopt"
-
-#~ msgid ""
-#~ "The program will expire in %d days.\n"
-#~ "Would you like to activate it now?"
-#~ msgstr ""
-#~ "De testversie van dit programma verloopt over %d dagen\n"
-#~ "Wilt u dit programma nu activeren?"
-
-#~ msgid "Activate"
-#~ msgstr "Activeren"
-
-#~ msgid "&Abort"
-#~ msgstr "&Afbreken"
-
-#~ msgid "Searching subtitles..."
-#~ msgstr "Bezig met zoeken naar ondertiteling..."
-
-#~ msgid "Asking Server..."
-#~ msgstr "Aanvraag bij Server..."
-
-#~ msgid "Searching subtitles ( %d / %d )"
-#~ msgstr "Bezig met zoeken naar ondertiteling ( %d / %d )"
-
-#~ msgid "Search finished"
-#~ msgstr "Zoeken voltooid"
-
-#~ msgid "You must select a folder first"
-#~ msgstr "U dient eerst een map te selecteren"
-
-#~ msgid ""
-#~ "www.opensubtitles.org is not responding\n"
-#~ "It might be overloaded, try again in a few moments."
-#~ msgstr ""
-#~ "www.opensubtitles.org reageert niet meer\n"
-#~ "Mogelijks is het overbelast, probeer het opnieuw over enkele ogenblikken."
-
-#~ msgid ""
-#~ "An error occured unziping %s:\n"
-#~ "Error: %s"
-#~ msgstr ""
-#~ "Er is een fout opgetreden bij het uitpakken van: %s\n"
-#~ "Fout: %s"
-
-#~ msgid "A new version of SubDownloader has been released."
-#~ msgstr "Er is een nieuwe versie van SubDownload vrijgegeven."
-
-#~ msgid "SubDownloader"
-#~ msgstr "SubDownloader"
-
-#~ msgid "LogIn"
-#~ msgstr "Inloggen"
-
-#~ msgid "LogOut"
-#~ msgstr "Uitloggen"
-
-#~ msgid "Predefined Folder cannot be empty"
-#~ msgstr "De vooraf gedefiniëerde map kan niet leeg zijn"
-
-#~ msgid "The program will expire in %d days."
-#~ msgstr "Deze proefversie verloopt over %d dagen."
-
-#~ msgid "Activate Program"
-#~ msgstr "Programma activeren"
-
-#~ msgid "The program has expired after %d days of usage."
-#~ msgstr "Deze proefversie is na %d dagen gebruik verlopen."
-
-#~ msgid "Some fields are empty.. please fill them."
-#~ msgstr "Enkele velden zijn leeg... Vul ze aub in."
-
-#~ msgid "Enable in your explorer"
-#~ msgstr "In explorer aanzetten"
+msgstr "Uploader: {uploader}"
