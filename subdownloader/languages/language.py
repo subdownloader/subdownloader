@@ -616,7 +616,7 @@ LANGUAGES = [
         'LanguageID': ['pol'],
         'LanguageName': [_('Polish')]
     }, {
-        'locale': ['pt_PT'],
+        'locale': ['pt_PT', 'pt'],
         'ISO639': ['pt'],
         'LanguageID': ['por'],
         'LanguageName': [_('Portuguese (Portugal)')]
