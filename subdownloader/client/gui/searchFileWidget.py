@@ -617,11 +617,11 @@ class SearchFileWidget(QWidget):
                         destinationPath)
                     fNameCtr = 0  # Counter used to generate a unique filename
                     suggestedFileName = suggBaseName + '.' + \
-                        sub.getLanguage().xxx() + suggFileExt
+                        sub.get_language().xxx() + suggFileExt
                     while (os.path.exists(suggestedFileName)):
                         fNameCtr += 1
                         suggestedFileName = suggBaseName + '.' + \
-                            sub.getLanguage().xxx() + '-' + \
+                            sub.get_language().xxx() + '-' + \
                             str(fNameCtr) + suggFileExt
                     fileName, t = QFileDialog.getSaveFileName(
                         None, _("Save subtitle as..."), suggestedFileName, 'All (*.*)')
