@@ -7,10 +7,10 @@ import platform
 import webbrowser
 
 from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
-from subdownloader.languages import language
+from subdownloader.languages.language import all_languages, Language, UnknownLanguage
 from subdownloader.project import WEBSITE_TRANSLATE
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir, QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir, QSettings
 from PyQt5.QtWidgets import QCheckBox, QCompleter, QDialog, QDirModel, QFileDialog, QMessageBox
 
 log = logging.getLogger("subdownloader.client.gui.preferences")
@@ -41,9 +41,9 @@ class PreferencesDialog(QDialog):
 
         self._filterLanguageComboBoxes = {}
 
-        self._search_languages = {lang: False for lang in language.languages()}
+        self._search_languages = {lang: False for lang in all_languages()}
         nb_columns_languages = 4
-        for lang_i, lang in enumerate(language.languages()):
+        for lang_i, lang in enumerate(all_languages()):
             row = lang_i // nb_columns_languages
             column = lang_i % nb_columns_languages
 
@@ -62,9 +62,9 @@ class PreferencesDialog(QDialog):
             self.ui.scrollAreaWidgetLayoutSearch.addWidget(checkBox, row, column)
 
         self.searchLanguageChanged.connect(self.onSearchLanguageChanged)
-        fontSearchItem = self._filterLanguageComboBoxes[language.UnknownLanguage.create_generic()].font()
+        fontSearchItem = self._filterLanguageComboBoxes[UnknownLanguage.create_generic()].font()
         fontSearchItem.setItalic(True)
-        self._filterLanguageComboBoxes[language.UnknownLanguage.create_generic()].setFont(fontSearchItem)
+        self._filterLanguageComboBoxes[UnknownLanguage.create_generic()].setFont(fontSearchItem)
 
         # 2. Download tab
 
@@ -147,7 +147,7 @@ class PreferencesDialog(QDialog):
 
         # - Interface Language
 
-        self._original_interface_language = language.UnknownLanguage.create_generic()
+        self._original_interface_language = UnknownLanguage.create_generic()
         self.ui.optionInterfaceLanguage.set_unknown_text(_('System Language'))
         self.ui.optionUlDefaultLanguage.set_selected_language(self.DEFAULT_INTERFACE_LANG)
 
@@ -170,11 +170,10 @@ class PreferencesDialog(QDialog):
         checked_languages_str = self.settings.value('options/filterSearchLang', [])
         if checked_languages_str:
             for lang_xxx in checked_languages_str.split(','):
-                try:
-                    lang = language.Language.from_xxx(lang_xxx)
-                    self._filterLanguageComboBoxes[lang].setChecked(True)
-                except language.NotALanguageException:
-                    pass
+                lang = Language.from_xxx(lang_xxx)
+                if isinstance(lang, UnknownLanguage):
+                    continue
+                self._filterLanguageComboBoxes[lang].setChecked(True)
 
         # 2. Download tab
 
@@ -210,7 +209,7 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         optionUploadLanguage = self.settings.value('options/uploadLanguage', self.DEFAULT_UL_LANG.xxx())
-        uploadLanguage = language.Language.from_xxx(optionUploadLanguage)
+        uploadLanguage = Language.from_xxx(optionUploadLanguage)
 
         self.ui.optionUlDefaultLanguage.set_selected_language(uploadLanguage)
 
@@ -226,7 +225,7 @@ class PreferencesDialog(QDialog):
         # - Interface Language
 
         optionInterfaceLanguage = self.settings.value('options/interfaceLang', self.DEFAULT_INTERFACE_LANG.locale())
-        self._original_interface_language = language.Language.from_locale(optionInterfaceLanguage)
+        self._original_interface_language = Language.from_locale(optionInterfaceLanguage)
         self.ui.optionInterfaceLanguage.set_selected_language(self._original_interface_language)
 
         optionIntegrationExplorer = self.settings.value(
@@ -347,9 +346,9 @@ class PreferencesDialog(QDialog):
 
     # 1. Search tab
 
-    searchLanguageChanged = pyqtSignal(language.Language, bool)
+    searchLanguageChanged = pyqtSignal(Language, bool)
 
-    @pyqtSlot(language.Language, bool)
+    @pyqtSlot(Language, bool)
     def onSearchLanguageChanged(self, lang, toggled):
         self._search_languages[lang] = toggled
 
@@ -410,20 +409,20 @@ class PreferencesDialog(QDialog):
 
     # - Default Subtitle Language
 
-    defaultUploadLanguageChanged = pyqtSignal(language.Language)
+    defaultUploadLanguageChanged = pyqtSignal(Language)
 
-    DEFAULT_UL_LANG = language.UnknownLanguage.create_generic()
+    DEFAULT_UL_LANG = UnknownLanguage.create_generic()
 
-    @pyqtSlot(language.Language)
+    @pyqtSlot(Language)
     def onOptionUlDefaultLanguageChange(self, lang):
         self._uploadLanguage = lang
         self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
     # 5. Others tab
 
-    interfaceLanguageChange = pyqtSignal(language.Language)
+    interfaceLanguageChange = pyqtSignal(Language)
 
-    DEFAULT_INTERFACE_LANG = language.UnknownLanguage.create_generic()
+    DEFAULT_INTERFACE_LANG = UnknownLanguage.create_generic()
 
     def actionContextMenu(self, action, os):
         pass

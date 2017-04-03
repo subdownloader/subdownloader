@@ -45,7 +45,7 @@ class AboutDialog(QDialog):
 
         def authors_to_string(list_authors):
             list_lines = ['{name} &lt;<a href="mailto:{mail}" >{mail}</a>&gt;<br />'.format(
-                name=author.name(),mail=author.mail())
+                name=author.name(), mail=author.mail())
                     for author in list_authors]
             return ''.join(list_lines)
 
@@ -69,9 +69,11 @@ class AboutDialog(QDialog):
         self.reject()
 
     def get_license(self):
-        license = '<p>{license_title}</p><p>{license_freesoftware}</p>' \
-                  '<p>{license_distribution}</p><p>{license_address}</p>'.format(
-            license_title=_('Copyright (c) 2007-{year}, Subdownloader Developers</p>').format(year=project.PROJECT_YEAR),
+        license = '<p>{license_title}</p>' \
+                  '<p>{license_freesoftware}</p>' \
+                  '<p>{license_distribution}</p>' \
+                  '<p>{license_address}</p>'.format(
+            license_title=_('Copyright (c) 2007-{year}, Subdownloader Developers').format(year=project.PROJECT_YEAR),
             license_freesoftware=_('This program is free software; you can redistribute it and/or modify it '
                                    'under the terms of the GNU General Public License as published by the Free Software '
                                    'Foundation; either version 3 of the License, or (at your option) any later version.'),

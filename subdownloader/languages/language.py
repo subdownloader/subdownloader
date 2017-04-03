@@ -16,8 +16,6 @@ from subdownloader.util import asciify
 
 log = logging.getLogger("subdownloader.languages.language")
 
-# FIXME: translation..
-_ = lambda x: x
 
 
 class NotALanguageException(ValueError):
@@ -70,7 +68,7 @@ class Language(str):
         Return readable name of Language
         :return: Readable name as string
         """
-        return LANGUAGES[self._id]['LanguageName'][0]
+        return _(LANGUAGES[self._id]['LanguageName'][0])
 
     def generic_name(self):
         """
@@ -394,17 +392,22 @@ def CleanTagsFile(text):
 
 def legal_languages():
     """
-    Return an iterator of all Language objects including the UnknownLanguage
+    Return an iterator of all Language objects excluding the UnknownLanguage
     :return: iterator of Language objects
     """
     return map(Language, range(1, len(LANGUAGES)))
 
-def languages():
+
+def all_languages():
     """
-    Return an iterator of all Language objects, excluding the UnknownLanguage
+    Return an iterator of all Language objects, including the UnknownLanguage
     :return: iterator of all Language objects
     """
     return itertools.chain([UnknownLanguage.create_generic()], legal_languages())
+
+# FIXME: translation..
+_ = lambda x: x
+
 
 """
     List of dict of languages.
@@ -679,3 +682,5 @@ LANGUAGES = [
         'LanguageName': [_('Vietnamese')]
     }
 ]
+
+del _

@@ -102,6 +102,7 @@ class SearchFileWidget(QWidget):
         self.showInstructions()
 
         # Set up video view
+        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
         self.ui.filterLanguageForVideo.selected_language_changed.connect(self.on_language_combobox_filter_change)
         # self.ui.filterLanguageForVideo.selected_language_changed.connect(self.onFilterLanguageVideo)
 
@@ -152,8 +153,6 @@ class SearchFileWidget(QWidget):
                               'please upload those subtitles so next users will be able to '
                               'find them more easily.').format(project=PROJECT_TITLE))
         self.ui.introductionHelp.setHtml(introduction)
-
-        self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
 
     @pyqtSlot(Language)
     def on_interface_language_changed(self, language):
@@ -590,7 +589,7 @@ class SearchFileWidget(QWidget):
                     QMessageBox.Warning,
                     _("File already exists"),
                     _("Local: {local}\n\nRemote: {remote}\n\nHow would you like to proceed?").format(
-                        locale=destinationPath, remote=QFileInfo(destinationPath).fileName()),
+                        local=destinationPath, remote=QFileInfo(destinationPath).fileName()),
                     QMessageBox.NoButton,
                     self)
                 skipButton = fileExistsBox.addButton(
