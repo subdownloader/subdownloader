@@ -2,6 +2,7 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 from abc import abstractmethod
+import logging
 
 from subdownloader.languages.language import Language, legal_languages, UnknownLanguage
 from subdownloader.client.internationalization import i18n_get_supported_locales
@@ -9,6 +10,8 @@ from subdownloader.client.internationalization import i18n_get_supported_locales
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QAbstractItemModel, QModelIndex, QSize, Qt
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QComboBox
+
+log = logging.getLogger('subdownloader.client.gui.languageComboBox')
 
 
 class LanguageModel(QAbstractItemModel):
@@ -75,8 +78,12 @@ class LanguageModel(QAbstractItemModel):
         return self._languages[index]
 
     def language_to_index(self, language):
-        index = next(index for index, lang in enumerate(self._languages) if language.raw_data() == lang.raw_data())
+        try:
+            index = next(index for index, lang in enumerate(self._languages) if language == lang)
+        except StopIteration:
+            return None
         return index
+
 
 class AbstractLanguageComboBox(QComboBox):
 
@@ -103,7 +110,10 @@ class AbstractLanguageComboBox(QComboBox):
 
     def set_selected_language(self, lang):
         index = self._model.language_to_index(lang)
-        self.setCurrentIndex(index)
+        if index is None:
+            log.warning('Cannot set language to "{lang}". Language unknown.'.format(lang=lang))
+        else:
+            self.setCurrentIndex(index)
 
     def setup_ui(self):
         self.setModel(self._model)
