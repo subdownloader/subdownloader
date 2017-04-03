@@ -84,7 +84,7 @@ def i18n_support_locale(lc_parent):
             log.debug('Found! "{locale_path}" contains {mo_file}.'.format(locale_path=locale_path, mo_file=mo_file))
             locales.append(lc)
 
-    log.debug('i18n_support_locale( lc="{lc}" ) = {locales}'.format(lc=lc, locales=locales))
+    log.debug('i18n_support_locale( lc="{lc}" ) = {locales}'.format(lc=lc_parent, locales=locales))
     return locales
 
 
