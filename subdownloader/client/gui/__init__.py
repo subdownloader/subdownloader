@@ -45,9 +45,6 @@ def run(options):
     splash.finish(main_window)
     main_window.raise_()
 
-    if not options.test:
-        main_window.log_in_default()
-
     log.debug('Starting application event loop ...')
 
     # restore default interrupt handler for signal interrupt (CTRL+C interrupt)

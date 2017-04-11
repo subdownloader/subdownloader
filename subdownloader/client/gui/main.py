@@ -12,7 +12,7 @@ try:
 except ImportError:
     from subprocess import getstatusoutput
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
@@ -62,12 +62,19 @@ class Main(QMainWindow):
         self.permanent_language_filter_changed.emit(self.get_state().get_permanent_language_filter())
         self.read_settings()
 
-        if options.videofile:
-            if os.path.exists(options.videofile):
-                self.SearchVideos(options.videofile)
+        QTimer.singleShot(0, self.on_event_loop_started)
+
+    @pyqtSlot()
+    def on_event_loop_started(self):
+        if not self.options.test:
+            login_parent_state(self, self.get_state())
+
+        if self.options.videofile:
+            if os.path.exists(self.options.videofile):
+                self.ui.tabSearchFile.search_videos([self.options.videofile])
             else:
                 QMessageBox.about(
-                    self, _('Error'), _('Unable to find {file}').format(file=options.videofile))
+                    self, _('Error'), _('Unable to find {file}').format(file=self.options.videofile))
 
     def setup_ui(self):
         self.calculateProgramFolder()
@@ -148,9 +155,6 @@ class Main(QMainWindow):
             self.programFolder = sys.path[0]
         else:  # for Windows is the /program_folder/subdownloader.py
             self.programFolder = os.path.dirname(sys.path[0])
-
-    def log_in_default(self):
-        return login_parent_state(self, self.get_state())
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasFormat('text/plain') or event.mimeData().hasFormat('text/uri-list'):
