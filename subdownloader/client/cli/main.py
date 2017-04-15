@@ -60,6 +60,7 @@ class Main(object):
         log.debug("Starting XMLRPC session...")
         self.provider = SDService.SDService(proxy=self.options.proxy)
         try:
+            self.provider.connect()
             self.provider.login(self.options.username, self.options.password)
         except:
             log.exception('exception in start_session()')
