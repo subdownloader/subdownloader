@@ -13,11 +13,13 @@ log = logging.getLogger('subdownloader.client.gui.videomodel2')
 
 
 class Node:
-    def __init__(self, data, parent):
+    def __init__(self, data, parent, clone_original=None):
         self._data = data
         self._checked = False
         self._parent = parent
         self._children = []
+        self._expanded = False
+        self._clone_original = clone_original
 
     def get_data(self):
         return self._data
@@ -27,6 +29,17 @@ class Node:
 
     def set_checked(self, checked):
         self._checked = checked
+
+    def set_expanded(self, expanded):
+        if self._clone_original:
+            self._clone_original.set_expanded(expanded)
+        else:
+            self._expanded = expanded
+
+    def is_expanded(self):
+        if self._clone_original:
+            return self._clone_original.is_expanded()
+        return self._expanded
 
     def get_parent(self):
         return self._parent
@@ -55,7 +68,7 @@ class Node:
             return 0
 
     def clone(self, parent=None):
-        node = Node(data=self._data, parent=parent)
+        node = Node(data=self._data, parent=parent, clone_original=self)
         node._checked = self._checked
         for child in self.get_children():
             node._children.append(child.clone(parent=node))
@@ -69,6 +82,23 @@ class VideoModel(QAbstractItemModel):
         self._all_root = Node(data=None, parent=None)
         self._root = Node(data=None, parent=None)
         self._language_filter = []
+        self._treeview = None
+
+    def connect_treeview(self, treeview):
+        self._treeview = treeview
+        self._treeview.setModel(self)
+        self._treeview.expanded.connect(self.node_expanded)
+        self._treeview.collapsed.connect(self.node_collapsed)
+
+    @pyqtSlot(QModelIndex)
+    def node_expanded(self, index):
+        node = index.internalPointer()
+        node.set_expanded(True)
+
+    @pyqtSlot(QModelIndex)
+    def node_collapsed(self, index):
+        node = index.internalPointer()
+        node.set_expanded(False)
 
     @pyqtSlot(list)
     def on_filter_languages_change(self, languages):
@@ -107,6 +137,13 @@ class VideoModel(QAbstractItemModel):
                 if self._language_filter and subtitle_network.get_language() not in self._language_filter:
                     node_video.remove_child(node_subtitle_network)
         self.endResetModel()
+
+        for node_video_i, node_video in enumerate(self._root.get_children()):
+            video_index = self.createIndex(node_video_i, 0, node_video)
+            self._treeview.setExpanded(video_index, node_video.is_expanded())
+            for node_subtitle_i, node_subtitle in enumerate(node_video.get_children()):
+                subtitle_index = self.createIndex(node_subtitle_i, 0, node_subtitle)
+                self._treeview.setExpanded(subtitle_index, node_subtitle.is_expanded())
 
     def setData(self, index, any, role=None):
         if not index.isValid():

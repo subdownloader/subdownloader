@@ -107,8 +107,8 @@ class SearchFileWidget(QWidget):
         # self.ui.filterLanguageForVideo.selected_language_changed.connect(self.onFilterLanguageVideo)
 
         self.videoModel = VideoModel(self)
+        self.videoModel.connect_treeview(self.ui.videoView)
         self.ui.videoView.setHeaderHidden(True)
-        self.ui.videoView.setModel(self.videoModel)
         self.ui.videoView.activated.connect(self.onClickVideoTreeView)
         self.ui.videoView.clicked.connect(self.onClickVideoTreeView)
         self.ui.videoView.customContextMenuRequested.connect(self.onContext)
