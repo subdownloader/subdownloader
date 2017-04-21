@@ -67,6 +67,12 @@ class Node:
         else:
             return 0
 
+    def get_clone_origin(self):
+        if self._clone_original is None:
+            return self
+        else:
+            return self._clone_original.get_clone_origin()
+
     def clone(self, parent=None):
         node = Node(data=self._data, parent=parent, clone_original=self)
         node._checked = self._checked
@@ -80,23 +86,23 @@ class VideoModel(QAbstractItemModel):
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
         self._all_root = Node(data=None, parent=None)
-        self._root = Node(data=None, parent=None)
+        self._root = self._all_root.clone()
         self._language_filter = []
         self._treeview = None
 
     def connect_treeview(self, treeview):
         self._treeview = treeview
         self._treeview.setModel(self)
-        self._treeview.expanded.connect(self.node_expanded)
-        self._treeview.collapsed.connect(self.node_collapsed)
+        self._treeview.expanded.connect(self.on_node_expanded)
+        self._treeview.collapsed.connect(self.on_node_collapsed)
 
     @pyqtSlot(QModelIndex)
-    def node_expanded(self, index):
+    def on_node_expanded(self, index):
         node = index.internalPointer()
         node.set_expanded(True)
 
     @pyqtSlot(QModelIndex)
-    def node_collapsed(self, index):
+    def on_node_collapsed(self, index):
         node = index.internalPointer()
         node.set_expanded(False)
 
@@ -382,13 +388,13 @@ class VideoModel(QAbstractItemModel):
         if not index or not index.isValid():
             return QModelIndex()
 
-        child_item = index.internalPointer()
-        parent_item = child_item.get_parent()
+        node = index.internalPointer()
+        node_parent = node.get_parent()
 
-        if not parent_item or parent_item == self._root:
+        if not node_parent or node_parent == self._root:
             return QModelIndex()
 
-        return self.createIndex(parent_item.parent_index(), 0, parent_item)
+        return self.createIndex(node_parent.parent_index(), 0, node_parent)
 
     def rowCount(self, parent=None, *args, **kwargs):
         if parent is None:

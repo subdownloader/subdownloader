@@ -25,6 +25,9 @@ class PreferencesDialog(QDialog):
         self._state = state
 
         self.ui = Ui_PreferencesDialog()
+        self.setup_ui()
+
+    def setup_ui(self):
         self.ui.setupUi(self)
 
         # 0. Dialog

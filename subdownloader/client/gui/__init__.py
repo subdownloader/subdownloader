@@ -18,6 +18,7 @@ SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
 
 log = logging.getLogger('subdownloader.client.gui')
 
+
 def run(options):
     # create splash screen and show messages to the user
     app = QApplication(sys.argv)

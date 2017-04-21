@@ -3,22 +3,22 @@
 
 import logging
 import os
-import re
 import sys
 import webbrowser
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QModelIndex, QPoint, QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QPoint, QSettings, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMessageBox, QWidget
-from subdownloader.FileManagement.search import Link, Movie, SearchByName
-from subdownloader.FileManagement.subtitlefile import SubtitleFile
 
-from subdownloader.FileManagement.videofile import VideoFile
+from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
+from subdownloader.FileManagement.search import Movie
+
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchNameWidget_ui import Ui_SearchNameWidget
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.videotreeview import VideoTreeModel
+from subdownloader.client.gui.searchNameModel import VideoTreeModel
 from subdownloader.languages.language import Language, UnknownLanguage
+from subdownloader.util import write_stream
 
 log = logging.getLogger('subdownloader.client.gui.searchNameWidget')
 
@@ -46,22 +46,22 @@ class SearchNameWidget(QWidget):
     def setup_ui(self):
         self.ui.setupUi(self)
 
-        self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
-
-        self.language_filter_change.connect(self.on_language_filter_change)
-
         self.ui.buttonSearchByName.clicked.connect(self.onButtonSearchByTitle)
         self.ui.movieNameText.returnPressed.connect(self.onButtonSearchByTitle)
         self.ui.buttonDownloadByTitle.clicked.connect(self.onButtonDownloadByTitle)
 
         self.ui.buttonIMDBByTitle.clicked.connect(self.onViewOnlineInfo)
-        self.moviesModel = VideoTreeModel(self)
-        self.ui.moviesView.setModel(self.moviesModel)
+        self.ui.buttonIMDBByTitle.setEnabled(False)
 
-        self.ui.moviesView.clicked.connect(self.onClickMovieTreeView)
+        self.moviesModel = VideoTreeModel(self)
+        self.moviesModel.connect_treeview(self.ui.moviesView)
+        self.moviesModel.node_clicked.connect(self.on_item_clicked)
         self.moviesModel.dataChanged.connect(self.subtitlesMovieCheckedChanged)
 
-        self.ui.moviesView.expanded.connect(self.onExpandMovie)
+        self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
+        self.language_filter_change.connect(self.moviesModel.on_filter_languages_change)
+
+
         self.ui.moviesView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.moviesView.customContextMenuRequested.connect(self.onContext)
 
@@ -80,10 +80,8 @@ class SearchNameWidget(QWidget):
         log.debug('on_login_state_changed(state={state}, message={message}'.format(state=state, message=message))
         if state in (State.LOGIN_STATUS_LOGGED_OUT, State.LOGIN_STATUS_BUSY):
             self.ui.buttonDownloadByTitle.setEnabled(False)
-            self.ui.buttonIMDBByTitle.setEnabled(False)
         elif state == State.LOGIN_STATUS_LOGGED_IN:
             self.ui.buttonDownloadByTitle.setEnabled(True)
-            self.ui.buttonIMDBByTitle.setEnabled(True)
         else:
             log.warning('unknown state')
 
@@ -100,52 +98,31 @@ class SearchNameWidget(QWidget):
         if selected_language.is_generic():
             self.language_filter_change.emit(languages)
 
-    @pyqtSlot(list)
-    def on_language_filter_change(self, languages):
-        log.debug("Filtering subtitles by language: {languages}".format(languages=languages))
-        self.ui.moviesView.clearSelection()
-        self.moviesModel.clearTree()
-        self.moviesModel.setLanguageFilter(languages=languages)
-        self.ui.moviesView.expandAll()
-
     @pyqtSlot()
     def onButtonSearchByTitle(self):
-        if not self.ui.movieNameText.text().strip():
+        search_text = self.ui.movieNameText.text().strip()
+        if not search_text:
             QMessageBox.about(self, _("Info"), _("You must enter at least one character in movie name"))
-        else:
-            self.ui.buttonSearchByName.setEnabled(False)
+            return
 
-            callback = ProgressCallbackWidget(self)
+        self.ui.buttonSearchByName.setEnabled(False)
 
-            callback.set_title_text(_('Search'))
-            callback.set_label_text(_("Searching..."))
-            callback.set_block(True)
+        callback = ProgressCallbackWidget(self)
 
-            callback.show()
-            callback.update(0)
+        callback.set_title_text(_('Search'))
+        callback.set_label_text(_("Searching..."))
+        callback.set_block(True)
 
-            self.moviesModel.clearTree()
-            # This was a solution found to refresh the treeView
-            self.ui.moviesView.expandAll()
-            s = SearchByName()
-            selected_language = self.ui.filterLanguage.get_selected_language()
-            selected_language_xxx = None if selected_language.is_generic() else selected_language.xxx()
-            search_text = self.ui.movieNameText.text()
-            # This should be in a thread to be able to Cancel
-            movies = s.search_movie(languages=[UnknownLanguage.create_generic()], moviename=search_text)
-            if movies is None:
-                QMessageBox.about(self, _("Info"), _(
-                    "The server is momentarily unavailable. Please try later."))
-                callback.finish()
-                self.ui.buttonSearchByName.setEnabled(True)
-                return
-            self.moviesModel.setMovies(movies, selected_language_xxx)
-            if len(movies) == 1:
-                self.ui.moviesView.expandAll()
-            else:
-                self.ui.moviesView.collapseAll()
-            callback.finish()
-            self.ui.buttonSearchByName.setEnabled(True)
+        callback.show()
+        callback.update(0)
+
+        result = self.moviesModel.search_movies(query=search_text)
+
+        if not result:
+            QMessageBox.about(self, _("Info"), _("The server is momentarily unavailable. Please try later."))
+
+        callback.finish()
+        self.ui.buttonSearchByName.setEnabled(True)
 
     @pyqtSlot()
     def subtitlesMovieCheckedChanged(self):
@@ -184,172 +161,85 @@ class SearchNameWidget(QWidget):
 
         callback.show()
 
-        # Download and unzip files automatically. We might want to move this to an
-        # external module, perhaps?
-        unzippedOK = 0
         dlOK = 0
+        writtenOK = 0
 
         for i, sub in enumerate(subs):
             # Skip rest of loop if Abort was pushed in progress bar
             if callback.canceled():
                 break
 
-            try:
-                url = sub.getExtraInfo("downloadLink")
-                log.debug("sub.getExtraInfo downloadLink  %s " % (url))
-            except KeyError:
-                url = Link().OneLink(0)
-                log.debug("Link().OneLink downloadLink  %s " % (url))
-                #                webbrowser.open( url, new=2, autoraise=1)
-            zipFileID = re.search("(\/.*\/)(.*)\Z", url).group(2)
-            zipFileName = "sub-" + zipFileID + ".srt"
+            srt_filename = "sub-" + sub.get_id_online() + ".srt"
+            srt_path = os.path.join(zipDestDir, srt_filename)
+
+            log.debug("About to download %s %s to %s" % (i, sub.__repr__, srt_path))
+            log.debug("IdFileOnline: %s" % (sub.get_id_online()))
+            callback.update(i, sub.get_id_online(), zipDestDir)
 
             try:
-                zipDestFile = os.path.join(zipDestDir, zipFileName).decode(
-                    sys.getfilesystemencoding())
-            except AttributeError:
-                zipDestFile = (zipDestDir + '/' + zipFileName)
-            log.debug("About to download %s %s to %s" % (i, sub.__repr__, zipDestFile))
-            log.debug("IdFileOnline: %s" % (sub.getIdFileOnline()))
-            callback.update(i, sub.getIdFileOnline(), zipDestDir)
-
-            # Download the file from opensubtitles.org
-            # Note that we take for granted it will be in .zip format! Might not be so for other sites
-            # This should be tested for when more sites are added or find
-            # true filename like browser does FIXME
+                data_stream = sub.download(provider_instance=self.get_state().get_OSDBServer(), callback=callback)
+                dlOK += 1
+            except Exception:
+                log.warning('Unable to download subtitle with id={subtitle_id}'.format(subtitle_id=sub.get_id_online()),
+                          exc_info=True)
+                QMessageBox.about(self, _('Error'), _('Unable to download subtitle with id={subtitle_id}').format(
+                    subtitle_id=sub.get_id_online()))
+                continue
             try:
-                if self.get_state().download_subtitles({sub.getIdFileOnline(): zipDestFile}):
-                    dlOK += 1
-                    unzippedOK += 1
-                else:
-                    QMessageBox.about(self, _("Error"), _(
-                        "Unable to download subtitle %s") % sub.get_filepath())
-            except Exception as e:
-                log.debug(e)
-                QMessageBox.about(self, _("Error"),
-                    _("Unable to download subtitle %s") % sub.get_filepath())
-                QMessageBox.critical(self, _("Error"),
-                    _("An error occurred downloading \"{url}\":\nError:{error_str}").format(url=url, error_str=e),
-                    QMessageBox.Abort)
+                write_stream(data_stream, srt_path)
+                writtenOK += 1
+            except Exception:
+                log.warning('Unable to write subtitle to disk. path={path}'.format(path=zipDestFile), exc_info=True)
             QCoreApplication.processEvents()
         callback.finish()
         if dlOK:
             QMessageBox.about(
                 self,
-                _("{} subtitles downloaded successfully").format(unzippedOK),
-                _("The downloaded subtitle(s) may not be in sync with your video file(s), please check this manually.\n"
-                  "\nIf there is no sync problem, please consider re-uploading using subdownloader. "
-                  "This will automate the search for other users!"))
-
-    @pyqtSlot(QModelIndex)
-    def onExpandMovie(self, index):
-        if index.internalPointer() is None:
-            return
-        movie = index.internalPointer().data
-        if type(movie) == Movie and not movie.subtitles and movie.totalSubs:
-
-            callback = ProgressCallbackWidget(self)
-            callback.set_title_text(_('Search'))
-            callback.set_label_text(_("Searching..."))
-            callback.set_cancellable(False)
-            callback.set_block(True)
-
-            callback.show()
-
-            s = SearchByName()
-            selected_language = self.ui.filterLanguage.get_selected_language()
-            selected_language_xxx = None if selected_language.is_generic() else selected_language.xxx()
-            callback.update(0)
-            temp_movie = s.search_movie(languages=[UnknownLanguage.create_generic()], MovieID_link=movie.MovieSiteLink)
-            # The internal results are not filtered by language, so in case we change the filter, we don't need to request again.
-            # print temp_movie
-            try:
-                movie.subtitles = temp_movie[0].subtitles
-            except IndexError:
-                QMessageBox.about(
-                    self, _("Info"), _("This is a TV series and it cannot be handled."))
-                callback.finish()
-                return
-            except AttributeError:
-                # this means only one subtitle was returned
-                movie.subtitles = [temp_movie[1]]
-            # The treeview is filtered by language
-            self.moviesModel.updateMovie(index, selected_language_xxx)
-            self.ui.moviesView.collapse(index)
-            self.ui.moviesView.expand(index)
-            callback.finish()
+                _("{} subtitles downloaded successfully").format(writtenOK),
+                _("{} subtitles downloaded successfully").format(writtenOK))
 
     @pyqtSlot(QPoint)
     def onContext(self, point):  # Create a menu
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
+        node = self.moviesModel.get_selected_node()
+        if node is None:
+            return
+
         menu = QMenu("Menu", self)
-        listview = self.ui.moviesView
-        index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
-        if treeItem != None:
-            if type(treeItem.data) == VideoFile:
-                video = treeItem.data
-                movie_info = video.getMovieInfo()
-                if movie_info:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("View IMDB info"), self)
-                    subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                else:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("Set IMDB info..."), self)
-                    subWebsiteAction.triggered.connect(self.onSetIMDBInfo)
-                menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == SubtitleFile:  # Subtitle
-                treeItem.checked = True
-                self.moviesModel.dataChanged.emit(index, index)
-                downloadAction = QAction(
-                    QIcon(":/images/download.png"), _("Download"), self)
-                # Video tab, TODO:Replace me with a enum
-                downloadAction.triggered.connect(self.onButtonDownloadByTitle)
-                subWebsiteAction = QAction(
-                    QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
+        data = node.get_data()
+        if isinstance(data, Movie):
+            movie = data
+            subWebsiteAction = QAction(
+                QIcon(":/images/info.png"), _("View IMDB info"), self)
+            subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
+            menu.addAction(subWebsiteAction)
+        elif isinstance(data, OpenSubtitles_SubtitleFile):
+            downloadAction = QAction(
+                QIcon(":/images/download.png"), _("Download"), self)
+            # Video tab, TODO:Replace me with a enum
+            downloadAction.triggered.connect(self.onButtonDownloadByTitle)
+            subWebsiteAction = QAction(
+                QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
 
-                menu.addAction(downloadAction)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
-            elif type(treeItem.data) == Movie:
-                movie = treeItem.data
-                subWebsiteAction = QAction(
-                    QIcon(":/images/info.png"), _("View IMDB info"), self)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
+            menu.addAction(downloadAction)
+            subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
+            menu.addAction(subWebsiteAction)
 
-        # Show the context menu.
-        menu.exec_(listview.mapToGlobal(point))
+        menu.exec_(self.ui.moviesView.mapToGlobal(point))
 
     @pyqtSlot()
     def onViewOnlineInfo(self):
-        # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
-        # Tab for SearchByHash TODO:replace this 0 by an ENUM value
-        listview = self.ui.moviesView
-        index = listview.currentIndex()
-        treeItem = listview.model().getSelectedItem(index)
-
-        if type(treeItem.data) == VideoFile:
-            video = self.videoModel.getSelectedItem().data
-            movie_info = video.getMovieInfo()
-            if movie_info:
-                imdb = movie_info["IDMovieImdb"]
-                if imdb:
-                    webbrowser.open(
-                        "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
-        elif type(treeItem.data) == SubtitleFile:  # Subtitle
-            sub = treeItem.data
-            if sub.isOnline():
-                webbrowser.open(
-                    "http://www.opensubtitles.org/en/subtitles/%s/" % sub.getIdOnline(), new=2, autoraise=1)
-
-        elif type(treeItem.data) == Movie:
-            movie = self.moviesModel.getSelectedItem().data
-            imdb = movie.IMDBId
+        node = self.moviesModel.get_selected_node()
+        data = node.get_data()
+        if isinstance(data, Movie):
+            movie = data
+            imdb = movie.get_imdb_id()
             if imdb:
                 webbrowser.open(
                     "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
+        elif isinstance(data, OpenSubtitles_SubtitleFile):
+            sub = data
+            webbrowser.open("http://www.opensubtitles.org/en/subtitles/%s/" % sub.get_id_online(), new=2, autoraise=1)
 
     @pyqtSlot()
     def onSetIMDBInfo(self):
@@ -357,20 +247,20 @@ class SearchNameWidget(QWidget):
         QMessageBox.about(
             self, _("Info"), "Not implemented yet. Sorry...")
 
-    @pyqtSlot(QModelIndex)
-    def onClickMovieTreeView(self, index):
-        treeItem = self.moviesModel.getSelectedItem(index)
-        if type(treeItem.data) == Movie:
-            movie = treeItem.data
-            if movie.IMDBId:
+    @pyqtSlot(object)
+    def on_item_clicked(self, item):
+        if isinstance(item, Movie):
+            self.ui.buttonIMDBByTitle.setEnabled(True)
+            movie = item
+            if movie.get_imdb_id():
                 self.ui.buttonIMDBByTitle.setEnabled(True)
                 self.ui.buttonIMDBByTitle.setIcon(QIcon(":/images/info.png"))
                 self.ui.buttonIMDBByTitle.setText(_("Movie Info"))
-        else:
-            treeItem.checked = not (treeItem.checked)
-            self.moviesModel.dataChanged.emit(
-                index, index)
+        elif isinstance(item, OpenSubtitles_SubtitleFile):
+            self.ui.buttonIMDBByTitle.setEnabled(True)
             self.ui.buttonIMDBByTitle.setEnabled(True)
             self.ui.buttonIMDBByTitle.setIcon(
                 QIcon(":/images/sites/opensubtitles.png"))
             self.ui.buttonIMDBByTitle.setText(_("Sub Info"))
+        else:
+            self.ui.buttonIMDBByTitle.setEnabled(False)

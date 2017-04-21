@@ -30,9 +30,7 @@ class SubtitleFile(object):
         self._extraInfo = {}
         self._filename = ""
 
-        log.debug("is online %s" % online)
         if online:
-            log.debug("OnlineId is %s" % id)
             self._onlineId = id
         else:
             self._path = id

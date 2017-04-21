@@ -12,6 +12,7 @@ try:
 except ImportError:
     import http.client as httplib
 import base64
+import datetime
 import gzip
 import logging
 import re
@@ -981,13 +982,31 @@ class SDService(object):
             log.debug("Query failed", exc_info=True)
             return default
 
-
-    def search_videos(self, videos, callback, languages=None):
-        limit = 500
+    @staticmethod
+    def _languages_to_str(languages):
         if languages:
             lang_str = ','.join([language.xxx() for language in languages])
         else:
             lang_str = 'all'
+
+        return lang_str
+
+    LIMIT_SEARCH = 500
+
+    def search_text(self, text, languages=None):
+        lang_str = self._languages_to_str(languages)
+        query = {
+            'sublanguageid': lang_str,
+            'query': str(text),
+        }
+        queries = [query]
+
+        def run_query():
+            return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.LIMIT_SEARCH})
+        self._safe_exec(run_query, None)
+
+    def search_videos(self, videos, callback, languages=None):
+        lang_str = self._languages_to_str(languages)
 
         window_size = 5
         callback.set_range(0, (len(videos) + (window_size - 1)) // window_size)
@@ -1010,7 +1029,7 @@ class SDService(object):
                 hash_video[video.get_osdb_hash()] = video
 
             def run_query():
-                return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': limit})
+                return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.LIMIT_SEARCH})
             result = self._safe_exec(run_query, None)
             if result is None:
                 return remote_subtitles
@@ -1023,7 +1042,7 @@ class SDService(object):
                     remote_md5_hash = rsub_raw['SubHash']
                     remote_download_link = rsub_raw['SubDownloadLink']
                     remote_link = rsub_raw['SubtitlesLink']
-                    remote_uploader = rsub_raw['UserNickName']
+                    remote_uploader = rsub_raw['UserNickName'].strip()
                     remote_language_raw = rsub_raw['SubLanguageID']
                     try:
                         remote_language = Language.from_unknown(remote_language_raw,
@@ -1031,6 +1050,7 @@ class SDService(object):
                     except NotALanguageException:
                         remote_language = UnknownLanguage(remote_language_raw)
                     remote_rating = float(rsub_raw['SubRating'])
+                    remote_date = datetime.datetime.strptime(rsub_raw['SubAddDate'], '%Y-%m-%d %H:%M:%S')
                     remote_subtitle = OpenSubtitles_SubtitleFile(
                         filename=remote_filename,
                         file_size=remote_file_size ,
@@ -1041,6 +1061,7 @@ class SDService(object):
                         uploader=remote_uploader,
                         language=remote_language,
                         rating=remote_rating,
+                        age=remote_date,
                     )
                     movie_hash = '{:>016}'.format(rsub_raw['MovieHash'])
                     hash_video[movie_hash].add_subtitle(remote_subtitle)
@@ -1068,13 +1089,14 @@ class SDService(object):
 
 class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
     def __init__(self, filename, file_size, md5_hash, id_online, download_link,
-                 link, uploader, language, rating):
+                 link, uploader, language, rating, age):
         RemoteSubtitleFile.__init__(self, filename=filename, file_size=file_size, language=language, md5_hash=md5_hash)
         self._id_online = id_online
         self._download_link = download_link
         self._link = link
-        self._uploader = uploader.strip()
+        self._uploader = uploader
         self._rating = rating
+        self._age = age
 
     def get_id_online(self):
         return self._id_online
@@ -1087,6 +1109,9 @@ class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
 
     def get_link(self):
         return self._link
+
+    def get_age(self):
+        return self._age
 
     def get_provider(self):
         return SDService

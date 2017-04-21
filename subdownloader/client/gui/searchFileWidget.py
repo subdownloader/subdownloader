@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystem
 from subdownloader.callback import ProgressCallback
 from subdownloader.filescan import scan_videopaths
 from subdownloader.languages.language import Language
-from subdownloader.FileManagement.search import Movie
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.video2 import VideoFile
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
@@ -25,7 +24,7 @@ from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.videomodel2 import VideoModel
+from subdownloader.client.gui.searchFileModel import VideoModel
 
 log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 # FIXME: add logging
@@ -503,11 +502,6 @@ class SearchFileWidget(QWidget):
                 menu.addAction(downloadAction)
                 subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
                 menu.addAction(subWebsiteAction)
-            elif isinstance(data_item, Movie):
-                subWebsiteAction = QAction(
-                    QIcon(":/images/info.png"), _("View IMDB info"), self)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
 
         # Show the context menu.
         menu.exec_(listview.mapToGlobal(point))
@@ -675,13 +669,6 @@ class SearchFileWidget(QWidget):
         elif isinstance(data_item, RemoteSubtitleFile):
             sub = data_item
             webbrowser.open(sub.get_link(), new=2, autoraise=1)
-
-        elif isinstance(data_item, Movie):
-            movie = data_item
-            imdb = movie.IMDBId
-            if imdb:
-                webbrowser.open(
-                    "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
     @pyqtSlot()
     def onSetIMDBInfo(self):
         #FIXME: DUPLICATED WITH SEARCHNAMEWIDGET

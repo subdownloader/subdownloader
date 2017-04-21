@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+import datetime
 import logging
 import xml.parsers.expat
 from xml.dom import minidom
@@ -11,26 +12,70 @@ try:
 except ImportError:
     from urllib2 import HTTPError, urlopen, URLError, quote
 
-from subdownloader.languages.language import Language
-from subdownloader.FileManagement import subtitlefile
+from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
 
-OnlyLink = ''
-FilmLink = ''
+from subdownloader.languages.language import NotALanguageException, Language, UnknownLanguage
+from subdownloader.FileManagement import subtitlefile
 
 log = logging.getLogger("subdownloader.FileManagement.search")
 
 
-class Link:
-    def OneLink(self, OnlyLink):
-        global FilmLink
-        if OnlyLink == 0:
-            return FilmLink
-        elif OnlyLink != 0:
-            FilmLink = OnlyLink
-            return
-
-
 class Movie(object):
+
+    def __init__(self, movie_name, movie_year, provider_link, provider_id, imdb_link, imdb_id, imdb_rating, subtitles_nb_total):
+        # movieInfo is a dict
+        self._movie_name = movie_name
+        self._movie_year = movie_year
+
+        self._provider_link = provider_link
+        self._provider_id = provider_id
+        self._imdb_link = imdb_link
+        self._imdb_id = imdb_id
+        self._imdb_rating = imdb_rating
+
+        self._subtitles_local = []
+        self._subtitles_nb_total = subtitles_nb_total
+
+    def get_nb_subs_total(self):
+        return self._subtitles_nb_total
+
+    def get_nb_subs_available(self):
+        return len(self._subtitles_local)
+
+    def get_provider_link(self):
+        return self._provider_link
+
+    def add_subtitles(self, subtitles):
+        self._subtitles_local.extend(subtitles)
+
+    def get_subtitles(self):
+        return self._subtitles_local
+
+    def get_name(self):
+        return self._movie_name
+
+    def get_year(self):
+        return self._movie_year
+
+    def get_imdb_id(self):
+        return self._imdb_id
+
+    def get_imdb_rating(self):
+        return self._imdb_rating
+
+    def __repr__(self):
+        return '<{clsname} movie_name: {movie_name}, movie_year: {movie_year}, ' \
+               'nb_subs_total={nb_subs_total}, nb_subs_available={nb_subs_available}, ' \
+               'provider_link: {provider_link}, provider_id: {provider_id}, ' \
+               'imdb_link: {imdb_link}, imdb_id: {imdb_id}, imdb_rating: {imdb_rating}'.format(
+            clsname = type(self).__name__,
+            movie_name=self._movie_name, movie_year=self._movie_year,
+            nb_subs_total=self.get_nb_subs_total(), nb_subs_available=self.get_nb_subs_available(),
+            provider_link=self._provider_link, provider_id=self._provider_id,
+            imdb_link=self._imdb_link, imdb_id=self._imdb_id, imdb_rating=self._imdb_rating)
+
+
+class MovieOriginal(object):
 
     def __init__(self, movieInfo):
         # movieInfo is a dict
@@ -63,382 +108,252 @@ class Movie(object):
     def get_total_subs(self):
         return len(self.subtitles)
 
+    def get_subtitles(self):
+        return self.subtitles
+
     def __repr__(self):
         return "<Movie MovieName: %s, MovieSiteLink: %s, IMDBLink: %s, IMDBRating: %s, MovieYear: %s, MovieId: %s, totalSubs: %s, subtitles: %r>" % (self.MovieName, self.MovieSiteLink, self.IMDBLink, self.IMDBRating, self.MovieYear, self.MovieId, self.totalSubs, self.subtitles)
 
 
 class SearchByName(object):
 
-    def __init__(self):
-        pass
-
-    def _signal_connection_failed(self):
-        # FIXME: set flag/... to signal users that the connection has failed
-        pass
+    def __init__(self, query):
+        self._query = query
+        self._movies = []
+        self._total = None
 
     def _safe_exec(self, query, default):
         try:
             result = query()
             return result
         except HTTPError:
-            self._signal_connection_failed()
             log.debug("Query failed", exc_info=True)
             return default
 
-    def search_movie(self, languages, moviename=None, MovieID_link=None):
-        if MovieID_link:
-            xml_url = "http://www.opensubtitles.org%s" % MovieID_link
-        elif not moviename:
+    def get_movies(self):
+        return self._movies
+
+    def get_nb_movies_online(self):
+        return self._total
+
+    def more_movies_available(self):
+        if self._total is None:
+            return True
+        return len(self._movies) < self._total
+
+    def search_movies(self):
+        if not self.more_movies_available():
+            return False
+
+        xml_url = 'http://www.opensubtitles.org/en/search2/moviename-{text_quoted}/offset-{offset}/xml'.format(
+            offset=len(self._movies),
+            text_quoted=quote(self._query))
+
+        xml_page = self.fetch_url(xml_url)
+        if xml_page is None:
+            return False
+
+        movies, nb_total = self.parse_movie(xml_page)
+        self._total = nb_total
+        self._movies.extend(movies)
+
+        return True
+
+    def search_more_subtitles(self, movie):
+        if movie.get_nb_subs_available() == movie.get_nb_subs_total():
             return None
-        else:
-            moviename = quote(moviename)
-            languages_xxx = ",".join(["all" if language.is_generic() else language.xxx() for language in languages])
-            xml_url = "http://www.opensubtitles.org/en/search2/sublanguageid-%s/moviename-%s/xml" % (
-                languages_xxx, moviename)
+        xml_url = 'http://www.opensubtitles.org{provider_link}/offset-{offset}/xml'.format(
+            provider_link=movie.get_provider_link(),
+            offset=movie.get_nb_subs_available())
 
-        def run_query():
-            return urlopen(xml_url)
-        xml_page = self._safe_exec(run_query, None)
-
+        xml_page = self.fetch_url(xml_url)
         if xml_page is None:
             return None
 
-        search = None
-        if not search:
-            try:
-                log.debug("Parsing results from '{url}' ...".format(url=xml_url))
-                search = self.parse_results(xml_page.read())
-                log.debug("... SUCCESS")
-            except xml.parsers.expat.ExpatError:
-                log.debug("... FAILED")
+        subtitles, nb_total = self.parse_subtitles(xml_page)
+        if subtitles is None:
+            return None
 
-        if not search:
-            xml_url = "{url}/xml".format(url=xml_page.url)
-            def run_query():
-                return urlopen(xml_url)
-            self._safe_exec(run_query, None)
-            if xml_page is None:
-                return None
-            try:
-                log.debug("Parsing results from '{url}' ...".format(url=xml_url))
-                search = self.parse_results(xml_page.read())
-                log.debug("... SUCCESS")
-            except xml.parsers.expat.ExpatError:
-                log.debug("... FAILED")
-                return None
+        if movie.get_nb_subs_total() != nb_total:
+            log.warning('Data mismatch: Partial search of subtitles told us movie has {nb_partial} subtitles '
+                        'but index told us it has {nb_index} subtitles.'.format(
+                nb_partial=nb_total, nb_index=movie.get_nb_subs_total()))
+        movie.add_subtitles(subtitles)
 
-        if search:
-            log.debug("Returning data")
-            movies = search
-        else:
-            log.debug("No data found. Trying '%s'" % xml_page.url)
-            xml_page = urlopen("%s" % xml_page.url)
-            movies = self.subtitle_info(xml_page.read())
+        return subtitles
+
+    def fetch_url(self, url):
+        try:
+            log.debug('Fetching data from {}...'.format(url))
+            page = urlopen(url).read()
+            log.debug('... SUCCESS')
+        except HTTPError:
+            log.debug('... FAILED (HTTPError)', exc_info=True)
+            return None
+        return page
+
+    def search_url(self, xml_url):
+        try:
+            log.debug('Fetching data from {url}...'.format(url=xml_url))
+            xml_page = urlopen(xml_url).read()
+            log.debug('... SUCCESS')
+        except HTTPError:
+            log.debug('... FAILED (HTTPError)', exc_info=True)
+            return None
+
+        log.debug('Parsing xml...')
+        movies = self.parse_results(xml_page)
+        log.debug('... Parsing finished (is_none? {})'.format(movies is None))
 
         return movies
 
-    def search_subtitles(self, IDSubtitle_link):
-        xml_url = "http://www.opensubtitles.org%s" % IDSubtitle_link
-        xml_page = urlopen(xml_url)
-        try:
-            search = self.subtitle_info(xml_page.read())
-        # this will happen when only one result is found
-        except xml.parsers.expat.ExpatError:
-            search = self.subtitle_info(urlopen(xml_page.url + "/xml").read())
-        return search
+    def parse_movie(self, raw_xml):
+        subtitle_entries, nb_provider, nb_provider_total = self.extract_subtitle_entries(raw_xml)
+        if subtitle_entries is None:
+            return None, None
 
-    def subtitle_info(self, raw_xml):
-        dom = minidom.parseString(raw_xml)  # Make the dom from raw xml
-        entries = dom.getElementsByTagName(
-            'opensubtitles')  # Pull out all entry's
-        subtitle_entries = []  # Make an empty container to fill up and return
-        data = None
-        for entry in entries:
-            if entry.getElementsByTagName('SubBrowse'):
-                for result in entry.getElementsByTagName('SubBrowse'):
-                    if result.getElementsByTagName('Subtitle'):
-                        data = result.getElementsByTagName('Subtitle')
-                        break
-                break
-        # print "data=", data
-        if not data:
-            return []
-        # catch subtitle information
-
-        for entry in data:
-            sub_obj = subtitlefile.SubtitleFile(online=True)
-            sub = {}
-            if entry.getElementsByTagName('LinkDetails') and entry.getElementsByTagName('LinkDetails')[0].firstChild:
-                sub['LinkDetails'] = entry.getElementsByTagName(
-                    'LinkDetails')[0].firstChild.data
-            if entry.getElementsByTagName('IDSubtitle'):
-                sub['IDSubtitle'] = {'IDSubtitle': entry.getElementsByTagName('IDSubtitle')[0].firstChild.data,
-                                     'Link': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('Link'),
-                                     }
-                sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
-            if entry.getElementsByTagName('MovieReleaseName') and entry.getElementsByTagName('MovieReleaseName')[0].firstChild:
-                sub['MovieReleaseName'] = entry.getElementsByTagName(
-                    'MovieReleaseName')[0].firstChild.data
-            if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
-                sub['SubFormat'] = entry.getElementsByTagName(
-                    'SubFormat')[0].firstChild.data
-                sub_obj.setExtraInfo('format', sub['SubFormat'])
-            if entry.getElementsByTagName('SubSumCD') and entry.getElementsByTagName('SubSumCD')[0].firstChild:
-                sub['SubSumCD'] = entry.getElementsByTagName(
-                    'SubSumCD')[0].firstChild.data
-                sub_obj.setExtraInfo('totalCDs', sub['SubSumCD'])
-            if entry.getElementsByTagName('SubAuthorComment') and entry.getElementsByTagName('SubAuthorComment')[0].firstChild:
-                sub['SubAuthorComment'] = entry.getElementsByTagName(
-                    'SubAuthorComment')[0].firstChild.data
-            if entry.getElementsByTagName('SubAddDate') and entry.getElementsByTagName('SubAddDate')[0].firstChild:
-                sub['SubAddDate'] = entry.getElementsByTagName(
-                    'SubAddDate')[0].firstChild.data
-            if entry.getElementsByTagName('SubSumVotes') and entry.getElementsByTagName('SubSumVotes')[0].firstChild:
-                sub['SubSumVotes'] = entry.getElementsByTagName(
-                    'SubSumVotes')[0].firstChild.data
-            if entry.getElementsByTagName('SubRating') and entry.getElementsByTagName('SubRating')[0].firstChild:
-                sub['SubRating'] = entry.getElementsByTagName(
-                    'SubRating')[0].firstChild.data
-                sub_obj.setRating(sub['SubRating'])
-            if entry.getElementsByTagName('SubDownloadsCnt') and entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild:
-                sub['SubDownloadsCnt'] = entry.getElementsByTagName(
-                    'SubDownloadsCnt')[0].firstChild.data
-                sub_obj.setExtraInfo('totalDownloads', sub['SubDownloadsCnt'])
-            if entry.getElementsByTagName('UserNickName') and entry.getElementsByTagName('UserNickName')[0].firstChild:
-                sub['UserNickName'] = entry.getElementsByTagName(
-                    'UserNickName')[0].firstChild.data
-                sub_obj._uploader = sub['UserNickName']
-            if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
-                sub['LanguageName'] = entry.getElementsByTagName(
-                    'LanguageName')[0].firstChild.data
-                sub_obj.setLanguage(Language.from_xx(
-                    entry.getElementsByTagName('LanguageName')[0].getAttribute('ISO639')))
-            if entry.getElementsByTagName('SubtitleFile'):
-                SubtitleFile = {}
-                _SubtitleFile = entry.getElementsByTagName('SubtitleFile')[0]
-
-                _File = _SubtitleFile.getElementsByTagName('File')[0]
-                SubtitleFile['File'] = {'ID': _SubtitleFile.getElementsByTagName('File')[0].getAttribute('ID'),
-                                        'SubActualCD': {'SubActualCD': _File.getElementsByTagName('SubActualCD')[0].firstChild.data,
-                                                        'SubSize': _File.getElementsByTagName('SubActualCD')[0].getAttribute('Link'),
-                                                        'MD5': _File.getElementsByTagName('SubActualCD')[0].getAttribute('MD5'),
-                                                        'SubFileName': _File.getElementsByTagName('SubActualCD')[0].getAttribute('SubFileName'),
-                                                        'DownloadLink': _File.getElementsByTagName('SubActualCD')[0].getAttribute('DownloadLink'),
-                                                        }
-                                        }
-
-                SubtitleFile['Download'] = {'Download': _SubtitleFile.getElementsByTagName('Download')[0].firstChild.data,
-                                            'DownloadLink': _SubtitleFile.getElementsByTagName('Download')[0].getAttribute('LinkDownloadBundle'),
-                                            }
-                sub['SubtitleFile'] = SubtitleFile
-                global OnlyLink
-                OnlyLink = _SubtitleFile.getElementsByTagName(
-                    'Download')[0].getAttribute('LinkDownloadBundle')
-                OnlyLink = ((OnlyLink.replace('dl', 'www')).replace(
-                    'org/en', 'com')).replace('subb', 'sub')
-            if entry.getElementsByTagName('Movie'):
-                _Movie = entry.getElementsByTagName('Movie')[0]
-                #sub['MovieName'] = _Movie.getElementsByTagName('MovieName')[0].firstChild.data
-                sub['MovieID'] = {'MovieID': _Movie.getElementsByTagName('MovieName')[0].getAttribute('MovieID'),
-                                  'Link': _Movie.getElementsByTagName('MovieName')[0].getAttribute('Link'),
-                                  }
-                for section in _Movie.getElementsByTagName('section'):
-                    if section.getAttribute('type') == u"about":
-                        for info in section.getElementsByTagName("info"):
-                            if info.getElementsByTagName("web_url")[0].firstChild.data == u"http://www.imdb.com":
-                                sub['MovieID']['LinkImdb'] = info.getElementsByTagName(
-                                    "link_detail")[0].firstChild.data
-
-            if entry.getElementsByTagName('FullName') and entry.getElementsByTagName('FullName')[0].firstChild:
-                sub['FullName'] = entry.getElementsByTagName(
-                    'FullName')[0].firstChild.data
-            if entry.getElementsByTagName('ReportLink') and entry.getElementsByTagName('ReportLink')[0].firstChild:
-                sub['ReportLink'] = entry.getElementsByTagName(
-                    'ReportLink')[0].firstChild.data
-            # just a shortcut
-            sub['DownloadLink'] = sub['SubtitleFile']['File']['SubActualCD']['DownloadLink']
-            Link().OneLink(OnlyLink)
-            if sub:
-                subtitle_entries.append(sub)
-        return (subtitle_entries, sub_obj)
-
-    def parse_results(self, raw_xml):
-        """Parse the xml and return a list of dictionaries like:
-            [   {'IDSubtitle': 'foo',
-                    'LinkUseNext': 'foo',
-                    'MovieName': 'foo_movie',
-                    ...
-                },
-                {'IDSubtitle': 'foo',
-                    'LinkUseNext': 'foo',
-                    'MovieName': 'foo_movie',
-                    ...
-                },
-                ...]
-        """
-
-        dom = minidom.parseString(raw_xml)  # Make the dom from raw xml
-        entries = dom.getElementsByTagName(
-            'opensubtitles')  # Pull out all entry's
-        result_entries = []  # Make an empty container to fill up and return
-        data = None
-        # fetch the wanted result xml node
-        for entry in entries:
-            if len(entry.getElementsByTagName('results')) > 0:
-                for result in entry.getElementsByTagName('results'):
-                    if len(result.getElementsByTagName('subtitle')) > 0:
-                        data = result.getElementsByTagName('subtitle')
-                        break
-                break
-        # print "data=", data
-        if not data:
-            return []
-        # catch all subtitles information
-        for entry in data:
+        movies = []
+        for subtitle_entry in subtitle_entries:
             try:
-                sub_obj = subtitlefile.SubtitleFile(online=True)
-                sub = {}
-
-                if entry.getElementsByTagName('EpisodeName'):
-                    return
-                if entry.getElementsByTagName('IDSubtitle'):
-                    sub['IDSubtitle'] = {'IDSubtitle': entry.getElementsByTagName('IDSubtitle')[0].firstChild.data,
-                                         'Link': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('Link'),
-                                         'LinkImdb': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('LinkImdb'),
-                                         'DownloadLink': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('DownloadLink'),
-                                         'uuid': entry.getElementsByTagName('IDSubtitle')[0].getAttribute('uuid'),
-                                         }
-                    sub_obj.setIdOnline(sub['IDSubtitle']['IDSubtitle'])
-                if entry.getElementsByTagName('IDSubtitleFile'):
-                    sub['IDSubtitleFile'] = {'IDSubtitleFile': entry.getElementsByTagName('IDSubtitleFile')[0].firstChild.data,
-                    }
-                    sub_obj.setIdFileOnline(sub['IDSubtitleFile']['IDSubtitleFile'])
-                if entry.getElementsByTagName('UserID'):
-                    sub['UserID'] = {'UserID': entry.getElementsByTagName('UserID')[0].firstChild.data,
-                                     'Link': entry.getElementsByTagName('UserID')[0].getAttribute('Link'),
-                                     }
-                if entry.getElementsByTagName('UserNickName') and entry.getElementsByTagName('UserNickName')[0].firstChild:
-                    sub['UserNickName'] = entry.getElementsByTagName(
-                        'UserNickName')[0].firstChild.data
-                    sub_obj._uploader = sub['UserNickName']
-                if entry.getElementsByTagName('MovieID'):
-                    #sub['MovieID'] = entry.getElementsByTagName('MovieID')[0].firstChild.data
-                    sub['MovieID'] = {'MovieID': entry.getElementsByTagName('MovieID')[0].firstChild.data,
-                                      'Link': entry.getElementsByTagName('MovieID')[0].getAttribute('Link'),
-                                      'LinkImdb': entry.getElementsByTagName('MovieID')[0].getAttribute('LinkImdb'),
-                                      }
-                if entry.getElementsByTagName('MovieThumb') and entry.getElementsByTagName('MovieThumb')[0].firstChild:
-                    sub['MovieThumb'] = entry.getElementsByTagName(
-                        'MovieThumb')[0].firstChild.data
-                if entry.getElementsByTagName('LinkUseNext') and entry.getElementsByTagName('LinkUseNext')[0].firstChild:
-                    sub['LinkUseNext'] = entry.getElementsByTagName(
-                        'LinkUseNext')[0].firstChild.data
-                if entry.getElementsByTagName('LinkZoozle') and entry.getElementsByTagName('LinkZoozle')[0].firstChild:
-                    sub['LinkZoozle'] = entry.getElementsByTagName(
-                        'LinkZoozle')[0].firstChild.data
-                if entry.getElementsByTagName('LinkTorrentbar') and entry.getElementsByTagName('LinkTorrentbar')[0].firstChild:
-                    sub['LinkTorrentbar'] = entry.getElementsByTagName(
-                        'LinkTorrentbar')[0].firstChild.data
-                if entry.getElementsByTagName('LinkBoardreader') and entry.getElementsByTagName('LinkBoardreader')[0].firstChild:
-                    sub['LinkBoardreader'] = entry.getElementsByTagName(
-                        'LinkBoardreader')[0].firstChild.data
-                if entry.getElementsByTagName('MovieName') and entry.getElementsByTagName('MovieName')[0].firstChild:
-                    sub['MovieName'] = entry.getElementsByTagName(
-                        'MovieName')[0].firstChild.data
-                if entry.getElementsByTagName('MovieYear') and entry.getElementsByTagName('MovieYear')[0].firstChild:
-                    sub['MovieYear'] = entry.getElementsByTagName(
-                        'MovieYear')[0].firstChild.data
-                if entry.getElementsByTagName('MovieImdbRating') and entry.getElementsByTagName('MovieImdbRating')[0].firstChild:
-                    sub['MovieImdbRating'] = entry.getElementsByTagName(
-                        'MovieImdbRating')[0].firstChild.data
-                elif not entry.getElementsByTagName('MovieImdbRating')[0].firstChild:
-                    sub['MovieImdbRating'] = 0
-                if entry.getElementsByTagName('MovieImdbID') and entry.getElementsByTagName('MovieImdbID')[0].firstChild:
-                    sub['MovieImdbID'] = entry.getElementsByTagName(
-                        'MovieImdbID')[0].firstChild.data
-                if entry.getElementsByTagName('SubAuthorComment'):
+                ads_entries = subtitle_entry.getElementsByTagName('ads1')
+                if ads_entries:
+                    continue
+                def try_get_firstchild_data(key, default):
                     try:
-                        sub['SubAuthorComment'] = entry.getElementsByTagName(
-                            'SubAuthorComment')[0].firstChild.data
-                    except AttributeError:
-                        sub['SubAuthorComment'] = entry.getElementsByTagName(
-                            'SubAuthorComment')[0].firstChild
-                if entry.getElementsByTagName('ISO639'):
-                    sub['ISO639'] = {'ISO639': entry.getElementsByTagName('ISO639')[0].firstChild.data,
-                                     'LinkSearch': entry.getElementsByTagName('ISO639')[0].getAttribute('LinkSearch'),
-                                     'flag': entry.getElementsByTagName('ISO639')[0].getAttribute('flag'),
-                                     }
-                    sub_obj.setLanguage(Language.from_xx(sub['ISO639']['ISO639']))
-                    #sub_obj._onlineId = sub['IDSubtitle']['IDSubtitle']
-                    # It does require the Subtitle ID to downlad, not the
-                    # Subtitle File Id
-                    sub_obj.setExtraInfo(
-                        'downloadLink', "http://www.opensubtitles.org/download/sub/%s" % sub_obj.getIdOnline())
-                if entry.getElementsByTagName('LanguageName') and entry.getElementsByTagName('LanguageName')[0].firstChild:
-                    sub['LanguageName'] = entry.getElementsByTagName(
-                        'LanguageName')[0].firstChild.data
-                if entry.getElementsByTagName('SubFormat') and entry.getElementsByTagName('SubFormat')[0].firstChild:
-                    sub['SubFormat'] = entry.getElementsByTagName(
-                        'SubFormat')[0].firstChild.data
-                    sub_obj.setExtraInfo('format', sub['SubFormat'])
-                if entry.getElementsByTagName('SubSumCD') and entry.getElementsByTagName('SubSumCD')[0].firstChild:
-                    sub['SubSumCD'] = entry.getElementsByTagName(
-                        'SubSumCD')[0].firstChild.data
-                    sub_obj.setExtraInfo('totalCDs', sub['SubSumCD'])
-                if entry.getElementsByTagName('SubAddDate') and entry.getElementsByTagName('SubAddDate')[0].firstChild:
-                    sub['SubAddDate'] = entry.getElementsByTagName(
-                        'SubAddDate')[0].firstChild.data
-                if entry.getElementsByTagName('SubBad') and entry.getElementsByTagName('SubBad')[0].firstChild:
-                    sub['SubBad'] = entry.getElementsByTagName(
-                        'SubBad')[0].firstChild.data
-                if entry.getElementsByTagName('SubRating') and entry.getElementsByTagName('SubRating')[0].firstChild:
-                    sub['SubRating'] = entry.getElementsByTagName(
-                        'SubRating')[0].firstChild.data
-                    sub_obj.setRating(sub['SubRating'])
-                if entry.getElementsByTagName('SubDownloadsCnt') and entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild:
-                    sub['SubDownloadsCnt'] = entry.getElementsByTagName(
-                        'SubDownloadsCnt')[0].firstChild.data
-                    sub_obj.setExtraInfo(
-                        'totalDownloads', sub['SubDownloadsCnt'])
-                if entry.getElementsByTagName('SubMovieAka') and entry.getElementsByTagName('SubMovieAka')[0].firstChild:
-                    sub['SubMovieAka'] = entry.getElementsByTagName(
-                        'SubMovieAka')[0].firstChild.data
-                if entry.getElementsByTagName('SubDate') and entry.getElementsByTagName('SubDate')[0].firstChild:
-                    sub['SubDate'] = entry.getElementsByTagName(
-                        'SubDate')[0].firstChild.data
-                if entry.getElementsByTagName('SubComments') and entry.getElementsByTagName('SubComments')[0].firstChild:
-                    sub['SubComments'] = entry.getElementsByTagName(
-                        'SubComments')[0].firstChild.data
-                if entry.getElementsByTagName('TotalSubs') and entry.getElementsByTagName('TotalSubs')[0].firstChild:
-                    sub['TotalSubs'] = entry.getElementsByTagName(
-                        'TotalSubs')[0].firstChild.data
-                if entry.getElementsByTagName('Newest') and entry.getElementsByTagName('Newest')[0].firstChild:
-                    sub['Newest'] = entry.getElementsByTagName(
-                        'Newest')[0].firstChild.data
-                if sub:
-                    # result_entries.append(sub)
-                    temp_movie = Movie(sub)
-                    movie_exists = False
-                    for movie in result_entries:
-                        if movie.MovieId == temp_movie.MovieId:
-                            movie_exists = True
-                            if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
-                                movie.subtitles.append(sub_obj)
-#                            already_movie = result_entries.pop(result_entries.index(movie))
-#                            temp_movie.subtitles = already_movie.subtitles
-                    if not movie_exists:
-                        if hasattr(sub_obj, "_extraInfo") and sub_obj._extraInfo:
-                            temp_movie.subtitles.append(sub_obj)
-                        result_entries.append(temp_movie)
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                movie_id_entries = subtitle_entry.getElementsByTagName('MovieID')
+                movie_id = movie_id_entries[0].firstChild.data
+                movie_id_link = movie_id_entries[0].getAttribute('Link')
+                # movie_thumb = subtitle_entry.getElementsByTagName('MovieThumb')[0].firstChild.data
+                # link_use_next = subtitle_entry.getElementsByTagName('LinkUseNext')[0].firstChild.data
+                # link_zoozle = subtitle_entry.getElementsByTagName('LinkZoozle')[0].firstChild.data
+                # link_boardreader = subtitle_entry.getElementsByTagName('LinkBoardreader')[0].firstChild.data
+                movie_name = try_get_firstchild_data('MovieName', None)
+                movie_year = try_get_firstchild_data('MovieYear', None)
+                try:
+                    movie_imdb_rating = float(subtitle_entry.getElementsByTagName('MovieImdbRating')[0].getAttribute('Percent')) / 10
+                except AttributeError:
+                    movie_imdb_rating = None
+                try:
+                    movie_imdb_link = movie_id_entries[0].getAttribute('LinkImdb')
+                except AttributeError:
+                    movie_imdb_link = None
+                movie_imdb_id = try_get_firstchild_data('MovieImdbID', None)
+                subs_total = int(subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data)
+                # newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data
+                movie = Movie(
+                    movie_name=movie_name, movie_year=movie_year, subtitles_nb_total=subs_total,
+                    provider_link=movie_id_link, provider_id=movie_id,
+                    imdb_link=movie_imdb_link, imdb_id=movie_imdb_id, imdb_rating=movie_imdb_rating)
+                movies.append(movie)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
 
-            except IndexError as e:
-                pass
-        return result_entries
+        if len(movies) != nb_provider:
+            log.warning('Provider told us it returned {nb_provider} movies. '
+                        'Yet we only extracted {nb_local} movies.'.format(
+                nb_provider=nb_provider, nb_local=len(movies)))
+        return movies, nb_provider_total
 
-# For testing purposes
-if __name__ == "__main__":
-    s = SearchByName()
-    res = s.search_movie(languages=[Language.from_xxx("por"), Language.from_xxx("pob")], moviename="anamorph")
-    for movie in res:
-        print(movie)
-        print(len(movie.subtitles))
+    def extract_subtitle_entries(self, raw_xml):
+        nb = None
+        nb_total = None
+        entries = None
+        log.debug('extract_subtitle_entries() ...')
+        try:
+            dom = minidom.parseString(raw_xml)
+            entries = None
+            opensubtitles_entries = dom.getElementsByTagName('opensubtitles')
+            for opensubtitles_entry in opensubtitles_entries:
+                results_entries = opensubtitles_entry.getElementsByTagName('results')
+                for results_entry in results_entries:
+                    nb = int(results_entry.getAttribute('items'))
+                    nb_total = int(results_entry.getAttribute('itemsfound'))
+                    entries = results_entry.getElementsByTagName('subtitle')
+                    if entries:
+                        break
+            if entries is None:
+                log.debug('... extraction FAILED (xml has unknown format)')
+            else:
+                log.debug('... extraction SUCCESS')
+        except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
+            log.debug('... extraction FAILED (xml error)', exc_info=True)
+        return entries, nb, nb_total
+
+    def parse_subtitles(self, raw_xml):
+        subtitle_entries, nb_provider, nb_provider_total = self.extract_subtitle_entries(raw_xml)
+        if subtitle_entries is None:
+            return None, None
+
+        subtitles = []
+        for subtitle_entry in subtitle_entries:
+            try:
+                ads_entries = subtitle_entry.getElementsByTagName('ads1') or subtitle_entry.getElementsByTagName('ads2')
+                if ads_entries:
+                    continue
+                def try_get_firstchild_data(key, default):
+                    try:
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                subtitle_id_entry = subtitle_entry.getElementsByTagName('IDSubtitle')[0]
+                subtitle_id = subtitle_id_entry.firstChild.data
+                subtitle_link = 'http://www.opensubtitles.org' + subtitle_id_entry.getAttribute('Link')
+                subtitle_uuid = subtitle_id_entry.getAttribute('uuid')
+
+                subtitlefile_id = subtitle_entry.getElementsByTagName('IDSubtitleFile')[0].firstChild.data
+
+                user_entry = subtitle_entry.getElementsByTagName('UserID')[0]
+                user_id = int(user_entry.firstChild.data)
+                user_link = 'http://www.opensubtitles.org' + user_entry.getAttribute('Link')
+                user_nickname = try_get_firstchild_data('UserNickName', None)
+
+                comment = subtitle_entry.getElementsByTagName('SubAuthorComment')[0].firstChild
+
+                language_entry = subtitle_entry.getElementsByTagName('ISO639')[0]
+                language_iso639 = language_entry.firstChild.data
+                language_link_search = 'http://www.opensubtitles.org' + language_entry.getAttribute('LinkSearch')
+                language_flag = 'http:' + language_entry.getAttribute('flag')
+
+                language_name = subtitle_entry.getElementsByTagName('LanguageName')[0].firstChild.data
+
+                subtitle_format = subtitle_entry.getElementsByTagName('SubFormat')[0].firstChild.data
+                subtitle_nbcds = int(subtitle_entry.getElementsByTagName('SubSumCD')[0].firstChild.data)
+                subtitle_add_date_rfc3339 = subtitle_entry.getElementsByTagName('SubAddDate')[0].getAttribute('rfc3339')
+                subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_rfc3339, '%Y-%m-%dT%H:%M:%S%z')
+                subtitle_bad = int(subtitle_entry.getElementsByTagName('SubBad')[0].firstChild.data)
+                subtitle_rating = float(subtitle_entry.getElementsByTagName('SubRating')[0].firstChild.data)
+
+                download_count = int(subtitle_entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild.data)
+                subtitle_movie_aka = try_get_firstchild_data('SubMovieAka', None)
+
+                subtitle_comments = int(subtitle_entry.getElementsByTagName('SubComments')[0].firstChild.data)
+                # subtitle_total = subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data #PRESENT?
+                # subtitle_newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data #PRESENT?
+
+                language = Language.from_xx(language_iso639)
+
+                download_link = 'http://www.opensubtitles.org/download/sub/{}'.format(subtitle_id)
+                if user_nickname:
+                    uploader = user_nickname
+                elif user_id != 0:
+                    uploader = str(user_id)
+                else:
+                    uploader = None
+                subtitle = OpenSubtitles_SubtitleFile(filename=None, file_size=None, md5_hash=subtitle_uuid,
+                                                      id_online=subtitlefile_id, download_link=download_link,
+                                                      link=subtitle_link, uploader=uploader,
+                                                      language=language, rating=subtitle_rating, age=subtitle_add_date)
+                subtitles.append(subtitle)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
+
+        if len(subtitles) != nb_provider:
+            log.warning('Provider told us it returned {nb_provider} subtitles. '
+                        'Yet we only extracted {nb_local} subtitles.'.format(
+                nb_provider=nb_provider, nb_local=len(subtitles)))
+        return subtitles, nb_provider_total

@@ -17,7 +17,6 @@ from subdownloader.util import asciify
 log = logging.getLogger("subdownloader.languages.language")
 
 
-
 class NotALanguageException(ValueError):
     """
     Exception to inform that some value is not a valid Language.

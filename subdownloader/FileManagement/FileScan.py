@@ -27,42 +27,7 @@ def AutoDetectNFOfile(videofolder):
                     return found_imdb_id
     return None
 
-
-def scan_paths(paths, callback, recursively=True):
-    log.debug('scan_paths(paths={paths}, callback=..., recursively={recursively}'.format(paths=paths,
-                                                                                         recursively=recursively))
-    all_videos_found = []
-    all_subs_found = []
-
-    callback.set_range(0, len(paths))
-    callback.show()
-
-    for pathi, path in enumerate(paths):
-        child_callback = callback.get_child_progress(pathi, pathi + 1)
-        if callback.canceled():
-            log.debug('scan_paths: callback.canceled() == True ==> Finish')
-            break
-        log.debug('scan_paths: scanning "{path}"'.format(path=path))
-
-        if os.path.isdir(path):
-            videos_found, subs_found = scan_folder(path, child_callback, recursively=recursively)
-            all_videos_found += videos_found
-            all_subs_found += subs_found
-        else:
-            if get_extension(path).lower() in videofile.VIDEOS_EXT:
-                all_videos_found.append(videofile.VideoFile(path))
-            # Interested to know which subtitles we have in the same folder
-            all_subs_found += ScanSubtitlesFolder(os.path.dirname(path), child_callback, recursively=False)
-
-    log.debug('scan_paths() finished: #videos={nb_videos}, #subs={nb_subs}'.format(nb_videos=len(all_videos_found),
-                                                                                   nb_subs=len(all_subs_found)))
-
-    callback.finish()
-    return all_videos_found, all_subs_found
-
 """Scanning all the Video and Subtitle files inside a Folder/Recursive Folders"""
-
-
 def scan_folder(folder_path, callback, recursively=True):
     log.debug('scan_folder(folder_path={folder_path}, callback=..., recursively={recursively})'.format(
         folder_path=folder_path, recursively=recursively))
