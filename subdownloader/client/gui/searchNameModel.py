@@ -13,6 +13,7 @@ from PyQt5.QtWidgets import QMessageBox
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.FileManagement.search import Movie, SearchByName
 from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
+from subdownloader.subtitle2 import RemoteSubtitleFile
 
 log = logging.getLogger('subdownloader.client.gui.videotreeview')
 
@@ -36,6 +37,7 @@ class VideoTreeModel(QAbstractItemModel):
         self._all_root = Node(data=None, parent=None)
         self._root = self._all_root.clone()
         self._selected_node = None
+        self._language_filter = []
         self._treeview = None
 
     def connect_treeview(self, treeview):
@@ -110,6 +112,19 @@ class VideoTreeModel(QAbstractItemModel):
         self.beginResetModel()
         self._root = self._all_root.clone()
         # FIXME: apply filters...
+        self.endResetModel()
+
+        self.beginResetModel()
+        self._root = self._all_root.clone()
+        nodes_movie = list(self._root.get_children())
+        for node_movie in nodes_movie:
+            nodes_subtitle = list(node_movie.get_children())
+            for node_subtitle in nodes_subtitle:
+                data = node_subtitle.get_data()
+                if isinstance(data, RemoteSubtitleFile):
+                    subtitle = data
+                    if self._language_filter and subtitle.get_language() not in self._language_filter:
+                        node_movie.remove_child(node_subtitle)
         self.endResetModel()
 
         for node_movie_i, node_movie in enumerate(self._root.get_children()):
