@@ -214,9 +214,9 @@ class VideoTreeModel(QAbstractItemModel):
                 if not uploader:
                     uploader = _('Anonymous')
 
-                line = "[%s]    " % _(sub.get_language().name())
+                line = '[{}]    '.format(sub.get_language().name())
                 if sub.get_rating() != '0.0':  # if the rate is not 0
-                    line += _("Rate: %s") % str(sub.get_rating())
+                    line += _('Rating: {}').format(sub.get_rating())
                 # line += "  " + \
                 #     _("Format: %s") % sub.getExtraInfo('format').upper()
                 # line += "  " + \
@@ -224,7 +224,7 @@ class VideoTreeModel(QAbstractItemModel):
                 #         sub.getExtraInfo('totalDownloads'))
                 # line += "  " + \
                 #     _("CDs: %d") % int(sub.getExtraInfo('totalCDs'))
-                line += "  " + _("Uploader: %s") % uploader
+                line += ' ' + _('Uploader: {}').format(uploader)
                 return line
             return None
         elif isinstance(data, SearchMore):
