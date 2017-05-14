@@ -20,7 +20,7 @@ from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.client.gui import SELECT_SUBTITLES, SELECT_VIDEOS
 from subdownloader.client.gui.imdbSearch import imdbSearchDialog
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.client.gui.uploadlistview import UploadListModel, UploadListView
+from subdownloader.client.gui.uploadModel import UploadModel, UploadListView
 from subdownloader.client.gui.uploadWidget_ui import Ui_UploadWidget
 from subdownloader.client.gui.state import State
 from subdownloader.FileManagement.videofile import VideoFile
@@ -59,7 +59,7 @@ class UploadWidget(QWidget):
         self.initializeFilterLanguages()
 
         # SETTING UP UPLOAD_VIEW
-        self.uploadModel = UploadListModel(self)
+        self.uploadModel = UploadModel(self)
         self.ui.uploadView.setModel(self.uploadModel)
         # FIXME: This connection should be cleaner.
         self.uploadModel._main = self
@@ -75,25 +75,18 @@ class UploadWidget(QWidget):
 
         self.ui.buttonUpload.clicked.connect(self.onUploadButton)
 
-        self.ui.buttonUploadUpRow.clicked.connect(
-            self.uploadModel.onUploadButtonUpRow)
-        self.ui.buttonUploadDownRow.clicked.connect(
-            self.uploadModel.onUploadButtonDownRow)
-        self.ui.buttonUploadPlusRow.clicked.connect(
-            self.uploadModel.onUploadButtonPlusRow)
-        self.ui.buttonUploadMinusRow.clicked.connect(
-            self.uploadModel.onUploadButtonMinusRow)
-        self.ui.buttonUploadDeleteAllRow.clicked.connect(
-            self.uploadModel.onUploadButtonDeleteAllRow)
+        self.ui.buttonUploadUpRow.clicked.connect(self.uploadModel.onUploadButtonUpRow)
+        self.ui.buttonUploadDownRow.clicked.connect(self.uploadModel.onUploadButtonDownRow)
+        self.ui.buttonUploadPlusRow.clicked.connect(self.uploadModel.onUploadButtonPlusRow)
+        self.ui.buttonUploadMinusRow.clicked.connect(self.uploadModel.onUploadButtonMinusRow)
+        self.ui.buttonUploadDeleteAllRow.clicked.connect(self.uploadModel.onUploadButtonDeleteAllRow)
 
-        self.ui.buttonUploadFindIMDB.clicked.connect(
-            self.onButtonUploadFindIMDB)
+        self.ui.buttonUploadFindIMDB.clicked.connect(self.onButtonUploadFindIMDB)
         self.ui.uploadIMDB.activated.connect(self.onUploadSelectImdb)
 
         self.uploadSelectionModel = QItemSelectionModel(self.uploadModel)
         self.ui.uploadView.setSelectionModel(self.uploadSelectionModel)
-        self.uploadSelectionModel.selectionChanged.connect(
-            self.onUploadChangeSelection)
+        self.uploadSelectionModel.selectionChanged.connect(self.onUploadChangeSelection)
 
         self.imdbDetected.connect(self.onUploadIMDBNewSelection)
 
@@ -101,11 +94,6 @@ class UploadWidget(QWidget):
 
         self.ui.label_autodetect_imdb.hide()
         self.ui.label_autodetect_lang.hide()
-        # print self.ui.uploadView.sizeHint ()
-        # self.ui.uploadView.adjustSize()
-        # self.ui.groupBox_2.adjustSize()
-        # self.ui.uploadDetailsGroupBox.adjustSize()
-        # self.adjustSize()
 
         settings = QSettings()
         optionUploadLanguage = settings.value("options/uploadLanguage", "eng")
@@ -122,6 +110,8 @@ class UploadWidget(QWidget):
             title = settings.value("title")
             self.ui.uploadIMDB.addItem("%s : %s" % (imdbId, title), imdbId)
         settings.endArray()
+
+        self.retranslate()
 
     def retranslate(self):
         pass
@@ -208,8 +198,7 @@ class UploadWidget(QWidget):
                     callback.finish()
                     if info['status'] == "200 OK":
                         successBox = QMessageBox(_("Successful Upload"),
-                                                 _(
-                                                     "Subtitles successfully uploaded.\nMany Thanks!"),
+                                                 _("Subtitles successfully uploaded.\nMany Thanks!"),
                                                  QMessageBox.Information,
                                                  QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
                                                  QMessageBox.NoButton,
@@ -279,13 +268,6 @@ class UploadWidget(QWidget):
             settings.setValue("title", title)
             settings.endArray()
 
-            #imdbHistoryList = settings.value("upload/imdbHistory", []).toList()
-            # print imdbHistoryList
-            #imdbHistoryList.append({'id': id,  'title': title})
-            #settings.setValue("upload/imdbHistory", imdbHistoryList)
-            # print id
-            # print title
-
     @pyqtSlot(str, str)
     def onUploadLanguageDetection(self, lang_xxx, origin=""):
         settings = QSettings()
@@ -347,7 +329,6 @@ class UploadWidget(QWidget):
             self.ui.buttonUploadDownRow.setEnabled(False)
             self.ui.buttonUploadUpRow.setEnabled(False)
             self.ui.buttonUploadMinusRow.setEnabled(False)
-
 
     @pyqtSlot(QItemSelection, QItemSelection)
     def onUploadChangeSelection(self, selected, unselected):

@@ -302,4 +302,4 @@ class Ui_UploadWidget(object):
         self.label_5.setText(_("Subtitle Language:"))
         self.buttonUpload.setText(_("Upload"))
 
-from subdownloader.client.gui.uploadlistview import UploadListView
+from subdownloader.client.gui.uploadModel import UploadListView

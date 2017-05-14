@@ -18,10 +18,10 @@ from subdownloader.FileManagement.subtitlefile import SubtitleFile
 from subdownloader.FileManagement.videofile import VideoFile
 from subdownloader.FileManagement import Subtitle
 
-log = logging.getLogger("subdownloader.client.gui.uploadlistview")
+log = logging.getLogger('subdownloader.client.gui.uploadModel')
 
 
-class UploadListModel(QAbstractTableModel):
+class UploadModel(QAbstractTableModel):
     def __init__(self, parent):
         QAbstractTableModel.__init__(self, parent)
         self._data = None
@@ -159,8 +159,7 @@ class UploadListModel(QAbstractTableModel):
                 max_lang = lang
 
         xxx_lang = max_lang
-        log.debug(
-            "Majoritary Language Autodetected by filename = " + str(xxx_lang))
+        log.debug("Majoritary Language Autodetected by filename = " + str(xxx_lang))
         if xxx_lang:
             self._main.language_updated.emit(xxx_lang, "filename")
 
@@ -173,7 +172,7 @@ class UploadListModel(QAbstractTableModel):
                     lang = Subtitle.AutoDetectLang(sub.getFilePath())
                     sub.setLanguage(lang)
                 all_langs.append(lang)
-# FIXME: Clean this code here and put it in a shared script for also CLI to use
+        # FIXME: Clean this code here and put it in a shared script for also CLI to use
         max = 0
         max_lang = ""
         for lang in all_langs:
@@ -191,13 +190,13 @@ class UploadListModel(QAbstractTableModel):
     def getTotalRows(self):
         return self.rowCount(None)
 
-    def rowCount(self, index):
+    def rowCount(self, index=None):
         return max(len(self._subs), len(self._videos))
 
-    def columnCount(self, parent):
+    def columnCount(self, parent=None):
         return len(self._headers)
 
-    def headerData(self, section, orientation, role):
+    def headerData(self, section, orientation, role=None):
         if role != Qt.DisplayRole:
             return None
         text = ""
@@ -207,7 +206,7 @@ class UploadListModel(QAbstractTableModel):
         else:
             return "CD" + str(1 + section)
 
-    def data(self, index, role):
+    def data(self, index, role=None):
         row, col = index.row(), index.column()
 
         if role == Qt.DisplayRole:
