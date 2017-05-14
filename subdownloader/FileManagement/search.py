@@ -322,8 +322,8 @@ class SearchByName(object):
 
                 subtitle_format = subtitle_entry.getElementsByTagName('SubFormat')[0].firstChild.data
                 subtitle_nbcds = int(subtitle_entry.getElementsByTagName('SubSumCD')[0].firstChild.data)
-                subtitle_add_date_rfc3339 = subtitle_entry.getElementsByTagName('SubAddDate')[0].getAttribute('rfc3339')
-                subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_rfc3339, '%Y-%m-%dT%H:%M:%S%z')
+                subtitle_add_date_locale = subtitle_entry.getElementsByTagName('SubAddDate')[0].getAttribute('locale')
+                subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_locale, '%d/%m/%Y %H:%M:%S')
                 subtitle_bad = int(subtitle_entry.getElementsByTagName('SubBad')[0].firstChild.data)
                 subtitle_rating = float(subtitle_entry.getElementsByTagName('SubRating')[0].firstChild.data)
 
