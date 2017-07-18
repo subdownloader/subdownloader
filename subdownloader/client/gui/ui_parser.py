@@ -4,26 +4,44 @@
 import sys
 import re
 
-def fixTranslation():
+
+def fix_translation():
     regex = re.compile('_translate\(".*?",\s(".*?")\s*?\)')
-    repl = r'_(\1)'
+    replace_with = r'_(\1)'
 
     def fix(line):
-        return regex.sub(repl, line)
+        return regex.sub(replace_with, line)
     return fix
 
 fixes = [
-    fixTranslation(),
+    fix_translation(),
 ]
 
-if __name__ == '__main__':
+
+def main():
     import argparse
     parser = argparse.ArgumentParser(
-        description='Parse Qt5 generated _ui.py files.')
+        description='Parse Qt5 generated _ui.py files.'
+    )
+    parser.add_argument('-i', dest='input', default=None, metavar='FILE', help='Input file')
+    parser.add_argument('-o', dest='output', default=None, metavar='FILE', help='Output file')
 
     args = parser.parse_args()
 
-    for line in sys.stdin.readlines():
+    if args.input:
+        file_in = open(args.input)
+    else:
+        file_in = sys.stdin
+
+    if args.output:
+        file_out = open(args.output)
+    else:
+        file_out = sys.stdout
+
+    for line in file_in.readlines():
         for fix in fixes:
             line = fix(line)
-        sys.stdout.write(line)
+            file_out.write(line)
+
+if __name__ == '__main__':
+    main()

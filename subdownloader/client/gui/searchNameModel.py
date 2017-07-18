@@ -11,8 +11,8 @@ from subdownloader.client.gui.searchFileModel import Node
 # FIXME: get rid of these imports (dependency on qtwidgets and provider)
 from PyQt5.QtWidgets import QMessageBox
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.FileManagement.search import Movie, SearchByName
-from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
+from subdownloader.movie import RemoteMovie
+from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile, SearchByName
 from subdownloader.subtitle2 import RemoteSubtitleFile
 
 log = logging.getLogger('subdownloader.client.gui.videotreeview')
@@ -30,8 +30,9 @@ class SearchMore:
         return self._text
 
 
+# FIXME: use canFetchMore/fetchMore
+# FIXME: split model and view
 class VideoTreeModel(QAbstractItemModel):
-
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
         self._all_root = Node(data=None, parent=None)
@@ -53,7 +54,7 @@ class VideoTreeModel(QAbstractItemModel):
         node.set_expanded(True)
 
         data = node.get_data()
-        if isinstance(data, Movie):
+        if isinstance(data, RemoteMovie):
             movie = data
             if not movie.get_nb_subs_available() and movie.get_nb_subs_total():
                 callback = ProgressCallbackWidget(self._treeview)
@@ -69,7 +70,8 @@ class VideoTreeModel(QAbstractItemModel):
                 callback.update(0)
                 added_subtitles = s.search_more_subtitles(movie=movie)
                 if added_subtitles is None:
-                    QMessageBox.about(self._treeview, _("Info"), _("An unknown problem occurred or this type of movie cannot be handled."))
+                    QMessageBox.about(self._treeview, _("Info"),
+                                      _("An unknown problem occurred or this type of movie cannot be handled."))
                     self._treeview.collapse(index)
                 else:
                     node_origin = node.get_clone_origin()
@@ -98,7 +100,7 @@ class VideoTreeModel(QAbstractItemModel):
             search_what = data.what()
             if isinstance(search_what, SearchByName):
                 print('FIXME: SEARCH MORE MOVIES...')
-            elif isinstance(search_what, Movie):
+            elif isinstance(search_what, RemoteMovie):
                 print('FIXME: SEARCH MORE SUBTITLES...')
         else:
             self.node_clicked.emit(data)
@@ -138,7 +140,6 @@ class VideoTreeModel(QAbstractItemModel):
             return False
 
         movies = s.get_movies()
-        self.moviesResultsBackup = movies
 
         self._all_root = Node(data=None, parent=None)
         for movie in movies:
@@ -152,7 +153,7 @@ class VideoTreeModel(QAbstractItemModel):
         self._apply_filters()
         return True
 
-    def setData(self, index, any, role=None):
+    def setData(self, index, value, role=None):
         if not index.isValid():
             return False
         node = index.internalPointer()
@@ -160,7 +161,7 @@ class VideoTreeModel(QAbstractItemModel):
 
         if isinstance(data, OpenSubtitles_SubtitleFile):
             if role == Qt.CheckStateRole:
-                node.set_checked(any)
+                node.set_checked(value)
                 return True
         return False
 
@@ -170,7 +171,7 @@ class VideoTreeModel(QAbstractItemModel):
         node = index.internalPointer()
         data = node.get_data()
 
-        if isinstance(data, Movie):
+        if isinstance(data, RemoteMovie):
             movie = data
 
             if role == Qt.ForegroundRole:
@@ -183,14 +184,17 @@ class VideoTreeModel(QAbstractItemModel):
                 return QFont('Arial', 9, QFont.Bold)
 
             if role == Qt.DisplayRole:
-                text = '{movie_name} [{movie_year}] [{imdb_string}: {imdb_rating}] ({nb_local}/{nb_server} subtitles)'.format(
-                    movie_name=movie.get_name(),
-                    movie_year=movie.get_year(),
-                    imdb_string=_('IMDB rating'),
-                    imdb_rating=movie.get_imdb_rating() if movie.get_imdb_rating() else '/',
-                    nb_local=movie.get_nb_subs_available(),
-                    nb_server=movie.get_nb_subs_total(),
-                )
+                imdb_identity = next(movie.get_identities().iter_imdb_identity())
+                video_identity = next(movie.get_identities().iter_video_identity())
+                text = '{movie_name} [{movie_year}] [{imdb_string}: ' \
+                       '{imdb_rating}] ({nb_local}/{nb_server} subtitles)'.format(
+                            movie_name=video_identity.get_name(),
+                            movie_year=video_identity.get_year(),
+                            imdb_string=_('IMDb rating'),
+                            imdb_rating=imdb_identity.get_imdb_rating() if imdb_identity.get_imdb_rating() else '/',
+                            nb_local=movie.get_nb_subs_available(),
+                            nb_server=movie.get_nb_subs_total(),
+                        )
                 return text
             return None
         elif isinstance(data, OpenSubtitles_SubtitleFile):
@@ -198,7 +202,7 @@ class VideoTreeModel(QAbstractItemModel):
             if role == Qt.DecorationRole:
                 language = data.get_language()
                 icon_mode = QIcon.Normal
-                return QIcon(':/images/flags/{xx}.png'.format(xx=language.xx())).pixmap(QSize(24, 24), icon_mode )
+                return QIcon(':/images/flags/{xx}.png'.format(xx=language.xx())).pixmap(QSize(24, 24), icon_mode)
 
             if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
@@ -238,7 +242,7 @@ class VideoTreeModel(QAbstractItemModel):
         if not index.isValid():
             return Qt.ItemIsEnabled
         data = index.internalPointer().get_data()
-        if isinstance(data, Movie):
+        if isinstance(data, RemoteMovie):
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
         elif isinstance(data, OpenSubtitles_SubtitleFile):
             return Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled
@@ -248,7 +252,7 @@ class VideoTreeModel(QAbstractItemModel):
     def get_selected_node(self):
         return self._selected_node
 
-    def getCheckedSubtitles(self):
+    def get_checked_subtitles(self):
         checked_subtitles = []
         for node_movie in self._root.get_children():
             for node_subtitle in node_movie.get_children():
@@ -264,16 +268,16 @@ class VideoTreeModel(QAbstractItemModel):
             return QModelIndex()
 
         if parent.isValid():
-            parentItem = parent.internalPointer()
+            parent_item = parent.internalPointer()
         else:
-            parentItem = self._root
+            parent_item = self._root
 
-        if row >= len(parentItem.get_children()):
+        if row >= len(parent_item.get_children()):
             return QModelIndex()
 
-        childItem = parentItem.get_children()[row]
-        if childItem:
-            return self.createIndex(row, column, childItem)
+        child_item = parent_item.get_children()[row]
+        if child_item:
+            return self.createIndex(row, column, child_item)
         else:
             return QModelIndex()
 
@@ -296,7 +300,7 @@ class VideoTreeModel(QAbstractItemModel):
             parent_node = parent.internalPointer()
 
         data = parent_node.get_data()
-        if isinstance(data, Movie):
+        if isinstance(data, RemoteMovie):
             movie = data
             if movie.get_nb_subs_available():
                 return len(parent_node.get_children())

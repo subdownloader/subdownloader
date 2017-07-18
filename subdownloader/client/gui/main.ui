@@ -38,9 +38,6 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="currentIndex">
-         <number>2</number>
-        </property>
         <widget class="SearchFileWidget" name="tabSearchFile">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -177,17 +174,17 @@
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
   </action>
   <action name="action_HelpHomepage">
    <property name="text">
-    <string>Visit HomePage</string>
+    <string>&amp;Visit HomePage</string>
    </property>
   </action>
   <action name="action_HelpAbout">
    <property name="text">
-    <string>About...</string>
+    <string>&amp;About...</string>
    </property>
    <property name="iconText">
     <string>About</string>
@@ -199,7 +196,7 @@
      <normaloff>:/images/bug.png</normaloff>:/images/bug.png</iconset>
    </property>
    <property name="text">
-    <string>Report A Problem</string>
+    <string>&amp;Report A Problem</string>
    </property>
   </action>
   <action name="action_ShowPreferences">
@@ -213,7 +210,7 @@
   </action>
   <action name="action_Login">
    <property name="text">
-    <string>Log in...</string>
+    <string>&amp;Log In...</string>
    </property>
   </action>
   <action name="action_LogMessages">
@@ -221,7 +218,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Log Messages</string>
+    <string>&amp;Log Messages</string>
    </property>
   </action>
   <action name="action_ShowHideTreeFolder">
@@ -235,7 +232,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Show/Hide Tree Folder</string>
+    <string>&amp;Show/Hide Tree Folder</string>
    </property>
   </action>
   <action name="action_LogOut">
@@ -243,12 +240,12 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Log Out</string>
+    <string>Log &amp;Out</string>
    </property>
   </action>
   <action name="action_HelpTranslate">
    <property name="text">
-    <string>Translate This Application...</string>
+    <string>&amp;Translate This Application...</string>
    </property>
   </action>
  </widget>
@@ -268,7 +265,7 @@
   <customwidget>
    <class>UploadWidget</class>
    <extends>QWidget</extends>
-   <header>subdownloader.client.gui.uploadWidget</header>
+   <header>subdownloader.client.gui.uploadWidget2</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

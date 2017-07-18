@@ -28,7 +28,7 @@ def i18n_install(lc=None):
         lc, encoding = locale.getdefaultlocale()
         log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
     if lc is None:
-        log.debug('i18n_install(): installing NullTranslator')
+        log.debug('i18n_install(): installing NullTranslations')
         gettext.NullTranslations().install()
     else:
         child_locales = i18n_support_locale(lc)  # Call i18n_support_locale to log the supported locales

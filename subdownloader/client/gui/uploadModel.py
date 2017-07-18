@@ -27,19 +27,9 @@ class UploadModel(QAbstractTableModel):
         self._data = None
         self._subs = [None]
         self._videos = [None]
-        self._headers = [_("Videofile"), _("Subtitle")]
+        self._headers = [_("Video File"), _("Subtitle File")]
         self._main = None
         self.rowsSelected = None
-
-    def dropMimeData(self, data, action, row, column, parent):
-        print(row, column)
-
-    def flags(self, index):
-        flags = QAbstractTableModel.flags(self, index)
-        if index.isValid():
-            if index.row() == 0:
-                flags |= Qt.ItemIsDropEnabled
-        return flags
 
     def addVideos(self, index, videos):
         for video in videos:
@@ -113,7 +103,7 @@ class UploadModel(QAbstractTableModel):
                 tmp_video = VideoFile(video.get_filepath())
                 tmp_video.setSubtitles([sub])
                 videos.append(tmp_video)
-        if videos:
+        if videos and self._main.get_state().connected():
             results = self._main.get_state().get_OSDBServer().TryUploadSubtitles(
                 videos, no_update=True)
             video_imdb = None

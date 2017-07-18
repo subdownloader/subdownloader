@@ -3,14 +3,8 @@
 
 import itertools
 import logging
-import re
-import sys
-import traceback
 
-try:
-    import langdetect
-except ImportError:
-    langdetect = None
+import langdetect
 
 from subdownloader.util import asciify
 
@@ -34,12 +28,13 @@ class Language(str):
     Instances of the class represent a language.
     """
 
-    def __init__(self, id):
+    def __init__(self, lang_id):
         """
         Create a new Language object. Values should be strings.
-        :param id: index in LANGUAGES list of dicts having keys: ('locale', 'ISO639', 'LanguageID', 'LanguageName')
+        :param lang_id: index in LANGUAGES list of dicts having keys: ('locale', 'ISO639', 'LanguageID', 'LanguageName')
         """
-        self._id = id
+        self._id = lang_id
+        str.__init__(self)
 
     def locale(self):
         """
@@ -89,7 +84,7 @@ class Language(str):
             return False
         if type(self) != type(other):
             return False
-        return self._id == other._id
+        return self.raw_data() == other.raw_data()
 
     def __hash__(self):
         """
@@ -103,7 +98,14 @@ class Language(str):
         Return string representation of this instance.
         :return: string representation of self
         """
-        return '<Language:xx={}>'.format(LANGUAGES[self._id]['ISO639'])
+        return '<Language:xx={}>'.format(LANGUAGES[self._id]['ISO639'][0])
+
+    def __str__(self):
+        """
+        Return short string representation of this instance.
+        :return: short string representation of self
+        """
+        return self.xx()
 
     def raw_data(self):
         """
@@ -133,7 +135,7 @@ class Language(str):
         if locale is 'unknown':
             return UnknownLanguage(locale)
         try:
-            return cls._from_XYZ('locale', locale)
+            return cls._from_xyz('locale', locale)
         except NotALanguageException:
             log.warning('Unknown locale: {}'.format(locale))
             return UnknownLanguage(locale)
@@ -149,7 +151,7 @@ class Language(str):
         if xx is 'unknown':
             return UnknownLanguage(xx)
         try:
-            return cls._from_XYZ('ISO639', xx)
+            return cls._from_xyz('ISO639', xx)
         except NotALanguageException:
             log.warning('Unknown ISO639: {}'.format(xx))
             return UnknownLanguage(xx)
@@ -165,7 +167,7 @@ class Language(str):
         if xxx is 'unknown':
             return UnknownLanguage(xxx)
         try:
-            return cls._from_XYZ('LanguageID', xxx)
+            return cls._from_xyz('LanguageID', xxx)
         except NotALanguageException:
             log.warning('Unknown LanguageId: {}'.format(xxx))
             return UnknownLanguage(xxx)
@@ -181,13 +183,13 @@ class Language(str):
         if name is 'unknown' or name is _('unknown'):
             return UnknownLanguage(name)
         try:
-            return cls._from_XYZ('LanguageName', name)
+            return cls._from_xyz('LanguageName', name)
         except NotALanguageException:
             log.warning('Unknown LanguageName: {}'.format(name))
             return UnknownLanguage(name)
 
     @classmethod
-    def _from_XYZ(cls, xyzkey, xyzvalue):
+    def _from_xyz(cls, xyzkey, xyzvalue):
         """
         Private helper function to create new Language instance.
         :param xyzkey: one of ('locale', 'ISO639', 'LanguageID', 'LanguageName')
@@ -196,10 +198,10 @@ class Language(str):
         """
         if xyzvalue == 'unknown' or xyzvalue == _('unknown'):
             return UnknownLanguage(xyzvalue)
-        for id, l in enumerate(LANGUAGES):
-            for langvalue in l[xyzkey]:
-                if langvalue == xyzvalue:
-                    return cls(id)
+        for lang_id, lang_data in enumerate(LANGUAGES):
+            for data_value in lang_data[xyzkey]:
+                if data_value == xyzvalue:
+                    return cls(lang_id)
         raise NotALanguageException('Illegal language {}: {}'.format(xyzkey, xyzvalue))
 
     @classmethod
@@ -221,40 +223,27 @@ class Language(str):
         for key, doKey in zip(keys, truefalses):
             if doKey:
                 try:
-                    return cls._from_XYZ(key, value)
-                except:
+                    return cls._from_xyz(key, value)
+                except NotALanguageException:
                     pass
         raise NotALanguageException('Illegal language "{}"'.format(value))
 
     @classmethod
-    def from_file(cls, filename, chunk_size=-1):
+    def from_file(cls, filepath, chunk_size=None):
         """
         Try do determine the language of a text file.
-        :param filename: string file path
+        :param filepath: string file path
         :param chunk_size: amount of bytes of file to read to determine language
         :return: Language instance if detection succeeded, otherwise a NotALanguageException is thrown
         """
-        log.debug('Language.from_file: "{}", chunk={} ...'.format(filename, chunk_size))
-        if langdetect is None:
-            log.debug('... Failed: langdetect not installed.')
-            raise NotALanguageException('Could not detect language from subtitle content: langdetect not installed.')
-        with open(filename, 'rb') as f:
+        log.debug('Language.from_file: "{}", chunk={} ...'.format(filepath, chunk_size))
+        with open(filepath, 'rb') as f:
             data = f.read(chunk_size)
         data_ascii = asciify(data)
-        try:
-            lang_xx = langdetect.detect(data_ascii)
-            lang = cls.from_xx(lang_xx)
-            log.debug('... Success: language={}'.format(lang))
-            return lang
-        except NotALanguageException:
-            log.debug('... Failed: Detector returned unknown language "{}"'.format(lang_xx))
-            raise
-        except:
-            e_type, e_value, e_traceback = sys.exc_info()
-            log.debug('... Failed:  Language detector library throws exception:')
-            for line in traceback.format_exception(e_type, e_value, e_traceback):
-                log.debug('traceback: {line}'.format(line))
-            raise NotALanguageException('Could not detect language from subtitle content: unknown exception.')
+        lang_xx = langdetect.detect(data_ascii)
+        lang = cls.from_xx(lang_xx)
+        log.debug('... result language={}'.format(lang))
+        return lang
 
     @classmethod
     def can_detect_from_file(cls):
@@ -266,13 +255,15 @@ class UnknownLanguage(Language):
         Language.__init__(self, 0)
         self._code = code
 
+    # FIXME: better name for & check generic logic
+
     @classmethod
     def create_generic(cls):
         """
         Return a UnknownLanguage instance..
         :return: UnknownLanguage instance.
         """
-        return cls('unknown') # NO internationalisation!
+        return cls('unknown')  # NO internationalization!
 
     def name(self):
         """
@@ -289,7 +280,7 @@ class UnknownLanguage(Language):
         return Language.name(self)
 
     def is_generic(self):
-        return self._code == 'unknown' # NO internationalisation!
+        return self._code == 'unknown'  # NO internationalization!
 
     def __eq__(self, other):
         """
@@ -314,79 +305,11 @@ class UnknownLanguage(Language):
         """
         return '<UnknownLanguage:code={code}>'.format(code=self._code)
 
-def ListAll_xx():
-    temp = []
-    for lang in LANGUAGES:
-        temp.append(lang['ISO639'][0])
-    return temp
-
-
-def ListAll_xxx():
-    temp = []
-    for lang in LANGUAGES:
-        temp.append(lang['LanguageID'][0])
-    return temp
-
-
-def ListAll_locale():
-    temp = []
-    for lang in LANGUAGES:
-        temp.append(lang['locale'][0])
-    return temp
-
-
-def ListAll_names():
-    temp = []
-    for lang in LANGUAGES:
-        temp.append(lang['LanguageName'][0])
-    return temp
-
-
-def xx2xxx(xx):
-    for lang in LANGUAGES:
-        if lang['ISO639'][0] == xx:
-            return lang['LanguageID'][0]
-
-
-def xxx2xx(xxx):
-    for lang in LANGUAGES:
-        if lang['LanguageID'][0] == xxx:
-            return lang['ISO639'][0]
-
-
-def xxx2name(xxx):
-    for lang in LANGUAGES:
-        if lang['LanguageID'][0] == xxx:
-            return lang['LanguageName'][0]
-
-
-def locale2name(locale):
-    for lang in LANGUAGES:
-        if lang['locale'][0] == locale:
-            return lang['LanguageName'][0]
-
-
-def xx2name(xx):
-    for lang in LANGUAGES:
-        if lang['ISO639'][0] == xx:
-            return lang['LanguageName'][0]
-
-
-def name2xx(name):
-    for lang in LANGUAGES:
-        if lang['LanguageName'][0].lower() == name.lower():
-            return lang['ISO639'][0]
-
 
 def name2xxx(name):
     for lang in LANGUAGES:
         if lang['LanguageName'][0].lower() == name.lower():
             return lang['LanguageID'][0]
-
-
-def CleanTagsFile(text):
-    p = re.compile(b'<.*?>')
-    return p.sub(b'', text)
 
 
 def legal_languages():
@@ -404,8 +327,10 @@ def all_languages():
     """
     return itertools.chain([UnknownLanguage.create_generic()], legal_languages())
 
+
 # FIXME: translation..
-_ = lambda x: x
+def _(text):
+    return text
 
 
 """

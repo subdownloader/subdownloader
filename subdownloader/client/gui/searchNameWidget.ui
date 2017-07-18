@@ -138,10 +138,6 @@
        <property name="text">
         <string>Movie Info</string>
        </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>:/images/imdb.png</normaloff>:/images/imdb.png</iconset>
-       </property>
        <property name="iconSize">
         <size>
          <width>32</width>

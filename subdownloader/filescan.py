@@ -10,14 +10,6 @@ from subdownloader.video2 import NotAVideoException, VideoFile, VIDEOS_EXT
 log = logging.getLogger('subdownloader.filescan')
 
 
-def extract_extension(path):
-    # FIXME: when refactoring has finished, remove duplicate extract_extension functions.
-    root, ext = os.path.splitext(path)
-    if ext:
-        return ext[1:].lower()
-    return ''
-
-
 def scan_videopaths(videopaths, callback, recursive=False):
     callback.set_range(0, len(videopaths))
     all_videos = []
@@ -38,7 +30,7 @@ def scan_videopath(videopath, callback, recursive=False):
     :param videopath: String of the path
     :param callback: Instance of ProgressCallback
     :param recursive: True if the scanning should happen recursive
-    :return: tuple with List of VideoFile's and list of SubtitleFileNetwork's
+    :return: tuple with list of videos and list of subtitles (videos have matched subtitles)
     """
     log.debug('scan_videopath(videopath="{videopath}", recursive={recursive})'.format(
         videopath=videopath, recursive=recursive))
@@ -47,7 +39,7 @@ def scan_videopath(videopath, callback, recursive=False):
         return __scan_folder(videopath, callback=callback, recursive=recursive)
     elif os.path.isfile(videopath):
         log.debug('"{videopath}" is a file'.format(videopath=videopath))
-        [all_subs, _] = filter_files_extensions(os.path.dirname(videopath), [SUBTITLES_EXT, VIDEOS_EXT])
+        [all_subs, _] = filter_files_extensions(os.listdir(os.path.dirname(videopath)), [SUBTITLES_EXT, VIDEOS_EXT])
         [_, video] = filter_files_extensions([videopath], [SUBTITLES_EXT, VIDEOS_EXT])
         sub_videos = [all_subs, video]
         path_subvideos = {os.path.dirname(videopath): sub_videos}
@@ -63,18 +55,19 @@ def __scan_folder(folder_path, callback, recursive=False):
     :param folder_path: String of a directory
     :param callback: Instance of ProgressCallback
     :param recursive: True if the scanning should happen recursive
-    :return: A SubVideoFolderTree object with all the videos and subtitles
+    :return: tuple with list of videos and list of subtitles (videos have matched subtitles)
     """
     log.debug('__scan_folder(folder_path="{folder_path}", recursive={recursive})'.format(folder_path=folder_path,
                                                                                          recursive=recursive))
     path_subvideos = {}
+    # FIXME: a folder named 'movie.avi' is also considered a movie. Fix this.
     if recursive:
         for dir_path, _, files in os.walk(folder_path):
             log.debug('walking current directory:"{}"'.format(dir_path))
             sub_videos = filter_files_extensions(files, [SUBTITLES_EXT, VIDEOS_EXT])
             path_subvideos[dir_path] = sub_videos
     else:
-        files = filter(os.path.isfile, os.listdir(folder_path))
+        files = filter(lambda f: os.path.isfile(os.path.join(folder_path, f)), os.listdir(folder_path))
         sub_videos = filter_files_extensions(files, [SUBTITLES_EXT, VIDEOS_EXT])
         path_subvideos[folder_path] = sub_videos
     return merge_path_subvideo(path_subvideos, callback)
@@ -85,7 +78,7 @@ def merge_path_subvideo(path_subvideos, callback):
     Merge subtitles into videos.
     :param path_subvideos: a dict with paths as key and a list of lists of videos and subtitles
     :param callback: Instance of ProgressCallback
-    :return: tuple with List of videos and list of subtitles
+    :return: tuple with list of videos and list of subtitles (videos have matched subtitles)
     """
     log.debug('merge_path_subvideo(path_subvideos=<#paths={nb_paths}>)'.format(nb_paths=len(path_subvideos)))
     # FIXME: add logging
@@ -110,8 +103,9 @@ def merge_path_subvideo(path_subvideos, callback):
             all_videos.append(video)
 
             for subtitle in subtitles:
-                if subtitle.matches_videofile_filename(video):
+                if subtitle.matches_video_filename(video):
                     video.add_subtitle(subtitle)
+            video.get_subtitles().add_candidates(subtitles)
 
             vid_i += 1
             callback.update(vid_i)

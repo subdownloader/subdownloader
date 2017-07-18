@@ -475,33 +475,27 @@ class SearchFileWidget(QWidget):
         if data_item is not None:
             if isinstance(data_item, VideoFile):
                 video = data_item
-                movie_info = video.getMovieInfo()
-                if movie_info:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("View IMDB info"), self)
-                    subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
+                video_identities = video.get_identities()
+                if any(video_identities.iter_imdb_identity()):
+                    online_action = QAction(QIcon(":/images/info.png"), _("View IMDb info"), self)
+                    online_action.triggered.connect(self.onViewOnlineInfo)
                 else:
-                    subWebsiteAction = QAction(
-                        QIcon(":/images/info.png"), _("Set IMDB info..."), self)
-                    subWebsiteAction.triggered.connect(self.onSetIMDBInfo)
-                menu.addAction(subWebsiteAction)
+                    online_action = QAction(QIcon(":/images/info.png"), _("Set IMDb info..."), self)
+                    online_action.triggered.connect(self.on_set_imdb_info)
+                menu.addAction(online_action)
             elif isinstance(data_item, SubtitleFile):
-                downloadAction = QAction(
-                    QIcon(":/images/download.png"), _("Download"), self)
-                # Video tab, TODO:Replace me with a enum
+                play_action = QAction(QIcon(":/images/play.png"), _("Play video + subtitle"), self)
+                play_action.triggered.connect(self.onButtonPlay)
+                menu.addAction(play_action)
 
-                downloadAction.triggered.connect(self.onButtonDownload)
-                playAction = QAction(
-                    QIcon(":/images/play.png"), _("Play video + subtitle"), self)
-                playAction.triggered.connect(self.onButtonPlay)
-                menu.addAction(playAction)
+                if isinstance(data_item, RemoteSubtitleFile):
+                    download_action = QAction(QIcon(":/images/download.png"), _("Download"), self)
+                    download_action.triggered.connect(self.onButtonDownload)
+                    menu.addAction(download_action)
 
-                subWebsiteAction = QAction(
-                    QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
-
-                menu.addAction(downloadAction)
-                subWebsiteAction.triggered.connect(self.onViewOnlineInfo)
-                menu.addAction(subWebsiteAction)
+                    online_action = QAction(QIcon(":/images/sites/opensubtitles.png"), _("View online info"), self)
+                    online_action.triggered.connect(self.onViewOnlineInfo)
+                    menu.addAction(online_action)
 
         # Show the context menu.
         menu.exec_(listview.mapToGlobal(point))
@@ -659,18 +653,16 @@ class SearchFileWidget(QWidget):
 
         if isinstance(data_item, VideoFile):
             video = data_item
-            movie_info = video.getMovieInfo()
-            if movie_info:
-                imdb = movie_info["IDMovieImdb"]
-                if imdb:
-                    webbrowser.open(
-                        "http://www.imdb.com/title/tt%s" % imdb, new=2, autoraise=1)
+            video_identities = video.get_identities()
+            if any(video_identities.iter_imdb_identity()):
+                imdb_identity = next(video_identities.iter_imdb_identity())
+                webbrowser.open(imdb_identity.get_imdb_url(), new=2, autoraise=1)
 
         elif isinstance(data_item, RemoteSubtitleFile):
             sub = data_item
             webbrowser.open(sub.get_link(), new=2, autoraise=1)
     @pyqtSlot()
-    def onSetIMDBInfo(self):
+    def on_set_imdb_info(self):
         #FIXME: DUPLICATED WITH SEARCHNAMEWIDGET
         QMessageBox.about(
             self, _("Info"), "Not implemented yet. Sorry...")

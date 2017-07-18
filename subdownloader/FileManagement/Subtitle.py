@@ -147,7 +147,6 @@ def GetLangFromFilename(filepath):
 def AutoDetectLang(filepath):
     if isSubtitle(filepath):
         subtitle_content = open(filepath, mode='rb').read()
-        language.CleanTagsFile(subtitle_content)
         # Initializing the Language Detector
         n = autodetect_lang._NGram()
         l = autodetect_lang.NGram()

@@ -13,12 +13,14 @@ import zlib
 
 from subdownloader.languages import language
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QFileInfo, QItemSelection, QItemSelectionModel, QSettings
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QFileInfo, QItemSelection,\
+    QItemSelectionModel, QSettings
 from PyQt5.QtWidgets import QFileDialog, QHeaderView, QMessageBox, QWidget
 
+from subdownloader.filescan import scan_videopath
 from subdownloader.FileManagement import FileScan, Subtitle
 from subdownloader.client.gui import SELECT_SUBTITLES, SELECT_VIDEOS
-from subdownloader.client.gui.imdbSearch import imdbSearchDialog
+from subdownloader.client.gui.imdbSearch import ImdbSearchDialog
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.uploadModel import UploadModel, UploadListView
 from subdownloader.client.gui.uploadWidget_ui import Ui_UploadWidget
@@ -41,6 +43,8 @@ class UploadWidget(QWidget):
         self.upload_autodetected_lang = ""
         self.upload_autodetected_imdb = ""
 
+        self.uploadModel = None
+
         self._state = None
 
         self.ui = Ui_UploadWidget()
@@ -56,7 +60,8 @@ class UploadWidget(QWidget):
 
     def setup_ui(self):
         self.ui.setupUi(self)
-        self.initializeFilterLanguages()
+
+        self.ui.uploadLanguages.set_unknown_visible(False)
 
         # SETTING UP UPLOAD_VIEW
         self.uploadModel = UploadModel(self)
@@ -68,13 +73,12 @@ class UploadWidget(QWidget):
         header = self.ui.uploadView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.Stretch)
 
-        self.ui.buttonUploadBrowseFolder.clicked.connect(
-            self.onUploadBrowseFolder)
         self.ui.uploadView.activated.connect(self.onUploadClickViewCell)
         self.ui.uploadView.clicked.connect(self.onUploadClickViewCell)
 
         self.ui.buttonUpload.clicked.connect(self.onUploadButton)
 
+        self.ui.buttonUploadBrowseFolder.clicked.connect(self.onUploadBrowseFolder)
         self.ui.buttonUploadUpRow.clicked.connect(self.uploadModel.onUploadButtonUpRow)
         self.ui.buttonUploadDownRow.clicked.connect(self.uploadModel.onUploadButtonDownRow)
         self.ui.buttonUploadPlusRow.clicked.connect(self.uploadModel.onUploadButtonPlusRow)
@@ -147,77 +151,78 @@ class UploadWidget(QWidget):
 
     def onUploadButton(self, clicked):
         ok, error = self.uploadModel.validate()
+
         if not ok:
             QMessageBox.about(self, _("Error"), error)
             return
-        else:
-            imdb_id = self.ui.uploadIMDB.itemData(self.ui.uploadIMDB.currentIndex())
-            if imdb_id is None:  # No IMDB
-                QMessageBox.about(
-                    self, _("Error"), _("Please identify the movie."))
-                return
+
+        imdb_id = self.ui.uploadIMDB.itemData(self.ui.uploadIMDB.currentIndex())
+        if imdb_id is None:  # No IMDB
+            QMessageBox.about(
+                self, _("Error"), _("Please identify the movie."))
+            return
+
+        callback = ProgressCallbackWidget(self)
+        callback.set_title_text(_("Uploading..."))
+        callback.set_label_text(_("Uploading subtitle"))
+        callback.set_block(True)
+        callback.set_cancellable(False)
+
+        callback.show()
+
+        log.debug("Compressing subtitle...")
+        details = {}
+        details['IDMovieImdb'] = imdb_id
+        lang_xxx = self.ui.uploadLanguages.itemData(
+                self.ui.uploadLanguages.currentIndex())
+        details['sublanguageid'] = lang_xxx
+        details['movieaka'] = ''
+        details['moviereleasename'] = self.ui.uploadReleaseText.text()
+        comments = self.ui.uploadComments.toPlainText()
+        details['subauthorcomment'] = comments
+
+        movie_info = {}
+        movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details[
+            'movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
+
+        nb = self.uploadModel.getTotalRows()
+        callback.set_range(0, nb)
+        for i in range(nb):
+            curr_sub = self.uploadModel._subs[i]
+            curr_video = self.uploadModel._videos[i]
+            if curr_sub:  # Make sure is not an empty row with None
+                buf = open(curr_sub.getFilePath(), mode='rb').read()
+                curr_sub_content = base64.encodestring(zlib.compress(buf))
+                cd = "cd" + str(i+1)
+                movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.get_osdb_hash(), 'moviebytesize': curr_video.get_size(
+                ), 'movietimems': curr_video.get_time_ms(), 'moviefps': curr_video.get_fps(), 'moviefilename': curr_video.get_filepath(), 'subcontent': curr_sub_content}
+            callback.update(i)
+
+        try:
+            info = self.get_state().upload(movie_info)
+            callback.finish()
+            if info['status'] == "200 OK":
+                successBox = QMessageBox(_("Successful Upload"),
+                                         _("Subtitles successfully uploaded.\nMany Thanks!"),
+                                         QMessageBox.Information,
+                                         QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
+                                         QMessageBox.NoButton,
+                                         QMessageBox.NoButton,
+                                         self)
+
+                saveAsButton = successBox.addButton(
+                    _("View Subtitle Info"), QMessageBox.ActionRole)
+                answer = successBox.exec_()
+                if answer == QMessageBox.NoButton:
+                    webbrowser.open(info['data'], new=2, autoraise=1)
+                self.uploadCleanWindow()
             else:
-                callback = ProgressCallbackWidget(self)
-                callback.set_title_text(_("Uploading..."))
-                callback.set_label_text(_("Uploading subtitle"))
-                callback.set_block(True)
-                callback.set_cancellable(False)
-
-                callback.show()
-
-                log.debug("Compressing subtitle...")
-                details = {}
-                details['IDMovieImdb'] = imdb_id
-                lang_xxx = self.ui.uploadLanguages.itemData(
-                        self.ui.uploadLanguages.currentIndex())
-                details['sublanguageid'] = lang_xxx
-                details['movieaka'] = ''
-                details['moviereleasename'] = self.ui.uploadReleaseText.text()
-                comments = self.ui.uploadComments.toPlainText()
-                details['subauthorcomment'] = comments
-
-                movie_info = {}
-                movie_info['baseinfo'] = {'idmovieimdb': details['IDMovieImdb'], 'moviereleasename': details['moviereleasename'], 'movieaka': details[
-                    'movieaka'], 'sublanguageid': details['sublanguageid'], 'subauthorcomment': details['subauthorcomment']}
-
-                nb = self.uploadModel.getTotalRows()
-                callback.set_range(0, nb)
-                for i in range(nb):
-                    curr_sub = self.uploadModel._subs[i]
-                    curr_video = self.uploadModel._videos[i]
-                    if curr_sub:  # Make sure is not an empty row with None
-                        buf = open(curr_sub.getFilePath(), mode='rb').read()
-                        curr_sub_content = base64.encodestring(zlib.compress(buf))
-                        cd = "cd" + str(i)
-                        movie_info[cd] = {'subhash': curr_sub.get_hash(), 'subfilename': curr_sub.get_filepath(), 'moviehash': curr_video.get_hash(), 'moviebytesize': curr_video.get_size(
-                        ), 'movietimems': curr_video.get_time_ms(), 'moviefps': curr_video.get_fps(), 'moviefilename': curr_video.get_filepath(), 'subcontent': curr_sub_content}
-                    callback.update(i)
-
-                try:
-                    info = self.get_state().upload(movie_info)
-                    callback.finish()
-                    if info['status'] == "200 OK":
-                        successBox = QMessageBox(_("Successful Upload"),
-                                                 _("Subtitles successfully uploaded.\nMany Thanks!"),
-                                                 QMessageBox.Information,
-                                                 QMessageBox.Ok | QMessageBox.Default | QMessageBox.Escape,
-                                                 QMessageBox.NoButton,
-                                                 QMessageBox.NoButton,
-                                                 self)
-
-                        saveAsButton = successBox.addButton(
-                            _("View Subtitle Info"), QMessageBox.ActionRole)
-                        answer = successBox.exec_()
-                        if answer == QMessageBox.NoButton:
-                            webbrowser.open(info['data'], new=2, autoraise=1)
-                        self.uploadCleanWindow()
-                    else:
-                        QMessageBox.about(self, _("Error"), _(
-                            "Problem while uploading...\nError: %s") % info['status'])
-                except:
-                    callback.finish()
-                    QMessageBox.about(self, _("Error"), _(
-                        "Error contacting the server. Please restart or try later"))
+                QMessageBox.about(self, _("Error"), _(
+                    "Problem while uploading...\nError: %s") % info['status'])
+        except:
+            callback.finish()
+            QMessageBox.about(self, _("Error"), _(
+                "Error contacting the server. Please restart or try later"))
 
     def uploadCleanWindow(self):
         self.ui.uploadReleaseText.setText("")
@@ -374,7 +379,7 @@ class UploadWidget(QWidget):
 
     @pyqtSlot()
     def onButtonUploadFindIMDB(self):
-        dialog = imdbSearchDialog(self)
+        dialog = ImdbSearchDialog(self)
         ok = dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
@@ -384,26 +389,31 @@ class UploadWidget(QWidget):
         path = settings.value("mainwindow/workingDirectory", "")
         directory = QFileDialog.getExistingDirectory(
             self, _("Select a directory"), path)
-        if directory:
-            settings.setValue("mainwindow/workingDirectory", directory)
-            videos_found, subs_found = FileScan.scan_folder(
-                directory, callback=None, recursively=False)
-            log.info("Videos found: %i Subtitles found: %i" %
-                     (len(videos_found), len(subs_found)))
-            self.uploadModel.layoutAboutToBeChanged.emit()
-            for row, video in enumerate(videos_found):
-                self.uploadModel.addVideos(row, [video])
-                subtitle = Subtitle.AutoDetectSubtitle(video.get_filepath())
-                if subtitle:
-                    sub = SubtitleFile(False, subtitle)
-                    self.uploadModel.addSubs(row, [sub])
-            if not len(videos_found):
-                for row, sub in enumerate(subs_found):
-                    self.uploadModel.addSubs(row, [sub])
-            self.ui.uploadView.resizeRowsToContents()
-            self.uploadModel.layoutChanged.emit()
-            thread.start_new_thread(self.AutoDetectNFOfile, (directory, ))
-            thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
+        if not directory:
+            return
+        settings.setValue("mainwindow/workingDirectory", directory)
+        callback = ProgressCallbackWidget(self)
+        callback.show()
+
+        videos_found, subs_found = scan_videopath(directory, callback=callback, recursive=False)
+        # videos_found, subs_found = FileScan.scan_folder(
+        #     directory, callback=callback, recursively=False)
+        log.info("Videos found: %i Subtitles found: %i" %
+                 (len(videos_found), len(subs_found)))
+        self.uploadModel.layoutAboutToBeChanged.emit()
+        for row, video in enumerate(videos_found):
+            self.uploadModel.addVideos(row, [video])
+            subtitle = Subtitle.AutoDetectSubtitle(video.get_filepath())
+            if subtitle:
+                sub = SubtitleFile(False, subtitle)
+                self.uploadModel.addSubs(row, [sub])
+        if not len(videos_found):
+            for row, sub in enumerate(subs_found):
+                self.uploadModel.addSubs(row, [sub])
+        self.ui.uploadView.resizeRowsToContents()
+        self.uploadModel.layoutChanged.emit()
+        thread.start_new_thread(self.AutoDetectNFOfile, (directory, ))
+        thread.start_new_thread(self.uploadModel.ObtainUploadInfo, ())
 
     def onUploadSelectImdb(self, index):
         self.upload_autodetected_imdb = "selected"

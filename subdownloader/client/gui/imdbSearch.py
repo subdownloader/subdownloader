@@ -1,106 +1,98 @@
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
 import webbrowser
 
-from PyQt5.QtCore import Qt, pyqtSlot, QCoreApplication, \
-    QEventLoop, QItemSelection, QItemSelectionModel
-from PyQt5.QtWidgets import QDialog, QHeaderView, QMessageBox
-from subdownloader.client.gui.imdb_ui import Ui_IMDBSearchDialog
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from subdownloader.client.gui.imdblistview import ImdbListModel
+from subdownloader.client.gui.imdbSearch_ui import Ui_IMDBSearchDialog
+from subdownloader.identification import ProviderIdentities
+
+log = logging.getLogger('subdownloader.client.gui.imdbSearch')
 
 
-class imdbSearchDialog(QDialog):
-
-    def __init__(self, parent):
+class ImdbSearchDialog(QDialog):
+    def __init__(self, parent=None):
         QDialog.__init__(self, parent)
-        self.log = logging.getLogger("subdownloader.gui.imdbSearch")
+
         self.ui = Ui_IMDBSearchDialog()
+
+        self.setup_ui()
+
+    def setup_ui(self):
         self.ui.setupUi(self)
 
-        self.ui.searchMovieButton.clicked.connect(self.onSearchMovieButton)
-        self.ui.movieInfoButton.clicked.connect(self.onMovieInfoButton)
-        self.ui.okButton.clicked.connect(self.onOkButton)
-        self.ui.cancelButton.clicked.connect(self.onCancelButton)
+        self.ui.searchMovieButton.clicked.connect(self.on_search)
+        self.ui.movieInfoButton.clicked.connect(self.on_button_movie_info)
 
-        header = self.ui.searchResultsView.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.Stretch)
-        header.hide()
-        self.ui.searchResultsView.verticalHeader().hide()
+        self.ui.okButton.setEnabled(False)
+        self.ui.okButton.clicked.connect(self.on_button_ok)
 
-        self.imdbModel = ImdbListModel(self)
-        self.ui.searchResultsView.setModel(self.imdbModel)
-        # FIXME: This connection should be cleaner.
-        self.imdbSelectionModel = QItemSelectionModel(self.imdbModel)
-        self.ui.searchResultsView.setSelectionModel(self.imdbSelectionModel)
-        self.imdbSelectionModel.selectionChanged.connect(
-            self.onIMDBChangeSelection)
-        self.ui.searchResultsView.activated.connect(self.onOkButton)
+        self.ui.cancelButton.clicked.connect(self.on_button_cancel)
+
+        self.ui.searchResultsView.imdb_selection_changed.connect(self.on_imdb_selection_change)
+
+        self.retranslate()
+
+    def retranslate(self):
+        pass
 
     @pyqtSlot()
-    def onSearchMovieButton(self):
-        if not self.ui.movieSearch.text():
+    def on_search(self):
+        query = self.ui.movieSearch.text().strip()
+        if not query:
             QMessageBox.about(
-                self, _("Error"), _("Please fill out the search title"))
+                self, _('Error'), _('Please fill out the search title'))
         else:
             self.setCursor(Qt.WaitCursor)
-            try:
-                results = self.parent().get_state().get_OSDBServer().SearchMoviesOnIMDB(
-                    self.ui.movieSearch.text())
-                # In case of empty results
-                if not results or not len(results) or "id" not in results[0]:
-                    results = []
-            except Exception as e:
-                self.log.exception('Error contacting OSDBServer.SearchMoviesOnIMDB')
-                QMessageBox.about(
-                    self, _("Error"), _("Error contacting the server. Please try again later"))
-                results = []
 
-            self.imdbModel.layoutAboutToBeChanged.emit()
-            self.imdbModel.setImdbResults(results)
-            QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
-            self.imdbModel.layoutChanged.emit()
-            self.ui.searchResultsView.resizeRowsToContents()
+            imdb_data = self.parent().get_state().get_OSDBServer().imdb_query(query=query)
+            if imdb_data is None:
+                log.exception('Error contacting OSDBServer.SearchMoviesOnIMDB')
+                QMessageBox.about(
+                    self, _("Error"), _('Error contacting the server. Please try again later'))
+            else:
+                self.ui.searchResultsView.set_imdb_data(imdb_data)
+
             self.setCursor(Qt.ArrowCursor)
 
-    def updateButtonsIMDB(self):
-        self.ui.searchResultsView.resizeRowsToContents()
-        selected = self.imdbSelectionModel.selection()
-        if selected.count():
-            self.imdbModel.rowSelected = selected.last().bottomRight().row()
-            self.ui.movieInfoButton.setEnabled(True)
-            self.ui.okButton.setEnabled(True)
-        else:
-            self.imdbModel.rowSelected = None
+    def update_buttons(self):
+        identity = self.ui.searchResultsView.get_selected_identity()
+        if identity is None:
             self.ui.movieInfoButton.setEnabled(False)
             self.ui.okButton.setEnabled(False)
-
-    @pyqtSlot(QItemSelection, QItemSelection)
-    def onIMDBChangeSelection(self, selected, unselected):
-        self.updateButtonsIMDB()
+        else:
+            self.ui.movieInfoButton.setEnabled(True)
+            self.ui.okButton.setEnabled(True)
 
     @pyqtSlot()
-    def onMovieInfoButton(self):
-        if self.imdbModel.rowSelected == None:
-            QMessageBox.about(
-                self, _("Error"), _("Please search and select a movie from the list"))
-        else:
-            imdbID = self.imdbModel.getSelectedImdb()["id"]
-            webbrowser.open("http://www.imdb.com/title/tt%s" %
-                            imdbID, new=2, autoraise=1)
+    def on_imdb_selection_change(self):
+        self.update_buttons()
 
     @pyqtSlot()
-    def onOkButton(self):
-        if self.imdbModel.rowSelected == None:
+    def on_button_movie_info(self):
+        identity = self.ui.searchResultsView.get_selected_identity()
+        if identity is None:
             QMessageBox.about(
-                self, _("Error"), _("Please search and select a movie from the list"))
+                self, _('Error'), _('Please search and select a movie from the list'))
         else:
-            selection = self.imdbModel.getSelectedImdb()
-            self.parent().imdbDetected.emit(
-                selection["id"], selection["title"], "search")
+            imdb_identity = identity.get_imdb_identity()
+            webbrowser.open(imdb_identity.get_imdb_url(), new=2, autoraise=1)
+
+    identity_selected = pyqtSignal(ProviderIdentities)
+
+    @pyqtSlot()
+    def on_button_ok(self):
+        identity = self.ui.searchResultsView.get_selected_identity()
+        if identity is None:
+            QMessageBox.about(
+                self, _('Error'), _('Please search and select a movie from the list'))
+        else:
+            self.identity_selected.emit(identity)
             self.accept()
 
     @pyqtSlot()
-    def onCancelButton(self):
+    def on_button_cancel(self):
         self.reject()

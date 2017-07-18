@@ -27,7 +27,6 @@ def run(options):
     splash = SplashScreen()
     splash.showMessage(_("Loading...")) # FIXME: move main() function or Main class to separate file before including subdownloader and gui files.
     # splash.show()
-    app.processEvents()
 
     from subdownloader.client.gui.main import Main
 

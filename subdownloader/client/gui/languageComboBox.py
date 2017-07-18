@@ -15,21 +15,34 @@ log = logging.getLogger('subdownloader.client.gui.languageComboBox')
 
 
 class LanguageModel(QAbstractItemModel):
-    def __init__(self, unknown_text, unknown_visible, legal_languages, parent=None):
+    def __init__(self, unknown_text, unknown_visible, languages, parent=None):
         QAbstractItemModel.__init__(self, parent)
-        self._unknown_text = unknown_text
         self._unknown_visible = unknown_visible
-        self._languages = [UnknownLanguage.create_generic()] if unknown_visible else []
-        self._languages += sorted(legal_languages, key=lambda x : x.name())
+        self._unknown_text = unknown_text
+
+        self._languages = languages
+
+    def set_unknown_visiable(self, unknown_visible):
+        self.beginResetModel()
+        self._unknown_visible = unknown_visible
+        self.endResetModel()
 
     def set_unknown_text(self, unknown_text):
+        self.beginResetModel()
         self._unknown_text = unknown_text
+        self.endResetModel()
+
+    def language_at_index(self, index):
+        if self._unknown_visible:
+            if index == 0:
+                return UnknownLanguage.create_generic()
+            index -= 1
+        return self._languages[index]
 
     def data(self, index, role=None):
         if not index or not index.isValid():
             return False
-        languages = index.internalPointer()
-        language = languages[index.row()]
+        language = self.language_at_index(index.row())
 
         if role == Qt.UserRole:
             return language
@@ -59,7 +72,7 @@ class LanguageModel(QAbstractItemModel):
             return QModelIndex()
 
         if not parent or not parent.isValid():
-            return self.createIndex(row, 0, self._languages)
+            return self.createIndex(row, 0, self)
 
         return QModelIndex()
 
@@ -68,21 +81,21 @@ class LanguageModel(QAbstractItemModel):
 
     def rowCount(self, parent=None, *args, **kwargs):
         if not parent or not parent.isValid():
-            return len(self._languages)
+            return len(self._languages) + (1 if self._unknown_visible else 0)
         return 0
 
     def columnCount(self, parent=None, *args, **kwargs):
         return 1
 
-    def language_at_index(self, index):
-        return self._languages[index]
-
     def language_to_index(self, language):
+        if self._unknown_visible:
+            if language.is_generic():
+                return 0
         try:
             index = next(index for index, lang in enumerate(self._languages) if language == lang)
+            return index + (1 if self._unknown_visible else 0)
         except StopIteration:
             return None
-        return index
 
 
 class AbstractLanguageComboBox(QComboBox):
@@ -93,7 +106,7 @@ class AbstractLanguageComboBox(QComboBox):
         QComboBox.__init__(self, parent)
         self._model = LanguageModel(unknown_text=UnknownLanguage.create_generic().name(),
                                     unknown_visible=True,
-                                    legal_languages=self.legal_languages())
+                                    languages=self.legal_languages())
         self._current_language = None
 
         self.setup_ui()
@@ -104,6 +117,9 @@ class AbstractLanguageComboBox(QComboBox):
 
     def set_unknown_text(self, unknown_text):
         self._model.set_unknown_text(unknown_text)
+
+    def set_unknown_visible(self, unknown_visible):
+        self._model.set_unknown_visiable(unknown_visible)
 
     def get_selected_language(self):
         return self._current_language
@@ -131,7 +147,7 @@ class AbstractLanguageComboBox(QComboBox):
 
 class LanguageComboBox(AbstractLanguageComboBox):
     def legal_languages(self):
-        return legal_languages()
+        return [l for l in legal_languages()]
 
 
 class InterfaceLanguageComboBox(AbstractLanguageComboBox):

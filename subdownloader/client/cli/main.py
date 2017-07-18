@@ -66,7 +66,7 @@ class Main(object):
             log.exception('exception in start_session()')
             return
 
-        if self.provider.is_connected():
+        if self.provider.connected():
             # set language
             if len(self.options.language) == 2:
                 lang_id = self.provider.GetSubLanguages(self.options.language)

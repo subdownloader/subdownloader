@@ -6,6 +6,7 @@ import os
 import struct
 
 from subdownloader import metadata
+from subdownloader.identification import IdentityCollection
 from subdownloader.subtitle2 import SubtitleFileCollection
 
 log = logging.getLogger('subdownloader.video2')
@@ -28,12 +29,12 @@ class NotAVideoException(Exception):
     """
     Exception used to indicate a certain file is not a video.
     """
-    def __init__(self, filePath, e):
+    def __init__(self, filepath, e):
         self._e = e
-        self._filePath = filePath
+        self._filepath = filepath
 
     def __str__(self):
-        return '"{filePath}" is not a video. Error is "{e}".'.format(filePath=self._filePath, e=self._e)
+        return '"{filepath}" is not a video. Error is "{e}".'.format(filepath=self._filepath, e=self._e)
 
 
 class VideoFile(object):
@@ -52,7 +53,7 @@ class VideoFile(object):
             self._filepath = os.path.realpath(filepath)
             self._size = os.path.getsize(filepath)
             # FIXME: calculate hash on request?
-            self._osdb_hash = self._calculate_OSDB_hash()
+            self._osdb_hash = self._calculate_osdb_hash()
         except Exception as e:
             log.exception('Could not calculate filepath, size and/or osdb hash of "{path}"'.format(path=filepath))
             raise NotAVideoException(filepath, e)
@@ -60,8 +61,21 @@ class VideoFile(object):
         self._metadata_init = False
         self._fps = 0
         self._time_ms = 0
+        self._framecount = 0
 
         self._subtitles = SubtitleFileCollection(parent=self)
+        self._identities = IdentityCollection()
+
+    def __repr__(self):
+        if self._metadata_init:
+            meta = '{fps={fps},time_ms={time_ms},framecount={framecount}'.format(
+                fps=self._fps, time_ms=self._time_ms, framecount=self._framecount)
+        else:
+            meta = '(unavailable)'
+        return '<Video:path="{path}",size={size},osdb_hash={osdb_hash},metadata={metadata},' \
+               '#identities={identities}'.format(
+                    path=self._filepath, size=self._size, osdb_hash=self._osdb_hash, metadata=meta,
+                    identities=len(self._identities))
 
     def _read_metadata(self):
         """
@@ -76,7 +90,9 @@ class VideoFile(object):
             if len(videotracks) > 0:
                 self._fps = videotracks[0].get_framerate()
                 self._time_ms = videotracks[0].get_duration_ms()
-        except Exception:
+                self._framecount = videotracks[0].get_framecount()
+        except:
+            # FIXME: find out what type the metadata parser can throw
             log.debug('... FAIL')
             log.exception('Exception was thrown.')
             # Two possibilities: the parser failed or the file is no video
@@ -125,6 +141,14 @@ class VideoFile(object):
         self._read_metadata()
         return self._fps
 
+    def get_framecount(self):
+        """
+        Get the number of frames of this VideoFile
+        :return: frame countt as integer
+        """
+        self._read_metadata()
+        return self._framecount
+
     def get_time_ms(self):
         """
         Get the length of this VideoFile in milliseconds
@@ -147,7 +171,21 @@ class VideoFile(object):
         """
         self._subtitles.add_subtitle(subtitle)
 
-    def _calculate_OSDB_hash(self):
+    def get_identities(self):
+        """
+        Get the identifications of this video in a list
+        :return: list of Identifications
+        """
+        return self._identities
+
+    def add_identity(self, identity):
+        """
+        Add a identity to this Video
+        :param identity: identity to add
+        """
+        self._identities.add_identity(identity)
+
+    def _calculate_osdb_hash(self):
         """
         Calculate OSDB (OpenSubtitleDataBase) hash of this VideoFile
         :return: hash as string
@@ -161,23 +199,23 @@ class VideoFile(object):
         longlong_format = 'Q'  # unsigned long long little endian
         size_longlong = struct.calcsize(longlong_format)
 
-        block_size = min(file_size , 64 << 10)  # 64kiB
-        block_size = block_size & ~0x7  # Lower round on 8
+        block_size = min(file_size, 64 << 10)  # 64kiB
+        block_size = block_size & ~(size_longlong - 1)  # lower round on multiple of longlong
 
         nb_longlong = block_size // size_longlong
-        format = '<{nbll}{member_format}'.format(
+        fmt = '<{nbll}{member_format}'.format(
             nbll=nb_longlong,
             member_format=longlong_format)
 
         hash_int = file_size
 
         buffer = f.read(block_size)
-        list_longlong = struct.unpack(format, buffer)
+        list_longlong = struct.unpack(fmt, buffer)
         hash_int += sum(list_longlong)
 
         f.seek(-block_size, os.SEEK_END)
         buffer = f.read(block_size)
-        list_longlong = struct.unpack(format, buffer)
+        list_longlong = struct.unpack(fmt, buffer)
         hash_int += sum(list_longlong)
 
         f.close()

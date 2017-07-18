@@ -24,6 +24,8 @@ class PreferencesDialog(QDialog):
 
         self._state = state
 
+        self._uploadLanguage = UnknownLanguage.create_generic()
+
         self.ui = Ui_PreferencesDialog()
         self.setup_ui()
 
@@ -212,9 +214,9 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         optionUploadLanguage = self.settings.value('options/uploadLanguage', self.DEFAULT_UL_LANG.xxx())
-        uploadLanguage = Language.from_xxx(optionUploadLanguage)
+        self._uploadLanguage = Language.from_xxx(optionUploadLanguage)
 
-        self.ui.optionUlDefaultLanguage.set_selected_language(uploadLanguage)
+        self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         # 4. Network tab
 
@@ -283,7 +285,7 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         self.settings.setValue('options/uploadLanguage', self._uploadLanguage.xxx())
-        self.parent().get_upload_widget().language_updated.emit(self._uploadLanguage.xxx(), "")
+        self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
         # 5. Others tab
 
@@ -419,7 +421,6 @@ class PreferencesDialog(QDialog):
     @pyqtSlot(Language)
     def onOptionUlDefaultLanguageChange(self, lang):
         self._uploadLanguage = lang
-        self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
     # 5. Others tab
 

@@ -13,7 +13,7 @@ def asciify(data):
     :param data: byte data string to convert to ascii
     :return: string
     """
-    return str(filter(lambda x : ord(x) < 128, data))
+    return ''.join(map(chr, filter(lambda x : x < 128, data)))
 
 
 def unzip_bytes(bytes):

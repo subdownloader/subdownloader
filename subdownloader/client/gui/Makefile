@@ -1,7 +1,7 @@
 PACKAGE=subdownloader.client.gui
 
-TARGETS= main_ui.py imdb_ui.py images_rc.py preferences_ui.py about_ui.py \
-	 login_ui.py searchNameWidget_ui.py searchFileWidget_ui.py uploadWidget_ui.py
+TARGETS=main_ui.py imdbSearch_ui.py images_rc.py preferences_ui.py about_ui.py \
+	login_ui.py searchNameWidget_ui.py searchFileWidget_ui.py uploadWidget_ui.py
 
 IMAGES=$(shell find images -type f -printf "%p ")
 
@@ -13,10 +13,10 @@ PYRCC=pyrcc5
 all: $(TARGETS)
 
 %_ui.py : %.ui ui_parser.py Makefile
-	$(PYUIC) --import-from="$(PACKAGE)" $< | python ui_parser.py > $@
+	$(PYUIC) --import-from="$(PACKAGE)" "$<" | python ui_parser.py > "$@"
 
 %_rc.py : %.qrc $(IMAGES) Makefile
-	$(PYRCC) $< > $@
+	$(PYRCC) "$<" > "$@"
 
 clean:
 	rm -f $(TARGETS)

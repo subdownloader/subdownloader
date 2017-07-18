@@ -41,7 +41,7 @@ msgstr "Albanian"
 
 #: subdownloader/languages/language.py:429
 msgid "Arabic"
-msgstr "العربية"
+msgstr "Arabic"
 
 #: subdownloader/languages/language.py:434
 msgid "Armenian"

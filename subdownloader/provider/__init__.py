@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+
 def window_iterator(data, width):
     """
     Instead of iterating element by element, get a number of elements at each iteration step.

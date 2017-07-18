@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'searchFileWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -190,7 +190,6 @@ class Ui_SearchFileWidget(object):
         self.verticalLayout.addWidget(self.frame)
 
         self.retranslateUi(SearchFileWidget)
-        self.stackedSearchResult.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(SearchFileWidget)
 
     def retranslateUi(self, SearchFileWidget):

@@ -23,6 +23,9 @@ class SubtitleFile(object):
     def get_parent(self):
         return self._parent
 
+    def get_filename(self):
+        pass
+
     def get_language(self):  # FIXME: abstractmethod
         raise NotImplementedError()
 
@@ -31,46 +34,6 @@ class SubtitleFile(object):
 
     def get_md5_hash(self):  # FIXME: abstractmethod
         raise NotImplementedError()
-
-    def matches_videofile_filename(self, videofile):
-        """
-        Detect whether the filename of videofile matches with this SubtitleFile.
-        :param videofile: VideoFile instance
-        :return: True if match
-        """
-
-        vid_fn = videofile.get_filename()
-        vid_base, _ = os.path.splitext(vid_fn)
-        vid_base = vid_base.lower()
-
-        sub_fn = self.get_filename()
-        sub_base, _ = os.path.splitext(sub_fn)
-        sub_base = sub_base.lower()
-
-        log.debug('matches_filename(subtitle="{sub_filename}", video="{vid_filename}") ...'.format(
-            sub_filename=sub_fn, vid_filename=vid_fn))
-
-        matches = sub_base == vid_base
-
-        lang = None
-        if not matches:
-            if sub_base.startswith(vid_base):
-                sub_rest = sub_base[len(vid_base):]
-                while len(sub_rest) > 0:
-                    if sub_rest[0].isalnum():
-                        break
-                    sub_rest = sub_rest[1:]
-                try:
-                    lang = Language.from_unknown(sub_rest, locale=False, name=False)
-                    matches = True
-                except NotALanguageException:
-                    matches = False
-
-        if matches:
-            log.debug('... matches (language={language})'.format(language=lang))
-        else:
-            log.debug('... does not match')
-        return matches
 
     DETECT_LANGUAGE_REGEX = re.compile('.*(?:[^a-zA-Z])([a-zA-Z]+)$')
 
@@ -82,8 +45,8 @@ class SubtitleFile(object):
         :return: Language object, None if language could not be detected.
         """
         log.debug('detect_language(filename="{}") ...'.format(filename))
-        base, _ = os.path.splitext(filename)
-        fn_lang = cls.DETECT_LANGUAGE_REGEX.findall(base)
+        root, _ = os.path.splitext(filename)
+        fn_lang = cls.DETECT_LANGUAGE_REGEX.findall(root)
         if fn_lang:
             language_part = fn_lang[0]
             try:
@@ -96,7 +59,7 @@ class SubtitleFile(object):
             log.debug('... FAIL: could not detect from filename')
         return UnknownLanguage.create_generic()
 
-    def equals_SubtitleFile(self, other):
+    def equals_subtitle_file(self, other):
         return self.get_md5_hash() == other.get_md5_hash() and self.get_file_size() == other.get_file_size()
 
 
@@ -132,18 +95,29 @@ class SubtitleFileNetwork(SubtitleFile):
         return self._subtitles[0].get_md5_hash()
 
     def nb_providers(self):
-        providers = {subtitle.get_provider() for subtitle in self._subtitles if isinstance(subtitle, RemoteSubtitleFile)}
+        providers = {subtitle.get_provider() for subtitle in self._subtitles
+                     if isinstance(subtitle, RemoteSubtitleFile)}
         return len(providers)
 
-    def equals_SubtitleFile(self, other):
+    def equals_subtitle_file(self, other):
         for subtitle in self._subtitles:
-            if subtitle.equals_SubtitleFile(other):
+            if subtitle.equals_subtitle_file(other):
                 return True
         return False
 
+    def iter_local_subtitles(self):
+        for subtitle in self._subtitles:
+            if isinstance(subtitle, LocalSubtitleFile):
+                yield subtitle
 
-class SubtitleFile_Storage(SubtitleFile):
+    def __len__(self):
+        return len(self._subtitles)
 
+    def __getitem__(self, item):
+        return self._subtitles[item]
+
+
+class SubtitleFileStorage(SubtitleFile):
     def __init__(self, parent, language, file_size, md5_hash):
         SubtitleFile.__init__(self, parent=parent)
         # Details of general Subtitle
@@ -157,6 +131,46 @@ class SubtitleFile_Storage(SubtitleFile):
     def get_filename(self):  # FIXME: abstractmethod
         raise NotImplementedError()
 
+    def matches_video_filename(self, video):
+        """
+        Detect whether the filename of videofile matches with this SubtitleFile.
+        :param video: VideoFile instance
+        :return: True if match
+        """
+
+        vid_fn = video.get_filename()
+        vid_base, _ = os.path.splitext(vid_fn)
+        vid_base = vid_base.lower()
+
+        sub_fn = self.get_filename()
+        sub_base, _ = os.path.splitext(sub_fn)
+        sub_base = sub_base.lower()
+
+        log.debug('matches_filename(subtitle="{sub_filename}", video="{vid_filename}") ...'.format(
+            sub_filename=sub_fn, vid_filename=vid_fn))
+
+        matches = sub_base == vid_base
+
+        lang = None
+        if not matches:
+            if sub_base.startswith(vid_base):
+                sub_rest = sub_base[len(vid_base):]
+                while len(sub_rest) > 0:
+                    if sub_rest[0].isalnum():
+                        break
+                    sub_rest = sub_rest[1:]
+                try:
+                    lang = Language.from_unknown(sub_rest, locale=False, name=False)
+                    matches = True
+                except NotALanguageException:
+                    matches = False
+
+        if matches:
+            log.debug('... matches (language={language})'.format(language=lang))
+        else:
+            log.debug('... does not match')
+        return matches
+
     def get_language(self):
         return self._language
 
@@ -167,13 +181,13 @@ class SubtitleFile_Storage(SubtitleFile):
         return self._md5_hash
 
 
-class LocalSubtitleFile(SubtitleFile_Storage):
+class LocalSubtitleFile(SubtitleFileStorage):
     def __init__(self, filepath):
         filename = os.path.basename(filepath)
         file_size = os.path.getsize(filepath)
         language = self.detect_language_filename(filename)
         md5_hash = hashlib.md5(open(filepath, mode='rb').read()).hexdigest()
-        SubtitleFile_Storage.__init__(self, parent=None, file_size=file_size, language=language, md5_hash=md5_hash)
+        SubtitleFileStorage.__init__(self, parent=None, file_size=file_size, language=language, md5_hash=md5_hash)
         self._filepath = filepath
 
     def get_filename(self):
@@ -182,14 +196,22 @@ class LocalSubtitleFile(SubtitleFile_Storage):
     def get_filepath(self):
         return self._filepath
 
+    def set_language(self, language):
+        self._language = language
 
-class RemoteSubtitleFile(SubtitleFile_Storage):
+    def __repr__(self):
+        return '<LocalSubtitleFile:filepath="{filepath}",size={size},language={language}>'.format(
+            filepath=self.get_filepath(), size=self.get_file_size(), language=self.get_language()
+        )
+
+
+class RemoteSubtitleFile(SubtitleFileStorage):
     def __init__(self, filename, language, file_size, md5_hash):
-        SubtitleFile_Storage.__init__(self, parent=None, language=language, file_size=file_size, md5_hash=md5_hash)
+        SubtitleFileStorage.__init__(self, parent=None, language=language, file_size=file_size, md5_hash=md5_hash)
         self._filename = filename
 
     def get_filename(self):
-        return self._filename;
+        return self._filename
 
     def matches_videofile(self, videofile):
         raise NotImplementedError()
@@ -214,6 +236,7 @@ class SubtitleFileCollection(object):
     def __init__(self, parent):
         self._parent = parent
         self._networks = []
+        self._candidates = []
 
     def get_parent(self):
         return self._parent
@@ -223,8 +246,34 @@ class SubtitleFileCollection(object):
 
     def add_subtitle(self, subtitle):
         for network in self._networks:
-            if network.equals_SubtitleFile(subtitle):
+            if network.equals_subtitle_file(subtitle):
                 network.add_subtitle(subtitle)
+                return
+        for candidate in self._candidates:
+            if candidate.equals_subtitle_file(subtitle):
+                network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
+                network.add_subtitle(candidate.get_subtitles()[0])
+                self._networks.append(network)
                 return
         network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
         self._networks.append(network)
+
+    def add_candidates(self, subtitles):
+        for subtitle in subtitles:
+            for candidate in self._candidates:
+                if candidate.equals_subtitle_file(subtitle):
+                    candidate.add_subtitle(subtitle)
+                    break
+            new_candidate = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
+            self._candidates.append(new_candidate)
+
+    def iter_local_subtitles(self):
+        for network in self._networks:
+            for subtitle in network.iter_local_subtitles():
+                yield subtitle
+
+    def __len__(self):
+        return len(self._networks)
+
+    def __getitem__(self, item):
+        return self._networks[item]

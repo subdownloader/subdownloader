@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -141,7 +141,6 @@ class Ui_MainWindow(object):
         self.menuBar.addAction(self.menu_Help.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabsMain.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -155,19 +154,19 @@ class Ui_MainWindow(object):
         self.menu_Help.setTitle(_("&Help"))
         self.menu_Preferences.setTitle(_("&Settings"))
         self.menuView.setTitle(_("&View"))
-        self.action_Quit.setText(_("Quit"))
-        self.action_HelpHomepage.setText(_("Visit HomePage"))
-        self.action_HelpAbout.setText(_("About..."))
+        self.action_Quit.setText(_("&Quit"))
+        self.action_HelpHomepage.setText(_("&Visit HomePage"))
+        self.action_HelpAbout.setText(_("&About..."))
         self.action_HelpAbout.setIconText(_("About"))
-        self.action_HelpBug.setText(_("Report A Problem"))
+        self.action_HelpBug.setText(_("&Report A Problem"))
         self.action_ShowPreferences.setText(_("&Configure Subdownloader..."))
-        self.action_Login.setText(_("Log in..."))
-        self.action_LogMessages.setText(_("Log Messages"))
-        self.action_ShowHideTreeFolder.setText(_("Show/Hide Tree Folder"))
-        self.action_LogOut.setText(_("Log Out"))
-        self.action_HelpTranslate.setText(_("Translate This Application..."))
+        self.action_Login.setText(_("&Log In..."))
+        self.action_LogMessages.setText(_("&Log Messages"))
+        self.action_ShowHideTreeFolder.setText(_("&Show/Hide Tree Folder"))
+        self.action_LogOut.setText(_("Log &Out"))
+        self.action_HelpTranslate.setText(_("&Translate This Application..."))
 
 from subdownloader.client.gui.searchFileWidget import SearchFileWidget
 from subdownloader.client.gui.searchNameWidget import SearchNameWidget
-from subdownloader.client.gui.uploadWidget import UploadWidget
+from subdownloader.client.gui.uploadWidget2 import UploadWidget
 from subdownloader.client.gui import images_rc

@@ -6,7 +6,7 @@ import logging
 from PyQt5.QtCore import pyqtSlot, Qt, QAbstractItemModel, QModelIndex, QSize
 from PyQt5.QtGui import QColor, QFont, QIcon, QPalette
 
-from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFileNetwork, SubtitleFile_Storage
+from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFileNetwork, SubtitleFileStorage
 from subdownloader.video2 import VideoFile
 
 log = logging.getLogger('subdownloader.client.gui.videomodel2')
@@ -81,8 +81,8 @@ class Node:
         return node
 
 
+# FIXME: split model and view
 class VideoModel(QAbstractItemModel):
-
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
         self._all_root = Node(data=None, parent=None)
@@ -267,7 +267,7 @@ class VideoModel(QAbstractItemModel):
                 return line
             return None
 
-        elif isinstance(data, SubtitleFile_Storage):
+        elif isinstance(data, SubtitleFileStorage):
             sub = data
 
             if role == Qt.BackgroundRole:

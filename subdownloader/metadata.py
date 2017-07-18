@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
+
 
 import logging
 import os
@@ -11,7 +13,7 @@ class MetadataVideoTrack(object):
     Instances of this class collect some metadata of a video track.
     Only metadata is stored. It is meant to be attached to an actual video.
     """
-    def __init__(self, duration_ms, framerate):
+    def __init__(self, duration_ms, framerate, framecount):
         """
         Create a new MetadataVideoTrack instance.
         :param duration_ms: Duration of the video track (in milliseconds)
@@ -19,6 +21,10 @@ class MetadataVideoTrack(object):
         """
         self._duration_ms = duration_ms
         self._framerate = framerate
+        self._framecount = framecount
+
+    def get_framecount(self):
+        return self._framecount
 
     def get_framerate(self):
         return self._framerate
@@ -72,7 +78,8 @@ class Metadata(object):
             self._add_metadata(
                 MetadataVideoTrack(
                     duration_ms=1000 * parseRes.length,
-                    framerate=video.fps
+                    framerate=video.fpsm,
+                    framecount=None
                 )
             )
 
@@ -89,6 +96,7 @@ class Metadata(object):
             if track.track_type == 'Video':
                 duration_ms = track.duration
                 framerate = track.frame_rate
+                framecount = track.frame_count
                 log.debug('mode={}'.format(track.frame_rate_mode))
                 if duration_ms is None or framerate is None:
                     log.debug('... Video track does not have duration and/or framerate.')
@@ -98,7 +106,8 @@ class Metadata(object):
                 self._add_metadata(
                     MetadataVideoTrack(
                         duration_ms=duration_ms,
-                        framerate=float(framerate)
+                        framerate=float(framerate),
+                        framecount=framecount
                     )
                 )
 

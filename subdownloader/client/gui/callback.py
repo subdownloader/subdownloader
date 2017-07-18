@@ -6,7 +6,7 @@ import logging
 from subdownloader.callback import ProgressCallback
 
 from PyQt5.QtCore import QCoreApplication, Qt
-from PyQt5.QtWidgets import QProgressDialog
+from PyQt5.QtWidgets import QPushButton, QProgressDialog
 
 log = logging.getLogger('subdownloader.client.gui.callback')
 
@@ -27,7 +27,7 @@ class ProgressCallbackWidget(ProgressCallback):
 
         self.status_progress = QProgressDialog(self._parent, Qt.Dialog)
 
-        self.status_progress.setWindowModality(Qt.WindowModal);
+        self.status_progress.setWindowModality(Qt.WindowModal)
 
         self.set_range(0, 1)
 
@@ -52,11 +52,14 @@ class ProgressCallbackWidget(ProgressCallback):
 
     def set_cancellable(self, cancellable):
         if not self._cancellable and cancellable:
-            log.warning('ProgressCallbackWidget.set_cancellable({cancellable}): invalid operation',format(
+            log.warning('ProgressCallbackWidget.set_cancellable({cancellable}): invalid operation'.format(
                 cancellable=cancellable))
-        self._cancellable = cancellable
-        if not cancellable:
+        if cancellable:
+            if not self._cancellable:
+                self.status_progress.setCancelButton(QPushButton(_('Cancel')))
+        else:
             self.status_progress.setCancelButton(None)
+        self._cancellable = cancellable
 
     def show(self):
         # FIXME: status_progress may be None if on_update is called BEFORE show..

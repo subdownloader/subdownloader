@@ -8,6 +8,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QObject, 
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
+from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 
 from subdownloader.FileManagement import get_extension, without_extension
@@ -27,6 +28,7 @@ class State(QObject):
 
         self._proxy = options.proxy
         self._OSDBServer = SDService(proxy=self._proxy)
+        identificator_add(self._OSDBServer)
 
         self.read_settings()
 
@@ -51,7 +53,7 @@ class State(QObject):
             return []
 
     def connected(self):
-        return self._OSDBServer.connected()
+        return self._OSDBServer.logged_in()
 
     def get_OSDBServer(self):
         # FIXME: method MUST disappear
@@ -61,7 +63,7 @@ class State(QObject):
     def connect_server(self, callback=None):
         # FIXME: start timer. To avoid timeout. Ping server, every XX seconds.
 
-        if not callback:
+        if callback is None:
             callback = ProgressCallback()
 
         if self._proxy:
@@ -169,20 +171,13 @@ class State(QObject):
         self._OSDBServer.logout()
         self.login_status_changed.emit(self.LOGIN_STATUS_LOGGED_OUT, _('Log in'))
 
-    def get_users_online(self):
-        try:
-            data = self._OSDBServer.ServerInfo()
-            return int(data["users_online_program"])
-        except:
-            return -1
-
-    def download_subtitles(self, data):
-        # FIXME: define interface
-        return self._OSDBServer.DownloadSubtitles(data)
-
-    def upload(self, data):
-        # FIXME: define interface!
-        return self._OSDBServer.UploadSubtitles(data)
+    def upload(self, local_movie):
+        # FIXME: define interface for successful/failed upload
+        can_upload = self._OSDBServer.can_upload_subtitles(local_movie)
+        if not can_upload:
+            return False
+        self._OSDBServer.upload_subtitles(local_movie)
+        return True
 
     def getDownloadPath(self, parent, subtitle):
         video = subtitle.get_parent().get_parent().get_parent()

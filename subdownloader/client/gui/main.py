@@ -196,7 +196,7 @@ class Main(QMainWindow):
 
     def onButtonLogOut(self):
         self.get_state().logout()
-        self.ui.button_login.setText(_('Log in'))
+        self.ui.button_login.setText(_('Log In'))
         self.ui.button_login.setEnabled(True)
         self.ui.action_Login.setEnabled(True)
         self.ui.action_LogOut.setEnabled(False)
@@ -228,7 +228,8 @@ class Main(QMainWindow):
 
     def onMenuPreferences(self):
         dialog = PreferencesDialog(self, state=self._state)
-        ok = dialog.exec_()
+        dialog.defaultUploadLanguageChanged.connect(self.ui.tabUpload.on_default_upload_language_change)
+        dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def initializeVideoPlayer(self, settings):

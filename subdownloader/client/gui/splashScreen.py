@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-import os
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtWidgets import QApplication, QSplashScreen
-from subdownloader.client.gui import images_rc
+
 
 class SplashScreen(QSplashScreen):
 
@@ -18,28 +16,23 @@ class SplashScreen(QSplashScreen):
         """
         Constructor
         """
-        pixmap = QPixmap(':/images/splash.png')
-        self.labelAlignment = Qt.Alignment(
-            Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute)
-        QSplashScreen.__init__(self, pixmap, Qt.WindowStaysOnTopHint)
+        QSplashScreen.__init__(self, QPixmap(':/images/splash.png'), Qt.WindowStaysOnTopHint)
         QApplication.flush()
 
-    def showMessage(self, msg):
+    def showMessage(self, message, *args):
         """
         Public method to show a message in the bottom part of the splashscreen.
 
-        @param msg message to be shown (string or QString)
+        @param message message to be shown (string or QString)
         """
         QSplashScreen.showMessage(
-            self, msg, self.labelAlignment, QColor(Qt.white))
-        QApplication.processEvents()
+            self, message, Qt.AlignBottom | Qt.AlignRight | Qt.AlignAbsolute, QColor(Qt.white))
 
     def clearMessage(self):
         """
         Public method to clear the message shown.
         """
         QSplashScreen.clearMessage(self)
-        QApplication.processEvents()
 
 
 class NoneSplashScreen(object):

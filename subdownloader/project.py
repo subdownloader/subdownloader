@@ -5,17 +5,17 @@ import os
 
 """
 Name of the project.
-Forks MUST change this to a non-ambiguous alternative namex.
+Forks MUST change this to a non-ambiguous alternative.
 """
 PROJECT_TITLE = "SubDownloader"
 
 """
-Tuple, containing the version of the project.
+Version of the project as a tuple.
 """
 PROJECT_VERSION = (2, 0, 19)
 
 """
-String, containing the version of the project.
+Version of the project as a string.
 """
 PROJECT_VERSION_STR = ".".join([str(i) for i in PROJECT_VERSION])
 
@@ -80,10 +80,11 @@ DEVELOPERS = [
     Author('Marco Rodrigues', 'gothicx@gmail.com'),
     Author('Anonymous Maarten', 'anonymous.maarten@gmail.com'),
     Author('Sergio Basto', 'sergio@serjux.com'),
-    ]
+]
 
 TRANSLATORS = [
 ]
+
 
 def subdownloader_path():
     """

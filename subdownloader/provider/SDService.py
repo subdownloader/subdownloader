@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2015 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
+import xml.parsers
+from xml.dom import minidom
 
+from subdownloader.movie import RemoteMovie
+
+try:
+    from urllib.parse import quote
+    from urllib.request import HTTPError, urlopen, URLError
+except ImportError:
+    from urllib2 import HTTPError, quote, urlopen, URLError
 try:
     from xmlrpc import client as xmlrpclib
     from xmlrpc.client import ProtocolError
@@ -18,6 +27,7 @@ import logging
 import re
 import threading
 import traceback
+import zlib
 from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
@@ -27,6 +37,7 @@ from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
 from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.util import unzip_stream, unzip_bytes
+from subdownloader.identification import VideoIdentity, EpisodeIdentity, ImdbIdentity, ProviderIdentities
 
 import subdownloader.FileManagement.videofile as videofile
 import subdownloader.FileManagement.subtitlefile as subtitlefile
@@ -153,6 +164,7 @@ class ProxiedTransport(xmlrpclib.Transport):
         connection.putheader('Host', self.realhost)
 
 
+# FIXME: throw ConnectionError if not connected
 class SDService(object):
 
     """
@@ -184,7 +196,7 @@ class SDService(object):
         self._token = None
 
     def connected(self):
-        return self._xmlrpc_server is not None
+        return self._token is not None
 
     def connect(self):
         server = self.server
@@ -241,14 +253,6 @@ class SDService(object):
             self.log.exception("Connection to the server failed/other error")
             raise
 
-    def is_connected(self):
-        """
-        This method checks to see whether we are connected to the server.
-        It does not return any information about the validity of the
-        connection.
-        """
-        return self._token != None
-
     def ServerInfo(self):
         ServerInfo = self._ServerInfo
         try:
@@ -269,6 +273,9 @@ class SDService(object):
             return self._xmlrpc_server.ServerInfo()
         except TimeoutFunctionException:
             raise
+
+    def logged_in(self):
+        return self._token is not None
 
     def login(self, username="", password=""):
         try:
@@ -314,7 +321,9 @@ class SDService(object):
     def logout(self):
         try:
             logout = TimeoutFunction(self._logout)
-            return logout()
+            result = logout()
+            self._token = None
+            return result
         except TimeoutFunctionException:
             self.log.error("logout timed out")
 
@@ -579,11 +588,7 @@ class SDService(object):
             return []
 
     def TryUploadSubtitles(self, videos, no_update=False):
-        TryUploadSubtitles = TimeoutFunction(self._TryUploadSubtitles)
-        try:
-            return TryUploadSubtitles(videos, no_update)
-        except TimeoutFunctionException:
-            self.log.error("TryUploadSubtitles timed out")
+        return self._TryUploadSubtitles(videos, no_update)
 
     def _TryUploadSubtitles(self, videos, no_update):
         """Check for subtitle existence in server database for one or more videos
@@ -637,12 +642,7 @@ class SDService(object):
         return result
 
     def UploadSubtitles(self, movie_info):
-        UploadSubtitles = TimeoutFunction(self._UploadSubtitles)
-        try:
-            return UploadSubtitles(movie_info)
-        except TimeoutFunctionException:
-            self.log.error("UploadSubtitles timed out")
-            raise
+        return self._UploadSubtitles(movie_info)
 
     def _UploadSubtitles(self, movie_info):
         self.log.debug("----------------")
@@ -656,9 +656,7 @@ class SDService(object):
         self.log.debug("----------------")
 
     def getBestImdbInfo(self, subs):
-        movies_imdb = []
-        for sub in subs:
-            movies_imdb.append(sub["IDMovieImdb"])
+        movies_imdb = [sub["IDMovieImdb"] for sub in subs]
         _best_imdb = {'imdb': None, 'count': 0}
         for imdb in movies_imdb:
             if movies_imdb.count(imdb) > _best_imdb['count']:
@@ -671,7 +669,6 @@ class SDService(object):
                         "MovieName": sub["MovieName"],
                         "MovieNameEng": sub["MovieNameEng"],
                         "MovieYear": sub["MovieYear"],
-                        "MovieImdbRating": sub["MovieImdbRating"],
                         "MovieImdbRating": sub["MovieImdbRating"]}
         return {}
 
@@ -680,13 +677,6 @@ class SDService(object):
     #
 
     def CheckMovieHash(self, hashes):
-        CheckMovieHash = TimeoutFunction(self._CheckMovieHash)
-        try:
-            return CheckMovieHash(hashes)
-        except TimeoutFunctionException:
-            self.log.error("CheckMovieHash timed out")
-
-    def _CheckMovieHash(self, hashes):
         """Return MovieImdbID, MovieName, MovieYear for each hash
         @hashes - movie hashes - list
         """
@@ -701,13 +691,6 @@ class SDService(object):
         return result
 
     def ReportWrongMovieHash(self, subtitle_id):
-        ReportWrongMovieHash = TimeoutFunction(self._ReportWrongMovieHash)
-        try:
-            return ReportWrongMovieHash(subtitle_id)
-        except TimeoutFunctionException:
-            self.log.error("ReportWrongMovieHash timed out")
-
-    def _ReportWrongMovieHash(self, subtitle_id):
         """Report wrong subtitle for a movie
         @subtitle_id: subtitle id from a video (IDSubMovieFile) - string/int
         """
@@ -717,53 +700,6 @@ class SDService(object):
             self._token, subtitle_id)
         self.log.debug("ReportWrongMovieHash finished in %s with status %s." % (
             info['seconds'], info['status']))
-
-    def GetAvailableTranslations(self, program=None):
-        GetAvailableTranslations = TimeoutFunction(
-            self._GetAvailableTranslations)
-        try:
-            return GetAvailableTranslations(program)
-        except TimeoutFunctionException:
-            self.log.error("GetAvailableTranslations timed out")
-
-    def _GetAvailableTranslations(self, program=None):
-        """Returns dictionary of available translations for the given program.
-        @program: program name - string
-        return example: {'en': {'LastCreated': '2007-02-03 21:36:14', 'StringsNo': 438}, 'ar': ...}
-        """
-        self.log.debug("----------------")
-        self.log.debug("GetAvailableTranslations RPC method starting...")
-        if not program:
-            program = PROJECT_TITLE.lower()
-        info = self._xmlrpc_server.GetAvailableTranslations(
-            self._token, program)
-        self.log.debug("GetAvailableTranslations finished in %s with status %s." % (
-            info['seconds'], info['status']))
-        if "data" in info:
-            return info['data']
-        return False
-
-    def GetTranslation(self, language, format):
-        GetTranslation = TimeoutFunction(self._GetTranslation)
-        try:
-            return GetTranslation(language, format)
-        except TimeoutFunctionException:
-            self.log.error("GetTranslation timed out")
-
-    def _GetTranslation(self, language, format):
-        """Returns base64 encoded strings for language.
-        @language: iso639 language code (2 chars)
-        @format: format in which the result is returned (mo, po, txt, xml)
-        """
-        self.log.debug("----------------")
-        self.log.debug("GetTranslation RPC method starting...")
-        info = self._xmlrpc_server.GetTranslation(
-            self._token, language, format, self.user_agent)
-        self.log.debug("GetTranslation finished in %s with status %s." % (
-            info['seconds'], info['status']))
-        if 'data' in info:
-            return info['data']
-        return False
 
     def SearchMoviesOnIMDB(self, query):
         SearchMoviesOnIMDB = TimeoutFunction(self._SearchMoviesOnIMDB)
@@ -885,13 +821,6 @@ class SDService(object):
             raise
 
     def SearchToMail(self, videos, languages):
-        SearchToMail = TimeoutFunction(self._SearchToMail)
-        try:
-            return SearchToMail(videos, languages)
-        except TimeoutFunctionException:
-            self.log.error("SearchToMail timed out")
-
-    def _SearchToMail(self, videos, languages):
         """Register user email to be noticed when given video subtitles are available to download
         @videos: video objects - list
         @languages: language id codes - list
@@ -991,7 +920,28 @@ class SDService(object):
 
         return lang_str
 
-    LIMIT_SEARCH = 500
+    def imdb_query(self, query):
+        if not self.connected():
+            return None
+
+        def run_query():
+            return self._xmlrpc_server.SearchMoviesOnIMDB(self._token, query)
+
+        result = self._safe_exec(run_query, None)
+        if result is None:
+            return None
+
+        provider_identities = []
+        for imdb_data in result['data']:
+            imdb_identity = ImdbIdentity(imdb_id=imdb_data['id'], imdb_rating=None)
+            video_identity = VideoIdentity(name=imdb_data['title'], year=None)
+            provider_identities.append(ProviderIdentities(
+                video_identity=video_identity, imdb_identity=imdb_identity,
+                provider=self))
+
+        return provider_identities
+
+    SEARCH_LIMIT = 500
 
     def search_text(self, text, languages=None):
         lang_str = self._languages_to_str(languages)
@@ -1002,10 +952,13 @@ class SDService(object):
         queries = [query]
 
         def run_query():
-            return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.LIMIT_SEARCH})
+            return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.SEARCH_LIMIT})
         self._safe_exec(run_query, None)
 
     def search_videos(self, videos, callback, languages=None):
+        if not self.connected():
+            return None
+
         lang_str = self._languages_to_str(languages)
 
         window_size = 5
@@ -1029,11 +982,12 @@ class SDService(object):
                 hash_video[video.get_osdb_hash()] = video
 
             def run_query():
-                return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.LIMIT_SEARCH})
+                return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.SEARCH_LIMIT})
             result = self._safe_exec(run_query, None)
+            self.check_result(result)
             if result is None:
                 return remote_subtitles
-            self.check_result(result)
+
             for rsub_raw in result['data']:
                 try:
                     remote_filename = rsub_raw['SubFileName']
@@ -1064,7 +1018,14 @@ class SDService(object):
                         age=remote_date,
                     )
                     movie_hash = '{:>016}'.format(rsub_raw['MovieHash'])
-                    hash_video[movie_hash].add_subtitle(remote_subtitle)
+                    video = hash_video[movie_hash]
+
+                    imdb_id = rsub_raw['IDMovieImdb']
+                    imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=None)
+                    identity = ProviderIdentities(imdb_identity=imdb_identity, provider=self)
+
+                    video.add_subtitle(remote_subtitle)
+                    video.add_identity(identity)
 
                     remote_subtitles.append(remote_subtitle)
                 except (KeyError, ValueError):
@@ -1075,17 +1036,144 @@ class SDService(object):
         callback.finish()
         return remote_subtitles
 
+    def _video_info_to_identification(self, video_info):
+        name = video_info['MovieName']
+        year = int(video_info['MovieYear'])
+        imdb_id = video_info['MovieImdbID']
+
+        video_identity = VideoIdentity(name=name, year=year)
+        imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=None)
+        episode_identity = None
+
+        movie_kind = video_info['MovieKind']
+        if movie_kind == 'episode':
+            season = int(video_info['SeriesSeason'])
+            episode = int(video_info['SeriesEpisode'])
+            episode_identity = EpisodeIdentity(season=season, episode=episode)
+        elif movie_kind == 'movie':
+            pass
+        else:
+            log.warning('Unknown MoviesKind="{}"'.format(video_info['MovieKind']))
+
+        return ProviderIdentities(video_identity=video_identity, episode_identity=episode_identity,
+                                  imdb_identity=imdb_identity, provider=self)
+
+    def identify_videos(self, videos):
+        if not self.connected():
+            return
+        for part_videos in window_iterator(videos, 200):
+            hashes = [video.get_osdb_hash() for video in part_videos]
+            hash_video = {hash: video for hash, video in zip(hashes, part_videos)}
+
+            def run_query():
+                return self._xmlrpc_server.CheckMovieHash2(self._token, hashes)
+            result = self._safe_exec(run_query, None)
+            self.check_result(result)
+
+            for video_hash, video_info in result['data'].items():
+                identification = self._video_info_to_identification(video_info[0])
+                video = hash_video[video_hash]
+                video.add_identity(identification)
+
     def download_subtitles(self, os_rsubs):
+        if not self.connected():
+            return None
+
         window_size = 20
         map_id_data = {}
         for window_i, os_rsub_window in enumerate(window_iterator(os_rsubs, window_size)):
             query = [subtitle.get_id_online() for subtitle in os_rsub_window]
-            result = self._xmlrpc_server.DownloadSubtitles(self._token, query)
+
+            def run_query():
+                return self._xmlrpc_server.DownloadSubtitles(self._token, query)
+            result = self._safe_exec(run_query, None)
+
             self.check_result(result)
             map_id_data.update({item['idsubtitlefile']: item['data'] for item in result['data']})
         subtitles = [unzip_bytes(base64.b64decode(map_id_data[os_rsub.get_id_online()])).read() for os_rsub in os_rsubs]
         return subtitles
 
+    def can_upload_subtitles(self, local_movie):
+        if not self.connected():
+            return False
+
+        query = {}
+
+        for i, (video, subtitle) in enumerate(local_movie.iter_video_subtitle()):
+            # sub_bytes = open(subtitle.get_filepath(), mode='rb').read()
+            # sub_tx_data = base64.encodebytes(zlib.compress(sub_bytes))
+            cd = "cd{i}".format(i=i+1)
+
+            cd_data = {
+                'subhash': subtitle.get_md5_hash(),
+                'subfilename': subtitle.get_filename(),
+                'moviehash': video.get_osdb_hash(),
+                'moviebytesize': video.get_size(),
+                'movietimems': video.get_time_ms(),
+                'moviefps': video.get_fps(),
+                'movieframes': video.get_framecount(),
+                'moviefilename': video.get_filename(),
+            }
+
+            query[cd] = cd_data
+
+        def run_query():
+            return self._xmlrpc_server.TryUploadSubtitles(self._token, query)
+        result = self._safe_exec(run_query, None)
+
+        self.check_result(result)
+
+        movie_already_in_db = int(result['alreadyindb']) != 0
+        if movie_already_in_db:
+            return False
+        return True
+
+    def upload_subtitles(self, local_movie):
+        query = {
+            'baseinfo': {
+                'idmovieimdb': local_movie.get_imdb_id(),
+                'moviereleasename': local_movie.get_release_name(),
+                'movieaka': local_movie.get_movie_name(),
+                'sublanguageid': local_movie.get_language().xxx(),
+                'subauthorcomment': local_movie.get_comments(),
+            },
+        }
+        if local_movie.is_hearing_impaired() is not None:
+            query['hearingimpaired'] = local_movie.is_hearing_impaired()
+        if local_movie.is_high_definition() is not None:
+            query['highdefinition'] = local_movie.is_high_definition()
+        if local_movie.is_automatic_translation() is not None:
+            query['automatictranslation'] = local_movie.is_automatic_translation()
+        if local_movie.get_subtitle_author() is not None:
+            query['subtranslator'] = local_movie.get_subtitle_author()
+        if local_movie.is_foreign_only() is not None:
+            query['foreignpartsonly'] = local_movie.is_foreign_only()
+
+        for i, (video, subtitle) in enumerate(local_movie.iter_video_subtitle()):
+            sub_bytes = open(subtitle.get_filepath(), mode='rb').read()
+            sub_tx_data = base64.encodebytes(zlib.compress(sub_bytes))
+            cd = "cd{i}".format(i=i+1)
+
+            cd_data = {
+                'subhash': subtitle.get_md5_hash(),
+                'subfilename': subtitle.get_filename(),
+                'moviehash': video.get_osdb_hash(),
+                'moviebytesize': video.get_size(),
+                'movietimems': video.get_time_ms(),
+                'moviefps': video.get_fps(),
+                'movieframes': video.get_framecount(),
+                'moviefilename': video.get_filename(),
+                'subcontent': sub_tx_data,
+            }
+
+            query[cd] = cd_data
+
+        def run_query():
+            return self._xmlrpc_server.UploadSubtitles(self._token, query)
+        result = self._safe_exec(run_query, None)
+        self.check_result(result)
+
+        # absolute_url = result['data']
 
 class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
     def __init__(self, filename, file_size, md5_hash, id_online, download_link,
@@ -1126,3 +1214,254 @@ class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
         zip_stream = url_stream(self._download_link)
         sub_stream = unzip_stream(zip_stream)
         return sub_stream
+
+
+class SearchByName(object):
+
+    def __init__(self, query):
+        self._query = query
+        self._movies = []
+        self._total = None
+
+    def _safe_exec(self, query, default):
+        try:
+            result = query()
+            return result
+        except HTTPError:
+            log.debug("Query failed", exc_info=True)
+            return default
+
+    def get_movies(self):
+        return self._movies
+
+    def get_nb_movies_online(self):
+        return self._total
+
+    def more_movies_available(self):
+        if self._total is None:
+            return True
+        return len(self._movies) < self._total
+
+    def search_movies(self):
+        if not self.more_movies_available():
+            return False
+
+        xml_url = 'http://www.opensubtitles.org/en/search2/moviename-{text_quoted}/offset-{offset}/xml'.format(
+            offset=len(self._movies),
+            text_quoted=quote(self._query))
+
+        xml_page = self.fetch_url(xml_url)
+        if xml_page is None:
+            return False
+
+        movies, nb_total = self.parse_movie(xml_page)
+        self._total = nb_total
+        self._movies.extend(movies)
+
+        return True
+
+    def search_more_subtitles(self, movie):
+        if movie.get_nb_subs_available() == movie.get_nb_subs_total():
+            return None
+        xml_url = 'http://www.opensubtitles.org{provider_link}/offset-{offset}/xml'.format(
+            provider_link=movie.get_provider_link(),
+            offset=movie.get_nb_subs_available())
+
+        xml_page = self.fetch_url(xml_url)
+        if xml_page is None:
+            return None
+
+        subtitles, nb_total = self.parse_subtitles(xml_page)
+        if subtitles is None:
+            return None
+
+        if movie.get_nb_subs_total() != nb_total:
+            log.warning('Data mismatch: Partial search of subtitles told us movie has {nb_partial} subtitles '
+                        'but index told us it has {nb_index} subtitles.'.format(
+                nb_partial=nb_total, nb_index=movie.get_nb_subs_total()))
+        movie.add_subtitles(subtitles)
+
+        return subtitles
+
+    def fetch_url(self, url):
+        try:
+            log.debug('Fetching data from {}...'.format(url))
+            page = urlopen(url).read()
+            log.debug('... SUCCESS')
+        except HTTPError:
+            log.debug('... FAILED (HTTPError)', exc_info=True)
+            return None
+        return page
+
+    def search_url(self, xml_url):
+        try:
+            log.debug('Fetching data from {url}...'.format(url=xml_url))
+            xml_page = urlopen(xml_url).read()
+            log.debug('... SUCCESS')
+        except HTTPError:
+            log.debug('... FAILED (HTTPError)', exc_info=True)
+            return None
+
+        log.debug('Parsing xml...')
+        movies = self.parse_results(xml_page)
+        log.debug('... Parsing finished (is_none? {})'.format(movies is None))
+
+        return movies
+
+    def parse_movie(self, raw_xml):
+        subtitle_entries, nb_provider, nb_provider_total = self.extract_subtitle_entries(raw_xml)
+        if subtitle_entries is None:
+            return None, None
+
+        movies = []
+        for subtitle_entry in subtitle_entries:
+            try:
+                ads_entries = subtitle_entry.getElementsByTagName('ads1')
+                if ads_entries:
+                    continue
+                def try_get_firstchild_data(key, default):
+                    try:
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                movie_id_entries = subtitle_entry.getElementsByTagName('MovieID')
+                movie_id = movie_id_entries[0].firstChild.data
+                movie_id_link = movie_id_entries[0].getAttribute('Link')
+                # movie_thumb = subtitle_entry.getElementsByTagName('MovieThumb')[0].firstChild.data
+                # link_use_next = subtitle_entry.getElementsByTagName('LinkUseNext')[0].firstChild.data
+                # link_zoozle = subtitle_entry.getElementsByTagName('LinkZoozle')[0].firstChild.data
+                # link_boardreader = subtitle_entry.getElementsByTagName('LinkBoardreader')[0].firstChild.data
+                movie_name = try_get_firstchild_data('MovieName', None)
+                movie_year = try_get_firstchild_data('MovieYear', None)
+                try:
+                    movie_imdb_rating = float(subtitle_entry.getElementsByTagName('MovieImdbRating')[0].getAttribute('Percent')) / 10
+                except AttributeError:
+                    movie_imdb_rating = None
+                try:
+                    movie_imdb_link = movie_id_entries[0].getAttribute('LinkImdb')
+                except AttributeError:
+                    movie_imdb_link = None
+                movie_imdb_id = try_get_firstchild_data('MovieImdbID', None)
+                subs_total = int(subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data)
+                # newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data
+
+                movie = RemoteMovie(
+                    subtitles_nb_total=subs_total,
+                    provider_link=movie_id_link, provider_id=movie_id,
+                )
+
+                imdb_identity = ImdbIdentity(imdb_id=movie_imdb_id, imdb_rating=movie_imdb_rating)
+                video_identity = VideoIdentity(name=movie_name, year=movie_year)
+                identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
+                movie.add_identity(identity)
+
+                movies.append(movie)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
+
+        if len(movies) != nb_provider:
+            log.warning('Provider told us it returned {nb_provider} movies. '
+                        'Yet we only extracted {nb_local} movies.'.format(
+                nb_provider=nb_provider, nb_local=len(movies)))
+        return movies, nb_provider_total
+
+    def extract_subtitle_entries(self, raw_xml):
+        nb = None
+        nb_total = None
+        entries = None
+        log.debug('extract_subtitle_entries() ...')
+        try:
+            dom = minidom.parseString(raw_xml)
+            entries = None
+            opensubtitles_entries = dom.getElementsByTagName('opensubtitles')
+            for opensubtitles_entry in opensubtitles_entries:
+                results_entries = opensubtitles_entry.getElementsByTagName('results')
+                for results_entry in results_entries:
+                    nb = int(results_entry.getAttribute('items'))
+                    nb_total = int(results_entry.getAttribute('itemsfound'))
+                    entries = results_entry.getElementsByTagName('subtitle')
+                    if entries:
+                        break
+            if entries is None:
+                log.debug('... extraction FAILED (xml has unknown format)')
+            else:
+                log.debug('... extraction SUCCESS')
+        except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
+            log.debug('... extraction FAILED (xml error)', exc_info=True)
+        return entries, nb, nb_total
+
+    def parse_subtitles(self, raw_xml):
+        subtitle_entries, nb_provider, nb_provider_total = self.extract_subtitle_entries(raw_xml)
+        if subtitle_entries is None:
+            return None, None
+
+        subtitles = []
+        for subtitle_entry in subtitle_entries:
+            try:
+                ads_entries = subtitle_entry.getElementsByTagName('ads1') or subtitle_entry.getElementsByTagName('ads2')
+                if ads_entries:
+                    continue
+                def try_get_firstchild_data(key, default):
+                    try:
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                subtitle_id_entry = subtitle_entry.getElementsByTagName('IDSubtitle')[0]
+                subtitle_id = subtitle_id_entry.firstChild.data
+                subtitle_link = 'http://www.opensubtitles.org' + subtitle_id_entry.getAttribute('Link')
+                subtitle_uuid = subtitle_id_entry.getAttribute('uuid')
+
+                subtitlefile_id = subtitle_entry.getElementsByTagName('IDSubtitleFile')[0].firstChild.data
+
+                user_entry = subtitle_entry.getElementsByTagName('UserID')[0]
+                user_id = int(user_entry.firstChild.data)
+                user_link = 'http://www.opensubtitles.org' + user_entry.getAttribute('Link')
+                user_nickname = try_get_firstchild_data('UserNickName', None)
+
+                comment = subtitle_entry.getElementsByTagName('SubAuthorComment')[0].firstChild
+
+                language_entry = subtitle_entry.getElementsByTagName('ISO639')[0]
+                language_iso639 = language_entry.firstChild.data
+                language_link_search = 'http://www.opensubtitles.org' + language_entry.getAttribute('LinkSearch')
+                language_flag = 'http:' + language_entry.getAttribute('flag')
+
+                language_name = subtitle_entry.getElementsByTagName('LanguageName')[0].firstChild.data
+
+                subtitle_format = subtitle_entry.getElementsByTagName('SubFormat')[0].firstChild.data
+                subtitle_nbcds = int(subtitle_entry.getElementsByTagName('SubSumCD')[0].firstChild.data)
+                subtitle_add_date_locale = subtitle_entry.getElementsByTagName('SubAddDate')[0].getAttribute('locale')
+                subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_locale, '%d/%m/%Y %H:%M:%S')
+                subtitle_bad = int(subtitle_entry.getElementsByTagName('SubBad')[0].firstChild.data)
+                subtitle_rating = float(subtitle_entry.getElementsByTagName('SubRating')[0].firstChild.data)
+
+                download_count = int(subtitle_entry.getElementsByTagName('SubDownloadsCnt')[0].firstChild.data)
+                subtitle_movie_aka = try_get_firstchild_data('SubMovieAka', None)
+
+                subtitle_comments = int(subtitle_entry.getElementsByTagName('SubComments')[0].firstChild.data)
+                # subtitle_total = subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data #PRESENT?
+                # subtitle_newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data #PRESENT?
+
+                language = Language.from_xx(language_iso639)
+
+                download_link = 'http://www.opensubtitles.org/download/sub/{}'.format(subtitle_id)
+                if user_nickname:
+                    uploader = user_nickname
+                elif user_id != 0:
+                    uploader = str(user_id)
+                else:
+                    uploader = None
+                subtitle = OpenSubtitles_SubtitleFile(filename=None, file_size=None, md5_hash=subtitle_uuid,
+                                                      id_online=subtitlefile_id, download_link=download_link,
+                                                      link=subtitle_link, uploader=uploader,
+                                                      language=language, rating=subtitle_rating, age=subtitle_add_date)
+                subtitles.append(subtitle)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
+
+        if len(subtitles) != nb_provider:
+            log.warning('Provider told us it returned {nb_provider} subtitles. '
+                        'Yet we only extracted {nb_local} subtitles.'.format(
+                nb_provider=nb_provider, nb_local=len(subtitles)))
+        return subtitles, nb_provider_total

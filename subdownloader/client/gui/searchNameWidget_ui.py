@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'searchNameWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -84,9 +84,6 @@ class Ui_SearchNameWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonIMDBByTitle.sizePolicy().hasHeightForWidth())
         self.buttonIMDBByTitle.setSizePolicy(sizePolicy)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/images/imdb.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.buttonIMDBByTitle.setIcon(icon2)
         self.buttonIMDBByTitle.setIconSize(QtCore.QSize(32, 16))
         self.buttonIMDBByTitle.setObjectName("buttonIMDBByTitle")
         self.horizontalLayout_3.addWidget(self.buttonIMDBByTitle)
@@ -103,9 +100,9 @@ class Ui_SearchNameWidget(object):
         font.setBold(True)
         font.setWeight(75)
         self.buttonDownloadByTitle.setFont(font)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/images/download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.buttonDownloadByTitle.setIcon(icon3)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/images/download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.buttonDownloadByTitle.setIcon(icon2)
         self.buttonDownloadByTitle.setObjectName("buttonDownloadByTitle")
         self.horizontalLayout_3.addWidget(self.buttonDownloadByTitle)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
