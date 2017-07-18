@@ -3,13 +3,13 @@
 
 import logging
 import os
-import sys
 import webbrowser
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QPoint, QSettings, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMessageBox, QWidget
 
+from subdownloader.languages.language import UnknownLanguage
 from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
 from subdownloader.movie import RemoteMovie
 
@@ -58,11 +58,12 @@ class SearchNameWidget(QWidget):
         self.moviesModel.node_clicked.connect(self.on_item_clicked)
         self.moviesModel.dataChanged.connect(self.subtitlesMovieCheckedChanged)
 
+        # FIXME: load settings from general place
+        upload_language = Language.from_xxx(
+            QSettings().value('options/uploadLanguage', UnknownLanguage.create_generic()))
         self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
-        self.language_filter_change.connect(self.moviesModel.on_filter_languages_change)
 
-        # FIXME: set default filter language (load from settings)
-        # self.ui.filterLanguage.set_selected_language()
+        self.language_filter_change.connect(self.moviesModel.on_filter_languages_change)
 
         self.ui.moviesView.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.moviesView.customContextMenuRequested.connect(self.onContext)

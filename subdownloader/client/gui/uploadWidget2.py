@@ -39,16 +39,8 @@ class UploadWidget(QWidget):
     def get_state(self):
         return self._state
 
-    @pyqtSlot()
-    def on_interface_language_changed(self):
-        self.ui.retranslateUi(self)
-        self.retranslate()
-
     def setup_ui(self):
         self.ui.setupUi(self)
-
-        self.ui.uploadLanguages.set_unknown_visible(True)
-        self.ui.uploadLanguages.set_unknown_text(_('Unknown'))
 
         self.ui.uploadView.selectionModel().selectionChanged.connect(self.on_selection_change)
 
@@ -68,6 +60,7 @@ class UploadWidget(QWidget):
         self.ui.buttonUploadDownRow.clicked.connect(self.ui.uploadView.on_move_selection_down)
         self.ui.buttonUploadUpRow.clicked.connect(self.ui.uploadView.on_move_selection_up)
 
+        self.ui.uploadLanguages.set_unknown_visible(True)
         self.ui.uploadLanguages.selected_language_changed.connect(self.on_upload_language_change)
 
         self.ui.buttonUpload.setEnabled(False)
@@ -85,7 +78,13 @@ class UploadWidget(QWidget):
         self.retranslate()
 
     def retranslate(self):
+        self.ui.uploadLanguages.set_unknown_text(_('Unknown'))
         self.ui.uploadView.retranslate()
+
+    @pyqtSlot()
+    def on_interface_language_changed(self):
+        self.ui.retranslateUi(self)
+        self.retranslate()
 
     def update_buttons(self):
         selected = self.ui.uploadView.selectionModel().selectedRows()

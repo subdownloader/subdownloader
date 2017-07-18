@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystem
 
 from subdownloader.callback import ProgressCallback
 from subdownloader.filescan import scan_videopaths
-from subdownloader.languages.language import Language
+from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.video2 import VideoFile
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
@@ -102,8 +102,8 @@ class SearchFileWidget(QWidget):
 
         # Set up video view
         self.ui.filterLanguageForVideo.set_unknown_text(_('All languages'))
+        self.ui.filterLanguageForVideo.set_selected_language(UnknownLanguage.create_generic())
         self.ui.filterLanguageForVideo.selected_language_changed.connect(self.on_language_combobox_filter_change)
-        # self.ui.filterLanguageForVideo.selected_language_changed.connect(self.onFilterLanguageVideo)
 
         self.videoModel = VideoModel(self)
         self.videoModel.connect_treeview(self.ui.videoView)
