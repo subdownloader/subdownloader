@@ -168,5 +168,5 @@ class Ui_MainWindow(object):
 
 from subdownloader.client.gui.searchFileWidget import SearchFileWidget
 from subdownloader.client.gui.searchNameWidget import SearchNameWidget
-from subdownloader.client.gui.uploadWidget2 import UploadWidget
+from subdownloader.client.gui.uploadWidget import UploadWidget
 from subdownloader.client.gui import images_rc
