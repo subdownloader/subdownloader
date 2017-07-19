@@ -29,7 +29,8 @@ def get_argument_parser():
     Get a parser that is able to parse program arguments.
     :return: instance of arparse.ArgumentParser
     """
-    parser = argparse.ArgumentParser(description=project.get_description())
+    parser = argparse.ArgumentParser(description=project.get_description(),
+                                     epilog=_('Visit us at {website}.').format(website=project.WEBSITE_MAIN))
 
     parser.add_argument('--version', action='version',
                         version='{project} {version}'.format(project=project.PROJECT_TITLE,
