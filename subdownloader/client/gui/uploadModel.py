@@ -13,7 +13,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QAbstractTableModel, QFileInf
     QModelIndex, QSettings
 from PyQt5.QtWidgets import QFileDialog, QTableView
 
-log = logging.getLogger('subdownloader.client.gui.uploadModel2')
+log = logging.getLogger('subdownloader.client.gui.uploadModel')
 
 
 class UploadDataItem(object):

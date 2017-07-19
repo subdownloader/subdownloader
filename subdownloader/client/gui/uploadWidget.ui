@@ -403,7 +403,7 @@
   <customwidget>
    <class>UploadListView</class>
    <extends>QTableView</extends>
-   <header>subdownloader.client.gui.uploadModel2</header>
+   <header>subdownloader.client.gui.uploadModel</header>
   </customwidget>
   <customwidget>
    <class>LanguageComboBox</class>
