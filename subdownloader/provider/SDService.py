@@ -10,6 +10,7 @@ try:
     from urllib.request import HTTPError, urlopen, URLError
 except ImportError:
     from urllib2 import HTTPError, quote, urlopen, URLError
+
 try:
     from xmlrpc import client as xmlrpclib
     from xmlrpc.client import ProtocolError
@@ -31,7 +32,7 @@ import zlib
 from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
-from subdownloader.http import url_stream
+from subdownloader.webutil import url_stream
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
@@ -44,24 +45,16 @@ import subdownloader.FileManagement.subtitlefile as subtitlefile
 
 import socket
 try:
-    from urllib2 import urlopen, HTTPError, URLError
-except:
     from urllib.request import urlopen
     from urllib.error import HTTPError, URLError
+except ImportError:
+    from urllib2 import urlopen, HTTPError, URLError
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 TEST_URL = 'http://www.google.com'
 USER_AGENT = "%s %s" % (PROJECT_TITLE, PROJECT_VERSION_STR)
 CON_TIMEOUT = 300
 
-
-# FIXME: fix buggy opensubtitles behavior for greek ISO639-1
-# def setLanguageXX(self, xx):
-#    # FIXME: fix in opensubtitle provider
-#    # greek officially ISO639-1 is 'el'  , but opensubtitles is buggy
-#    if xx == 'gr':
-#        xx = 'el'
-#    self._language = Language.from_xx(xx)
 
 def test_connection(url, timeout=CON_TIMEOUT):
     defTimeOut = socket.getdefaulttimeout()

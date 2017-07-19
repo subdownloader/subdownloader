@@ -10,11 +10,11 @@
 # FIXME: allow download and unzip in one step?
 
 try:
-    from urllib2 import urlopen, HTTPError, URLError
-    from urllib import urlretrieve
-except ImportError:
     from urllib.request import urlopen, urlretrieve
     from urllib.error import HTTPError, URLError
+except ImportError:
+    from urllib2 import urlopen, HTTPError, URLError
+    from urllib import urlretrieve
 import logging
 import socket
 from ssl import SSLError

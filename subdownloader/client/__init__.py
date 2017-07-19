@@ -2,7 +2,6 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
 import os
-from subdownloader.project import PROJECT_TITLE
 
 
 def client_get_path():

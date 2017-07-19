@@ -238,7 +238,7 @@ class Language(str):
         """
         log.debug('Language.from_file: "{}", chunk={} ...'.format(filepath, chunk_size))
         with open(filepath, 'rb') as f:
-            data = f.read(chunk_size)
+            data = f.read(-1 if chunk_size is None else chunk_size)
         data_ascii = asciify(data)
         lang_xx = langdetect.detect(data_ascii)
         lang = cls.from_xx(lang_xx)
