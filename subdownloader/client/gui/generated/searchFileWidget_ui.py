@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'searchFileWidget.ui'
+# Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/searchFileWidget.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.1
 #
@@ -209,4 +209,3 @@ class Ui_SearchFileWidget(object):
         self.buttonDownload.setText(_("Download"))
 
 from subdownloader.client.gui.languageComboBox import LanguageComboBox
-from subdownloader.client.gui import images_rc

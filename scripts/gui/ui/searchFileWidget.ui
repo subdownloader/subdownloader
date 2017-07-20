@@ -117,7 +117,7 @@
                <string>Select videos...</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/open_video.png</normaloff>:/images/open_video.png</iconset>
               </property>
               <property name="iconSize">
@@ -143,7 +143,7 @@
                <string>Select folder...</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/open_folder.png</normaloff>:/images/open_folder.png</iconset>
               </property>
               <property name="iconSize">
@@ -198,7 +198,7 @@
                <string>Search subtitles</string>
               </property>
               <property name="icon">
-               <iconset resource="images.qrc">
+               <iconset>
                 <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
               </property>
               <property name="iconSize">
@@ -330,7 +330,7 @@
                    <string>Movie Info</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -363,7 +363,7 @@
                    <string>Play</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
                   </property>
                  </widget>
@@ -383,7 +383,7 @@
                    <string>Download</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset>
                     <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
                   </property>
                  </widget>
@@ -410,8 +410,6 @@
    <header>subdownloader.client.gui.languageComboBox</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -6,7 +6,7 @@ import os
 import platform
 import webbrowser
 
-from subdownloader.client.gui.preferences_ui import Ui_PreferencesDialog
+from subdownloader.client.gui.generated.preferences_ui import Ui_PreferencesDialog
 from subdownloader.languages.language import all_languages, Language, UnknownLanguage
 from subdownloader.project import WEBSITE_TRANSLATE
 

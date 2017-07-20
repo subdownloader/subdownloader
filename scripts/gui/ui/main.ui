@@ -269,9 +269,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="images.qrc"/>
- </resources>
  <connections/>
  <designerdata>
   <property name="gridDeltaX">

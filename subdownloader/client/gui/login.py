@@ -7,7 +7,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QSettings
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.client.gui.login_ui import Ui_LoginDialog
+from subdownloader.client.gui.generated.login_ui import Ui_LoginDialog
 
 log = logging.getLogger('subdownloader.client.gui.login')
 

@@ -48,9 +48,6 @@
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QToolButton" name="buttonUploadBrowseFolder">
-          <property name="text">
-           <string>...</string>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>:/images/openfolder.png</normaloff>:/images/openfolder.png</iconset>
@@ -75,9 +72,6 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
-          <property name="text">
-           <string>...</string>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>:/images/plus.png</normaloff>:/images/plus.png</iconset>
@@ -94,9 +88,6 @@
          <widget class="QToolButton" name="buttonUploadMinusRow">
           <property name="enabled">
            <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>...</string>
           </property>
           <property name="icon">
            <iconset>
@@ -117,9 +108,6 @@
           </property>
           <property name="toolTip">
            <string>Empty the list</string>
-          </property>
-          <property name="text">
-           <string>...</string>
           </property>
           <property name="icon">
            <iconset>
@@ -145,9 +133,6 @@
           <property name="enabled">
            <bool>false</bool>
           </property>
-          <property name="text">
-           <string>...</string>
-          </property>
           <property name="icon">
            <iconset>
             <normaloff>:/images/up.png</normaloff>:/images/up.png</iconset>
@@ -164,9 +149,6 @@
          <widget class="QToolButton" name="buttonUploadDownRow">
           <property name="enabled">
            <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>...</string>
           </property>
           <property name="icon">
            <iconset>

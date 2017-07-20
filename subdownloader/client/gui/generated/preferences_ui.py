@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'preferences.ui'
+# Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/preferences.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.1
 #
@@ -291,4 +291,3 @@ class Ui_PreferencesDialog(object):
         self.buttonCancel.setText(_("Cancel"))
 
 from subdownloader.client.gui.languageComboBox import InterfaceLanguageComboBox, LanguageComboBox
-from subdownloader.client.gui import images_rc

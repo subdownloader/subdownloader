@@ -475,8 +475,5 @@
   <tabstop>inputVideoAppParams</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
- <resources>
-  <include location="images.qrc"/>
- </resources>
  <connections/>
 </ui>

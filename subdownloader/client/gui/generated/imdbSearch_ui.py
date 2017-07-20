@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'imdbSearch.ui'
+# Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/imdbSearch.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.1
 #
@@ -70,4 +70,3 @@ class Ui_IMDBSearchDialog(object):
         self.cancelButton.setText(_("Cancel"))
 
 from subdownloader.client.gui.imdbSearchModel import ImdbListView
-from subdownloader.client.gui import images_rc

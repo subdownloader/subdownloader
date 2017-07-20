@@ -22,6 +22,12 @@ log = logging.getLogger('subdownloader.client.gui')
 def run(options):
     # create splash screen and show messages to the user
     app = QApplication(sys.argv)
+
+    # Register images
+    from subdownloader.client.gui.generated import images_rc
+    # FIXME: bug in pyrcc5 5.8 -> does not export function
+    # images_rc.register_resources()
+
     QCoreApplication.setOrganizationName(PROJECT_TITLE)
     QCoreApplication.setApplicationName(PROJECT_TITLE)
     splash = SplashScreen()

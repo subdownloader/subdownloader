@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import Qt
 
 from subdownloader import project
-from subdownloader.client.gui.about_ui import Ui_AboutDialog
+from subdownloader.client.gui.generated.about_ui import Ui_AboutDialog
 
 log = logging.getLogger("subdownloader.client.gui.about")
 

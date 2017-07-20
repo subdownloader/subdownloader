@@ -16,7 +16,7 @@ from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 
-from subdownloader.client.gui.main_ui import Ui_MainWindow
+from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.preferences import PreferencesDialog
 from subdownloader.client.gui.about import AboutDialog
 from subdownloader.client.gui.state import State

@@ -114,8 +114,5 @@
    <header>subdownloader.client.gui.imdbSearchModel</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="images.qrc"/>
- </resources>
  <connections/>
 </ui>

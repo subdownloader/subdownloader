@@ -7,7 +7,7 @@ import webbrowser
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from subdownloader.client.gui.imdbSearch_ui import Ui_IMDBSearchDialog
+from subdownloader.client.gui.generated.imdbSearch_ui import Ui_IMDBSearchDialog
 from subdownloader.identification import ProviderIdentities
 
 log = logging.getLogger('subdownloader.client.gui.imdbSearch')

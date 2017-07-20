@@ -14,7 +14,7 @@ from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
 from subdownloader.movie import RemoteMovie
 
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.client.gui.searchNameWidget_ui import Ui_SearchNameWidget
+from subdownloader.client.gui.generated.searchNameWidget_ui import Ui_SearchNameWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.searchNameModel import VideoTreeModel
 from subdownloader.languages.language import Language

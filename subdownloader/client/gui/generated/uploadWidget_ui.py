@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'uploadWidget.ui'
+# Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/uploadWidget.ui'
 #
 # Created by: PyQt5 UI code generator 5.8.1
 #
@@ -201,13 +201,7 @@ class Ui_UploadWidget(object):
         _translate = QtCore.QCoreApplication.translate
         UploadWidget.setWindowTitle(_("Form"))
         self.groupBox_2.setTitle(_("Select the videos and subtitles  (only subtitles will be uploaded):"))
-        self.buttonUploadBrowseFolder.setText(_("..."))
-        self.buttonUploadPlusRow.setText(_("..."))
-        self.buttonUploadMinusRow.setText(_("..."))
         self.buttonUploadDeleteAllRow.setToolTip(_("Empty the list"))
-        self.buttonUploadDeleteAllRow.setText(_("..."))
-        self.buttonUploadUpRow.setText(_("..."))
-        self.buttonUploadDownRow.setText(_("..."))
         self.uploadDetailsGroupBox.setTitle(_("Details:"))
         self.label.setText(_("Movie Title:"))
         self.uploadIMDB.setItemText(0, _("Click on the Find button to identify the movie"))

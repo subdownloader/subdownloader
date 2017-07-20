@@ -22,7 +22,7 @@ from subdownloader.provider.SDService import ProviderConnectionError #FIXME: mov
 
 from subdownloader.client.gui import SELECT_VIDEOS
 from subdownloader.client.gui.callback import ProgressCallbackWidget
-from subdownloader.client.gui.searchFileWidget_ui import Ui_SearchFileWidget
+from subdownloader.client.gui.generated.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.searchFileModel import VideoModel
 
