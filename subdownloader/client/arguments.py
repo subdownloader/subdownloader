@@ -60,16 +60,16 @@ def get_argument_parser():
     # logger options
     loggroup = parser.add_argument_group(_('logging'), _('Change the amount of logging done.'))
     loglvlex = loggroup.add_mutually_exclusive_group()
-    loglvlex.add_argument('--debug', dest='loglevel',
+    loglvlex.add_argument('-d', '--debug', dest='loglevel',
                           action='store_const', const=logging.DEBUG,
                           help=_('Print log messages of debug severity and higher to stderr.'))
-    loglvlex.add_argument('--warning', dest='loglevel',
+    loglvlex.add_argument('-w', '--warning', dest='loglevel',
                           action='store_const', const=logging.WARNING,
                           help=_('Print log messages of warning severity and higher to stderr. This is the default.'))
-    loglvlex.add_argument('--error', dest='loglevel',
+    loglvlex.add_argument('-e', '--error', dest='loglevel',
                           action='store_const', const=logging.ERROR,
                           help=_('Print log messages of error severity and higher to stderr.'))
-    loglvlex.add_argument('--quiet', dest='loglevel',
+    loglvlex.add_argument('-q', '--quiet', dest='loglevel',
                           action='store_const', const=LOGGING_LOGNOTHING,
                           help=_('Don\'t log anything to stderr or stdout'))
     loggroup.set_defaults(loglevel=logging.WARNING)
