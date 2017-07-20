@@ -5,22 +5,7 @@ from xml.dom import minidom
 
 from subdownloader.movie import RemoteMovie
 
-try:
-    from urllib.parse import quote
-    from urllib.request import HTTPError, urlopen, URLError
-except ImportError:
-    from urllib2 import HTTPError, quote, urlopen, URLError
 
-try:
-    from xmlrpc import client as xmlrpclib
-    from xmlrpc.client import ProtocolError
-except ImportError:
-    import xmlrpclib
-    from xmlrpclib import ProtocolError
-try:
-    import httplib
-except ImportError:
-    import http.client as httplib
 import base64
 import datetime
 import gzip
@@ -32,7 +17,7 @@ import zlib
 from io import BytesIO
 log = logging.getLogger("subdownloader.WebService")
 
-from subdownloader.webutil import url_stream
+from subdownloader.compat import Fault, HTTPConnection, HTTPError, ProtocolError, quote, ServerProxy, Transport, urlopen, URLError
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
@@ -44,11 +29,6 @@ import subdownloader.FileManagement.videofile as videofile
 import subdownloader.FileManagement.subtitlefile as subtitlefile
 
 import socket
-try:
-    from urllib.request import urlopen
-    from urllib.error import HTTPError, URLError
-except ImportError:
-    from urllib2 import urlopen, HTTPError, URLError
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 TEST_URL = 'http://www.google.com'
@@ -128,7 +108,7 @@ class TimeoutFunction:
 """The XMLRPC can use a Proxy, this class is need for that."""
 
 
-class ProxiedTransport(xmlrpclib.Transport):
+class ProxiedTransport(Transport):
 
     """ Used for proxied connections to the XMLRPC server
     """
@@ -147,7 +127,7 @@ class ProxiedTransport(xmlrpclib.Transport):
     def make_connection(self, host):
         self.log.debug("Connecting to %s through %s" % (host, self.proxy))
         self.realhost = host
-        h = httplib.HTTP(self.proxy)
+        h = HTTPConnection(self.proxy)
         return h
 
     def send_request(self, connection, handler, request_body):
@@ -218,7 +198,7 @@ class SDService(object):
                 self.log.debug("Trying proxied connection... (%r)" % proxy)
                 self.proxied_transport = ProxiedTransport()
                 self.proxied_transport.set_proxy(proxy)
-                self._xmlrpc_server = xmlrpclib.ServerProxy(
+                self._xmlrpc_server = ServerProxy(
                     server, transport=self.proxied_transport, allow_none=True)
                 # self.ServerInfo()
                 self.log.debug("...connected")
@@ -226,7 +206,7 @@ class SDService(object):
 
             elif test_connection(TEST_URL):
                 self.log.debug("Trying direct connection...")
-                self._xmlrpc_server = xmlrpclib.ServerProxy(
+                self._xmlrpc_server = ServerProxy(
                     server, allow_none=True)
                 # self.ServerInfo()
                 self.log.debug("...connected")
@@ -235,11 +215,11 @@ class SDService(object):
                 self.log.debug("...failed")
                 self.log.error("Unable to connect. Try setting a proxy.")
                 return False
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self._connection_failed()
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -329,10 +309,10 @@ class SDService(object):
             info = self._xmlrpc_server.LogOut(self._token)
             self.log.debug("Logout ended in %s with status: %s" %
                            (info['seconds'], info['status']))
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -371,10 +351,10 @@ class SDService(object):
                     if lang['ISO639'] == language:
                         return lang['SubLanguageID']
             return info['data']
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -416,10 +396,10 @@ class SDService(object):
     #        for data in info['data']:
     #            result[data.key()] = data.value()
             return result
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -458,10 +438,10 @@ class SDService(object):
                 self._token, list(subtitles_to_download.keys()))
             self.log.debug("DownloadSubtitles finished in %s with status %s." % (
                 answer['seconds'], answer['status']))
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -492,7 +472,7 @@ class SDService(object):
         except TimeoutFunctionException:
             self.log.error("SearchSubtitles timed out")
             return None
-        except xmlrpclib.ProtocolError:
+        except ProtocolError:
             self.log.error("Protocol Error on Opensubtitles.org")
             return None
 
@@ -760,10 +740,10 @@ class SDService(object):
             app = PROJECT_TITLE.lower()
         try:
             info = self._xmlrpc_server.CheckSoftwareUpdates(app)
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -802,10 +782,10 @@ class SDService(object):
                 return True
             else:
                 return noop
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -830,10 +810,10 @@ class SDService(object):
                 self._token, languages, video_array)
             self.log.debug("SearchToMail finished in %s with status %s." % (
                 info['seconds'], info['status']))
-        except xmlrpclib.ProtocolError as e:
+        except ProtocolError as e:
             self.log.debug("error in HTTP/HTTPS transport layer")
             raise
-        except xmlrpclib.Fault as e:
+        except Fault as e:
             self.log.debug("error in xml-rpc server")
             raise
         except:
@@ -1204,7 +1184,7 @@ class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
 
     def download_web(self):
         # method 2:
-        zip_stream = url_stream(self._download_link)
+        zip_stream = urlopen(self._download_link)
         sub_stream = unzip_stream(zip_stream)
         return sub_stream
 
@@ -1248,6 +1228,9 @@ class SearchByName(object):
             return False
 
         movies, nb_total = self.parse_movie(xml_page)
+        if movies is None:
+            return False
+
         self._total = nb_total
         self._movies.extend(movies)
 
@@ -1360,28 +1343,32 @@ class SearchByName(object):
         return movies, nb_provider_total
 
     def extract_subtitle_entries(self, raw_xml):
-        nb = None
-        nb_total = None
-        entries = None
+        nb = 0
+        nb_total = 0
+        entries = []
         log.debug('extract_subtitle_entries() ...')
         try:
             dom = minidom.parseString(raw_xml)
-            entries = None
             opensubtitles_entries = dom.getElementsByTagName('opensubtitles')
             for opensubtitles_entry in opensubtitles_entries:
                 results_entries = opensubtitles_entry.getElementsByTagName('results')
                 for results_entry in results_entries:
-                    nb = int(results_entry.getAttribute('items'))
-                    nb_total = int(results_entry.getAttribute('itemsfound'))
-                    entries = results_entry.getElementsByTagName('subtitle')
-                    if entries:
+                    try:
+                        nb = int(results_entry.getAttribute('items'))
+                        nb_total = int(results_entry.getAttribute('itemsfound'))
+                        entries = results_entry.getElementsByTagName('subtitle')
                         break
+                    except ValueError:
+                        continue
             if entries is None:
-                log.debug('... extraction FAILED (xml has unknown format)')
+                log.debug('... extraction FAILED: no entries found, maybe no subtitles on page!')
             else:
                 log.debug('... extraction SUCCESS')
         except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
             log.debug('... extraction FAILED (xml error)', exc_info=True)
+            nb = None
+            nb_total = None
+            entries = None
         return entries, nb, nb_total
 
     def parse_subtitles(self, raw_xml):

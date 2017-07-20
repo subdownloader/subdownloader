@@ -1,29 +1,18 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-# Example usage
-# d = Http()
-# ok = d.downloadRaw('http://www.opensubtitles.org/en/download/file/1951690122.gz', '/tmp/zip.gz')
-# if (ok):
-#     d.unpackZip('/tmp/zip.gz', '/home/myuser/Night.Watch.2004.CD1.DVDRiP.XViD-FiCO.srt')
-
-# FIXME: allow download and unzip in one step?
-
-try:
-    from urllib.request import urlopen, urlretrieve
-    from urllib.error import HTTPError, URLError
-except ImportError:
-    from urllib2 import urlopen, HTTPError, URLError
-    from urllib import urlretrieve
 import logging
 import socket
 from ssl import SSLError
 
-from subdownloader.callback import ProgressCallback
+from subdownloader.compat import HTTPError, URLError, urlopen, urlretrieve
+
 
 log = logging.getLogger('subdownloader.http')
 
 DEFAULT_TIMEOUT = 300
+
+# FIXME: allow download and unzip in one step?
 
 
 def test_connection(url, timeout=DEFAULT_TIMEOUT):
@@ -48,24 +37,10 @@ def test_connection(url, timeout=DEFAULT_TIMEOUT):
         urlopen(url)
         log.debug('urlopen succeeded')
         connectable = True
-    except HTTPError as e:
-        log.debug('urlopen failed (HTTPError). code: {}'.format(e.code))
-    except URLError as e:
-        log.debug('urlopen failed (URLError). Reason: {}'.format(e.reason))
-    except SSLError as e:
-        log.debug('urlopen failed  (ssl.SSLError). library={}, reason={}'.format(
-            e.library, e.reason))
-    except socket.error as e:
-        (value, message) = e.args
-        log.debug('urlopen failed (socket.error): {}'.format(message))
-    except:
-        log.debug('Connection failed. (Unknown reason)')
+    except (HTTPError, URLError, SSLError, socket.error):
+        log.exception('url failed')
     socket.setdefaulttimeout(defTimeOut)
     return connectable
-
-
-def url_stream(url):
-    return urlopen(url=url)
 
 
 def download_raw(url, local_path, callback):
@@ -85,8 +60,8 @@ def download_raw(url, local_path, callback):
         log.debug('... SUCCEEDED')
         callback.finish(True)
         return True
-    except:
-        log.debug('... FAILED')
+    except URLError:
+        log.exception('... FAILED')
         callback.finish(False)
         return False
 

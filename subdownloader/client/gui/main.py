@@ -7,15 +7,11 @@ import platform
 import sys
 import webbrowser
 
-try:
-    from commands import getstatusoutput
-except ImportError:
-    from subprocess import getstatusoutput
-
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
+from subdownloader.compat import getstatusoutput
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
