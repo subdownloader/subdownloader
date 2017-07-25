@@ -3,6 +3,7 @@
 
 import logging
 from pathlib import Path
+import re
 from subprocess import check_output
 from xml.etree.ElementTree import parse as parse_xml
 
@@ -15,7 +16,6 @@ self_mtime = Path(__file__).lstat().st_mtime
 
 
 class QrcFile(object):
-    FUNCTION_NAME = 'register_resources'
 
     def __init__(self, source, target):
         self.source = source
@@ -60,12 +60,20 @@ class QrcFile(object):
         return outdated
 
     def run(self, dry):
-        args = [PYRCC, str(self.source), '-o', str(self.target), '-name', self.FUNCTION_NAME]
+        args = [PYRCC, str(self.source)]
         log.info('Running {}'.format(args))
         if not dry:
-            check_output(args)
+            output = check_output(args)
+            fixed = self.fix_import(output)
+            with open(self.target, 'wb') as f:
+                f.write(fixed)
 
     def clean(self, dry):
         log.info('Removing {}'.format(self.target))
         if not dry:
             self.target.unlink()
+
+    @classmethod
+    def fix_import(cls, text):
+        new_string, _ = re.subn(b'\n(qInitResources\(\))', b'\n# \g<1>', text)
+        return new_string

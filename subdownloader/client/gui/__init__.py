@@ -13,6 +13,8 @@ from subdownloader.FileManagement.videofile import VIDEOS_EXT
 from subdownloader.client.gui.splashScreen import SplashScreen
 from subdownloader.project import PROJECT_TITLE
 
+from subdownloader.client.gui.generated.images_rc import qInitResources, qCleanupResources
+
 SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
 SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
 
@@ -23,10 +25,7 @@ def run(options):
     # create splash screen and show messages to the user
     app = QApplication(sys.argv)
 
-    # Register images
-    from subdownloader.client.gui.generated import images_rc
-    # FIXME: bug in pyrcc5 5.8 -> does not export function
-    # images_rc.register_resources()
+    qInitResources()
 
     QCoreApplication.setOrganizationName(PROJECT_TITLE)
     QCoreApplication.setApplicationName(PROJECT_TITLE)
@@ -56,4 +55,7 @@ def run(options):
     # restore default interrupt handler for signal interrupt (CTRL+C interrupt)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     res = app.exec_()
+
+    qCleanupResources()
+
     return res

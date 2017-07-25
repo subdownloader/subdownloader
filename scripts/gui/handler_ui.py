@@ -61,8 +61,7 @@ class UiFile(object):
         if not dry:
             self.target.unlink()
 
-    RE_TRANSLATE = re.compile(b'_translate\(".*?",\s(".*?")\s*?\)')
     @classmethod
     def fix_translations(cls, text):
-        new_string, _ = cls.RE_TRANSLATE.subn(b'_(\g<1>)', text)
+        new_string, _ = re.subn(b'_translate\(".*?",\s(".*?")\s*?\)', b'_(\g<1>)', text)
         return new_string
