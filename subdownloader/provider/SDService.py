@@ -838,6 +838,9 @@ class SDService(object):
     @classmethod
     def check_result(cls, data):
         log.debug('check_result(<data>)')
+        if data is None:
+            log.warning('data is None ==> FAIL')
+            raise ProviderConnectionError(None, 'No message')
         log.debug('checking presence of "status" in result ...')
         if 'status' not in data:
             log.debug('... no "status" in result ==> assuming SUCCESS')
