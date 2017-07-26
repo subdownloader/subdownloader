@@ -10,6 +10,8 @@ from subdownloader.video2 import NotAVideoException, VideoFile, VIDEOS_EXT
 log = logging.getLogger('subdownloader.filescan')
 
 
+# FIXME: convert to class structure
+
 def scan_videopaths(videopaths, callback, recursive=False):
     callback.set_range(0, len(videopaths))
     all_videos = []
@@ -39,10 +41,13 @@ def scan_videopath(videopath, callback, recursive=False):
         return __scan_folder(videopath, callback=callback, recursive=recursive)
     elif os.path.isfile(videopath):
         log.debug('"{videopath}" is a file'.format(videopath=videopath))
-        [all_subs, _] = filter_files_extensions(os.listdir(os.path.dirname(videopath)), [SUBTITLES_EXT, VIDEOS_EXT])
+        videopath_dir = os.path.dirname(videopath)
+        if not videopath_dir:
+            videopath_dir = '.'
+        [all_subs, _] = filter_files_extensions(os.listdir(videopath_dir), [SUBTITLES_EXT, VIDEOS_EXT])
         [_, video] = filter_files_extensions([videopath], [SUBTITLES_EXT, VIDEOS_EXT])
         sub_videos = [all_subs, video]
-        path_subvideos = {os.path.dirname(videopath): sub_videos}
+        path_subvideos = {videopath_dir: sub_videos}
         return merge_path_subvideo(path_subvideos, callback)
     else:
         log.debug('"{videopath}" is of unknown type'.format(videopath=videopath))
