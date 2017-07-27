@@ -23,12 +23,13 @@ def main(args=None):
 
     if options.mode == 'gui':
         import subdownloader.client.gui
-        return_code = subdownloader.client.gui.run(options)
-        sys.exit(return_code)
+        runner = subdownloader.client.gui.run
     elif options.mode == 'cli':
-        import subdownloader.client.cli.main
-        cli = subdownloader.client.cli.main.Main(options)
-        cli.start_session()
+        import subdownloader.client.cli
+        runner = subdownloader.client.cli.run
+
+    return_code = runner(options)
+    sys.exit(return_code)
 
 if __name__ == "__main__":
     main()
