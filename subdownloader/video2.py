@@ -29,12 +29,11 @@ class NotAVideoException(Exception):
     """
     Exception used to indicate a certain file is not a video.
     """
-    def __init__(self, filepath, e):
-        self._e = e
+    def __init__(self, filepath):
         self._filepath = filepath
 
     def __str__(self):
-        return '"{filepath}" is not a video. Error is "{e}".'.format(filepath=self._filepath, e=self._e)
+        return '"{filepath}" is not a video.'.format(filepath=self._filepath)
 
 
 class VideoFile(object):
@@ -48,26 +47,25 @@ class VideoFile(object):
         :param filepath: path of the videofile as string
         """
         log.debug('VideoFile.__init__("{}")'.format(filepath))
-        # FIXME: calculate hash, fps, time at request time
-        try:
-            self._filepath = os.path.realpath(filepath)
-            self._size = os.path.getsize(filepath)
-            # FIXME: calculate hash on request?
-            self._osdb_hash = self._calculate_osdb_hash()
-        except Exception as e:
-            log.exception('Could not calculate filepath, size and/or osdb hash of "{path}"'.format(path=filepath))
-            raise NotAVideoException(filepath, e)
+
+        self._filepath = os.path.realpath(filepath)
+        if not os.path.exists(self._filepath):
+            raise NotAVideoException(self._filepath)
+
+        # calculate hash and size on request
+        self._size = None
+        self._osdb_hash = None
+
         # Initialize metadata on request.
-        self._metadata_init = False
-        self._fps = 0
-        self._time_ms = 0
-        self._framecount = 0
+        self._fps = None
+        self._time_ms = None
+        self._framecount = None
 
         self._subtitles = SubtitleFileCollection(parent=self)
         self._identities = IdentityCollection()
 
     def __repr__(self):
-        if self._metadata_init:
+        if self._is_metadata_init():
             meta = '{fps={fps},time_ms={time_ms},framecount={framecount}'.format(
                 fps=self._fps, time_ms=self._time_ms, framecount=self._framecount)
         else:
@@ -77,11 +75,14 @@ class VideoFile(object):
                     path=self._filepath, size=self._size, osdb_hash=self._osdb_hash, metadata=meta,
                     identities=len(self._identities))
 
+    def _is_metadata_init(self):
+        return self._fps is not None
+
     def _read_metadata(self):
         """
         Private function to read (if not read already) and store the metadata of the local VideoFile.
         """
-        if self._metadata_init:
+        if self._is_metadata_init():
             return
         try:
             log.debug('Reading metadata of "{path}" ...'.format(path=self._filepath))
@@ -96,7 +97,6 @@ class VideoFile(object):
             log.debug('... FAIL')
             log.exception('Exception was thrown.')
             # Two possibilities: the parser failed or the file is no video
-        self._metadata_init = True
 
     def get_filepath(self):
         """
@@ -124,6 +124,8 @@ class VideoFile(object):
         Get size of this VideoFile in bytes
         :return: size as integer
         """
+        if self._size is None:
+            self._size = os.path.getsize(self._filepath)
         return self._size
 
     def get_osdb_hash(self):
@@ -131,6 +133,8 @@ class VideoFile(object):
         Get the hash of this local videofile
         :return: hash as string
         """
+        if self._osdb_hash is None:
+            self._osdb_hash = self._calculate_osdb_hash()
         return self._osdb_hash
 
     def get_fps(self):
