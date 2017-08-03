@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+import sys
+
+if sys.version_info < (3, 4):
+    print('This generator only supports Python 3.4+')
+    sys.exit(1)
+
 import logging
 from pathlib import Path
-import sys
 
 from handler_ui import UiFile
 from handler_qrc import QrcFile

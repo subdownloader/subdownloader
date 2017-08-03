@@ -45,7 +45,7 @@ class QrcFile(object):
             target_mtime = -1
             outdated = True
 
-        files = [Path(file.text) for file in parse_xml(self.source).findall('./qresource/file')]
+        files = [Path(file.text) for file in parse_xml(self.source.open('rb')).findall('./qresource/file')]
         for file in files:
             real_file = self.source.parent / file
             if not real_file.exists():
@@ -65,7 +65,7 @@ class QrcFile(object):
         if not dry:
             output = check_output(args)
             fixed = self.fix_import(output)
-            with open(self.target, 'wb') as f:
+            with self.target.open(mode='wb') as f:
                 f.write(fixed)
 
     def clean(self, dry):

@@ -53,7 +53,7 @@ class UiFile(object):
         if not dry:
             output = check_output(args)
             fixed = self.fix_translations(output)
-            with open(self.target, 'wb') as f:
+            with self.target.open(mode='wb') as f:
                 f.write(fixed)
 
     def clean(self, dry):
