@@ -37,7 +37,7 @@ ui_files = [
 default_import_from = 'subdownloader.client.gui'
 
 
-def generate(command='run', import_from=default_import_from, dry=False, targets=[]):
+def generate(command='run', import_from=default_import_from, dry=False, targets=list(), force=False):
     source_dir = Path(__file__).absolute().parent
     ui_source_dir = source_dir / 'ui'
     rc_source_dir = source_dir / 'rc'
@@ -71,6 +71,8 @@ def generate(command='run', import_from=default_import_from, dry=False, targets=
 
     for action in actions:
         try:
+            if force:
+                outdated.add(action)
             if action.target.exists() and self_mtime > action.target.lstat().st_mtime:
                 outdated.add(action)
             if action.target_outdated():
@@ -101,8 +103,9 @@ def main():
 
     parser = ArgumentParser(description='Generate')
 
-    parser.add_argument('-d', '--dry-run', dest='dry', action='store_true', help='Determine dependencies. Do not generate targetes.')
+    parser.add_argument('-d', '--dry-run', dest='dry', action='store_true', help='Determine dependencies. Do not generate targets.')
     parser.add_argument('--import-from', metavar='MODULE', default=default_import_from, help='Module of the gui files. (default="{}")'.format(default_import_from))
+    parser.add_argument('-F', '--force', dest='force', action='store_true', help='Force generation of targets.')
 
     action = parser.add_mutually_exclusive_group()
     action.add_argument('-R', '--run', dest='command', action='store_const', const='run', default='run', help='Run default target. (default)')
@@ -111,7 +114,7 @@ def main():
     parser.add_argument('targets', metavar='TARGET', nargs='*', help='File to generate.')
 
     args = parser.parse_args()
-    generate(command=args.command, import_from=args.import_from, dry=args.dry, targets=args.targets)
+    generate(command=args.command, import_from=args.import_from, dry=args.dry, targets=args.targets, force=args.force)
 
 
 if __name__ == '__main__':
