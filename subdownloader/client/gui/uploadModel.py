@@ -3,10 +3,11 @@
 
 import logging
 
+from subdownloader.compat import Path
 from subdownloader.filescan import scan_videopath
 from subdownloader.subtitle2 import LocalSubtitleFile
 
-from subdownloader.client.gui import SELECT_SUBTITLES, SELECT_VIDEOS
+from subdownloader.client.gui import get_select_subtitles, get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QAbstractTableModel, QFileInfo, QItemSelectionModel, \
@@ -245,7 +246,7 @@ class UploadListView(QTableView):
         callback.show()
 
         log.debug('on_browse_folder({folder})'.format(folder=directory))
-        videos, subs = scan_videopath(directory, callback=callback, recursive=False)
+        videos, subs = scan_videopath(Path(directory), callback=callback, recursive=False)
         log.debug('#videos: {nb_vids}, #subtitles: {nb_subs}'.format(
             nb_vids=len(videos), nb_subs=len(subs)))
 
@@ -294,10 +295,10 @@ class UploadListView(QTableView):
 
         if col == UploadDataItem.COL_VIDEO:
             dialog_title = _("Browse video...")
-            extensions = SELECT_VIDEOS
+            extensions = get_select_videos()
         else: # if col == UploadDataItem.COL_SUB:
             dialog_title = _("Browse subtitle...")
-            extensions = SELECT_SUBTITLES
+            extensions = get_select_subtitles()
 
         file_path, t = QFileDialog.getOpenFileName(self, dialog_title, working_directory, extensions)
         if not file_path:

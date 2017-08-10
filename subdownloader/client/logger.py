@@ -6,7 +6,7 @@ import logging.handlers
 import os
 
 from subdownloader import project
-from subdownloader.client.configuration import CONFIGURATION_FOLDER
+from subdownloader.client.configuration import configuration_get_default_folder
 
 log = logging.getLogger('subdownloader.client.logger')
 logging.getLogger().setLevel(logging.DEBUG)
@@ -21,15 +21,15 @@ LOGGING_HANDLERS = {
 }
 
 
-def logging_file_install(filename):
+def logging_file_install(path):
     """
     Install logger that will write to file. If this function has already installed a handler, replace it.
-    :param filename: filename of the log file, Use None for default file location.
+    :param path: path to the log file, Use None for default file location.
     """
-    if not filename:
-        filename = os.path.join(CONFIGURATION_FOLDER, LOGGING_DEFAULTNAME)
+    if path is None:
+        path = configuration_get_default_folder() / LOGGING_DEFAULTNAME
 
-    if not os.path.exists(os.path.dirname(filename)):
+    if not path.parent.exists():
         log.error('File logger installation FAILED!')
         log.error('The directory of the log file does not exist.')
         return
@@ -39,7 +39,7 @@ def logging_file_install(filename):
 
     logger.removeHandler(LOGGING_HANDLERS['file'])
 
-    logFileHandler = logging.handlers.RotatingFileHandler(filename=filename,
+    logFileHandler = logging.handlers.RotatingFileHandler(filename=str(path),
                                                           mode='a',
                                                           maxBytes=LOGGING_MAXBYTES,
                                                           backupCount=LOGGING_BACKUPCOUNT)

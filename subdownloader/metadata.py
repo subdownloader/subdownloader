@@ -59,19 +59,19 @@ class Metadata(object):
         """
         return self._video_tracks
 
-    def _parse_dummy(self, filepath):
+    def _parse_dummy(self, path):
         """
         Private function to pretend to parse video at filepath, but don't do anything actually.
-        :param filepath: path of video to parse as string
+        :param path: path of video to parse as string
         """
         pass
 
-    def _parse_kaa_metadata(self, filepath):
+    def _parse_kaa_metadata(self, path):
         """
         Private function to parse video at filepath, using kaa framework.
-        :param filepath: path of video to parse as string
+        :param path: path of video to parse as string
         """
-        parseRes = kaa.metadata.parse(filepath)
+        parseRes = kaa.metadata.parse(str(path))
         if not parseRes:
             return
         for video in parseRes.video:
@@ -83,13 +83,13 @@ class Metadata(object):
                 )
             )
 
-    def _parse_pymediainfo(self, filepath):
+    def _parse_pymediainfo(self, path):
         """
         Private function to parse video at filepath, using pymediainfo framework.
-        :param filepath: path of video to parse as string
+        :param path: path of video to parse as string
         """
-        log.debug('pymediainfo: parsing "{filepath}" ...'.format(filepath=filepath))
-        parseRes = pymediainfo.MediaInfo.parse(filepath)
+        log.debug('pymediainfo: parsing "{path}" ...'.format(path=path))
+        parseRes = pymediainfo.MediaInfo.parse(str(path))
         log.debug('... parsing FINISHED')
         for track in parseRes.tracks:
             log.debug('... found track type: "{track_type}"'.format(track_type=track.track_type))
@@ -150,12 +150,13 @@ Metadata.parse = parser
 
 log.debug('... Importing metadata parsing module finished')
 
-def parse(filepath):
+
+def parse(path):
     """
     Parse video at filepath
-    :param filepath: path of video to parse as string
+    :param path: path of video to parse as string
     :return: Metadata Instance of the video
     """
     metadata = Metadata()
-    metadata.parse(filepath)
+    metadata.parse(path)
     return metadata

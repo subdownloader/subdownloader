@@ -48,8 +48,8 @@ class VideoFile(object):
         """
         log.debug('VideoFile.__init__("{}")'.format(filepath))
 
-        self._filepath = os.path.realpath(filepath)
-        if not os.path.exists(self._filepath):
+        self._filepath = filepath
+        if not self._filepath.exists():
             raise NotAVideoException(self._filepath)
 
         # calculate hash and size on request
@@ -69,7 +69,7 @@ class VideoFile(object):
             meta = '{fps={fps},time_ms={time_ms},framecount={framecount}'.format(
                 fps=self._fps, time_ms=self._time_ms, framecount=self._framecount)
         else:
-            meta = '(unavailable)'
+            meta = '<unavailable>'
         return '<Video:path="{path}",size={size},osdb_hash={osdb_hash},metadata={metadata},' \
                '#identities={identities}'.format(
                     path=self._filepath, size=self._size, osdb_hash=self._osdb_hash, metadata=meta,
@@ -110,14 +110,14 @@ class VideoFile(object):
         Get the folder of this VideoFile
         :return: folder as string
         """
-        return os.path.dirname(self._filepath)
+        return self._filepath.parent
 
     def get_filename(self):
         """
         Get filename of this VideoFile
         :return: file name as string
         """
-        return os.path.basename(self._filepath)
+        return self._filepath.name
 
     def get_size(self):
         """
@@ -125,7 +125,7 @@ class VideoFile(object):
         :return: size as integer
         """
         if self._size is None:
-            self._size = os.path.getsize(self._filepath)
+            self._size = self._filepath.stat().st_size
         return self._size
 
     def get_osdb_hash(self):
@@ -195,10 +195,9 @@ class VideoFile(object):
         :return: hash as string
         """
         log.debug('_calculate_OSDB_hash() of "{path}" ...'.format(path=self._filepath))
-        f = open(self._filepath, 'rb')
+        f = self._filepath.open(mode='rb')
 
-        file_size = os.fstat(f.fileno()).st_size
-        log.debug('... file_size ={file_size} bytes'.format(file_size=file_size))
+        file_size = self.get_size()
 
         longlong_format = 'Q'  # unsigned long long little endian
         size_longlong = struct.calcsize(longlong_format)

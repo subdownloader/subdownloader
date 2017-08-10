@@ -28,6 +28,7 @@ setup(
     version = subdownloader.project.PROJECT_VERSION_STR,
     author = subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
     author_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
+    maintainer_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
     description = subdownloader.project.get_description(),
     keywords = "download upload automatic subtitle download movie video film search",
 

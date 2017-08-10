@@ -31,6 +31,7 @@ class SearchNameWidget(QWidget):
         QWidget.__init__(self)
 
         self._state = None
+        self.moviesModel = None
 
         self.ui = Ui_SearchNameWidget()
         self.setup_ui()

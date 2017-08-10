@@ -4,7 +4,9 @@
 import logging
 import os
 
+from subdownloader.compat import Path
 from subdownloader.subtitle2 import LocalSubtitleFile, SubtitleFileNetwork, SUBTITLES_EXT
+from subdownloader.util import IllegalPathException
 from subdownloader.video2 import NotAVideoException, VideoFile, VIDEOS_EXT
 
 log = logging.getLogger('subdownloader.filescan')
@@ -22,7 +24,6 @@ def scan_videopaths(videopaths, callback, recursive=False):
         videos, subtitles = scan_videopath(videopath, subcallback, recursive)
         all_videos.extend(videos)
         all_subtitles.extend(subtitles)
-    callback.finish()
     return all_videos, all_subtitles
 
 
@@ -36,15 +37,18 @@ def scan_videopath(videopath, callback, recursive=False):
     """
     log.debug('scan_videopath(videopath="{videopath}", recursive={recursive})'.format(
         videopath=videopath, recursive=recursive))
-    if os.path.isdir(videopath):
+    if not videopath.exists():
+        log.debug('"{videopath}" does not exist'.format(videopath=videopath))
+        raise IllegalPathException(path=videopath)
+    if videopath.is_dir():
         log.debug('"{videopath}" is a directory'.format(videopath=videopath))
         return __scan_folder(videopath, callback=callback, recursive=recursive)
-    elif os.path.isfile(videopath):
+    elif videopath.is_file():
         log.debug('"{videopath}" is a file'.format(videopath=videopath))
         videopath_dir = os.path.dirname(videopath)
         if not videopath_dir:
             videopath_dir = '.'
-        [all_subs, _] = filter_files_extensions(os.listdir(videopath_dir), [SUBTITLES_EXT, VIDEOS_EXT])
+        [all_subs, _] = filter_files_extensions(videopath_dir.iterdir(), [SUBTITLES_EXT, VIDEOS_EXT])
         [_, video] = filter_files_extensions([videopath], [SUBTITLES_EXT, VIDEOS_EXT])
         sub_videos = [all_subs, video]
         path_subvideos = {videopath_dir: sub_videos}
@@ -67,12 +71,14 @@ def __scan_folder(folder_path, callback, recursive=False):
     path_subvideos = {}
     # FIXME: a folder named 'movie.avi' is also considered a movie. Fix this.
     if recursive:
-        for dir_path, _, files in os.walk(folder_path):
+        for dir_path, _, files in os.walk(str(folder_path)):
             log.debug('walking current directory:"{}"'.format(dir_path))
-            sub_videos = filter_files_extensions(files, [SUBTITLES_EXT, VIDEOS_EXT])
+            path_dir = Path(dir_path)
+            path_files = [path_dir / file for file in files]
+            sub_videos = filter_files_extensions(path_files, [SUBTITLES_EXT, VIDEOS_EXT])
             path_subvideos[dir_path] = sub_videos
     else:
-        files = filter(lambda f: os.path.isfile(os.path.join(folder_path, f)), os.listdir(folder_path))
+        files = filter(lambda f: (folder_path / f).is_file(), folder_path.iterdir())
         sub_videos = filter_files_extensions(files, [SUBTITLES_EXT, VIDEOS_EXT])
         path_subvideos[folder_path] = sub_videos
     return merge_path_subvideo(path_subvideos, callback)
@@ -98,11 +104,11 @@ def merge_path_subvideo(path_subvideos, callback):
     callback.update(vid_i)
     for path, subvideos in path_subvideos.items():
         [subs_str, vids_str] = subvideos
-        subtitles = [LocalSubtitleFile(filepath=os.path.join(path, sub_str)) for sub_str in subs_str]
+        subtitles = [LocalSubtitleFile(filepath=path / sub_str) for sub_str in subs_str]
         all_subtitles.extend(subtitles)
         for vid_str in vids_str:
             try:
-                video = VideoFile(os.path.join(path, vid_str))
+                video = VideoFile(path /vid_str)
             except NotAVideoException:
                 continue
             all_videos.append(video)
@@ -129,8 +135,7 @@ def filter_files_extensions(files, extension_lists):
     log.debug('filter_files_extensions: files="{}"'.format(files))
     result = [[] for _ in extension_lists]
     for file in files:
-        root, ext = os.path.splitext(file)
-        ext = ext[1:].lower()
+        ext = file.suffix[1:].lower()
         for ext_i, ext_list in enumerate(extension_lists):
             if ext in ext_list:
                 result[ext_i].append(file)

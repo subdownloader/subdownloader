@@ -44,7 +44,7 @@ WEBSITE_MAIN = 'https://github.com/subdownloader/subdownloader'
 WEBSITE_HELP = 'https://github.com/subdownloader/subdownloader'
 WEBSITE_ISSUES = 'https://github.com/subdownloader/subdownloader/issues'
 WEBSITE_RELEASES = 'https://github.com/subdownloader/subdownloader/releases'
-WEBSITE_TRANSLATE = 'http://www.subdownloader.net/translate.html'
+WEBSITE_TRANSLATE = 'https://github.com/subdownloader/subdownloader-i18n'
 
 
 def get_description():

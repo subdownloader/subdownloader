@@ -6,9 +6,9 @@ import argparse
 import logging
 import os
 try:
-    import pathlib
+    from pathlib import Path
 except ImportError:
-    import pathlib2 as pathlib
+    from pathlib2 import Path
 import shutil
 from subprocess import check_call
 
@@ -20,16 +20,19 @@ log.setLevel(logging.DEBUG)
 class TranslationGenerator(object):
     """Translation file generator"""
 
-    def __init__(self, name, source_path, po_path, mo_path):
+    SYSTEM_SOURCE_FILES = ['argparse.py', 'cmd.py']
+
+    def __init__(self, name, source_path, po_path, mo_path, system_path):
         self._source_path = source_path
         self._po_path = po_path
         self._mo_path = mo_path
+        self._system_path = system_path
         self._basename = name
 
-    def _iter_suffix(self, suffix):
-        for root, dirs, files in os.walk(str(self._source_path)):
+    def _iter_suffix(self, path, suffix):
+        for root, dirs, files in os.walk(str(path)):
             for filename in files:
-                file_path = pathlib.Path(root, filename)
+                file_path = Path(root, filename)
                 if file_path.suffix == suffix:
                     yield file_path
 
@@ -39,9 +42,12 @@ class TranslationGenerator(object):
         """
         files_to_translate = []
         log.debug("Collecting python sources for pot ...")
-        for source_path in self._iter_suffix(suffix=".py"):
+        for source_path in self._iter_suffix(path=self._source_path, suffix=".py"):
             log.debug("... add to pot: {source}".format(source=str(source_path)))
             files_to_translate.append(str(source_path))
+        for system_file in self.SYSTEM_SOURCE_FILES:
+            files_to_translate.append(str(self._system_path / system_file))
+            # FIXME: use separate domain for system source translations? Nerge them when generating mo's?
         log.debug("Finished collection sources.")
         pot_path = (self._po_path / self._basename).with_suffix(".pot")
         command = ["xgettext", "--keyword=_", "--keyword=_translate",
@@ -95,14 +101,20 @@ class TranslationGenerator(object):
             check_call(["msgfmt", str(po_path), "-o", str(mo_path)])
         log.debug("All mo files updated")
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Update the internationalization files: pot, po's and mo's.")
 
     parser.add_argument("-n", "--name", dest="name", default=None, help="Name of the project")
 
-    parser.add_argument("-s", "--source", required=True, dest="source_path", help="Directory of input python SOURCE files")
-    parser.add_argument("-p", "--po_path", required=True, dest="po_path", help="Directory of PO(T) file(s)")
-    parser.add_argument("-m", "--mo_path", required=True, dest="mo_path", help="Directory of MO files")
+    parser.add_argument("-i", "--input", required=True, dest="source_path", type=Path,
+                        help="Directory of input python SOURCE files")
+    parser.add_argument("-p", "--po_path", required=True, dest="po_path", type=Path,
+                        help="Directory of PO(T) file(s)")
+    parser.add_argument("-m", "--mo_path", required=True, dest="mo_path", type=Path,
+                        help="Directory of MO files")
+    parser.add_argument("-s", "--system", required=True, dest="system_path", type=Path,
+                        help="Directory of the python system modules")
 
     what_group = parser.add_argument_group(title="What to create/update. If no option is given, "
                                                  "action is performed on all")
@@ -117,20 +129,21 @@ def parse_args():
 
     arguments = {}
 
-    source_path = pathlib.Path(args.source_path)
-    if not source_path.is_dir():
+    if not args.source_path.is_dir():
         parser.error("Source path is not a directory")
-    arguments["source_path"] = source_path
+    arguments["source_path"] = args.source_path
 
-    po_path = pathlib.Path(args.po_path)
-    if not po_path.is_dir():
+    if not args.po_path.is_dir():
         parser.error("PO path is not a directory")
-    arguments["po_path"] = po_path
+    arguments["po_path"] = args.po_path
 
-    mo_path = pathlib.Path(args.mo_path)
-    if not mo_path.is_dir():
+    if not args.mo_path.is_dir():
         parser.error("MO path is not a directory")
-    arguments["mo_path"] = mo_path
+    arguments["mo_path"] = args.mo_path
+
+    if not args.system_path.is_dir():
+        parser.error("system path is not a directory")
+    arguments["system_path"] = args.system_path
 
     do_what = {"pot": args.what_pot, "po": args.what_po, "mo": args.what_mo}
     if not any(do_what.values()):
@@ -141,7 +154,8 @@ def parse_args():
 
     return arguments, do_what
 
-if __name__ == '__main__':
+
+def main():
     translation_args, what = parse_args()
     translation_generator = TranslationGenerator(**translation_args)
     if what["pot"]:
@@ -150,3 +164,6 @@ if __name__ == '__main__':
         translation_generator.do_po()
     if what["mo"]:
         translation_generator.do_mo()
+
+if __name__ == '__main__':
+    main()

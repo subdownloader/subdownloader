@@ -13,6 +13,7 @@ from subdownloader.compat import Path
 log = logging.getLogger('subdownloader.client.internationalization')
 
 
+# FIXME: Can use Language class?
 def i18n_install(lc=None):
     """
     Install internationalization support for the clients using the specified locale.
@@ -22,14 +23,10 @@ def i18n_install(lc=None):
     """
     log.debug('i18n_install( {lc} ) called.'.format(lc=lc))
     if lc is None:
-        lc, encoding = locale.getlocale()
-        log.debug('locale.getlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
-    if lc is None:
-        lc, encoding = locale.getdefaultlocale()
-        log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
+        lc = i18n_system_locale()
     if lc is None:
         log.debug('i18n_install(): installing NullTranslations')
-        gettext.NullTranslations().install()
+        translator = gettext.NullTranslations()
     else:
         child_locales = i18n_support_locale(lc)  # Call i18n_support_locale to log the supported locales
 
@@ -38,9 +35,24 @@ def i18n_install(lc=None):
                                                                        localedir=i18n_get_path(),
                                                                        languages=child_locales,
                                                                        fallback=True))
-        gettext.translation(
+        translator = gettext.translation(
             domain=project.PROJECT_TITLE.lower(), localedir=str(i18n_get_path()),
-            languages=child_locales, fallback=True).install()
+            languages=child_locales, fallback=True)
+    translator.install(names=['ngettext'])
+
+
+def i18n_system_locale():
+    """
+    Return the system locale
+    :return: the system locale (as a string)
+    """
+    log.debug('i18n_system_locale() called')
+    lc, encoding = locale.getlocale()
+    log.debug('locale.getlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
+    if lc is None:
+        lc, encoding = locale.getdefaultlocale()
+        log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
+    return lc
 
 
 def i18n_locale_fallbacks_calculate(lc):

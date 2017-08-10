@@ -6,6 +6,14 @@ import io
 import shutil
 
 
+class IllegalPathException(Exception):
+    def __init__(self, path):
+        self._path = path
+
+    def path(self):
+        return self._path
+
+
 def asciify(data):
     """
     Limit the byte data string to only ascii characters and convert it to a string.

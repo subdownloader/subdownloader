@@ -15,7 +15,13 @@ class NotALanguageException(ValueError):
     """
     Exception to inform that some value is not a valid Language.
     """
-    pass
+    def __init__(self, value, message):
+        ValueError.__init__(self, message)
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
 
 
 # WORKAROUND:
@@ -200,12 +206,12 @@ class Language(str):
             return UnknownLanguage(xyzvalue)
         for lang_id, lang_data in enumerate(LANGUAGES):
             for data_value in lang_data[xyzkey]:
-                if data_value == xyzvalue:
+                if xyzvalue == data_value.lower():
                     return cls(lang_id)
-        raise NotALanguageException('Illegal language {}: {}'.format(xyzkey, xyzvalue))
+        raise NotALanguageException(xyzvalue, 'Illegal language {}: {}'.format(xyzkey, xyzvalue))
 
     @classmethod
-    def from_unknown(cls, value, xx=True, xxx=True, locale=True, name=True):
+    def from_unknown(cls, value, xx=False, xxx=False, locale=False, name=False):
         """
         Try to create a Language instance having only some limited data about the Language.
         If no corresponding Language is found, a NotALanguageException is thrown.
@@ -226,7 +232,7 @@ class Language(str):
                     return cls._from_xyz(key, value)
                 except NotALanguageException:
                     pass
-        raise NotALanguageException('Illegal language "{}"'.format(value))
+        raise NotALanguageException(value, 'Illegal language "{}"'.format(value))
 
     @classmethod
     def from_file(cls, filepath, chunk_size=None):
@@ -244,10 +250,6 @@ class Language(str):
         lang = cls.from_xx(lang_xx)
         log.debug('... result language={}'.format(lang))
         return lang
-
-    @classmethod
-    def can_detect_from_file(cls):
-        return langdetect is not None
 
 
 class UnknownLanguage(Language):

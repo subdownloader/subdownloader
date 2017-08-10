@@ -161,7 +161,7 @@ class Main(object):
 
         # check if user set language to use on subtitles
         log.debug("Checking language parameter...")
-        if self.options.language:
+        if self.options.languages:
             log.debug("...passed")
         else:
             log.debug("...failed")

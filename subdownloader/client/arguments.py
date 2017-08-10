@@ -1,27 +1,80 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+from argcomplete import autocomplete
 import argparse
 import logging
 
 from subdownloader import project
+from subdownloader.client import ClientType
+from subdownloader.client.cli import CliAction
 from subdownloader.client.logger import LOGGING_LOGNOTHING
+from subdownloader.client.state import ProviderData, Proxy, SubtitleRenameStrategy
+from subdownloader.compat import Path
+from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 
 
-def parse_arguments(args):
+def parse_arguments(args=None):
     """
     Parse the program arguments.
     :return: argparse.Namespace object with the parsed arguments
     """
     parser = get_argument_parser()
 
-    try:
-        import argcomplete
-        argcomplete.autocomplete(parser)
-    except ImportError:
-        pass
+    # Autocomplete arguments
+    autocomplete(parser)
 
     return parser.parse_args(args=args)
+
+
+class ProxyAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            [host, port] = values.split(':')
+            setattr(namespace, self.dest, Proxy(host, int(port)))
+        except ValueError:
+            parser.error(_('Not a valid proxy address: "{}"').format(values))
+
+
+class LanguagesAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            languages = [Language.from_unknown(value, xx=True, xxx=True, locale=True, name=True) for value in values]
+            setattr(namespace, self.dest, languages)
+        except NotALanguageException as e:
+            parser.error(_('{lang_str} is an unknown language.').format(lang_str=e.value))
+
+
+class PathsAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        paths = [Path(value).expanduser().absolute() for value in values]
+        setattr(namespace, self.dest, paths)
+
+
+class ProviderAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        providers = getattr(namespace, self.dest)
+        if providers is None:
+            providers = {}
+            setattr(namespace, self.dest, providers)
+        provider_str = values[0]
+        try:
+            kwargs = providers[provider_str].kwargs
+        except KeyError:
+            kwargs = {}
+        for value in values[1:]:
+            try:
+                k, v = value.split('=', 1)
+                k, v = k.strip(), v.strip()
+                if not k:
+                    raise ValueError()
+                if k in kwargs:
+                    parser.error('Duplicate "{}"-provider key: {}'.format(provider_str, k))
+                kwargs[k] = v
+            except ValueError:
+                parser.error('Illegal {} argument: {}'.format(option_string, value))
+
+        providers[provider_str] = ProviderData(provider_str, kwargs)
 
 
 def get_argument_parser():
@@ -35,27 +88,29 @@ def get_argument_parser():
     parser.add_argument('--version', action='version',
                         version='{project} {version}'.format(project=project.PROJECT_TITLE,
                                                              version=project.PROJECT_VERSION_STR))
+    parser.add_argument('-T', '--test', dest='test',
+                        action='store_true', default=False,
+                        help=argparse.SUPPRESS)
+    parser.add_argument('-V', '--video', dest='videopath', default=None, metavar='PATH',
+                        nargs=argparse.ONE_OR_MORE, action=PathsAction,
+                        help=_('Full path to your video(s).'))
+    parser.add_argument('-s', '--settings', dest='settings', type=Path, default=None, metavar='FILE',
+                        help=_('Set the settings file.'))
+    parser.add_argument('-l', '--lang', dest='languages', metavar='LANGUAGE',
+                        default=[UnknownLanguage.create_generic()],
+                        nargs=argparse.ONE_OR_MORE, action=LanguagesAction,
+                        help=_('Set the preferred subtitle language(s) for download and upload.'))
 
-    # internal application options
-
-    interfaceGroup = parser.add_argument_group(_('interface'), _('Change settings of the interface'))
-    guicli = interfaceGroup.add_mutually_exclusive_group()
-    guicli.add_argument('-g', '--gui', dest='mode',
-                        action='store_const', const='gui',
+    # interface options
+    interface_group = parser.add_argument_group(_('interface'), _('Change settings of the interface'))
+    guicli = interface_group.add_mutually_exclusive_group()
+    guicli.add_argument('-g', '--gui', dest='client_type',
+                        action='store_const', const=ClientType.GUI,
                         help=_('Run application in GUI mode. This is the default.'))
-    guicli.add_argument('-c', '--cli', dest='mode',
-                        action='store_const', const='cli',
+    guicli.add_argument('-c', '--cli', dest='client_type',
+                        action='store_const', const=ClientType.CLI,
                         help=_('Run application in CLI mode.'))
-    parser.set_defaults(mode='gui')
-
-    interfaceGroup.add_argument('-T', '--test', dest='test',
-                                action='store_true', default=False,
-                                help=_('Used by developers for testing. (unsupported)'))
-    interfaceGroup.add_argument('-V', '--video', dest='videofile',
-                                metavar='PATH', default=None,
-                                help=_('Full path to your video(s). Don\'t use "~".'))  # FIXME: allow ~
-    interfaceGroup.add_argument('-l', '--lang', dest='language', default='all',
-                                help=_('Set the language of the subtitle for download and upload.'))
+    parser.set_defaults(client_type=ClientType.GUI)
 
     # logger options
     loggroup = parser.add_argument_group(_('logging'), _('Change the amount of logging done.'))
@@ -71,53 +126,53 @@ def get_argument_parser():
                           help=_('Print log messages of error severity and higher to stderr.'))
     loglvlex.add_argument('-q', '--quiet', dest='loglevel',
                           action='store_const', const=LOGGING_LOGNOTHING,
-                          help=_('Don\'t log anything to stderr or stdout'))
+                          help=_('Don\'t log anything to stderr.'))
     loggroup.set_defaults(loglevel=logging.WARNING)
 
-    loggroup.add_argument('--log', dest='logfile', metavar='FILE',
+    loggroup.add_argument('--log', dest='logfile', metavar='FILE', type=Path,
                           default=None, help=_('Path name of the log file.'))
 
     # cli options
-    cliGroup = parser.add_argument_group(_('cli'), _('Change the behavior of the command line interface.'))
-    cliGroup.add_argument('-i', '--interactive', dest='interactive',
-                          action='store_true', default=False,
-                          help=_('Prompt user when decisions need to be done.'))
+    cli_group = parser.add_argument_group(_('cli'), _('Change the behavior of the command line interface.'))
+    cli_group.add_argument('-i', '--interactive', dest='interactive',
+                           action='store_true', default=False,
+                           help=_('Prompt user when decisions need to be done.'))
+    cli_group.add_argument('-r', '--recursive', dest='recursive',
+                           action='store_true', default=False,
+                           help=_('Search for subtitles recursively.'))
 
-    overwriteGroup = cliGroup.add_mutually_exclusive_group()
-    overwriteGroup.add_argument('--los', dest='overwrite_local', action='store_false',
-                                help=_('"Local Over Server" policy. '
-                                     'Give priority of local subtitles over subtitles on server. This is the default.'))
-    overwriteGroup.add_argument('--sol', dest='overwrite_local', action='store_true',
-                                help=_('"Server Over Local" policy. '
-                                       'Give priority of subtitles on server over local subtitles.'))
-    parser.set_defaults(overwrite_local=False)
+    operation_group = cli_group.add_mutually_exclusive_group()
+    operation_group.add_argument('-D', '--download', dest='operation', action='store_const', const=CliAction.DOWNLOAD,
+                                 help=_('Download subtitle(s). This is the default.'))
+    operation_group.add_argument('-U', '--upload', dest='operation', action='store_const', const=CliAction.UPLOAD,
+                                 help=_('Upload subtitle(s).'))
+    # operation_group.add_argument('-L', '--list', dest='operation', action='store_const', const=CliAction.LIST,
+    #                              help=_('List available subtitle(s) without downloading.'))
+    parser.set_defaults(operation=CliAction.DOWNLOAD)
 
-    operationGroup = cliGroup.add_mutually_exclusive_group()
-    operationGroup.add_argument('-D', '--download', dest='operation', action='store_const', const='download',
-                                help=_('Download a subtitle. This is the default.'))
-    operationGroup.add_argument('-U', '--upload', dest='operation', action='store_const', const='upload',
-                                help=_('Upload a subtitle.'))
-    operationGroup.add_argument('-L', '--list', dest='operation', action='store_const', const='list',
-                                help=_('List available subtitles without downloading.'))
-    parser.set_defaults(operation='download')
-
-    renameGroup = cliGroup.add_mutually_exclusive_group()
-    renameGroup.add_argument('--keep-names', dest='renaming', action='store_false',
-                             help=_('Keep original subtitle names. This is the default.'))
-    renameGroup.add_argument('--rename-subs', dest='renaming', action='store_true',
-                             help=_('Rename subtitles to match the movie file name.'))
-    parser.set_defaults(renaming=False)
+    rename_group = cli_group.add_mutually_exclusive_group()
+    rename_group.add_argument('--rename-online', dest='rename_strategy', action='store_const',
+                              const=SubtitleRenameStrategy.ONLINE,
+                              help=_('Use the on-line subtitle filename as name for the downloaded subtitles. '
+                                     'This is the default.'))
+    rename_group.add_argument('--rename-video', dest='rename_strategy', action='store_const',
+                              const=SubtitleRenameStrategy.VIDEO,
+                              help=_('Use the local video filename as name for the downloaded subtitle.'))
+    rename_group.add_argument('--rename-lang', dest='rename_strategy', action='store_const',
+                              const=SubtitleRenameStrategy.VIDEO_LANG,
+                              help=_('Use the local video filename + language as name for the downloaded subtitle.'))
+    rename_group.add_argument('--rename-uploader', dest='rename_strategy', action='store_const',
+                              const=SubtitleRenameStrategy.VIDEO_LANG_UPLOADER,
+                              help=_('Use the local video filename + uploader + language '
+                                     'as name for the downloaded subtitle.'))
+    parser.set_defaults(rename_strategy=SubtitleRenameStrategy.ONLINE)
 
     # online options
-    onlineGroup = parser.add_argument_group('online', 'Change parameters related to the online provider.')
-    onlineGroup.add_argument("-P", "--proxy", dest="proxy", default=None,
-                             help=_('Proxy to use on internet connections.'))
-
-    onlineGroup.add_argument('-u', '--user', dest='username', default='',
-                             help=_('Opensubtitles.org username. Must be set in upload mode. '
-                                    'Default is blank (anonymous).'))
-    onlineGroup.add_argument('-p', '--password', dest='password', default='',
-                             help=_('Opensubtitles.org password. Must be set in upload mode. '
-                                    'Default is blank (anonymous).'))
+    online_group = parser.add_argument_group('online', 'Change parameters related to the online provider.')
+    online_group.add_argument('-P', '--proxy', dest='proxy', default=None, action=ProxyAction,
+                              help=_('Proxy to use on internet connections.'))
+    online_group.add_argument('--provider', dest='providers', metavar='NAME [KEY1=VALUE1 [KEY2=VALUE2 [...]]]',
+                              nargs = argparse.ONE_OR_MORE, default=None, action=ProviderAction,
+                              help=_('Enable and configure a provider.'))
 
     return parser

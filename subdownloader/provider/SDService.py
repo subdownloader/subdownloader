@@ -25,9 +25,6 @@ from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.util import unzip_stream, unzip_bytes
 from subdownloader.identification import VideoIdentity, EpisodeIdentity, ImdbIdentity, ProviderIdentities
 
-import subdownloader.FileManagement.videofile as videofile
-import subdownloader.FileManagement.subtitlefile as subtitlefile
-
 import socket
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
@@ -108,6 +105,7 @@ class TimeoutFunction:
 """The XMLRPC can use a Proxy, this class is need for that."""
 
 
+# FIXME: Proxied connection not working!
 class ProxiedTransport(Transport):
 
     """ Used for proxied connections to the XMLRPC server
@@ -122,15 +120,15 @@ class ProxiedTransport(Transport):
 
     def set_proxy(self, proxy):
         self.proxy = proxy
-        self.log.debug("Proxy set to: %s" % proxy)
+        self.log.debug("Proxy set to: {}".format(proxy))
 
     def make_connection(self, host):
-        self.log.debug("Connecting to %s through %s" % (host, self.proxy))
+        self.log.debug("Connecting to {} through {}".format(host, self.proxy))
         self.realhost = host
         h = HTTPConnection(self.proxy)
         return h
 
-    def send_request(self, connection, handler, request_body):
+    def send_request(self, connection, handler, request_body, debug=False):
         connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
 
     def send_host(self, connection, host):
@@ -195,7 +193,7 @@ class SDService(object):
     def _connect(self, server, proxy):
         try:
             if proxy:
-                self.log.debug("Trying proxied connection... (%r)" % proxy)
+                self.log.debug("Trying proxied connection... ({})".format(proxy))
                 self.proxied_transport = ProxiedTransport()
                 self.proxied_transport.set_proxy(proxy)
                 self._xmlrpc_server = ServerProxy(
@@ -224,27 +222,6 @@ class SDService(object):
             raise
         except:
             self.log.exception("Connection to the server failed/other error")
-            raise
-
-    def ServerInfo(self):
-        ServerInfo = self._ServerInfo
-        try:
-            a = ServerInfo()
-            return a
-        except TimeoutFunctionException:
-            self.log.error("ServerInfo timed out")
-
-        except:
-            self.log.exception("ServerInfo error connection.")
-            raise
-
-    """This simple function returns basic server info,
-    it could be used for ping or telling server info to client"""
-
-    def _ServerInfo(self):
-        try:
-            return self._xmlrpc_server.ServerInfo()
-        except TimeoutFunctionException:
             raise
 
     def logged_in(self):
@@ -321,517 +298,6 @@ class SDService(object):
         finally:
             # force token reset
             self._token = None
-
-    #
-    # SUBTITLE METHODS
-    #
-    def GetSubLanguages(self, language):
-        GetSubLanguages = TimeoutFunction(self._GetSubLanguages)
-        try:
-            return GetSubLanguages(language)
-        except TimeoutFunctionException:
-            self.log.error("GetSubLanguages timed out")
-        except:
-            self.log.error("GetSubLanguages other error")
-
-    def _GetSubLanguages(self, language):
-        """Return all suported subtitles languages in a dictionary
-        If language var is set, returns LanguageID for it
-        """
-        self.log.debug("----------------")
-        self.log.debug("GetSubLanguages RPC method starting...")
-        if language == "all":
-            # return result right away if no 'translation' needed
-            return "all"
-        try:
-            info = self._xmlrpc_server.GetSubLanguages(language)
-            self.log.debug("GetSubLanguages complete in %s" % info['seconds'])
-            if language:
-                for lang in info['data']:
-                    if lang['ISO639'] == language:
-                        return lang['SubLanguageID']
-            return info['data']
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.debug("Connection to the server failed/other error")
-            raise
-
-    def CheckSubHash(self, hashes):
-        CheckSubHash = TimeoutFunction(self._CheckSubHash)
-        try:
-            return CheckSubHash(hashes)
-        except TimeoutFunctionException:
-            self.log.error("CheckSubHash timed out")
-        except:
-            self.log.error("CheckSubHash other error")
-
-    def _CheckSubHash(self, hashes):
-        """
-        @hashes = list of subtitle hashes or video object
-        returns: dictionary like { hash: subID }
-        This method returns !IDSubtitleFile, if Subtitle Hash exists. If not exists, it returns '0'.
-        """
-        self.log.debug("----------------")
-        self.log.debug("CheckSubHash RPC method starting...")
-        if isinstance(hashes, videofile.VideoFile):
-            self.log.debug(
-                "Video object parameter detected. Extracting hashes...")
-            video = hashes
-            hashes = []
-            for sub in video.getSubtitles():
-                hashes.append(sub.get_hash())
-            self.log.debug("...done")
-        try:
-            info = self._xmlrpc_server.CheckSubHash(self._token, hashes)
-            self.log.debug(
-                "CheckSubHash ended in %s with status: %s" % (info['seconds'], info['status']))
-            result = {}
-            for hash in hashes:
-                result[hash] = info['data'][hash]
-    #        for data in info['data']:
-    #            result[data.key()] = data.value()
-            return result
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.exception("Connection to the server failed/other error")
-            raise
-
-    def DownloadSubtitles(self, subtitles):
-        DownloadSubtitles = TimeoutFunction(self._DownloadSubtitles)
-        try:
-            return DownloadSubtitles(subtitles)
-        except TimeoutFunctionException:
-            self.log.error("DownloadSubtitles timed out")
-
-    def _DownloadSubtitles(self, subtitles):
-        # TODO: decide wheter this should save the subtitle (as it does atm) or just return the encoded data
-        # Note ivan: in my GUI before I replace the file I'll show a
-        # confirmation code
-        """
-        Download subtitles by there id's
-
-        @subtitles: dictionary with subtitle id's and their path - { id: "path_to_save", ...}
-        Returns: BASE64 encoded gzipped !IDSubtitleFile(s). You need to BASE64 decode and ungzip 'data' to get its contents.
-        """
-        self.log.debug("----------------")
-        self.log.debug("DownloadSubtitles RPC method starting...")
-
-        subtitles_to_download = subtitles
-        self.log.debug("Acting in: %r" % subtitles)
-
-        if len(subtitles_to_download):
-            self.log.debug("Communicating with server...")
-            self.log.debug("xmlrpc_server.DownloadSubtitles(%s,%r)" % (
-                self._token, subtitles_to_download.keys()))
-        try:
-            answer = self._xmlrpc_server.DownloadSubtitles(
-                self._token, list(subtitles_to_download.keys()))
-            self.log.debug("DownloadSubtitles finished in %s with status %s." % (
-                answer['seconds'], answer['status']))
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.exception("Connection to the server failed/other error")
-            raise
-        else:
-            if "data" in answer:
-                # TODO support passing the reason of the erorr to be shown in
-                # the GUI
-                if answer['data'] == False:
-                    self.log.info("Error downloading subtitle.")
-                    return False
-                self.log.debug(
-                    "Got %i subtitles from server. Uncompressing data..." % len(answer['data']))
-                for sub in answer['data']:
-                    #self.log.info("%s -> %s"% (subtitles_to_download[sub['idsubtitlefile']]['subtitle_path'], subtitles_to_download[sub['idsubtitlefile']]['video'].getFileName()))
-                    self.BaseToFile(
-                        sub['data'], subtitles_to_download[sub['idsubtitlefile']])
-                return answer['data']
-            else:
-                self.log.info("Server sent no subtitles to me.")
-                return False
-
-    def SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
-        SearchSubtitles = TimeoutFunction(self._SearchSubtitles)
-        try:
-            return SearchSubtitles(language, videos, imdb_ids)
-        except TimeoutFunctionException:
-            self.log.error("SearchSubtitles timed out")
-            return None
-        except ProtocolError:
-            self.log.error("Protocol Error on Opensubtitles.org")
-            return None
-
-    def _SearchSubtitles(self, language="all", videos=None, imdb_ids=None):
-        """
-        Search subtitles for the given video(s).
-
-        @language: language code - string
-        @videos: video objects - list
-        @imdb_id: IMDB movie id's - list
-        Note:Max results is 250. When nothing is found, 'data' is empty.
-        """
-        self.log.debug("----------------")
-        self.log.debug("SearchSubtitles RPC method starting...")
-        search_array = []
-        if videos:
-            self.log.debug("Building search array with video objects info")
-            for video in videos:
-                array = {'sublanguageid': language, 'moviehash':
-                         video.get_hash(), 'moviebytesize': str(video.get_size())}
-                self.log.debug(" - adding: %s" % array)
-                search_array.append(array)
-        elif imdb_ids:
-            self.log.debug("Building search array with IMDB id's")
-            for id in imdb_ids:
-                array = {'sublanguageid': language, 'imdbid': id}
-                self.log.debug(" - adding: %s" % array)
-                search_array.append(array)
-
-        self.log.debug("Communicating with server...")
-        result = self._xmlrpc_server.SearchSubtitles(
-            self._token, search_array)
-
-        if result is not None and result['data'] != False:
-            self.log.debug("Collecting downloaded data")
-            moviehashes = {}
-            for i in result['data']:
-                moviehash = i['MovieHash']
-                if moviehash not in moviehashes:
-                    moviehashes[moviehash] = []
-                moviehashes[moviehash].append(i)
-            self.log.debug("Movie hashes: %i" % len(moviehashes.keys()))
-
-            if videos:
-                videos_result = []
-                for video in videos:
-                    if video.get_hash() in moviehashes:
-                        osdb_info = moviehashes[video.get_hash()]
-                        subtitles = []
-                        self.log.debug("- %s (%s)" %
-                                       (video.get_filepath(), video.get_hash()))
-                        for i in osdb_info:
-                            sub = subtitlefile.SubtitleFile(
-                                online=True, id=i["IDSubtitle"])
-                            sub.setHash(i["SubHash"])
-                            sub.setIdFileOnline(i["IDSubtitleFile"])
-                            sub.setFileName(i["SubFileName"])
-                            # This method will autogenerate the XX and the
-                            # LanguageName
-                            sub.setLanguage(Language.from_xxx(i["SubLanguageID"]))
-                            # sub.setLanguageXX(i["ISO639"])
-                            # sub.setLanguageName(i["LanguageName"])
-                            sub.setRating(i["SubRating"])
-                            sub.setUploader(i["UserNickName"])
-                            sub.setDownloadLink(i["SubDownloadLink"])
-                            sub.setVideo(video)
-
-                            self.log.debug(
-                                "  [%s] - %s" % (sub.getLanguage().xxx(), sub.get_filepath()))
-                            subtitles.append(sub)
-
-                        # Let's get the IMDB info which is majority in the
-                        # subtitles
-                        video.setMovieInfo(self.getBestImdbInfo(osdb_info))
-                        video.setOsdbInfo(osdb_info)
-                        video.setSubtitles(subtitles)
-                    videos_result.append(video)
-
-                return videos_result
-
-            elif imdb_ids:
-                # TODO: search with IMDB id's
-                pass
-        else:
-            self.log.info("No subtitles were found on Opensubtitles.org")
-            return []
-
-    def TryUploadSubtitles(self, videos, no_update=False):
-        return self._TryUploadSubtitles(videos, no_update)
-
-    def _TryUploadSubtitles(self, videos, no_update):
-        """Check for subtitle existence in server database for one or more videos
-
-        @videos: video objects - list
-        Returns subtitle info in server if exists, and full info on movie if not.
-        """
-        self.log.debug("----------------")
-        self.log.debug("TryUploadSubtitles RPC method starting...")
-        # will run this method if we have videos and subtitles associated
-        array = {}
-        self.log.debug("Building search array...")
-        for (i, video) in enumerate(videos):
-            if video.getTotalLocalSubtitles() > 0:
-                cd = 'cd%i' % (i + 1)
-                subtitle = video.getSubtitles()[0]
-                array_ = {'subhash': subtitle.get_hash(), 'subfilename': subtitle.get_filepath(), 'moviehash': video.get_hash(
-                ), 'moviebytesize': str(video.get_size()), 'moviefps': video.get_fps(), 'moviefilename': video.get_filepath()}
-                self.log.debug(" - adding %s: %s" % (cd, array_))
-                array[cd] = array_
-            else:
-                if video.hasMovieName():
-                    self.log.debug(
-                        "'%s' has no subtitles. Stopping method." % video.getMovieName())
-                else:
-                    self.log.debug(
-                        "'%s' has no subtitles. Stopping method." % video.get_filepath())
-                return False
-
-        self.log.debug("Communicating with server...")
-        #import pprint
-        # print "parameters:"
-        # pprint.pprint(array)
-
-        # If no_update is 1, then the server won't try to update the hash of the movie for that subtitle,
-        # that is useful if we just want to get online info about the videos
-        # and the subtitles
-        result = self._xmlrpc_server.TryUploadSubtitles(
-            self._token, array, str(int(no_update)))
-        self.log.debug("Search took %ss" % result['seconds'])
-
-        # pprint.pprint(result)
-#        print result.keys()
-        result.pop('seconds')
-
-        if result['alreadyindb']:
-            self.log.debug("Subtitle already exists in server database")
-        else:
-            self.log.debug("Subtitle doesn't exist in server database")
-        self.log.debug("----------------")
-        return result
-
-    def UploadSubtitles(self, movie_info):
-        return self._UploadSubtitles(movie_info)
-
-    def _UploadSubtitles(self, movie_info):
-        self.log.debug("----------------")
-        self.log.debug("UploadSubtitles RPC method starting...")
-        self.log.info("Uploading subtitle...")
-        self.log.debug("Sending info: %s" % movie_info)
-        info = self._xmlrpc_server.UploadSubtitles(self._token, movie_info)
-        self.log.debug("Upload finished in %s with status %s." %
-                       (info['seconds'], info['status']))
-        return info
-        self.log.debug("----------------")
-
-    def getBestImdbInfo(self, subs):
-        movies_imdb = [sub["IDMovieImdb"] for sub in subs]
-        _best_imdb = {'imdb': None, 'count': 0}
-        for imdb in movies_imdb:
-            if movies_imdb.count(imdb) > _best_imdb['count']:
-                _best_imdb = {'imdb': imdb, 'count': movies_imdb.count(imdb)}
-        best_imdb = _best_imdb['imdb']
-        for sub in subs:
-            if sub["IDMovieImdb"] == best_imdb:
-                self.log.debug("getBestImdbInfo = %s" % best_imdb)
-                return {"IDMovieImdb": sub["IDMovieImdb"],
-                        "MovieName": sub["MovieName"],
-                        "MovieNameEng": sub["MovieNameEng"],
-                        "MovieYear": sub["MovieYear"],
-                        "MovieImdbRating": sub["MovieImdbRating"]}
-        return {}
-
-    #
-    # VIDEO METHODS
-    #
-
-    def CheckMovieHash(self, hashes):
-        """Return MovieImdbID, MovieName, MovieYear for each hash
-        @hashes - movie hashes - list
-        """
-        self.log.debug("----------------")
-        self.log.debug("CheckMovieHash RPC method starting...")
-        info = self._xmlrpc_server.CheckMovieHash(self._token, hashes)
-        self.log.debug(
-            "CheckMovieHash ended in %s. Processing data..." % info['seconds'])
-        result = {}
-        for hash in hashes:
-            result[hash] = info['data'][hash]
-        return result
-
-    def ReportWrongMovieHash(self, subtitle_id):
-        """Report wrong subtitle for a movie
-        @subtitle_id: subtitle id from a video (IDSubMovieFile) - string/int
-        """
-        self.log.debug("----------------")
-        self.log.debug("ReportWrongMovieHash RPC method starting...")
-        info = self._xmlrpc_server.ReportWrongMovieHash(
-            self._token, subtitle_id)
-        self.log.debug("ReportWrongMovieHash finished in %s with status %s." % (
-            info['seconds'], info['status']))
-
-    def SearchMoviesOnIMDB(self, query):
-        SearchMoviesOnIMDB = TimeoutFunction(self._SearchMoviesOnIMDB)
-        try:
-            return SearchMoviesOnIMDB(query)
-        except TimeoutFunctionException as e:
-            self.log.error("SearchMoviesOnIMDB timed out")
-            raise
-        except:
-            traceback.print_exc()
-            raise
-
-    def _SearchMoviesOnIMDB(self, query):
-        """Returns a list of found movies in IMDB
-        @query - search string (ie: movie name)
-        return example: [{'id': '0452623', 'title': 'Gone Baby Gone (2007)'}, { }, ...]
-        """
-        self.log.debug("----------------")
-        self.log.debug("SearchMoviesOnIMDB RPC method starting...")
-        info = self._xmlrpc_server.SearchMoviesOnIMDB(self._token, query)
-        self.log.debug("SearchMoviesOnIMDB finished in %s with status %s." % (
-            info['seconds'], info['status']))
-        result = []
-        for result_ in info['data']:
-            result.append(result_)
-        return result
-
-    def GetIMDBMovieDetails(self, imdb_id):
-        GetIMDBMovieDetails = TimeoutFunction(self._GetIMDBMovieDetails)
-        try:
-            return GetIMDBMovieDetails(imdb_id)
-        except TimeoutFunctionException:
-            self.log.error("GetIMDBMovieDetails timed out")
-            return False
-        except:
-            traceback.print_exc()
-            return False
-
-    def _GetIMDBMovieDetails(self, imdb_id):
-        """Returns video details from IMDB if available
-        @imdb_id - IMDB movie id - int/string
-        """
-        self.log.debug("----------------")
-        self.log.debug("GetIMDBMovieDetails RPC method starting...")
-        info = self._xmlrpc_server.GetIMDBMovieDetails(self._token, imdb_id)
-        self.log.debug("GetIMDBMovieDetails finished in %s with status %s." % (
-            info['seconds'], info['status']))
-        return info['data']
-
-    def CheckSoftwareUpdates(self, app=None):
-        CheckSoftwareUpdates = TimeoutFunction(self._CheckSoftwareUpdates)
-        try:
-            return CheckSoftwareUpdates(app)
-        except TimeoutFunctionException:
-            self.log.error("CheckSoftwareUpdates timed out")
-        except:
-            self.log.error("CheckSoftwareUpdates other error")
-
-    def _CheckSoftwareUpdates(self, app=None):
-        """Returns latest info on the given application if available
-        """
-        self.log.debug("----------------")
-        self.log.debug("CheckSoftwareUpdates RPC method starting...")
-        if not app:
-            app = PROJECT_TITLE.lower()
-        try:
-            info = self._xmlrpc_server.CheckSoftwareUpdates(app)
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.exception(
-                "Connection to the server failed/other error")
-            raise
-        else:
-            # we have something to show
-            self.log.debug(
-                "Latest SubDownloader Version Found: %s" % info['latest_version'])
-            return info
-
-    def NoOperation(self, token=None):
-        try:
-            NoOperation = TimeoutFunction(self._NoOperation)
-            return NoOperation()
-        except TimeoutFunctionException:
-            self.log.error("NoOperation timed out")
-        except:
-            self.log.error("NoOperation other error")
-
-    def _NoOperation(self):
-        """This method should be called every 15 minutes after last request to xmlrpc.
-        It's used to keep current session alive.
-        Returns True if current session token is valid and False if not.
-        """
-        self.log.debug("----------------")
-        self.log.debug("NoOperation RPC method starting...")
-        noop = False
-        try:
-            info = self._xmlrpc_server.NoOperation(self._token)
-            self.log.debug("NoOperation finished in %s with status %s." % (
-                info['seconds'], info['status']))
-            self.log.debug("----------------")
-            if info['status'] == "200 OK":
-                return True
-            else:
-                return noop
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.exception(
-                "Connection to the server failed/other error")
-            raise
-
-    def SearchToMail(self, videos, languages):
-        """Register user email to be noticed when given video subtitles are available to download
-        @videos: video objects - list
-        @languages: language id codes - list
-        """
-        self.log.debug("----------------")
-        self.log.debug("SearchToMail RPC method starting...")
-        video_array = []
-        for video in videos:
-            array = {
-                'moviehash': video.get_hash(), 'moviesize': str(video.get_size())}
-            video_array.append(array)
-        try:
-            info = self._xmlrpc_server.SearchToMail(
-                self._token, languages, video_array)
-            self.log.debug("SearchToMail finished in %s with status %s." % (
-                info['seconds'], info['status']))
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
-        except:
-            self.log.exception(
-                "Connection to the server failed/other error")
-            raise
-
-    def BaseToFile(self, base_data, path):
-        """This will decode the base64 data and save it as a file with the given path
-        """
-        compressedstream = base64.decodestring(
-            bytearray(base_data, encoding='ascii'))
-        gzipper = gzip.GzipFile(fileobj=BytesIO(compressedstream))
-        s = gzipper.read()
-        gzipper.close()
-        subtitle_file = open(path, 'wb')
-        subtitle_file.write(s)
-        subtitle_file.close()
 
     STATUS_CODE_RE = re.compile('(\d+) (.+)')
 
@@ -962,7 +428,7 @@ class SDService(object):
             result = self._safe_exec(run_query, None)
             self.check_result(result)
             if result is None:
-                return remote_subtitles
+                continue
 
             for rsub_raw in result['data']:
                 try:
@@ -976,7 +442,7 @@ class SDService(object):
                     remote_language_raw = rsub_raw['SubLanguageID']
                     try:
                         remote_language = Language.from_unknown(remote_language_raw,
-                                                                locale=False, name=False)
+                                                                xx=True, xxx=True)
                     except NotALanguageException:
                         remote_language = UnknownLanguage(remote_language_raw)
                     remote_rating = float(rsub_raw['SubRating'])
@@ -1151,6 +617,7 @@ class SDService(object):
 
         # absolute_url = result['data']
 
+
 class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):
     def __init__(self, filename, file_size, md5_hash, id_online, download_link,
                  link, uploader, language, rating, age):
@@ -1271,21 +738,6 @@ class SearchByName(object):
             log.debug('... FAILED (HTTPError)', exc_info=True)
             return None
         return page
-
-    def search_url(self, xml_url):
-        try:
-            log.debug('Fetching data from {url}...'.format(url=xml_url))
-            xml_page = urlopen(xml_url).read()
-            log.debug('... SUCCESS')
-        except HTTPError:
-            log.debug('... FAILED (HTTPError)', exc_info=True)
-            return None
-
-        log.debug('Parsing xml...')
-        movies = self.parse_results(xml_page)
-        log.debug('... Parsing finished (is_none? {})'.format(movies is None))
-
-        return movies
 
     def parse_movie(self, raw_xml):
         subtitle_entries, nb_provider, nb_provider_total = self.extract_subtitle_entries(raw_xml)
@@ -1448,3 +900,6 @@ class SearchByName(object):
                         'Yet we only extracted {nb_local} subtitles.'.format(
                 nb_provider=nb_provider, nb_local=len(subtitles)))
         return subtitles, nb_provider_total
+
+
+providers = (SDService, )

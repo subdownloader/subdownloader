@@ -8,10 +8,10 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QObject, 
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
+from subdownloader.compat import Path
 from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 
-from subdownloader.FileManagement import get_extension, without_extension
 from subdownloader.provider.SDService import SDService, TimeoutFunctionException
 
 log = logging.getLogger('subdownloader.client.gui.state')
@@ -186,35 +186,32 @@ class State(QObject):
 
         # Creating the Subtitle Filename
         optionSubtitleName = settings.value('options/subtitleName', 'SAME_VIDEO')
-        sub_extension = get_extension(subtitle.get_filename().lower())
+        sub_extension = Path(subtitle.get_filename()).suffix
         if optionSubtitleName == 'SAME_VIDEO':
-            subFileName = without_extension(video.get_filepath()) + "." + sub_extension
+            subFilePath = video.get_filepath().with_suffix(sub_extension)
         elif optionSubtitleName == 'SAME_VIDEOPLUSLANG':
-            subFileName = without_extension(video.get_filepath()) + "." + subtitle.get_language().xxx() + "." + sub_extension
+            subFilePath = video.get_filepath().with_suffix("." + subtitle.get_language().xxx() + sub_extension)
         elif optionSubtitleName == 'SAME_VIDEOPLUSLANGANDUPLOADER':
-            subFileName = without_extension(video.get_filepath()) + "." + subtitle.get_language().xxx() + "." + subtitle.get_uploader() + "." + sub_extension
-        elif optionSubtitleName == 'SAME_ONLINE':
-            subFileName = os.path.join(os.path.dirname(video.get_filepath()), subtitle.get_filename())
+            subFilePath = video.get_filepath().with_suffix("." + subtitle.get_language().xxx() + "." + subtitle.get_uploader() + sub_extension)
+        else:  # if optionSubtitleName == 'SAME_ONLINE':
+            subFilePath = video.get_filepath().parent / subtitle.get_filename()
 
         # Creating the Folder Destination
         optionWhereToDownload = \
             settings.value("options/whereToDownload", "SAME_FOLDER")
         if optionWhereToDownload == "ASK_FOLDER":
             folderPath = video.get_folderpath()
-            dir = QDir(folderPath)
-            downloadFullPath = dir.filePath(subFileName)
+            downloadFullPath = folderPath / subFilePath.name
             downloadFullPath, t = QFileDialog.getSaveFileName(
-                parent, _("Save as..."), downloadFullPath, sub_extension)
+                parent, _("Save as..."), str(downloadFullPath), sub_extension)
             log.debug("Downloading to: %r" % downloadFullPath)
         elif optionWhereToDownload == "SAME_FOLDER":
             folderPath = video.get_folderpath()
-            dir = QDir(folderPath)
-            downloadFullPath = os.path.join(folderPath, subFileName)
+            downloadFullPath = folderPath / subFilePath.name
             log.debug("Downloading to: %r" % downloadFullPath)
-        elif optionWhereToDownload == "PREDEFINED_FOLDER":
-            folderPath = settings.value("options/whereToDownloadFolder", "")
-            dir = QDir(folderPath)
-            downloadFullPath = dir.filePath(subFileName).__str__()
+        else:  # if optionWhereToDownload == "PREDEFINED_FOLDER":
+            folderPath = Path(settings.value("options/whereToDownloadFolder", ""))
+            downloadFullPath = folderPath / subFilePath.name
             log.debug("Downloading to: %r" % downloadFullPath)
 
-        return downloadFullPath
+        return str(downloadFullPath)

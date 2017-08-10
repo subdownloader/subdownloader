@@ -23,8 +23,25 @@ class SubtitleFile(object):
     def get_parent(self):
         return self._parent
 
-    def get_filename(self):
-        pass
+    def get_super_parent(self):
+        parents = set()
+        obj = self
+        print('super_parent(self={})'.format(self))
+        while True:
+            parent = obj.get_parent()
+            if parent is None:
+                return None
+            if not isinstance(parent, SubtitleFile):
+                return parent
+            if parent in parents:
+                log.warning('Loop detected in parents of "{self}": parent {parent} already in {parents}'.format(
+                    self=self, parent=parent, parents = parents))
+                return None
+            parents.add(parent)
+            obj = parent
+
+    def get_filename(self):  # FIXME: abstractmethod
+        raise NotImplementedError()
 
     def get_language(self):  # FIXME: abstractmethod
         raise NotImplementedError()
@@ -50,7 +67,7 @@ class SubtitleFile(object):
         if fn_lang:
             language_part = fn_lang[0]
             try:
-                lang = Language.from_unknown(language_part, locale=False, name=False)
+                lang = Language.from_unknown(language_part, xx=True, xxx=True)
                 log.debug('... SUCCESS: detected from filename: {lang}'.format(lang=lang))
                 return lang
             except NotALanguageException:
@@ -64,16 +81,20 @@ class SubtitleFile(object):
 
 
 class SubtitleFileNetwork(SubtitleFile):
-    def __init__(self, parent, subtitle_file):
+    def __init__(self, parent, subtitle_file, reparent=True):
         SubtitleFile.__init__(self, parent)
         self._subtitles = []
-        self.add_subtitle(subtitle_file)
+        self.add_subtitle(subtitle_file, reparent=reparent)
 
     def get_subtitles(self):
         return self._subtitles
 
-    def add_subtitle(self, subtitle_file):
-        subtitle_file.set_parent(self)
+    def get_filename(self):
+        return self._subtitles[0].get_filename()
+
+    def add_subtitle(self, subtitle_file, reparent=True):
+        if reparent:
+            subtitle_file.set_parent(self)
         self._subtitles.append(subtitle_file)
 
     def get_language(self):
@@ -108,6 +129,11 @@ class SubtitleFileNetwork(SubtitleFile):
     def iter_local_subtitles(self):
         for subtitle in self._subtitles:
             if isinstance(subtitle, LocalSubtitleFile):
+                yield subtitle
+
+    def iter_remote_subtitles(self):
+        for subtitle in self._subtitles:
+            if isinstance(subtitle, RemoteSubtitleFile):
                 yield subtitle
 
     def __len__(self):
@@ -160,7 +186,7 @@ class SubtitleFileStorage(SubtitleFile):
                         break
                     sub_rest = sub_rest[1:]
                 try:
-                    lang = Language.from_unknown(sub_rest, locale=False, name=False)
+                    lang = Language.from_unknown(sub_rest, xx=True, xxx=True)
                     matches = True
                 except NotALanguageException:
                     matches = False
@@ -180,18 +206,24 @@ class SubtitleFileStorage(SubtitleFile):
     def get_md5_hash(self):
         return self._md5_hash
 
+    def is_remote(self):
+        raise NotImplementedError()
+
+    def is_local(self):
+        raise NotImplementedError()
+
 
 class LocalSubtitleFile(SubtitleFileStorage):
-    def __init__(self, filepath):
-        filename = os.path.basename(filepath)
-        file_size = os.path.getsize(filepath)
+    def __init__(self, filepath, parent=None):
+        filename = filepath.name
+        file_size = filepath.stat().st_size
         language = self.detect_language_filename(filename)
-        md5_hash = hashlib.md5(open(filepath, mode='rb').read()).hexdigest()
+        md5_hash = hashlib.md5(filepath.open(mode='rb').read()).hexdigest()
         SubtitleFileStorage.__init__(self, parent=None, file_size=file_size, language=language, md5_hash=md5_hash)
         self._filepath = filepath
 
     def get_filename(self):
-        return os.path.basename(self._filepath)
+        return self._filepath.name
 
     def get_filepath(self):
         return self._filepath
@@ -204,6 +236,12 @@ class LocalSubtitleFile(SubtitleFileStorage):
             filepath=self.get_filepath(), size=self.get_file_size(), language=self.get_language()
         )
 
+    def is_remote(self):
+        return False
+
+    def is_local(self):
+        return True
+
 
 class RemoteSubtitleFile(SubtitleFileStorage):
     def __init__(self, filename, language, file_size, md5_hash):
@@ -212,9 +250,6 @@ class RemoteSubtitleFile(SubtitleFileStorage):
 
     def get_filename(self):
         return self._filename
-
-    def matches_videofile(self, videofile):
-        raise NotImplementedError()
 
     def get_uploader(self):  # FIXME: abstractmethod
         raise NotImplementedError
@@ -228,8 +263,14 @@ class RemoteSubtitleFile(SubtitleFileStorage):
     def get_provider(self):  # FIXME: abstractmethod
         raise NotImplementedError
 
-    def download(self, provider_instance, callback):  # FIXME: abstractmethod
+    def download(self, target_path, provider_instance, callback):  # FIXME: abstractmethod
         raise NotImplementedError()
+
+    def is_remote(self):
+        return True
+
+    def is_local(self):
+        return False
 
 
 class SubtitleFileCollection(object):
@@ -254,6 +295,7 @@ class SubtitleFileCollection(object):
                 network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
                 network.add_subtitle(candidate.get_subtitles()[0])
                 self._networks.append(network)
+                self._candidates.remove(candidate)
                 return
         network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
         self._networks.append(network)
@@ -262,15 +304,18 @@ class SubtitleFileCollection(object):
         for subtitle in subtitles:
             for candidate in self._candidates:
                 if candidate.equals_subtitle_file(subtitle):
-                    candidate.add_subtitle(subtitle)
+                    candidate.add_subtitle(subtitle, reparent=False)
                     break
-            new_candidate = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
+            new_candidate = SubtitleFileNetwork(parent=self, subtitle_file=subtitle, reparent=False)
             self._candidates.append(new_candidate)
 
     def iter_local_subtitles(self):
         for network in self._networks:
             for subtitle in network.iter_local_subtitles():
                 yield subtitle
+
+    def get_nb_subtitles(self):
+        return sum(len(network) for network in self._networks)
 
     def __len__(self):
         return len(self._networks)

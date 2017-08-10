@@ -8,17 +8,22 @@ import sys
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication
 
-from subdownloader.FileManagement.subtitlefile import SUBTITLES_EXT
-from subdownloader.FileManagement.videofile import VIDEOS_EXT
+from subdownloader.subtitle2 import SUBTITLES_EXT
+from subdownloader.video2 import VIDEOS_EXT
 from subdownloader.client.gui.splashScreen import SplashScreen
 from subdownloader.project import PROJECT_TITLE
 
 from subdownloader.client.gui.generated.images_rc import qInitResources, qCleanupResources
 
-SELECT_SUBTITLES = _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
-SELECT_VIDEOS = _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
-
 log = logging.getLogger('subdownloader.client.gui')
+
+
+def get_select_subtitles():
+    return _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
+
+
+def get_select_videos():
+    return _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
 
 
 def run(options):

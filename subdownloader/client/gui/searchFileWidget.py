@@ -12,6 +12,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
 
 from subdownloader.callback import ProgressCallback
+from subdownloader.compat import Path
 from subdownloader.filescan import scan_videopaths
 from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE
@@ -20,7 +21,7 @@ from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, Subti
 from subdownloader.util import write_stream
 from subdownloader.provider.SDService import ProviderConnectionError #FIXME: move to provider
 
-from subdownloader.client.gui import SELECT_VIDEOS
+from subdownloader.client.gui import get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.generated.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
@@ -88,7 +89,7 @@ class SearchFileWidget(QWidget):
         self.ui.folderView.hideColumn(2)
         self.ui.folderView.hideColumn(1)
 
-        index = self.fileModel.index(lastDir)
+        index = self.fileModel.index(str(lastDir))
         proxyIndex = self.proxyFileModel.mapFromSource(index)
         self.ui.folderView.scrollTo(proxyIndex)
 
@@ -225,7 +226,7 @@ class SearchFileWidget(QWidget):
     def get_current_selected_folder(self):
         proxyIndex = self.ui.folderView.currentIndex()
         index = self.proxyFileModel.mapToSource(proxyIndex)
-        folder_path = self.fileModel.filePath(index)
+        folder_path = Path(self.fileModel.filePath(index))
         if not folder_path:
             return None
         return folder_path
@@ -242,7 +243,7 @@ class SearchFileWidget(QWidget):
         folder_path = self.get_current_selected_folder()
 
         settings = QSettings()
-        settings.setValue('mainwindow/workingDirectory', folder_path)
+        settings.setValue('mainwindow/workingDirectory', str(folder_path))
         self.search_videos([folder_path])
 
         self.timeLastSearch = QTime.currentTime()
@@ -263,7 +264,7 @@ class SearchFileWidget(QWidget):
             settings = QSettings()
             currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
 
-        index = self.fileModel.index(currentPath)
+        index = self.fileModel.index(str(currentPath))
 
         self.ui.folderView.scrollTo(self.proxyFileModel.mapFromSource(index))
 
@@ -277,7 +278,7 @@ class SearchFileWidget(QWidget):
                     settings = QSettings()
                     currentPath = settings.value('mainwindow/workingDirectory', QDir.homePath())
 
-                index = self.fileModel.index(currentPath)
+                index = self.fileModel.index(str(currentPath))
 
                 self.ui.folderView.scrollTo(self.proxyFileModel.mapFromSource(index))
                 self._refreshing = False
@@ -296,7 +297,7 @@ class SearchFileWidget(QWidget):
         settings = QSettings()
         currentDir = settings.value('mainwindow/workingDirectory', QDir.homePath())
         fileNames, t = QFileDialog.getOpenFileNames(self, _('Select the video(s) that need subtitles'),
-                                                    currentDir, SELECT_VIDEOS)
+                                                    currentDir, get_select_videos())
         if fileNames:
             settings.setValue('mainwindow/workingDirectory', QFileInfo(fileNames[0]).absolutePath())
             self.search_videos(fileNames)
@@ -316,6 +317,7 @@ class SearchFileWidget(QWidget):
         callback.set_label_text(_("Scanning files"))
         callback.set_finished_text(_("Scanning finished"))
         callback.set_block(True)
+        callback.show()
 
         try:
             local_videos, local_subs = scan_videopaths(paths, callback=callback, recursive=True)
@@ -335,7 +337,7 @@ class SearchFileWidget(QWidget):
         QCoreApplication.processEvents()
 
         if not local_videos:
-            QMessageBox.about(self, _("Scan Results"), _("No video has been found!"))
+            QMessageBox.about(self, _("Scan Results"), _("No video has been found."))
             return
 
         total = len(local_videos)

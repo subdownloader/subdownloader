@@ -24,11 +24,17 @@ class Node:
     def get_data(self):
         return self._data
 
-    def is_checked(self):
-        return self._checked
-
     def set_checked(self, checked):
-        self._checked = checked
+        if self._clone_original:
+            self._clone_original.set_checked(checked)
+        else:
+            self._checked = checked
+
+    def is_checked(self):
+        if self._clone_original:
+            return self._clone_original.is_checked()
+        else:
+            return self._checked
 
     def set_expanded(self, expanded):
         if self._clone_original:
@@ -39,7 +45,8 @@ class Node:
     def is_expanded(self):
         if self._clone_original:
             return self._clone_original.is_expanded()
-        return self._expanded
+        else:
+            return self._expanded
 
     def get_parent(self):
         return self._parent
@@ -227,7 +234,7 @@ class VideoModel(QAbstractItemModel):
                     info += " <%s>" % data.get_filepath()
                     return info
                 else:
-                    return data.get_filepath()
+                    return str(data.get_filepath())
 
             return None
 
