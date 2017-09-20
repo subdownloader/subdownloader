@@ -5,24 +5,24 @@ SubDownloader is a Free Open-Source tool written in Python for automatic downloa
 ## Dependencies
 
 Required:
-- [Python]: version 2.7+ or 3
+
+- [Python]: version 2.7+ or 3.4+. 3.6+ recommended.
+- [pyQt5]: Python Qt5 bindings (graphical interface)
+  * This package requires [Qt]
 - Python packages:
   * [argparse]: parsing command line options (standard since Python 3.2)
   * [python-progressbar]: command line interface
-- Graphical interface:
-  * [Qt]: graphical interface
-  * [pyQt]: Python bindings (version 5)
 
 Optional:
-- [kaa-metadata]: currently only available for Python 2
-- [pymediainfo]: used as fallback for python-kaa-metadata. This package needs [MediaInfo](https://mediaarea.net). Version 2.1.6 or higher.
+
+- [pymediainfo]: replaces python-kaa-metadata in Python 3, needs [mediaInfo](https://mediaarea.net) version 2.1.6 or higher
+- [kaa-metadata]: only available for Python 2 (deprecated)
 - [langdetect]: language detection of subtitles by their contents 
 - [argcomplete]: Bash tab completion for argparse
 
 ### Build dependencies
 
-- [python3-qt5-devel][pyQt]: generate the gui from the interface description
-
+- [python3-qt][pyQt5]: `pyuic5` and `pyrcc5` are needed to generate the gui from the interface description, these tools may be in devel package
 
 ## Running the program
 
@@ -46,9 +46,11 @@ $ ./subdownloader.py -h
 
 ### Install Nautilus extension
 
-```
+```sh
 ln -s $PATHTOSUBDOWNLOADER/subdownloader-nautilus/subdownloader_nautilus.py ~/.local/share/nautilus-python/extensions/
 ```
+
+`subdownloader` needs to be in the `$PATH` environment variable.
 
 ## Credits
 
@@ -56,7 +58,7 @@ The [original developers][subdownloader-launchpad] of the subdownloader program.
 
 ## License
 
-SubDownloader is licensed under [GPL v3].
+SubDownloader is licensed under [GPL v3]
 
    [Python]: <https://www.python.org/>
    [argparse]: <https://python.readthedocs.org/en/latest/library/argparse.html>
