@@ -66,11 +66,8 @@ class Main(QMainWindow):
             login_parent_state(self, self.get_state())
 
         if self.options.videopath:
-            if self.options.videopath[0].exists():
-                self.ui.tabSearchFile.search_videos([self.options.videopath[0]])
-            else:
-                QMessageBox.about(
-                    self, _('Error'), _('Unable to find {file}').format(file=self.options.videopath))
+            videos = [videopath for videopath in self.options.videopath if videopath.exists()]
+            self.ui.tabSearchFile.search_videos(videos)
 
     def setup_ui(self):
         self.calculateProgramFolder()
