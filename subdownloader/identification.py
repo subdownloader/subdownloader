@@ -1,11 +1,33 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
+from enum import Enum
 import logging
 import os
 import re
 
 log = logging.getLogger('subdownloader.identification')
+
+
+class MovieMatch(Enum):
+    Equal = True
+    NonEqual = False
+    Unknown = None
+
+    def __and__(self, other):
+        if type(self) != type(other):
+            return MovieMatch.Unknown
+
+        sv = self.value
+        ov = other.value
+
+        if sv == MovieMatch.NonEqual or ov == MovieMatch.NonEqual:
+            return MovieMatch.NonEqual
+
+        if sv == MovieMatch.Equal or ov == MovieMatch.Equal:
+            return MovieMatch.Equal
+
+        return MovieMatch.Unknown
 
 
 class VideoIdentity(object):
@@ -27,6 +49,17 @@ class VideoIdentity(object):
         year = video_identity.get_year()
         if self.get_year() is None:
             self._year = year
+
+    def matches_identity(self, other):
+        if type(self) != type(other):
+            return MovieMatch.Unknown
+
+        if self.get_name() is None or other.get_name() is None:
+            return MovieMatch.Unknown
+        if self.get_name().lower() == other.get_name().lower():
+            return MovieMatch.Equal
+
+        return MovieMatch.Unknown
 
 
 class ImdbIdentity(object):
@@ -56,6 +89,17 @@ class ImdbIdentity(object):
         if imdb_rating is not None:
             self._imdb_rating = imdb_rating
 
+    def matches_identity(self, other):
+        if type(self) != type(other):
+            return MovieMatch.Unknown
+
+        if self.get_imdb_id() is None or other.get_imdb_id() is None:
+            return MovieMatch.Unknown
+        if self.get_imdb_id() == other.get_imdb_id():
+            return MovieMatch.Equal
+
+        return MovieMatch.NonEqual
+
 
 class EpisodeIdentity(object):
     def __init__(self, season, episode):
@@ -77,50 +121,78 @@ class EpisodeIdentity(object):
         if episode is not None:
             self._episode = episode
 
+    def matches_identity(self, other):
+        if type(self) != type(other):
+            return MovieMatch.Unknown
 
-class ProviderIdentities(object):
-    def __init__(self, provider, video_identity=None, episode_identity=None, imdb_identity=None):
-        self._provider = provider
+        if self.get_season() is None or other.get_season is None:
+            return MovieMatch.Unknown
+        if self.get_season() != other.get_season():
+            return MovieMatch.NonEqual
 
+        if self.get_episode() is None or other.get_episode is None:
+            return MovieMatch.Unknown
+        if self.get_episode() != other.get_episode:
+            return MovieMatch.NonEqual
+
+        return MovieMatch.Equal
+
+
+class Identities(object):
+    def __init__(self, video_identity=None, episode_identity=None, imdb_identity=None):
         self._video_identity = video_identity
         self._episode_identity = episode_identity
         self._imdb_identity = imdb_identity
 
-    def get_provider(self):
-        return self._provider
-
-    def get_video_identity(self):
+    @property
+    def video_identity(self):
         return self._video_identity
 
-    def get_episode_identity(self):
+    @property
+    def episode_identity(self):
         return self._episode_identity
 
-    def get_imdb_identity(self):
+    @property
+    def imdb_identity(self):
         return self._imdb_identity
 
-    def merge(self, provider_identities):
-        if provider_identities.get_provider() != self.get_provider():
-            log.warning('ProviderIdentities.merge(self={self}, other={other}'.format(
-                self=self, other=provider_identities))
-            return
-
-        video_identity = provider_identities.get_video_identity()
-        if self._video_identity is not None:
-            self._video_identity.merge(video_identity)
+    def merge(self, identities):
+        if self.video_identity is not None:
+            self.video_identity.merge(identities.video_identity)
         else:
-            self._video_identity = video_identity
+            self._video_identity = identities.video_identity
 
-        episode_identity = provider_identities.get_episode_identity()
-        if self._episode_identity is not None:
-            self._episode_identity.merge(episode_identity)
+        if self.episode_identity is not None:
+            self.episode_identity.merge(identities.episode_identity)
         else:
-            self._episode_identity = episode_identity
+            self._episode_identity = identities.episode_identity
 
-        imdb_identity = provider_identities.get_imdb_identity()
-        if self._imdb_identity is not None:
-            self._imdb_identity.merge(imdb_identity)
+        if self.imdb_identity is not None:
+            self.imdb_identity.merge(identities.imdb_identity)
         else:
-            self._imdb_identity = imdb_identity
+            self._imdb_identity = identities.imdb_identity
+
+    def matches_identity(self, other):
+        imdb_match = self.imdb_identity.matches_identity(other.imdb_identity)
+        if imdb_match in (MovieMatch.Equal, MovieMatch.NonEqual):
+            return imdb_match
+
+        video_match = self.video_identity.matches_identity(other.video_identity)
+        if video_match in (MovieMatch.Equal, MovieMatch.NonEqual):
+            return video_match
+
+        return MovieMatch.Unknown
+
+
+class ProviderIdentities(Identities):
+    def __init__(self, provider, video_identity=None, episode_identity=None, imdb_identity=None):
+        Identities.__init__(self, video_identity=video_identity, episode_identity=episode_identity,
+                            imdb_identity=imdb_identity)
+        self._provider = provider
+
+    @property
+    def provider(self):
+        return self._provider
 
 
 class IdentityCollection(object):
@@ -128,7 +200,7 @@ class IdentityCollection(object):
         self._data = {}
 
     def add_identity(self, identity):
-        provider = identity.get_provider()
+        provider = identity.provider
         try:
             identities = self._data[provider]
             identities.merge(identity)
@@ -146,13 +218,13 @@ class IdentityCollection(object):
 
     def iter_video_identity(self):
         for provider_identity in self:
-            video_identity = provider_identity.get_video_identity()
+            video_identity = provider_identity.video_identity
             if video_identity is not None:
                 yield video_identity
 
     def iter_imdb_identity(self):
         for provider_identity in self:
-            imdb_identity = provider_identity.get_imdb_identity()
+            imdb_identity = provider_identity.imdb_identity
             if imdb_identity is not None:
                 yield imdb_identity
 

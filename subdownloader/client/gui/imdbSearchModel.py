@@ -31,10 +31,10 @@ class ImdbSearchModel(QAbstractTableModel):
         if role == Qt.DisplayRole:
             provider_identity = self._item_identities[row]
             if col == self.COL_IMDB_ID:
-                imdb_identity = provider_identity.get_imdb_identity()
+                imdb_identity = provider_identity.imdb_identity
                 return imdb_identity.get_imdb_id()
             else:  # if col == self.COL_NAME:
-                video_identity = provider_identity.get_video_identity()
+                video_identity = provider_identity.video_identity
                 return video_identity.get_name()
 
         return None
@@ -50,7 +50,7 @@ class ImdbSearchModel(QAbstractTableModel):
                 return identity.get_imdb_identity().get_imdb_id()
         else:
             def key(identity):
-                return identity.get_video_identity().get_name().lower()
+                return identity.video_identity.get_name().lower()
         self._item_identities = sorted(self._item_identities, key=key,
                                        reverse=reverse)
         self.endResetModel()

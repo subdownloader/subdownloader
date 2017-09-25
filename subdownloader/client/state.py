@@ -96,7 +96,7 @@ class BaseState(object):
             dict_settings.update(map_provider_data[type(provider)].kwargs)
             try:
                 new_settings = provider_settings.load(**dict_settings)
-            except TypeError as e:
+            except TypeError:
                 raise IllegalArgumentException(_('Provider "{}" received an unsupported keyword.').format(
                     provider.get_name()))
             provider.set_settings(new_settings)
@@ -238,6 +238,12 @@ class BaseState(object):
             prov_rsubs[provider] = provider.search_videos(videos=videos, callback=download_callback)
         return prov_rsubs
 
+    def query_text_all(self, text):
+        from subdownloader.query import SubtitlesTextQuery
+        query = SubtitlesTextQuery(text=text)
+        query.search_init(self._providers)
+        return query
+
     def get_video_paths(self):
         return self._video_paths
 
@@ -339,16 +345,55 @@ class BaseState(object):
 
         return sub_filepath.name
 
-    def calculate_download_path(self, subtitle, file_saveas_cb):
+    def calculate_download_path(self, subtitle, file_save_as_cb):
         video = subtitle.get_parent().get_parent().get_parent()
 
         sub_filename = self.calculate_subtitle_filename(subtitle)
 
         location_strategy = self.get_subtitle_download_path_strategy()
         if location_strategy == SubtitlePathStrategy.ASK:
-            download_path = file_saveas_cb(path=video.get_folderpath(), filename=sub_filename)  # How to cancel? None?
+            download_path = file_save_as_cb(path=video.get_folderpath(), filename=sub_filename)  # How to cancel? None?
         elif location_strategy == SubtitlePathStrategy.SAME:
             download_path = video.get_folderpath() / sub_filename
+        else:  # location_strategy == SubtitlePath.PREDEFINED:
+            download_path = self.get_default_download_path() / sub_filename
+        log.debug('Downloading to {}'.format(download_path))
+
+        return download_path
+
+    def calculate_subtitle_query_filename(self, subtitle):
+        sub_stem, sub_extension = os.path.splitext(subtitle.get_filename())
+
+        suffix_start_counter = 0
+
+        while True:
+            suffix_start = '.{}'.format(suffix_start_counter) if suffix_start_counter else ''
+            rename_strategy = self.get_subtitle_rename_strategy()
+            if rename_strategy == SubtitleRenameStrategy.VIDEO:
+                new_ext = suffix_start + sub_extension
+            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG:
+                new_ext = '{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), ss=suffix_start, ext=sub_extension)
+            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG_UPLOADER:
+                new_ext = '.{upl}{ss}.{xx}{ext}'.format(
+                    xx=subtitle.get_language().xx(), upl=subtitle.get_uploader(), ss=suffix_start, ext=sub_extension)
+            else:  # if rename_strategy == SubtitleRename.ONLINE:
+                new_ext = suffix_start + sub_extension
+            sub_filepath = sub_stem + new_ext
+
+            suffix_start_counter += 1
+            if not os.path.exists(sub_filepath):
+                break
+
+        return sub_filepath
+
+    def calculate_download_query_path(self, subtitle, file_save_as_cb):
+        sub_filename = self.calculate_subtitle_query_filename(subtitle)
+
+        location_strategy = self.get_subtitle_download_path_strategy()
+        if location_strategy == SubtitlePathStrategy.ASK:
+            download_path = file_save_as_cb(path=os.getcwd(), filename=sub_filename)  # How to cancel? None?
+        elif location_strategy == SubtitlePathStrategy.SAME:
+            download_path = Path(os.getcwd()) / sub_filename
         else:  # location_strategy == SubtitlePath.PREDEFINED:
             download_path = self.get_default_download_path() / sub_filename
         log.debug('Downloading to {}'.format(download_path))

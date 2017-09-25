@@ -206,8 +206,8 @@ class UploadWidget(QWidget):
         local_movie = LocalMovie()
 
         identity = self.get_selected_imdb_identity()
-        local_movie.set_movie_name(identity.get_video_identity().get_name())
-        local_movie.set_imdb_id(identity.get_imdb_identity().get_imdb_id())
+        local_movie.set_movie_name(identity.video_identity.get_name())
+        local_movie.set_imdb_id(identity.imdb_identity.get_imdb_id())
         local_movie.set_release_name(self.ui.uploadReleaseText.text())
         local_movie.set_comments(self.ui.uploadComments.toPlainText())
 
@@ -246,10 +246,10 @@ class ImdbHistoryModel(QAbstractListModel):
 
             provider_identity = self._item_identities[row]
 
-            imdb_identity = provider_identity.get_imdb_identity()
+            imdb_identity = provider_identity.imdb_identity
             imdb_id = imdb_identity.get_imdb_id()
 
-            video_identity = provider_identity.get_video_identity()
+            video_identity = provider_identity.video_identity
             name = video_identity.get_name()
 
             return '{imdb_id} : {name}'.format(imdb_id=imdb_id, name=name)
@@ -259,12 +259,14 @@ class ImdbHistoryModel(QAbstractListModel):
     MAX_IMDB_HISTORY = 20
 
     def add_identity(self, new_identity):
-        new_imdb_id = new_identity.get_imdb_identity().get_imdb_id()
+        new_imdb_id = new_identity.imdb_identity.get_imdb_id()
         parent = QModelIndex()
         for identity_i, identity in enumerate(self._item_identities):
-            imdb_id = identity.get_imdb_identity().get_imdb_id()
+            imdb_id = identity.imdb_identity.get_imdb_id()
             if new_imdb_id == imdb_id:
-                self.beginMoveRows(parent, identity_i, identity_i, parent, 0)
+                move_valid = self.beginMoveRows(parent, identity_i, identity_i, parent, 0)
+                if not move_valid:
+                    return 1
                 del self._item_identities[identity_i]
                 self._item_identities.insert(0, identity)
                 self.endMoveRows()
@@ -305,9 +307,9 @@ class ImdbHistoryModel(QAbstractListModel):
         settings.setValue("imdbId", id)
         for identity_i, identity in enumerate(self._item_identities):
             settings.setArrayIndex(identity_i)
-            imdb_identity = identity.get_imdb_identity()
+            imdb_identity = identity.imdb_identity
             settings.setValue('imdbId', imdb_identity.get_imdb_id())
-            video_identity = identity.get_video_identity()
+            video_identity = identity.video_identity
             settings.setValue('title', video_identity.get_name())
         settings.endArray()
 

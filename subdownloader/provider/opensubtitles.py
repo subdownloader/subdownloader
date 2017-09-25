@@ -3,16 +3,16 @@
 
 import base64
 import datetime
-from io import BytesIO
 import logging
 import re
 
-from subdownloader.compat import CannotSendRequest, ProtocolError, ServerProxy, SocketError, urlopen
+from subdownloader.compat import CannotSendRequest, HTTPError, ProtocolError, quote, ServerProxy, SocketError, urlopen
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
-from subdownloader.identification import ImdbIdentity, ProviderIdentities
+from subdownloader.identification import ImdbIdentity, ProviderIdentities, VideoIdentity
+from subdownloader.movie import RemoteMovie
 from subdownloader.provider import window_iterator
 from subdownloader.provider.provider import ProviderConnectionError, ProviderNotConnectedError, \
-    ProviderSettings, SubtitleProvider
+    ProviderSettings, SubtitleProvider, SubtitleTextQuery
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile
 from subdownloader.util import unzip_bytes, unzip_stream, write_stream
 
@@ -163,6 +163,9 @@ class OpenSubtitles(SubtitleProvider):
         callback.finish()
         return remote_subtitles
 
+    def query_text(self, query):
+        return OpenSubtitlesTextQuery(query=query)
+
     def download_subtitles(self, os_rsubs):
         log.debug('download_subtitles()')
         if not self.logged_in():
@@ -261,6 +264,262 @@ class OpenSubtitles(SubtitleProvider):
         log.debug('check_result() finished (data is ok)')
 
 
+class OpenSubtitlesTextQuery(SubtitleTextQuery):
+    def __init__(self, query):
+        SubtitleTextQuery.__init__(self, query)
+        self._movies = []
+        self._total = None
+
+    def get_movies(self):
+        return self._movies
+
+    def get_nb_movies_online(self):
+        return self._total
+
+    def more_movies_available(self):
+        if self._total is None:
+            return True
+        return len(self._movies) < self._total
+
+    def search_online(self):
+        raise NotImplementedError()
+
+    @staticmethod
+    def _safe_exec(query, default):
+        try:
+            result = query()
+            return result
+        except HTTPError:
+            log.warning('Query failed', exc_info=True)
+            return default
+
+    def search_more_movies(self):
+        if not self.more_movies_available():
+            return []
+
+        xml_url = 'http://www.opensubtitles.org/en/search2/moviename-{text_quoted}/offset-{offset}/xml'.format(
+            offset=len(self._movies),
+            text_quoted=quote(self._query))
+
+        xml_page = self._fetch_url(xml_url)
+        if xml_page is None:
+            raise ProviderConnectionError()
+
+        movies, nb_so_far, nb_provider = self._xml_to_movies(xml_page)
+        if movies is None:
+            raise ProviderConnectionError()
+
+        self._total = nb_provider
+        self._movies.extend(movies)
+
+        if len(self._movies) != nb_so_far:
+            log.warning('Provider told us it returned {nb_so_far} movies. '
+                        'Yet we only extracted {nb_local} movies.'.format(
+                nb_so_far=nb_so_far, nb_local=len(movies)))
+
+        return movies
+
+    def search_more_subtitles(self, movie):
+        print('avail:', movie.get_nb_subs_available(), 'total:', movie.get_nb_subs_total())
+        if movie.get_nb_subs_available() == movie.get_nb_subs_total():
+            return None
+        xml_url = 'http://www.opensubtitles.org{provider_link}/offset-{offset}/xml'.format(
+            provider_link=movie.get_provider_link(),
+            offset=movie.get_nb_subs_available())
+
+        xml_contents = self._fetch_url(xml_url)
+        if xml_contents is None:
+            raise ProviderConnectionError('Failed to fetch url {url}'.format(url=xml_url))
+
+        open('/tmp/sub', 'wb').write(xml_contents)
+
+        subtitles, nb_so_far, nb_provider = self._xml_to_subtitles(xml_contents)
+        if subtitles is None:
+            raise ProviderConnectionError()
+
+        # if movie.get_nb_subs_available() != nb_so_far:
+        #     log.warning('Data mismatch: we know movie has {local_nb_so_far} subtitles available. '
+        #                 'Server says it has so far returned {nb_so_far} subtitles.'.format(
+        #         local_nb_so_far=movie.get_nb_subs_total(), nb_so_far=nb_so_far))
+        #     return None  # Detect series
+        movie.add_subtitles(subtitles)
+
+        return subtitles
+
+    def _xml_to_movies(self, xml):
+        subtitle_entries, nb_so_far, nb_provider = self._extract_subtitle_entries(xml)
+        if subtitle_entries is None:
+            return None, None, None
+
+        movies = []
+        for subtitle_entry in subtitle_entries:
+            try:
+                ads_entries = subtitle_entry.getElementsByTagName('ads1')
+                if ads_entries:
+                    continue
+
+                def try_get_firstchild_data(key, default):
+                    try:
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                movie_id_entries = subtitle_entry.getElementsByTagName('MovieID')
+                movie_id = movie_id_entries[0].firstChild.data
+                movie_id_link = movie_id_entries[0].getAttribute('Link')
+                # movie_thumb = subtitle_entry.getElementsByTagName('MovieThumb')[0].firstChild.data
+                # link_use_next = subtitle_entry.getElementsByTagName('LinkUseNext')[0].firstChild.data
+                # link_zoozle = subtitle_entry.getElementsByTagName('LinkZoozle')[0].firstChild.data
+                # link_boardreader = subtitle_entry.getElementsByTagName('LinkBoardreader')[0].firstChild.data
+                movie_name = try_get_firstchild_data('MovieName', None)
+                movie_year = try_get_firstchild_data('MovieYear', None)
+                try:
+                    movie_imdb_rating = float(
+                        subtitle_entry.getElementsByTagName('MovieImdbRating')[0].getAttribute('Percent')) / 10
+                except AttributeError:
+                    movie_imdb_rating = None
+                # try:
+                #     movie_imdb_link = movie_id_entries[0].getAttribute('LinkImdb')
+                # except AttributeError:
+                #     movie_imdb_link = None
+                movie_imdb_id = try_get_firstchild_data('MovieImdbID', None)
+                subs_total = int(subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data)
+                # newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data
+
+                imdb_identity = ImdbIdentity(imdb_id=movie_imdb_id, imdb_rating=movie_imdb_rating)
+                video_identity = VideoIdentity(name=movie_name, year=movie_year)
+                identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
+
+                movie = RemoteMovie(
+                    subtitles_nb_total=subs_total, provider_link=movie_id_link, provider_id=movie_id,
+                    identities=identity
+                )
+
+                movies.append(movie)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
+
+        return movies, nb_so_far, nb_provider
+
+    def _xml_to_subtitles(self, xml):
+        subtitle_entries, nb_so_far, nb_provider = self._extract_subtitle_entries(xml)
+        if subtitle_entries is None:
+            return None, None, None
+
+        subtitles = []
+        for subtitle_entry in subtitle_entries:
+            try:
+                ads_entries = subtitle_entry.getElementsByTagName('ads1') or subtitle_entry.getElementsByTagName('ads2')
+                if ads_entries:
+                    continue
+
+                def try_get_first_child_data(key, default):
+                    try:
+                        return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
+                    except (AttributeError, IndexError):
+                        return default
+                subtitle_id_entry = subtitle_entry.getElementsByTagName('IDSubtitle')[0]
+                subtitle_id = subtitle_id_entry.firstChild.data
+                subtitle_link = 'http://www.opensubtitles.org' + subtitle_id_entry.getAttribute('Link')
+                subtitle_uuid = subtitle_id_entry.getAttribute('uuid')
+
+                subtitlefile_id = subtitle_entry.getElementsByTagName('IDSubtitleFile')[0].firstChild.data
+
+                user_entry = subtitle_entry.getElementsByTagName('UserID')[0]
+                user_id = int(user_entry.firstChild.data)
+                # user_link = 'http://www.opensubtitles.org' + user_entry.getAttribute('Link')
+                user_nickname = try_get_first_child_data('UserNickName', None)
+
+                # comment = try_get_first_child_data(''SubAuthorComment', None)
+
+                language_entry = subtitle_entry.getElementsByTagName('ISO639')[0]
+                language_iso639 = language_entry.firstChild.data
+                # language_link_search = 'http://www.opensubtitles.org' + language_entry.getAttribute('LinkSearch')
+                # language_flag = 'http:' + language_entry.getAttribute('flag')
+
+                # language_name = try_get_first_child_data('LanguageName', None)
+
+                subtitle_format = try_get_first_child_data('SubFormat', 'srt')
+                # subtitle_nbcds = int(try_get_first_child_data('SubSumCD', -1))
+                subtitle_add_date_locale = subtitle_entry.getElementsByTagName('SubAddDate')[0].getAttribute('locale')
+                subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_locale, '%d/%m/%Y %H:%M:%S')
+                # subtitle_bad = int(subtitle_entry.getElementsByTagName('SubBad')[0].firstChild.data)
+                subtitle_rating = float(subtitle_entry.getElementsByTagName('SubRating')[0].firstChild.data)
+
+                # download_count = int(try_get_first_child_data('SubDownloadsCnt', -1))
+                # subtitle_movie_aka = try_get_first_child_data('SubMovieAka', None)
+
+                # subtitle_comments = int(try_get_first_child_data('SubComments', -1))
+                # subtitle_total = int(try_get_first_child_data('TotalSubs', -1)) #PRESENT?
+                # subtitle_newest = try_get_first_child_data('Newest', None) #PRESENT?
+
+                language = Language.from_xx(language_iso639)
+
+                movie_release_name = subtitle_entry.getElementsByTagName('MovieReleaseName')[0].firstChild.data
+                filename = '{}.{}'.format(movie_release_name, subtitle_format)
+
+                download_link = 'http://www.opensubtitles.org/download/sub/{}'.format(subtitle_id)
+                if user_nickname:
+                    uploader = user_nickname
+                elif user_id != 0:
+                    uploader = str(user_id)
+                else:
+                    uploader = None
+                subtitle = OpenSubtitlesSubtitleFile(filename=filename, file_size=None, md5_hash=subtitle_uuid,
+                                                     id_online=subtitlefile_id, download_link=download_link,
+                                                     link=subtitle_link, uploader=uploader,
+                                                     language=language, rating=subtitle_rating, age=subtitle_add_date)
+                subtitles.append(subtitle)
+            except (AttributeError, IndexError, ValueError):
+                log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
+                log.warning('XML entry has invalid format.', exc_info=True)
+
+        return subtitles, nb_so_far, nb_provider
+
+    @staticmethod
+    def _extract_subtitle_entries(raw_xml):
+        entries = []
+        nb_so_far = 0
+        nb_total = 0
+        from xml.dom import minidom
+        import xml.parsers.expat
+        log.debug('extract_subtitle_entries() ...')
+        try:
+            # FIXME: use xpath
+            dom = minidom.parseString(raw_xml)
+            opensubtitles_entries = dom.getElementsByTagName('opensubtitles')
+            for opensubtitles_entry in opensubtitles_entries:
+                results_entries = opensubtitles_entry.getElementsByTagName('results')
+                for results_entry in results_entries:
+                    try:
+                        nb_so_far = int(results_entry.getAttribute('items'))
+                        nb_total = int(results_entry.getAttribute('itemsfound'))
+                        entries = results_entry.getElementsByTagName('subtitle')
+                        break
+                    except ValueError:
+                        continue
+            if entries is None:
+                log.debug('... extraction FAILED: no entries found, maybe no subtitles on page!')
+            else:
+                log.debug('... extraction SUCCESS')
+        except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
+            log.debug('... extraction FAILED (xml error)', exc_info=True)
+            nb_so_far = None
+            entries = None
+        return entries, nb_so_far, nb_total
+
+    @staticmethod
+    def _fetch_url(url):
+        try:
+            log.debug('Fetching data from {}...'.format(url))
+            page = urlopen(url).read()
+            log.debug('... SUCCESS')
+        except HTTPError:
+            log.warning('... FAILED', exc_info=True)
+            return None
+        return page
+
+
 DEFAULT_USER_AGENT = ''
 
 
@@ -336,16 +595,14 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
             super_parent.add_subtitle(local_sub)
         return tuple((local_sub, ))
 
-    def _download(self, provider_instance, callback):
-        # method 1:
-        subs = provider_instance.download_subtitles([self])
-        return BytesIO(subs[0])
+    # def _download(self, provider_instance, callback):
+    #     # method 1:
+    #     subs = provider_instance.download_subtitles([self])
+    #     return BytesIO(subs[0])
 
     def _download_web(self):
         # method 2:
-        # FIXME: try/except => throw ProviderConnectionError
-        zip_stream = urlopen(self._download_link)
-        sub_stream = unzip_stream(zip_stream)
+        sub_stream = urlopen(self._download_link)
         return sub_stream
 
 providers = (OpenSubtitles, )

@@ -12,6 +12,7 @@ from subdownloader.filescan import scan_videopaths
 from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.compat import Path
 from subdownloader.languages.language import Language, NotALanguageException
+from subdownloader.subtitle2 import RemoteSubtitleFile
 
 
 class CliCmd(Cmd):
@@ -25,6 +26,10 @@ class CliCmd(Cmd):
         self._videos = []
         self._video_rsubs = set()
 
+        # Text query state
+        self._text_query = None
+        self._query_rsubs = set()
+
     def _invalidate_videos(self):
         self.set_videos([])
 
@@ -32,23 +37,13 @@ class CliCmd(Cmd):
         self._videos = videos
         self._video_rsubs = set()
 
-    def download_language_filter(self, subtitle):
-        subtitle_languages = subtitle.get_language()
-        if subtitle_languages.is_generic():
-            return subtitle
-        filter_languages = self.state.get_download_languages()
-        if not filter_languages :
-            return subtitle
-        if subtitle_languages in filter_languages :
-            return subtitle
-
     def get_videos_subtitle(self, i):
         if i < 0:
             raise IndexError()
         nb_subs_met = 0
         for video in self._videos:
             for subtitle_network in video.get_subtitles():
-                if not self.download_language_filter(subtitle_network):
+                if not self.download_filter_language_object(subtitle_network):
                     continue
                 nb_subs_met_tmp = nb_subs_met + len(subtitle_network)
                 if i < nb_subs_met_tmp:
@@ -57,10 +52,26 @@ class CliCmd(Cmd):
         else:
             raise IndexError()
 
-    def print(self, *what, newline=True):
+    def _invalidate_text_queries(self):
+        self.set_text_query(None)
+
+    def set_text_query(self, query):
+        self._text_query = query
+        self._query_rsubs = set()
+
+    def download_filter_language_object(self, subtitle):
+        subtitle_languages = subtitle.get_language()
+        if subtitle_languages.is_generic():
+            return subtitle
+        filter_languages = self.state.get_download_languages()
+        if not filter_languages:
+            return subtitle
+        if subtitle_languages in filter_languages:
+            return subtitle
+
+    def print(self, *what):
         self.stdout.write(' '.join(what))
-        if newline:
-            self.stdout.write(linesep)
+        self.stdout.write(linesep)
 
     def read_line(self, prefix):
         self.stdout.write(prefix)
@@ -80,7 +91,8 @@ class CliCmd(Cmd):
     def postloop(self):
         self.state.logout()
 
-    def get_callback(self):
+    @staticmethod
+    def get_callback():
         return ProgressBarCallback()
 
     LEN_ARG_COL = 15
@@ -246,8 +258,6 @@ class CliCmd(Cmd):
                 return
         self.print(_('Current videos:'))
 
-        language_filter = self.state.get_download_languages()
-
         counter = 0
         counter_len = len(str(sum(video.get_subtitles().get_nb_subtitles() for video in self._videos)))
         nb_selected = 0
@@ -255,24 +265,24 @@ class CliCmd(Cmd):
         for video in self._videos:
             self.print('- {}'.format(video.get_filename()))
             for network in video.get_subtitles():
-                if not self.download_language_filter(network):
+                if not self.download_filter_language_object(network):
                     continue
                 network_language = network.get_language()
 
                 xx = ('??' if network_language.is_generic() else network_language.xx()).upper()
                 self.print('  [{xx}] {fn} ({bs} {bs_str})'.format(fn=network.get_filename(), bs=network.get_file_size(),
-                                                             bs_str=_('bytes'), xx=xx))
+                                                                  bs_str=_('bytes'), xx=xx))
                 for subtitle in network:
                     if subtitle.is_local():
                         x = 'X'
-                    if subtitle.is_remote():
+                    else:  # if subtitle.is_remote():
                         if subtitle in self._video_rsubs:
                             x = 'x'
                             nb_selected += 1
                         else:
                             x = ' '
                     self.print('       <{x}> [{i}] {s}'.format(i=str(counter).rjust(counter_len), x=x,
-                                                            s=self.subtitle_to_short_string(subtitle)))
+                                                               s=self.subtitle_to_short_string(subtitle)))
                     counter += 1
 
         if nb_selected:
@@ -313,7 +323,7 @@ class CliCmd(Cmd):
             return
         try:
             subs_i = tuple(int(a) for a in shlex.split(arg))
-        except ValueError as e:
+        except ValueError:
             self.print(_('Invalid value'))
             return
         try:
@@ -345,7 +355,7 @@ class CliCmd(Cmd):
             return
         try:
             subs_i = tuple(int(a) for a in shlex.split(arg))
-        except ValueError as e:
+        except ValueError:
             self.print(_('Invalid value'))
             return
         try:
@@ -450,6 +460,7 @@ class CliCmd(Cmd):
                 if res:
                     self.print(_('Provider removed.'))
                     self._invalidate_videos()
+                    self._invalidate_text_queries()
                 else:
                     self.print(_('Removal failed.'))
             elif cmd == 'list':
@@ -465,7 +476,8 @@ class CliCmd(Cmd):
         else:
             providers = self.state.get_providers()
             if providers:
-                self.print(ngettext('{} active provider:', '{} active providers:', len(providers)).format(len(providers)))
+                self.print(
+                    ngettext('{} active provider:', '{} active providers:', len(providers)).format(len(providers)))
                 for provider in providers:
                     logged_in_str = _('logged in') if provider.logged_in() else _('logged out')
                     self.print(' - {}: {}'.format(provider.get_name(), logged_in_str))
@@ -498,7 +510,8 @@ class CliCmd(Cmd):
         'online': SubtitleRenameStrategy.ONLINE
     }
 
-    def get_strategy_rename_doc(self, strategy):
+    @staticmethod
+    def get_strategy_rename_doc(strategy):
         if strategy == SubtitleRenameStrategy.VIDEO:
             return _('Use the local video filename as name for the downloaded subtitle.')
         elif strategy == SubtitleRenameStrategy.VIDEO_LANG:
@@ -531,14 +544,14 @@ class CliCmd(Cmd):
             self.print(_('New subtitle rename strategy:'))
         self.print(self.get_strategy_rename_doc(self.state.get_subtitle_rename_strategy()))
 
-    def get_file_saveas_cb(self):
-        def file_saveas_cb(path, filename):
+    def get_file_save_as_cb(self):
+        def file_save_as_cb(path, filename):
             self.print('{}: {}'.format(_('Current download path'), path / filename))
             new_path_str = self.read_line('New')
             if not new_path_str:
                 return path / filename
             return Path(new_path_str)
-        return file_saveas_cb
+        return file_save_as_cb
 
     def help_viddownload(self):
         self.print(_('Download the selected subtitles for the video files.'))
@@ -550,7 +563,7 @@ class CliCmd(Cmd):
         if arg:
             self.print(_('Unknown arguments: {}').format(arg))
             return
-        subs_to_download = {rsub for rsub in self._video_rsubs if self.download_language_filter(rsub)}
+        subs_to_download = {rsub for rsub in self._video_rsubs if self.download_filter_language_object(rsub)}
         self.print(_('Number of subs to download: {}'.format(len(subs_to_download))))
         for rsub in subs_to_download:
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
@@ -560,7 +573,7 @@ class CliCmd(Cmd):
             except IndexError:
                 self.print(_('Provider not available.'))
                 return
-            target_path = self.state.calculate_download_path(rsub, self.get_file_saveas_cb())
+            target_path = self.state.calculate_download_path(rsub, self.get_file_save_as_cb())
             callback = self.get_callback()
             try:
                 rsub.download(target_path=target_path, provider_instance=provider, callback=callback)
@@ -568,3 +581,160 @@ class CliCmd(Cmd):
                 self.print(_('An error happened during download'))
                 return
             self._video_rsubs.remove(rsub)
+
+    # FIXME: merge these..
+
+    def query_active(self):
+        return self._text_query is not None
+
+    def do_query(self, arg):
+        if not arg:
+            if not self.query_active():
+                self.print(_('No query active'))
+            else:
+                self.print('{}: "{}"'.format(_('Current query'), self._text_query.text))
+                self.print('{}: {}'.format(_('More movies available'), self._text_query.more_movies_available()))
+            return
+        self.set_text_query(self.state.query_text_all(text=arg))
+
+    def do_querymore(self, arg):
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+
+        try:
+            self._text_query.search_more_movies()
+        except ProviderConnectionError:
+            self.print(_('An error occured'))
+
+    def do_queryhasmore(self, arg):
+        if arg:
+            self.print(_('Unknown arguments: {}').format(arg))
+            return
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+        self.print(_('Yes') if self._text_query.more_movies_available() else _('No'))
+
+    def do_querysubsearch(self, arg):
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+        try:
+            rmovie_network_i = int(arg)
+            rmovie_network = self._text_query.movies[rmovie_network_i]
+        except ValueError:
+            self.print(_('Need an argument'))
+            return
+        except IndexError:
+            self.print(_('Movie not available'))
+            return
+        if not rmovie_network.more_subtitles_available():
+            self.print(_('List of all remote subtitles fetched'))
+            return
+        rmovie_network.search_more_subtitles()
+
+    def do_queryshow(self, arg):
+        if arg:
+            self.print(_('Unknown arguments: {}').format(arg))
+            return
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+        sub_i = 0
+        for rmovie_network_i, rmovie_network in enumerate(self._text_query.movies):
+            rmovie_identity = rmovie_network.get_identities()
+            video_identity = rmovie_identity.video_identity
+            name = video_identity.get_name()
+            year = video_identity.get_year()
+            subs_total = rmovie_network.get_nb_subs_total()
+            subs_avail = rmovie_network.get_nb_subs_available()
+            print('[{rmov_i}] {name} ({year}) [{nb_avail}/{nb_total}]'.format(
+                rmov_i=rmovie_network_i, name=name, year=year, nb_avail=subs_avail, nb_total=subs_total))
+            for rsub_network in rmovie_network.get_subtitles():
+                if not self.download_filter_language_object(rsub_network):
+                    continue
+                print('  [{xx}] {nb} {subtitles_str} ({full_lang_str})'.format(
+                    xx=rsub_network.get_language().xx(),
+                    nb=len(rsub_network),
+                    subtitles_str=ngettext('subtitle', 'subtitles', len(rsub_network)),
+                    full_lang_str=_(rsub_network.get_language().name())))
+                for rsub in rsub_network:
+                    if not isinstance(rsub, RemoteSubtitleFile):
+                        continue
+                    x = rsub in self._query_rsubs
+                    uploader = _('unknown') if rsub.get_uploader() is None else rsub.get_uploader()
+                    print('    <{x}> [{sub_i}] {rating_str}: {rat}, {uploader_str}: {upl}'.format(
+                        x='x' if x else ' ',
+                        sub_i=sub_i,
+                        rating_str=_('Rating'), rat=rsub.get_rating(),
+                        uploader_str=_('Uploader'), upl=uploader))
+                    sub_i += 1
+
+    def query_get_subtitle(self, index):
+        sub_i = 0
+        for rmovie_network in self._text_query.movies:
+            for rsub_network in rmovie_network.get_subtitles():
+                if not self.download_filter_language_object(rsub_network):
+                    continue
+                for rsub in rsub_network:
+                    if not isinstance(rsub, RemoteSubtitleFile):
+                        continue
+                    if sub_i == index:
+                        return rsub
+                    sub_i += 1
+
+        return None
+
+    def do_queryselect(self, arg):
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+        try:
+            sel_i = int(arg)
+        except ValueError:
+            self.print(_('Invalid index'))
+            return
+        rsub = self.query_get_subtitle(sel_i)
+        if rsub is None:
+            self.print(_('Index out of range'))
+            return
+        self._query_rsubs.add(rsub)
+
+    def do_querydeselect(self, arg):
+        if not self.query_active():
+            self.print(_('No query active'))
+            return
+        try:
+            sel_i = int(arg)
+        except ValueError:
+            self.print(_('Invalid index'))
+            return
+        rsub = self.query_get_subtitle(sel_i)
+        if rsub is None:
+            self.print(_('Index out of range'))
+            return
+        self._query_rsubs.remove(rsub)
+
+    def do_querydownload(self, arg):
+        if arg:
+            self.print(_('Unknown arguments: {}').format(arg))
+            return
+        subs_to_download = {rsub for rsub in self._query_rsubs if self.download_filter_language_object(rsub)}
+        self.print(_('Number of subs to download: {}'.format(len(subs_to_download))))
+        for rsub in subs_to_download:
+            self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
+            provider_type = rsub.get_provider()
+            try:
+                provider = self.state.provider_get(provider_type)
+            except IndexError:
+                self.print(_('Provider not available.'))
+                return
+            target_path = self.state.calculate_download_query_path(rsub, self.get_file_save_as_cb())
+            callback = self.get_callback()
+            try:
+                rsub.download(target_path=target_path, provider_instance=provider, callback=callback)
+            except ProviderConnectionError:
+                self.print(_('An error happened during download'))
+                return
+            self._query_rsubs.remove(rsub)

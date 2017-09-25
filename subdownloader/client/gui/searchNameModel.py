@@ -184,8 +184,8 @@ class VideoTreeModel(QAbstractItemModel):
                 return QFont('Arial', 9, QFont.Bold)
 
             if role == Qt.DisplayRole:
-                imdb_identity = next(movie.get_identities().iter_imdb_identity())
-                video_identity = next(movie.get_identities().iter_video_identity())
+                imdb_identity = movie.get_identities().imdb_identity
+                video_identity = movie.get_identities().video_identity
                 text = '{movie_name} [{movie_year}] [{imdb_string}: ' \
                        '{imdb_rating}] ({nb_local}/{nb_server} subtitles)'.format(
                             movie_name=video_identity.get_name(),

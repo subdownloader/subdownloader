@@ -26,7 +26,6 @@ class SubtitleFile(object):
     def get_super_parent(self):
         parents = set()
         obj = self
-        print('super_parent(self={})'.format(self))
         while True:
             parent = obj.get_parent()
             if parent is None:

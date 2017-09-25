@@ -8,7 +8,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from subdownloader.client.gui.generated.imdbSearch_ui import Ui_IMDBSearchDialog
-from subdownloader.identification import ProviderIdentities
+from subdownloader.identification import Identities
 
 log = logging.getLogger('subdownloader.client.gui.imdbSearch')
 
@@ -78,10 +78,10 @@ class ImdbSearchDialog(QDialog):
             QMessageBox.about(
                 self, _('Error'), _('Please search and select a movie from the list'))
         else:
-            imdb_identity = identity.get_imdb_identity()
+            imdb_identity = identity.imdb_identity
             webbrowser.open(imdb_identity.get_imdb_url(), new=2, autoraise=1)
 
-    identity_selected = pyqtSignal(ProviderIdentities)
+    identity_selected = pyqtSignal(Identities)
 
     @pyqtSlot()
     def on_button_ok(self):

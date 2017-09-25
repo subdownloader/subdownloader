@@ -15,7 +15,7 @@ import threading
 import traceback
 import zlib
 from io import BytesIO
-log = logging.getLogger("subdownloader.WebService")
+log = logging.getLogger("subdownloader.provider.SDService")
 
 from subdownloader.compat import Fault, HTTPConnection, HTTPError, ProtocolError, quote, ServerProxy, Transport, urlopen, URLError
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
@@ -722,9 +722,10 @@ class SearchByName(object):
             return None
 
         if movie.get_nb_subs_total() != nb_total:
-            log.warning('Data mismatch: Partial search of subtitles told us movie has {nb_partial} subtitles '
-                        'but index told us it has {nb_index} subtitles.'.format(
-                nb_partial=nb_total, nb_index=movie.get_nb_subs_total()))
+            # log.debug('Data mismatch: Partial search of subtitles told us movie has {nb_partial} subtitles '
+            #             'but index told us it has {nb_index} subtitles.'.format(
+            #     nb_partial=nb_total, nb_index=movie.get_nb_subs_total()))
+            return None  # Detect series
         movie.add_subtitles(subtitles)
 
         return subtitles
@@ -776,25 +777,25 @@ class SearchByName(object):
                 subs_total = int(subtitle_entry.getElementsByTagName('TotalSubs')[0].firstChild.data)
                 # newest = subtitle_entry.getElementsByTagName('Newest')[0].firstChild.data
 
+                imdb_identity = ImdbIdentity(imdb_id=movie_imdb_id, imdb_rating=movie_imdb_rating)
+                video_identity = VideoIdentity(name=movie_name, year=movie_year)
+                identities = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
+
                 movie = RemoteMovie(
                     subtitles_nb_total=subs_total,
                     provider_link=movie_id_link, provider_id=movie_id,
+                    identities = identities
                 )
-
-                imdb_identity = ImdbIdentity(imdb_id=movie_imdb_id, imdb_rating=movie_imdb_rating)
-                video_identity = VideoIdentity(name=movie_name, year=movie_year)
-                identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
-                movie.add_identity(identity)
 
                 movies.append(movie)
             except (AttributeError, IndexError, ValueError):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
                 log.warning('XML entry has invalid format.', exc_info=True)
 
-        if len(movies) != nb_provider:
-            log.warning('Provider told us it returned {nb_provider} movies. '
-                        'Yet we only extracted {nb_local} movies.'.format(
-                nb_provider=nb_provider, nb_local=len(movies)))
+        # if len(movies) != nb_provider:
+        #     log.warning('Provider told us it returned {nb_provider} movies. '
+        #                 'Yet we only extracted {nb_local} movies.'.format(
+        #         nb_provider=nb_provider, nb_local=len(movies)))
         return movies, nb_provider_total
 
     def extract_subtitle_entries(self, raw_xml):
@@ -895,10 +896,10 @@ class SearchByName(object):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
                 log.warning('XML entry has invalid format.', exc_info=True)
 
-        if len(subtitles) != nb_provider:
-            log.warning('Provider told us it returned {nb_provider} subtitles. '
-                        'Yet we only extracted {nb_local} subtitles.'.format(
-                nb_provider=nb_provider, nb_local=len(subtitles)))
+        # if len(subtitles) != nb_provider:
+        #     log.warning('Provider told us it returned {nb_provider} subtitles. '
+        #                 'Yet we only extracted {nb_local} subtitles.'.format(
+        #         nb_provider=nb_provider, nb_local=len(subtitles)))
         return subtitles, nb_provider_total
 
 

@@ -241,11 +241,6 @@ class SearchNameWidget(QWidget):
                 'http://www.opensubtitles.org/en/subtitles/{id_online}'.format(id_online=sub.get_id_online()),
                 new=2, autoraise=1)
 
-    @pyqtSlot()
-    def onSetIMDBInfo(self):
-        #FIXME: DUPLICATED WITH SEARCHFILEWIDGET
-        QMessageBox.about(self, _("Info"), "Not implemented yet. Sorry...")
-
     @pyqtSlot(object)
     def on_item_clicked(self, item):
         if isinstance(item, RemoteMovie):

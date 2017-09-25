@@ -69,6 +69,9 @@ class SubtitleProvider(object):
     def search_videos(self, videos, callback, language=None):
         raise NotImplementedError()
 
+    def query_text(self, query):
+        raise NotImplementedError()
+
     # def download_subtitles(self, remotesubs):
     #     raise NotImplementedError()
     #
@@ -78,9 +81,9 @@ class SubtitleProvider(object):
     def ping(self):
         raise NotImplementedError()
 
-    @classmethod
-    def supports_mode(cls, method):
-        raise NotImplementedError()
+    # @classmethod
+    # def supports_mode(cls, method):
+    #     raise NotImplementedError()
 
     @classmethod
     def get_name(cls):
@@ -99,4 +102,28 @@ class ProviderSettings(object):
         raise NotImplementedError()
 
     def load(self, **kwargs):
+        raise NotImplementedError()
+
+
+class SubtitleTextQuery(object):
+    def __init__(self, query):
+        self._query = query
+
+    def get_movies(self):
+        raise NotImplementedError()
+
+    def get_nb_movies_online(self):
+        raise NotImplementedError()
+
+    @property
+    def query(self):
+        return self._query
+
+    def more_movies_available(self):
+        raise NotImplementedError()
+
+    def search_more_movies(self):
+        raise NotImplementedError()
+
+    def search_more_subtitles(self, movie):
         raise NotImplementedError()
