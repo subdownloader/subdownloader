@@ -290,7 +290,7 @@ class SearchFileWidget(QWidget):
         folder_path = QFileDialog.getExistingDirectory(self, _('Select the directory that contains your videos'), path)
         if folder_path:
             settings.setValue('mainwindow/workingDirectory', folder_path)
-            self.search_videos([folder_path])
+            self.search_videos([Path(folder_path)])
 
     @pyqtSlot()
     def onButtonSearchSelectVideos(self):
@@ -300,7 +300,7 @@ class SearchFileWidget(QWidget):
                                                     currentDir, get_select_videos())
         if fileNames:
             settings.setValue('mainwindow/workingDirectory', QFileInfo(fileNames[0]).absolutePath())
-            self.search_videos(fileNames)
+            self.search_videos([Path(filename) for filename in fileNames])
 
     def search_videos(self, paths):
         if not self.get_state().connected():

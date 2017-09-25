@@ -45,9 +45,7 @@ def scan_videopath(videopath, callback, recursive=False):
         return __scan_folder(videopath, callback=callback, recursive=recursive)
     elif videopath.is_file():
         log.debug('"{videopath}" is a file'.format(videopath=videopath))
-        videopath_dir = os.path.dirname(videopath)
-        if not videopath_dir:
-            videopath_dir = '.'
+        videopath_dir = videopath.parent
         [all_subs, _] = filter_files_extensions(videopath_dir.iterdir(), [SUBTITLES_EXT, VIDEOS_EXT])
         [_, video] = filter_files_extensions([videopath], [SUBTITLES_EXT, VIDEOS_EXT])
         sub_videos = [all_subs, video]
