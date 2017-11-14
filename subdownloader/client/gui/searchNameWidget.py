@@ -232,9 +232,8 @@ class SearchNameWidget(QWidget):
         data = node.get_data()
         if isinstance(data, RemoteMovie):
             movie_identity = data.get_identities()
-            if any(movie_identity.iter_imdb_identity()):
-                imdb_identity = next(movie_identity.iter_imdb_identity())
-                webbrowser.open(imdb_identity.get_imdb_url(), new=2, autoraise=1)
+            if movie_identity.imdb_identity:
+                webbrowser.open(movie_identity.imdb_identity.get_imdb_url(), new=2, autoraise=1)
         elif isinstance(data, OpenSubtitles_SubtitleFile):
             sub = data
             webbrowser.open(
@@ -246,7 +245,7 @@ class SearchNameWidget(QWidget):
         if isinstance(item, RemoteMovie):
             self.ui.buttonIMDBByTitle.setEnabled(True)
             movie_identity = item.get_identities()
-            if any(movie_identity.iter_imdb_identity()):
+            if movie_identity.imdb_identity:
                 self.ui.buttonIMDBByTitle.setEnabled(True)
                 self.ui.buttonIMDBByTitle.setIcon(QIcon(":/images/info.png"))
                 self.ui.buttonIMDBByTitle.setText(_("Movie Info"))
