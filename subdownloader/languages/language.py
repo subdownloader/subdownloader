@@ -4,7 +4,11 @@
 import itertools
 import logging
 
-import langdetect
+try:
+    from langdetect import detect as langdetect_detect
+except ImportError:
+    def langdetect_detect(*args):
+        return UnknownLanguage.create_generic()
 
 from subdownloader.util import asciify
 
@@ -240,13 +244,13 @@ class Language(str):
         Try do determine the language of a text file.
         :param filepath: string file path
         :param chunk_size: amount of bytes of file to read to determine language
-        :return: Language instance if detection succeeded, otherwise a NotALanguageException is thrown
+        :return: Language instance if detection succeeded, otherwise return UnknownLanguage
         """
         log.debug('Language.from_file: "{}", chunk={} ...'.format(filepath, chunk_size))
         with open(filepath, 'rb') as f:
             data = f.read(-1 if chunk_size is None else chunk_size)
         data_ascii = asciify(data)
-        lang_xx = langdetect.detect(data_ascii)
+        lang_xx = langdetect_detect(data_ascii)
         lang = cls.from_xx(lang_xx)
         log.debug('... result language={}'.format(lang))
         return lang
