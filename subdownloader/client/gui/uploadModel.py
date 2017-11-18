@@ -303,7 +303,8 @@ class UploadListView(QTableView):
         file_path, t = QFileDialog.getOpenFileName(self, dialog_title, working_directory, extensions)
         if not file_path:
             return
-        settings.setValue('mainwindow/workingDirectory', QFileInfo(file_path).absolutePath())
+        file_path = Path(file_path)
+        settings.setValue('mainwindow/workingDirectory', str(file_path.parent))
 
         model = self._uploadModel
 
