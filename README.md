@@ -44,6 +44,12 @@ $ ./subdownloader.py -c
 $ ./subdownloader.py -h
 ```
 
+### Install Nautilus extension
+
+```
+ln -s $PATHTOSUBDOWNLOADER/subdownloader-nautilus/subdownloader_nautilus.py ~/.local/share/nautilus-python/extensions/
+```
+
 ## Credits
 
 The [original developers][subdownloader-launchpad] of the subdownloader program.
