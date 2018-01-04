@@ -251,18 +251,18 @@ class NFOIdentificator(object):
         for video in videos:
             if video is None:
                 continue
-            directory = os.path.dirname(video.get_filepath())
+            directory = video.get_filepath().parent
             if directory in directory_identification:
                 identity = directory_identification[directory]
                 if identity:
                     video.add_identity(identity=identity)
                 continue
             identity = None
-            for filename in os.listdir(directory):
-                if not filename.endswith('.nfo'):
+            for directory_file in directory.iterdir():
+                if directory_file.suffix != '.nfo':
                     continue
                 try:
-                    nfo_content = open(os.path.join(directory, filename)).read().lower()
+                    nfo_content = directory_file.open().read().lower()
                 except IOError:
                     continue
                 result = re.search('imdb\.\w+/title/tt(\d+)', nfo_content)
