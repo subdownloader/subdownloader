@@ -5,7 +5,13 @@ import itertools
 import logging
 
 try:
-    from langdetect import detect as langdetect_detect
+    from langdetect import detect
+    from langdetect.lang_detect_exception import LangDetectException
+    def langdetect_detect(*args):
+        try:
+            return detect(*args)
+        except LangDetectException:
+            return UnknownLanguage.create_generic()
 except ImportError:
     def langdetect_detect(*args):
         return UnknownLanguage.create_generic()
@@ -247,7 +253,7 @@ class Language(str):
         :return: Language instance if detection succeeded, otherwise return UnknownLanguage
         """
         log.debug('Language.from_file: "{}", chunk={} ...'.format(filepath, chunk_size))
-        with open(filepath, 'rb') as f:
+        with filepath.open('rb') as f:
             data = f.read(-1 if chunk_size is None else chunk_size)
         data_ascii = asciify(data)
         lang_xx = langdetect_detect(data_ascii)
