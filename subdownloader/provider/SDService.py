@@ -2,17 +2,16 @@
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 import xml.parsers
 from xml.dom import minidom
+import xml.parsers.expat
 
 from subdownloader.movie import RemoteMovie
 
 
 import base64
 import datetime
-import gzip
 import logging
 import re
 import threading
-import traceback
 import zlib
 from io import BytesIO
 log = logging.getLogger("subdownloader.provider.SDService")
@@ -348,7 +347,7 @@ class SDService(object):
         try:
             result = query()
             return result
-        except ProtocolError:
+        except (ProtocolError, xml.parsers.expat.ExpatError):
             self._signal_connection_failed()
             log.debug("Query failed", exc_info=True)
             return default
@@ -553,7 +552,7 @@ class SDService(object):
                 'moviebytesize': str(video.get_size()),
                 'movietimems': str(video.get_time_ms()),
                 'moviefps': video.get_fps(),
-                'movieframes': video.get_framecount(),
+                'movieframes': str(video.get_framecount()),
                 'moviefilename': video.get_filename(),
             }
 
@@ -600,10 +599,10 @@ class SDService(object):
                 'subhash': subtitle.get_md5_hash(),
                 'subfilename': subtitle.get_filename(),
                 'moviehash': video.get_osdb_hash(),
-                'moviebytesize': video.get_size(),
-                'movietimems': video.get_time_ms(),
+                'moviebytesize': str(video.get_size()),
+                'movietimems': str(video.get_time_ms()),
                 'moviefps': video.get_fps(),
-                'movieframes': video.get_framecount(),
+                'movieframes': str(video.get_framecount()),
                 'moviefilename': video.get_filename(),
                 'subcontent': sub_tx_data,
             }
