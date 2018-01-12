@@ -12,7 +12,7 @@ from subdownloader.compat import Path
 from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 
-from subdownloader.provider.SDService import SDService, TimeoutFunctionException
+from subdownloader.provider.SDService import ProviderConnectionError, SDService, TimeoutFunctionException
 
 log = logging.getLogger('subdownloader.client.gui.state')
 
@@ -176,7 +176,11 @@ class State(QObject):
         can_upload = self._OSDBServer.can_upload_subtitles(local_movie)
         if not can_upload:
             return False
-        self._OSDBServer.upload_subtitles(local_movie)
+        try:
+            self._OSDBServer.upload_subtitles(local_movie)
+        except ProviderConnectionError:
+            return False
+
         return True
 
     def getDownloadPath(self, parent, subtitle):
@@ -197,21 +201,20 @@ class State(QObject):
             subFilePath = video.get_filepath().parent / subtitle.get_filename()
 
         # Creating the Folder Destination
-        optionWhereToDownload = \
-            settings.value("options/whereToDownload", "SAME_FOLDER")
-        if optionWhereToDownload == "ASK_FOLDER":
+        optionWhereToDownload =  settings.value('options/whereToDownload', 'SAME_FOLDER')
+        if optionWhereToDownload == 'ASK_FOLDER':
             folderPath = video.get_folderpath()
             downloadFullPath = folderPath / subFilePath.name
             downloadFullPath, t = QFileDialog.getSaveFileName(
                 parent, _("Save as..."), str(downloadFullPath), sub_extension)
-            log.debug("Downloading to: %r" % downloadFullPath)
-        elif optionWhereToDownload == "SAME_FOLDER":
+            log.debug('Downloading to: %r' % downloadFullPath)
+        elif optionWhereToDownload == 'SAME_FOLDER':
             folderPath = video.get_folderpath()
             downloadFullPath = folderPath / subFilePath.name
-            log.debug("Downloading to: %r" % downloadFullPath)
-        else:  # if optionWhereToDownload == "PREDEFINED_FOLDER":
+            log.debug('Downloading to: %r' % downloadFullPath)
+        else:  # if optionWhereToDownload == 'PREDEFINED_FOLDER':
             folderPath = Path(settings.value("options/whereToDownloadFolder", ""))
             downloadFullPath = folderPath / subFilePath.name
-            log.debug("Downloading to: %r" % downloadFullPath)
+            log.debug('Downloading to: %r' % downloadFullPath)
 
         return str(downloadFullPath)
