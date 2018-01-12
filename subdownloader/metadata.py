@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-
 import logging
-import os
 
 log = logging.getLogger('subdownloader.modules.metadata')
 
@@ -71,10 +69,12 @@ class Metadata(object):
         Private function to parse video at filepath, using kaa framework.
         :param path: path of video to parse as string
         """
+        log.debug('kaamediainfo: parsing "{path}" ...')
         parseRes = kaa.metadata.parse(str(path))
         if not parseRes:
             return
         for video in parseRes.video:
+            log.debug('... found video track')
             self._add_metadata(
                 MetadataVideoTrack(
                     duration_ms=1000 * parseRes.length,
@@ -95,8 +95,8 @@ class Metadata(object):
             log.debug('... found track type: "{track_type}"'.format(track_type=track.track_type))
             if track.track_type == 'Video':
                 duration_ms = track.duration
-                framerate = track.frame_rate
-                framecount = track.frame_count
+                framerate = track.framerate
+                framecount = track.framecount
                 log.debug('mode={}'.format(track.frame_rate_mode))
                 if duration_ms is None or framerate is None:
                     log.debug('... Video track does not have duration and/or framerate.')
