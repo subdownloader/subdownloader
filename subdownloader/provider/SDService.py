@@ -511,7 +511,7 @@ class SDService(object):
             result = self._safe_exec(run_query, None)
             self.check_result(result)
 
-            for video_hash, video_info in result['data'].items():
+            for video_hash, video_info in result['data']:
                 identification = self._video_info_to_identification(video_info[0])
                 video = hash_video[video_hash]
                 video.add_identity(identification)
@@ -600,9 +600,9 @@ class SDService(object):
                 'subfilename': subtitle.get_filename(),
                 'moviehash': video.get_osdb_hash(),
                 'moviebytesize': str(video.get_size()),
-                'movietimems': str(video.get_time_ms()),
-                'moviefps': video.get_fps(),
-                'movieframes': str(video.get_framecount()),
+                'movietimems': str(video.get_time_ms()) if video.get_time_ms() else None,
+                'moviefps': str(video.get_fps()) if video.get_fps() else None,
+                'movieframes': str(video.get_framecount()) if video.get_framecount() else None,
                 'moviefilename': video.get_filename(),
                 'subcontent': sub_tx_data,
             }
