@@ -69,7 +69,7 @@ class Metadata(object):
         Private function to parse video at filepath, using kaa framework.
         :param path: path of video to parse as string
         """
-        log.debug('kaamediainfo: parsing "{path}" ...')
+        log.debug('kaamediainfo: parsing "{path}" ...'.format(path=path))
         parseRes = kaa.metadata.parse(str(path))
         if not parseRes:
             return
@@ -97,7 +97,7 @@ class Metadata(object):
                 duration_ms = track.duration
                 framerate = track.framerate
                 framecount = track.framecount
-                log.debug('mode={}'.format(track.frame_rate_mode))
+                log.debug('mode={mode}'.format(mode=track.frame_rate_mode))
                 if duration_ms is None or framerate is None:
                     log.debug('... Video track does not have duration and/or framerate.')
                     continue
