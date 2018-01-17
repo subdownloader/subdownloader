@@ -5,7 +5,10 @@ from xml.dom import minidom
 import xml.parsers.expat
 
 from subdownloader.movie import RemoteMovie
-
+try:
+    from base64 import b64encode
+except ImportError:
+    from base64 import encodebytes as b64encode
 
 import base64
 import datetime
@@ -511,7 +514,7 @@ class SDService(object):
             result = self._safe_exec(run_query, None)
             self.check_result(result)
 
-            for video_hash, video_info in result['data']:
+            for video_hash, video_info in result['data'].items():
                 identification = self._video_info_to_identification(video_info[0])
                 video = hash_video[video_hash]
                 video.add_identity(identification)
@@ -542,7 +545,7 @@ class SDService(object):
 
         for i, (video, subtitle) in enumerate(local_movie.iter_video_subtitle()):
             # sub_bytes = open(subtitle.get_filepath(), mode='rb').read()
-            # sub_tx_data = base64.encodebytes(zlib.compress(sub_bytes))
+            # sub_tx_data = b64encode(zlib.compress(sub_bytes))
             cd = "cd{i}".format(i=i+1)
 
             cd_data = {
@@ -591,8 +594,8 @@ class SDService(object):
             query['foreignpartsonly'] = local_movie.is_foreign_only()
 
         for i, (video, subtitle) in enumerate(local_movie.iter_video_subtitle()):
-            sub_bytes = open(subtitle.get_filepath(), mode='rb').read()
-            sub_tx_data = base64.encodebytes(zlib.compress(sub_bytes))
+            sub_bytes = subtitle.get_filepath().open(mode='rb').read()
+            sub_tx_data = b64encode(zlib.compress(sub_bytes))
             cd = "cd{i}".format(i=i+1)
 
             cd_data = {
