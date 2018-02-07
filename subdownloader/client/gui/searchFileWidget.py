@@ -115,10 +115,8 @@ class SearchFileWidget(QWidget):
         self.videoModel.dataChanged.connect(self.subtitlesCheckedChanged)
         self.language_filter_change.connect(self.videoModel.on_filter_languages_change)
 
-        self.ui.buttonSearchSelectVideos.clicked.connect(
-            self.onButtonSearchSelectVideos)
-        self.ui.buttonSearchSelectFolder.clicked.connect(
-            self.onButtonSearchSelectFolder)
+        self.ui.buttonSearchSelectVideos.clicked.connect(self.onButtonSearchSelectVideos)
+        self.ui.buttonSearchSelectFolder.clicked.connect(self.onButtonSearchSelectFolder)
         self.ui.buttonDownload.clicked.connect(self.onButtonDownload)
         self.ui.buttonPlay.clicked.connect(self.onButtonPlay)
         self.ui.buttonIMDB.clicked.connect(self.onViewOnlineInfo)

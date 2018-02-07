@@ -22,13 +22,13 @@ def main(args=None):
     logging_file_install(None)
     i18n_install()
     options = parse_arguments(args=args)
-    logging_install(options.loglevel, options.logfile)
+    logging_install(options.program.log.level, options.program.log.path)
     user_agent_init()
 
-    if options.client_type == ClientType.GUI:
+    if options.program.client.type == ClientType.GUI:
         import subdownloader.client.gui
         runner = subdownloader.client.gui.run
-    else:  # options.client_type == ClientType.CLI:
+    else:  # options.program.client.type == ClientType.CLI:
         import subdownloader.client.cli
         runner = subdownloader.client.cli.run
 
@@ -40,8 +40,8 @@ def main(args=None):
         return_code = 1
     except (EOFError, KeyboardInterrupt):
         return_code = 1
-
     sys.exit(return_code)
+
 
 if __name__ == "__main__":
     main()

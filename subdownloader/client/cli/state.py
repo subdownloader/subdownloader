@@ -7,12 +7,12 @@ from subdownloader.client.state import BaseState, SubtitlePathStrategy
 class CliState(BaseState):
     def __init__(self, options):
         BaseState.__init__(self, options=options, settings=None)
-        self._interactive = options.interactive
-        self._recursive = options.recursive
+        self._interactive = options.program.client.cli.interactive,
+        self._recursive = options.search.recursive
 
         self._cli_load_state()
 
-        self.set_subtitle_rename_strategy(options.rename_strategy)
+        self.set_subtitle_rename_strategy(options.download.rename_strategy)
         self.set_subtitle_download_path_strategy(SubtitlePathStrategy.SAME)
 
         # FIXME: log state

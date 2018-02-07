@@ -65,8 +65,8 @@ class Main(QMainWindow):
         if not self.options.test:
             login_parent_state(self, self.get_state())
 
-        if self.options.videopath:
-            videos = [videopath for videopath in self.options.videopath if videopath.exists()]
+        if self.options.search.working_directory:
+            videos = [videopath for videopath in self.options.search.working_directory if videopath.exists()]
             self.ui.tabSearchFile.search_videos(videos)
 
     def setup_ui(self):

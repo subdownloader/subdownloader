@@ -18,6 +18,19 @@ from subdownloader.client.gui.generated.images_rc import qInitResources, qCleanu
 log = logging.getLogger('subdownloader.client.gui')
 
 
+def get_default_settings(video_path=None):
+    from subdownloader.client.arguments import get_default_argument_settings, ArgumentClientSettings, ArgumentClientGuiSettings, ClientType
+    return get_default_argument_settings(
+        video_path=video_path,
+        client=ArgumentClientSettings(
+            type=ClientType.GUI,
+            cli=None,
+            gui=ArgumentClientGuiSettings(
+            ),
+        )
+    )
+
+
 def get_select_subtitles():
     return _("Subtitle Files (*.%s)") % " *.".join(SUBTITLES_EXT)
 

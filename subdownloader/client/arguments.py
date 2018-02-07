@@ -3,6 +3,7 @@
 
 from argcomplete import autocomplete
 import argparse
+from collections import namedtuple
 import logging
 
 from subdownloader import project
@@ -24,8 +25,119 @@ def parse_arguments(args=None):
     # Autocomplete arguments
     autocomplete(parser)
 
-    return parser.parse_args(args=args)
+    ns = parser.parse_args(args=args)
+    return ArgumentSettings(
+        program=ArgumentProgramSettings(
+            log=ArgumentLogSettings(
+                path=None,
+                level=ns.loglevel,
+            ),
+            settings=ArgumentSettingsSettings(
+                path=ns.settings_path,
+            ),
+            client=ArgumentClientSettings(
+                type=ns.client_type,
+                cli=ArgumentClientCliSettings(
+                    interactive=False,
+                ),
+                gui=ArgumentClientGuiSettings(
+                ),
+            ),
+        ),
+        search=ArgumentSearchSettings(
+            recursive=ns.recursive,
+            working_directory=ns.video_path,
+        ),
+        filter=FilterSettings(
+            languages=ns.languages,
+        ),
+        download=DownloadSettings(
+            rename_strategy=ns.rename_strategy,
+        ),
+        providers=ns.providers,
+        proxy=ns.proxy,
+        test=ns.test,
+    )
 
+
+def get_default_argument_settings(video_path, client):
+    return ArgumentSettings(
+        program=ArgumentProgramSettings(
+            log=ArgumentLogSettings(
+                path=None,
+                level=logging.ERROR,
+            ),
+            settings=ArgumentSettingsSettings(
+                path=None,
+            ),
+            client=client,
+        ),
+        search=ArgumentSearchSettings(
+            recursive=True,
+            working_directory=video_path,
+        ),
+        filter=FilterSettings(
+            languages=[UnknownLanguage.create_generic()],
+        ),
+        download=DownloadSettings(
+            rename_strategy=SubtitleRenameStrategy.ONLINE,
+        ),
+        providers=None,
+        proxy=None,
+        test=False,
+    )
+
+
+ArgumentSettings = namedtuple('ArgumentSettings', (
+    'program',
+    'search',
+    'filter',
+    'download',
+    'providers',
+    'proxy',
+    'test',
+))
+
+ArgumentProgramSettings = namedtuple('ArgumentProgramSettings', (
+    'log',
+    'settings',
+    'client',
+))
+
+ArgumentLogSettings = namedtuple('ArgumentLogSettings', (
+    'path',
+    'level',
+))
+
+ArgumentSettingsSettings = namedtuple('ArgumentSettingsSettings', (
+    'path',
+))
+
+ArgumentClientSettings = namedtuple('ArgumentClientSettings', (
+    'type',
+    'cli',
+    'gui',
+))
+
+ArgumentClientCliSettings = namedtuple('ArgumentClientCliSettings', (
+    'interactive',
+))
+
+ArgumentClientGuiSettings = namedtuple('ArgumentClientGuiSettings', (
+))
+
+ArgumentSearchSettings = namedtuple('ArgumentSearchSettings', (
+    'recursive',
+    'working_directory',
+))
+
+FilterSettings = namedtuple('FilterSettings', (
+    'languages',
+))
+
+DownloadSettings = namedtuple('DownloadSettings', (
+    'rename_strategy',
+))
 
 class ProxyAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -91,10 +203,10 @@ def get_argument_parser():
     parser.add_argument('-T', '--test', dest='test',
                         action='store_true', default=False,
                         help=argparse.SUPPRESS)
-    parser.add_argument('-V', '--video', dest='videopath', default=None, metavar='PATH',
+    parser.add_argument('-V', '--video', dest='video_path', default=None, metavar='PATH',
                         nargs=argparse.ONE_OR_MORE, action=PathsAction,
                         help=_('Full path to your video(s).'))
-    parser.add_argument('-s', '--settings', dest='settings', type=Path, default=None, metavar='FILE',
+    parser.add_argument('-s', '--settings', dest='settings_path', type=Path, default=None, metavar='FILE',
                         help=_('Set the settings file.'))
     parser.add_argument('-l', '--lang', dest='languages', metavar='LANGUAGE',
                         default=[UnknownLanguage.create_generic()],
@@ -172,7 +284,7 @@ def get_argument_parser():
     online_group.add_argument('-P', '--proxy', dest='proxy', default=None, action=ProxyAction,
                               help=_('Proxy to use on internet connections.'))
     online_group.add_argument('--provider', dest='providers', metavar='NAME [KEY1=VALUE1 [KEY2=VALUE2 [...]]]',
-                              nargs = argparse.ONE_OR_MORE, default=None, action=ProviderAction,
+                              nargs=argparse.ONE_OR_MORE, default=None, action=ProviderAction,
                               help=_('Enable and configure a provider.'))
 
     return parser

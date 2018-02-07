@@ -6,6 +6,19 @@ from enum import Enum
 from subdownloader.client.cli.state import CliState
 
 
+def get_default_settings(video_path=None):
+    from subdownloader.client.arguments import get_default_argument_settings, ArgumentClientSettings, ArgumentClientCliSettings, ClientType
+    return get_default_argument_settings(
+        video_path=video_path,
+        client=ArgumentClientSettings(
+            type=ClientType.GUI,
+            cli=ArgumentClientCliSettings(
+                interactive=False,
+            ),
+            gui=None,
+        )
+    )
+
 class CliAction(Enum):
     DOWNLOAD = 'download'
     UPLOAD = 'upload'

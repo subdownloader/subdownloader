@@ -53,7 +53,7 @@ class SubtitlePathStrategy(Enum):
 
 class BaseState(object):
     def __init__(self, options, settings=None):
-        settings_path = options.settings if options.settings else configuration_get_default_file()
+        settings_path = options.program.settings.path if options.program.settings.path else configuration_get_default_file()
 
         if settings is None:
             settings = Settings(path=settings_path)
@@ -78,14 +78,14 @@ class BaseState(object):
 
         self._client_load_state()
 
-        if options.videopath:
-            self.set_video_paths(options.videopath)
-        elif options.client_type == ClientType.CLI:
+        if options.search.working_directory:
+            self.set_video_paths(options.search.working_directory)
+        elif options.program.client.type == ClientType.CLI:
             self.set_video_paths([Path().absolute()])
 
-        if not options.languages[0].is_generic():
-            self.set_upload_language(options.languages[0])
-            self.set_download_languages(options.languages)
+        if not options.filter.languages[0].is_generic():
+            self.set_upload_language(options.filter.languages[0])
+            self.set_download_languages(options.filter.languages)
 
         if options.proxy:
             self.set_proxy(options.proxy)
