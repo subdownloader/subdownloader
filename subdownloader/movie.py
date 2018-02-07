@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
-from collections import namedtuple
-from itertools import chain
-
 from subdownloader.identification import MovieMatch
 from subdownloader.languages.language import UnknownLanguage
 from subdownloader.subtitle2 import SubtitleFileCollection
+
 
 class LocalMovie(object):
     def __init__(self):
