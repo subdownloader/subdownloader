@@ -7,7 +7,7 @@ import subprocess
 try:
     from shutil import which as find_executable
 except ImportError:
-    from distutils.spawn import find_executable as find_executable
+    from distutils.spawn import find_executable
 
 from gi.repository import Nautilus, GObject
 
@@ -24,7 +24,7 @@ if SUBDOWNLOADER_PATH:
         def get_file_items(self, window, files):
             subdownloader_menu = Nautilus.MenuItem(
                 name='SubDownloaderMenu::SubDownloader',
-                label='Search SubDownloader...',
+                label=_('Search SubDownloader...'),
                 tip=_('Launch SubDownloader with these files.'),
             )
             subdownloader_menu.connect('activate', self.search_subdownloader, files)
