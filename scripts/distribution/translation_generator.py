@@ -3,6 +3,7 @@
 """Generate translations related files, pot/po/mo"""
 
 import argparse
+import collections
 import logging
 import os
 try:
@@ -17,17 +18,26 @@ log.addHandler(logging.StreamHandler())
 log.setLevel(logging.DEBUG)
 
 
+TranslationGeneratorArgs = collections.namedtuple("TranslationGeneratorArgs", (
+    "name",
+    "source_paths",
+    "po_path",
+    "mo_path",
+    "system_path",
+))
+
+
 class TranslationGenerator(object):
     """Translation file generator"""
 
     SYSTEM_SOURCE_FILES = ['argparse.py', 'cmd.py']
 
-    def __init__(self, name, source_path, po_path, mo_path, system_path):
-        self._source_path = source_path
-        self._po_path = po_path
-        self._mo_path = mo_path
-        self._system_path = system_path
-        self._basename = name
+    def __init__(self, args: TranslationGeneratorArgs):
+        self._basename = args.name
+        self._source_paths = args.source_paths
+        self._po_path = args.po_path
+        self._mo_path = args.mo_path
+        self._system_path = args.system_path
 
     def _iter_suffix(self, path, suffix):
         for root, dirs, files in os.walk(str(path)):
@@ -42,9 +52,10 @@ class TranslationGenerator(object):
         """
         files_to_translate = []
         log.debug("Collecting python sources for pot ...")
-        for source_path in self._iter_suffix(path=self._source_path, suffix=".py"):
-            log.debug("... add to pot: {source}".format(source=str(source_path)))
-            files_to_translate.append(str(source_path))
+        for source_path in self._source_paths:
+            for source_path in self._iter_suffix(path=source_path, suffix=".py"):
+                log.debug("... add to pot: {source}".format(source=str(source_path)))
+                files_to_translate.append(str(source_path))
         for system_file in self.SYSTEM_SOURCE_FILES:
             files_to_translate.append(str(self._system_path / system_file))
             # FIXME: use separate domain for system source translations? Nerge them when generating mo's?
@@ -107,8 +118,8 @@ def parse_args():
 
     parser.add_argument("-n", "--name", dest="name", default=None, help="Name of the project")
 
-    parser.add_argument("-i", "--input", required=True, dest="source_path", type=Path,
-                        help="Directory of input python SOURCE files")
+    parser.add_argument("-i", "--input", required=True, dest="source_paths", type=Path, nargs=argparse.ONE_OR_MORE,
+                        help="Directories of input python SOURCE files")
     parser.add_argument("-p", "--po_path", required=True, dest="po_path", type=Path,
                         help="Directory of PO(T) file(s)")
     parser.add_argument("-m", "--mo_path", required=True, dest="mo_path", type=Path,
@@ -127,42 +138,51 @@ def parse_args():
 
     args = parser.parse_args()
 
-    arguments = {}
-
-    if not args.source_path.is_dir():
-        parser.error("Source path is not a directory")
-    arguments["source_path"] = args.source_path
+    for source_path in args.source_paths:
+        if not source_path.is_dir():
+            parser.error("Source path {} is not a directory".format(source_path))
 
     if not args.po_path.is_dir():
         parser.error("PO path is not a directory")
-    arguments["po_path"] = args.po_path
 
     if not args.mo_path.is_dir():
         parser.error("MO path is not a directory")
-    arguments["mo_path"] = args.mo_path
 
     if not args.system_path.is_dir():
         parser.error("system path is not a directory")
-    arguments["system_path"] = args.system_path
 
-    do_what = {"pot": args.what_pot, "po": args.what_po, "mo": args.what_mo}
-    if not any(do_what.values()):
-        for key in do_what:
-            do_what[key] = True
+    do_what_dict = {"pot": args.what_pot, "po": args.what_po, "mo": args.what_mo}
+    if not any(do_what_dict.values()):
+        for key in do_what_dict:
+            do_what_dict[key] = True
+    do_what = DoWhat(**do_what_dict)
 
-    arguments["name"] = args.name if args.name else "subdownloader"
+    arguments = TranslationGeneratorArgs(
+        name=args.name if args.name else "subdownloader",
+        source_paths=args.source_paths,
+        po_path=args.po_path,
+        mo_path=args.mo_path,
+        system_path=args.system_path,
+    )
 
     return arguments, do_what
+
+
+DoWhat = collections.namedtuple('DoWhat', (
+    'pot',
+    'po',
+    'mo',
+))
 
 
 def main():
     translation_args, what = parse_args()
     translation_generator = TranslationGenerator(**translation_args)
-    if what["pot"]:
+    if what.pot:
         translation_generator.do_pot()
-    if what["po"]:
+    if what.po:
         translation_generator.do_po()
-    if what["mo"]:
+    if what.mo:
         translation_generator.do_mo()
 
 if __name__ == '__main__':
