@@ -5,6 +5,7 @@
 import gettext
 import os
 from setuptools import find_packages, setup
+import sys
 
 gettext.NullTranslations().install()
 
@@ -19,9 +20,14 @@ install_requires = [
     "argparse >= 1.3.0",
     "argcomplete >= 1.7.0",
     "langdetect >= 1.0.7",
-    "pyqt5 >= 5.0.0",
     "pymediainfo >= 2.1.6",
 ]
+
+# Workaround since python 2 has no PyQt5 release
+if sys.version_info.major > 2:
+    install_requires.extend([
+        "pyqt5 >= 5.0.0",
+    ])
 
 setup(
     name = subdownloader.project.PROJECT_TITLE,
