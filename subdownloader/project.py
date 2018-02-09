@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 import os
 
@@ -12,12 +12,22 @@ PROJECT_TITLE = "SubDownloader"
 """
 Version of the project as a tuple.
 """
-PROJECT_VERSION = (2, 0, 19)
+PROJECT_VERSION = (2, 1, 0)
+
+"""
+Full version of the project as a tuple.
+"""
+PROJECT_VERSION_FULL = PROJECT_VERSION + ('rc1', )
 
 """
 Version of the project as a string.
 """
 PROJECT_VERSION_STR = ".".join([str(i) for i in PROJECT_VERSION])
+
+"""
+Full version of the project as a string.
+"""
+PROJECT_VERSION_FULL_STR = PROJECT_VERSION_STR + PROJECT_VERSION_FULL[-1]
 
 """
 License of the project
@@ -27,7 +37,7 @@ PROJECT_LICENSE = "GPLv3"
 """
 Year of last change.
 """
-PROJECT_YEAR = 2017
+PROJECT_YEAR = 2018
 
 """
 Author collective name
