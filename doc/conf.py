@@ -156,7 +156,6 @@ latex_documents = [
      'SubDownloader Developers', 'manual'),
 ]
 
-print('abc')
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples

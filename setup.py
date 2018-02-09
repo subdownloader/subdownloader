@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
 
@@ -25,6 +25,11 @@ install_requires = [
     "pymediainfo >= 2.1.6",
 ]
 
+setup_requires = [
+    "sphinx-argparse >= 0.2.1",
+    "docutils >= 0.14",
+]
+
 # Workaround since python 2 has no PyQt5 release
 if sys.version_info.major > 2:
     install_requires.extend([
@@ -32,14 +37,14 @@ if sys.version_info.major > 2:
     ])
 
 setup(
-    name = subdownloader.project.PROJECT_TITLE,
-    version = subdownloader.project.PROJECT_VERSION_FULL_STR,
-    author = subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
-    author_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
-    maintainer_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
-    description = subdownloader.project.get_description(),
-    keywords = "download upload automatic subtitle download movie video film search",
-    url = subdownloader.project.WEBSITE_MAIN,
+    name=subdownloader.project.PROJECT_TITLE,
+    version=subdownloader.project.PROJECT_VERSION_FULL_STR,
+    author=subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
+    author_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
+    maintainer_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
+    description=subdownloader.project.get_description(),
+    keywords="download upload automatic subtitle download movie video film search",
+    url=subdownloader.project.WEBSITE_MAIN,
     license="COPYING",
     packages=find_packages(),
     long_description=read('README.md'),
@@ -56,6 +61,7 @@ setup(
         "Programming Language :: Python :: 3.5",
     ],
     install_requires=install_requires,
+    setup_requires=setup_requires,
     entry_points={
         "console_scripts": [
             "subdownloader = subdownloader.client.__main__:main"
