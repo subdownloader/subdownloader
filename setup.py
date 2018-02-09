@@ -33,7 +33,7 @@ setup_requires = [
 # Workaround since python 2 has no PyQt5 release
 if sys.version_info.major > 2:
     install_requires.extend([
-        "pyqt5 >= 5.0.0",
+        "PyQt5 >= 5.0.0",
     ])
 
 setup(
