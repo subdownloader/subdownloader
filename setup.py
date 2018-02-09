@@ -7,6 +7,8 @@ import os
 from setuptools import find_packages, setup
 import sys
 
+from sphinx.setup_command import BuildDoc
+
 gettext.NullTranslations().install()
 
 import subdownloader.project
@@ -31,13 +33,12 @@ if sys.version_info.major > 2:
 
 setup(
     name = subdownloader.project.PROJECT_TITLE,
-    version = subdownloader.project.PROJECT_VERSION_STR,
+    version = subdownloader.project.PROJECT_VERSION_FULL_STR,
     author = subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
     author_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
     maintainer_email = subdownloader.project.PROJECT_MAINTAINER_MAIL,
     description = subdownloader.project.get_description(),
     keywords = "download upload automatic subtitle download movie video film search",
-
     url = subdownloader.project.WEBSITE_MAIN,
     license="COPYING",
     packages=find_packages(),
@@ -61,4 +62,16 @@ setup(
         ],
     },
     include_package_data=True,
+    cmdclass={
+        'build_sphinx': BuildDoc,
+    },
+    command_options={
+        'build_sphinx': {
+            'project': ('setup.py', subdownloader.project.PROJECT_TITLE, ),
+            'version': ('setup.py', subdownloader.project.PROJECT_VERSION_STR, ),
+            'release': ('setup.py', subdownloader.project.PROJECT_VERSION_FULL_STR, ),
+            'builder': ('setup.py', 'man', ),
+            'source_dir': ('setup.py', 'doc', ),
+        },
+    },
 )
