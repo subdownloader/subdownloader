@@ -66,7 +66,7 @@ SubDownloader is licensed under [GPL v3]
    [argparse]: <https://python.readthedocs.org/en/latest/library/argparse.html>
    [python-progressbar]: <https://github.com/niltonvolpato/python-progressbar>
    [Qt]: <https://www.qt.io/>
-   [pyQt]: <https://riverbankcomputing.com/software/pyqt/intro>
+   [pyQt5]: <https://riverbankcomputing.com/software/pyqt/intro>
    [kaa-metadata]: <https://github.com/freevo/kaa-metadata>
    [pymediainfo]: <https://pymediainfo.readthedocs.org/>
    [argcomplete]: <https://argcomplete.readthedocs.org/>
