@@ -1,5 +1,7 @@
 # SubDownloader
 
+[![PyPI version](https://badge.fury.io/py/SubDownloader.svg)](https://badge.fury.io/py/SubDownloader)
+
 SubDownloader is a Free Open-Source tool written in Python for automatic download/upload of subtitles for video files. It uses some smart hashing algorithms to work fast.
 
 ## Dependencies
