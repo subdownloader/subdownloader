@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# Copyright (c) 2017 SubDownloader Developers - See COPYING - GPLv3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 
