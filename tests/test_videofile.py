@@ -15,17 +15,17 @@ class TestVideofile(TestCase):
         cls.RESOURCE_NE = RESOURCE_PATH / 'NON_EXISTING_MOVIE.mp4'
 
     def setUp(self):
-        self.v = VideoFile(str(RESOURCE_AVI))
+        self.v = VideoFile(RESOURCE_AVI)
 
     def test_filepath(self):
-        self.assertEqual(self.v.get_filepath(), str(RESOURCE_AVI))
+        self.assertEqual(self.v.get_filepath(), RESOURCE_AVI)
 
-    def test_filepath(self):
-        self.assertEqual(self.v.get_folderpath(), str(RESOURCE_AVI.parent))
+    def test_folderpath(self):
+        self.assertEqual(self.v.get_folderpath(), RESOURCE_AVI.parent)
 
     def test_nonexisting(self):
         with self.assertRaises(NotAVideoException):
-            VideoFile(str(self.RESOURCE_NE))
+            VideoFile(self.RESOURCE_NE)
 
     def test_size(self):
         self.assertEqual(self.v.get_size(), 12909756)

@@ -95,8 +95,8 @@ class Metadata(object):
             log.debug('... found track type: "{track_type}"'.format(track_type=track.track_type))
             if track.track_type == 'Video':
                 duration_ms = track.duration
-                framerate = track.framerate
-                framecount = track.framecount
+                framerate = track.frame_rate
+                framecount = track.frame_count
                 log.debug('mode={mode}'.format(mode=track.frame_rate_mode))
                 if duration_ms is None or framerate is None:
                     log.debug('... Video track does not have duration and/or framerate.')
