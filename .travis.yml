@@ -1,0 +1,19 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+
+git:
+    depth: 1
+
+before_install:
+  - python --version
+
+install:
+  - pip install -r requirements.txt
+  - pip install .
+  - python3 setup.py build_sphinx
+
+script:
+  - pytest
