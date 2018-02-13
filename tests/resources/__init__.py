@@ -4,7 +4,7 @@
 from tests.compat import Path, urlretrieve
 from hashlib import md5
 
-RESOURCE_PATH = Path(__file__).absolute().with_name('resources')
+RESOURCE_PATH = Path(__file__).absolute().with_name('files')
 
 RESOURCE_AVI = RESOURCE_PATH / 'breakdance.avi'
 
