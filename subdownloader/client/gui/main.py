@@ -7,9 +7,9 @@ import platform
 import sys
 import webbrowser
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer, Qt
+from PyQt5.QtGui import QIcon, QKeySequence
+from PyQt5.QtWidgets import QMainWindow
 
 from subdownloader.compat import getstatusoutput
 from subdownloader.client.internationalization import i18n_install
@@ -85,6 +85,9 @@ class Main(QMainWindow):
         self.ui.action_HelpAbout.triggered.connect(self.onMenuHelpAbout)
         self.ui.action_HelpBug.triggered.connect(self.onMenuHelpBug)
         self.ui.action_HelpTranslate.triggered.connect(self.onMenuHelpTranslate)
+
+        self.ui.action_Quit.setShortcut(QKeySequence(Qt.ControlModifier | Qt.Key_Q))
+        self.ui.action_Quit.setShortcutContext(Qt.ApplicationShortcut)
 
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
