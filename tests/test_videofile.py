@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
-from unittest import TestCase
+import unittest
 
 from tests.resources import resources_init, RESOURCE_AVI, RESOURCE_PATH
 
 from subdownloader.video2 import VideoFile, NotAVideoException
+from subdownloader.metadata import available as metadata_available
 
 
-class TestVideofile(TestCase):
+class TestVideofile(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         resources_init()
@@ -33,6 +34,7 @@ class TestVideofile(TestCase):
     def test_osdb_hash(self):
         self.assertEqual(self.v.get_osdb_hash(), '8e245d9679d31e12')
 
+    @unittest.skipIf(not metadata_available(), 'Metadata not available')
     def test_metadata(self):
         self.assertAlmostEqual(self.v.get_fps(), 23.97, places=1)
 
