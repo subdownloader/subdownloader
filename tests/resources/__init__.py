@@ -20,7 +20,7 @@ def resources_init():
     if not RESOURCE_AVI.exists():
         raise RuntimeError('Could not download resource')
 
-    with open(RESOURCE_AVI, 'rb') as f:
+    with RESOURCE_AVI.open('rb') as f:
         md5_hash = md5(f.read()).hexdigest()
     if md5_hash != 'dc6cc911a5f71b39918f9b24b73b8f26':
         raise RuntimeError('Resource corrupt: md5={}'.format(md5_hash))
