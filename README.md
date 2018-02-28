@@ -8,7 +8,7 @@ SubDownloader is a Free Open-Source tool written in Python for automatic downloa
 
 Required:
 
-- [Python]: version 2.7+ or 3.4+. 3.6+ recommended.
+- [Python]: version 3.5+.
 - [pyQt5]: Python Qt5 bindings (graphical interface)
   * This package requires [Qt]
 - Python packages:
@@ -18,7 +18,6 @@ Required:
 Optional:
 
 - [pymediainfo]: replaces python-kaa-metadata in Python 3, needs [mediaInfo](https://mediaarea.net) version 2.1.6 or higher
-- [kaa-metadata]: only available for Python 2 (deprecated)
 - [langdetect]: language detection of subtitles by their contents 
 - [argcomplete]: Bash tab completion for argparse
 
@@ -67,7 +66,6 @@ SubDownloader is licensed under [GPL v3]
    [python-progressbar]: <https://github.com/niltonvolpato/python-progressbar>
    [Qt]: <https://www.qt.io/>
    [pyQt5]: <https://riverbankcomputing.com/software/pyqt/intro>
-   [kaa-metadata]: <https://github.com/freevo/kaa-metadata>
    [pymediainfo]: <https://pymediainfo.readthedocs.org/>
    [argcomplete]: <https://argcomplete.readthedocs.org/>
    [langdetect]: <https://github.com/Mimino666/langdetect>
