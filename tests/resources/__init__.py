@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
-from tests.compat import Path, urlretrieve
 from hashlib import md5
+from pathlib import Path
+from urllib.request import urlretrieve
+
 
 RESOURCE_PATH = Path(__file__).absolute().with_name('files')
 
