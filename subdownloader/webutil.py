@@ -5,7 +5,8 @@ import logging
 import socket
 from ssl import SSLError
 
-from subdownloader.compat import HTTPError, URLError, urlopen, urlretrieve
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen, urlretrieve
 
 
 log = logging.getLogger('subdownloader.http')

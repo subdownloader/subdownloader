@@ -4,6 +4,7 @@
 import logging
 import os.path
 import platform
+from subprocess import getstatusoutput
 import sys
 import webbrowser
 
@@ -11,7 +12,6 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSe
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtWidgets import QMainWindow
 
-from subdownloader.compat import getstatusoutput
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE

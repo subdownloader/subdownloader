@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
-from subdownloader.compat import configparser
-
+import configparser
 import logging
 import os
+from pathlib import Path
 import platform
 
-from subdownloader.compat import Path
 from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE
 

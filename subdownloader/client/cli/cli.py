@@ -3,6 +3,7 @@
 
 from cmd import Cmd
 from os import linesep
+from pathlib import Path
 import shlex
 
 from subdownloader.client.cli.callback import ProgressBarCallback
@@ -10,7 +11,6 @@ from subdownloader.client.state import SubtitleRenameStrategy
 from subdownloader.util import IllegalPathException
 from subdownloader.filescan import scan_videopaths
 from subdownloader.provider.provider import ProviderConnectionError
-from subdownloader.compat import Path
 from subdownloader.languages.language import Language, NotALanguageException
 from subdownloader.subtitle2 import RemoteSubtitleFile
 

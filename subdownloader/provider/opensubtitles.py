@@ -3,10 +3,15 @@
 
 import base64
 import datetime
+from http.client import CannotSendRequest
 import logging
 import re
+from socket import error as SocketError
+from urllib.error import HTTPError
+from urllib.parse import quote
+from urllib.request import urlopen
+from xmlrpc.client import ProtocolError, ServerProxy
 
-from subdownloader.compat import CannotSendRequest, HTTPError, ProtocolError, quote, ServerProxy, SocketError, urlopen
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.identification import ImdbIdentity, ProviderIdentities, VideoIdentity
 from subdownloader.movie import RemoteMovie

@@ -16,10 +16,14 @@ import logging
 import re
 import threading
 import zlib
+from http.client import HTTPConnection
 from io import BytesIO
-log = logging.getLogger("subdownloader.provider.SDService")
+import socket
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import urlopen
+from xmlrpc.client import Fault, ProtocolError, ServerProxy, Transport
 
-from subdownloader.compat import Fault, HTTPConnection, HTTPError, ProtocolError, quote, ServerProxy, Transport, urlopen, URLError
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
@@ -27,7 +31,8 @@ from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.util import unzip_stream, unzip_bytes
 from subdownloader.identification import VideoIdentity, EpisodeIdentity, ImdbIdentity, ProviderIdentities
 
-import socket
+
+log = logging.getLogger("subdownloader.provider.SDService")
 
 DEFAULT_OSDB_SERVER = "http://api.opensubtitles.org/xml-rpc"
 TEST_URL = 'http://www.google.com'

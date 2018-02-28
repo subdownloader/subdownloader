@@ -2,9 +2,7 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 from enum import Enum
-import os
-
-from subdownloader.compat import Path
+from pathlib import Path
 
 
 class ClientType(Enum):

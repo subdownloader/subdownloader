@@ -3,6 +3,7 @@
 
 import logging
 import os
+from pathlib import Path
 import platform
 import webbrowser
 
@@ -12,7 +13,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QFileIconProvider, QFileSystemModel, QMenu, QMessageBox, QWidget
 
 from subdownloader.callback import ProgressCallback
-from subdownloader.compat import Path
 from subdownloader.filescan import scan_videopaths
 from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE

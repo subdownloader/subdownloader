@@ -4,7 +4,7 @@
 import logging
 import os
 
-from subdownloader.compat import Path
+from pathlib import Path
 from subdownloader.subtitle2 import LocalSubtitleFile, SubtitleFileNetwork, SUBTITLES_EXT
 from subdownloader.util import IllegalPathException
 from subdownloader.video2 import NotAVideoException, VideoFile, VIDEOS_EXT

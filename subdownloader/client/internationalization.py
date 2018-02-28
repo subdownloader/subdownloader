@@ -4,11 +4,11 @@
 import gettext
 import locale
 import logging
+from pathlib import Path
 import platform
 
 from subdownloader import project
 from subdownloader.client import client_get_path
-from subdownloader.compat import Path
 
 log = logging.getLogger('subdownloader.client.internationalization')
 

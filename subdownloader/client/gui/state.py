@@ -2,13 +2,12 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
-import os
+from pathlib import Path
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QObject, QSettings
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
-from subdownloader.compat import Path
 from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 

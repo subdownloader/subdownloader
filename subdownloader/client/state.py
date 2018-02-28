@@ -5,10 +5,10 @@ from collections import namedtuple
 from enum import Enum
 import logging
 import os.path
+from pathlib import Path
 
 from subdownloader.client import ClientType, IllegalArgumentException
 from subdownloader.client.configuration import Settings, configuration_get_default_file
-from subdownloader.compat import Path
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory

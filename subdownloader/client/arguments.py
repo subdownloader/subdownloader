@@ -5,13 +5,13 @@ from argcomplete import autocomplete
 import argparse
 from collections import namedtuple
 import logging
+from pathlib import Path
 
 from subdownloader import project
 from subdownloader.client import ClientType
 from subdownloader.client.cli import CliAction
 from subdownloader.client.logger import LOGGING_LOGNOTHING
 from subdownloader.client.state import ProviderData, Proxy, SubtitleRenameStrategy
-from subdownloader.compat import Path
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 
 

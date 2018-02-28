@@ -3,8 +3,8 @@
 
 import importlib
 import logging
+from pathlib import Path
 
-from subdownloader.compat import Path
 from subdownloader.provider.provider import SubtitleProvider
 
 log = logging.getLogger('subdownloader.provider.factory')

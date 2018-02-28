@@ -2,8 +2,8 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+from pathlib import Path
 
-from subdownloader.compat import Path
 from subdownloader.filescan import scan_videopath
 from subdownloader.subtitle2 import LocalSubtitleFile
 
