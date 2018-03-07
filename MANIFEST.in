@@ -1,13 +1,3 @@
-include subdownloader/languages/lm/*.lm
-
 recursive-include subdownloader/client/locale *.po
 recursive-include subdownloader/client/locale *.mo
 recursive-include subdownloader/client/locale *.pot
-
-include subdownloader/client/gui/images.qrc
-include subdownloader/client/gui/*.ui
-include subdownloader/client/gui/Makefile
-recursive-include subdownloader/client/gui/images *.gif
-recursive-include subdownloader/client/gui/images *.ico
-recursive-include subdownloader/client/gui/images *.png
-recursive-include subdownloader/client/gui/images *.xpm
