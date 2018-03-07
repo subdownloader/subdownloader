@@ -5,7 +5,6 @@
 import gettext
 import os
 from setuptools import find_packages, setup
-import sys
 
 from sphinx.setup_command import BuildDoc
 
@@ -23,18 +22,13 @@ install_requires = [
     "argcomplete >= 1.7.0",
     "langdetect >= 1.0.7",
     "pymediainfo >= 2.1.6",
+    "PyQt5 >= 5.0.0",
 ]
 
 setup_requires = [
     "sphinx-argparse >= 0.2.1",
     "docutils >= 0.14",
 ]
-
-# Workaround since python 2 has no PyQt5 release
-if sys.version_info.major > 2:
-    install_requires.extend([
-        "PyQt5 >= 5.0.0",
-    ])
 
 setup(
     name=subdownloader.project.PROJECT_TITLE,
