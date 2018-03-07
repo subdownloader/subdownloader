@@ -46,7 +46,7 @@ setup(
     keywords="download upload automatic subtitle download movie video film search",
     url=subdownloader.project.WEBSITE_MAIN,
     license="COPYING",
-    packages=find_packages(),
+    packages=find_packages(exclude=('tests', 'tests.*', )),
     long_description=read('README.md'),
     classifiers=[
         "Topic :: Multimedia",
