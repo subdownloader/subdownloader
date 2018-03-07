@@ -17,7 +17,7 @@ PROJECT_VERSION = (2, 1, 0)
 """
 Full version of the project as a tuple.
 """
-PROJECT_VERSION_FULL = PROJECT_VERSION + ('rc2', )
+PROJECT_VERSION_FULL = PROJECT_VERSION + ('rc3', )
 
 """
 Version of the project as a string.
@@ -27,7 +27,7 @@ PROJECT_VERSION_STR = ".".join([str(i) for i in PROJECT_VERSION])
 """
 Full version of the project as a string.
 """
-PROJECT_VERSION_FULL_STR = PROJECT_VERSION_STR + '-' + PROJECT_VERSION_FULL[-1]
+PROJECT_VERSION_FULL_STR = PROJECT_VERSION_STR + PROJECT_VERSION_FULL[-1]
 
 """
 License of the project
