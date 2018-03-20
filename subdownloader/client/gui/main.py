@@ -3,14 +3,15 @@
 
 import logging
 import os.path
+from pathlib import Path
 import platform
-from subprocess import getstatusoutput
+import shutil
 import sys
 import webbrowser
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer, Qt
 from PyQt5.QtGui import QIcon, QKeySequence
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
@@ -229,50 +230,61 @@ class Main(QMainWindow):
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)
 
     def initializeVideoPlayer(self, settings):
-        predefinedVideoPlayer = None
+        log.debug('initializeVideoPlayer(...)')
+        log.debug('platform.system={}'.format(platform.system()))
+        predefined_video_player = None
         if platform.system() == 'Linux':
-            linux_players = [{'executable': 'mplayer', 'parameters': '{0} -sub {1}'},
-                             {'executable': 'vlc',
-                                 'parameters': '{0} --sub-file {1}'},
-                             {'executable': 'xine', 'parameters': '{0}#subtitle:{1}'}]
+            linux_players = [
+                {'executable': 'mplayer', 'parameters': '{0} -sub {1}'},
+                {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'},
+                {'executable': 'xine', 'parameters': '{0}#subtitle:{1}'},
+            ]
             for player in linux_players:
-                # 1st video player to find
-                status, path = getstatusoutput(
-                    'which "{executable}"'.format(executable=player["executable"]))
-                if status == 0:
-                    predefinedVideoPlayer = {
-                        'programPath': path,  'parameters': player['parameters']}
+                log.debug('Trying "{}"...'.format(player['executable']))
+                path = shutil.which(player['executable'])
+                if path:
+                    log.debug('... found "{}"'.format(path))
+                    predefined_video_player = {
+                        'programPath': Path(path),
+                        'parameters': player['parameters'],
+                    }
                     break
-
-        elif platform.system() in ('Windows', 'Microsoft'):
-            import _winreg
-            windows_players = [{'regRoot': _winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey': '', 'parameters': '{0} --sub-file {1}'},
-                               {'regRoot': _winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey': 'ExePath', 'parameters': '{0} /sub {1}'}]
-
+        elif platform.system() == 'Windows':
+            import winreg
+            windows_players = [
+                {'regRoot': winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\VideoLan\\VLC', 'regKey': '', 'parameters': '{0} --sub-file {1}'},
+                {'regRoot': winreg.HKEY_LOCAL_MACHINE, 'regFolder': 'SOFTWARE\\Gabest\\Media Player Classic', 'regKey': 'ExePath', 'parameters': '{0} /sub {1}'},
+            ]
             for player in windows_players:
                 try:
-                    registry = _winreg.OpenKey(
-                        player['regRoot'],  player['regFolder'])
-                    path, type = _winreg.QueryValueEx(
-                        registry, player['regKey'])
-                    log.debug('Video Player found at: {path}'.format(path=repr(path)))
-                    predefinedVideoPlayer = {
-                        'programPath': path,  'parameters': player['parameters']}
+                    log.debug('Trying register key "{}"...'.format(player['regFolder']))
+                    registry = winreg.OpenKey(player['regRoot'],  player['regFolder'])
+                    path, type = winreg.QueryValueEx(registry, player['regKey'])
+                    log.debug('... found "{}"'.format(path))
+                    predefined_video_player = {
+                        'programPath': Path(path),
+                        'parameters': player['parameters'],
+                    }
                     break
-                except (WindowsError, OSError) as e:
-                    log.debug('Cannot find registry for {regRoot}'.format(regRoot=player['regRoot']))
-        elif platform.system() == 'Darwin':  # MACOSX
-            macos_players = [{'path': '/usr/bin/open', 'parameters': '-a /Applications/VLC.app {0} --sub-file {1}'},
-                             {'path': '/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX',
-                                 'parameters': '{0} -sub {1}'},
-                             {'path': '/Applications/MPlayer OS X 2.app/Contents/MacOS/MPlayer OS X 2', 'parameters': '{0} -sub {1}'}]
+                except (WindowsError, OSError):
+                    log.debug('... Cannot find registry for {regRoot}'.format(regRoot=player['regRoot']))
+        elif platform.system() == 'Darwin':
+            macos_players = [
+                {'path': Path('/usr/bin/open'), 'parameters': '-a /Applications/VLC.app {0} --sub-file {1}'},
+                {'path': Path('/Applications/MPlayer OSX.app/Contents/MacOS/MPlayer OSX'), 'parameters': '{0} -sub {1}'},
+                {'path': Path('/Applications/MPlayer OS X 2.app/Contents/MacOS/MPlayer OS X 2'), 'parameters': '{0} -sub {1}'},
+            ]
             for player in macos_players:
-                if os.path.exists(player['path']):
-                    predefinedVideoPlayer = {
-                        'programPath': player['path'],  'parameters': player['parameters']}
+                log.debug('Trying "{}"...'.format(player['path']))
+                if player['path'].exists():
+                    log.debug('... found "{}"'.format(player['path']))
+                    predefined_video_player = {
+                        'programPath': player['path'],
+                        'parameters': player['parameters']
+                    }
+        else:
+            QMessageBox.warning(self, _('Error'), _('Unknown platform: {}').format(platform.system()))
 
-        if predefinedVideoPlayer:
-            settings.setValue(
-                'options/VideoPlayerPath', predefinedVideoPlayer['programPath'])
-            settings.setValue(
-                'options/VideoPlayerParameters', predefinedVideoPlayer['parameters'])
+        if predefined_video_player:
+            settings.setValue('options/VideoPlayerPath', str(predefined_video_player['programPath']))
+            settings.setValue('options/VideoPlayerParameters', str(predefined_video_player['parameters']))
