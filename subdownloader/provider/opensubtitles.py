@@ -7,6 +7,7 @@ from http.client import CannotSendRequest
 import logging
 import re
 from socket import error as SocketError
+import sys
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -227,7 +228,7 @@ class OpenSubtitles(SubtitleProvider):
             return result
         except (ProtocolError, CannotSendRequest, SocketError):
             self._signal_connection_failed()
-            log.warning('Query failed', exc_info=True)
+            log.warning('Query failed', exc_info=sys.exc_info())
             return default
 
     STATUS_CODE_RE = re.compile('(\d+) (.+)')
@@ -295,7 +296,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
             result = query()
             return result
         except HTTPError:
-            log.warning('Query failed', exc_info=True)
+            log.warning('Query failed', exc_info=sys.exc_info())
             return default
 
     def search_more_movies(self):
@@ -402,7 +403,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 movies.append(movie)
             except (AttributeError, IndexError, ValueError):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=True)
+                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
 
         return movies, nb_so_far, nb_provider
 
@@ -477,7 +478,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 subtitles.append(subtitle)
             except (AttributeError, IndexError, ValueError):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=True)
+                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
 
         return subtitles, nb_so_far, nb_provider
 
@@ -508,7 +509,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
             else:
                 log.debug('... extraction SUCCESS')
         except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
-            log.debug('... extraction FAILED (xml error)', exc_info=True)
+            log.debug('... extraction FAILED (xml error)', exc_info=sys.exc_info())
             nb_so_far = None
             entries = None
         return entries, nb_so_far, nb_total
@@ -520,7 +521,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
             page = urlopen(url).read()
             log.debug('... SUCCESS')
         except HTTPError:
-            log.warning('... FAILED', exc_info=True)
+            log.warning('... FAILED', exc_info=sys.exc_info())
             return None
         return page
 

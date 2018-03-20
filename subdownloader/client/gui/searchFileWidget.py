@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 import platform
+import sys
 import webbrowser
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
@@ -398,7 +399,7 @@ class SearchFileWidget(QWidget):
             try:
                 subtitle_stream = selected_subtitle.download(self.get_state().get_OSDBServer(), callback=callback)
             except ProviderConnectionError:
-                log.debug('Unable to download subtitle "{}"'.format(selected_subtitle.get_filename()), exc_info=True)
+                log.debug('Unable to download subtitle "{}"'.format(selected_subtitle.get_filename()), exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(
                     subtitle=selected_subtitle.get_filename()))
                 callback.finish()
@@ -426,9 +427,9 @@ class SearchFileWidget(QWidget):
             pid = os.spawnvpe(os.P_NOWAIT, programPath, params, os.environ)
             log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
         except AttributeError:
-            log.debug('... FAILED', exc_info=True)
+            log.debug('... FAILED', exc_info=sys.exc_info())
         except Exception as e:
-            log.debug('... FAILED', exc_info=True)
+            log.debug('... FAILED', exc_info=sys.exc_info())
         if pid is None:
             try:
                 log.debug('Trying os.fork ...')
@@ -437,7 +438,7 @@ class SearchFileWidget(QWidget):
                     log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
                     os.execvpe(os.P_NOWAIT, programPath, params, os.environ)
             except:
-                log.debug('... FAIL', exc_info=True)
+                log.debug('... FAIL', exc_info=sys.exc_info())
         if pid is None:
             QMessageBox.about(
                 self, _('Error'), _('Unable to launch videoplayer'))

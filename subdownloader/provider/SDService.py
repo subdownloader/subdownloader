@@ -14,6 +14,7 @@ import base64
 import datetime
 import logging
 import re
+import sys
 import threading
 import zlib
 from http.client import HTTPConnection
@@ -357,7 +358,7 @@ class SDService(object):
             return result
         except (ProtocolError, xml.parsers.expat.ExpatError):
             self._signal_connection_failed()
-            log.debug("Query failed", exc_info=True)
+            log.debug("Query failed", exc_info=sys.exc_info())
             return default
 
     @staticmethod
@@ -678,7 +679,7 @@ class SearchByName(object):
             result = query()
             return result
         except HTTPError:
-            log.debug("Query failed", exc_info=True)
+            log.debug("Query failed", exc_info=sys.exc_info())
             return default
 
     def get_movies(self):
@@ -743,7 +744,7 @@ class SearchByName(object):
             page = urlopen(url).read()
             log.debug('... SUCCESS')
         except HTTPError:
-            log.debug('... FAILED (HTTPError)', exc_info=True)
+            log.debug('... FAILED (HTTPError)', exc_info=sys.exc_info())
             return None
         return page
 
@@ -797,7 +798,7 @@ class SearchByName(object):
                 movies.append(movie)
             except (AttributeError, IndexError, ValueError):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=True)
+                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
 
         # if len(movies) != nb_provider:
         #     log.warning('Provider told us it returned {nb_provider} movies. '
@@ -828,7 +829,7 @@ class SearchByName(object):
             else:
                 log.debug('... extraction SUCCESS')
         except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
-            log.debug('... extraction FAILED (xml error)', exc_info=True)
+            log.debug('... extraction FAILED (xml error)', exc_info=sys.exc_info())
             nb = None
             nb_total = None
             entries = None
@@ -901,7 +902,7 @@ class SearchByName(object):
                 subtitles.append(subtitle)
             except (AttributeError, IndexError, ValueError):
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=True)
+                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
 
         # if len(subtitles) != nb_provider:
         #     log.warning('Provider told us it returned {nb_provider} subtitles. '

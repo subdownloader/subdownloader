@@ -3,6 +3,7 @@
 
 import logging
 import os
+import sys
 import webbrowser
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QPoint, QSettings, Qt
@@ -185,7 +186,7 @@ class SearchNameWidget(QWidget):
                 dlOK += 1
             except Exception:
                 log.warning('Unable to download subtitle with id={subtitle_id}'.format(subtitle_id=sub.get_id_online()),
-                          exc_info=True)
+                          exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle with id={subtitle_id}').format(
                     subtitle_id=sub.get_id_online()))
                 continue
@@ -193,7 +194,7 @@ class SearchNameWidget(QWidget):
                 write_stream(data_stream, srt_path)
                 writtenOK += 1
             except Exception:
-                log.warning('Unable to write subtitle to disk. path={path}'.format(path=zipDestFile), exc_info=True)
+                log.warning('Unable to write subtitle to disk. path={path}'.format(path=zipDestFile), exc_info=sys.exc_info())
             QCoreApplication.processEvents()
         callback.finish()
         if dlOK:

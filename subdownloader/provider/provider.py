@@ -2,6 +2,7 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+import sys
 
 log = logging.getLogger('subdownloader.provider.provider')
 
@@ -40,7 +41,7 @@ class SubtitleProvider(object):
         try:
             self.disconnect()
         except ProviderConnectionError:
-            log.warning('Disconnect failed during destructor', exc_info=True)
+            log.warning('Disconnect failed during destructor', exc_info=sys.exc_info())
 
     def get_settings(self):
         raise NotImplementedError()
