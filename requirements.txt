@@ -6,3 +6,5 @@ PyQt5 >= 5.0.0
 
 sphinx-argparse >= 0.2.1
 docutils >= 0.14
+
+pytest >= 3.4
