@@ -30,7 +30,7 @@ def scan_videopaths(videopaths, callback, recursive=False):
 def scan_videopath(videopath, callback, recursive=False):
     """
     Scan the videopath string for video files.
-    :param videopath: String of the path
+    :param videopath: Path object
     :param callback: Instance of ProgressCallback
     :param recursive: True if the scanning should happen recursive
     :return: tuple with list of videos and list of subtitles (videos have matched subtitles)
@@ -71,12 +71,11 @@ def __scan_folder(folder_path, callback, recursive=False):
     if recursive:
         for dir_path, _, files in os.walk(str(folder_path)):
             log.debug('walking current directory:"{}"'.format(dir_path))
-            path_dir = Path(dir_path)
-            path_files = [path_dir / file for file in files]
+            path_files = [Path(dir_path) / file for file in files]
             sub_videos = filter_files_extensions(path_files, [SUBTITLES_EXT, VIDEOS_EXT])
             path_subvideos[dir_path] = sub_videos
     else:
-        files = filter(lambda f: (folder_path / f).is_file(), folder_path.iterdir())
+        files = [folder_path / f for f in folder_path.iterdir() if f.is_file()]  # filter(lambda f: (folder_path / f).is_file(), folder_path.iterdir())
         sub_videos = filter_files_extensions(files, [SUBTITLES_EXT, VIDEOS_EXT])
         path_subvideos[folder_path] = sub_videos
     return merge_path_subvideo(path_subvideos, callback)
@@ -101,12 +100,12 @@ def merge_path_subvideo(path_subvideos, callback):
     vid_i = 0
     callback.update(vid_i)
     for path, subvideos in path_subvideos.items():
-        [subs_str, vids_str] = subvideos
-        subtitles = [LocalSubtitleFile(filepath=path / sub_str) for sub_str in subs_str]
+        [subs_path, vids_path] = subvideos
+        subtitles = [LocalSubtitleFile(filepath=sub_path) for sub_path in subs_path]
         all_subtitles.extend(subtitles)
-        for vid_str in vids_str:
+        for vid_path in vids_path:
             try:
-                video = VideoFile(path /vid_str)
+                video = VideoFile(vid_path)
             except NotAVideoException:
                 continue
             all_videos.append(video)

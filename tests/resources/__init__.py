@@ -6,13 +6,15 @@ from pathlib import Path
 from urllib.request import urlretrieve
 
 
-RESOURCE_PATH = Path(__file__).absolute().with_name('files')
+RESOURCE_PATH = Path(__file__).resolve().with_name('files')
+RESOURCE_CHILD_PATH = RESOURCE_PATH / 'child'
 
 RESOURCE_AVI = RESOURCE_PATH / 'breakdance.avi'
 
 
 def resources_init():
     RESOURCE_PATH.mkdir(exist_ok=True)
+    RESOURCE_CHILD_PATH.mkdir(exist_ok=True)
 
     if not RESOURCE_AVI.exists():
         URL = 'http://www.opensubtitles.org/addons/avi/{}'

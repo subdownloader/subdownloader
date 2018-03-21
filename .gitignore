@@ -16,6 +16,9 @@ dist
 *.tar.gz
 *.eggs
 
+# pytest artifactes
+.cache
+
 # IDE artifacts
 .idea
 *.autosave
