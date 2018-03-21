@@ -3,7 +3,7 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 import gettext
-import os
+from pathlib import Path
 from setuptools import find_packages, setup
 
 from sphinx.setup_command import BuildDoc
@@ -11,11 +11,11 @@ from sphinx.setup_command import BuildDoc
 gettext.NullTranslations().install()
 
 import subdownloader.project
-project_path = os.path.dirname(os.path.realpath(__file__))
+project_path = Path(__file__).absolute().parent
 
 
 def read(filename):
-    return open(os.path.join(project_path, filename)).read()
+    return (project_path / filename).read_text()
 
 install_requires = [
     "argparse >= 1.3.0",
@@ -42,6 +42,11 @@ setup(
     license="COPYING",
     packages=find_packages(exclude=('tests', 'tests.*', )),
     long_description=read('README.md'),
+    long_description_content_type='text/markdown',
+    project_urls={
+        'source': subdownloader.project.WEBSITE_MAIN,
+        'tracker': subdownloader.project.WEBSITE_ISSUES,
+    },
     classifiers=[
         "Topic :: Multimedia",
         "Topic :: Utilities",
