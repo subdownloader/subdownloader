@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - PYTHON: "C:\\Python35"
+    - PYTHON: "C:\\Python35-x64"
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python36-x64"
+
+init:
+  - set PATH=%PYTHON%;%PYTHON%/Scripts/;%PATH%
+  - python --version
+
+install:
+  - pip install -r requirements.txt
+  - pip install .
+
+build: false
+
+test_script:
+  - pytest -v
