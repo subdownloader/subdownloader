@@ -10,6 +10,7 @@ from subdownloader.client.cli.callback import ProgressBarCallback
 from subdownloader.client.state import SubtitleRenameStrategy
 from subdownloader.util import IllegalPathException
 from subdownloader.filescan import scan_videopaths
+import subdownloader.project
 from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.languages.language import Language, NotALanguageException
 from subdownloader.subtitle2 import RemoteSubtitleFile
@@ -29,6 +30,12 @@ class CliCmd(Cmd):
         # Text query state
         self._text_query = None
         self._query_rsubs = set()
+
+        self.intro = '{name} {version}\n{intro}'.format(
+            name=subdownloader.project.PROJECT_TITLE,
+            version=subdownloader.project.PROJECT_VERSION_FULL_STR,
+            intro=_('Type "help" for more information.'),
+        )
 
     def _invalidate_videos(self):
         self.set_videos([])
