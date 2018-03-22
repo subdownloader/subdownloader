@@ -39,7 +39,7 @@ setup(
     description=subdownloader.project.get_description(),
     keywords="download upload automatic subtitle download movie video film search",
     url=subdownloader.project.WEBSITE_MAIN,
-    license="COPYING",
+    license="GPL3",
     packages=find_packages(exclude=('tests', 'tests.*', )),
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
