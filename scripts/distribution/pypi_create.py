@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 from pathlib import Path
 import subprocess

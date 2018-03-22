@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-#  Copyright (c) 2017 Entertainer Developers - See COPYING - GPLv2
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 """Generate translations related files, pot/po/mo"""
 
 import argparse
 import collections
 import logging
 import os
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
+from pathlib import Path
 import shutil
 from subprocess import check_call
 
