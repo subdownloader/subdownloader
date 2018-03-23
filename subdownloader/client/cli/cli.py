@@ -205,7 +205,7 @@ class CliCmd(Cmd):
 
         try:
             local_videos, local_subs = scan_videopaths(self.state.get_video_paths(), callback,
-                                                       recursive=self.state.is_recursive())
+                                                       recursive=self.state.recursive)
         except IllegalPathException as e:
             callback.finish()
             self.print(_('The video path "{}" does not exist').format(e.path()))
@@ -503,12 +503,12 @@ class CliCmd(Cmd):
     def do_recursive(self, arg):
         if arg:
             try:
-                self.state.set_recursive(int(arg))
+                self.state.recursive = True if int(arg) else False
                 return
             except ValueError:
                 self.print(_('Invalid argument.'))
                 return
-        self.print(_('Recursive: {}').format(self.state.is_recursive()))
+        self.print(_('Recursive: {}').format(self.state.recursive))
 
     RENAME_INDEX_STRATEGY = {
         'vid': SubtitleRenameStrategy.VIDEO,
