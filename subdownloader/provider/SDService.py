@@ -383,6 +383,8 @@ class SDService(object):
 
         provider_identities = []
         for imdb_data in result['data']:
+            if not imdb_data:
+                continue
             imdb_identity = ImdbIdentity(imdb_id=imdb_data['id'], imdb_rating=None)
             video_identity = VideoIdentity(name=imdb_data['title'], year=None)
             provider_identities.append(ProviderIdentities(
