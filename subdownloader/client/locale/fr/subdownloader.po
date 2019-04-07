@@ -24,11 +24,11 @@ msgstr ""
 #: subdownloader/languages/language.py:184
 #: subdownloader/languages/language.py:200
 msgid "unknown"
-msgstr ""
+msgstr "inconnu"
 
 #: subdownloader/languages/language.py:419
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: subdownloader/languages/language.py:424
 msgid "Albanian"
@@ -241,11 +241,11 @@ msgstr "vietnamien"
 
 #: subdownloader/client/arguments.py:40
 msgid "interface"
-msgstr ""
+msgstr "interface"
 
 #: subdownloader/client/arguments.py:40
 msgid "Change settings of the interface"
-msgstr ""
+msgstr "Changer les paramètres de l'interface"
 
 #: subdownloader/client/arguments.py:44
 msgid "Run application in GUI mode. This is the default."
@@ -257,7 +257,7 @@ msgstr ""
 
 #: subdownloader/client/arguments.py:52
 msgid "Used by developers for testing. (unsupported)"
-msgstr ""
+msgstr "Utilisé par les développeurs pour tester. (non supporté)"
 
 #: subdownloader/client/arguments.py:55
 msgid "Full path to your video(s). Don't use \"~\"."
@@ -325,7 +325,7 @@ msgstr ""
 
 #: subdownloader/client/arguments.py:96
 msgid "Download a subtitle. This is the default."
-msgstr ""
+msgstr "Télécharger un sous-titre. C'est le défaut."
 
 #: subdownloader/client/arguments.py:98
 #, fuzzy
@@ -363,7 +363,7 @@ msgstr ""
 #: subdownloader/client/gui/about.py:22
 #, python-brace-format
 msgid "About {project}"
-msgstr ""
+msgstr "À propos de {project}"
 
 #: subdownloader/client/gui/about.py:37
 #, fuzzy
@@ -377,15 +377,15 @@ msgstr "Nouvelle version détectée"
 
 #: subdownloader/client/gui/about.py:39
 msgid "Bugs and new requests"
-msgstr ""
+msgstr "Bug et demandes"
 
 #: subdownloader/client/gui/about.py:59
 msgid "Developers"
-msgstr ""
+msgstr "Développeurs"
 
 #: subdownloader/client/gui/about.py:60
 msgid "Translators"
-msgstr ""
+msgstr "Traducteurs"
 
 #: subdownloader/client/gui/about.py:74
 #, python-brace-format
@@ -500,7 +500,7 @@ msgstr "Annuler"
 #: subdownloader/client/gui/uploadWidget_ui.py:277
 #: subdownloader/client/gui/searchNameWidget_ui.py:118
 msgid "Form"
-msgstr ""
+msgstr "Formulaire"
 
 #: subdownloader/client/gui/uploadWidget_ui.py:278
 msgid "Select the videos and subtitles  (only subtitles will be uploaded):"
@@ -1206,7 +1206,7 @@ msgstr "Sélectionner le répertoire où sauvegarder les sous-titres"
 
 #: subdownloader/client/gui/searchNameWidget.py:167
 msgid "Downloading"
-msgstr "Réception"
+msgstr "Téléchargement"
 
 #: subdownloader/client/gui/searchNameWidget.py:169
 #, fuzzy, python-brace-format
@@ -1309,9 +1309,8 @@ msgid "Upload subtitles"
 msgstr "Téléverser les sous-titres"
 
 #: subdownloader/client/gui/main_ui.py:152
-#, fuzzy
 msgid "version:"
-msgstr "persan"
+msgstr "version:"
 
 #: subdownloader/client/gui/main_ui.py:154
 msgid "&Main"
@@ -1338,9 +1337,8 @@ msgid "Visit HomePage"
 msgstr "Visiter la page d'accueil"
 
 #: subdownloader/client/gui/main_ui.py:160
-#, fuzzy
 msgid "About..."
-msgstr "À propos"
+msgstr "À propos..."
 
 #: subdownloader/client/gui/main_ui.py:162
 msgid "Report A Problem"
@@ -1366,7 +1364,7 @@ msgstr "Afficher/masquer l'arborescence"
 
 #: subdownloader/client/gui/main_ui.py:167
 msgid "Log Out"
-msgstr ""
+msgstr "Déconnecter"
 
 #: subdownloader/client/gui/login_ui.py:58
 msgid "Login into OpenSubtitles.org"
@@ -1383,12 +1381,12 @@ msgstr "Mot de passe :"
 #: subdownloader/client/gui/__init__.py:16
 #, python-format
 msgid "Subtitle Files (*.%s)"
-msgstr ""
+msgstr "Fichiers sous-titre (*.%s)"
 
 #: subdownloader/client/gui/__init__.py:17
 #, python-format
 msgid "Video Files (*.%s)"
-msgstr ""
+msgstr "Fichiers vidéos (*.%s)"
 
 #: subdownloader/client/gui/__init__.py:27
 msgid "Loading..."
