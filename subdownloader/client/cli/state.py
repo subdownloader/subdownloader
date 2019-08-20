@@ -10,7 +10,8 @@ class CliState(BaseState):
     def __init__(self):
         BaseState.__init__(self)
 
-        self._interactive = True
+        self._interactive = False
+        self._console = False
         self._recursive = False
 
         self.set_subtitle_download_path_strategy(SubtitlePathStrategy.SAME)
@@ -25,10 +26,15 @@ class CliState(BaseState):
     def load_options(self, options):
         BaseState.load_options(self, options)
 
+        self._console = options.program.client.cli.console
         self._interactive = options.program.client.cli.interactive
-        self.recursive = options.search.recursive
+
+        self._recursive = options.search.recursive
 
         self.set_subtitle_rename_strategy(options.download.rename_strategy)
+
+    def get_console(self):
+        return self._console
 
     def get_interactive(self):
         return self._interactive

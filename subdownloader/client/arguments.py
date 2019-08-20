@@ -30,6 +30,7 @@ def parse_arguments(args=None):
         client=ArgumentClientSettings(
             type=ns.client_type,
             cli=ArgumentClientCliSettings(
+                console=ns.console,
                 interactive=ns.interactive,
             ),
             gui=ArgumentClientGuiSettings(
@@ -117,6 +118,7 @@ ArgumentClientSettings = namedtuple('ArgumentClientSettings', (
 ))
 
 ArgumentClientCliSettings = namedtuple('ArgumentClientCliSettings', (
+    'console',
     'interactive',
 ))
 
@@ -244,6 +246,9 @@ def get_argument_parser():
 
     # cli options
     cli_group = parser.add_argument_group(_('cli'), _('Change the behavior of the command line interface.'))
+    cli_group.add_argument('-C', '--console', dest='console',
+                           action='store_true', default=False,
+                           help=_('Start a console.'))
     cli_group.add_argument('-i', '--interactive', dest='interactive',
                            action='store_true', default=False,
                            help=_('Prompt user when decisions need to be done.'))

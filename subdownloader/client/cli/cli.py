@@ -43,13 +43,43 @@ class CliCmd(Cmd):
         )
 
     def run(self):
-        if self._state.get_interactive():
-            self.cmdloop()
+        if self._state.get_console():
+            return self.cmdloop()
         else:
-            self.headless()
+            return self.run_headless()
 
-    def headless(self):
-        raise NotImplementedError("Soon (R)")
+    def run_headless(self):
+        self.onecmd('login')
+        self.onecmd('filescan')
+        self.onecmd('vidsearch')
+        for video in self._videos:
+            self._print_videos([video])
+            nb = video.get_subtitles().get_nb_subtitles()
+            if not nb:
+                print(_("Video has no subtitles. Skipping."))
+                continue
+
+            if self._state.get_interactive():
+                try:
+                    sub_i = int(input('{} [0-{}) '.format(_('What subtitle would you like to download?'), nb)).strip())
+                except (IndexError, ValueError):
+                    self.print(_('Invalid index.'))
+                    return 1
+            else:
+                self.print('{} ({})'.format(_('Auto-selecting first subtitle.'),
+                                            _('Use interactive mode to select another subtitle.')))
+                sub_i = 0
+            try:
+                subtitle = self.get_videos_subtitle(sub_i, [video])
+            except IndexError:
+                self.print(_('Index out of range.'))
+                return 1
+            self.print(_('Selected subtitle:'),  self.subtitle_to_long_string(subtitle))
+            if subtitle.is_local():
+                self.print(_('Cannot select local subtitles.'))
+                return 1
+            self._video_rsubs.update({subtitle})
+        self.onecmd('viddownload')
 
     def cleanup(self):
         self._state.providers.logout()
@@ -61,11 +91,13 @@ class CliCmd(Cmd):
         self._videos = videos
         self._video_rsubs = set()
 
-    def get_videos_subtitle(self, i):
+    def get_videos_subtitle(self, i, videos=None):
         if i < 0:
             raise IndexError()
         nb_subs_met = 0
-        for video in self._videos:
+        if videos is None:
+            videos = self._videos
+        for video in videos:
             for subtitle_network in video.get_subtitles():
                 if not self.download_filter_language_object(subtitle_network):
                     continue
@@ -127,7 +159,7 @@ class CliCmd(Cmd):
         self.print()
 
     def do_EOF(self, arg):
-        self._return_code = 1
+        self._return_code = 0
         return True
 
     def help_quit(self):
@@ -283,11 +315,18 @@ class CliCmd(Cmd):
                 return
         self.print(_('Current videos:'))
 
+        nb_selected = self._print_videos(self._videos)
+
+        if nb_selected:
+            self.print()
+            self.print(ngettext('{} subtitle selected', '{} subtitles selected', nb_selected).format(nb_selected))
+
+    def _print_videos(self, videos):
         counter = 0
         counter_len = len(str(sum(video.get_subtitles().get_nb_subtitles() for video in self._videos)))
         nb_selected = 0
 
-        for video in self._videos:
+        for video in videos:
             self.print('- {}'.format(video.get_filename()))
             for network in video.get_subtitles():
                 if not self.download_filter_language_object(network):
@@ -309,10 +348,7 @@ class CliCmd(Cmd):
                     self.print('       <{x}> [{i}] {s}'.format(i=str(counter).rjust(counter_len), x=x,
                                                                s=self.subtitle_to_short_string(subtitle)))
                     counter += 1
-
-        if nb_selected:
-            self.print()
-            self.print(ngettext('{} subtitle selected', '{} subtitles selected', nb_selected).format(nb_selected))
+        return nb_selected
 
     @staticmethod
     def subtitle_to_long_string(subtitle):
