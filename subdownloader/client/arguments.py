@@ -18,7 +18,7 @@ from subdownloader.languages.language import Language, NotALanguageException, Un
 def parse_arguments(args=None):
     """
     Parse the program arguments.
-    :return: argparse.Namespace object with the parsed arguments
+    :return: ArgumentSettings object with the parsed arguments
     """
     parser = get_argument_parser()
 
@@ -26,65 +26,62 @@ def parse_arguments(args=None):
     autocomplete(parser)
 
     ns = parser.parse_args(args=args)
-    return ArgumentSettings(
-        program=ArgumentProgramSettings(
-            log=ArgumentLogSettings(
-                path=None,
-                level=ns.loglevel,
+    return get_argument_options(
+        client=ArgumentClientSettings(
+            type=ns.client_type,
+            cli=ArgumentClientCliSettings(
+                interactive=ns.interactive,
             ),
-            settings=ArgumentSettingsSettings(
-                path=ns.settings_path,
-            ),
-            client=ArgumentClientSettings(
-                type=ns.client_type,
-                cli=ArgumentClientCliSettings(
-                    interactive=False,
-                ),
-                gui=ArgumentClientGuiSettings(
-                ),
+            gui=ArgumentClientGuiSettings(
             ),
         ),
-        search=ArgumentSearchSettings(
-            recursive=ns.recursive,
-            working_directory=ns.video_path,
-        ),
-        filter=FilterSettings(
-            languages=ns.languages,
-        ),
-        download=DownloadSettings(
-            rename_strategy=ns.rename_strategy,
-        ),
+        log_path=ns.logfile,
+        log_level=ns.loglevel,
+        settings_path=ns.settings_path,
+        search_recursive=ns.recursive,
+        filter_languages=ns.languages,
+        search_wd=ns.video_path,
         providers=ns.providers,
         proxy=ns.proxy,
         test=ns.test,
     )
 
 
-def get_default_argument_settings(video_path, client):
+def get_argument_options(client,
+                         log_path=None,
+                         log_level=None,
+                         settings_path=None,
+                         search_recursive=None,
+                         search_wd=None,
+                         filter_languages=None,
+                         download_rename_strategy=None,
+                         providers=None,
+                         proxy=None,
+                         test=None,):
     return ArgumentSettings(
         program=ArgumentProgramSettings(
             log=ArgumentLogSettings(
-                path=None,
-                level=logging.ERROR,
+                path=log_path,
+                level=log_level,
             ),
             settings=ArgumentSettingsSettings(
-                path=None,
+                path=settings_path,
             ),
             client=client,
         ),
         search=ArgumentSearchSettings(
-            recursive=True,
-            working_directory=video_path,
+            recursive=search_recursive,
+            working_directory=search_wd,
         ),
         filter=FilterSettings(
-            languages=[UnknownLanguage.create_generic()],
+            languages=None if filter_languages is None else filter_languages,
         ),
         download=DownloadSettings(
-            rename_strategy=SubtitleRenameStrategy.ONLINE,
+            rename_strategy=download_rename_strategy
         ),
-        providers=None,
-        proxy=None,
-        test=False,
+        providers=providers,
+        proxy=proxy,
+        test=test,
     )
 
 
@@ -138,6 +135,7 @@ FilterSettings = namedtuple('FilterSettings', (
 DownloadSettings = namedtuple('DownloadSettings', (
     'rename_strategy',
 ))
+
 
 class ProxyAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -209,7 +207,7 @@ def get_argument_parser():
     parser.add_argument('-s', '--settings', dest='settings_path', type=Path, default=None, metavar='FILE',
                         help=_('Set the settings file.'))
     parser.add_argument('-l', '--lang', dest='languages', metavar='LANGUAGE',
-                        default=[UnknownLanguage.create_generic()],
+                        default=[],
                         nargs=argparse.ONE_OR_MORE, action=LanguagesAction,
                         help=_('Set the preferred subtitle language(s) for download and upload.'))
 

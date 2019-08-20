@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
-import logging
+import sys
+
 from subdownloader.client.callback import ClientCallback
 import progressbar
 
@@ -19,7 +20,7 @@ class ProgressBarCallback(ClientCallback):
     """
     This callback will use the progressbar library to show the progress of some action.
     """
-    def __init__(self, minimum=None, maximum=None, widgets=DEFAULT_WIDGETS):
+    def __init__(self, minimum=None, maximum=None, widgets=DEFAULT_WIDGETS, fd=None):
         """
         Initialize a new ProgressBarCallback (and thus show a progressbar).
         :param minimum: minimum value as integer
@@ -27,7 +28,9 @@ class ProgressBarCallback(ClientCallback):
         :param widgets: widgets to show as list of progressbar.Widget
         """
         ClientCallback.__init__(self, minimum=minimum, maximum=maximum)
-        self._bar = progressbar.ProgressBar(widgets=widgets)
+        if fd is  None:
+            fd = sys.stderr
+        self._bar = progressbar.ProgressBar(widgets=widgets, fd=fd)
 
     def on_show(self):
         self._bar.start()

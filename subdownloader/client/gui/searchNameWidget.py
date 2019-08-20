@@ -60,9 +60,6 @@ class SearchNameWidget(QWidget):
         self.moviesModel.node_clicked.connect(self.on_item_clicked)
         self.moviesModel.dataChanged.connect(self.subtitlesMovieCheckedChanged)
 
-        # FIXME: load settings from general place
-        upload_language = Language.from_xxx(
-            QSettings().value('options/uploadLanguage', UnknownLanguage.create_generic()))
         self.ui.filterLanguage.selected_language_changed.connect(self.on_language_combobox_filter_change)
 
         self.language_filter_change.connect(self.moviesModel.on_filter_languages_change)
@@ -140,7 +137,6 @@ class SearchNameWidget(QWidget):
     @pyqtSlot()
     def onButtonDownloadByTitle(self):
         subs = self.moviesModel.get_checked_subtitles()
-        total_subs = len(subs)
         if not subs:
             QMessageBox.about(
                 self, _("Error"), _("No subtitles selected to be downloaded"))

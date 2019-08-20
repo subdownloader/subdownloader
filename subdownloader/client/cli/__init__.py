@@ -6,18 +6,18 @@ from enum import Enum
 from subdownloader.client.cli.state import CliState
 
 
-def get_default_settings(video_path=None):
-    from subdownloader.client.arguments import get_default_argument_settings, ArgumentClientSettings, ArgumentClientCliSettings, ClientType
-    return get_default_argument_settings(
-        video_path=video_path,
+def get_default_options():
+    from subdownloader.client.arguments import get_argument_options, ArgumentClientSettings, ArgumentClientCliSettings, ClientType
+    return get_argument_options(
         client=ArgumentClientSettings(
-            type=ClientType.GUI,
+            type=ClientType.CLI,
             cli=ArgumentClientCliSettings(
-                interactive=False,
+                interactive=None,
             ),
             gui=None,
         )
     )
+
 
 class CliAction(Enum):
     DOWNLOAD = 'download'
@@ -25,16 +25,14 @@ class CliAction(Enum):
     # LIST = 'list'
 
 
-def run(options):
+def run(options, settings):
     from subdownloader.client.cli.cli import CliCmd
 
-    state = CliState(options)
-
-    cmd = CliCmd(state=state)
+    cmd = CliCmd(options=options, settings=settings)
     try:
-        cmd.cmdloop()
+        cmd.run()
     except (EOFError, KeyboardInterrupt):
-        state.logout()
+        cmd.cleanup()
         raise
     # FIXME; do actions depending on options.operation
 

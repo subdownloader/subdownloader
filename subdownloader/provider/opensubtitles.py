@@ -7,6 +7,7 @@ from http.client import CannotSendRequest
 import logging
 import re
 from socket import error as SocketError
+import string
 import sys
 from urllib.error import HTTPError
 from urllib.parse import quote
@@ -26,6 +27,10 @@ from subdownloader.util import unzip_bytes, unzip_stream, write_stream
 log = logging.getLogger('subdownloader.provider.opensubtitles')
 
 
+def f(s: str='sf'):
+    pass
+
+
 class OpenSubtitles(SubtitleProvider):
     URL = 'http://api.opensubtitles.org/xml-rpc'
 
@@ -40,6 +45,8 @@ class OpenSubtitles(SubtitleProvider):
         return self._settings
 
     def set_settings(self, settings):
+        if self.connected():
+            raise RuntimeError('Cannot set settings while connected')  # FIXME: change error
         self._settings = settings
 
     def connect(self):
@@ -407,6 +414,12 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         return movies, nb_so_far, nb_provider
 
+    @staticmethod
+    def cleanup_string(name, alt='_'):
+        valid = string.ascii_letters + string.digits
+        name = name.strip()
+        return ''.join(c if c in valid else alt for c in name)
+
     def _xml_to_subtitles(self, xml):
         subtitle_entries, nb_so_far, nb_provider = self._extract_subtitle_entries(xml)
         if subtitle_entries is None:
@@ -461,7 +474,16 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
                 language = Language.from_xx(language_iso639)
 
-                movie_release_name = subtitle_entry.getElementsByTagName('MovieReleaseName')[0].firstChild.data
+                movie_release_name = try_get_first_child_data('MovieReleaseName', None)
+                if movie_release_name is None:
+                    movie_release_name = try_get_first_child_data('MovieName', None)
+
+                if movie_release_name is None:
+                    log.warning('Skipping subtitle: no movie release name or movie name')
+                    continue
+
+                movie_release_name = self.cleanup_string(movie_release_name)
+
                 filename = '{}.{}'.format(movie_release_name, subtitle_format)
 
                 download_link = 'http://www.opensubtitles.org/download/sub/{}'.format(subtitle_id)
@@ -599,7 +621,7 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         super_parent = self.get_super_parent()
         if super_parent:
             super_parent.add_subtitle(local_sub)
-        return tuple((local_sub, ))
+        return (local_sub, )
 
     # def _download(self, provider_instance, callback):
     #     # method 1:

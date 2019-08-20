@@ -16,4 +16,4 @@ install:
   - python3 setup.py build_sphinx
 
 script:
-  - pytest -vv
+  - python -m unittest discover -vv

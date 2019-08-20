@@ -6,12 +6,15 @@ from enum import Enum
 import logging
 import os.path
 from pathlib import Path
+import platform
 
 from subdownloader.client import ClientType, IllegalArgumentException
-from subdownloader.client.configuration import Settings, configuration_get_default_file
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
+from subdownloader.client.configuration import Settings
+from subdownloader.project import PROJECT_TITLE
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory
+from subdownloader.provider.provider import SubtitleProvider
 
 log = logging.getLogger('subdownloader.client.state')
 
@@ -42,53 +45,60 @@ class SubtitleRenameStrategy(Enum):
     VIDEO_LANG_UPLOADER = 'SAME_VIDEOPLUSLANGANDUPLOADER'
     ONLINE = 'SAME_ONLINE'
 
+    @classmethod
+    def from_str(cls, s):
+        try:
+            return next(c for c in cls if s == c.value)
+        except StopIteration:
+            raise ValueError(s)
+
 
 class SubtitlePathStrategy(Enum):
     ASK = 'ASK_FOLDER'
     SAME = 'SAME_FOLDER'
     PREDEFINED = 'PREDEFINED_FOLDER'
 
+    @classmethod
+    def from_str(cls, s):
+        try:
+            return next(c for c in cls if s == c.value)
+        except StopIteration:
+            raise ValueError(s)
+
+
+class StateConfigKey(Enum):
+    VIDEO_PATH = ('mainwindow', 'workingDirectory', )
+    FILTER_LANGUAGES = ('options', 'filterSearchLang', )
+    UPLOAD_LANGUAGE = ('options', 'uploadLanguage', )
+    SUBTITLE_PATH_STRATEGY = ('options', 'whereToDownload', )
+    SUBTITLE_RENAME_STRATEGY = ('options', 'subtitleName', )
+    DOWNLOAD_PATH = ('options', 'whereToDownloadFolder', )
+    PROXY_HOST = ('options', 'ProxyHost', )
+    PROXY_PORT = ('options', 'ProxyPort', )
+
+
 # FIXME: add more logging
 
 
-class BaseState(object):
-    def __init__(self, options, settings=None):
-        settings_path = options.program.settings.path if options.program.settings.path else configuration_get_default_file()
+class ProvidersState(object):
+    def __init__(self):
+        self._providers = []
 
-        if settings is None:
-            settings = Settings(path=settings_path)
-        self.settings = settings
+    def load_settings(self, settings):
+        for provider in self._providers:
+            self._load_provider_settings(provider, settings)
 
-        self._video_paths = None
+    def save_settings(self, settings):
+        for provider in self._providers:
+            raise NotImplementedError('TODO!')
 
-        self._upload_language = None
-        self._download_languages = None
-
-        self._rename_strategy = None
-        self._download_path_strategy = None
-        self._default_download_path = None
-
-        self._proxy = None
+    def load_options(self, options):
         providers_cls = ProviderFactory.list()
         if options.providers:
             map_provider_data = filter_providers(providers_cls, options.providers)
         else:
             map_provider_data = {provider_cls: ProviderData(provider_cls.get_name(), dict()) for provider_cls in providers_cls}
         self._providers = [provider_cls() for provider_cls in map_provider_data.keys()]
-
-        self._client_load_state()
-
-        if options.search.working_directory:
-            self.set_video_paths(options.search.working_directory)
-        elif options.program.client.type == ClientType.CLI:
-            self.set_video_paths([Path().absolute()])
-
-        if not options.filter.languages[0].is_generic():
-            self.set_upload_language(options.filter.languages[0])
-            self.set_download_languages(options.filter.languages)
-
-        if options.proxy:
-            self.set_proxy(options.proxy)
 
         for provider in self._providers:
             provider_settings = provider.get_settings()
@@ -101,104 +111,70 @@ class BaseState(object):
                     provider.get_name()))
             provider.set_settings(new_settings)
 
-    def _client_load_state(self):
-        self.settings.read()
-
-        self._video_paths = [self.settings.get_path('mainwindow', 'workingDirectory', Path().absolute())]
-
-        self._upload_language = self.settings.get_language('options', 'uploadLanguage')
-        self._download_languages = self.settings.get_languages('options', 'filterSearchLang')
-
-        self._rename_strategy = SubtitleRenameStrategy.VIDEO
-        strategy_str = self.settings.get_str('options', 'subtitleName', SubtitleRenameStrategy.VIDEO.value).upper()
-        for strategy in SubtitleRenameStrategy:
-            if strategy_str == strategy.value.upper():
-                self._rename_strategy = strategy
-
-        self._download_path_strategy = SubtitlePathStrategy.SAME
-        strategy_str = self.settings.get_str('options', 'whereToDownload', SubtitlePathStrategy.SAME.value).upper()
-        for strategy in SubtitlePathStrategy:
-            if strategy_str == strategy.value.upper():
-                self._download_path_strategy = strategy
-
-        self._default_download_path = self.settings.get_path('options', 'whereToDownloadFolder')
-
-        for provider in self._providers:
-            self._client_load_provider(provider)
-        
-        proxy_host = self.settings.get_str('options', 'ProxyHost', None)
-        if proxy_host is not None:
-            proxy_port = self.settings.get_int('options', 'ProxyPort', 8080)
-            self._proxy = Proxy(proxy_host, proxy_port)
-
-        # FIXME: log state
-
-    def _client_load_provider(self, provider):
+    def _load_provider_settings(self, provider, settings):
         section = 'provider_{name}'.format(name=provider.get_name())
         provider_settings = provider.get_settings()
         new_provider_data = {}
         for k, v in provider_settings.as_dict().items():
-            d = self.settings.get_str(section, k, None)
-            if d is None:
-                d = v
+            d = settings.get_str((section, k), v)
             new_provider_data[k] = d
         new_data = provider_settings.load(**new_provider_data)
         provider.set_settings(new_data)
 
-    def save_state(self):
-        self.settings.write()
+    def iter(self):
+        return iter(self._providers)
 
-    def get_providers(self):
-        return self._providers
+    def find(self, item):
+        def _find_provider(provider, item):
+            if isinstance(item, str):
+                return provider.get_name() == item
+            elif isinstance(item, type) and issubclass(item, SubtitleProvider):
+                return type(provider) == item
+            else:
+                return provider == other
+        try:
+            provider = next(provider for provider in self._providers if _find_provider(provider, item))
+        except StopIteration:
+            return None
+        return provider
 
     def _item_to_providers(self, item):
         if item is None:
             providers = self._providers
         else:
-            provider = self.provider_search(item)
+            provider = self.find(item)
             if provider is None:
                 raise IndexError()
             providers = (provider, )
         return providers
 
-    def provider_search(self, item=None):
-        if isinstance(item, str):
-            def condition(provider, name):
-                return provider.get_name() == name
-        else:
-            def condition(provider, other):
-                return provider == other
-        try:
-            provider = next(provider for provider in self._providers if condition(provider, item))
-        except StopIteration:
-            return None
-        return provider
-
-    def provider_add(self, name):
+    def add_name(self, name, settings):
         for provider in self._providers:
             if provider.get_name() == name:
+                log.debug('Provider "{}" already added'.format(name))
                 return False
         try:
             providers_cls = ProviderFactory.local_search(name)
             if len(providers_cls) != 1:
+                log.warning('More than one provider matched "{}". Ignoring.'.format(name))
                 return False
             provider_cls = providers_cls[0]
         except NoProviderException:
             return False
 
         provider = provider_cls()
-        self._client_load_provider(provider)
+        self._load_provider_settings(provider, settings)
         self._providers.append(provider)
         return True
 
-    def provider_remove(self, item):
-        provider = self.provider_search(item)
+    def remove(self, item):
+        provider = self.find(item)
         if provider is None:
             return False
         self._providers.remove(provider)
         return True
 
-    def provider_get(self, index):
+    def get(self, index):
         if isinstance(index, str):
             try:
                 return next(provider for provider in self._providers if provider.get_name().lower() == index.lower())
@@ -230,10 +206,103 @@ class BaseState(object):
         for provider in self._item_to_providers(item):
             provider.ping()
 
+
+class BaseState(object):
+    def __init__(self):
+        self._providersState = ProvidersState()
+
+        self._recursive = False
+        self._video_paths = []
+
+        self._upload_language = None
+        self._download_languages = []
+
+        self._rename_strategy = SubtitleRenameStrategy.ONLINE
+        self._download_path_strategy = SubtitlePathStrategy.PREDEFINED
+        self._default_download_path = Path().resolve()
+
+        self._proxy = None
+
+    @property
+    def providers(self):
+        return self._providersState
+
+    def load_options(self, options):
+        self._providersState.load_options(options)
+
+        self.set_recursive(options.search.recursive)
+        if options.search.working_directory is not None:
+            self.set_video_paths(options.search.working_directory)
+        else:
+            self.set_video_paths([Path(os.getcwd())])
+
+        if options.filter.languages:
+            self.set_upload_language(options.filter.languages[0])
+            self.set_download_languages(options.filter.languages)
+
+        subtitle_rename_strategy = options.download.rename_strategy
+        if subtitle_rename_strategy is not None:
+            self.set_subtitle_rename_strategy(subtitle_rename_strategy)
+
+        if options.proxy is not None:
+            self.set_proxy(options.proxy)
+
+        # FIXME: log state
+
+    def load_settings(self, settings):
+        self._providersState.load_settings(settings)
+
+        upload_language = settings.get_language(StateConfigKey.UPLOAD_LANGUAGE.value)
+        if upload_language is not None:
+            self.set_upload_language(upload_language)
+
+        download_languages = settings.get_languages(StateConfigKey.FILTER_LANGUAGES.value)
+        if download_languages is not None:
+            self.set_download_languages(download_languages)
+
+        rename_strategy_str = settings.get_str(StateConfigKey.SUBTITLE_RENAME_STRATEGY.value, None)
+        if rename_strategy_str:
+            self.set_subtitle_rename_strategy(SubtitleRenameStrategy.from_str(rename_strategy_str))
+
+        download_path_strategy_str = settings.get_str(StateConfigKey.SUBTITLE_PATH_STRATEGY.value, None)
+        if download_path_strategy_str:
+            self.set_subtitle_download_path_strategy(SubtitlePathStrategy.from_str(download_path_strategy_str))
+
+        proxy_host = settings.get_str(StateConfigKey.PROXY_HOST.value, None)
+        proxy_port = settings.get_int(StateConfigKey.PROXY_PORT.value, None)
+        if None not in (proxy_host, proxy_port):
+            proxy = Proxy(proxy_host, proxy_port)
+            self.set_proxy(proxy)
+
+    def save_settings(self, settings):
+        self._providersState.save_settings(settings)
+
+        if self._video_paths:
+            settings.set_path(StateConfigKey.VIDEO_PATH.value, self._video_paths[0])
+        else:
+            settings.remove_key(StateConfigKey.VIDEO_PATH.value)
+
+        settings.set_str(StateConfigKey.SUBTITLE_RENAME_STRATEGY.value, self.get_subtitle_rename_strategy().value)
+        settings.set_str(StateConfigKey.SUBTITLE_PATH_STRATEGY.value, self.get_subtitle_download_path_strategy().value)
+
+        settings.set_languages(StateConfigKey.FILTER_LANGUAGES.value, self.get_download_languages())
+        settings.set_language(StateConfigKey.UPLOAD_LANGUAGE.value, self.get_upload_language())
+
+        proxy = self.get_proxy()
+        if proxy:
+            settings.set_str(StateConfigKey.PROXY_HOST.value, proxy.host)
+            settings.set_int(StateConfigKey.PROXY_PORT.value, proxy.port)
+        else:
+            settings.remove_key(StateConfigKey.PROXY_HOST.value)
+            settings.remove_key(StateConfigKey.PROXY_PORT.value)
+
+        settings.write()
+
     def search_videos_all(self, videos, callback):
-        callback.set_range(0, len(self._providers))
+        providers = list(self._providersState.iter())
+        callback.set_range(0, len(providers))
         prov_rsubs = {}
-        for provider_i, provider in enumerate(self._providers):
+        for provider_i, provider in enumerate(providers):
             download_callback = callback.get_child_progress(provider_i, provider_i+1)
             prov_rsubs[provider] = provider.search_videos(videos=videos, callback=download_callback)
         return prov_rsubs
@@ -241,66 +310,60 @@ class BaseState(object):
     def query_text_all(self, text):
         from subdownloader.query import SubtitlesTextQuery
         query = SubtitlesTextQuery(text=text)
-        query.search_init(self._providers)
+        providers = list(self._providersState.iter())
+        query.search_init(providers)
         return query
 
+    def get_recursive(self):
+        return self._recursive
+
+    def set_recursive(self, recursive):
+        self._recursive = recursive
+
     def get_video_paths(self):
+        if self._video_paths is None:
+            return []
         return self._video_paths
 
-    def set_video_paths(self, video_paths, write=False):
+    def set_video_paths(self, video_paths):
         self._video_paths = video_paths
-        if write:
-            self.settings.set_path('mainwindow', 'workingDirectory', video_paths[0])
 
-    # FIXME: change to filter languages?
+    # FIXME: change to filter languages
     def get_download_languages(self):
         return self._download_languages
 
-    def set_download_languages(self, langs, write=False):
+    def set_download_languages(self, langs):
         self._download_languages = langs
-        if write:
-            self.settings.set_languages('options', 'filterSearchLang', langs)
 
     def get_upload_language(self):
         return self._upload_language
 
-    def set_upload_language(self, lang, write=False):
+    def set_upload_language(self, lang):
         self._upload_language = lang
-        if write:
-            self.settings.set_language('options', 'uploadLanguage', lang)
 
     def get_proxy(self):
         return self._proxy
 
-    def set_proxy(self, proxy, write=False):
+    def set_proxy(self, proxy):
         self._proxy = proxy
-        if write:
-            self.settings.set_str('options', 'ProxyHost', proxy.host)
-            self.settings.set_int('options', 'ProxyPort', proxy.port)
 
     def get_subtitle_rename_strategy(self):
         return self._rename_strategy
 
-    def set_subtitle_rename_strategy(self, strategy, write=False):
+    def set_subtitle_rename_strategy(self, strategy):
         self._rename_strategy = strategy
-        if write:
-            self.settings.set_str('options', 'subtitleName', strategy.value)
 
     def get_subtitle_download_path_strategy(self):
         return self._download_path_strategy
 
     def set_subtitle_download_path_strategy(self, strategy, write=False):
         self._download_path_strategy = strategy
-        if write:
-            self.settings.set_str('options', 'whereToDownload', strategy.value)
 
     def get_default_download_path(self):
         return self._default_download_path
 
     def set_default_download_path(self, path, write=False):
         self._default_download_path = path
-        if write:
-            self.settings.set_path('options', 'whereToDownloadFolder', path)
 
     @staticmethod
     def get_system_language():
@@ -399,3 +462,50 @@ class BaseState(object):
         log.debug('Downloading to {}'.format(download_path))
 
         return download_path
+
+    @classmethod
+    def get_default_settings_path(cls):
+        """
+        Return the default file where user-specific data is stored.
+        This depends of the system on which Python is running,
+        :return: path to the user-specific configuration data folder
+        """
+        return (cls.get_default_settings_folder() / PROJECT_TITLE).with_suffix('.conf')
+
+    @staticmethod
+    def get_default_settings_folder():
+        """
+        Return the default folder where user-specific data is stored.
+        This depends of the system on which Python is running,
+        :return: path to the user-specific configuration data folder
+        """
+        system = platform.system()
+        if system == 'Linux':
+            # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+            sys_config_path = Path(os.getenv('XDG_CONFIG_HOME', os.path.expanduser("~/.config")))
+        elif system == 'Windows':
+            sys_config_path = Path(os.getenv('APPDATA', ''))
+        else:
+            log.error('Unknown system: "{system}" (using default configuration path)'.format(system=system))
+            sys_config_path = Path()
+        log.debug('User-specific system configuration folder="{sys_config_path}"'.format(
+            sys_config_path=sys_config_path))
+        sys_config = sys_config_path / PROJECT_TITLE
+        log.debug('User-specific {project} configuration folder="{sys_config}"'.format(
+            project=PROJECT_TITLE, sys_config=sys_config))
+        return sys_config
+
+
+class GuiState(BaseState):  # FIXME: move to gui/state.py
+    def __init__(self):
+        BaseState.__init__(self)
+
+    def load_settings(self, settings):
+        BaseState.load_settings(settings)
+
+        self.set_video_paths([settings.get_path(StateConfigKey.VIDEO_PATH.value, Path().resolve())])
+
+
+def state_init():
+    config_path = BaseState.get_default_settings_folder()
+    config_path.mkdir(exist_ok=True)

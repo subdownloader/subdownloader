@@ -3,25 +3,25 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import logging
-import os
 import sys
 
-from subdownloader.client import ClientType, IllegalArgumentException
-from subdownloader.client.configuration import configuration_init
+from subdownloader.client import ClientType, IllegalArgumentException, add_client_module_dependencies
+from subdownloader.client.state import BaseState, state_init
+from subdownloader.client.configuration import Settings
 from subdownloader.client.logger import logging_file_install, logging_install, logging_stream_install
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.client.arguments import parse_arguments
 from subdownloader.client.user_agent import user_agent_init
 
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'modules'))
-
 
 def main(args=None):
+    add_client_module_dependencies()
     logging_stream_install(logging.WARNING)
-    configuration_init()
+    state_init()
     logging_file_install(None)
     i18n_install()
     options = parse_arguments(args=args)
+    settings = Settings(BaseState.get_default_settings_path())
     logging_install(options.program.log.level, options.program.log.path)
     user_agent_init()
 
@@ -33,7 +33,7 @@ def main(args=None):
         runner = subdownloader.client.cli.run
 
     try:
-        return_code = runner(options)
+        return_code = runner(options, settings)
     except IllegalArgumentException as e:
         sys.stderr.write(e.msg)
         print()

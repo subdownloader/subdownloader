@@ -30,10 +30,6 @@ setup_requires = [
     'docutils >= 0.14',
 ]
 
-tests_requires = [
-    'pytest >= 3.4',
-]
-
 setup(
     name=subdownloader.project.PROJECT_TITLE,
     version=subdownloader.project.PROJECT_VERSION_FULL_STR,
@@ -64,10 +60,10 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
     install_requires=install_requires,
     setup_requires=setup_requires,
-    tests_require=tests_requires,
     entry_points={
         'console_scripts': [
             'subdownloader = subdownloader.client.__main__:main'

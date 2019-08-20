@@ -16,4 +16,4 @@ install:
 build: false
 
 test_script:
-  - pytest -vv
+  - python -m unittest discover -vv

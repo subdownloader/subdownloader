@@ -538,14 +538,12 @@ class SearchFileWidget(QWidget):
             while True:
                 # If the file and the folder don't have write access.
                 if not QFileInfo(destinationPath).isWritable() and not QFileInfo(QFileInfo(destinationPath).absoluteDir().path()).isWritable():
-                    warningBox = QMessageBox(_("Error write permission"),
-                                             _(
-                                                 "%s cannot be saved.\nCheck that the folder exists and you have write-access permissions.") % destinationPath,
-                                             QMessageBox.Warning,
-                                             QMessageBox.Retry | QMessageBox.Default,
-                                             QMessageBox.Discard | QMessageBox.Escape,
-                                             QMessageBox.NoButton,
-                                             self)
+                    warningBox = QMessageBox(
+                        QMessageBox.Warning,
+                        _("Error write permission"),
+                        _("{destination} cannot be saved.\nCheck that the folder exists and you have write-access permissions.").format(destinationPath),
+                        QMessageBox.Retry | QMessageBox.Discard | QMessageBox.NoButton,
+                        self)
 
                     saveAsButton = warningBox.addButton(
                         _("Save as..."), QMessageBox.ActionRole)
@@ -627,6 +625,10 @@ class SearchFileWidget(QWidget):
 #                        continue
                 elif answer == cancelButton:
                     break  # Break out of DL loop - cancel was pushed
+                elif answer == replaceButton:
+                    pass
+                else:
+                    assert False
             QCoreApplication.processEvents()
             # FIXME: redundant update?
             callback.update(i, QFileInfo(destinationPath).fileName(), i + 1, total_subs)

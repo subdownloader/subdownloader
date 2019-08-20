@@ -38,6 +38,4 @@ class TestFileScan(unittest.TestCase):
         with ChangeDirectoryScope((RESOURCE_PATH / 'child')):
             videos, subtitles = scan_videopath(Path('..'), ProgressCallback(), recursive=True)
             self.assertTrue(len(videos) > 0)
-            print(videos)
-            print(videos[0].get_filepath().resolve())
             video = next(video for video in videos if video.get_filepath().resolve() == RESOURCE_AVI)

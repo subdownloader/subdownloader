@@ -71,7 +71,7 @@ class VideoFile(object):
         else:
             meta = '<unavailable>'
         return '<Video:path="{path}",size={size},osdb_hash={osdb_hash},metadata={metadata},' \
-               '#identities={identities}'.format(
+               '#identities={identities}>'.format(
                     path=self._filepath, size=self._size, osdb_hash=self._osdb_hash, metadata=meta,
                     identities=len(self._identities))
 

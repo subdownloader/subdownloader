@@ -2,7 +2,9 @@
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
 from enum import Enum
+import os
 from pathlib import Path
+import sys
 
 
 class ClientType(Enum):
@@ -16,6 +18,10 @@ def client_get_path():
     :return: path as a string
     """
     return Path(__file__).absolute().parent
+
+
+def add_client_module_dependencies():
+    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'modules'))
 
 
 class IllegalArgumentException(Exception):

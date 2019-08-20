@@ -6,7 +6,7 @@ import logging.handlers
 import os
 
 from subdownloader import project
-from subdownloader.client.configuration import configuration_get_default_folder
+from subdownloader.client.state import BaseState
 
 log = logging.getLogger('subdownloader.client.logger')
 logging.getLogger().setLevel(logging.DEBUG)
@@ -27,7 +27,7 @@ def logging_file_install(path):
     :param path: path to the log file, Use None for default file location.
     """
     if path is None:
-        path = configuration_get_default_folder() / LOGGING_DEFAULTNAME
+        path = BaseState.get_default_settings_folder() / LOGGING_DEFAULTNAME
 
     if not path.parent.exists():
         log.error('File logger installation FAILED!')

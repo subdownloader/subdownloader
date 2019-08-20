@@ -39,7 +39,7 @@ def get_select_videos():
     return _("Video Files (*.%s)") % " *.".join(VIDEOS_EXT)
 
 
-def run(options):
+def run(options, settings):
     # create splash screen and show messages to the user
     app = QApplication(sys.argv)
 

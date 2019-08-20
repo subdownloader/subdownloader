@@ -50,7 +50,7 @@ class ImdbSearchDialog(QDialog):
 
             imdb_data = self.parent().get_state().get_OSDBServer().imdb_query(query=query)
             if imdb_data is None:
-                log.exception('Error contacting OSDBServer.SearchMoviesOnIMDB')
+                log.error('Error contacting OSDBServer.SearchMoviesOnIMDB')
                 QMessageBox.about(
                     self, _("Error"), _('Error contacting the server. Please try again later'))
             else:

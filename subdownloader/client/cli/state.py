@@ -1,35 +1,40 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
 
+from pathlib import Path
+
 from subdownloader.client.state import BaseState, SubtitlePathStrategy
 
 
 class CliState(BaseState):
-    def __init__(self, options):
-        BaseState.__init__(self, options=options, settings=None)
-        self._options = options
+    def __init__(self):
+        BaseState.__init__(self)
 
-        self._interactive = self._options.program.client.cli.interactive
-        self._recursive = self._options.search.recursive
+        self._interactive = True
+        self._recursive = False
 
-        self._cli_load_state()
-
-        self.set_subtitle_rename_strategy(options.download.rename_strategy)
         self.set_subtitle_download_path_strategy(SubtitlePathStrategy.SAME)
 
         # FIXME: log state
 
-    @property
-    def interactive(self):
+    def load_settings(self, settings):
+        # BaseState.load_settings(settings)
+        # Do not load settings from file in cli
+        pass
+
+    def load_options(self, options):
+        BaseState.load_options(self, options)
+
+        self._interactive = options.program.client.cli.interactive
+        self.recursive = options.search.recursive
+
+        self.set_subtitle_rename_strategy(options.download.rename_strategy)
+
+    def get_interactive(self):
         return self._interactive
 
-    @property
-    def recursive(self):
+    def get_recursive(self):
         return self._recursive
 
-    @recursive.setter
-    def recursive(self, recursive):
+    def set_recursive(self, recursive):
         self._recursive = recursive
-
-    def _cli_load_state(self):
-        pass

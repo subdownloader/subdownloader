@@ -3,9 +3,7 @@
 
 import configparser
 import logging
-import os
 from pathlib import Path
-import platform
 
 from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE
@@ -13,108 +11,127 @@ from subdownloader.project import PROJECT_TITLE
 log = logging.getLogger('subdownloader.client.configuration')
 
 
+class SettingsError(Exception):
+    def __init__(self, msg):
+        Exception.__init__(self, msg)
+
+
 class Settings(object):
     def __init__(self, path):
-        self.path = path
-        self.cfg = configparser.ConfigParser()
-        self.dirty = None
+        self._cfg = configparser.ConfigParser()
+        self._path = path
+        self._dirty = False
 
-    def get_str(self, section, option, default):
+    def get_path_store(self):
+        return self._path
+
+    def set_path_store(self, path):
+        if self._path.resolve() == path.resolve():
+            return
+        self._path = path
+        self.reload()
+
+    def _key_to_section_option(self, key):
         try:
-            return self.cfg.get(section, option)
+            section, option = key.split('.', 1)
+        except ValueError:
+            raise KeyError(key)
+        return section, option
+
+    def _load_str(self, section_path):
+        try:
+            section, option = section_path
+        except TypeError:
+            raise KeyError(section_path)
+        try:
+            return self._cfg.get(section, option)
         except (configparser.NoOptionError, configparser.NoSectionError):
+            raise KeyError(section, option)
+
+    def remove_key(self, section_path):
+        try:
+            return self._cfg.remove_option(*section_path)
+        except (configparser.NoOptionError, configparser.NoSectionError, TypeError):
+            pass
+
+    def get_str(self, section_path, default):
+        try:
+            return self._load_str(section_path)
+        except KeyError:
             return default
 
-    def set_str(self, section, option, value):
+    def set_str(self, section_path, value):
         try:
-            self.cfg.add_section(section)
+            section, option = section_path
+        except ValueError:
+            raise KeyError(section_path)
+        try:
+            self._cfg.add_section(section)
         except configparser.DuplicateSectionError:
             pass
-        self.cfg.set(section, option, value)
-        self.dirty = True
+        self._cfg.set(section, option, value)
+        self._dirty = True
 
-    def get_language(self, section, option):
-        xxx = self.get_str(section, option, UnknownLanguage.create_generic())
-        return Language.from_xxx(xxx)
-
-    def set_language(self, section, option, lang):
-        self.set_str(section, option, lang.xxx())
-
-    def get_languages(self, section, option):
-        xxxs = self.get_str(section, option, None)
-        if xxxs is None:
-            return []
-        return [Language.from_xxx(lang_str) for lang_str in xxxs.split(',') if lang_str]
-
-    def set_languages(self, section, option, langs):
-        self.set_str(section, option, ','.join(l.xxx() for l in langs))
-
-    def get_int(self, section, option, default=None):
-        return int(self.get_str(section, option, default))
-
-    def set_int(self, section, option, value):
-        self.set_str(section, option, str(value))
-
-    def get_path(self, section, option, default=Path()):
-        return Path(self.get_str(section, option, default))
-
-    def set_path(self, section, option, value):
-        self.set_str(section, option, str(value))
-
-    def read(self):
+    def get_language(self, key, default=None):
         try:
-            log.debug('Reading settings from {} ...'.format(self.path))
-            self.cfg.read(str(self.path))
+            xxx = self._load_str(key)
+            return Language.from_xxx(xxx)
+        except KeyError:
+            return default
+
+    def set_language(self, key, lang):
+        self.set_str(key, lang.xxx())
+
+    def get_languages(self, key, default=None):
+        try:
+            xxxs = self._load_str(key)
+            return [Language.from_xxx(lang_str) for lang_str in xxxs.split(',') if lang_str]
+        except KeyError:
+            return default
+
+    def set_languages(self, section_path, langs):
+        self.set_str(section_path, ','.join(l.xxx() for l in langs))
+
+    def get_int(self, key, default=None):
+        try:
+            return int(self._load_str(key))
+        except KeyError:
+            return default
+
+    def set_int(self, key, value):
+        self.set_str(key, str(value))
+
+    def get_path(self, section_path, default=Path()):
+        try:
+            return Path(self._load_str(section_path))
+        except KeyError:
+            return default
+
+    def set_path(self, key, value):
+        self.set_str(key, str(value))
+
+    def clear(self):
+        self._cfg.clear()
+
+    def reload(self):
+        self.clear()
+        log.debug('Reading settings from {} ...'.format(self._path))
+        if not self._path.exists():
+            log.debug('... settings file does not exists. Skip read.')
+        else:
+            result = self._cfg.read(str(self._path))
             log.debug('... reading finished')
-        except configparser.ParsingError:
-            log.warning('... Failed to parse settings from "{}". Assuming defaults.'.format(self.path))
-        except OSError:  # FileNotFoundError:
-            log.debug('... File not found. Assuming defaults.')
-        self.dirty = False
+            if not result:
+                raise SettingsError('Failed to read {}'.format(self._path))
+
+        self._dirty = False
 
     def write(self):
         try:
-            log.debug('Writing settings to {} ...'.format(self.path))
-            with open(str(self.path), 'w') as f:
-                self.cfg.write(f)
+            log.debug('Writing settings to {} ...'.format(self._path))
+            with open(str(self._path), 'w') as f:
+                self._cfg.write(f)
             log.debug('... writing finished')
         except PermissionError:
             log.warning('... Writing failed. No permission.')
-        self.dirty = False
-
-
-def configuration_get_default_file():
-    """
-    Return the default file where user-specific data is stored.
-    This depends of the system on which Python is running,
-    :return: path to the user-specific configuration data folder
-    """
-    return (configuration_get_default_folder() / PROJECT_TITLE).with_suffix('.conf')
-
-
-def configuration_get_default_folder():
-    """
-    Return the default folder where user-specific data is stored.
-    This depends of the system on which Python is running,
-    :return: path to the user-specific configuration data folder
-    """
-    system = platform.system()
-    if system == 'Linux':
-        # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
-        sys_config_path = Path(os.getenv('XDG_CONFIG_HOME', os.path.expanduser("~/.config")))
-    elif system == 'Windows':
-        sys_config_path = Path(os.getenv('APPDATA', ''))
-    else:
-        log.error('Unknown system: "{system}" (using default configuration path)'.format(system=system))
-        sys_config_path = Path()
-    log.debug('User-specific system configuration folder="{sys_config_path}"'.format(
-        sys_config_path=sys_config_path))
-    sys_config = sys_config_path / PROJECT_TITLE
-    log.debug('User-specific {project} configuration folder="{sys_config}"'.format(
-        project=PROJECT_TITLE, sys_config=sys_config))
-    return sys_config
-
-
-def configuration_init():
-    config_path = configuration_get_default_folder()
-    config_path.mkdir(exist_ok=True)
+        self._dirty = False

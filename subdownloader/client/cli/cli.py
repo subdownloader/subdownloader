@@ -7,6 +7,7 @@ from pathlib import Path
 import shlex
 
 from subdownloader.client.cli.callback import ProgressBarCallback
+from subdownloader.client.cli.state import CliState
 from subdownloader.client.state import SubtitleRenameStrategy
 from subdownloader.util import IllegalPathException
 from subdownloader.filescan import scan_videopaths
@@ -17,9 +18,13 @@ from subdownloader.subtitle2 import RemoteSubtitleFile
 
 
 class CliCmd(Cmd):
-    def __init__(self, state):
+    def __init__(self, settings, options):
         Cmd.__init__(self)
-        self._state = state
+        self._state = CliState()
+        self._settings = settings
+        self._state.load_options(options)
+        self._state.load_settings(settings)
+
         self._return_code = 1
         self.prompt = '>>> '
 
@@ -34,8 +39,20 @@ class CliCmd(Cmd):
         self.intro = '{name} {version}\n{intro}'.format(
             name=subdownloader.project.PROJECT_TITLE,
             version=subdownloader.project.PROJECT_VERSION_FULL_STR,
-            intro=_('Type "help" for more information.'),
+            intro=_('Type "{}" for more information.').format('help'),
         )
+
+    def run(self):
+        if self._state.get_interactive():
+            self.cmdloop()
+        else:
+            self.headless()
+
+    def headless(self):
+        raise NotImplementedError("Soon (R)")
+
+    def cleanup(self):
+        self._state.providers.logout()
 
     def _invalidate_videos(self):
         self.set_videos([])
@@ -96,11 +113,10 @@ class CliCmd(Cmd):
         Cmd.default(self, line)
 
     def postloop(self):
-        self.state.logout()
+        self.cleanup()
 
-    @staticmethod
-    def get_callback():
-        return ProgressBarCallback()
+    def get_callback(self):
+        return ProgressBarCallback(fd=self.stdout)
 
     LEN_ARG_COL = 15
 
@@ -137,32 +153,34 @@ class CliCmd(Cmd):
 
     def do_languages(self, arg):
         if arg:
-            langs = None
-            if langs is None:
-                try:
-                    if int(arg) == 0:
-                        langs = []
-                except ValueError:
-                    pass
-            if langs is None:
-                try:
-                    langs = [Language.from_unknown(l_str, xx=True, xxx=True, name=True, locale=True)
-                             for l_str in shlex.split(arg)]
-                except NotALanguageException as e:
-                    self.print(_('"{}" is not a valid language').format(e.value))
-                    return
+            try:
+                if int(arg) == 0:
+                    self.state.set_download_languages([])
+                self.print(_('Filter languages cleared'))
+                return
+            except ValueError:
+                pass
+
+            try:
+                langs = [Language.from_unknown(l_str, xx=True, xxx=True, name=True, locale=True)
+                         for l_str in shlex.split(arg)]
+            except NotALanguageException as e:
+                self.print(_('"{}" is not a valid language').format(e.value))
+                return
             self.state.set_download_languages(langs)
-        if arg:
             self.print(ngettext('New filter language:', 'New filter languages:',
                                 len(self.state.get_download_languages())))
+            for language in self.state.get_download_languages():
+                self.print('- {}'.format(language.name()))
+            return
         else:
             self.print(ngettext('Current filter language:', 'Current filter languages:',
                        len(self.state.get_download_languages())))
-        if self.state.get_download_languages():
-            for language in self.state.get_download_languages():
-                self.print('- {}'.format(language.name()))
-        else:
-            self.print(_('(None)'))
+            if self.state.get_download_languages():
+                for language in self.state.get_download_languages():
+                    self.print('- {}'.format(language.name()))
+            else:
+                self.print(_('(None)'))
 
     # def complete_languages(self, text, line, begidx, endidx):
     #     # FIXME: implement completer for languages
@@ -205,7 +223,7 @@ class CliCmd(Cmd):
 
         try:
             local_videos, local_subs = scan_videopaths(self.state.get_video_paths(), callback,
-                                                       recursive=self.state.recursive)
+                                                       recursive=self.state.get_recursive())
         except IllegalPathException as e:
             callback.finish()
             self.print(_('The video path "{}" does not exist').format(e.path()))
@@ -393,8 +411,8 @@ class CliCmd(Cmd):
     def do_login(self, arg):
         item = arg if arg else None
         try:
-            self.state.connect(item)
-            self.state.login(item)
+            self.state.providers.connect(item)
+            self.state.providers.login(item)
             self.print(_('Log in successful.'))
         except ProviderConnectionError:
             self.print(_('Failed to log in.'))
@@ -412,8 +430,8 @@ class CliCmd(Cmd):
     def do_logout(self, arg):
         item = arg if arg else None
         try:
-            self.state.logout(item)
-            self.state.disconnect(item)
+            self.state.providers.logout(item)
+            self.state.providers.disconnect(item)
             self.print(_('Log out successful.'))
         except ProviderConnectionError:
             self.print(_('Failed to log out.'))
@@ -431,7 +449,7 @@ class CliCmd(Cmd):
     def do_ping(self, arg):
         item = arg if arg else None
         try:
-            self.state.ping(item)
+            self.state.providers.ping(item)
             self.print(_('Sending ping succesful.'))
         except ProviderConnectionError:
             self.print(_('Failed to ping.'))
@@ -457,13 +475,13 @@ class CliCmd(Cmd):
             cmd = args[0]
             name = args[1]
             if cmd == 'add':
-                res = self.state.provider_add(name)
+                res = self.state.providers.add_name(name, self._settings)
                 if res:
                     self.print(_('Provider added.'))
                 else:
                     self.print(_('Add failed.'))
             elif cmd == 'remove':
-                res = self.state.provider_remove(name)
+                res = self.state.providers.remove(name)
                 if res:
                     self.print(_('Provider removed.'))
                     self._invalidate_videos()
@@ -472,7 +490,7 @@ class CliCmd(Cmd):
                     self.print(_('Removal failed.'))
             elif cmd == 'list':
                 try:
-                    provider = self.state.provider_get(name)
+                    provider = self.state.providers.get(name)
                     self.print(_('- Name: {} ({})').format(provider.get_name(), provider.get_short_name()))
                     self.print(_('- Connected: {}').format(provider.connected()))
                     self.print(_('- Logged in: {}').format(provider.logged_in()))
@@ -481,7 +499,7 @@ class CliCmd(Cmd):
             else:
                 self.print(_('Unknown command "{}".').format(cmd))
         else:
-            providers = self.state.get_providers()
+            providers = list(self.state.providers.iter())
             if providers:
                 self.print(
                     ngettext('{} active provider:', '{} active providers:', len(providers)).format(len(providers)))
@@ -503,12 +521,12 @@ class CliCmd(Cmd):
     def do_recursive(self, arg):
         if arg:
             try:
-                self.state.recursive = True if int(arg) else False
+                self.state.set_recursive(True if int(arg) else False)
                 return
             except ValueError:
                 self.print(_('Invalid argument.'))
                 return
-        self.print(_('Recursive: {}').format(self.state.recursive))
+        self.print(_('Recursive: {}').format(self.state.get_recursive()))
 
     RENAME_INDEX_STRATEGY = {
         'vid': SubtitleRenameStrategy.VIDEO,
@@ -576,9 +594,9 @@ class CliCmd(Cmd):
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
             provider_type = rsub.get_provider()
             try:
-                provider = self.state.provider_get(provider_type)
+                provider = self.state.providers.find(provider_type)
             except IndexError:
-                self.print(_('Provider not available.'))
+                self.print(_('Provider "{}" not available.').format(provider_type.get_name()))
                 return
             target_path = self.state.calculate_download_path(rsub, self.get_file_save_as_cb())
             callback = self.get_callback()
@@ -654,12 +672,13 @@ class CliCmd(Cmd):
             video_identity = rmovie_identity.video_identity
             name = video_identity.get_name()
             year = video_identity.get_year()
-            subs_total = rmovie_network.get_nb_subs_total()
             subs_avail = rmovie_network.get_nb_subs_available()
+            subs_total = rmovie_network.get_nb_subs_total()
             print('[{rmov_i}] {name} ({year}) [{nb_avail}/{nb_total}]'.format(
                 rmov_i=rmovie_network_i, name=name, year=year, nb_avail=subs_avail, nb_total=subs_total))
             for rsub_network in rmovie_network.get_subtitles():
                 if not self.download_filter_language_object(rsub_network):
+                    print('FILTER')
                     continue
                 print('  [{xx}] {nb} {subtitles_str} ({full_lang_str})'.format(
                     xx=rsub_network.get_language().xx(),
@@ -733,7 +752,7 @@ class CliCmd(Cmd):
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
             provider_type = rsub.get_provider()
             try:
-                provider = self.state.provider_get(provider_type)
+                provider = self.state.get(provider_type)
             except IndexError:
                 self.print(_('Provider not available.'))
                 return

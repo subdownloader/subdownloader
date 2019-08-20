@@ -16,8 +16,12 @@ dist
 *.tar.gz
 *.eggs
 
-# pytest artifactes
+# pytest artifacts
 .cache
+
+# coverage.py artifacts
+.coverage
+htmlcov
 
 # IDE artifacts
 .idea
