@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 import os
 
@@ -37,7 +37,7 @@ PROJECT_LICENSE = "GPLv3"
 """
 Year of last change.
 """
-PROJECT_YEAR = 2018
+PROJECT_YEAR = 2019
 
 """
 Author collective name

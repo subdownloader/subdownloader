@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 from subdownloader.identification import MovieMatch
 from subdownloader.languages.language import UnknownLanguage

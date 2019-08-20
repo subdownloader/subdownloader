@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
 
@@ -23,7 +23,7 @@ class AboutDialog(QDialog):
 
         self.ui.label_project.setText(project.PROJECT_TITLE)
 
-        self.ui.label_version.setText(project.PROJECT_VERSION_STR)
+        self.ui.label_version.setText(project.PROJECT_VERSION_FULL_STR)
 
         self.ui.txtAbout.setText(
             '<b>{homepage_str}:</b><br />'
