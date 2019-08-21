@@ -11,8 +11,8 @@ from subdownloader import project
 from subdownloader.client import ClientType
 from subdownloader.client.cli import CliAction
 from subdownloader.client.logger import LOGGING_LOGNOTHING
-from subdownloader.client.state import ProviderData, Proxy, SubtitleRenameStrategy
-from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
+from subdownloader.client.state import ProviderData, Proxy, SubtitleNamingStrategy
+from subdownloader.languages.language import Language, NotALanguageException
 
 
 def parse_arguments(args=None):
@@ -40,8 +40,9 @@ def parse_arguments(args=None):
         log_level=ns.loglevel,
         settings_path=ns.settings_path,
         search_recursive=ns.recursive,
-        filter_languages=ns.languages,
         search_wd=ns.video_path,
+        filter_languages=ns.languages,
+        naming_strategy=ns.naming_strategy,
         providers=ns.providers,
         proxy=ns.proxy,
         test=ns.test,
@@ -55,7 +56,7 @@ def get_argument_options(client,
                          search_recursive=None,
                          search_wd=None,
                          filter_languages=None,
-                         download_rename_strategy=None,
+                         naming_strategy=SubtitleNamingStrategy.VIDEO_LANG,
                          providers=None,
                          proxy=None,
                          test=None,):
@@ -78,7 +79,7 @@ def get_argument_options(client,
             languages=None if filter_languages is None else filter_languages,
         ),
         download=DownloadSettings(
-            rename_strategy=download_rename_strategy
+            naming_strategy=naming_strategy,
         ),
         providers=providers,
         proxy=proxy,
@@ -135,7 +136,7 @@ FilterSettings = namedtuple('FilterSettings', (
 ))
 
 DownloadSettings = namedtuple('DownloadSettings', (
-    'rename_strategy',
+    'naming_strategy',
 ))
 
 
@@ -265,22 +266,22 @@ def get_argument_parser():
     #                              help=_('List available subtitle(s) without downloading.'))
     parser.set_defaults(operation=CliAction.DOWNLOAD)
 
-    rename_group = cli_group.add_mutually_exclusive_group()
-    rename_group.add_argument('--rename-online', dest='rename_strategy', action='store_const',
-                              const=SubtitleRenameStrategy.ONLINE,
-                              help=_('Use the on-line subtitle filename as name for the downloaded subtitles. '
-                                     'This is the default.'))
-    rename_group.add_argument('--rename-video', dest='rename_strategy', action='store_const',
-                              const=SubtitleRenameStrategy.VIDEO,
+    naming_group = cli_group.add_mutually_exclusive_group()
+    naming_group.add_argument('--name-online', dest='naming_strategy', action='store_const',
+                              const=SubtitleNamingStrategy.ONLINE,
+                              help=_('Use the on-line subtitle filename as name for the downloaded subtitles.'))
+    naming_group.add_argument('--name-video', dest='naming_strategy', action='store_const',
+                              const=SubtitleNamingStrategy.VIDEO,
                               help=_('Use the local video filename as name for the downloaded subtitle.'))
-    rename_group.add_argument('--rename-lang', dest='rename_strategy', action='store_const',
-                              const=SubtitleRenameStrategy.VIDEO_LANG,
-                              help=_('Use the local video filename + language as name for the downloaded subtitle.'))
-    rename_group.add_argument('--rename-uploader', dest='rename_strategy', action='store_const',
-                              const=SubtitleRenameStrategy.VIDEO_LANG_UPLOADER,
+    naming_group.add_argument('--name-lang', dest='naming_strategy', action='store_const',
+                              const=SubtitleNamingStrategy.VIDEO_LANG,
+                              help=_('Use the local video filename + language as name for the downloaded subtitle.')
+                              + ' ' + _('This is the default.'))
+    naming_group.add_argument('--name-uploader', dest='naming_strategy', action='store_const',
+                              const=SubtitleNamingStrategy.VIDEO_LANG_UPLOADER,
                               help=_('Use the local video filename + uploader + language '
                                      'as name for the downloaded subtitle.'))
-    parser.set_defaults(rename_strategy=SubtitleRenameStrategy.ONLINE)
+    parser.set_defaults(naming_strategy=SubtitleNamingStrategy.VIDEO_LANG)
 
     # online options
     online_group = parser.add_argument_group('online', 'Change parameters related to the online provider.')

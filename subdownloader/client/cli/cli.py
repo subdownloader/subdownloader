@@ -8,7 +8,7 @@ import shlex
 
 from subdownloader.client.cli.callback import ProgressBarCallback
 from subdownloader.client.cli.state import CliState
-from subdownloader.client.state import SubtitleRenameStrategy
+from subdownloader.client.state import SubtitleNamingStrategy
 from subdownloader.util import IllegalPathException
 from subdownloader.filescan import scan_videopaths
 import subdownloader.project
@@ -565,19 +565,19 @@ class CliCmd(Cmd):
         self.print(_('Recursive: {}').format(self.state.get_recursive()))
 
     RENAME_INDEX_STRATEGY = {
-        'vid': SubtitleRenameStrategy.VIDEO,
-        'vid_lang': SubtitleRenameStrategy.VIDEO_LANG,
-        'vid_lang_upl': SubtitleRenameStrategy.VIDEO_LANG_UPLOADER,
-        'online': SubtitleRenameStrategy.ONLINE
+        'vid': SubtitleNamingStrategy.VIDEO,
+        'vid_lang': SubtitleNamingStrategy.VIDEO_LANG,
+        'vid_lang_upl': SubtitleNamingStrategy.VIDEO_LANG_UPLOADER,
+        'online': SubtitleNamingStrategy.ONLINE
     }
 
     @staticmethod
     def get_strategy_rename_doc(strategy):
-        if strategy == SubtitleRenameStrategy.VIDEO:
+        if strategy == SubtitleNamingStrategy.VIDEO:
             return _('Use the local video filename as name for the downloaded subtitle.')
-        elif strategy == SubtitleRenameStrategy.VIDEO_LANG:
+        elif strategy == SubtitleNamingStrategy.VIDEO_LANG:
             return _('Use the local video filename + language as name for the downloaded subtitle.')
-        elif strategy == SubtitleRenameStrategy.VIDEO_LANG_UPLOADER:
+        elif strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
             return _('Use the local video filename + uploader + language as name for the downloaded subtitle.')
         else:  # if strategy == SubtitleRenameStrategy.ONLINE:
             return _('Use the on-line subtitle filename as name for the downloaded subtitles.')
@@ -601,9 +601,9 @@ class CliCmd(Cmd):
             except KeyError:
                 self.print(_('Invalid subtitle rename strategy'))
                 return
-            self.state.set_subtitle_rename_strategy(strategy)
+            self.state.set_subtitle_naming_strategy(strategy)
             self.print(_('New subtitle rename strategy:'))
-        self.print(self.get_strategy_rename_doc(self.state.get_subtitle_rename_strategy()))
+        self.print(self.get_strategy_rename_doc(self.state.get_subtitle_naming_strategy()))
 
     def get_file_save_as_cb(self):
         def file_save_as_cb(path, filename):

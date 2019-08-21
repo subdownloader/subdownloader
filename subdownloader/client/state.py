@@ -39,7 +39,7 @@ def filter_providers(providers_cls, providers_data):
     return map_provider_settings
 
 
-class SubtitleRenameStrategy(Enum):
+class SubtitleNamingStrategy(Enum):
     VIDEO = 'SAME_VIDEO'
     VIDEO_LANG = 'SAME_VIDEOPLUSLANG'
     VIDEO_LANG_UPLOADER = 'SAME_VIDEOPLUSLANGANDUPLOADER'
@@ -71,7 +71,7 @@ class StateConfigKey(Enum):
     FILTER_LANGUAGES = ('options', 'filterSearchLang', )
     UPLOAD_LANGUAGE = ('options', 'uploadLanguage', )
     SUBTITLE_PATH_STRATEGY = ('options', 'whereToDownload', )
-    SUBTITLE_RENAME_STRATEGY = ('options', 'subtitleName', )
+    SUBTITLE_NAMING_STRATEGY = ('options', 'subtitleName',)
     DOWNLOAD_PATH = ('options', 'whereToDownloadFolder', )
     PROXY_HOST = ('options', 'ProxyHost', )
     PROXY_PORT = ('options', 'ProxyPort', )
@@ -217,7 +217,7 @@ class BaseState(object):
         self._upload_language = None
         self._download_languages = []
 
-        self._rename_strategy = SubtitleRenameStrategy.ONLINE
+        self._naming_strategy = SubtitleNamingStrategy.ONLINE
         self._download_path_strategy = SubtitlePathStrategy.PREDEFINED
         self._default_download_path = Path().resolve()
 
@@ -240,9 +240,9 @@ class BaseState(object):
             self.set_upload_language(options.filter.languages[0])
             self.set_download_languages(options.filter.languages)
 
-        subtitle_rename_strategy = options.download.rename_strategy
-        if subtitle_rename_strategy is not None:
-            self.set_subtitle_rename_strategy(subtitle_rename_strategy)
+        subtitle_naming_strategy = options.download.naming_strategy
+        if subtitle_naming_strategy is not None:
+            self.set_subtitle_naming_strategy(subtitle_naming_strategy)
 
         if options.proxy is not None:
             self.set_proxy(options.proxy)
@@ -260,9 +260,9 @@ class BaseState(object):
         if download_languages is not None:
             self.set_download_languages(download_languages)
 
-        rename_strategy_str = settings.get_str(StateConfigKey.SUBTITLE_RENAME_STRATEGY.value, None)
-        if rename_strategy_str:
-            self.set_subtitle_rename_strategy(SubtitleRenameStrategy.from_str(rename_strategy_str))
+        naming_strategy_str = settings.get_str(StateConfigKey.SUBTITLE_NAMING_STRATEGY.value, None)
+        if naming_strategy_str:
+            self.set_subtitle_naming_strategy(SubtitleNamingStrategy.from_str(naming_strategy_str))
 
         download_path_strategy_str = settings.get_str(StateConfigKey.SUBTITLE_PATH_STRATEGY.value, None)
         if download_path_strategy_str:
@@ -282,7 +282,7 @@ class BaseState(object):
         else:
             settings.remove_key(StateConfigKey.VIDEO_PATH.value)
 
-        settings.set_str(StateConfigKey.SUBTITLE_RENAME_STRATEGY.value, self.get_subtitle_rename_strategy().value)
+        settings.set_str(StateConfigKey.SUBTITLE_NAMING_STRATEGY.value, self.get_subtitle_naming_strategy().value)
         settings.set_str(StateConfigKey.SUBTITLE_PATH_STRATEGY.value, self.get_subtitle_download_path_strategy().value)
 
         settings.set_languages(StateConfigKey.FILTER_LANGUAGES.value, self.get_download_languages())
@@ -347,11 +347,11 @@ class BaseState(object):
     def set_proxy(self, proxy):
         self._proxy = proxy
 
-    def get_subtitle_rename_strategy(self):
-        return self._rename_strategy
+    def get_subtitle_naming_strategy(self):
+        return self._naming_strategy
 
-    def set_subtitle_rename_strategy(self, strategy):
-        self._rename_strategy = strategy
+    def set_subtitle_naming_strategy(self, strategy):
+        self._naming_strategy = strategy
 
     def get_subtitle_download_path_strategy(self):
         return self._download_path_strategy
@@ -388,17 +388,17 @@ class BaseState(object):
 
         while True:
             suffix_start = '.{}'.format(suffix_start_counter) if suffix_start_counter else ''
-            rename_strategy = self.get_subtitle_rename_strategy()
-            if rename_strategy == SubtitleRenameStrategy.VIDEO:
+            naming_strategy = self.get_subtitle_naming_strategy()
+            if naming_strategy == SubtitleNamingStrategy.VIDEO:
                 new_ext = suffix_start + sub_extension
                 sub_filepath = video_path.with_suffix(new_ext)
-            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG:
+            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG:
                 new_ext = '{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), ss=suffix_start, ext=sub_extension)
                 sub_filepath = video_path.with_suffix(new_ext)
-            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG_UPLOADER:
+            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
                 new_ext = '.{upl}{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), upl=subtitle.get_uploader(), ss=suffix_start, ext=sub_extension)
                 sub_filepath = video_path.with_suffix(new_ext)
-            else:  # if rename_strategy == SubtitleRename.ONLINE:
+            else:  # if naming_strategy == SubtitleNamingStrategy.ONLINE:
                 sub_filepath = video_path.parent / subtitle.get_filename()
                 sub_filepath = sub_filepath.with_suffix(suffix_start + sub_filepath.suffix)
 
@@ -431,15 +431,15 @@ class BaseState(object):
 
         while True:
             suffix_start = '.{}'.format(suffix_start_counter) if suffix_start_counter else ''
-            rename_strategy = self.get_subtitle_rename_strategy()
-            if rename_strategy == SubtitleRenameStrategy.VIDEO:
+            naming_strategy = self.get_subtitle_naming_strategy()
+            if naming_strategy == SubtitleNamingStrategy.VIDEO:
                 new_ext = suffix_start + sub_extension
-            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG:
+            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG:
                 new_ext = '{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), ss=suffix_start, ext=sub_extension)
-            elif rename_strategy == SubtitleRenameStrategy.VIDEO_LANG_UPLOADER:
+            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
                 new_ext = '.{upl}{ss}.{xx}{ext}'.format(
                     xx=subtitle.get_language().xx(), upl=subtitle.get_uploader(), ss=suffix_start, ext=sub_extension)
-            else:  # if rename_strategy == SubtitleRename.ONLINE:
+            else:  # if naming_strategy == SubtitleRename.ONLINE:
                 new_ext = suffix_start + sub_extension
             sub_filepath = sub_stem + new_ext
 

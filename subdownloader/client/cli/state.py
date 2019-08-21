@@ -31,7 +31,7 @@ class CliState(BaseState):
 
         self._recursive = options.search.recursive
 
-        self.set_subtitle_rename_strategy(options.download.rename_strategy)
+        self.set_subtitle_naming_strategy(options.download.naming_strategy)
 
     def get_console(self):
         return self._console
