@@ -27,10 +27,6 @@ from subdownloader.util import unzip_bytes, unzip_stream, write_stream
 log = logging.getLogger('subdownloader.provider.opensubtitles')
 
 
-def f(s: str='sf'):
-    pass
-
-
 class OpenSubtitles(SubtitleProvider):
     URL = 'http://api.opensubtitles.org/xml-rpc'
 
