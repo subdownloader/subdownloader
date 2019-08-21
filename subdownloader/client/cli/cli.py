@@ -714,7 +714,6 @@ class CliCmd(Cmd):
                 rmov_i=rmovie_network_i, name=name, year=year, nb_avail=subs_avail, nb_total=subs_total))
             for rsub_network in rmovie_network.get_subtitles():
                 if not self.download_filter_language_object(rsub_network):
-                    print('FILTER')
                     continue
                 print('  [{xx}] {nb} {subtitles_str} ({full_lang_str})'.format(
                     xx=rsub_network.get_language().xx(),
@@ -788,7 +787,7 @@ class CliCmd(Cmd):
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
             provider_type = rsub.get_provider()
             try:
-                provider = self.state.get(provider_type)
+                provider = self.state.providers.find(provider_type)
             except IndexError:
                 self.print(_('Provider not available.'))
                 return

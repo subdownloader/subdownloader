@@ -4,6 +4,7 @@
 import base64
 import datetime
 from http.client import CannotSendRequest
+import io
 import logging
 import re
 from socket import error as SocketError
@@ -329,7 +330,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
         return movies
 
     def search_more_subtitles(self, movie):
-        print('avail:', movie.get_nb_subs_available(), 'total:', movie.get_nb_subs_total())
+        # print('avail:', movie.get_nb_subs_available(), 'total:', movie.get_nb_subs_total())
         if movie.get_nb_subs_available() == movie.get_nb_subs_total():
             return None
         xml_url = 'http://www.opensubtitles.org{provider_link}/offset-{offset}/xml'.format(
@@ -433,6 +434,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                         return subtitle_entry.getElementsByTagName(key)[0].firstChild.data
                     except (AttributeError, IndexError):
                         return default
+
                 subtitle_id_entry = subtitle_entry.getElementsByTagName('IDSubtitle')[0]
                 subtitle_id = subtitle_id_entry.firstChild.data
                 subtitle_link = 'http://www.opensubtitles.org' + subtitle_id_entry.getAttribute('Link')
@@ -460,6 +462,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 subtitle_add_date = datetime.datetime.strptime(subtitle_add_date_locale, '%d/%m/%Y %H:%M:%S')
                 # subtitle_bad = int(subtitle_entry.getElementsByTagName('SubBad')[0].firstChild.data)
                 subtitle_rating = float(subtitle_entry.getElementsByTagName('SubRating')[0].firstChild.data)
+                subtitle_file_size = int(subtitle_entry.getElementsByTagName('SubSize')[0].firstChild.data)
 
                 # download_count = int(try_get_first_child_data('SubDownloadsCnt', -1))
                 # subtitle_movie_aka = try_get_first_child_data('SubMovieAka', None)
@@ -482,16 +485,16 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
                 filename = '{}.{}'.format(movie_release_name, subtitle_format)
 
-                download_link = 'http://www.opensubtitles.org/download/sub/{}'.format(subtitle_id)
+                download_link = None  # 'https://www.opensubtitles.org/en/subtitleserve/sub/{}'.format(subtitle_id)
                 if user_nickname:
                     uploader = user_nickname
                 elif user_id != 0:
                     uploader = str(user_id)
                 else:
                     uploader = None
-                subtitle = OpenSubtitlesSubtitleFile(filename=filename, file_size=None, md5_hash=subtitle_uuid,
-                                                     id_online=subtitlefile_id, download_link=download_link,
-                                                     link=subtitle_link, uploader=uploader,
+                subtitle = OpenSubtitlesSubtitleFile(filename=filename, file_size=subtitle_file_size,
+                                                     md5_hash=subtitle_uuid, id_online=subtitlefile_id,
+                                                     download_link=download_link, link=subtitle_link, uploader=uploader,
                                                      language=language, rating=subtitle_rating, age=subtitle_add_date)
                 subtitles.append(subtitle)
             except (AttributeError, IndexError, ValueError):
@@ -611,7 +614,10 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         return OpenSubtitles
 
     def download(self, target_path, provider_instance, callback):
-        stream = self._download_web()
+        if self._download_link is None:
+            stream = self._download_service(provider_instance)
+        else:
+            stream = self._download_http()
         write_stream(src_file=stream, destination_path=target_path)
         local_sub = LocalSubtitleFile(filepath=target_path)
         super_parent = self.get_super_parent()
@@ -619,13 +625,11 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
             super_parent.add_subtitle(local_sub)
         return (local_sub, )
 
-    # def _download(self, provider_instance, callback):
-    #     # method 1:
-    #     subs = provider_instance.download_subtitles([self])
-    #     return BytesIO(subs[0])
+    def _download_service(self, provider_instance):
+        subs = provider_instance.download_subtitles([self])
+        return io.BytesIO(subs[0])
 
-    def _download_web(self):
-        # method 2:
+    def _download_http(self):
         sub_stream = urlopen(self._download_link)
         return sub_stream
 
