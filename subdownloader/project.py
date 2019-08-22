@@ -93,6 +93,7 @@ DEVELOPERS = [
 ]
 
 TRANSLATORS = [
+    Author('Sylvestre Ledru', 'sylvestre@debian.org'),
 ]
 
 
