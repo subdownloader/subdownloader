@@ -309,7 +309,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         xml_url = 'http://www.opensubtitles.org/en/search2/moviename-{text_quoted}/offset-{offset}/xml'.format(
             offset=len(self._movies),
-            text_quoted=quote(self._query))
+            text_quoted=quote(self.query))
 
         xml_page = self._fetch_url(xml_url)
         if xml_page is None:
