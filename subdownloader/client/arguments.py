@@ -26,6 +26,16 @@ def parse_arguments(args=None):
     autocomplete(parser)
 
     ns = parser.parse_args(args=args)
+
+    if ns.client_type is None:
+        if ns.console or ns.interactive:
+            ns.client_type = ClientType.CLI
+        else:
+            ns.client_type = ClientType.GUI
+    elif ns.client_type is ClientType.GUI:
+        if ns.console or ns.interactive:
+            parser.error(_('Invalid arguments for GUI mode'))
+
     return get_argument_options(
         client=ArgumentClientSettings(
             type=ns.client_type,
@@ -223,7 +233,7 @@ def get_argument_parser():
     guicli.add_argument('-c', '--cli', dest='client_type',
                         action='store_const', const=ClientType.CLI,
                         help=_('Run application in CLI mode.'))
-    parser.set_defaults(client_type=ClientType.GUI)
+    parser.set_defaults(client_type=None)
 
     # logger options
     loggroup = parser.add_argument_group(_('logging'), _('Change the amount of logging done.'))

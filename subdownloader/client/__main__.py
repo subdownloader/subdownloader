@@ -28,20 +28,22 @@ def main(args=None):
     if options.program.client.type == ClientType.GUI:
         import subdownloader.client.gui
         runner = subdownloader.client.gui.run
-    else:  # options.program.client.type == ClientType.CLI:
+    elif options.program.client.type == ClientType.CLI:
         import subdownloader.client.cli
         runner = subdownloader.client.cli.run
+    else:
+        print('{}: {}'.format(_('Invalid client type'), options.program.client_type))
+        return 1
 
     try:
-        return_code = runner(options, settings)
+        return runner(options, settings)
     except IllegalArgumentException as e:
         sys.stderr.write(e.msg)
         print()
-        return_code = 1
+        return 1
     except (EOFError, KeyboardInterrupt):
-        return_code = 1
-    sys.exit(return_code)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
