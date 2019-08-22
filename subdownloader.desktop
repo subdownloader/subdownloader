@@ -2,7 +2,7 @@
 Version=1.0
 Name=SubDownloader
 Comment=Download/upload subtitles for your videos
-Exec=subdownloader -g
+Exec=subdownloader -g -V %F
 Icon=subdownloader
 MimeType=video/avi;
 StartupNotify=false
