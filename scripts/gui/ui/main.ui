@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowIcon">
-   <iconset resource="images.qrc">
+   <iconset>
     <normaloff>:/images/subdownloader.png</normaloff>:/images/subdownloader.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -65,6 +65,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="spacing">
          <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>3</number>
         </property>
         <item>
          <widget class="QFrame" name="frame_3">
@@ -127,7 +130,7 @@
      <x>0</x>
      <y>0</y>
      <width>714</width>
-     <height>28</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMain">
@@ -170,7 +173,7 @@
   </widget>
   <action name="action_Quit">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/images/application-exit.png</normaloff>:/images/application-exit.png</iconset>
    </property>
    <property name="text">
@@ -192,7 +195,7 @@
   </action>
   <action name="action_HelpBug">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/images/bug.png</normaloff>:/images/bug.png</iconset>
    </property>
    <property name="text">
@@ -201,7 +204,7 @@
   </action>
   <action name="action_ShowPreferences">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset>
      <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
    </property>
    <property name="text">
@@ -269,6 +272,7 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
  <designerdata>
   <property name="gridDeltaX">

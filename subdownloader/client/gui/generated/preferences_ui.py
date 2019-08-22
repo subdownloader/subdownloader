@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/preferences.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_PreferencesDialog(object):
     def setupUi(self, PreferencesDialog):
@@ -22,7 +23,6 @@ class Ui_PreferencesDialog(object):
         self.tabSearch.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabSearch.setObjectName("tabSearch")
         self.horizontalLayout_3 = QtWidgets.QVBoxLayout(self.tabSearch)
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.groupBoxSearchLanguages = QtWidgets.QGroupBox(self.tabSearch)
         self.groupBoxSearchLanguages.setObjectName("groupBoxSearchLanguages")
@@ -41,7 +41,6 @@ class Ui_PreferencesDialog(object):
         self.scrollAreaWidgetSearch.setGeometry(QtCore.QRect(0, 0, 658, 359))
         self.scrollAreaWidgetSearch.setObjectName("scrollAreaWidgetSearch")
         self.vbox_B = QtWidgets.QVBoxLayout(self.scrollAreaWidgetSearch)
-        self.vbox_B.setContentsMargins(0, 0, 0, 0)
         self.vbox_B.setObjectName("vbox_B")
         self.scrollAreaWidgetLayoutSearch = QtWidgets.QGridLayout()
         self.scrollAreaWidgetLayoutSearch.setObjectName("scrollAreaWidgetLayoutSearch")
@@ -53,7 +52,6 @@ class Ui_PreferencesDialog(object):
         self.tabDownload = QtWidgets.QWidget()
         self.tabDownload.setObjectName("tabDownload")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tabDownload)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.groupBoxDlDestinationFolder = QtWidgets.QGroupBox(self.tabDownload)
         font = QtGui.QFont()
@@ -109,7 +107,6 @@ class Ui_PreferencesDialog(object):
         self.tabUpload = QtWidgets.QWidget()
         self.tabUpload.setObjectName("tabUpload")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.tabUpload)
-        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.uploadFrame = QtWidgets.QFrame(self.tabUpload)
         self.uploadFrame.setObjectName("uploadFrame")
@@ -133,7 +130,6 @@ class Ui_PreferencesDialog(object):
         self.tabNetwork = QtWidgets.QWidget()
         self.tabNetwork.setObjectName("tabNetwork")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.tabNetwork)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.groupNetworkProxy = QtWidgets.QGroupBox(self.tabNetwork)
         self.groupNetworkProxy.setObjectName("groupNetworkProxy")
@@ -164,7 +160,6 @@ class Ui_PreferencesDialog(object):
         self.tabOthers = QtWidgets.QWidget()
         self.tabOthers.setObjectName("tabOthers")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.tabOthers)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.groupInterface = QtWidgets.QGroupBox(self.tabOthers)
         self.groupInterface.setObjectName("groupInterface")
@@ -289,5 +284,6 @@ class Ui_PreferencesDialog(object):
         self.tabsPreferences.setTabText(self.tabsPreferences.indexOf(self.tabOthers), _("Others"))
         self.buttonApplyChanges.setText(_("Save"))
         self.buttonCancel.setText(_("Cancel"))
+
 
 from subdownloader.client.gui.languageComboBox import InterfaceLanguageComboBox, LanguageComboBox

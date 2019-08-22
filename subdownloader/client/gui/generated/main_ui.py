@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/main.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -51,6 +52,7 @@ class Ui_MainWindow(object):
         self.tabsMain.addTab(self.tabUpload, "")
         self.vboxlayout.addWidget(self.tabsMain)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setContentsMargins(-1, 3, -1, -1)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
@@ -77,7 +79,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addLayout(self.vboxlayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 714, 28))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 714, 29))
         self.menuBar.setObjectName("menuBar")
         self.menuMain = QtWidgets.QMenu(self.menuBar)
         self.menuMain.setObjectName("menuMain")
@@ -165,6 +167,7 @@ class Ui_MainWindow(object):
         self.action_ShowHideTreeFolder.setText(_("&Show/Hide Tree Folder"))
         self.action_LogOut.setText(_("Log &Out"))
         self.action_HelpTranslate.setText(_("&Translate This Application..."))
+
 
 from subdownloader.client.gui.searchFileWidget import SearchFileWidget
 from subdownloader.client.gui.searchNameWidget import SearchNameWidget

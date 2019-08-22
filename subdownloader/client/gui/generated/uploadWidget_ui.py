@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/uploadWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_UploadWidget(object):
     def setupUi(self, UploadWidget):
@@ -210,6 +211,7 @@ class Ui_UploadWidget(object):
         self.label_7.setText(_("Comments:"))
         self.label_5.setText(_("Subtitle Language:"))
         self.buttonUpload.setText(_("Upload"))
+
 
 from subdownloader.client.gui.languageComboBox import LanguageComboBox
 from subdownloader.client.gui.uploadModel import UploadListView

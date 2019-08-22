@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/about.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_AboutDialog(object):
     def setupUi(self, AboutDialog):
@@ -71,7 +72,6 @@ class Ui_AboutDialog(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.gridlayout = QtWidgets.QGridLayout(self.tab)
-        self.gridlayout.setContentsMargins(0, 0, 0, 0)
         self.gridlayout.setObjectName("gridlayout")
         self.txtAbout = QtWidgets.QTextBrowser(self.tab)
         self.txtAbout.setAcceptDrops(False)
@@ -89,7 +89,6 @@ class Ui_AboutDialog(object):
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.gridlayout1 = QtWidgets.QGridLayout(self.tab_2)
-        self.gridlayout1.setContentsMargins(0, 0, 0, 0)
         self.gridlayout1.setObjectName("gridlayout1")
         self.txtAuthors = QtWidgets.QTextBrowser(self.tab_2)
         self.txtAuthors.setAcceptDrops(False)
@@ -106,7 +105,6 @@ class Ui_AboutDialog(object):
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.gridlayout2 = QtWidgets.QGridLayout(self.tab_3)
-        self.gridlayout2.setContentsMargins(0, 0, 0, 0)
         self.gridlayout2.setObjectName("gridlayout2")
         self.txtLicense = QtWidgets.QTextBrowser(self.tab_3)
         self.txtLicense.setAcceptDrops(False)
@@ -155,4 +153,5 @@ class Ui_AboutDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\'; font-size:9pt;\">license</span></p></body></html>"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), _("License Agreement"))
         self.buttonClose.setText(_("Close"))
+
 

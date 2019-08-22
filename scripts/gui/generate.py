@@ -37,7 +37,7 @@ ui_files = [
 default_import_from = 'subdownloader.client.gui'
 
 
-def generate(command='run', import_from=default_import_from, dry=False, targets=list(), force=False):
+def generate(command='run', import_from=default_import_from, dry=False, targets=None, force=False):
     source_dir = Path(__file__).absolute().parent
     ui_source_dir = source_dir / 'ui'
     rc_source_dir = source_dir / 'rc'

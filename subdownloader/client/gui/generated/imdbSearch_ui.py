@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/imdbSearch.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_IMDBSearchDialog(object):
     def setupUi(self, IMDBSearchDialog):
@@ -68,5 +69,6 @@ class Ui_IMDBSearchDialog(object):
         self.movieInfoButton.setText(_("Movie Info"))
         self.okButton.setText(_("OK"))
         self.cancelButton.setText(_("Cancel"))
+
 
 from subdownloader.client.gui.imdbSearchModel import ImdbListView

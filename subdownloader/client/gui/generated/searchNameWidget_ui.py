@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/searchNameWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_SearchNameWidget(object):
     def setupUi(self, SearchNameWidget):
@@ -17,7 +18,6 @@ class Ui_SearchNameWidget(object):
         self.widget = QtWidgets.QWidget(SearchNameWidget)
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.label_3 = QtWidgets.QLabel(self.widget)
         self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -120,5 +120,6 @@ class Ui_SearchNameWidget(object):
         self.label_12.setText(_("Subtitles found:"))
         self.buttonIMDBByTitle.setText(_("Movie Info"))
         self.buttonDownloadByTitle.setText(_("Download"))
+
 
 from subdownloader.client.gui.languageComboBox import LanguageComboBox

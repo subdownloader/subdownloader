@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/login.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_LoginDialog(object):
     def setupUi(self, LoginDialog):
@@ -58,4 +59,5 @@ class Ui_LoginDialog(object):
         self.groupBox.setTitle(_("Login into OpenSubtitles.org"))
         self.textUsername.setText(_("Username:"))
         self.textPassword.setText(_("Password:"))
+
 

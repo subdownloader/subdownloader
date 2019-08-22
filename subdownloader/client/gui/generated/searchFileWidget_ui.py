@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/searchFileWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.12.2
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_SearchFileWidget(object):
     def setupUi(self, SearchFileWidget):
@@ -116,7 +117,6 @@ class Ui_SearchFileWidget(object):
         self.pageSearchResult = QtWidgets.QWidget()
         self.pageSearchResult.setObjectName("pageSearchResult")
         self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.pageSearchResult)
-        self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.layoutTopVideos = QtWidgets.QHBoxLayout()
         self.layoutTopVideos.setObjectName("layoutTopVideos")
@@ -207,5 +207,6 @@ class Ui_SearchFileWidget(object):
         self.buttonIMDB.setText(_("Movie Info"))
         self.buttonPlay.setText(_("Play"))
         self.buttonDownload.setText(_("Download"))
+
 
 from subdownloader.client.gui.languageComboBox import LanguageComboBox
