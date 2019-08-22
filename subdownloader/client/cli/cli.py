@@ -172,6 +172,14 @@ class CliCmd(Cmd):
         self._return_code = 0
         return True
 
+    def help_language(self):
+        self.print(_('Alias for {}').format('languages'))
+        self.print()
+        return self.help_languages()
+
+    def do_language(self, arg):
+        return self.do_languages(arg)
+
     def help_languages(self):
         lang = _('LANGUAGE')
         self.print(_('Get/replace the filter languages. (default is to get the filter languages)'))
@@ -564,7 +572,7 @@ class CliCmd(Cmd):
                 return
         self.print(_('Recursive: {}').format(self.state.get_recursive()))
 
-    RENAME_INDEX_STRATEGY = {
+    NAMING_STRATEGY_LUT = {
         'vid': SubtitleNamingStrategy.VIDEO,
         'vid_lang': SubtitleNamingStrategy.VIDEO_LANG,
         'vid_lang_upl': SubtitleNamingStrategy.VIDEO_LANG_UPLOADER,
@@ -572,38 +580,38 @@ class CliCmd(Cmd):
     }
 
     @staticmethod
-    def get_strategy_rename_doc(strategy):
+    def get_strategy_naming_doc(strategy):
         if strategy == SubtitleNamingStrategy.VIDEO:
             return _('Use the local video filename as name for the downloaded subtitle.')
         elif strategy == SubtitleNamingStrategy.VIDEO_LANG:
             return _('Use the local video filename + language as name for the downloaded subtitle.')
         elif strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
             return _('Use the local video filename + uploader + language as name for the downloaded subtitle.')
-        else:  # if strategy == SubtitleRenameStrategy.ONLINE:
+        else:  # if strategy == SubtitleNamingStrategy.ONLINE:
             return _('Use the on-line subtitle filename as name for the downloaded subtitles.')
 
     def help_rename(self):
-        self.print(_('Get/set the subtitle rename strategy. (default is to get the rename strategy)'))
+        self.print(_('Get/set the subtitle naming strategy. (default is to get the current naming strategy)'))
         self.print()
-        self.print('rename [{}]'.format(' | '.join(str(k) for k in self.RENAME_INDEX_STRATEGY.keys())))
+        self.print('rename [{}]'.format(' | '.join(str(k) for k in self.NAMING_STRATEGY_LUT.keys())))
         self.print()
 
-        for index, strategy in self.RENAME_INDEX_STRATEGY.items():
-            self.print('  {}'.format(index).ljust(self.LEN_ARG_COL) + self.get_strategy_rename_doc(strategy))
+        for index, strategy in self.NAMING_STRATEGY_LUT.items():
+            self.print('  {}'.format(index).ljust(self.LEN_ARG_COL) + self.get_strategy_naming_doc(strategy))
         self.print()
 
     def do_rename(self, arg):
         if not arg:
-            self.print(_('Current subtitle rename strategy:'))
+            self.print(_('Current subtitle naming strategy:'))
         else:
             try:
-                strategy = self.RENAME_INDEX_STRATEGY[arg]
+                strategy = self.NAMING_STRATEGY_LUT[arg]
             except KeyError:
-                self.print(_('Invalid subtitle rename strategy'))
+                self.print(_('Invalid subtitle naming strategy'))
                 return
             self.state.set_subtitle_naming_strategy(strategy)
-            self.print(_('New subtitle rename strategy:'))
-        self.print(self.get_strategy_rename_doc(self.state.get_subtitle_naming_strategy()))
+            self.print(_('New subtitle naming strategy:'))
+        self.print(self.get_strategy_naming_doc(self.state.get_subtitle_naming_strategy()))
 
     def get_file_save_as_cb(self):
         def file_save_as_cb(path, filename):
@@ -648,6 +656,12 @@ class CliCmd(Cmd):
     def query_active(self):
         return self._text_query is not None
 
+    def help_query(self):
+        self.print(_('Set the text query for searching for subtitles by video name.'))
+        self.print()
+        self.print('query TEXT')
+        self.print()
+
     def do_query(self, arg):
         if not arg:
             if not self.query_active():
@@ -658,15 +672,33 @@ class CliCmd(Cmd):
             return
         self.set_text_query(self.state.query_text_all(text=arg))
 
+    def help_querymore(self):
+        self.print(_('Look for more video matches for the current text query.'))
+        self.print()
+        self.print('querymore')
+        self.print()
+
     def do_querymore(self, arg):
         if not self.query_active():
             self.print(_('No query active'))
             return
 
+        nb_before = len(self._text_query.movies)
+
         try:
             self._text_query.search_more_movies()
         except ProviderConnectionError:
             self.print(_('An error occured'))
+
+        nb_after = len(self._text_query.movies)
+
+        self.print(_('Found {} extra videos.').format(nb_after - nb_before))
+
+    def help_queryhasmore(self):
+        self.print(_('Check whether more videos can be found using querymore.'))
+        self.print()
+        self.print('queryhasmore')
+        self.print()
 
     def do_queryhasmore(self, arg):
         if arg:
@@ -676,6 +708,12 @@ class CliCmd(Cmd):
             self.print(_('No query active'))
             return
         self.print(_('Yes') if self._text_query.more_movies_available() else _('No'))
+
+    def help_querysubsearch(self):
+        self.print(_('Look for more subtitles for a particular video.'))
+        self.print()
+        self.print('querysubsearch INDEX')
+        self.print()
 
     def do_querysubsearch(self, arg):
         if not self.query_active():
@@ -690,10 +728,23 @@ class CliCmd(Cmd):
         except IndexError:
             self.print(_('Movie not available'))
             return
+
+        nb_subtitles_before = len(rmovie_network.get_subtitles())
+
         if not rmovie_network.more_subtitles_available():
-            self.print(_('List of all remote subtitles fetched'))
+            self.print(_('No more subtitles are available'))
             return
         rmovie_network.search_more_subtitles()
+
+        nb_subtitles_after = len(rmovie_network.get_subtitles())
+
+        self.print(_('Found {} extra subtitles').format(nb_subtitles_after-nb_subtitles_before))
+
+    def help_queryshow(self):
+        self.print(_('Display the current videos and subtitles, found by query'))
+        self.print()
+        self.print('queryshow')
+        self.print()
 
     def do_queryshow(self, arg):
         if arg:
@@ -725,14 +776,15 @@ class CliCmd(Cmd):
                         continue
                     x = rsub in self._query_rsubs
                     uploader = _('unknown') if rsub.get_uploader() is None else rsub.get_uploader()
-                    print('    <{x}> [{sub_i}] {rating_str}: {rat}, {uploader_str}: {upl}'.format(
+                    print('    <{x}> [{sub_i}] {fn} {rating_str}: {rat}, {uploader_str}: {upl}'.format(
                         x='x' if x else ' ',
                         sub_i=sub_i,
+                        fn=rsub.get_filename(),
                         rating_str=_('Rating'), rat=rsub.get_rating(),
                         uploader_str=_('Uploader'), upl=uploader))
                     sub_i += 1
 
-    def query_get_subtitle(self, index):
+    def _query_get_subtitle(self, index):
         sub_i = 0
         for rmovie_network in self._text_query.movies:
             for rsub_network in rmovie_network.get_subtitles():
@@ -747,6 +799,14 @@ class CliCmd(Cmd):
 
         return None
 
+    def help_queryselect(self):
+        self.print('Select a subtitle of the current query.')
+        self.print()
+        self.print('queryselect INDEX [INDEX [INDEX [...]]]')
+        self.print()
+        self.print('  INDEX'.ljust(self.LEN_ARG_COL) + _('Index of the subtitle to select.'))
+        self.print()
+
     def do_queryselect(self, arg):
         if not self.query_active():
             self.print(_('No query active'))
@@ -756,11 +816,19 @@ class CliCmd(Cmd):
         except ValueError:
             self.print(_('Invalid index'))
             return
-        rsub = self.query_get_subtitle(sel_i)
+        rsub = self._query_get_subtitle(sel_i)
         if rsub is None:
             self.print(_('Index out of range'))
             return
         self._query_rsubs.add(rsub)
+
+    def help_querydeselect(self):
+        self.print('Deselect a subtitle of the current query.')
+        self.print()
+        self.print('querydeselect INDEX [INDEX [INDEX [...]]]')
+        self.print()
+        self.print('  INDEX'.ljust(self.LEN_ARG_COL) + _('Index of the subtitle to deselect.'))
+        self.print()
 
     def do_querydeselect(self, arg):
         if not self.query_active():
@@ -771,11 +839,17 @@ class CliCmd(Cmd):
         except ValueError:
             self.print(_('Invalid index'))
             return
-        rsub = self.query_get_subtitle(sel_i)
+        rsub = self._query_get_subtitle(sel_i)
         if rsub is None:
             self.print(_('Index out of range'))
             return
         self._query_rsubs.remove(rsub)
+
+    def help_querydownload(self):
+        self.print(_('Download the selected subtitles of the text query.'))
+        self.print()
+        self.print('querydownload')
+        self.print()
 
     def do_querydownload(self, arg):
         if arg:
