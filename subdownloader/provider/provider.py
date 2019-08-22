@@ -41,7 +41,7 @@ class SubtitleProvider(object):
         try:
             self.disconnect()
         except ProviderConnectionError:
-            log.warning('Disconnect failed during destructor', exc_info=sys.exc_info())
+            log.debug('Disconnect failed during destructor', exc_info=sys.exc_info())
 
     def get_settings(self):
         raise NotImplementedError()
