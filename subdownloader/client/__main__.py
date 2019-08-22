@@ -3,6 +3,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import logging
+import subprocess
 import sys
 
 from subdownloader.client import ClientType, IllegalArgumentException, add_client_module_dependencies
@@ -12,6 +13,29 @@ from subdownloader.client.logger import logging_file_install, logging_install, l
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.client.arguments import parse_arguments
 from subdownloader.client.user_agent import user_agent_init
+from subdownloader.project import PROJECT_TITLE
+
+
+def emit_error_missing_pyqt():
+    msg = '{}: {}.{{}}{}'.format(_('Fatal error'), _('{} GUI needs {}').format(PROJECT_TITLE, 'PyQt5'),
+                                _('Please install {} and try again').format('PyQt5'))
+    sys.stderr.write('{}\n'.format(msg.format('\n')))
+
+    if not sys.stderr.isatty():
+        sent = False
+        try:
+            subprocess.run(['notify-send', '-u', 'critical', '-a', PROJECT_TITLE,
+                            '-c', 'ERROR', '-t', '2', msg.format('\r')])
+            sent = True
+        except IOError:
+            pass
+
+        if not sent:
+            try:
+                subprocess.run(['zenity', '--error', '--text={}'.format(msg.format('\n')),
+                                '--title={}'.format(_('Missing {}').format('PyQt5'))])
+            except IOError:
+                pass
 
 
 def main(args=None):
@@ -26,7 +50,14 @@ def main(args=None):
     user_agent_init()
 
     if options.program.client.type == ClientType.GUI:
-        import subdownloader.client.gui
+        try:
+            import subdownloader.client.gui
+        except ImportError as e:
+            if e.name.startswith('PyQt5'):
+                emit_error_missing_pyqt()
+                return 1
+            else:
+                raise
         runner = subdownloader.client.gui.run
     elif options.program.client.type == ClientType.CLI:
         import subdownloader.client.cli
