@@ -125,7 +125,7 @@ class RemoteMovie(object):
     def __repr__(self):
         return '<{clsname} identification: {identification}, ' \
                'nb_subs_total={nb_subs_total}, nb_subs_available={nb_subs_available}, ' \
-               'provider_link: {provider_link}, provider_id: {provider_id}'.format(
+               'provider_link: {provider_link}, provider_id: {provider_id}>'.format(
                     clsname=type(self).__name__, identification=self._identities,
                     nb_subs_total=self.get_nb_subs_total(), nb_subs_available=self.get_nb_subs_available(),
                     provider_link=self._provider_link, provider_id=self._provider_id)
