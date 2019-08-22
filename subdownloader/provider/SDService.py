@@ -241,9 +241,7 @@ class SDService(object):
             return login(username, password)
         except TimeoutFunctionException:
             self.log.error("login timed out")
-        except:
-            self.log.exception("login: other issue")
-            raise
+        return False
 
     def _login(self, username="", password=""):
         """Login to the Server using username/password,
@@ -259,6 +257,7 @@ class SDService(object):
 
         info = self._safe_exec(run_query, None)
         if info is None:
+            self.log.debug("Login failed with empty result")
             self._token = None
             return False
 
@@ -294,15 +293,12 @@ class SDService(object):
             info = self._xmlrpc_server.LogOut(self._token)
             self.log.debug("Logout ended in %s with status: %s" %
                            (info['seconds'], info['status']))
-        except ProtocolError as e:
-            self.log.debug("error in HTTP/HTTPS transport layer")
-            raise
-        except Fault as e:
-            self.log.debug("error in xml-rpc server")
-            raise
+        except ProtocolError:
+            self.log.exception("error in HTTP/HTTPS transport layer")
+        except Fault:
+            self.log.exception("error in xml-rpc server")
         except:
             self.log.exception("Connection to the server failed/other error")
-            raise
         finally:
             # force token reset
             self._token = None
@@ -624,8 +620,6 @@ class SDService(object):
             return self._xmlrpc_server.UploadSubtitles(self._token, query)
         result = self._safe_exec(run_query, None)
         self.check_result(result)
-
-        # absolute_url = result['data']
 
 
 class OpenSubtitles_SubtitleFile(RemoteSubtitleFile):

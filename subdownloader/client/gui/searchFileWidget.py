@@ -20,7 +20,7 @@ from subdownloader.project import PROJECT_TITLE
 from subdownloader.video2 import VideoFile
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
 from subdownloader.util import write_stream
-from subdownloader.provider.SDService import ProviderConnectionError #FIXME: move to provider
+from subdownloader.provider.SDService import ProviderConnectionError  # FIXME: move to provider
 
 from subdownloader.client.gui import get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget
@@ -356,7 +356,13 @@ class SearchFileWidget(QWidget):
 
         download_callback = callback.get_child_progress(0, 1)
         # videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles("", videos_piece)
-        remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
+        try:
+            remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
+        except ProviderConnectionError:
+                log.debug('Unable to search for subtitles of videos: videos={}'.format(v.get_filename() for v in local_videos))
+                QMessageBox.about(self, _('Error'), _('Unable to search for subtitles'))
+                callback.finish()
+                return
 
         self.videoModel.set_videos(local_videos)
         # self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
@@ -641,7 +647,7 @@ class SearchFileWidget(QWidget):
                         callback=download_callback,
                     )
                     write_stream(data_stream, destinationPath)
-            except Exception as e:
+            except ProviderConnectionError:
                 log.exception('Unable to Download subtitle {}'.format(sub.get_filename()))
                 QMessageBox.about(self, _("Error"), _(
                     "Unable to download subtitle %s") % sub.get_filename())

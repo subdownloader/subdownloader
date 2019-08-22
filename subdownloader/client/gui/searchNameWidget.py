@@ -10,7 +10,6 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QPoint, QSettin
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMessageBox, QWidget
 
-from subdownloader.languages.language import UnknownLanguage
 from subdownloader.provider.SDService import OpenSubtitles_SubtitleFile
 from subdownloader.movie import RemoteMovie
 
@@ -19,6 +18,7 @@ from subdownloader.client.gui.generated.searchNameWidget_ui import Ui_SearchName
 from subdownloader.client.gui.state import State
 from subdownloader.client.gui.searchNameModel import VideoTreeModel
 from subdownloader.languages.language import Language
+from subdownloader.provider.SDService import ProviderConnectionError  # FIXME: move to provider
 from subdownloader.util import write_stream
 
 log = logging.getLogger('subdownloader.client.gui.searchNameWidget')
@@ -180,7 +180,7 @@ class SearchNameWidget(QWidget):
             try:
                 data_stream = sub.download(provider_instance=self.get_state().get_OSDBServer(), callback=callback)
                 dlOK += 1
-            except Exception:
+            except ProviderConnectionError:
                 log.warning('Unable to download subtitle with id={subtitle_id}'.format(subtitle_id=sub.get_id_online()),
                           exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle with id={subtitle_id}').format(
@@ -189,8 +189,8 @@ class SearchNameWidget(QWidget):
             try:
                 write_stream(data_stream, srt_path)
                 writtenOK += 1
-            except Exception:
-                log.warning('Unable to write subtitle to disk. path={path}'.format(path=zipDestFile), exc_info=sys.exc_info())
+            except:
+                log.warning('Unable to write subtitle to disk. path={path}'.format(path=srt_path), exc_info=sys.exc_info())
             QCoreApplication.processEvents()
         callback.finish()
         if dlOK:
