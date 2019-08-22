@@ -205,7 +205,7 @@ def get_argument_parser():
                         action='store_true', default=False,
                         help=argparse.SUPPRESS)
     parser.add_argument('-V', '--video', dest='video_path', default=None, metavar='PATH',
-                        nargs=argparse.ONE_OR_MORE, action=PathsAction,
+                        nargs=argparse.ZERO_OR_MORE, action=PathsAction,
                         help=_('Full path to your video(s).'))
     parser.add_argument('-s', '--settings', dest='settings_path', type=Path, default=None, metavar='FILE',
                         help=_('Set the settings file.'))
