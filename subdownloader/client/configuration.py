@@ -80,7 +80,11 @@ class Settings(object):
             return default
 
     def set_language(self, key, lang):
-        self.set_str(key, lang.xxx())
+        if lang is None:
+            lang_str = ''
+        else:
+            lang_str = lang.xxx()
+        self.set_str(key, lang_str)
 
     def get_languages(self, key, default=None):
         try:

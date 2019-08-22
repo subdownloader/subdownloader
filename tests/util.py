@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 from collections import namedtuple
 import os
@@ -40,7 +40,7 @@ class TempFile(object):
     def delete(self):
         if self.file is not None:
             self.file.close()
-            os.unlink(self.name)
+            os.unlink(str(self.name))
             assert self.file.closed
             self.name = None
             self.file = None

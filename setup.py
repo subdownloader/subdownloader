@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Copyright (c) 2018 SubDownloader Developers - See COPYING - GPLv3
+# Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
+import argparse
 import gettext
 from pathlib import Path
+import sys
 from setuptools import find_packages, setup
 
 from sphinx.setup_command import BuildDoc
@@ -14,21 +16,28 @@ import subdownloader.project
 project_path = Path(__file__).absolute().parent
 
 
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument('--no-gui', dest='with_gui', action='store_false')
+ns, args = parser.parse_known_args()
+sys.argv = [sys.argv[0]] + args
+
+
 def read(filename):
     return (project_path / filename).read_text()
 
-install_requires = [
-    'argparse >= 1.3.0',
-    'argcomplete >= 1.7.0',
-    'langdetect >= 1.0.7',
-    'pymediainfo >= 2.1.6',
-    'PyQt5 >= 5.0.0',
-]
 
-setup_requires = [
-    'sphinx-argparse >= 0.2.1',
-    'docutils >= 0.14',
-]
+def get_requires(filepath):
+    result = []
+    with filepath.open("rt") as req_file:
+        for line in req_file.read().splitlines():
+            if not line.strip().startswith("#"):
+                result.append(line)
+    return result
+
+
+requirements = get_requires(project_path / 'requirements.txt')
+if ns.with_gui:
+    requirements += get_requires(project_path / 'requirements_gui.txt')
 
 setup(
     name=subdownloader.project.PROJECT_TITLE,
@@ -37,7 +46,7 @@ setup(
     author_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
     maintainer_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
     description=subdownloader.project.get_description(),
-    keywords=('download', 'upload', 'automatic', 'subtitle', 'movie', 'video', 'film', 'search'),
+    keywords=['download', 'upload', 'automatic', 'subtitle', 'movie', 'video', 'film', 'search'],
     license='GPL3',
     packages=find_packages(exclude=('tests', 'tests.*', )),
     long_description=read('README.md'),
@@ -62,8 +71,8 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    install_requires=install_requires,
-    setup_requires=setup_requires,
+    python_requires='>=3.4.*, <4',
+    requires=requirements,
     entry_points={
         'console_scripts': [
             'subdownloader = subdownloader.client.__main__:main'

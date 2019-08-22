@@ -3,6 +3,7 @@ language: python
 python:
   - "3.5"
   - "3.6"
+  - "3.7"
 
 git:
     depth: 1
@@ -11,9 +12,10 @@ before_install:
   - python --version
 
 install:
+  - pip install -r requirements_dev.txt
   - pip install -r requirements.txt
-  - pip install .
-  - python3 setup.py build_sphinx
+  - pip install . --install-option="--no-gui"
 
 script:
-  - python -m unittest discover -vv
+  - python3 setup.py build_sphinx
+  - pytest

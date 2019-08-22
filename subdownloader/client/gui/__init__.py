@@ -18,10 +18,10 @@ from subdownloader.client.gui.generated.images_rc import qInitResources, qCleanu
 log = logging.getLogger('subdownloader.client.gui')
 
 
-def get_default_settings(video_path=None):
-    from subdownloader.client.arguments import get_default_argument_settings, ArgumentClientSettings, ArgumentClientGuiSettings, ClientType
-    return get_default_argument_settings(
-        video_path=video_path,
+def get_default_options():
+    from subdownloader.client.arguments import get_argument_options, ArgumentClientSettings, \
+        ArgumentClientGuiSettings, ClientType
+    return get_argument_options(
         client=ArgumentClientSettings(
             type=ClientType.GUI,
             cli=None,
@@ -48,7 +48,8 @@ def run(options, settings):
     QCoreApplication.setOrganizationName(PROJECT_TITLE)
     QCoreApplication.setApplicationName(PROJECT_TITLE)
     splash = SplashScreen()
-    splash.showMessage(_("Loading...")) # FIXME: move main() function or Main class to separate file before including subdownloader and gui files.
+    splash.showMessage(_("Loading..."))
+    # FIXME: move main() function or Main class to separate file before including subdownloader and gui files.
     # splash.show()
 
     from subdownloader.client.gui.main import Main

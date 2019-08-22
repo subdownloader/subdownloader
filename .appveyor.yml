@@ -4,16 +4,19 @@ environment:
     - PYTHON: "C:\\Python35-x64"
     - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
+    - PYTHON: "C:\\Python37"
+    - PYTHON: "C:\\Python37-x64"
 
 init:
   - set PATH=%PYTHON%;%PYTHON%/Scripts/;%PATH%
   - python --version
 
 install:
+  - pip install -r requirements_dev.txt
   - pip install -r requirements.txt
-  - pip install .
+  - pip install . --install-option="--no-gui"
 
 build: false
 
 test_script:
-  - python -m unittest discover -vv
+  - pytest

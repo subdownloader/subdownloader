@@ -3,15 +3,15 @@
 
 from enum import Enum
 
-from subdownloader.client.cli.state import CliState
-
 
 def get_default_options():
-    from subdownloader.client.arguments import get_argument_options, ArgumentClientSettings, ArgumentClientCliSettings, ClientType
+    from subdownloader.client.arguments import get_argument_options, ArgumentClientSettings, \
+        ArgumentClientCliSettings, ClientType
     return get_argument_options(
         client=ArgumentClientSettings(
             type=ClientType.CLI,
             cli=ArgumentClientCliSettings(
+                console=False,
                 interactive=None,
             ),
             gui=None,

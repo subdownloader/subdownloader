@@ -4,7 +4,7 @@
 import sys
 
 from subdownloader.client.callback import ClientCallback
-import progressbar
+from subdownloader.client.modules import progressbar
 
 
 """

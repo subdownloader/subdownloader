@@ -1,7 +1,3 @@
-argcomplete >= 1.7.0
-langdetect >= 1.0.7
-pymediainfo >= 2.1.6
-PyQt5 >= 5.0.0
-
-# sphinx-argparse >= 0.2.1
-# docutils >= 0.14
+argcomplete (>=1.7.0)
+langdetect (>=1.0.7)
+pymediainfo (>=2.1.6)
