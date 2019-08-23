@@ -25,7 +25,7 @@ def emit_error_missing_pyqt():
         sent = False
         try:
             subprocess.run(['notify-send', '-u', 'critical', '-a', PROJECT_TITLE,
-                            '-c', 'ERROR', '-t', '2', msg.format('\r')])
+                            '-c', 'ERROR', msg.format('\r')])
             sent = True
         except IOError:
             pass
