@@ -51,7 +51,7 @@ def i18n_system_locale():
     log.debug('locale.getlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
     if lc is None:
         lc, encoding = locale.getdefaultlocale()
-        log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}).'.format(lc=lc, encoding=encoding))
+        log.debug('locale.getdefaultlocale() = (lc="{lc}", encoding="{encoding}").'.format(lc=lc, encoding=encoding))
     return lc
 
 

@@ -359,7 +359,7 @@ class SearchFileWidget(QWidget):
         try:
             remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
         except ProviderConnectionError:
-                log.debug('Unable to search for subtitles of videos: videos={}'.format(v.get_filename() for v in local_videos))
+                log.debug('Unable to search for subtitles of videos: videos={}'.format(list(v.get_filename() for v in local_videos)))
                 QMessageBox.about(self, _('Error'), _('Unable to search for subtitles'))
                 callback.finish()
                 return
