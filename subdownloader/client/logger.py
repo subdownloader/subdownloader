@@ -3,7 +3,7 @@
 
 import logging
 import logging.handlers
-import os
+import sys
 
 from subdownloader import project
 from subdownloader.client.state import BaseState
@@ -42,7 +42,8 @@ def logging_file_install(path):
     logFileHandler = logging.handlers.RotatingFileHandler(filename=str(path),
                                                           mode='a',
                                                           maxBytes=LOGGING_MAXBYTES,
-                                                          backupCount=LOGGING_BACKUPCOUNT)
+                                                          backupCount=LOGGING_BACKUPCOUNT,
+                                                          encoding='utf8')
     logFileHandler.setLevel(logging.DEBUG)
     logFileHandler.setFormatter(formatter)
 
@@ -64,7 +65,7 @@ def logging_stream_install(loglevel):
     if loglevel == LOGGING_LOGNOTHING:
         streamHandler = None
     else:
-        streamHandler = logging.StreamHandler()
+        streamHandler = logging.StreamHandler(sys.stderr)
         streamHandler.setLevel(loglevel)
         streamHandler.setFormatter(formatter)
 
@@ -98,7 +99,7 @@ LOGGING_LOGNOTHING = -1
 """
 Maximum number of rotating log filse.
 """
-LOGGING_BACKUPCOUNT = 3
+LOGGING_BACKUPCOUNT = 5
 
 """
 Maximum file size for each log file.
