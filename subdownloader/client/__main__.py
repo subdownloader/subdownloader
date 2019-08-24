@@ -3,6 +3,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import logging
+import platform
 import subprocess
 import sys
 
@@ -17,26 +18,35 @@ from subdownloader.project import PROJECT_TITLE
 
 
 def emit_error_missing_pyqt():
-    msg = '{}: {}.{{}}{}'.format(_('Fatal error'), _('{} GUI needs {}').format(PROJECT_TITLE, 'PyQt5'),
-                                _('Please install {} and try again').format('PyQt5'))
+    title = _('{} GUI needs {}').format(PROJECT_TITLE, 'PyQt5')
+    short_msg = '{}.{{}}{}'.format(title, _('Please install {} and try again').format('PyQt5'))
+    msg = '{}: {}'.format(_('Fatal error'), short_msg)
     sys.stderr.write('{}\n'.format(msg.format('\n')))
 
     if not sys.stderr.isatty():
         sent = False
-        try:
-            subprocess.run(['notify-send', '-u', 'critical', '-a', PROJECT_TITLE,
-                            '-c', 'ERROR', msg.format('\r')])
-            sent = True
-        except IOError:
-            pass
-
-        if not sent:
+        if platform.system() == 'Linux':
             try:
-                subprocess.run(['zenity', '--error', '--text={}'.format(msg.format('\n')),
-                                '--title={}'.format(_('Missing {}').format('PyQt5'))])
+                subprocess.run(['notify-send', '-u', 'critical', '-a', PROJECT_TITLE,
+                                '-c', 'ERROR', msg.format('\r')])
+                sent = True
             except IOError:
                 pass
 
+            if not sent:
+                try:
+                    subprocess.run(['zenity', '--error', '--text={}'.format(msg.format('\n')),
+                                    '--title={}'.format(_('Missing {}').format('PyQt5'))])
+                    sent = True
+                except IOError:
+                    pass
+        elif platform.system() == 'Windows':
+            try:
+                import ctypes
+                ctypes.windll.user32.MessageBoxW(0, short_msg.format('\n'), title, 0x10)
+                sent = True
+            except IOError:
+                raise
 
 def main(args=None):
     add_client_module_dependencies()
@@ -76,5 +86,5 @@ def main(args=None):
         return 1
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main())
