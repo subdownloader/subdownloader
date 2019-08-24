@@ -2,9 +2,11 @@
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 from cmd import Cmd
+import logging
 from os import linesep
 from pathlib import Path
 import platform
+import re
 import shlex
 
 from subdownloader.client.cli.callback import ProgressBarCallback
@@ -16,6 +18,12 @@ import subdownloader.project
 from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.languages.language import Language, NotALanguageException
 from subdownloader.subtitle2 import RemoteSubtitleFile
+
+log = logging.getLogger(__name__)
+
+
+class BadCliArguments(Exception):
+    pass
 
 
 class CliCmd(Cmd):
@@ -49,6 +57,19 @@ class CliCmd(Cmd):
         else:
             return self.run_headless()
 
+    _RE_SHLEX_UNQUOTE = re.compile(r'''(["'])(.*)\1|(.*)''')
+
+    def shlex_parse_argstr(self, argline):
+        try:
+            raw_args = shlex.split(argline, posix=True)
+        except ValueError as e:
+            raise BadCliArguments(*e.args)
+        result = []
+        for arg in raw_args:
+            m = self._RE_SHLEX_UNQUOTE.match(arg)
+            result.append(m.group(2) or m.group(3))
+        return result
+
     def run_headless(self):
         self.onecmd('login')
         self.onecmd('filescan')
@@ -81,10 +102,6 @@ class CliCmd(Cmd):
                 return 1
             self._video_rsubs.update({subtitle})
         self.onecmd('viddownload')
-
-    @property
-    def is_posix(self):
-        return platform.system() != 'Windows'
 
     def cleanup(self):
         self._state.providers.logout()
@@ -148,6 +165,14 @@ class CliCmd(Cmd):
 
     def default(self, line):
         Cmd.default(self, line)
+
+    def onecmd(self, line):
+        log.debug('onecmd("{}")'.format(line))
+        try:
+            return Cmd.onecmd(self, line)
+        except BadCliArguments:
+            self.print(_('Bad arguments'))
+            return False
 
     def postloop(self):
         self.cleanup()
@@ -216,7 +241,7 @@ class CliCmd(Cmd):
 
             try:
                 langs = [Language.from_unknown(l_str, xx=True, xxx=True, name=True, locale=True)
-                         for l_str in shlex.split(arg, posix=self.is_posix)]
+                         for l_str in self.shlex_parse_argstr(arg)]
             except NotALanguageException as e:
                 self.print(_('"{}" is not a valid language').format(e.value))
                 return
@@ -248,7 +273,7 @@ class CliCmd(Cmd):
 
     def do_filepath(self, arg):
         if arg:
-            self.state.set_video_paths([Path(p) for p in shlex.split(arg, posix=self.is_posix)])
+            self.state.set_video_paths([Path(p) for p in self.shlex_parse_argstr(arg)])
         if arg:
             self.print(ngettext('New file path:', 'New file paths:', len(self.state.get_video_paths())))
         else:
@@ -404,7 +429,7 @@ class CliCmd(Cmd):
             self.print(_('Need an argument.'))
             return
         try:
-            subs_i = tuple(int(a) for a in shlex.split(arg, posix=self.is_posix))
+            subs_i = tuple(int(a) for a in self.shlex_parse_argstr(arg))
         except ValueError:
             self.print(_('Invalid value'))
             return
@@ -436,7 +461,7 @@ class CliCmd(Cmd):
             self.print(_('Need an argument.'))
             return
         try:
-            subs_i = tuple(int(a) for a in shlex.split(arg, posix=self.is_posix))
+            subs_i = tuple(int(a) for a in self.shlex_parse_argstr(arg))
         except ValueError:
             self.print(_('Invalid value'))
             return
@@ -524,7 +549,7 @@ class CliCmd(Cmd):
         self.print()
 
     def do_providers(self, arg):
-        args = shlex.split(arg, posix=self.is_posix)
+        args = self.shlex_parse_argstr(arg)
         if args:
             if len(args) != 2:
                 self.print(_('Wrong number of arguments.'))

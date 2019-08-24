@@ -5,7 +5,7 @@ import io
 import unittest
 
 from subdownloader.client.cli import get_default_options
-from subdownloader.client.cli.cli import CliCmd
+from subdownloader.client.cli.cli import BadCliArguments, CliCmd
 from subdownloader.client.cli.state import CliState
 from subdownloader.client.configuration import Settings
 
@@ -38,6 +38,22 @@ class TestCli(unittest.TestCase):
         stream.seek(0)
         stream.truncate()
 
+    def test_parse_args(self):
+        args = self.cli.shlex_parse_argstr('abc def')
+        self.assertListEqual(args, ['abc', 'def', ])
+
+        args = self.cli.shlex_parse_argstr('"abc" def')
+        self.assertListEqual(args, ['abc', 'def', ])
+
+        args = self.cli.shlex_parse_argstr('\'abc\' def')
+        self.assertListEqual(args, ['abc', 'def', ])
+
+        args = self.cli.shlex_parse_argstr('"abc"def')
+        self.assertListEqual(args, ['abcdef', ])
+
+        self.assertRaises(BadCliArguments, lambda: self.cli.shlex_parse_argstr('"abc'))
+        self.assertRaises(BadCliArguments, lambda: self.cli.shlex_parse_argstr('\'abc'))
+        
     @unittest.skip  # FIXME: re-enable test!
     def test_help(self):
         self.cli.onecmd('help')
