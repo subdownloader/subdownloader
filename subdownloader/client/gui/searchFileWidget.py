@@ -4,8 +4,10 @@
 import logging
 import os
 from pathlib import Path
-import platform
+import shlex
 import sys
+import subprocess
+import tempfile
 import webbrowser
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QFileInfo, QModelIndex, QSettings, \
@@ -392,7 +394,8 @@ class SearchFileWidget(QWidget):
         if isinstance(selected_subtitle, LocalSubtitleFile):
             subtitle_file_path = selected_subtitle.get_filepath()
         elif isinstance(selected_subtitle, RemoteSubtitleFile):
-            subtitle_file_path = QDir.temp().absoluteFilePath('subdownloader.tmp.srt')
+            subtitle_file_path = Path(tempfile.gettempdir()) / 'subdownloader.tmp.srt'
+            log.debug('tmp path is {}'.format(subtitle_file_path))
             log.debug('Temporary subtitle will be downloaded into: {temp_path}'.format(temp_path=subtitle_file_path))
             # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
             callback = ProgressCallbackWidget(self)
@@ -412,42 +415,34 @@ class SearchFileWidget(QWidget):
                 return
             callback.finish()
             write_stream(subtitle_stream, subtitle_file_path)
+        else:
+            QMessageBox.about(self, _('Error'), '{}\n{}'.format(_('Unknown Error'), _('Please submit bug report')))
+            return
 
         video = selected_subtitle.get_parent().get_parent().get_parent()
 
-        def windows_escape(text):
-            return'"{text}"'.format(text=text.replace('"', '\\"'))
+        args = [programPath]
 
-        params = [windows_escape(programPath)]
-
-        for param in parameters.split(' '):
-            param = param.format(video.get_filepath(), subtitle_file_path)
-            if platform.system() in ('Windows', 'Microsoft'):
-                param = windows_escape(param)
-            params.append(param)
-
-        pid = None
-        log.info('Running this command: {params}'.format(params=params))
         try:
-            log.debug('Trying os.spawnvpe ...')
-            pid = os.spawnvpe(os.P_NOWAIT, programPath, params, os.environ)
-            log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
-        except AttributeError:
-            log.debug('... FAILED', exc_info=sys.exc_info())
-        except Exception as e:
-            log.debug('... FAILED', exc_info=sys.exc_info())
-        if pid is None:
-            try:
-                log.debug('Trying os.fork ...')
-                pid = os.fork()
-                if not pid:
-                    log.debug('... SUCCESS. pid={pid}'.format(pid=pid))
-                    os.execvpe(os.P_NOWAIT, programPath, params, os.environ)
-            except:
-                log.debug('... FAIL', exc_info=sys.exc_info())
-        if pid is None:
+            parameters_args = shlex.split(parameters)
+        except ValueError:
             QMessageBox.about(
                 self, _('Error'), _('Unable to launch videoplayer'))
+            return
+
+        for param in parameters_args:
+            args.append(param.format(video.get_filepath(), subtitle_file_path))
+
+        log.debug('Video player arguments: {}'.format(args))
+        try:
+            log.debug('Trying to create detached subprocess...')
+            p = subprocess.Popen(args, creationflags=subprocess.DETACHED_PROCESS)
+            log.debug("... SUCCESS: pid = {}".format(p.pid))
+        except IOError:
+            log.debug('... FAIL', exc_info=True)
+            QMessageBox.about(
+                self, _('Error'), _('Unable to launch videoplayer'))
+            return
 
     @pyqtSlot(QModelIndex)
     def onClickVideoTreeView(self, index):
