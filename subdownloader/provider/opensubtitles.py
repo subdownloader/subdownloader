@@ -239,7 +239,7 @@ class OpenSubtitles(SubtitleProvider):
             log.debug('Query failed: {} {}'.format(type(e), e.args))
             return default
 
-    STATUS_CODE_RE = re.compile('(\d+) (.+)')
+    STATUS_CODE_RE = re.compile(r'(\d+) (.+)')
 
     @classmethod
     def check_result(cls, data):
