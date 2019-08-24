@@ -4,6 +4,7 @@
 from cmd import Cmd
 from os import linesep
 from pathlib import Path
+import platform
 import shlex
 
 from subdownloader.client.cli.callback import ProgressBarCallback
@@ -80,6 +81,10 @@ class CliCmd(Cmd):
                 return 1
             self._video_rsubs.update({subtitle})
         self.onecmd('viddownload')
+
+    @property
+    def is_posix(self):
+        return platform.system() != 'Windows'
 
     def cleanup(self):
         self._state.providers.logout()
@@ -162,6 +167,14 @@ class CliCmd(Cmd):
         self._return_code = 0
         return True
 
+    def help_exit(self):
+        self.print(_('Alias for {}').format('quit'))
+        self.print()
+        return self.help_quit()
+
+    def do_exit(self, arg):
+        return self.do_quit(arg)
+
     def help_quit(self):
         self.print(_('Exit program') + '.')
         self.print()
@@ -203,7 +216,7 @@ class CliCmd(Cmd):
 
             try:
                 langs = [Language.from_unknown(l_str, xx=True, xxx=True, name=True, locale=True)
-                         for l_str in shlex.split(arg)]
+                         for l_str in shlex.split(arg, posix=self.is_posix)]
             except NotALanguageException as e:
                 self.print(_('"{}" is not a valid language').format(e.value))
                 return
@@ -235,7 +248,7 @@ class CliCmd(Cmd):
 
     def do_filepath(self, arg):
         if arg:
-            self.state.set_video_paths([Path(p) for p in shlex.split(arg)])
+            self.state.set_video_paths([Path(p) for p in shlex.split(arg, posix=self.is_posix)])
         if arg:
             self.print(ngettext('New file path:', 'New file paths:', len(self.state.get_video_paths())))
         else:
@@ -391,7 +404,7 @@ class CliCmd(Cmd):
             self.print(_('Need an argument.'))
             return
         try:
-            subs_i = tuple(int(a) for a in shlex.split(arg))
+            subs_i = tuple(int(a) for a in shlex.split(arg, posix=self.is_posix))
         except ValueError:
             self.print(_('Invalid value'))
             return
@@ -423,7 +436,7 @@ class CliCmd(Cmd):
             self.print(_('Need an argument.'))
             return
         try:
-            subs_i = tuple(int(a) for a in shlex.split(arg))
+            subs_i = tuple(int(a) for a in shlex.split(arg, posix=self.is_posix))
         except ValueError:
             self.print(_('Invalid value'))
             return
@@ -511,7 +524,7 @@ class CliCmd(Cmd):
         self.print()
 
     def do_providers(self, arg):
-        args = shlex.split(arg)
+        args = shlex.split(arg, posix=self.is_posix)
         if args:
             if len(args) != 2:
                 self.print(_('Wrong number of arguments.'))
