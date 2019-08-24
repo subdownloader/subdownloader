@@ -184,7 +184,6 @@ class State(QObject):
 
     def getDownloadPath(self, parent, subtitle):
         video = subtitle.get_parent().get_parent().get_parent()
-        downloadFullPath = ""
         settings = QSettings()
 
         # Creating the Subtitle Filename
