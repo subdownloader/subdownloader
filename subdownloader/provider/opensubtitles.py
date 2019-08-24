@@ -115,6 +115,10 @@ class OpenSubtitles(SubtitleProvider):
                     'moviehash': video.get_osdb_hash(),
                     'moviebytesize': str(video.get_size()),
                 }
+                if video.get_osdb_hash() is None:
+                    log.debug('osdb hash of "{}" is empty -> skip'.format(video.get_filepath()))
+                    self._signal_connection_failed()  # FIXME: other name + general signaling
+                    continue
                 queries.append(query)
                 hash_video[video.get_osdb_hash()] = video
 
@@ -230,9 +234,9 @@ class OpenSubtitles(SubtitleProvider):
         try:
             result = query()
             return result
-        except (ProtocolError, CannotSendRequest, SocketError):
+        except (ProtocolError, CannotSendRequest, SocketError) as e:
             self._signal_connection_failed()
-            log.warning('Query failed', exc_info=sys.exc_info())
+            log.debug('Query failed: {} {}'.format(type(e), e.args))
             return default
 
     STATUS_CODE_RE = re.compile('(\d+) (.+)')
@@ -299,8 +303,8 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
         try:
             result = query()
             return result
-        except HTTPError:
-            log.warning('Query failed', exc_info=sys.exc_info())
+        except HTTPError as e:
+            log.debug('Query failed: {} {}'.format(type(e), e.args))
             return default
 
     def search_more_movies(self):
@@ -405,9 +409,9 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 )
 
                 movies.append(movie)
-            except (AttributeError, IndexError, ValueError):
+            except (AttributeError, IndexError, ValueError) as e:
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
+                log.warning('XML entry has invalid format: {} {}'.format(type(e), e.args))
 
         return movies, nb_so_far, nb_provider
 
@@ -497,9 +501,9 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                                                      download_link=download_link, link=subtitle_link, uploader=uploader,
                                                      language=language, rating=subtitle_rating, age=subtitle_add_date)
                 subtitles.append(subtitle)
-            except (AttributeError, IndexError, ValueError):
+            except (AttributeError, IndexError, ValueError) as e:
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
+                log.warning('XML entry has invalid format: {} {}'.format(type(e), e.args))
 
         return subtitles, nb_so_far, nb_provider
 
@@ -529,8 +533,8 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 log.debug('... extraction FAILED: no entries found, maybe no subtitles on page!')
             else:
                 log.debug('... extraction SUCCESS')
-        except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
-            log.debug('... extraction FAILED (xml error)', exc_info=sys.exc_info())
+        except (AttributeError, ValueError, xml.parsers.expat.ExpatError) as e:
+            log.debug('... extraction FAILED (xml error): {} {}'.format(type(e), e.args))
             nb_so_far = None
             entries = None
         return entries, nb_so_far, nb_total
@@ -541,8 +545,8 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
             log.debug('Fetching data from {}...'.format(url))
             page = urlopen(url).read()
             log.debug('... SUCCESS')
-        except HTTPError:
-            log.warning('... FAILED', exc_info=sys.exc_info())
+        except HTTPError as e:
+            log.debug('... FAILED: {} {}'.format(type(e), e.args))
             return None
         return page
 

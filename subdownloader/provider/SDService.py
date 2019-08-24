@@ -303,7 +303,7 @@ class SDService(object):
             # force token reset
             self._token = None
 
-    STATUS_CODE_RE = re.compile('(\d+) (.+)')
+    STATUS_CODE_RE = re.compile('(\\d+) (.+)')
 
     @classmethod
     def check_result(cls, data):
@@ -344,7 +344,7 @@ class SDService(object):
     def name(cls):
         return "opensubtitles"
 
-    def _signal_connection_failed(self):
+    def _signal_query_failed(self):
         # FIXME: set flag/... to signal users that the connection has failed
         pass
 
@@ -352,9 +352,9 @@ class SDService(object):
         try:
             result = query()
             return result
-        except (ProtocolError, xml.parsers.expat.ExpatError):
-            self._signal_connection_failed()
-            log.debug("Query failed", exc_info=sys.exc_info())
+        except (ProtocolError, xml.parsers.expat.ExpatError) as e:
+            self._signal_query_failed()
+            log.debug("Query failed: {} {}".format(type(e), e.args))
             return default
 
     @staticmethod
@@ -432,9 +432,9 @@ class SDService(object):
             def run_query():
                 return self._xmlrpc_server.SearchSubtitles(self._token, queries, {'limit': self.SEARCH_LIMIT})
             result = self._safe_exec(run_query, None)
-            self.check_result(result)
             if result is None:
                 continue
+            self.check_result(result)
 
             for rsub_raw in result['data']:
                 try:
@@ -516,6 +516,8 @@ class SDService(object):
             def run_query():
                 return self._xmlrpc_server.CheckMovieHash2(self._token, hashes)
             result = self._safe_exec(run_query, None)
+            if result is None:
+                continue
             self.check_result(result)
 
             for video_hash, video_info in result['data'].items():
@@ -674,8 +676,8 @@ class SearchByName(object):
         try:
             result = query()
             return result
-        except HTTPError:
-            log.debug("Query failed", exc_info=sys.exc_info())
+        except HTTPError as e:
+            log.debug("Query failed: {} {}".format(type(e), e.args))
             return default
 
     def get_movies(self):
@@ -739,8 +741,8 @@ class SearchByName(object):
             log.debug('Fetching data from {}...'.format(url))
             page = urlopen(url).read()
             log.debug('... SUCCESS')
-        except HTTPError:
-            log.debug('... FAILED (HTTPError)', exc_info=sys.exc_info())
+        except HTTPError as e:
+            log.debug('... FAILED {} {}'.format(type(e), e.args))
             return None
         return page
 
@@ -792,9 +794,9 @@ class SearchByName(object):
                 )
 
                 movies.append(movie)
-            except (AttributeError, IndexError, ValueError):
+            except (AttributeError, IndexError, ValueError) as e:
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
+                log.warning('XML entry has invalid format {} {}'.format(type(e), e.args))
 
         # if len(movies) != nb_provider:
         #     log.warning('Provider told us it returned {nb_provider} movies. '
@@ -824,8 +826,8 @@ class SearchByName(object):
                 log.debug('... extraction FAILED: no entries found, maybe no subtitles on page!')
             else:
                 log.debug('... extraction SUCCESS')
-        except (AttributeError, ValueError, xml.parsers.expat.ExpatError):
-            log.debug('... extraction FAILED (xml error)', exc_info=sys.exc_info())
+        except (AttributeError, ValueError, xml.parsers.expat.ExpatError) as e:
+            log.debug('... extraction FAILED {} {}'.format(type(e), e.args))
             nb = None
             nb_total = None
             entries = None
@@ -896,9 +898,9 @@ class SearchByName(object):
                                                       link=subtitle_link, uploader=uploader,
                                                       language=language, rating=subtitle_rating, age=subtitle_add_date)
                 subtitles.append(subtitle)
-            except (AttributeError, IndexError, ValueError):
+            except (AttributeError, IndexError, ValueError) as e:
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
-                log.warning('XML entry has invalid format.', exc_info=sys.exc_info())
+                log.warning('XML entry has invalid format {} {}'.format(type(e), e.args))
 
         # if len(subtitles) != nb_provider:
         #     log.warning('Provider told us it returned {nb_provider} subtitles. '
