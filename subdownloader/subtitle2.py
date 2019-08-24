@@ -262,7 +262,7 @@ class RemoteSubtitleFile(SubtitleFileStorage):
     def get_provider(self):  # FIXME: abstractmethod
         raise NotImplementedError
 
-    def download(self, target_path, provider_instance, callback):  # FIXME: abstractmethod
+    def download(self, provider_instance, callback):  # FIXME: abstractmethod
         raise NotImplementedError()
 
     def is_remote(self):
