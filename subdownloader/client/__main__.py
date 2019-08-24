@@ -48,6 +48,7 @@ def emit_error_missing_pyqt():
             except IOError:
                 raise
 
+
 def main(args=None):
     add_client_module_dependencies()
     logging_stream_install(logging.WARNING)
