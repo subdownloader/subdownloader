@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
-from argcomplete import autocomplete
 import argparse
 from collections import namedtuple
 import logging
@@ -23,7 +22,11 @@ def parse_arguments(args=None):
     parser = get_argument_parser()
 
     # Autocomplete arguments
-    autocomplete(parser)
+    try:
+        import argcomplete
+        argcomplete.autocomplete(parser)
+    except ImportError:
+        pass
 
     ns = parser.parse_args(args=args)
 
