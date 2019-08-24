@@ -236,7 +236,7 @@ class Main(QMainWindow):
         if platform.system() == 'Linux':
             linux_players = [
                 {'executable': 'mplayer', 'parameters': '{0} -sub {1}'},
-                {'executable': 'vlc', 'parameters': '{0} --sub-file={1}'},
+                {'executable': 'vlc', 'parameters': '{0} --sub-file {1}'},
                 {'executable': 'xine', 'parameters': '{0}#subtitle:{1}'},
             ]
             for player in linux_players:

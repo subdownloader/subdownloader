@@ -435,8 +435,8 @@ class SearchFileWidget(QWidget):
 
         log.debug('Video player arguments: {}'.format(args))
         try:
-            log.debug('Trying to create detached subprocess...')
-            p = subprocess.Popen(args, creationflags=subprocess.DETACHED_PROCESS)
+            log.debug('Trying to create subprocess...')
+            p = subprocess.Popen(args)
             log.debug("... SUCCESS: pid = {}".format(p.pid))
         except IOError:
             log.debug('... FAIL', exc_info=True)
