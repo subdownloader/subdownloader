@@ -18,7 +18,6 @@ from subdownloader.provider.provider import SubtitleProvider
 
 log = logging.getLogger('subdownloader.client.state')
 
-
 Proxy = namedtuple('Proxy', ('host', 'port'))
 
 ProviderData = namedtuple('ProviderData', ('provider', 'kwargs'))
@@ -318,6 +317,7 @@ class BaseState(object):
         return self._recursive
 
     def set_recursive(self, recursive):
+        log.debug('set_recursive({})'.format(recursive))
         self._recursive = recursive
 
     def get_video_paths(self):
@@ -326,6 +326,7 @@ class BaseState(object):
         return self._video_paths
 
     def set_video_paths(self, video_paths):
+        log.debug('set_video_paths({})'.format(video_paths))
         self._video_paths = video_paths
 
     # FIXME: change to filter languages
@@ -333,6 +334,7 @@ class BaseState(object):
         return self._download_languages
 
     def set_download_languages(self, langs):
+        log.debug('set_download_languages({})'.format(langs))
         self._download_languages = langs
 
     def get_upload_language(self):
@@ -345,24 +347,28 @@ class BaseState(object):
         return self._proxy
 
     def set_proxy(self, proxy):
+        log.debug('set_proxy({})'.format(proxy))
         self._proxy = proxy
 
     def get_subtitle_naming_strategy(self):
         return self._naming_strategy
 
     def set_subtitle_naming_strategy(self, strategy):
+        log.debug('set_subtitle_naming_strategy({})'.format(strategy))
         self._naming_strategy = strategy
 
     def get_subtitle_download_path_strategy(self):
         return self._download_path_strategy
 
     def set_subtitle_download_path_strategy(self, strategy, write=False):
+        log.debug('set_subtitle_download_path_strategy({})'.format(strategy))
         self._download_path_strategy = strategy
 
     def get_default_download_path(self):
         return self._default_download_path
 
     def set_default_download_path(self, path, write=False):
+        log.debug('set_default_download_path({})'.format(path))
         self._default_download_path = path
 
     @staticmethod
