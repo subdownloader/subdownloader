@@ -54,6 +54,7 @@ class VideoFile(object):
 
         # calculate hash and size on request
         self._size = None
+        self._osdb_hash_valid = False
         self._osdb_hash = None
 
         # Initialize metadata on request.
@@ -133,8 +134,9 @@ class VideoFile(object):
         Get the hash of this local videofile
         :return: hash as string
         """
-        if self._osdb_hash is None:
-            self._osdb_hash = self._calculate_osdb_hash()
+        if not self._osdb_hash_valid:
+            self._osdb_hash = self.calculate_osdb_hash()
+            self._osdb_hash_valid = True
         return self._osdb_hash
 
     def get_fps(self):
@@ -189,39 +191,41 @@ class VideoFile(object):
         """
         self._identities.add_identity(identity)
 
-    def _calculate_osdb_hash(self):
+    def calculate_osdb_hash(self):
         """
         Calculate OSDB (OpenSubtitleDataBase) hash of this VideoFile
         :return: hash as string
         """
-        log.debug('_calculate_OSDB_hash() of "{path}" ...'.format(path=self._filepath))
-        f = self._filepath.open(mode='rb')
+        log.debug('calculate_OSDB_hash() of "{path}" ...'.format(path=self._filepath))
+        try:
+            with self._filepath.open(mode='rb') as f:
+                file_size = self.get_size()
 
-        file_size = self.get_size()
+                longlong_format = 'Q'  # unsigned long long little endian
+                size_longlong = struct.calcsize(longlong_format)
 
-        longlong_format = 'Q'  # unsigned long long little endian
-        size_longlong = struct.calcsize(longlong_format)
+                block_size = min(file_size, 64 << 10)  # 64kiB
+                block_size = block_size & ~(size_longlong - 1)  # lower round on multiple of longlong
 
-        block_size = min(file_size, 64 << 10)  # 64kiB
-        block_size = block_size & ~(size_longlong - 1)  # lower round on multiple of longlong
+                nb_longlong = block_size // size_longlong
+                fmt = '<{nbll}{member_format}'.format(
+                    nbll=nb_longlong,
+                    member_format=longlong_format)
 
-        nb_longlong = block_size // size_longlong
-        fmt = '<{nbll}{member_format}'.format(
-            nbll=nb_longlong,
-            member_format=longlong_format)
+                hash_int = file_size
 
-        hash_int = file_size
+                buffer = f.read(block_size)
+                list_longlong = struct.unpack(fmt, buffer)
+                hash_int += sum(list_longlong)
 
-        buffer = f.read(block_size)
-        list_longlong = struct.unpack(fmt, buffer)
-        hash_int += sum(list_longlong)
+                f.seek(-block_size, os.SEEK_END)
+                buffer = f.read(block_size)
+                list_longlong = struct.unpack(fmt, buffer)
+                hash_int += sum(list_longlong)
+        except (OSError, IOError) as e:
+            log.info('Error calculating OSDB hash on {} ({})'.format(str(self._filepath), type(e)))
+            return None
 
-        f.seek(-block_size, os.SEEK_END)
-        buffer = f.read(block_size)
-        list_longlong = struct.unpack(fmt, buffer)
-        hash_int += sum(list_longlong)
-
-        f.close()
         hash_str = '{:016x}'.format(hash_int)[-16:]
         log.debug('hash("{}")={}'.format(self.get_filepath(), hash_str))
         return hash_str
