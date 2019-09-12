@@ -28,6 +28,7 @@ class CliState(BaseState):
 
         self._console = options.program.client.cli.console
         self._interactive = options.program.client.cli.interactive
+        self._list_languages = options.program.client.cli.list_languages
 
         self._recursive = options.search.recursive
 
@@ -38,6 +39,9 @@ class CliState(BaseState):
 
     def get_interactive(self):
         return self._interactive
+
+    def get_list_languages(self):
+        return self._list_languages
 
     def get_recursive(self):
         return self._recursive

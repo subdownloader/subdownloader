@@ -13,6 +13,7 @@ def get_default_options():
             cli=ArgumentClientCliSettings(
                 console=False,
                 interactive=None,
+                list_languages=False,
             ),
             gui=None,
         )

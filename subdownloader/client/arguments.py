@@ -31,7 +31,7 @@ def parse_arguments(args=None):
     ns = parser.parse_args(args=args)
 
     if ns.client_type is None:
-        if ns.console or ns.interactive:
+        if ns.console or ns.interactive or ns.list_languages:
             ns.client_type = ClientType.CLI
         else:
             ns.client_type = ClientType.GUI
@@ -45,6 +45,7 @@ def parse_arguments(args=None):
             cli=ArgumentClientCliSettings(
                 console=ns.console,
                 interactive=ns.interactive,
+                list_languages=ns.list_languages,
             ),
             gui=ArgumentClientGuiSettings(
             ),
@@ -134,6 +135,7 @@ ArgumentClientSettings = namedtuple('ArgumentClientSettings', (
 ArgumentClientCliSettings = namedtuple('ArgumentClientCliSettings', (
     'console',
     'interactive',
+    'list_languages',
 ))
 
 ArgumentClientGuiSettings = namedtuple('ArgumentClientGuiSettings', (
@@ -269,6 +271,9 @@ def get_argument_parser():
     cli_group.add_argument('-r', '--recursive', dest='recursive',
                            action='store_true', default=False,
                            help=_('Search for subtitles recursively.'))
+    cli_group.add_argument('--list-languages', dest='list_languages',
+                           action='store_true', default=False,
+                           help=_('List available languages and quit.'))
 
     operation_group = cli_group.add_mutually_exclusive_group()
     operation_group.add_argument('-D', '--download', dest='operation', action='store_const', const=CliAction.DOWNLOAD,

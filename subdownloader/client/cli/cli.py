@@ -17,6 +17,7 @@ from subdownloader.filescan import scan_videopaths
 import subdownloader.project
 from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.languages.language import Language, NotALanguageException
+from subdownloader.languages.language import LANGUAGES as ALL_LANGUAGES
 from subdownloader.subtitle2 import RemoteSubtitleFile
 
 log = logging.getLogger(__name__)
@@ -55,7 +56,11 @@ class CliCmd(Cmd):
         if self._state.get_console():
             return self.cmdloop()
         else:
-            return self.run_headless()
+            if self._state.get_list_languages():
+                self.onecmd('listlanguages')
+            else:
+                # FIXME: check CliAction
+                return self.run_headless()
 
     _RE_SHLEX_UNQUOTE = re.compile(r'''(["'])(.*)\1|(.*)''')
 
@@ -262,6 +267,20 @@ class CliCmd(Cmd):
 
     # def complete_languages(self, text, line, begidx, endidx):
     #     # FIXME: implement completer for languages
+
+    def do_listlanguages(self, arg):
+        if arg:
+            self.print(_('Unknown arguments: {}').format(arg))
+            return
+        fmt = '{name:<25} | {locale:<10} | {lid:<10} | {iso639:<10}'
+        header = fmt.format(name=_('name'), locale=_('locale'), lid=_('ISO639-3'), iso639=_('ISO639-2'))
+        self.print(header)
+        self.print('-'*len(header))
+        for lang in ALL_LANGUAGES[1:]:
+            self.print(fmt.format(name=lang['LanguageName'][0],
+                                  locale=', '.join(lang['locale']),
+                                  lid=', '.join(lang['LanguageID']),
+                                  iso639=', '.join(lang['ISO639'])))
 
     def help_filepath(self):
         self.print(_('Get/set the file path(s).'))
