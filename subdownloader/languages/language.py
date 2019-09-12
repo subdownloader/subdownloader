@@ -207,6 +207,7 @@ class Language(object):
         :param xyzvalue: corresponding value of xyzkey
         :return: Language instance
         """
+        xyzvalue = xyzvalue.lower().replace('-', '_')
         if xyzvalue == 'unknown' or xyzvalue == _('unknown'):
             return UnknownLanguage(xyzvalue)
         for lang_id, lang_data in enumerate(LANGUAGES):
@@ -230,7 +231,7 @@ class Language(object):
         # Use 2 lists instead of dict ==> order known
         keys = ['ISO639', 'LanguageID', 'locale', 'LanguageName']
         truefalses = [xx, xxx, locale, name]
-        value = value.lower()
+        value = value.lower().replace('-', '_')
         for key, doKey in zip(keys, truefalses):
             if doKey:
                 try:
