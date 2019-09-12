@@ -34,12 +34,7 @@ class NotALanguageException(ValueError):
         return self._value
 
 
-# WORKAROUND:
-# FOR: python 2 and pyQt5
-# WHAT: Language subclasses str
-# REASON: pyqtSignal apparently only accepts string or ASCII unicode.
-# FIXES: TypeError: string or ASCII unicode expected not 'classobj'
-class Language(str):
+class Language(object):
     """
     Instances of the class represent a language.
     """
