@@ -281,7 +281,7 @@ class NFOIdentificator(object):
                     nfo_content = directory_file.open().read().lower()
                 except IOError:
                     continue
-                result = re.search('imdb\.\w+/title/tt(\d+)', nfo_content)
+                result = re.search(r'imdb\.\w+/title/tt(\d+)', nfo_content)
                 if result:
                     imdb_id = result.group(1)
                     imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=None)
