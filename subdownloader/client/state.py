@@ -130,13 +130,12 @@ class ProvidersState(object):
             elif isinstance(item, type) and issubclass(item, SubtitleProvider):
                 return type(provider) == item
             else:
-                return provider == other
+                return provider == item
         try:
             provider = next(provider for provider in self._providers if _find_provider(provider, item))
         except StopIteration:
             return None
         return provider
-
     def _item_to_providers(self, item):
         if item is None:
             providers = self._providers
@@ -204,6 +203,12 @@ class ProvidersState(object):
     def ping(self, item=None):
         for provider in self._item_to_providers(item):
             provider.ping()
+
+    def query_text_all(self, text):
+        from subdownloader.query import SubtitlesTextQuery
+        query = SubtitlesTextQuery(text=text)
+        query.search_init(self.iter())
+        return query
 
 
 class BaseState(object):
@@ -305,13 +310,6 @@ class BaseState(object):
             download_callback = callback.get_child_progress(provider_i, provider_i+1)
             prov_rsubs[provider] = provider.search_videos(videos=videos, callback=download_callback)
         return prov_rsubs
-
-    def query_text_all(self, text):
-        from subdownloader.query import SubtitlesTextQuery
-        query = SubtitlesTextQuery(text=text)
-        providers = list(self._providersState.iter())
-        query.search_init(providers)
-        return query
 
     def get_recursive(self):
         return self._recursive

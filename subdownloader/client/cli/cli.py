@@ -5,7 +5,6 @@ from cmd import Cmd
 import logging
 from os import linesep
 from pathlib import Path
-import platform
 import re
 import shlex
 
@@ -733,12 +732,13 @@ class CliCmd(Cmd):
                 self.print('{}: "{}"'.format(_('Current query'), self._text_query.text))
                 self.print('{}: {}'.format(_('More movies available'), self._text_query.more_movies_available()))
             return
-        self.set_text_query(self.state.query_text_all(text=arg))
+        self.set_text_query(self.state.providers.query_text_all(text=arg))
 
     def help_querymore(self):
         self.print(_('Look for more video matches for the current text query.'))
+        self.print(_('The optional argument \'all\' will fetch all videos.'))
         self.print()
-        self.print('querymore')
+        self.print('querymore [all]')
         self.print()
 
     def do_querymore(self, arg):
@@ -746,10 +746,27 @@ class CliCmd(Cmd):
             self.print(_('No query active'))
             return
 
+        args = self.shlex_parse_argstr(arg)
+
+        fetch_all = False
+        if len(args) > 0:
+            if args[0] != 'all':
+                self.print(_('Invalid argument'))
+                return
+            fetch_all = True
+
+        if not self._text_query.more_movies_available():
+            self.print(_('No more videos are available'))
+            return
+
         nb_before = len(self._text_query.movies)
 
         try:
-            self._text_query.search_more_movies()
+            if fetch_all:
+                while self._text_query.more_movies_available():
+                    self._text_query.search_more_movies()
+            else:
+                self._text_query.search_more_movies()
         except ProviderConnectionError:
             self.print(_('An error occured'))
 
@@ -774,19 +791,37 @@ class CliCmd(Cmd):
 
     def help_querysubsearch(self):
         self.print(_('Look for more subtitles for a particular video.'))
+        self.print(_('The optional argument \'all\' will fetch all subtitles.'))
         self.print()
-        self.print('querysubsearch INDEX')
+        self.print('querysubsearch INDEX [all]')
         self.print()
 
     def do_querysubsearch(self, arg):
         if not self.query_active():
             self.print(_('No query active'))
             return
+        args = self.shlex_parse_argstr(arg)
+
+        if len(args) == 0:
+            self.print(_('Need an argument'))
+            return
+
+        fetch_all = False
+        if len(args) > 1:
+            if args[1] != 'all':
+                self.print(_('Invalid argument'))
+                return
+            fetch_all = True
+
+        if len(args) > 2:
+            self.print(_('Too many arguments'))
+            return
+
         try:
-            rmovie_network_i = int(arg)
+            rmovie_network_i = int(args[0])
             rmovie_network = self._text_query.movies[rmovie_network_i]
         except ValueError:
-            self.print(_('Need an argument'))
+            self.print(_('Invalid argument'))
             return
         except IndexError:
             self.print(_('Movie not available'))
@@ -797,7 +832,12 @@ class CliCmd(Cmd):
         if not rmovie_network.more_subtitles_available():
             self.print(_('No more subtitles are available'))
             return
-        rmovie_network.search_more_subtitles()
+
+        if fetch_all:
+            while rmovie_network.more_subtitles_available():
+                rmovie_network.search_more_subtitles()
+        else:
+            rmovie_network.search_more_subtitles()
 
         nb_subtitles_after = len(rmovie_network.get_subtitles())
 
