@@ -18,10 +18,10 @@ from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
-from subdownloader.client.gui.preferences import PreferencesDialog
-from subdownloader.client.gui.about import AboutDialog
+from subdownloader.client.gui.widgets.preferences import PreferencesDialog
+from subdownloader.client.gui.widgets.about import AboutDialog
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.login import LoginDialog, login_parent_state
+from subdownloader.client.gui.widgets.login import LoginDialog, login_parent_state
 
 log = logging.getLogger('subdownloader.client.gui.main')
 

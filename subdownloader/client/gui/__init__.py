@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QApplication
 
 from subdownloader.subtitle2 import SUBTITLES_EXT
 from subdownloader.video2 import VIDEOS_EXT
-from subdownloader.client.gui.splashScreen import SplashScreen
+from subdownloader.client.gui.widgets.splashScreen import SplashScreen
 from subdownloader.project import PROJECT_TITLE
 
 from subdownloader.client.gui.generated.images_rc import qInitResources, qCleanupResources
@@ -52,7 +52,7 @@ def run(options, settings):
     # FIXME: move main() function or Main class to separate file before including subdownloader and gui files.
     # splash.show()
 
-    from subdownloader.client.gui.main import Main
+    from subdownloader.client.gui.widgets.main import Main
 
     QCoreApplication.flush()
 

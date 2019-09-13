@@ -10,8 +10,8 @@ from subdownloader.identification import ImdbIdentity, VideoIdentity, ProviderId
 from subdownloader.languages import language
 from subdownloader.movie import LocalMovie
 
-from subdownloader.client.gui.imdbSearch import ImdbSearchDialog
-from subdownloader.client.gui.preferences import PreferencesDialog
+from subdownloader.client.gui.widgets.imdbSearch import ImdbSearchDialog
+from subdownloader.client.gui.widgets.preferences import PreferencesDialog
 from subdownloader.client.gui.generated.uploadWidget_ui import Ui_UploadWidget
 
 log = logging.getLogger('subdownloader.client.gui.uploadWidget')

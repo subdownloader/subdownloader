@@ -169,6 +169,6 @@ class Ui_MainWindow(object):
         self.action_HelpTranslate.setText(_("&Translate This Application..."))
 
 
-from subdownloader.client.gui.searchFileWidget import SearchFileWidget
-from subdownloader.client.gui.searchNameWidget import SearchNameWidget
-from subdownloader.client.gui.uploadWidget import UploadWidget
+from subdownloader.client.gui.widgets.searchFileWidget import SearchFileWidget
+from subdownloader.client.gui.widgets.searchNameWidget import SearchNameWidget
+from subdownloader.client.gui.widgets.uploadWidget import UploadWidget

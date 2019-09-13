@@ -256,19 +256,19 @@
   <customwidget>
    <class>SearchFileWidget</class>
    <extends>QWidget</extends>
-   <header>subdownloader.client.gui.searchFileWidget</header>
+   <header>subdownloader.client.gui.widgets.searchFileWidget</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SearchNameWidget</class>
    <extends>QWidget</extends>
-   <header>subdownloader.client.gui.searchNameWidget</header>
+   <header>subdownloader.client.gui.widgets.searchNameWidget</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>UploadWidget</class>
    <extends>QWidget</extends>
-   <header>subdownloader.client.gui.uploadWidget</header>
+   <header>subdownloader.client.gui.widgets.uploadWidget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
