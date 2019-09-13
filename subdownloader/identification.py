@@ -61,6 +61,9 @@ class VideoIdentity(object):
 
         return MovieMatch.Unknown
 
+    def __repr__(self):
+        return '<VideoIdentity:name={!r} year={!r}'.format(self._name, self._year)
+
 
 class ImdbIdentity(object):
     def __init__(self, imdb_id, imdb_rating):
@@ -100,6 +103,9 @@ class ImdbIdentity(object):
 
         return MovieMatch.NonEqual
 
+    def __repr__(self):
+        return '<ImdbIdentity:id={!r} rating={!r}'.format(self._imdb_id, self._imdb_rating)
+
 
 class EpisodeIdentity(object):
     def __init__(self, season, episode):
@@ -136,6 +142,9 @@ class EpisodeIdentity(object):
             return MovieMatch.NonEqual
 
         return MovieMatch.Equal
+
+    def __repr__(self):
+        return '<EpisodeIdentity:season={!r} episode={!r}'.format(self._season, self._episode)
 
 
 class Identities(object):
@@ -182,6 +191,10 @@ class Identities(object):
             return video_match
 
         return MovieMatch.Unknown
+
+    def __repr__(self):
+        return '<Identities:video={!r} episode={!r} imdb={!r}>'.format(
+            self._video_identity, self._episode_identity, self._imdb_identity)
 
 
 class ProviderIdentities(Identities):
@@ -239,6 +252,9 @@ class IdentityCollection(object):
         for imdb_identity in self.iter_imdb_identity():
             res_imdb_identity.merge(imdb_identity)
         return res_imdb_identity
+
+    def __repr__(self):
+        return '<IdentityCollection:{!r}>'.format(self._data)
 
 
 class NFOIdentificator(object):

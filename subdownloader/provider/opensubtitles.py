@@ -162,8 +162,20 @@ class OpenSubtitles(SubtitleProvider):
                     video = hash_video[movie_hash]
 
                     imdb_id = rsub_raw['IDMovieImdb']
-                    imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=None)
-                    identity = ProviderIdentities(imdb_identity=imdb_identity, provider=self)
+                    try:
+                        imdb_rating = float(rsub_raw['MovieImdbRating'])
+                    except (ValueError, KeyError):
+                        imdb_rating = None
+                    imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=imdb_rating)
+
+                    video_name = rsub_raw['MovieName']
+                    try:
+                        video_year = int(rsub_raw['MovieYear'])
+                    except (ValueError, KeyError):
+                        video_year = None
+                    video_identity = VideoIdentity(name=video_name, year=video_year)
+
+                    identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
 
                     video.add_subtitle(remote_subtitle)
                     video.add_identity(identity)

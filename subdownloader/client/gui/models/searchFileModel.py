@@ -140,17 +140,17 @@ class VideoModel(QAbstractItemModel):
         self._apply_filters()
 
     def _apply_filters(self):
+        # clone all data references + apply filter
         self.beginResetModel()
         self._root = self._all_root.clone()
-        nodes_video = list(self._root.get_children())
-        for node_video in nodes_video:
-            nodes_subtitle_network = list(node_video.get_children())
-            for node_subtitle_network in nodes_subtitle_network:
+        for node_video in self._root.get_children():
+            for node_subtitle_network in node_video.get_children():
                 subtitle_network = node_subtitle_network.get_data()
                 if self._language_filter and subtitle_network.get_language() not in self._language_filter:
                     node_video.remove_child(node_subtitle_network)
         self.endResetModel()
 
+        # restore expanded state
         for node_video_i, node_video in enumerate(self._root.get_children()):
             video_index = self.createIndex(node_video_i, 0, node_video)
             self._treeview.setExpanded(video_index, node_video.is_expanded())
@@ -167,8 +167,8 @@ class VideoModel(QAbstractItemModel):
         if isinstance(data, RemoteSubtitleFile):
             if role == Qt.CheckStateRole:
                 node.set_checked(any)
-                node_parent = node.get_parent()
-                parent_index = self.createIndex(node_parent.parent_index(), 0, node_parent)
+                node_network = node.get_parent()
+                parent_index = self.createIndex(node_network.parent_index(), 0, node_network)
                 self.dataChanged.emit(parent_index, parent_index, [Qt.CheckStateRole])
                 return True
         elif isinstance(data, SubtitleFileNetwork):
@@ -206,33 +206,29 @@ class VideoModel(QAbstractItemModel):
             if role == Qt.BackgroundRole:
                 return QPalette().brush(QPalette.Normal, QPalette.Base)
 
-            #FIXME: get movie info
-            movie_info = None #data.getMovieInfo()
+            # FIXME: get movie info
+
+            movie_info = None  # data.getMovieInfo()
             if role == Qt.DecorationRole:
-                if movie_info:
-                    return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
-                else:
-                    return None
+                return QIcon(':/images/info.png').pixmap(QSize(24, 24), QIcon.Normal)
 
             if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)
 
             if role == Qt.DisplayRole:
-                if movie_info:
-                    # The ENGLISH Movie Name is priority, if not shown, then we
-                    # show the original name.
-                    if movie_info["MovieNameEng"]:
-                        movieName = movie_info["MovieNameEng"]
-                    else:
-                        movieName = movie_info["MovieName"]
-
-                    info = "%s [%s]" % (movieName,  movie_info["MovieYear"])
-                    if movie_info["MovieImdbRating"]:
-                        info += " " + \
-                            _("[IMDB Rate: %s]") % movie_info[
-                                "MovieImdbRating"]
-                    info += " <%s>" % data.get_filepath()
-                    return info
+                identities = data.get_identities()
+                video_identity = identities.get_merged_video_identity()
+                video_name = video_identity.get_name()
+                if video_name:
+                    text = video_name
+                    video_year = video_identity.get_year()
+                    if video_year:
+                        text += ' ({})'.format(video_year)
+                    imdb_identity = identities.get_merged_imdb_identity()
+                    if imdb_identity.get_imdb_rating() is not None:
+                        text += ' [IMDb {}: {}]'.format(_('rating'), imdb_identity.get_imdb_rating())
+                    text += ' <{}>'.format(str(data.get_filepath()))
+                    return text
                 else:
                     return str(data.get_filepath())
 
@@ -340,7 +336,7 @@ class VideoModel(QAbstractItemModel):
         elif isinstance(item, VideoFile):
             return Qt.ItemIsSelectable | Qt.ItemIsEnabled
         elif isinstance(item, SubtitleFileNetwork):
-            return Qt.ItemIsEnabled | Qt.ItemIsAutoTristate | Qt.ItemIsUserCheckable
+            return Qt.ItemIsSelectable | Qt.ItemIsEnabled | Qt.ItemIsAutoTristate | Qt.ItemIsUserCheckable
         else:
             log.error('VideoTreeModel.flags(): illegal data type: {item_type}'.format(item_type=type(item)))
             return Qt.NoItemFlags
@@ -371,7 +367,7 @@ class VideoModel(QAbstractItemModel):
         Return header for row and column
         :param section: row or column number
         :param orientation: Qt.Horizontal or Qt.Vertical
-        :param role: Qt.DiaplayRole
+        :param role: Qt.DisplayRole
         :return: requested header data = None (no header)
         """
         return None
