@@ -30,7 +30,7 @@ from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR
 from subdownloader.provider import window_iterator
 from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.util import unzip_stream, unzip_bytes
-from subdownloader.identification import VideoIdentity, EpisodeIdentity, ImdbIdentity, ProviderIdentities
+from subdownloader.identification import ImdbIdentity, ProviderIdentities, SeriesIdentity, VideoIdentity
 
 
 log = logging.getLogger("subdownloader.provider.SDService")
@@ -474,13 +474,26 @@ class SDService(object):
                     except (ValueError, KeyError):
                         imdb_rating = None
                     imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=imdb_rating)
+
                     video_name = rsub_raw['MovieName']
                     try:
                         video_year = int(rsub_raw['MovieYear'])
                     except (ValueError, KeyError):
                         video_year = None
                     video_identity = VideoIdentity(name=video_name, year=video_year)
-                    identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
+
+                    try:
+                        series_season = int(rsub_raw['SeriesSeason'])
+                    except (KeyError, ValueError):
+                        series_season = None
+                    try:
+                        series_episode = int(rsub_raw['SeriesEpisode'])
+                    except (KeyError, ValueError):
+                        series_episode = None
+                    series_identity = SeriesIdentity(season=series_season, episode=series_episode)
+
+                    identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity,
+                                                  episode_identity=series_identity, provider=self)
 
                     video.add_subtitle(remote_subtitle)
                     video.add_identity(identity)
@@ -507,7 +520,7 @@ class SDService(object):
         if movie_kind == 'episode':
             season = int(video_info['SeriesSeason'])
             episode = int(video_info['SeriesEpisode'])
-            episode_identity = EpisodeIdentity(season=season, episode=episode)
+            episode_identity = SeriesIdentity(season=season, episode=episode)
         elif movie_kind == 'movie':
             pass
         else:

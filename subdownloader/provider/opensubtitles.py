@@ -9,20 +9,19 @@ import logging
 import re
 from socket import error as SocketError
 import string
-import sys
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 from xmlrpc.client import ProtocolError, ServerProxy
 
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
-from subdownloader.identification import ImdbIdentity, ProviderIdentities, VideoIdentity
+from subdownloader.identification import ImdbIdentity, ProviderIdentities, SeriesIdentity, VideoIdentity
 from subdownloader.movie import RemoteMovie
 from subdownloader.provider import window_iterator
 from subdownloader.provider.provider import ProviderConnectionError, ProviderNotConnectedError, \
     ProviderSettings, SubtitleProvider, SubtitleTextQuery
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile
-from subdownloader.util import unzip_bytes, unzip_stream, write_stream
+from subdownloader.util import unzip_bytes, write_stream
 
 
 log = logging.getLogger('subdownloader.provider.opensubtitles')
@@ -175,8 +174,18 @@ class OpenSubtitles(SubtitleProvider):
                         video_year = None
                     video_identity = VideoIdentity(name=video_name, year=video_year)
 
-                    identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity, provider=self)
+                    try:
+                        series_season = int(rsub_raw['SeriesSeason'])
+                    except (KeyError, ValueError):
+                        series_season = None
+                    try:
+                        series_episode = int(rsub_raw['SeriesEpisode'])
+                    except (KeyError, ValueError):
+                        series_episode = None
+                    series_identity = SeriesIdentity(season=series_season, episode=series_episode)
 
+                    identity = ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity,
+                                                  episode_identity=series_identity, provider=self)
                     video.add_subtitle(remote_subtitle)
                     video.add_identity(identity)
 
@@ -329,11 +338,11 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         xml_page = self._fetch_url(xml_url)
         if xml_page is None:
-            raise ProviderConnectionError()
+            raise ProviderConnectionError('Failed to fetch XML page at {!r}'.format(xml_url))
 
         movies, nb_so_far, nb_provider = self._xml_to_movies(xml_page)
         if movies is None:
-            raise ProviderConnectionError()
+            raise ProviderConnectionError('Failed to extract movies from data at {!r}'.format(xml_url))
 
         self._total = nb_provider
         self._movies.extend(movies)
@@ -361,7 +370,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         subtitles, nb_so_far, nb_provider = self._xml_to_subtitles(xml_contents)
         if subtitles is None:
-            raise ProviderConnectionError()
+            raise ProviderConnectionError('Failed to load subtitles from xml at {!r}'.format(xml_url))
 
         # if movie.get_nb_subs_available() != nb_so_far:
         #     log.warning('Data mismatch: we know movie has {local_nb_so_far} subtitles available. '
@@ -452,7 +461,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                         return default
 
                 subtitle_id_entry = subtitle_entry.getElementsByTagName('IDSubtitle')[0]
-                subtitle_id = subtitle_id_entry.firstChild.data
+                # subtitle_id = subtitle_id_entry.firstChild.data
                 subtitle_link = 'http://www.opensubtitles.org' + subtitle_id_entry.getAttribute('Link')
                 subtitle_uuid = subtitle_id_entry.getAttribute('uuid')
 
@@ -639,7 +648,7 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         super_parent = self.get_super_parent()
         if super_parent:
             super_parent.add_subtitle(local_sub)
-        return (local_sub, )
+        return local_sub,
 
     def _download_service(self, provider_instance):
         subs = provider_instance.download_subtitles([self])
@@ -649,4 +658,5 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         sub_stream = urlopen(self._download_link)
         return sub_stream
 
-providers = (OpenSubtitles, )
+
+providers = OpenSubtitles,

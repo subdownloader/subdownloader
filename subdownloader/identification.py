@@ -107,7 +107,7 @@ class ImdbIdentity(object):
         return '<ImdbIdentity:id={!r} rating={!r}'.format(self._imdb_id, self._imdb_rating)
 
 
-class EpisodeIdentity(object):
+class SeriesIdentity(object):
     def __init__(self, season, episode):
         self._season = season
         self._episode = episode
