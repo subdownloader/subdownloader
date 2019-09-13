@@ -40,10 +40,11 @@ if ns.with_gui:
     requirements += get_requires(project_path / 'requirements_gui.txt')
 
 setup(
-    name=subdownloader.project.PROJECT_TITLE,
+    name=subdownloader.project.PROJECT_TITLE.lower(),
     version=subdownloader.project.PROJECT_VERSION_FULL_STR,
     author=subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
     author_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
+    maintainer=subdownloader.project.PROJECT_AUTHOR_COLLECTIVE,
     maintainer_email=subdownloader.project.PROJECT_MAINTAINER_MAIL,
     description=subdownloader.project.get_description(),
     keywords=['download', 'upload', 'automatic', 'subtitle', 'movie', 'video', 'film', 'search'],
@@ -72,6 +73,9 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     python_requires='>=3.4.*, <4',
+    provides=[
+        'subdownloader'
+    ],
     requires=requirements,
     entry_points={
         'console_scripts': [
