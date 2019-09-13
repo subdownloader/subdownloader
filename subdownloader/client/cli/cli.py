@@ -268,6 +268,12 @@ class CliCmd(Cmd):
     # def complete_languages(self, text, line, begidx, endidx):
     #     # FIXME: implement completer for languages
 
+    def help_listlanguages(self):
+        self.print(_('List all available languages.'))
+        self.print()
+        self.print('listlanguages')
+        self.print()
+
     def do_listlanguages(self, arg):
         if arg:
             self.print(_('Unknown arguments: {}').format(arg))
