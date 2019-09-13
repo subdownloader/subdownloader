@@ -82,8 +82,8 @@ class OpenSubtitles(SubtitleProvider):
         if self.logged_in():
             def logout_query():
                 return self._xmlrpc.LogOut(self._token)
-            result = self._safe_exec(logout_query, None)
-            self.check_result(result)
+            # Do no check result of this call. Assume connection closed.
+            self._safe_exec(logout_query, None)
         self._token = None
 
     def logged_in(self):
