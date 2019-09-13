@@ -213,5 +213,5 @@ class Ui_UploadWidget(object):
         self.buttonUpload.setText(_("Upload"))
 
 
-from subdownloader.client.gui.languageComboBox import LanguageComboBox
-from subdownloader.client.gui.uploadModel import UploadListView
+from subdownloader.client.gui.views.language import LanguageComboBox
+from subdownloader.client.gui.views.upload import UploadListView

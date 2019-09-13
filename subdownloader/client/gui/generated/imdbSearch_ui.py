@@ -71,4 +71,4 @@ class Ui_IMDBSearchDialog(object):
         self.cancelButton.setText(_("Cancel"))
 
 
-from subdownloader.client.gui.imdbSearchModel import ImdbListView
+from subdownloader.client.gui.views.imdb import ImdbListView

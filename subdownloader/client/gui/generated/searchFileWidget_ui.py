@@ -209,4 +209,4 @@ class Ui_SearchFileWidget(object):
         self.buttonDownload.setText(_("Download"))
 
 
-from subdownloader.client.gui.languageComboBox import LanguageComboBox
+from subdownloader.client.gui.views.language import LanguageComboBox

@@ -6,7 +6,7 @@ import logging
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QAbstractItemModel, QModelIndex, QSize
 from PyQt5.QtGui import QColor, QFont, QIcon
 
-from subdownloader.client.gui.searchFileModel import Node
+from subdownloader.client.gui.models.searchFileModel import Node
 
 # FIXME: get rid of these imports (dependency on qtwidgets and provider)
 from PyQt5.QtWidgets import QMessageBox

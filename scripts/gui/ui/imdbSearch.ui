@@ -65,7 +65,7 @@
         <string>Movie Info</string>
        </property>
        <property name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/images/info.png</normaloff>:/images/info.png</iconset>
        </property>
        <property name="iconSize">
@@ -111,8 +111,9 @@
   <customwidget>
    <class>ImdbListView</class>
    <extends>QTableView</extends>
-   <header>subdownloader.client.gui.imdbSearchModel</header>
+   <header>subdownloader.client.gui.views.imdb</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

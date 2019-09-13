@@ -40,7 +40,7 @@
           <string>OpenSubtitles.org</string>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
+          <iconset>
            <normaloff>:/images/sites/opensubtitles.png</normaloff>:/images/sites/opensubtitles.png</iconset>
          </property>
         </item>
@@ -97,7 +97,7 @@
          <string>Search</string>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
         </property>
         <property name="flat">
@@ -183,7 +183,7 @@
         <string>Download</string>
        </property>
        <property name="icon">
-        <iconset resource="images.qrc">
+        <iconset>
          <normaloff>:/images/download.png</normaloff>:/images/download.png</iconset>
        </property>
       </widget>
@@ -196,8 +196,9 @@
   <customwidget>
    <class>LanguageComboBox</class>
    <extends>QComboBox</extends>
-   <header>subdownloader.client.gui.languageComboBox</header>
+   <header>subdownloader.client.gui.views.language</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

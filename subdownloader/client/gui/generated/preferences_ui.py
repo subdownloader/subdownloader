@@ -13,7 +13,7 @@ class Ui_PreferencesDialog(object):
     def setupUi(self, PreferencesDialog):
         PreferencesDialog.setObjectName("PreferencesDialog")
         PreferencesDialog.setWindowModality(QtCore.Qt.WindowModal)
-        PreferencesDialog.resize(718, 528)
+        PreferencesDialog.resize(719, 528)
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(PreferencesDialog)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.tabsPreferences = QtWidgets.QTabWidget(PreferencesDialog)
@@ -38,7 +38,7 @@ class Ui_PreferencesDialog(object):
         self.scrollAreaSearch.setWidgetResizable(True)
         self.scrollAreaSearch.setObjectName("scrollAreaSearch")
         self.scrollAreaWidgetSearch = QtWidgets.QWidget()
-        self.scrollAreaWidgetSearch.setGeometry(QtCore.QRect(0, 0, 658, 359))
+        self.scrollAreaWidgetSearch.setGeometry(QtCore.QRect(0, 0, 655, 372))
         self.scrollAreaWidgetSearch.setObjectName("scrollAreaWidgetSearch")
         self.vbox_B = QtWidgets.QVBoxLayout(self.scrollAreaWidgetSearch)
         self.vbox_B.setObjectName("vbox_B")
@@ -228,7 +228,7 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.layoutPreferencesDialogButtons)
 
         self.retranslateUi(PreferencesDialog)
-        self.tabsPreferences.setCurrentIndex(0)
+        self.tabsPreferences.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
         PreferencesDialog.setTabOrder(self.tabsPreferences, self.scrollAreaSearch)
         PreferencesDialog.setTabOrder(self.scrollAreaSearch, self.optionDlDestinationSame)
@@ -286,4 +286,4 @@ class Ui_PreferencesDialog(object):
         self.buttonCancel.setText(_("Cancel"))
 
 
-from subdownloader.client.gui.languageComboBox import InterfaceLanguageComboBox, LanguageComboBox
+from subdownloader.client.gui.views.language import InterfaceLanguageComboBox, LanguageComboBox

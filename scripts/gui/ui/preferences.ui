@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
+    <width>719</width>
     <height>528</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tabSearch">
       <property name="layoutDirection">
@@ -61,8 +61,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>658</width>
-               <height>359</height>
+               <width>655</width>
+               <height>372</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="vbox_B">
@@ -446,12 +446,12 @@
   <customwidget>
    <class>LanguageComboBox</class>
    <extends>QComboBox</extends>
-   <header>subdownloader.client.gui.languageComboBox</header>
+   <header>subdownloader.client.gui.views.language</header>
   </customwidget>
   <customwidget>
    <class>InterfaceLanguageComboBox</class>
    <extends>QComboBox</extends>
-   <header>subdownloader.client.gui.languageComboBox</header>
+   <header>subdownloader.client.gui.views.language</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -475,5 +475,6 @@
   <tabstop>inputVideoAppParams</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
+ <resources/>
  <connections/>
 </ui>

@@ -385,12 +385,12 @@
   <customwidget>
    <class>UploadListView</class>
    <extends>QTableView</extends>
-   <header>subdownloader.client.gui.uploadModel</header>
+   <header>subdownloader.client.gui.views.upload</header>
   </customwidget>
   <customwidget>
    <class>LanguageComboBox</class>
    <extends>QComboBox</extends>
-   <header>subdownloader.client.gui.languageComboBox</header>
+   <header>subdownloader.client.gui.views.language</header>
   </customwidget>
  </customwidgets>
  <resources/>

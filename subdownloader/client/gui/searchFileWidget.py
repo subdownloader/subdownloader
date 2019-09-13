@@ -28,7 +28,7 @@ from subdownloader.client.gui import get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.generated.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.searchFileModel import VideoModel
+from subdownloader.client.gui.models.searchFileModel import VideoModel
 
 log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 # FIXME: add logging
