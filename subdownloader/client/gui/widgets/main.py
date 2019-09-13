@@ -15,7 +15,8 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox
 
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
-from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_STR, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
+from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR, WEBSITE_ISSUES, WEBSITE_MAIN,\
+    WEBSITE_TRANSLATE
 
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
@@ -92,7 +93,7 @@ class Main(QMainWindow):
 
         self.loginStatusChanged.connect(self.onChangeLoginStatus)
 
-        self.ui.label_version.setText(PROJECT_VERSION_STR)
+        self.ui.label_version.setText(PROJECT_VERSION_FULL_STR)
 
         self._state.interface_language_changed.connect(self.on_interface_language_changed)
 
