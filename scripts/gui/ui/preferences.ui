@@ -22,9 +22,6 @@
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
-     <property name="currentIndex">
-      <number>4</number>
-     </property>
      <widget class="QWidget" name="tabSearch">
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
@@ -225,6 +222,23 @@
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabProviders">
+      <attribute name="title">
+       <string>Providers</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="QComboBox" name="providerComboBox"/>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -458,6 +472,7 @@
   <tabstop>tabsPreferences</tabstop>
   <tabstop>scrollAreaSearch</tabstop>
   <tabstop>optionDlDestinationSame</tabstop>
+  <tabstop>optionDlDestinationAsk</tabstop>
   <tabstop>optionDlDestinationUser</tabstop>
   <tabstop>inputDlDestinationUser</tabstop>
   <tabstop>buttonDlDestinationUser</tabstop>
@@ -465,6 +480,7 @@
   <tabstop>optionSubFnSameLang</tabstop>
   <tabstop>optionSubFnSameLangUploader</tabstop>
   <tabstop>optionSubFnOnline</tabstop>
+  <tabstop>optionUlDefaultLanguage</tabstop>
   <tabstop>inputProxyHost</tabstop>
   <tabstop>inputProxyPort</tabstop>
   <tabstop>optionInterfaceLanguage</tabstop>
@@ -473,6 +489,7 @@
   <tabstop>inputVideoAppLocation</tabstop>
   <tabstop>buttonVideoAppLocationChoose</tabstop>
   <tabstop>inputVideoAppParams</tabstop>
+  <tabstop>buttonApplyChanges</tabstop>
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <resources/>
