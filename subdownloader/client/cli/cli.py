@@ -80,9 +80,12 @@ class CliCmd(Cmd):
         self.onecmd('vidsearch')
         for video in self._videos:
             self._print_videos([video])
-            nb = video.get_subtitles().get_nb_subtitles()
+            nb, nb_total = self.get_number_remote_subtitles(video)
             if not nb:
-                print(_("Video has no subtitles. Skipping."))
+                if nb_total:
+                    print(_('Video has no subtitles that match your filter. Skipping.'))
+                else:
+                    print(_('Video has no subtitles. Skipping.'))
                 continue
 
             if self._state.get_interactive():
@@ -98,12 +101,12 @@ class CliCmd(Cmd):
             try:
                 subtitle = self.get_videos_subtitle(sub_i, [video])
             except IndexError:
-                self.print(_('Index out of range.'))
-                return 1
+                self.print(_('Video has no subtitles that match the filter.'))
+                continue
             self.print(_('Selected subtitle:'),  self.subtitle_to_long_string(subtitle))
             if subtitle.is_local():
                 self.print(_('Cannot select local subtitles.'))
-                return 1
+                continue
             self._video_rsubs.update({subtitle})
         self.onecmd('viddownload')
 
@@ -117,22 +120,37 @@ class CliCmd(Cmd):
         self._videos = videos
         self._video_rsubs = set()
 
-    def get_videos_subtitle(self, i, videos=None):
-        if i < 0:
+    def get_videos_subtitle(self, sub_index_req, videos=None):
+        if sub_index_req < 0:
             raise IndexError()
-        nb_subs_met = 0
         if videos is None:
             videos = self._videos
+        subtitle_index = 0
         for video in videos:
             for subtitle_network in video.get_subtitles():
                 if not self.download_filter_language_object(subtitle_network):
                     continue
-                nb_subs_met_tmp = nb_subs_met + len(subtitle_network)
-                if i < nb_subs_met_tmp:
-                    return subtitle_network[i - nb_subs_met]
-                nb_subs_met = nb_subs_met_tmp
+                # if sub_index_req > subtitle_index + len(subtitle_network):
+                #     continue
+                for subtitle in subtitle_network.get_subtitles():
+                    if subtitle.is_local():
+                        continue
+                    if subtitle_index == sub_index_req:
+                        return subtitle
+                    subtitle_index += 1
         else:
             raise IndexError()
+
+    def get_number_remote_subtitles(self, video):
+        count_filter = 0
+        count_total = 0
+        for subtitle_network in video.get_subtitles():
+            for subtitle in subtitle_network:
+                if subtitle.is_remote():
+                    if self.download_filter_language_object(subtitle_network):
+                        count_filter += 1
+                    count_total += 1
+        return count_filter, count_total
 
     def _invalidate_text_queries(self):
         self.set_text_query(None)
@@ -409,15 +427,17 @@ class CliCmd(Cmd):
                 for subtitle in network:
                     if subtitle.is_local():
                         x = 'X'
+                        str_counter = '   '
                     else:  # if subtitle.is_remote():
                         if subtitle in self._video_rsubs:
                             x = 'x'
                             nb_selected += 1
                         else:
                             x = ' '
-                    self.print('       <{x}> [{i}] {s}'.format(i=str(counter).rjust(counter_len), x=x,
+                        str_counter = '{:>3}'.format(counter)
+                        counter += 1
+                    self.print('       <{x}> [{i}] {s}'.format(i=str_counter, x=x,
                                                                s=self.subtitle_to_short_string(subtitle)))
-                    counter += 1
         return nb_selected
 
     @staticmethod
