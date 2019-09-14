@@ -38,10 +38,12 @@ class CliCmd(Cmd):
         self.prompt = '>>> '
 
         # Download state
+        # FIXME: abstract to FileQueryState object
         self._videos = []
         self._video_rsubs = set()
 
         # Text query state
+        # FIXME: abstract to TextQueryState object
         self._text_query = None
         self._query_rsubs = set()
 

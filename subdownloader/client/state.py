@@ -10,11 +10,11 @@ import platform
 
 from subdownloader.client import ClientType, IllegalArgumentException
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
-from subdownloader.client.configuration import Settings
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory
 from subdownloader.provider.provider import SubtitleProvider
+from subdownloader.text_query import SubtitlesTextQuery
 
 log = logging.getLogger('subdownloader.client.state')
 
@@ -205,7 +205,6 @@ class ProvidersState(object):
             provider.ping()
 
     def query_text_all(self, text):
-        from subdownloader.query import SubtitlesTextQuery
         query = SubtitlesTextQuery(text=text)
         query.search_init(self.iter())
         return query
