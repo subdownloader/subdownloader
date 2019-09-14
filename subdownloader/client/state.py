@@ -499,16 +499,6 @@ class BaseState(object):
         return sys_config
 
 
-class GuiState(BaseState):  # FIXME: move to gui/state.py
-    def __init__(self):
-        BaseState.__init__(self)
-
-    def load_settings(self, settings):
-        BaseState.load_settings(settings)
-
-        self.set_video_paths([settings.get_path(StateConfigKey.VIDEO_PATH.value, Path().resolve())])
-
-
 def state_init():
     config_path = BaseState.get_default_settings_folder()
     config_path.mkdir(exist_ok=True)

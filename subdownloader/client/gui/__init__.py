@@ -59,7 +59,7 @@ def run(options, settings):
     splash.showMessage(_("Building main dialog..."))
     log.debug('Building main dialog ...')
 
-    main_window = Main(None, "", options)
+    main_window = Main(None, "", options, settings, options)
 
     log.debug('... Building FINISHED')
 

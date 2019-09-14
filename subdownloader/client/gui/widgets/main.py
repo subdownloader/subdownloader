@@ -18,6 +18,7 @@ from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR, WEBSITE_ISSUES, WEBSITE_MAIN,\
     WEBSITE_TRANSLATE
 
+from subdownloader.client.gui.state import GuiState
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
 from subdownloader.client.gui.widgets.about import AboutDialog
@@ -32,7 +33,7 @@ class Main(QMainWindow):
     permanent_language_filter_changed = pyqtSignal(list)
     loginStatusChanged = pyqtSignal(str)
 
-    def __init__(self, parent, log_packets, options):
+    def __init__(self, parent, log_packets, options, settings_new, options_new):
         QMainWindow.__init__(self, parent)
 
         self.setWindowTitle(PROJECT_TITLE)
@@ -40,15 +41,20 @@ class Main(QMainWindow):
 
         self.ui = Ui_MainWindow()
 
-        self._state = State(self, options)
+        self._state = GuiState()
+        self._settings = settings_new
+        self._state.load_options(options_new)
+        self._state.load_settings(settings_new)
+
+        self._state_original = State(self, options)
 
         self.setup_ui()
 
-        self.ui.tabSearchFile.set_state(self._state)
-        self.ui.tabSearchName.set_state(self._state)
-        self.ui.tabUpload.set_state(self._state)
+        self.ui.tabSearchFile.set_state(self._state_original)
+        self.ui.tabSearchName.set_state(self._state_original)
+        self.ui.tabUpload.set_state(self._state_original)
 
-        self._state.login_status_changed.connect(self.on_login_state_changed)
+        self._state_original.login_status_changed.connect(self.on_login_state_changed)
 
         self.log_packets = log_packets
         self.options = options
@@ -95,7 +101,7 @@ class Main(QMainWindow):
 
         self.ui.label_version.setText(PROJECT_VERSION_FULL_STR)
 
-        self._state.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state_original.interface_language_changed.connect(self.on_interface_language_changed)
 
     def retranslate(self):
         pass
@@ -107,7 +113,7 @@ class Main(QMainWindow):
         self.retranslate()
 
     def get_state(self):
-        return self._state
+        return self._state_original
 
     def get_search_file_widget(self):
         return self.ui.tabSearchFile
@@ -225,7 +231,7 @@ class Main(QMainWindow):
         webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     def onMenuPreferences(self):
-        dialog = PreferencesDialog(self, state=self._state)
+        dialog = PreferencesDialog(self, state=self._state_original)
         dialog.defaultUploadLanguageChanged.connect(self.ui.tabUpload.on_default_upload_language_change)
         dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)

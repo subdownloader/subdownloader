@@ -8,6 +8,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QDir, QObject, 
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
+from subdownloader.client.state import BaseState, StateConfigKey
 from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 
@@ -216,3 +217,13 @@ class State(QObject):
             log.debug('Downloading to: %r' % downloadFullPath)
 
         return str(downloadFullPath)
+
+
+class GuiState(BaseState):
+    def __init__(self):
+        BaseState.__init__(self)
+
+    def load_settings(self, settings):
+        BaseState.load_settings(self, settings)
+
+        self.set_video_paths([settings.get_path(StateConfigKey.VIDEO_PATH.value, Path().resolve())])
