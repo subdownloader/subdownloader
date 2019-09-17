@@ -113,15 +113,8 @@ class VideoTreeModel(QAbstractItemModel):
     def _apply_filters(self):
         self.beginResetModel()
         self._root = self._all_root.clone()
-        # FIXME: apply filters...
-        self.endResetModel()
-
-        self.beginResetModel()
-        self._root = self._all_root.clone()
-        nodes_movie = list(self._root.get_children())
-        for node_movie in nodes_movie:
-            nodes_subtitle = list(node_movie.get_children())
-            for node_subtitle in nodes_subtitle:
+        for node_movie in self._root.get_children():
+            for node_subtitle in list(node_movie.get_children()):
                 data = node_subtitle.get_data()
                 if isinstance(data, RemoteSubtitleFile):
                     subtitle = data
