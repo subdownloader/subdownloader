@@ -110,11 +110,11 @@ class VideoPlayer(object):
 
     @classmethod
     def from_settings(cls, settings):
-        path = settings.get_str(VideoPlayerConfigKey.VIDEOPLAYER_PATH, None)
-        command = settings.get_str(VideoPlayerConfigKey.VIDEOPLAYER_PARAMS, None)
+        path = settings.get_path(VideoPlayerConfigKey.VIDEOPLAYER_PATH.value, None)
+        command = settings.get_str(VideoPlayerConfigKey.VIDEOPLAYER_PARAMS.value, None)
         if path is None or command is None:
             return None
-        return cls(None, path, command)
+        return cls(path, command)
 
     def __repr__(self):
         return '<VideoPlayer:{}:{}>'.format(self._path, self._command)

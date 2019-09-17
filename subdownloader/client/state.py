@@ -293,7 +293,8 @@ class BaseState(object):
         settings.set_languages(StateConfigKey.FILTER_LANGUAGES.value, self.get_download_languages())
         settings.set_language(StateConfigKey.UPLOAD_LANGUAGE.value, self.get_upload_language())
 
-        self._videoplayer.save_settings(settings)
+        if self._videoplayer:
+            self._videoplayer.save_settings(settings)
 
         settings.write()
 

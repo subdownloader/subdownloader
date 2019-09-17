@@ -5,8 +5,7 @@ import configparser
 import logging
 from pathlib import Path
 
-from subdownloader.languages.language import Language, UnknownLanguage
-from subdownloader.project import PROJECT_TITLE
+from subdownloader.languages.language import Language
 
 log = logging.getLogger('subdownloader.client.configuration')
 

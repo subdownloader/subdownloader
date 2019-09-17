@@ -43,7 +43,7 @@ class Main(QMainWindow):
 
         self._state = GuiState()
         self._settings = settings_new
-        self._settings.reload()
+        self._settings.reload() 
         self._state.load_options(options_new)
         self._state.load_settings(settings_new)
 
