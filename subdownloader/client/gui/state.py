@@ -28,21 +28,8 @@ class State(QObject):
     def __init__(self, parent, options):
         QObject.__init__(self, parent)
 
-        self._proxy = options.proxy
-        self._OSDBServer = SDService(proxy=self._proxy)
+        self._OSDBServer = SDService()
         identificator_add(self._OSDBServer)
-
-        self.read_settings()
-
-    def read_settings(self):
-        settings = QSettings()
-
-        # If no proxy settings were passed on the command line, use the one in the settings
-        if not self._proxy:
-            proxy_host = settings.value("options/ProxyHost", "")
-            proxy_port = int(settings.value("options/ProxyPort", 8080))
-            if proxy_host:
-                self._proxy = '{proxy_host}:{proxy_port}'.format(proxy_host=proxy_host, proxy_port=proxy_port)
 
     def get_permanent_language_filter(self):
         settings = QSettings()
@@ -68,15 +55,10 @@ class State(QObject):
         if callback is None:
             callback = ProgressCallback()
 
-        if self._proxy:
-            updated_text = _('Connecting to server using proxy {proxy}').format(proxy=self._proxy)
-        else:
-            updated_text = ''
-
         callback.set_title_text(_('Connecting'))
         callback.set_label_text(_('Connecting to server...'))
         callback.set_finished_text(_('Connected successfully'))
-        callback.set_updated_text(updated_text)
+        callback.set_updated_text('')
         callback.set_cancellable(False)
 
         callback.set_range(0, 1)
@@ -125,11 +107,6 @@ class State(QObject):
 
         if not password:
             password = self.DEFAULT_PASSWORD
-
-        if self._proxy:
-            updated_text = _('Connecting to server using proxy {proxy}').format(proxy=self._proxy)
-        else:
-            updated_text = ''
 
         callback.set_title_text(_("Authentication"))
         callback.set_label_text(_("Logging in..."))
