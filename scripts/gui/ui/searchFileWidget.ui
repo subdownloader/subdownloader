@@ -166,12 +166,6 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
-              <property name="font">
-               <font>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
               <property name="text">
                <string>Refresh list</string>
               </property>
@@ -182,9 +176,6 @@
             </item>
             <item>
              <widget class="QPushButton" name="buttonFind">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="font">
                <font>
                 <weight>75</weight>

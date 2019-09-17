@@ -101,6 +101,11 @@ class SearchFileWidget(QWidget):
         self.ui.buttonFind.clicked.connect(self.onButtonFind)
         self.ui.buttonRefresh.clicked.connect(self.onButtonRefresh)
 
+        # Setup and disable buttons
+        self.ui.buttonFind.setEnabled(False)
+        self.ui.buttonSearchSelectFolder.setEnabled(False)
+        self.ui.buttonSearchSelectVideos.setEnabled(False)
+
         # Set up introduction
         self.showInstructions()
 
