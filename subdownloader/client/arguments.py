@@ -10,7 +10,7 @@ from subdownloader import project
 from subdownloader.client import ClientType
 from subdownloader.client.cli import CliAction
 from subdownloader.client.logger import LOGGING_LOGNOTHING
-from subdownloader.client.state import ProviderData, Proxy, SubtitleNamingStrategy
+from subdownloader.client.state import ProviderData, SubtitleNamingStrategy
 from subdownloader.languages.language import Language, NotALanguageException
 
 
@@ -58,7 +58,6 @@ def parse_arguments(args=None):
         filter_languages=ns.languages,
         naming_strategy=ns.naming_strategy,
         providers=ns.providers,
-        proxy=ns.proxy,
         test=ns.test,
     )
 
@@ -72,7 +71,6 @@ def get_argument_options(client,
                          filter_languages=None,
                          naming_strategy=SubtitleNamingStrategy.VIDEO_LANG,
                          providers=None,
-                         proxy=None,
                          test=None,):
     return ArgumentSettings(
         program=ArgumentProgramSettings(
@@ -96,7 +94,6 @@ def get_argument_options(client,
             naming_strategy=naming_strategy,
         ),
         providers=providers,
-        proxy=proxy,
         test=test,
     )
 
@@ -107,7 +104,6 @@ ArgumentSettings = namedtuple('ArgumentSettings', (
     'filter',
     'download',
     'providers',
-    'proxy',
     'test',
 ))
 
@@ -153,15 +149,6 @@ FilterSettings = namedtuple('FilterSettings', (
 DownloadSettings = namedtuple('DownloadSettings', (
     'naming_strategy',
 ))
-
-
-class ProxyAction(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        try:
-            [host, port] = values.split(':')
-            setattr(namespace, self.dest, Proxy(host, int(port)))
-        except ValueError:
-            parser.error(_('Not a valid proxy address: "{}"').format(values))
 
 
 class LanguagesAction(argparse.Action):
@@ -303,8 +290,6 @@ def get_argument_parser():
 
     # online options
     online_group = parser.add_argument_group('online', 'Change parameters related to the online provider.')
-    online_group.add_argument('-P', '--proxy', dest='proxy', default=None, action=ProxyAction,
-                              help=_('Proxy to use on internet connections.'))
     online_group.add_argument('--provider', dest='providers', metavar='NAME [KEY1=VALUE1 [KEY2=VALUE2 [...]]]',
                               nargs=argparse.ONE_OR_MORE, default=None, action=ProviderAction,
                               help=_('Enable and configure a provider.'))

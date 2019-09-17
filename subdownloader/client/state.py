@@ -19,8 +19,6 @@ from subdownloader.text_query import SubtitlesTextQuery
 
 log = logging.getLogger('subdownloader.client.state')
 
-Proxy = namedtuple('Proxy', ('host', 'port'))
-
 ProviderData = namedtuple('ProviderData', ('provider', 'kwargs'))
 
 
@@ -74,8 +72,6 @@ class StateConfigKey(Enum):
     SUBTITLE_NAMING_STRATEGY = ('options', 'subtitleName',)
     DOWNLOAD_PATH = ('options', 'whereToDownloadFolder', )
     INTERFACE_LANGUAGE = ('options', 'interfaceLang', )
-    PROXY_HOST = ('options', 'ProxyHost', )
-    PROXY_PORT = ('options', 'ProxyPort', )
 
 
 # FIXME: add more logging
@@ -231,9 +227,6 @@ class BaseState(object):
         self._default_download_path = Path().resolve()
 
         self._videoplayer = None
-
-        self._proxy = None
-
     @property
     def providers(self):
         return self._providersState
@@ -254,9 +247,6 @@ class BaseState(object):
         subtitle_naming_strategy = options.download.naming_strategy
         if subtitle_naming_strategy is not None:
             self.set_subtitle_naming_strategy(subtitle_naming_strategy)
-
-        if options.proxy is not None:
-            self.set_proxy(options.proxy)
 
         # FIXME: log state
 
@@ -283,13 +273,6 @@ class BaseState(object):
         if default_download_path_str:
             self.set_subtitle_download_path_strategy(default_download_path_str)
 
-
-        proxy_host = settings.get_str(StateConfigKey.PROXY_HOST.value, None)
-        proxy_port = settings.get_int(StateConfigKey.PROXY_PORT.value, None)
-        if None not in (proxy_host, proxy_port):
-            proxy = Proxy(proxy_host, proxy_port)
-            self.set_proxy(proxy)
-
         videoplayer = VideoPlayer.from_settings(settings)
         if videoplayer is None:
             videoplayer = VideoPlayer.find()
@@ -309,14 +292,6 @@ class BaseState(object):
 
         settings.set_languages(StateConfigKey.FILTER_LANGUAGES.value, self.get_download_languages())
         settings.set_language(StateConfigKey.UPLOAD_LANGUAGE.value, self.get_upload_language())
-
-        proxy = self.get_proxy()
-        if proxy:
-            settings.set_str(StateConfigKey.PROXY_HOST.value, proxy.host)
-            settings.set_int(StateConfigKey.PROXY_PORT.value, proxy.port)
-        else:
-            settings.remove_key(StateConfigKey.PROXY_HOST.value)
-            settings.remove_key(StateConfigKey.PROXY_PORT.value)
 
         self._videoplayer.save_settings(settings)
 
@@ -366,13 +341,6 @@ class BaseState(object):
 
     def set_upload_language(self, lang):
         self._upload_language = lang
-
-    def get_proxy(self):
-        return self._proxy
-
-    def set_proxy(self, proxy):
-        log.debug('set_proxy({})'.format(proxy))
-        self._proxy = proxy
 
     def get_subtitle_naming_strategy(self):
         return self._naming_strategy
