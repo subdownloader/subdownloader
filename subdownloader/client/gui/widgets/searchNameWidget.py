@@ -31,16 +31,18 @@ class SearchNameWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
 
+        self._state_old = None  # FIXME: Remove
         self._state = None
         self.moviesModel = None
 
         self.ui = Ui_SearchNameWidget()
         self.setup_ui()
 
-    def set_state(self, state):
+    def set_state(self, state_old, state):
+        self._state_old = state_old  # FIXME: Remove
         self._state = state
-        self._state.login_status_changed.connect(self.on_login_state_changed)
-        self._state.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state_old.login_status_changed.connect(self.on_login_state_changed)
+        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state

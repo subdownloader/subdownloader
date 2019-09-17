@@ -47,6 +47,7 @@ class SearchFileWidget(QWidget):
         self.proxyFileModel = None
         self.videoModel = None
 
+        self._state_old = None  # FIXME: Remove
         self._state = None
 
         self.timeLastSearch = QTime.currentTime()
@@ -54,13 +55,14 @@ class SearchFileWidget(QWidget):
         self.ui = Ui_SearchFileWidget()
         self.setup_ui()
 
-    def set_state(self, state):
+    def set_state(self, state_old, state):
+        self._state_old = state_old  # FIXME: Remove
         self._state = state
-        self._state.login_status_changed.connect(self.on_login_state_changed)
-        self._state.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state_old.login_status_changed.connect(self.on_login_state_changed)
+        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
-        return self._state
+        return self._state_old
 
     def setup_ui(self):
         self.ui.setupUi(self)
@@ -420,10 +422,11 @@ class SearchFileWidget(QWidget):
             return
 
         video = selected_subtitle.get_parent().get_parent().get_parent()
-
+        # FIXME: download subtitle with provider + use returned localSubtitleFile instead of creating one here
+        local_subtitle = LocalSubtitleFile(subtitle_file_path)
         try:
             player = self._state.get_videoplayer()
-            player.play_video(video, selected_subtitle)
+            player.play_video(video, local_subtitle)
         except RuntimeError as e:
             QMessageBox.about(self, _('Error'), e.args[0])
 

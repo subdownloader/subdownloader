@@ -51,9 +51,9 @@ class Main(QMainWindow):
 
         self.setup_ui()
 
-        self.ui.tabSearchFile.set_state(self._state_original)
-        self.ui.tabSearchName.set_state(self._state_original)
-        self.ui.tabUpload.set_state(self._state_original)
+        self.ui.tabSearchFile.set_state(self._state_original, self._state)
+        self.ui.tabSearchName.set_state(self._state_original, self._state)
+        self.ui.tabUpload.set_state(self._state_original, self._state)
 
         self._state_original.login_status_changed.connect(self.on_login_state_changed)
 

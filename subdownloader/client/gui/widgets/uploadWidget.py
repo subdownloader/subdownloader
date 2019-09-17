@@ -22,7 +22,8 @@ class UploadWidget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
 
-        self._state = None
+        self._state = None  # FIXME: Remove
+        self._state_old = None
         self._default_language_selected = False
 
         self._imdb_history_model = ImdbHistoryModel()
@@ -30,14 +31,15 @@ class UploadWidget(QWidget):
         self.ui = Ui_UploadWidget()
         self.setup_ui()
 
-    def set_state(self, state):
+    def set_state(self, state_old, state):
+        self._state_old = state_old  # FIXME: Remove
         self._state = state
-        self._state.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
 
-        self._state.login_status_changed.connect(self.on_upload_data_changed)
+        self._state_old.login_status_changed.connect(self.on_upload_data_changed)
 
     def get_state(self):
-        return self._state
+        return self._state_old
 
     def setup_ui(self):
         self.ui.setupUi(self)
@@ -190,7 +192,7 @@ class UploadWidget(QWidget):
         return self._imdb_history_model.index_to_identity(index_identity)
 
     def can_upload(self):
-        if not self._state.connected():
+        if not self._state_old.connected():
             return False
         if not self.ui.uploadReleaseText.text().strip():
             return False
