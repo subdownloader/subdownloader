@@ -102,7 +102,7 @@ class Main(QMainWindow):
 
         self.ui.label_version.setText(PROJECT_VERSION_FULL_STR)
 
-        self._state_original.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
 
     def retranslate(self):
         pass

@@ -42,7 +42,7 @@ class SearchNameWidget(QWidget):
         self._state_old = state_old  # FIXME: Remove
         self._state = state
         self._state_old.login_status_changed.connect(self.on_login_state_changed)
-        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state
@@ -92,7 +92,7 @@ class SearchNameWidget(QWidget):
     @pyqtSlot(Language)
     def on_language_combobox_filter_change(self, language):
         if language.is_generic():
-            self.language_filter_change.emit(self.get_state().get_permanent_language_filter())
+            self.language_filter_change.emit(self._state.get_download_languages())
         else:
             self.language_filter_change.emit([language])
 

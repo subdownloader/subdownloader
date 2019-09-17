@@ -266,7 +266,7 @@ class PreferencesDialog(QDialog):
         new_interface_language = self.ui.optionInterfaceLanguage.get_selected_language()
         self._state_new.set_interface_language(new_interface_language)
         if self._original_interface_language != new_interface_language:
-            self._state.interface_language_changed.emit(new_interface_language)
+            self._state_new.signals.interface_language_changed.emit(new_interface_language)
 
         # - video player
 

@@ -4,9 +4,7 @@
 import logging
 import os
 from pathlib import Path
-import shlex
 import sys
-import subprocess
 import tempfile
 import webbrowser
 
@@ -59,7 +57,7 @@ class SearchFileWidget(QWidget):
         self._state_old = state_old  # FIXME: Remove
         self._state = state
         self._state_old.login_status_changed.connect(self.on_login_state_changed)
-        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
 
     def get_state(self):
         return self._state_old
@@ -128,13 +126,11 @@ class SearchFileWidget(QWidget):
         self.ui.videoView.setContextMenuPolicy(Qt.CustomContextMenu)
 
         # Drag and Drop files to the videoView enabled
+        # FIXME: enable drag events for videoView (and instructions view)
         self.ui.videoView.__class__.dragEnterEvent = self.dragEnterEvent
         self.ui.videoView.__class__.dragMoveEvent = self.dragEnterEvent
         self.ui.videoView.__class__.dropEvent = self.dropEvent
         self.ui.videoView.setAcceptDrops(1)
-
-        # FIXME: ok to drop this connect?
-        # self.ui.videoView.clicked.connect(self.onClickMovieTreeView)
 
         self.retranslate()
 
@@ -191,7 +187,7 @@ class SearchFileWidget(QWidget):
     @pyqtSlot(Language)
     def on_language_combobox_filter_change(self, language):
         if language.is_generic():
-            self.language_filter_change.emit(self.get_state().get_permanent_language_filter())
+            self.language_filter_change.emit(self._state.get_download_languages())
         else:
             self.language_filter_change.emit([language])
 
@@ -221,10 +217,8 @@ class SearchFileWidget(QWidget):
             return
 
         index = self.proxyFileModel.mapToSource(proxyIndex)
-        settings = QSettings()
         folder_path = self.fileModel.filePath(index)
-        settings.setValue('mainwindow/workingDirectory', folder_path)
-        # self.ui.buttonFind.setEnabled(self.get_state().)
+        self._state.set_video_paths([folder_path])
 
     def get_current_selected_folder(self):
         proxyIndex = self.ui.folderView.currentIndex()
@@ -359,7 +353,6 @@ class SearchFileWidget(QWidget):
         callback.set_range(0, 2)
 
         download_callback = callback.get_child_progress(0, 1)
-        # videoSearchResults = self.get_state().get_OSDBServer().SearchSubtitles("", videos_piece)
         try:
             remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
         except ProviderConnectionError:

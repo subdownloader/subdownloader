@@ -19,10 +19,12 @@ log = logging.getLogger('subdownloader.client.gui.state')
 #FIXME: add logging!!
 
 
-class State(QObject):
-
+class GuiStateSignals(QObject):
     interface_language_changed = pyqtSignal(Language)
+    login_status_changed = pyqtSignal(int, str)
 
+
+class State(QObject):
     def __init__(self, parent, options):
         QObject.__init__(self, parent)
 
@@ -222,6 +224,11 @@ class State(QObject):
 class GuiState(BaseState):
     def __init__(self):
         BaseState.__init__(self)
+        self._signals = GuiStateSignals()
+
+    @property
+    def signals(self):
+        return self._signals
 
     def load_settings(self, settings):
         BaseState.load_settings(self, settings)

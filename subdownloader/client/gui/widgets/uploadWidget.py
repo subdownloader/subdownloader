@@ -34,7 +34,7 @@ class UploadWidget(QWidget):
     def set_state(self, state_old, state):
         self._state_old = state_old  # FIXME: Remove
         self._state = state
-        self._state_old.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
 
         self._state_old.login_status_changed.connect(self.on_upload_data_changed)
 
