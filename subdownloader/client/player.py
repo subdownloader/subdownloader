@@ -55,9 +55,9 @@ class VideoPlayer(object):
         predefined_video_player = None
         if platform.system() == 'Linux':
             linux_players = {
-                'vlc': {'parameters': '{0} -sub {1}'},
-                'mplayer': {'parameter': '{0} --sub-file {1}'},
-                'xine': {'parameter': '{0}#subtitle:{1}'},
+                'vlc': {'parameters': '{0} --sub-file {1}'},
+                'mplayer': {'parameters': '{0} -sub {1}'},
+                'xine': {'parameters': '{0}#subtitle:{1}'},
             }
             for player_name, player_data in linux_players.items():
                 if player_name_requested is not None and player_name_requested != player_name:
