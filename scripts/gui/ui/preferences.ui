@@ -284,23 +284,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="textIntegrationExplorer">
-            <property name="text">
-             <string>Context Menu:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QCheckBox" name="optionIntegrationExplorer">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Enable in your Konqueror/Dolphin/Nautilus</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -424,7 +407,6 @@
   <tabstop>optionUlDefaultLanguage</tabstop>
   <tabstop>optionInterfaceLanguage</tabstop>
   <tabstop>buttonHelpTranslation</tabstop>
-  <tabstop>optionIntegrationExplorer</tabstop>
   <tabstop>inputVideoAppLocation</tabstop>
   <tabstop>buttonVideoAppLocationChoose</tabstop>
   <tabstop>inputVideoAppParams</tabstop>

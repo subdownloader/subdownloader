@@ -166,13 +166,10 @@ class PreferencesDialog(QDialog):
         self.ui.buttonHelpTranslation.clicked.connect(
             self.onHelpTranslate)
 
-        self.settings = QSettings()  # FIXME: use config path
-
         self.readSettings()
 
     def readSettings(self):
         log.debug('readSettings: start')
-        self.settings.sync()
 
         # 1. Search tab
         checked_languages = self._state_new.get_download_languages()
@@ -225,28 +222,10 @@ class PreferencesDialog(QDialog):
         self._original_interface_language = optionInterfaceLanguage
         self.ui.optionInterfaceLanguage.set_selected_language(optionInterfaceLanguage)
 
-        optionIntegrationExplorer = self.settings.value(
-            "options/IntegrationExplorer", False)
-        self.ui.optionIntegrationExplorer.setChecked(optionIntegrationExplorer)
-
         playerPath = self._state_new.get_videoplayer().get_path()
         playerParams = self._state_new.get_videoplayer().get_command()
         self.ui.inputVideoAppLocation.setText(playerPath)
         self.ui.inputVideoAppParams.setText(playerParams)
-
-        # Context menu for Explorer
-        if platform.system() == "Linux":
-            self.ui.optionIntegrationExplorer.setText(
-                _("Enable in your Konqueror/Dolphin/Nautilus"))
-            self.ui.optionIntegrationExplorer.setEnabled(False)
-        elif platform.system() == "Windows":
-            self.ui.optionIntegrationExplorer.setText(
-                _("Enable in your Windows Explorer"))
-            self.ui.optionIntegrationExplorer.setEnabled(False)
-        else:
-            self.ui.optionIntegrationExplorer.setText(
-                _("Enable in your File Manager"))
-            self.ui.optionIntegrationExplorer.setEnabled(False)
 
         log.debug('readSettings: finish')
 
@@ -289,29 +268,16 @@ class PreferencesDialog(QDialog):
         if self._original_interface_language != new_interface_language:
             self._state.interface_language_changed.emit(new_interface_language)
 
-        # Writing settings
-
-        IEoldValue = self.settings.value(
-            "options/IntegrationExplorer", False)
-        IEnewValue = self.ui.optionIntegrationExplorer.isChecked()
-        if IEoldValue != IEnewValue:
-            if IEnewValue:
-                log.debug('Installing the Integration Explorer feature')
-                ok = self.actionContextMenu("install", platform.system())
-            else:
-                log.debug('Uninstalling the Integration Explorer feature')
-                ok = self.actionContextMenu("uninstall", platform.system())
-            if ok:
-                self.settings.setValue("options/IntegrationExplorer", IEnewValue)
+        # - video player
 
         playerPath = self.ui.inputVideoAppLocation.text()
         playerParams = self.ui.inputVideoAppParams.text()
         videoPlayer = VideoPlayer(playerPath, playerParams)
         self._state_new.set_videoplayer(videoPlayer)
 
-        self._state_new.save_settings(self._settings_new)
+        # Finally, write to disk
 
-        self.settings.sync()
+        self._state_new.save_settings(self._settings_new)
         log.debug('saveSettings: finish')
 
     # 0. Interface
