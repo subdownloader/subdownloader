@@ -141,6 +141,9 @@ class SubtitleFileNetwork(SubtitleFile):
     def __getitem__(self, item):
         return self._subtitles[item]
 
+    def __repr__(self):
+        return '<SubtitleFileNetwork:lang={},len={}>'.format(self.get_language(), len(self))
+
 
 class SubtitleFileStorage(SubtitleFile):
     def __init__(self, parent, language, file_size, md5_hash):
