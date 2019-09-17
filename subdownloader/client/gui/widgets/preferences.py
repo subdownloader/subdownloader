@@ -224,7 +224,7 @@ class PreferencesDialog(QDialog):
 
         playerPath = self._state_new.get_videoplayer().get_path()
         playerParams = self._state_new.get_videoplayer().get_command()
-        self.ui.inputVideoAppLocation.setText(playerPath)
+        self.ui.inputVideoAppLocation.setText(str(playerPath))
         self.ui.inputVideoAppParams.setText(playerParams)
 
         log.debug('readSettings: finish')
@@ -270,7 +270,7 @@ class PreferencesDialog(QDialog):
 
         # - video player
 
-        playerPath = self.ui.inputVideoAppLocation.text()
+        playerPath = Path(self.ui.inputVideoAppLocation.text())
         playerParams = self.ui.inputVideoAppParams.text()
         videoPlayer = VideoPlayer(playerPath, playerParams)
         self._state_new.set_videoplayer(videoPlayer)
