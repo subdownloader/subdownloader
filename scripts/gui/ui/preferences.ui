@@ -243,65 +243,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabNetwork">
-      <attribute name="title">
-       <string>Network</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QGroupBox" name="groupNetworkProxy">
-         <property name="title">
-          <string>Network Proxy</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="textProxyHost">
-            <property name="text">
-             <string>Host:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="inputProxyHost"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="textProxyPort">
-            <property name="text">
-             <string>Port:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="inputProxyPort">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximum">
-             <number>99999</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <spacer name="spacerTabNetwork">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tabOthers">
       <attribute name="title">
        <string>Others</string>
@@ -481,8 +422,6 @@
   <tabstop>optionSubFnSameLangUploader</tabstop>
   <tabstop>optionSubFnOnline</tabstop>
   <tabstop>optionUlDefaultLanguage</tabstop>
-  <tabstop>inputProxyHost</tabstop>
-  <tabstop>inputProxyPort</tabstop>
   <tabstop>optionInterfaceLanguage</tabstop>
   <tabstop>buttonHelpTranslation</tabstop>
   <tabstop>optionIntegrationExplorer</tabstop>

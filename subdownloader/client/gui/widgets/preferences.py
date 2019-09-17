@@ -151,11 +151,7 @@ class PreferencesDialog(QDialog):
 
         # 4. Providers tab
 
-        # 5. Network tab
-
-        self.ui.inputProxyPort.setRange(0, 65535)
-
-        # 6. Others tab
+        # 5. Others tab
 
         # - Interface Language
 
@@ -215,26 +211,19 @@ class PreferencesDialog(QDialog):
 
         # - Default Subtitle Language
 
-        optionUploadLanguage = self.settings.value('options/uploadLanguage', self.DEFAULT_UL_LANG.xxx())
-        self._uploadLanguage = Language.from_xxx(optionUploadLanguage)
-
+        self._uploadLanguage = self._state_new.get_upload_language()
+        self._originalUploadLanguage = self._uploadLanguage
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
-        # 4. Network tab
-
-        self.ui.inputProxyHost.setText(
-            self.settings.value("options/ProxyHost", ""))
-        self.ui.inputProxyPort.setValue(int(
-            self.settings.value("options/ProxyPort", 8080)))
+        # 4. Providers' tab
 
         # 5. Others tab
 
         # - Interface Language
 
         optionInterfaceLanguage = self._state_new.get_interface_language()
-        # optionInterfaceLanguage = self.settings.value('options/interfaceLang', self.DEFAULT_INTERFACE_LANG.locale())
-        self._original_interface_language = Language.from_locale(optionInterfaceLanguage)
-        self.ui.optionInterfaceLanguage.set_selected_language(self._original_interface_language)
+        self._original_interface_language = optionInterfaceLanguage
+        self.ui.optionInterfaceLanguage.set_selected_language(optionInterfaceLanguage)
 
         optionIntegrationExplorer = self.settings.value(
             "options/IntegrationExplorer", False)
@@ -285,8 +274,11 @@ class PreferencesDialog(QDialog):
 
         # - Default Subtitle Language
 
-        self.settings.setValue('options/uploadLanguage', self._uploadLanguage.xxx())
-        self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
+        self._state_new.set_upload_language(self._uploadLanguage)
+        if self._uploadLanguage != self._originalUploadLanguage:
+            self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
+
+        # 4. Providers' tab
 
         # 5. Others tab
 
@@ -294,7 +286,6 @@ class PreferencesDialog(QDialog):
 
         new_interface_language = self.ui.optionInterfaceLanguage.get_selected_language()
         self._state_new.set_interface_language(new_interface_language)
-        # self.settings.setValue('options/interfaceLang', new_interface_language.locale())
         if self._original_interface_language != new_interface_language:
             self._state.interface_language_changed.emit(new_interface_language)
 
@@ -312,16 +303,6 @@ class PreferencesDialog(QDialog):
                 ok = self.actionContextMenu("uninstall", platform.system())
             if ok:
                 self.settings.setValue("options/IntegrationExplorer", IEnewValue)
-
-        newProxyHost = self.ui.inputProxyHost.text()
-        newProxyPort = self.ui.inputProxyPort.value()
-        oldProxyHost = self.settings.value("options/ProxyHost", "")
-        oldProxyPort = int(self.settings.value("options/ProxyPort", 8080))
-        if newProxyHost != oldProxyHost or newProxyPort != oldProxyPort:
-            self.settings.setValue("options/ProxyHost", newProxyHost)
-            self.settings.setValue("options/ProxyPort", newProxyPort)
-            QMessageBox.about(self, _("Alert"), _(
-                "Modified proxy settings will take effect after restarting the program"))
 
         playerPath = self.ui.inputVideoAppLocation.text()
         playerParams = self.ui.inputVideoAppParams.text()

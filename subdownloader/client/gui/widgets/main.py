@@ -144,14 +144,12 @@ class Main(QMainWindow):
         else:
             log.warning('unknown state')
 
-    @staticmethod
-    def setup_interface_language():
-        settings = QSettings()
-        interface_locale = settings.value('options/interfaceLang', language.UnknownLanguage.create_generic().locale())
-        interface_lang = language.Language.from_locale(interface_locale)
-
+    def setup_interface_language(self):
+        interface_lang = self._state.get_interface_language()
         if interface_lang.is_generic():
             interface_locale = None
+        else:
+            interface_locale = interface_lang.locale()
 
         i18n_install(lc=interface_locale)
 
