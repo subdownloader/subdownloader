@@ -84,17 +84,31 @@ class Author(object):
             mail=self.mail()
         )
 
-DEVELOPERS = [
-    Author('Ivan Garcia', 'ivangarcia@subdownloader.net'),
-    Author('Marco Ferreira', 'mferreira@subdownloader.net'),
-    Author('Marco Rodrigues', 'gothicx@gmail.com'),
-    Author('Anonymous Maarten', 'anonymous.maarten@gmail.com'),
-    Author('Sergio Basto', 'sergio@serjux.com'),
-]
 
-TRANSLATORS = [
-    Author('Sylvestre Ledru', 'sylvestre@debian.org'),
-]
+class Translator(Author):
+    def __init__(self, name, mail, languages):
+        Author.__init__(self, name, mail)
+        self._languages = languages
+
+    def languages(self):
+        return self._languages
+
+
+def developers_get():
+    return (
+        Author('Ivan Garcia', 'ivangarcia@subdownloader.net'),
+        Author('Marco Ferreira', 'mferreira@subdownloader.net'),
+        Author('Marco Rodrigues', 'gothicx@gmail.com'),
+        Author('Anonymous Maarten', 'anonymous.maarten@gmail.com'),
+        Author('Sergio Basto', 'sergio@serjux.com'),
+    )
+
+
+def translators_get():
+    from subdownloader.languages.language import Language
+    return (
+        Translator('Sylvestre Ledru', 'sylvestre@debian.org', (Language.from_xx('fr'),)),
+    )
 
 
 def subdownloader_path():
