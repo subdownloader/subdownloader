@@ -15,7 +15,6 @@ class ProgressCallbackWidget(ClientCallback):
     def __init__(self, parent):
         ClientCallback.__init__(self)
 
-        self.status_progress = None
         self._parent = parent
         self._block = False
 
@@ -26,8 +25,6 @@ class ProgressCallbackWidget(ClientCallback):
         self._cancellable = True
 
         self.status_progress = QProgressDialog(self._parent, Qt.Dialog)
-
-        self.status_progress.setWindowModality(Qt.WindowModal)
 
         self.set_range(0, 1)
 
@@ -92,8 +89,8 @@ class ProgressCallbackWidget(ClientCallback):
     def on_finish(self, *args, **kwargs):
         # FIXME: let the caller format the strings
         finishedMsg = self._finished_text.format(*args)
-        # self.status_progress.setLabelText(finishedMsg)
-        self.status_progress.hide()
+        self.status_progress.setLabelText(finishedMsg)
+        self.status_progress.done(0)
         if self._block:
             self._parent.setCursor(Qt.ArrowCursor) # FIXME: restoreCursor? setCursor only in this class!!
         QCoreApplication.processEvents()
