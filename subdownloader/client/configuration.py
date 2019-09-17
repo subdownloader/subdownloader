@@ -2,6 +2,7 @@
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 import configparser
+from enum import Enum
 import logging
 from pathlib import Path
 
@@ -43,6 +44,8 @@ class Settings(object):
         return section, option
 
     def _load_str(self, section_path):
+        if isinstance(section_path, Enum):
+            raise RuntimeError('Settings key should not be an enum. Did you forget ".value"?')
         try:
             section, option = section_path
         except TypeError:
