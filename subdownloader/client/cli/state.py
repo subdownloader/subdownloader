@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
-from pathlib import Path
-
 from subdownloader.client.state import BaseState, SubtitlePathStrategy
+from subdownloader.client.player import VideoPlayer
 
 
 class CliState(BaseState):
@@ -33,6 +32,8 @@ class CliState(BaseState):
         self._recursive = options.search.recursive
 
         self.set_subtitle_naming_strategy(options.download.naming_strategy)
+
+        self.set_videoplayer(VideoPlayer.find())
 
     def get_console(self):
         return self._console

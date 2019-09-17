@@ -421,28 +421,11 @@ class SearchFileWidget(QWidget):
 
         video = selected_subtitle.get_parent().get_parent().get_parent()
 
-        args = [programPath]
-
         try:
-            parameters_args = shlex.split(parameters)
-        except ValueError:
-            QMessageBox.about(
-                self, _('Error'), _('Unable to launch videoplayer'))
-            return
-
-        for param in parameters_args:
-            args.append(param.format(video.get_filepath(), subtitle_file_path))
-
-        log.debug('Video player arguments: {}'.format(args))
-        try:
-            log.debug('Trying to create subprocess...')
-            p = subprocess.Popen(args)
-            log.debug("... SUCCESS: pid = {}".format(p.pid))
-        except IOError:
-            log.debug('... FAIL', exc_info=True)
-            QMessageBox.about(
-                self, _('Error'), _('Unable to launch videoplayer'))
-            return
+            player = self._state.get_videoplayer()
+            player.play_video(video, selected_subtitle)
+        except RuntimeError as e:
+            QMessageBox.about(self, _('Error'), e.args[0])
 
     @pyqtSlot(QModelIndex)
     def onClickVideoTreeView(self, index):

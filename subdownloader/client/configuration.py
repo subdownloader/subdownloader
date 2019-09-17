@@ -16,9 +16,14 @@ class SettingsError(Exception):
         Exception.__init__(self, msg)
 
 
+class KeepCaseConfigParser(configparser.ConfigParser):
+    def optionxform(self, option):
+        return option
+
+
 class Settings(object):
     def __init__(self, path):
-        self._cfg = configparser.ConfigParser()
+        self._cfg = KeepCaseConfigParser()
         self._path = path
         self._dirty = False
 

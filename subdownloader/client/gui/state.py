@@ -227,3 +227,15 @@ class GuiState(BaseState):
         BaseState.load_settings(self, settings)
 
         self.set_video_paths([settings.get_path(StateConfigKey.VIDEO_PATH.value, Path().resolve())])
+
+        interface_language = settings.get_language(StateConfigKey.INTERFACE_LANGUAGE.value)
+        if interface_language is not None:
+            self.set_upload_language(interface_language)
+
+    def save_settings(self, settings):
+        BaseState.save_settings(self, settings)
+
+        settings.set_language(StateConfigKey.INTERFACE_LANGUAGE.value, self.get_interface_language())
+
+    def load_options(self, options):
+        BaseState.load_options(self, options)

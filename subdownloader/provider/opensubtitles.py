@@ -30,12 +30,14 @@ log = logging.getLogger('subdownloader.provider.opensubtitles')
 class OpenSubtitles(SubtitleProvider):
     URL = 'http://api.opensubtitles.org/xml-rpc'
 
-    def __init__(self):
+    def __init__(self, settings=None):
         SubtitleProvider.__init__(self)
         self._xmlrpc = None
         self._token = None
 
-        self._settings = OpenSubtitlesSettings()
+        if settings is None:
+            settings = OpenSubtitlesSettings()
+        self._settings = settings
 
     def get_settings(self):
         return self._settings

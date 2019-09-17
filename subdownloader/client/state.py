@@ -8,6 +8,7 @@ import os.path
 from pathlib import Path
 import platform
 
+from subdownloader.client.player import VideoPlayer
 from subdownloader.client import ClientType, IllegalArgumentException
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
 from subdownloader.project import PROJECT_TITLE
@@ -72,6 +73,7 @@ class StateConfigKey(Enum):
     SUBTITLE_PATH_STRATEGY = ('options', 'whereToDownload', )
     SUBTITLE_NAMING_STRATEGY = ('options', 'subtitleName',)
     DOWNLOAD_PATH = ('options', 'whereToDownloadFolder', )
+    INTERFACE_LANGUAGE = ('options', 'interfaceLang', )
     PROXY_HOST = ('options', 'ProxyHost', )
     PROXY_PORT = ('options', 'ProxyPort', )
 
@@ -88,8 +90,9 @@ class ProvidersState(object):
             self._load_provider_settings(provider, settings)
 
     def save_settings(self, settings):
-        for provider in self._providers:
-            raise NotImplementedError('TODO!')
+        # for provider in self._providers:
+        #     raise NotImplementedError('TODO!')
+        print('SAVING providers\' settings not implemented yet!')
 
     def load_options(self, options):
         providers_cls = ProviderFactory.list()
@@ -136,6 +139,7 @@ class ProvidersState(object):
         except StopIteration:
             return None
         return provider
+
     def _item_to_providers(self, item):
         if item is None:
             providers = self._providers
@@ -217,12 +221,16 @@ class BaseState(object):
         self._recursive = False
         self._video_paths = []
 
+        self._interface_language = UnknownLanguage.create_generic()
+
         self._upload_language = None
         self._download_languages = []
 
-        self._naming_strategy = SubtitleNamingStrategy.ONLINE
-        self._download_path_strategy = SubtitlePathStrategy.PREDEFINED
+        self._naming_strategy = SubtitleNamingStrategy.VIDEO
+        self._download_path_strategy = SubtitlePathStrategy.SAME
         self._default_download_path = Path().resolve()
+
+        self._videoplayer = None
 
         self._proxy = None
 
@@ -271,11 +279,21 @@ class BaseState(object):
         if download_path_strategy_str:
             self.set_subtitle_download_path_strategy(SubtitlePathStrategy.from_str(download_path_strategy_str))
 
+        default_download_path_str = settings.get_path(StateConfigKey.DOWNLOAD_PATH.value, None)
+        if default_download_path_str:
+            self.set_subtitle_download_path_strategy(default_download_path_str)
+
+
         proxy_host = settings.get_str(StateConfigKey.PROXY_HOST.value, None)
         proxy_port = settings.get_int(StateConfigKey.PROXY_PORT.value, None)
         if None not in (proxy_host, proxy_port):
             proxy = Proxy(proxy_host, proxy_port)
             self.set_proxy(proxy)
+
+        videoplayer = VideoPlayer.from_settings(settings)
+        if videoplayer is None:
+            videoplayer = VideoPlayer.find()
+        self._videoplayer = videoplayer
 
     def save_settings(self, settings):
         self._providersState.save_settings(settings)
@@ -287,6 +305,7 @@ class BaseState(object):
 
         settings.set_str(StateConfigKey.SUBTITLE_NAMING_STRATEGY.value, self.get_subtitle_naming_strategy().value)
         settings.set_str(StateConfigKey.SUBTITLE_PATH_STRATEGY.value, self.get_subtitle_download_path_strategy().value)
+        settings.set_path(StateConfigKey.DOWNLOAD_PATH.value, self.get_default_download_path())
 
         settings.set_languages(StateConfigKey.FILTER_LANGUAGES.value, self.get_download_languages())
         settings.set_language(StateConfigKey.UPLOAD_LANGUAGE.value, self.get_upload_language())
@@ -298,6 +317,8 @@ class BaseState(object):
         else:
             settings.remove_key(StateConfigKey.PROXY_HOST.value)
             settings.remove_key(StateConfigKey.PROXY_PORT.value)
+
+        self._videoplayer.save_settings(settings)
 
         settings.write()
 
@@ -325,6 +346,12 @@ class BaseState(object):
     def set_video_paths(self, video_paths):
         log.debug('set_video_paths({})'.format(video_paths))
         self._video_paths = video_paths
+
+    def get_interface_language(self):
+        return self._interface_language
+
+    def set_interface_language(self, interface_language):
+        self._interface_language = interface_language
 
     # FIXME: change to filter languages
     def get_download_languages(self):
@@ -357,16 +384,23 @@ class BaseState(object):
     def get_subtitle_download_path_strategy(self):
         return self._download_path_strategy
 
-    def set_subtitle_download_path_strategy(self, strategy, write=False):
+    def set_subtitle_download_path_strategy(self, strategy):
         log.debug('set_subtitle_download_path_strategy({})'.format(strategy))
         self._download_path_strategy = strategy
 
     def get_default_download_path(self):
         return self._default_download_path
 
-    def set_default_download_path(self, path, write=False):
+    def set_default_download_path(self, path):
         log.debug('set_default_download_path({})'.format(path))
         self._default_download_path = path
+
+    def get_videoplayer(self):
+        return self._videoplayer
+
+    def set_videoplayer(self, videoplayer):
+        log.debug('set_videoplayer({})'.format(videoplayer))
+        self._videoplayer = videoplayer
 
     @staticmethod
     def get_system_language():
