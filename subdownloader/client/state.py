@@ -14,7 +14,7 @@ from subdownloader.client.internationalization import i18n_system_locale, i18n_l
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory
-from subdownloader.provider.provider import SubtitleProvider
+from subdownloader.provider.provider import ProviderSettingsType, SubtitleProvider
 from subdownloader.text_query import SubtitlesTextQuery
 
 log = logging.getLogger('subdownloader.client.state')
@@ -104,19 +104,35 @@ class ProviderState(object):
     def load_settings(self, settings):
         # FIXME: test parsing provider settings
         section = self._settings_section
+        self.setEnabled(settings.get_bool((section, '_enabled'), True))
         provider_settings = self._provider.get_settings()
         new_provider_data = {}
-        for k, v in provider_settings.as_dict().items():
-            d = settings.get_str((section, k), v)
-            new_provider_data[k] = d
-        new_settings = provider_settings.load(**new_provider_data)
-        self.setEnabled(settings.get_bool((section, '_enabled'), True))
-        self._provider.set_settings(new_settings)
+        data = provider_settings.as_dict()
+        for key, key_type in provider_settings.key_types().items():
+            v = data[key]
+            if key_type == ProviderSettingsType.String:
+                d = settings.get_str((section, key), v)
+            elif key_type == ProviderSettingsType.Password:
+                d = settings.get_str((section, key), v)
+            else:
+                raise RuntimeError('Unknown provider settings type: {}'.format(key_type))
+            data[key] = d
+        settings_new = provider_settings.load(**data)
+        self._provider.set_settings(settings_new)
 
     def save_settings(self, settings):
         section = self._settings_section
         settings.set_bool((section, '_enabled'), self.getEnabled())
-        print('SAVING providers\' settings not implemented yet!')
+        provider_settings = self._provider.get_settings()
+        data = provider_settings.as_dict()
+        for key, key_type in provider_settings.key_types().items():
+            v = data[key]
+            if key_type == ProviderSettingsType.String:
+                settings.set_str((section, key), v)
+            elif key_type == ProviderSettingsType.Password:
+                settings.set_str((section, key), v)
+            else:
+                raise RuntimeError('Unknown provider settings type: {}'.format(key_type))
 
     @property
     def _settings_section(self):
