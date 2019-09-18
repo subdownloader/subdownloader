@@ -172,7 +172,7 @@ class ProviderAction(argparse.Action):
         if providers is None:
             providers = {}
             setattr(namespace, self.dest, providers)
-        provider_str = values[0]
+        provider_str = values[0].lower()
         try:
             kwargs = providers[provider_str].kwargs
         except KeyError:

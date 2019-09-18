@@ -154,7 +154,8 @@ class PreferencesDialog(QDialog):
 
         # 4. Providers tab
 
-        for provider in self._state.providers.iter():
+        for providerState in self._state.providers.iter_all():
+            provider = providerState.provider
             provider_name = provider.get_name()
             self.ui.providerComboBox.addItem(provider_name, provider)
             providerWidget = QWidget()
@@ -178,7 +179,7 @@ class PreferencesDialog(QDialog):
                                                    _('Please open an issue'))))
                     continue
                 providerLayout.addRow(key.capitalize(), widget)
-                ui_items[provider_name] = widget
+                ui_items[key] = widget
             providerWidget.setLayout(providerLayout)
             self.ui.providerStack.addWidget(providerWidget)
             self.providers_ui[provider_name] = ui_items
@@ -245,9 +246,19 @@ class PreferencesDialog(QDialog):
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         # 4. Providers' tab
-        for provider in self._state.providers.iter():
-            # FIXME: read providers data
-            pass
+        for providerState in self._state.providers.iter_all():
+            provider = providerState.provider
+            provider_name = provider.get_name()
+            provider_ui = self.providers_ui[provider_name]
+            provider_ui['_enabled'].setChecked(providerState.getEnabled())
+            dataDict = provider.get_settings().as_dict()
+            for key, key_type in provider.get_settings().key_types().items():
+                if key_type == ProviderSettingsType.String:
+                    provider_ui[key].setText(dataDict[key])
+                elif key_type == ProviderSettingsType.Password:
+                    provider_ui[key].setText(dataDict[key])
+                else:
+                    continue
 
         # 5. Others tab
 
@@ -293,9 +304,21 @@ class PreferencesDialog(QDialog):
             self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
         # 4. Providers' tab
-        for provider in self._state.providers.iter():
-            # FIXME: write providers data
-            pass
+        for providerState in self._state.providers.iter_all():
+            provider = providerState.provider
+            provider_name = provider.get_name()
+            provider_ui = self.providers_ui[provider_name]
+            providerState.setEnabled(provider_ui['_enabled'].isChecked())
+            dataDict = provider.get_settings().as_dict()
+            for key, key_type in provider.get_settings().key_types().items():
+                if key_type == ProviderSettingsType.String:
+                    dataDict[key] = provider_ui[key].text()
+                elif key_type == ProviderSettingsType.Password:
+                    dataDict[key] = provider_ui[key].text()
+                else:
+                    continue
+            new_settings = provider.get_settings().load(**dataDict)
+            provider.set_settings(new_settings)
 
         # 5. Others tab
 

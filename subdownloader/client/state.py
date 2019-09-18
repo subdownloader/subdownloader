@@ -22,12 +22,12 @@ log = logging.getLogger('subdownloader.client.state')
 ProviderData = namedtuple('ProviderData', ('provider', 'kwargs'))
 
 
-def filter_providers(providers_cls, providers_data):
+def filter_providers(providers, providers_data):
     map_provider_settings = {}
 
     for provider_data_name, provider_data in providers_data.items():
         provider_data_name = provider_data_name.lower()
-        for provider_cls in providers_cls:
+        for provider_cls in providers:
             if provider_data_name == provider_cls.get_name().lower():
                 map_provider_settings[provider_cls] = provider_data
                 break
@@ -74,40 +74,87 @@ class StateConfigKey(Enum):
     INTERFACE_LANGUAGE = ('options', 'interfaceLang', )
 
 
+class ProviderState(object):
+    def __init__(self, provider):
+        self._provider = provider
+        self._enabled = True
+
+    @property
+    def provider(self):
+        return self._provider
+
+    def load_options(self, options):
+        # FIXME: test passing provider options
+        if not options.providers:
+            return
+        provider_data = options.provider.get(self._provider.get_name().lower(), None)
+        if provider_data is None:
+            return
+        provider_settings = self._provider.get_settings()
+
+        dict_settings = provider_settings.as_dict()
+        dict_settings.update(provider_data.kwargs)
+        try:
+            new_settings = provider_settings.load(**dict_settings)
+        except TypeError:
+            raise IllegalArgumentException(_('Provider "{}" received an unsupported keyword.').format(
+                self._provider.get_name()))
+        self._provider.set_settings(new_settings)
+
+    def load_settings(self, settings):
+        # FIXME: test parsing provider settings
+        section = self._settings_section
+        provider_settings = self._provider.get_settings()
+        new_provider_data = {}
+        for k, v in provider_settings.as_dict().items():
+            d = settings.get_str((section, k), v)
+            new_provider_data[k] = d
+        new_settings = provider_settings.load(**new_provider_data)
+        self.setEnabled(settings.get_bool((section, '_enabled'), True))
+        self._provider.set_settings(new_settings)
+
+    def save_settings(self, settings):
+        section = self._settings_section
+        settings.set_bool((section, '_enabled'), self.getEnabled())
+        print('SAVING providers\' settings not implemented yet!')
+
+    @property
+    def _settings_section(self):
+        return 'provider_{}'.format(self._provider.get_name())
+
+    def setEnabled(self, b):
+        if not b:
+            self._provider.disconnect()
+        self._enabled = b
+
+    def getEnabled(self):
+        return self._enabled
+
+
 # FIXME: add more logging
 
 
 class ProvidersState(object):
     def __init__(self):
-        self._providers = []
+        providers_cls = ProviderFactory.list()
+        self._providerStates = list(ProviderState(provider_cls()) for provider_cls in providers_cls)
 
     def load_settings(self, settings):
-        for provider in self._providers:
-            self._load_provider_settings(provider, settings)
+        for providerState in self._providerStates:
+            providerState.load_settings(settings)
 
     def save_settings(self, settings):
-        # for provider in self._providers:
-        #     raise NotImplementedError('TODO!')
-        print('SAVING providers\' settings not implemented yet!')
+        for providersState in self._providerStates:
+            providersState.save_settings(settings)
 
     def load_options(self, options):
-        providers_cls = ProviderFactory.list()
-        if options.providers:
-            map_provider_data = filter_providers(providers_cls, options.providers)
-        else:
-            map_provider_data = {provider_cls: ProviderData(provider_cls.get_name(), dict()) for provider_cls in providers_cls}
-        self._providers = [provider_cls() for provider_cls in map_provider_data.keys()]
+        if not options.providers:
+            return
 
-        for provider in self._providers:
-            provider_settings = provider.get_settings()
-            dict_settings = provider_settings.as_dict()
-            dict_settings.update(map_provider_data[type(provider)].kwargs)
-            try:
-                new_settings = provider_settings.load(**dict_settings)
-            except TypeError:
-                raise IllegalArgumentException(_('Provider "{}" received an unsupported keyword.').format(
-                    provider.get_name()))
-            provider.set_settings(new_settings)
+        for providerState in self._providerStates:
+            providerState.load_options(options)
+            if providerState.provider.get_name().lower() not in options:
+                providerState.setEnabled(False)
 
     def _load_provider_settings(self, provider, settings):
         section = 'provider_{name}'.format(name=provider.get_name())
@@ -119,35 +166,24 @@ class ProvidersState(object):
         new_data = provider_settings.load(**new_provider_data)
         provider.set_settings(new_data)
 
+    def iter_all(self):
+        return iter(self._providerStates)
+
     def iter(self):
-        return iter(self._providers)
+        return iter(providerState for providerState in self._providerStates if providerState.getEnabled())
 
-    def find(self, item):
-        def _find_provider(provider, item):
-            if isinstance(item, str):
-                return provider.get_name() == item
-            elif isinstance(item, type) and issubclass(item, SubtitleProvider):
-                return type(provider) == item
-            else:
-                return provider == item
-        try:
-            provider = next(provider for provider in self._providers if _find_provider(provider, item))
-        except StopIteration:
-            return None
-        return provider
-
-    def _item_to_providers(self, item):
-        if item is None:
-            providers = self._providers
+    def _item_to_providers(self, index):
+        if index is None:
+            providerStates = self._providerStates
         else:
-            provider = self.find(item)
-            if provider is None:
+            providerState = self.get(index)
+            if providerState is None:
                 raise IndexError()
-            providers = (provider, )
-        return providers
+            providerStates = (providerState, )
+        return providerStates
 
     def add_name(self, name, settings):
-        for provider in self._providers:
+        for provider in self._providerStates:
             if provider.get_name() == name:
                 log.debug('Provider "{}" already added'.format(name))
                 return False
@@ -162,51 +198,51 @@ class ProvidersState(object):
 
         provider = provider_cls()
         self._load_provider_settings(provider, settings)
-        self._providers.append(provider)
-        return True
-
-    def remove(self, item):
-        provider = self.find(item)
-        if provider is None:
-            return False
-        self._providers.remove(provider)
+        self._providerStates.append(provider)
         return True
 
     def get(self, index):
-        if isinstance(index, str):
-            try:
-                return next(provider for provider in self._providers if provider.get_name().lower() == index.lower())
-            except StopIteration:
-                raise IndexError()
-        else:
-            try:
-                return next(provider for provider in self._providers if type(provider) == index)
-            except StopIteration:
-                raise IndexError()
+        def _find_provider(providerState, item):
+            if isinstance(item, str):
+                return providerState.provider.get_name() == item
+            elif isinstance(item, type) and issubclass(item, SubtitleProvider):
+                return type(providerState.provider) == item
+            else:
+                return providerState.provider == item
+        try:
+            providerState = next(providerState for providerState in self._providerStates if _find_provider(providerState, index))
+        except StopIteration:
+            return None
+        return providerState
 
     def connect(self, item=None):
-        for provider in self._item_to_providers(item):
-            provider.connect()
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                providerState.provider.connect()
 
     def disconnect(self, item=None):
-        for provider in self._item_to_providers(item):
-            provider.disconnect()
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                providerState.provider.disconnect()
 
     def login(self, item=None):
-        for provider in self._item_to_providers(item):
-            provider.login()
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                providerState.provider.login()
 
     def logout(self, item=None):
-        for provider in self._item_to_providers(item):
-            provider.logout()
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                providerState.provider.logout()
 
     def ping(self, item=None):
-        for provider in self._item_to_providers(item):
-            provider.ping()
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                providerState.provider.ping()
 
-    def query_text_all(self, text):
+    def query_text(self, text):
         query = SubtitlesTextQuery(text=text)
-        query.search_init(self.iter())
+        query.search_init(list(ps.provider for ps in self.iter()))
         return query
 
 
@@ -299,13 +335,13 @@ class BaseState(object):
 
         settings.write()
 
-    def search_videos_all(self, videos, callback):
-        providers = list(self._providersState.iter())
-        callback.set_range(0, len(providers))
+    def search_videos(self, videos, callback):
+        providerStates = list(self._providersState.iter())
+        callback.set_range(0, len(providerStates))
         prov_rsubs = {}
-        for provider_i, provider in enumerate(providers):
+        for provider_i, providerState in enumerate(providerStates):
             download_callback = callback.get_child_progress(provider_i, provider_i+1)
-            prov_rsubs[provider] = provider.search_videos(videos=videos, callback=download_callback)
+            prov_rsubs[providerState.provider] = providerState.provider.search_videos(videos=videos, callback=download_callback)
         return prov_rsubs
 
     def get_recursive(self):

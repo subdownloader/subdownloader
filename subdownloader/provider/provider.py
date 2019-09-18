@@ -105,7 +105,8 @@ class ProviderSettings(object):
     def __init__(self):
         pass
 
-    def key_types(self):
+    @staticmethod
+    def key_types():
         raise NotImplementedError()
 
     def as_dict(self):

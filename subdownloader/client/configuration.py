@@ -80,6 +80,7 @@ class Settings(object):
         self._dirty = True
 
     def get_language(self, key, default=None):
+        # FIXME: test parsing language settings (+invalid)
         try:
             xxx = self._load_str(key)
             return Language.from_xxx(xxx)
@@ -104,6 +105,7 @@ class Settings(object):
         self.set_str(section_path, ','.join(l.xxx() for l in langs))
 
     def get_int(self, key, default=None):
+        # FIXME: test parsing ints settings (+invalid)
         try:
             return int(self._load_str(key))
         except KeyError:
@@ -111,6 +113,22 @@ class Settings(object):
 
     def set_int(self, key, value):
         self.set_str(key, str(value))
+
+    def get_bool(self, key, default=None):
+        # FIXME: test parsing bool settings (+invalid)
+        try:
+            text = self._load_str(key).lower()
+            if text in ('0', 'false', 'no', ):
+                return False
+            elif text in ('1', 'true', 'yes', ):
+                return True
+            else:
+                raise ValueError(text)
+        except KeyError:
+            return default
+
+    def set_bool(self, key, value):
+        self.set_str(key, '1' if value else '0')
 
     def get_path(self, section_path, default=Path()):
         try:

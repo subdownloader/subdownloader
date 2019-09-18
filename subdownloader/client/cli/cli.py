@@ -337,9 +337,9 @@ class CliCmd(Cmd):
     def do_filescan(self, arg):
         callback = self.get_callback()
 
-        callback.set_title_text(_("Scanning..."))
-        callback.set_label_text(_("Scanning files"))
-        callback.set_finished_text(_("Scanning finished"))
+        callback.set_title_text(_('Scanning...'))
+        callback.set_label_text(_('Scanning files'))
+        callback.set_finished_text(_('Scanning finished'))
         callback.set_block(True)
         callback.show()
 
@@ -364,15 +364,15 @@ class CliCmd(Cmd):
 
     def do_vidsearch(self, arg):
         callback = self.get_callback()
-        callback.set_title_text(_("Asking Server..."))
-        callback.set_label_text(_("Searching subtitles..."))
-        callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
-        callback.set_finished_text(_("Search finished"))
+        callback.set_title_text(_('Asking Server...'))
+        callback.set_label_text(_('Searching subtitles...'))
+        callback.set_updated_text(_('Searching subtitles ( %d / %d )'))
+        callback.set_finished_text(_('Search finished'))
         callback.set_block(True)
         callback.show()
 
         try:
-            self.state.search_videos_all(self._videos, callback)
+            self.state.search_videos(self._videos, callback)
         except ProviderConnectionError:
             callback.finish()
             self.print(_('Failed to search for videos.'))
@@ -585,12 +585,12 @@ class CliCmd(Cmd):
             self.print(_('Unknown provider.'))
 
     def help_providers(self):
-        self.print(_('Add, remove and print info about providers (default is print info about all providers).'))
+        self.print(_('Enable, disable and print info about providers (default is print info about all providers).'))
         self.print()
-        self.print('providers [add | remove | list PROVIDER]')
+        self.print('providers [add | remove | list] PROVIDER')
         self.print()
-        self.print('  add PROVIDER '.ljust(self.LEN_ARG_COL) + _('Add PROVIDER.'))
-        self.print('  remove PROVIDER '.ljust(self.LEN_ARG_COL) + _('Remove PROVIDER.'))
+        self.print('  enable PROVIDER '.ljust(self.LEN_ARG_COL) + _('Enable PROVIDER.'))
+        self.print('  disable PROVIDER '.ljust(self.LEN_ARG_COL) + _('Disable PROVIDER.'))
         self.print('  list PROVIDER '.ljust(self.LEN_ARG_COL) + _('Print info about PROVIDER.'))
         self.print()
 
@@ -602,24 +602,20 @@ class CliCmd(Cmd):
                 return
             cmd = args[0]
             name = args[1]
-            if cmd == 'add':
-                res = self.state.providers.add_name(name, self._settings)
-                if res:
-                    self.print(_('Provider added.'))
-                else:
-                    self.print(_('Add failed.'))
-            elif cmd == 'remove':
-                res = self.state.providers.remove(name)
-                if res:
-                    self.print(_('Provider removed.'))
-                    self._invalidate_videos()
-                    self._invalidate_text_queries()
-                else:
-                    self.print(_('Removal failed.'))
+            try:
+                providerState = self.state.providers.get(name)
+            except IndexError:
+                self.print(_('Provider not available.'))
+                return
+            provider = providerState.provider
+            if cmd == 'enable':
+                providerState.setEnabled(True)
+            elif cmd == 'disable':
+                providerState.setEnabled(False)
             elif cmd == 'list':
                 try:
-                    provider = self.state.providers.get(name)
                     self.print(_('- Name: {} ({})').format(provider.get_name(), provider.get_short_name()))
+                    self.print(_('- Enabled: {}').format(providerState.getEnabled()))
                     self.print(_('- Connected: {}').format(provider.connected()))
                     self.print(_('- Logged in: {}').format(provider.logged_in()))
                 except IndexError:
@@ -627,15 +623,20 @@ class CliCmd(Cmd):
             else:
                 self.print(_('Unknown command "{}".').format(cmd))
         else:
-            providers = list(self.state.providers.iter())
-            if providers:
-                self.print(
-                    ngettext('{} active provider:', '{} active providers:', len(providers)).format(len(providers)))
-                for provider in providers:
-                    logged_in_str = _('logged in') if provider.logged_in() else _('logged out')
-                    self.print(' - {}: {}'.format(provider.get_name(), logged_in_str))
+            providerStates = list(self._state.providers.iter_all())
+            nbEnabled = len(list(ps for ps in providerStates if ps.getEnabled()))
+            if providerStates:
+                self.print(_('#providers: {}').format(len(providerStates)))
+                self.print(_('#enabled providers: {}').format(nbEnabled))
+                for providerState in self.state.providers.iter_all():
+                    provider = providerState.provider
+                    if providerState.getEnabled():
+                        logged_in_str = _('logged in') if provider.logged_in() else _('logged out')
+                        self.print(' - {}: {} ({})'.format(provider.get_name(), _('Enabled'), logged_in_str))
+                    else:
+                        self.print('- {}: {}'.format(provider.get_name(), _('Disabled')))
             else:
-                self.print(_('No active provider.'))
+                self.print(_('No providers.'))
 
     def help_recursive(self):
         self.print(_('Get/set recursive flag (default is to get the current flag).'))
@@ -722,14 +723,14 @@ class CliCmd(Cmd):
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
             provider_type = rsub.get_provider()
             try:
-                provider = self.state.providers.find(provider_type)
+                providerState = self.state.providers.get(provider_type)
             except IndexError:
                 self.print(_('Provider "{}" not available.').format(provider_type.get_name()))
                 return
             target_path = self.state.calculate_download_path(rsub, self.get_file_save_as_cb())
             callback = self.get_callback()
             try:
-                rsub.download(target_path=target_path, provider_instance=provider, callback=callback)
+                rsub.download(target_path=target_path, provider_instance=providerState.provider, callback=callback)
             except ProviderConnectionError:
                 self.print(_('An error happened during download'))
                 return
@@ -754,7 +755,7 @@ class CliCmd(Cmd):
                 self.print('{}: "{}"'.format(_('Current query'), self._text_query.text))
                 self.print('{}: {}'.format(_('More movies available'), self._text_query.more_movies_available()))
             return
-        self.set_text_query(self.state.providers.query_text_all(text=arg))
+        self.set_text_query(self.state.providers.query_text(text=arg))
 
     def help_querymore(self):
         self.print(_('Look for more video matches for the current text query.'))
@@ -986,14 +987,14 @@ class CliCmd(Cmd):
             self.print('- {}'.format(self.subtitle_to_long_string(rsub)))
             provider_type = rsub.get_provider()
             try:
-                provider = self.state.providers.find(provider_type)
+                providerState = self.state.providers.get(provider_type)
             except IndexError:
                 self.print(_('Provider not available.'))
                 return
             target_path = self.state.calculate_download_query_path(rsub, self.get_file_save_as_cb())
             callback = self.get_callback()
             try:
-                rsub.download(target_path=target_path, provider_instance=provider, callback=callback)
+                rsub.download(target_path=target_path, provider_instance=providerState.provider, callback=callback)
             except ProviderConnectionError:
                 self.print(_('An error happened during download'))
                 return
