@@ -12,9 +12,11 @@ from subdownloader.client.player import VideoPlayer
 from subdownloader.client.gui.generated.preferences_ui import Ui_PreferencesDialog
 from subdownloader.languages.language import all_languages, Language, UnknownLanguage
 from subdownloader.project import WEBSITE_TRANSLATE
+from subdownloader.provider.provider import ProviderSettingsType
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir, QSettings
-from PyQt5.QtWidgets import QCheckBox, QCompleter, QDialog, QDirModel, QFileDialog, QMessageBox
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir
+from PyQt5.QtWidgets import QCheckBox, QCompleter, QDialog, QDirModel, QFileDialog, QFormLayout, QLineEdit, \
+    QMessageBox, QWidget
 
 log = logging.getLogger("subdownloader.client.gui.preferences")
 # FIXME: add more logging
@@ -29,6 +31,8 @@ class PreferencesDialog(QDialog):
         self._settings = settings
 
         self._uploadLanguage = UnknownLanguage.create_generic()
+
+        self.providers_ui = dict()
 
         self.ui = Ui_PreferencesDialog()
         self.setup_ui()
@@ -150,6 +154,35 @@ class PreferencesDialog(QDialog):
 
         # 4. Providers tab
 
+        for provider in self._state.providers.iter():
+            provider_name = provider.get_name()
+            self.ui.providerComboBox.addItem(provider_name, provider)
+            providerWidget = QWidget()
+            providerLayout = QFormLayout()
+            ui_items = {
+                '_enabled': QCheckBox(),
+            }
+            providerLayout.addRow(_('enabled').capitalize(), ui_items['_enabled'])
+
+            for key, key_type in provider.get_settings().key_types().items():
+                if key_type == ProviderSettingsType.String:
+                    widget = QLineEdit()
+                elif key_type == ProviderSettingsType.Password:
+                    widget = QLineEdit()
+                    widget.setEchoMode(QLineEdit.Password)
+                else:
+                    # FIXME: generalize this warning about possible warnings?
+                    log.error('Unknown provider settings type: {}: {} -> {}'.format(provider_name, key, key_type))
+                    QMessageBox.warning(self, _('Unknown provider settings type'),
+                                        '\n'.join((_('An unknown settings type has been passed.'),
+                                                   _('Please open an issue'))))
+                    continue
+                providerLayout.addRow(key.capitalize(), widget)
+                ui_items[provider_name] = widget
+            providerWidget.setLayout(providerLayout)
+            self.ui.providerStack.addWidget(providerWidget)
+            self.providers_ui[provider_name] = ui_items
+
         # 5. Others tab
 
         # - Interface Language
@@ -212,6 +245,9 @@ class PreferencesDialog(QDialog):
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         # 4. Providers' tab
+        for provider in self._state.providers.iter():
+            # FIXME: read providers data
+            pass
 
         # 5. Others tab
 
@@ -257,6 +293,9 @@ class PreferencesDialog(QDialog):
             self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
         # 4. Providers' tab
+        for provider in self._state.providers.iter():
+            # FIXME: write providers data
+            pass
 
         # 5. Others tab
 

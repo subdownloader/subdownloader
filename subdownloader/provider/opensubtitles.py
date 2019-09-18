@@ -19,7 +19,7 @@ from subdownloader.identification import ImdbIdentity, ProviderIdentities, Serie
 from subdownloader.movie import RemoteMovie
 from subdownloader.provider import window_iterator
 from subdownloader.provider.provider import ProviderConnectionError, ProviderNotConnectedError, \
-    ProviderSettings, SubtitleProvider, SubtitleTextQuery
+    ProviderSettings, ProviderSettingsType, SubtitleProvider, SubtitleTextQuery
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile
 from subdownloader.util import unzip_bytes, write_stream
 
@@ -605,6 +605,13 @@ class OpenSubtitlesSettings(ProviderSettings):
         return {
             'username': self._username,
             'password': self._password,
+        }
+
+    @staticmethod
+    def key_types():
+        return {
+            'username': ProviderSettingsType.String,
+            'password': ProviderSettingsType.Password,
         }
 
     def get_user_agent(self):

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
+from enum import Enum
 import logging
 import sys
 
@@ -95,9 +96,17 @@ class SubtitleProvider(object):
         raise NotImplementedError()
 
 
+class ProviderSettingsType(Enum):
+    String = 'string'
+    Password = 'password'
+
+
 class ProviderSettings(object):
     def __init__(self):
         pass
+
+    def key_types(self):
+        raise NotImplementedError()
 
     def as_dict(self):
         raise NotImplementedError()

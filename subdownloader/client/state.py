@@ -227,6 +227,7 @@ class BaseState(object):
         self._default_download_path = Path().resolve()
 
         self._videoplayer = None
+
     @property
     def providers(self):
         return self._providersState
