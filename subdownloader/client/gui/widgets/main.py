@@ -230,7 +230,7 @@ class Main(QMainWindow):
         webbrowser.open(WEBSITE_TRANSLATE, new=2, autoraise=1)
 
     def onMenuPreferences(self):
-        dialog = PreferencesDialog(self, state=self._state_original, state_new=self._state, settings_new=self._settings)
+        dialog = PreferencesDialog(self, state=self._state, settings=self._settings)
         dialog.defaultUploadLanguageChanged.connect(self.ui.tabUpload.on_default_upload_language_change)
         dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)

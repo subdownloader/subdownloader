@@ -22,12 +22,11 @@ log = logging.getLogger("subdownloader.client.gui.preferences")
 
 class PreferencesDialog(QDialog):
 
-    def __init__(self, parent, state, state_new, settings_new):
+    def __init__(self, parent, state, settings):
         QDialog.__init__(self, parent)
 
-        self._state = state  # FIXME: remove once converted to state_new
-        self._state_new = state_new
-        self._settings_new = settings_new
+        self._state = state
+        self._settings = settings
 
         self._uploadLanguage = UnknownLanguage.create_generic()
 
@@ -172,7 +171,7 @@ class PreferencesDialog(QDialog):
         log.debug('readSettings: start')
 
         # 1. Search tab
-        checked_languages = self._state_new.get_download_languages()
+        checked_languages = self._state.get_download_languages()
         for checked_language in checked_languages:
             self._filterLanguageComboBoxes[checked_language].setChecked(True)
 
@@ -180,7 +179,7 @@ class PreferencesDialog(QDialog):
 
         # - Download Destination
 
-        optionWhereToDownload = self._state_new.get_subtitle_download_path_strategy()
+        optionWhereToDownload = self._state.get_subtitle_download_path_strategy()
         if optionWhereToDownload == SubtitlePathStrategy.ASK:
             self.ui.optionDlDestinationAsk.setChecked(True)
         elif optionWhereToDownload == SubtitlePathStrategy.SAME:
@@ -188,13 +187,13 @@ class PreferencesDialog(QDialog):
         elif optionWhereToDownload == SubtitlePathStrategy.PREDEFINED:
             self.ui.optionDlDestinationUser.setChecked(True)
 
-        dlDestination = self._state_new.get_default_download_path()
+        dlDestination = self._state.get_default_download_path()
         self.ui.inputDlDestinationUser.setText(str(dlDestination))
         self.ui.inputDlDestinationUser.editingFinished.emit()
 
         # - Subtitle Filename
 
-        optionSubtitleName = self._state_new.get_subtitle_naming_strategy()
+        optionSubtitleName = self._state.get_subtitle_naming_strategy()
         if optionSubtitleName == SubtitleNamingStrategy.VIDEO:
             self.ui.optionSubFnSame.setChecked(True)
         elif optionSubtitleName == SubtitleNamingStrategy.VIDEO_LANG:
@@ -208,7 +207,7 @@ class PreferencesDialog(QDialog):
 
         # - Default Subtitle Language
 
-        self._uploadLanguage = self._state_new.get_upload_language()
+        self._uploadLanguage = self._state.get_upload_language()
         self._originalUploadLanguage = self._uploadLanguage
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
@@ -218,12 +217,12 @@ class PreferencesDialog(QDialog):
 
         # - Interface Language
 
-        optionInterfaceLanguage = self._state_new.get_interface_language()
+        optionInterfaceLanguage = self._state.get_interface_language()
         self._original_interface_language = optionInterfaceLanguage
         self.ui.optionInterfaceLanguage.set_selected_language(optionInterfaceLanguage)
 
-        playerPath = self._state_new.get_videoplayer().get_path()
-        playerParams = self._state_new.get_videoplayer().get_command()
+        playerPath = self._state.get_videoplayer().get_path()
+        playerParams = self._state.get_videoplayer().get_command()
         self.ui.inputVideoAppLocation.setText(str(playerPath))
         self.ui.inputVideoAppParams.setText(playerParams)
 
@@ -236,24 +235,24 @@ class PreferencesDialog(QDialog):
         # 1. Search tab
 
         checked_languages = [lang[0] for lang in filter(lambda x:x[1], self._search_languages.items())]
-        self._state_new.set_download_languages(checked_languages)
+        self._state.set_download_languages(checked_languages)
 
         # 2. Downloads tab
 
         # - Download Destination
 
-        self._state_new.set_subtitle_download_path_strategy(self._dlDestinationType)
-        self._state_new.set_default_download_path(self._dlDestinationPredefined)
+        self._state.set_subtitle_download_path_strategy(self._dlDestinationType)
+        self._state.set_default_download_path(self._dlDestinationPredefined)
 
         # - Subtitle Filename
 
-        self._state_new.set_subtitle_naming_strategy(self._subtitleFilename)
+        self._state.set_subtitle_naming_strategy(self._subtitleFilename)
 
         # 3. Upload tab
 
         # - Default Subtitle Language
 
-        self._state_new.set_upload_language(self._uploadLanguage)
+        self._state.set_upload_language(self._uploadLanguage)
         if self._uploadLanguage != self._originalUploadLanguage:
             self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
@@ -264,20 +263,20 @@ class PreferencesDialog(QDialog):
         # - Interface Language
 
         new_interface_language = self.ui.optionInterfaceLanguage.get_selected_language()
-        self._state_new.set_interface_language(new_interface_language)
+        self._state.set_interface_language(new_interface_language)
         if self._original_interface_language != new_interface_language:
-            self._state_new.signals.interface_language_changed.emit(new_interface_language)
+            self._state.signals.interface_language_changed.emit(new_interface_language)
 
         # - video player
 
         playerPath = Path(self.ui.inputVideoAppLocation.text())
         playerParams = self.ui.inputVideoAppParams.text()
         videoPlayer = VideoPlayer(playerPath, playerParams)
-        self._state_new.set_videoplayer(videoPlayer)
+        self._state.set_videoplayer(videoPlayer)
 
         # Finally, write to disk
 
-        self._state_new.save_settings(self._settings_new)
+        self._state.save_settings(self._settings)
         log.debug('saveSettings: finish')
 
     # 0. Interface
