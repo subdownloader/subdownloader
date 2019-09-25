@@ -26,7 +26,6 @@ qrc_files = [
 ui_files = [
     'about.ui',
     'imdbSearch.ui',
-    'login.ui',
     'main.ui',
     'preferences.ui',
     'searchFileWidget.ui',

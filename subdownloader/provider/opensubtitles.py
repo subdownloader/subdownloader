@@ -68,7 +68,7 @@ class OpenSubtitles(SubtitleProvider):
         if self.logged_in():
             return
         if not self.connected():
-            raise ProviderNotConnectedError()
+            self.connect()
 
         def login_query():
             # FIXME: 'en' language ok??? or '' as in the original
@@ -652,7 +652,8 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
             stream = self._download_service(provider_instance)
         else:
             stream = self._download_http()
-        write_stream(src_file=stream, destination_path=target_path)
+        from subdownloader.util import unzip_stream
+        write_stream(src_file=unzip_stream(stream), destination_path=target_path)
         local_sub = LocalSubtitleFile(filepath=target_path)
         super_parent = self.get_super_parent()
         if super_parent:

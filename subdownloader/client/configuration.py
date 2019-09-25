@@ -114,6 +114,16 @@ class Settings(object):
     def set_int(self, key, value):
         self.set_str(key, str(value))
 
+    def get_ints(self, key, default=None):
+        # FIXME: test parsing ints settings (+invalid)
+        try:
+            return list(int(v) for v in self._load_str(key).split(','))
+        except KeyError:
+            return default
+
+    def set_ints(self, key, values):
+        self.set_str(key, ','.join(str(v) for v in values))
+
     def get_bool(self, key, default=None):
         # FIXME: test parsing bool settings (+invalid)
         try:

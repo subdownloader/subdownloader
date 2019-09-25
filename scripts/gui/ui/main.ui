@@ -62,36 +62,24 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <property name="spacing">
+       <layout class="QHBoxLayout" name="statusLayout">
+        <property name="topMargin">
          <number>6</number>
         </property>
-        <property name="topMargin">
-         <number>3</number>
-        </property>
         <item>
-         <widget class="QFrame" name="frame_3">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QLabel" name="label_version_description">
+            <widget class="QPushButton" name="button_login">
              <property name="text">
-              <string>version:</string>
+              <string>Log in</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_version">
-             <property name="frameShadow">
-              <enum>QFrame::Sunken</enum>
-             </property>
+            <widget class="QPushButton" name="button_logout">
              <property name="text">
-              <string notr="true">X.X.XX</string>
+              <string>Log out</string>
              </property>
             </widget>
            </item>
@@ -99,9 +87,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="button_login">
+         <widget class="QLabel" name="statusLabel">
           <property name="text">
-           <string>Log in</string>
+           <string notr="true">status</string>
           </property>
          </widget>
         </item>
@@ -139,6 +127,8 @@
     </property>
     <addaction name="action_Login"/>
     <addaction name="action_LogOut"/>
+    <addaction name="separator"/>
+    <addaction name="action_Providers"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
@@ -213,7 +203,7 @@
   </action>
   <action name="action_Login">
    <property name="text">
-    <string>&amp;Log In...</string>
+    <string>&amp;Log In</string>
    </property>
   </action>
   <action name="action_LogMessages">
@@ -249,6 +239,11 @@
   <action name="action_HelpTranslate">
    <property name="text">
     <string>&amp;Translate This Application...</string>
+   </property>
+  </action>
+  <action name="action_Providers">
+   <property name="text">
+    <string>Providers...</string>
    </property>
   </action>
  </widget>

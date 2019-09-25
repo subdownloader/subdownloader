@@ -136,7 +136,7 @@ class ProviderState(object):
 
     @property
     def _settings_section(self):
-        return 'provider_{}'.format(self._provider.get_name())
+        return 'provider.{}'.format(self._provider.get_name())
 
     def setEnabled(self, b):
         if not b:
@@ -150,10 +150,37 @@ class ProviderState(object):
 # FIXME: add more logging
 
 
-class ProvidersState(object):
+class ProvidersStateCallback(object):
+
+    class Stage(Enum):
+        Started = 'started'
+        Busy = 'busy'
+        Finished = 'finished'
+
     def __init__(self):
+        pass
+
+    def on_connect(self, stage):
+        pass
+
+    def on_disconnect(self, stage):
+        pass
+
+    def on_login(self, stage):
+        pass
+
+    def on_logout(self, stage):
+        pass
+
+
+class ProvidersState(object):
+    def __init__(self, callbacks=None):
         providers_cls = ProviderFactory.list()
         self._providerStates = list(ProviderState(provider_cls()) for provider_cls in providers_cls)
+        self._callbacks = ProvidersStateCallback() if callbacks is None else callbacks
+
+    def set_callbacks(self, callbacks=None):
+        self._callbacks = ProvidersStateCallback() if callbacks is None else callbacks
 
     def load_settings(self, settings):
         for providerState in self._providerStates:
@@ -232,24 +259,74 @@ class ProvidersState(object):
         return providerState
 
     def connect(self, item=None):
+        nb = 0
+        self._callbacks.on_connect(ProvidersStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.connect()
+                nb += 1
+        if nb:
+            self._callbacks.on_connect(ProvidersStateCallback.Stage.Finished)
 
     def disconnect(self, item=None):
+        nb = 0
+        self._callbacks.on_disconnect(ProvidersStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.disconnect()
+                nb += 1
+        if nb:
+            self._callbacks.on_disconnect(ProvidersStateCallback.Stage.Finished)
+
+    def connected(self, item=None):
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                if providerState.provider.connected():
+                    return True
+        return False
 
     def login(self, item=None):
+        nb = 0
+        self._callbacks.on_login(ProvidersStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.login()
+                nb += 1
+        if nb:
+            self._callbacks.on_login(ProvidersStateCallback.Stage.Finished)
 
     def logout(self, item=None):
+        nb = 0
+        self._callbacks.on_logout(ProvidersStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.logout()
+                nb += 1
+        if nb:
+            self._callbacks.on_logout(ProvidersStateCallback.Stage.Finished)
+
+    def get_providers(self, item=None):
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                yield providerState
+
+    def get_connected_providers(self, item=None):
+        for providerState in self.get_providers(item):
+            if providerState.provider.connected():
+                yield providerState
+
+    def get_number_providers(self, item=None):
+        return len(list(self.get_providers(item)))
+
+    def get_number_connected_providers(self, item=None):
+        return len(list(self.get_connected_providers(item)))
+
+    def logged_in(self, item=None):
+        for providerState in self._item_to_providers(item):
+            if providerState.getEnabled():
+                if providerState.provider.logged_in():
+                    return True
+        return False
 
     def ping(self, item=None):
         for providerState in self._item_to_providers(item):
@@ -263,8 +340,8 @@ class ProvidersState(object):
 
 
 class BaseState(object):
-    def __init__(self):
-        self._providersState = ProvidersState()
+    def __init__(self, callbacks=None):
+        self._providersState = ProvidersState(callbacks)
 
         self._recursive = False
         self._video_paths = []
@@ -306,6 +383,8 @@ class BaseState(object):
     def load_settings(self, settings):
         self._providersState.load_settings(settings)
 
+        self.set_video_paths([settings.get_path(StateConfigKey.VIDEO_PATH.value, Path().resolve())])
+
         upload_language = settings.get_language(StateConfigKey.UPLOAD_LANGUAGE.value)
         if upload_language is not None:
             self.set_upload_language(upload_language)
@@ -322,14 +401,18 @@ class BaseState(object):
         if download_path_strategy_str:
             self.set_subtitle_download_path_strategy(SubtitlePathStrategy.from_str(download_path_strategy_str))
 
-        default_download_path_str = settings.get_path(StateConfigKey.DOWNLOAD_PATH.value, None)
-        if default_download_path_str:
-            self.set_subtitle_download_path_strategy(default_download_path_str)
+        # default_download_path_str = settings.get_path(StateConfigKey.DOWNLOAD_PATH.value, None)
+        # if default_download_path_str:
+        #     self.set_subtitle_download_path_strategy(SubtitlePathStrategy.from_str(default_download_path_str))
 
         videoplayer = VideoPlayer.from_settings(settings)
         if videoplayer is None:
             videoplayer = VideoPlayer.find()
         self._videoplayer = videoplayer
+
+        interface_language = settings.get_language(StateConfigKey.INTERFACE_LANGUAGE.value)
+        if interface_language is not None:
+            self.set_upload_language(interface_language)
 
     def save_settings(self, settings):
         self._providersState.save_settings(settings)
@@ -348,6 +431,8 @@ class BaseState(object):
 
         if self._videoplayer:
             self._videoplayer.save_settings(settings)
+
+        settings.set_language(StateConfigKey.INTERFACE_LANGUAGE.value, self.get_interface_language())
 
         settings.write()
 
@@ -436,41 +521,62 @@ class BaseState(object):
         return UnknownLanguage.create_generic()
 
     # FIXME: this does not belong here
-    def calculate_subtitle_filename(self, subtitle):
+    @staticmethod
+    def _make_path_conflict_free(directory, stem, suffix):
+        counter = 0
+        while True:
+            new_stem = '{}{}'.format(stem, '.{}'.format(counter) if counter else '')
+            new_path = directory / '{}{}'.format(new_stem, suffix)
+            if not new_path.exists():
+                return new_stem, suffix
+            counter += 1
+
+    # FIXME: this does not belong here
+    def calculate_subtitle_filename_parts(self, subtitle):
         # FIXME: add accessibility method in subtitle?
         video = subtitle.get_parent().get_parent().get_parent()
 
         sub_stem, sub_extension = os.path.splitext(subtitle.get_filename())
         video_path = video.get_filepath()
 
-        suffix_start_counter = 0
+        naming_strategy = self.get_subtitle_naming_strategy()
+        if naming_strategy == SubtitleNamingStrategy.VIDEO:
+            newsub_stem = video_path.stem
+            newsub_extension = sub_extension
+            # sub_filepath = video_path.with_suffix(sub_extension)
+        elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG:
+            newsub_stem = video_path.stem
+            newsub_extension = '.{}{}'.format(subtitle.get_language().xx(), sub_extension)
 
-        while True:
-            suffix_start = '.{}'.format(suffix_start_counter) if suffix_start_counter else ''
-            naming_strategy = self.get_subtitle_naming_strategy()
-            if naming_strategy == SubtitleNamingStrategy.VIDEO:
-                new_ext = suffix_start + sub_extension
-                sub_filepath = video_path.with_suffix(new_ext)
-            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG:
-                new_ext = '{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), ss=suffix_start, ext=sub_extension)
-                sub_filepath = video_path.with_suffix(new_ext)
-            elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
-                new_ext = '.{upl}{ss}.{xx}{ext}'.format(xx=subtitle.get_language().xx(), upl=subtitle.get_uploader(), ss=suffix_start, ext=sub_extension)
-                sub_filepath = video_path.with_suffix(new_ext)
-            else:  # if naming_strategy == SubtitleNamingStrategy.ONLINE:
-                sub_filepath = video_path.parent / subtitle.get_filename()
-                sub_filepath = sub_filepath.with_suffix(suffix_start + sub_filepath.suffix)
+            # new_ext = '.{xx}{ext}'.format(xx=subtitle.get_language().xx(), ext=sub_extension)
+            # sub_filepath = video_path.with_suffix(new_ext)
+        elif naming_strategy == SubtitleNamingStrategy.VIDEO_LANG_UPLOADER:
+            newsub_stem = '{}.{}'.format(video_path.stem, subtitle.get_uploader())
+            newsub_extension = '.{}{}'.format(subtitle.get_language().xx(), sub_extension)
+            # new_ext = '.{upl}.{xx}{ext}'.format(upl=subtitle.get_uploader(), xx=subtitle.get_language().xx(), ext=sub_extension)
+            # sub_filepath = video_path.with_suffix(new_ext)
+        else:  # if naming_strategy == SubtitleNamingStrategy.ONLINE:
+            newsub_stem, newsub_extension = sub_stem, sub_extension
+            # sub_filepath = video_path.parent / subtitle.get_filename()
 
-            suffix_start_counter += 1
-            if not sub_filepath.exists():
-                break
+        return newsub_stem, newsub_extension
 
-        return sub_filepath.name
-
-    def calculate_download_path(self, subtitle, file_save_as_cb):
+    def calculate_download_path(self, subtitle, file_save_as_cb, conflict_free=True):
         video = subtitle.get_parent().get_parent().get_parent()
 
-        sub_filename = self.calculate_subtitle_filename(subtitle)
+        sub_stem, sub_extension = self.calculate_subtitle_filename_parts(subtitle)
+
+        if conflict_free:
+            location_strategy = self.get_subtitle_download_path_strategy()
+            if location_strategy == SubtitlePathStrategy.ASK:
+                default_download_folder = self.get_default_download_path()
+            elif location_strategy == SubtitlePathStrategy.SAME:
+                default_download_folder = video.get_folderpath()
+            else:  # location_strategy == SubtitlePath.PREDEFINED:
+                default_download_folder = self.get_default_download_path()
+            sub_stem, sub_extension = self._make_path_conflict_free(default_download_folder, sub_stem, sub_extension)
+
+        sub_filename = '{}{}'.format(sub_stem, sub_extension)
 
         location_strategy = self.get_subtitle_download_path_strategy()
         if location_strategy == SubtitlePathStrategy.ASK:

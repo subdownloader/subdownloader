@@ -3,35 +3,32 @@
 
 import logging
 import os.path
-from pathlib import Path
-import platform
-import shutil
 import sys
 import webbrowser
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QSettings, QSize, QTimer, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QEventLoop, QPoint, QSize, QTimer, Qt
 from PyQt5.QtGui import QIcon, QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow
 
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR, WEBSITE_ISSUES, WEBSITE_MAIN,\
     WEBSITE_TRANSLATE
 
+from subdownloader.client.state import ProvidersStateCallback
 from subdownloader.client.gui.state import GuiState
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
 from subdownloader.client.gui.widgets.about import AboutDialog
 from subdownloader.client.gui.state import State
-from subdownloader.client.gui.widgets.login import LoginDialog, login_parent_state
 
+# FIXME: replace with (__name__)
 log = logging.getLogger('subdownloader.client.gui.main')
 
 
 class Main(QMainWindow):
 
-    permanent_language_filter_changed = pyqtSignal(list)
-    loginStatusChanged = pyqtSignal(str)
+    permanent_language_filter_changed = pyqtSignal(list)  # FIXME: moved to self._state.signals
 
     def __init__(self, parent, log_packets, options, settings_new, options_new):
         QMainWindow.__init__(self, parent)
@@ -60,19 +57,17 @@ class Main(QMainWindow):
         self.log_packets = log_packets
         self.options = options
 
-        self.closeEvent = self.close_event
         # Fill Out the Filters Language SelectBoxes
-        self.permanent_language_filter_changed.connect(self.ui.tabSearchFile.on_permanent_language_filter_change)
-        self.permanent_language_filter_changed.connect(self.ui.tabSearchName.on_permanent_language_filter_change)
-        self.permanent_language_filter_changed.emit(self.get_state().get_permanent_language_filter())
-        self.read_settings()
+        self._state.signals.permanent_language_filter_changed.connect(self.ui.tabSearchFile.on_permanent_language_filter_change)
+        self._state.signals.permanent_language_filter_changed.connect(self.ui.tabSearchName.on_permanent_language_filter_change)
+        self._state.signals.permanent_language_filter_changed.emit(self._state.get_download_languages())
 
         QTimer.singleShot(0, self.on_event_loop_started)
 
     @pyqtSlot()
     def on_event_loop_started(self):
         if not self.options.test:
-            login_parent_state(self, self.get_state())
+            self._state.providers.login()
 
         if self.options.search.working_directory:
             videos = [videopath for videopath in self.options.search.working_directory if videopath.exists()]
@@ -84,10 +79,16 @@ class Main(QMainWindow):
         self.ui.setupUi(self)
         self.ui.tabsMain.setCurrentWidget(self.ui.tabSearchFile)
 
-        # Menu and button options
+        self.ui.action_Login.setEnabled(False)
+        self.ui.action_LogOut.setEnabled(False)
+        self.ui.button_login.setEnabled(False)
+        self.ui.button_logout.setEnabled(False)
+        self.ui.button_logout.setVisible(False)
+
+        # Menu actions
         self.ui.action_Login.triggered.connect(self.onButtonLogin)
-        self.ui.button_login.clicked.connect(self.onButtonLogin)
-        self.ui.action_LogOut.triggered.connect(self.onButtonLogOut)
+        self.ui.action_LogOut.triggered.connect(self.onButtonLogout)
+        self.ui.action_Providers.triggered.connect(self.onMenuProviders)
         self.ui.action_Quit.triggered.connect(self.onMenuQuit)
         self.ui.action_ShowPreferences.triggered.connect(self.onMenuPreferences)
         self.ui.action_HelpHomepage.triggered.connect(self.onMenuHelpHomepage)
@@ -95,14 +96,23 @@ class Main(QMainWindow):
         self.ui.action_HelpBug.triggered.connect(self.onMenuHelpBug)
         self.ui.action_HelpTranslate.triggered.connect(self.onMenuHelpTranslate)
 
+        # Button actions
+        self.ui.button_login.clicked.connect(self.onButtonLogin)
+        self.ui.button_logout.clicked.connect(self.onButtonLogout)
+
         self.ui.action_Quit.setShortcut(QKeySequence(Qt.ControlModifier | Qt.Key_Q))
         self.ui.action_Quit.setShortcutContext(Qt.ApplicationShortcut)
 
-        self.loginStatusChanged.connect(self.onChangeLoginStatus)
-
-        self.ui.label_version.setText(PROJECT_VERSION_FULL_STR)
-
+        self._state.signals.login_status_changed.connect(self.onChangeLoginStatus)
         self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
+
+        window_size = self._state.get_window_size()
+        if window_size is not None:
+            self.resize(QSize(*window_size))
+
+        window_position = self._state.get_window_position()
+        if window_position is not None:
+            self.move(QPoint(*window_position))
 
     def retranslate(self):
         pass
@@ -171,45 +181,57 @@ class Main(QMainWindow):
             paths = [str(u.toLocalFile()) for u in event.mimeData().urls()]
             self.ui.tabSearchFile.search_videos(paths)
 
-    def read_settings(self):
-        settings = QSettings()
-        size = settings.value('mainwindow/size', QSize(1000, 400))
-        self.resize(size)
-        # FIXME: default position?
-        pos = settings.value('mainwindow/pos', '')
-        if pos != '':
-            self.move(pos)
+    def closeEvent(self, event):
+        self._state.set_window_size(self.size())
+        self._state.set_window_position(self.pos())
+        self._state.save_settings(self._settings)
+        event.accept()
 
-        # programPath = settings.value('options/VideoPlayerPath', '')
-        # if programPath == '':  # If not found videoplayer
-        #     self.initializeVideoPlayer(settings)
+    @pyqtSlot()
+    def onMenuProviders(self):
+        print('clicked on Providers...')
 
-    def write_settings(self):
-        settings = QSettings()
-        settings.setValue('mainwindow/size', self.size())
-        settings.setValue('mainwindow/pos', self.pos())
-
-    def close_event(self, e):
-        self.write_settings()
-        e.accept()
-
-    def onButtonLogin(self):
-        dialog = LoginDialog(self)
-        ok = dialog.exec_()
-
-    def onButtonLogOut(self):
-        self.get_state().logout()
-        self.ui.button_login.setText(_('Log In'))
-        self.ui.button_login.setEnabled(True)
-        self.ui.action_Login.setEnabled(True)
-        self.ui.action_LogOut.setEnabled(False)
-
+    @pyqtSlot()
     def onMenuQuit(self):
         self.close()
 
-    def onChangeLoginStatus(self, statusMsg):
-        self.ui.button_login.setText(statusMsg)
-        QCoreApplication.processEvents()
+    @pyqtSlot()
+    def onButtonLogin(self):
+        self._state.providers.login()
+
+    @pyqtSlot()
+    def onButtonLogout(self):
+        self._state.providers.disconnect()
+
+    @pyqtSlot()
+    def onChangeLoginStatus(self):
+        number_connected = self._state.providers.get_number_connected_providers()
+        total_providers = self._state.providers.get_number_providers()
+
+        self.ui.statusLabel.setText(_('Connected to {} provider(s). {} provider(s) are enabled.').format(number_connected, total_providers))
+
+        can_logout = number_connected > 0
+        can_login = number_connected < total_providers
+        if can_logout:
+            action_login = False
+            action_logout = True
+        else:
+            if can_login:
+                action_login = True
+                action_logout = False
+                self.ui.button_logout.setVisible(True)
+                self.ui.button_logout.setEnabled(True)
+            else:
+                action_login = False
+                action_logout = False
+
+        self.ui.action_LogOut.setEnabled(action_logout)
+        self.ui.action_Login.setEnabled(action_login)
+
+        self.ui.button_login.setEnabled(action_login)
+        self.ui.button_login.setVisible(not action_logout)
+        self.ui.button_logout.setEnabled(action_logout)
+        self.ui.button_logout.setVisible(action_logout)
 
     @pyqtSlot()
     def onActivateMenu(self):

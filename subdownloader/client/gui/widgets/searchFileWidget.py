@@ -56,8 +56,8 @@ class SearchFileWidget(QWidget):
     def set_state(self, state_old, state):
         self._state_old = state_old  # FIXME: Remove
         self._state = state
-        self._state_old.login_status_changed.connect(self.on_login_state_changed)
         self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
+        self._state.signals.login_status_changed.connect(self.on_login_state_changed)
 
     def get_state(self):
         return self._state_old
@@ -117,8 +117,8 @@ class SearchFileWidget(QWidget):
         self.videoModel = VideoModel(self)
         self.videoModel.connect_treeview(self.ui.videoView)
         self.ui.videoView.setHeaderHidden(True)
-        self.ui.videoView.activated.connect(self.onClickVideoTreeView)
         self.ui.videoView.clicked.connect(self.onClickVideoTreeView)
+        self.ui.videoView.selectionModel().currentChanged.connect(self.onSelectVideoTreeView)
         self.ui.videoView.customContextMenuRequested.connect(self.onContext)
         self.videoModel.dataChanged.connect(self.subtitlesCheckedChanged)
         self.language_filter_change.connect(self.videoModel.on_filter_languages_change)
@@ -129,6 +129,8 @@ class SearchFileWidget(QWidget):
         self.ui.buttonPlay.clicked.connect(self.onButtonPlay)
         self.ui.buttonIMDB.clicked.connect(self.onViewOnlineInfo)
         self.ui.videoView.setContextMenuPolicy(Qt.CustomContextMenu)
+
+        self.ui.buttonPlay.setEnabled(False)
 
         # Drag and Drop files to the videoView enabled
         # FIXME: enable drag events for videoView (and instructions view)
@@ -175,19 +177,18 @@ class SearchFileWidget(QWidget):
             self.ui.folderView.scrollTo(proxyIndex)
             self.ui.folderView.setCurrentIndex(proxyIndex)
 
-    @pyqtSlot(int, str)
-    def on_login_state_changed(self, state, message):
-        log.debug('on_login_state_changed(state={state}, message={message}'.format(state=state, message=message))
-        if state in  (State.LOGIN_STATUS_LOGGED_OUT, State.LOGIN_STATUS_BUSY):
-            self.ui.buttonSearchSelectFolder.setEnabled(False)
-            self.ui.buttonSearchSelectVideos.setEnabled(False)
-            self.ui.buttonFind.setEnabled(False)
-        elif state == State.LOGIN_STATUS_LOGGED_IN:
+    @pyqtSlot()
+    def on_login_state_changed(self):
+        log.debug('on_login_state_changed()')
+        nb_connected = self._state.providers.get_number_connected_providers()
+        if nb_connected:
             self.ui.buttonSearchSelectFolder.setEnabled(True)
             self.ui.buttonSearchSelectVideos.setEnabled(True)
             self.ui.buttonFind.setEnabled(self.get_current_selected_folder() is not None)
         else:
-            log.warning('unknown state')
+            self.ui.buttonSearchSelectFolder.setEnabled(False)
+            self.ui.buttonSearchSelectVideos.setEnabled(False)
+            self.ui.buttonFind.setEnabled(False)
 
     @pyqtSlot(Language)
     def on_language_combobox_filter_change(self, language):
@@ -287,26 +288,29 @@ class SearchFileWidget(QWidget):
 
     @pyqtSlot()
     def onButtonSearchSelectFolder(self):
-        settings = QSettings()
-        path = settings.value('mainwindow/workingDirectory', QDir.homePath())
-        folder_path = QFileDialog.getExistingDirectory(self, _('Select the directory that contains your videos'), path)
-        if folder_path:
-            settings.setValue('mainwindow/workingDirectory', folder_path)
-            self.search_videos([Path(folder_path)])
+        paths = self._state.get_video_paths()
+        path = paths[0] if paths else Path()
+        selected_path = QFileDialog.getExistingDirectory(self, _('Select the directory that contains your videos'), str(path))
+        if selected_path:
+            selected_paths = [Path(selected_path)]
+            self._state.set_video_paths(selected_paths)
+            self.search_videos(selected_paths)
 
     @pyqtSlot()
     def onButtonSearchSelectVideos(self):
-        settings = QSettings()
-        currentDir = settings.value('mainwindow/workingDirectory', QDir.homePath())
-        fileNames, t = QFileDialog.getOpenFileNames(self, _('Select the video(s) that need subtitles'),
-                                                    currentDir, get_select_videos())
-        if fileNames:
-            settings.setValue('mainwindow/workingDirectory', QFileInfo(fileNames[0]).absolutePath())
-            self.search_videos([Path(filename) for filename in fileNames])
+        paths = self._state.get_video_paths()
+        path = paths[0] if paths else Path()
+        selected_files, t = QFileDialog.getOpenFileNames(self, _('Select the video(s) that need subtitles'),
+                                                    str(path), get_select_videos())
+        if selected_files:
+            selected_files = list(Path(f) for f in selected_files)
+            selected_dirs = list(set(p.parent for p in selected_files))
+            self._state.set_video_paths(selected_dirs)
+            self.search_videos(selected_files)
 
     def search_videos(self, paths):
-        if not self.get_state().connected():
-            QMessageBox.about(self, _("Error"), _('You are not connected to the server. Please reconnect first.'))
+        if not self._state.providers.get_number_connected_providers():
+            QMessageBox.about(self, _('Error'), _('You are not connected to a server. Please connect first.'))
             return
         self.ui.buttonFind.setEnabled(False)
         self._search_videos_raw(paths)
@@ -315,9 +319,9 @@ class SearchFileWidget(QWidget):
     def _search_videos_raw(self, paths):
         # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
         callback = ProgressCallbackWidget(self)
-        callback.set_title_text(_("Scanning..."))
-        callback.set_label_text(_("Scanning files"))
-        callback.set_finished_text(_("Scanning finished"))
+        callback.set_title_text(_('Scanning...'))
+        callback.set_label_text(_('Scanning files'))
+        callback.set_finished_text(_('Scanning finished'))
         callback.set_block(True)
         callback.show()
 
@@ -332,34 +336,30 @@ class SearchFileWidget(QWidget):
 
         callback.finish()
 
-        log.debug("Videos found: %s" % local_videos)
-        log.debug("Subtitles found: %s" % local_subs)
+        log.debug('Videos found: {}'.format(local_videos))
+        log.debug('Subtitles found: {}'.format(local_subs))
+
         self.hideInstructions()
 
-        QCoreApplication.processEvents()
-
         if not local_videos:
-            QMessageBox.about(self, _("Scan Results"), _("No video has been found."))
+            QMessageBox.information(self, _('Scan Results'), _('No video has been found.'))
             return
 
         total = len(local_videos)
 
         # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
         # callback = ProgressCallbackWidget(self)
-        # callback.set_title_text(_("Asking Server..."))
-        # callback.set_label_text(_("Searching subtitles..."))
-        # callback.set_updated_text(_("Searching subtitles ( %d / %d )"))
-        # callback.set_finished_text(_("Search finished"))
+        # callback.set_title_text(_('Asking Server...'))
+        # callback.set_label_text(_('Searching subtitles...'))
+        # callback.set_updated_text(_('Searching subtitles ( %d / %d )'))
+        # callback.set_finished_text(_('Search finished'))
         callback.set_block(True)
         callback.set_range(0, total)
 
         callback.show()
 
-        callback.set_range(0, 2)
-
-        download_callback = callback.get_child_progress(0, 1)
         try:
-            remote_subs = self.get_state().get_OSDBServer().search_videos(videos=local_videos, callback=download_callback)
+            remote_subs = self._state.search_videos(local_videos, callback)
         except ProviderConnectionError:
                 log.debug('Unable to search for subtitles of videos: videos={}'.format(list(v.get_filename() for v in local_videos)))
                 QMessageBox.about(self, _('Error'), _('Unable to search for subtitles'))
@@ -367,27 +367,23 @@ class SearchFileWidget(QWidget):
                 return
 
         self.videoModel.set_videos(local_videos)
-        # self.onFilterLanguageVideo(self.ui.filterLanguageForVideo.get_selected_language())
 
         if remote_subs is None:
-            QMessageBox.about(self, _("Error"), _(
-                "Error contacting the server. Please try again later"))
+            QMessageBox.about(self, _('Error'), _(
+                'Error contacting the server. Please try again later'))
         callback.finish()
 
         # TODO: CHECK if our local subtitles are already in the server, otherwise suggest to upload
-        # self.OSDBServer.CheckSubHash(sub_hashes)
 
     @pyqtSlot()
     def onButtonPlay(self):
-        settings = QSettings()
-        programPath = settings.value('options/VideoPlayerPath', '')
-        parameters = settings.value('options/VideoPlayerParameters', '')
-        if programPath == '':
-            QMessageBox.about(self, _('Error'), _(
-                'No default video player has been defined in Settings.'))
+        selected_subtitle = self.get_current_selected_item_videomodel()
+        log.debug('Trying to play selected subtitle: {}'.format(selected_subtitle))
+
+        if selected_subtitle is None:
+            QMessageBox.warning(self, _('No subtitle selected'), _('Select a subtitle and try again'))
             return
 
-        selected_subtitle = self.get_current_selected_item_videomodel()
         if isinstance(selected_subtitle, SubtitleFileNetwork):
             selected_subtitle = selected_subtitle.get_subtitles()[0]
 
@@ -405,8 +401,9 @@ class SearchFileWidget(QWidget):
             callback.set_block(True)
             callback.set_range(0, 100)
             callback.show()
+
             try:
-                subtitle_stream = selected_subtitle.download(self.get_state().get_OSDBServer(), callback=callback)
+                selected_subtitle.download(subtitle_file_path, self._state.providers.get(selected_subtitle.get_provider), callback)
             except ProviderConnectionError:
                 log.debug('Unable to download subtitle "{}"'.format(selected_subtitle.get_filename()), exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(
@@ -414,7 +411,6 @@ class SearchFileWidget(QWidget):
                 callback.finish()
                 return
             callback.finish()
-            write_stream(subtitle_stream, subtitle_file_path)
         else:
             QMessageBox.about(self, _('Error'), '{}\n{}'.format(_('Unknown Error'), _('Please submit bug report')))
             return
@@ -432,11 +428,6 @@ class SearchFileWidget(QWidget):
     def onClickVideoTreeView(self, index):
         data_item = self.videoModel.getSelectedItem(index)
 
-        if isinstance(data_item, SubtitleFile):
-            self.ui.buttonPlay.setEnabled(True)
-        else:
-            self.ui.buttonPlay.setEnabled(False)
-
         if isinstance(data_item, VideoFile):
             video = data_item
             if True: # video.getMovieInfo():
@@ -449,6 +440,15 @@ class SearchFileWidget(QWidget):
             self.ui.buttonIMDB.setText(_('Subtitle Info'))
         else:
             self.ui.buttonIMDB.setEnabled(False)
+
+    @pyqtSlot(QModelIndex)
+    def onSelectVideoTreeView(self, index):
+        data_item = self.videoModel.getSelectedItem(index)
+
+        if isinstance(data_item, SubtitleFile):
+            self.ui.buttonPlay.setEnabled(True)
+        else:
+            self.ui.buttonPlay.setEnabled(False)
 
     def onContext(self, point):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
@@ -486,6 +486,13 @@ class SearchFileWidget(QWidget):
         # Show the context menu.
         menu.exec_(listview.mapToGlobal(point))
 
+    def _create_choose_target_subtitle_path_cb(self):
+        def callback(path, filename):
+            selected_path = QFileDialog.getSaveFileName(self, _('Choose the target filename'),
+                                                        str(path / filename))
+            return selected_path
+        return callback
+
     def onButtonDownload(self):
         # We download the subtitle in the same folder than the video
         subs = self.videoModel.get_checked_subtitles()
@@ -493,18 +500,17 @@ class SearchFileWidget(QWidget):
         skip_all = False
         if not subs:
             QMessageBox.about(
-                self, _("Error"), _("No subtitles selected to be downloaded"))
+                self, _('Error'), _('No subtitles selected to be downloaded'))
             return
         total_subs = len(subs)
-        answer = None
         success_downloaded = 0
 
         # FIXME: must pass mainwindow as argument to ProgressCallbackWidget
         callback = ProgressCallbackWidget(self)
-        callback.set_title_text(_("Downloading..."))
-        callback.set_label_text(_("Downloading files..."))
-        callback.set_updated_text(_("Downloading subtitle {0} ({1}/{2})"))
-        callback.set_finished_text(_("{0} from {1} subtitles downloaded successfully"))
+        callback.set_title_text(_('Downloading...'))
+        callback.set_label_text(_('Downloading files...'))
+        callback.set_updated_text(_('Downloading subtitle {0} ({1}/{2})'))
+        callback.set_finished_text(_('{0} from {1} subtitles downloaded successfully'))
         callback.set_block(True)
         callback.set_range(0, total_subs)
 
@@ -513,123 +519,125 @@ class SearchFileWidget(QWidget):
         for i, sub in enumerate(subs):
             if callback.canceled():
                 break
-            destinationPath = self.get_state().getDownloadPath(self, sub)
+            destinationPath = self._state.calculate_download_path(sub, self._create_choose_target_subtitle_path_cb(),
+                                                                  conflict_free=False)
             if not destinationPath:
+                QMessageBox.information(self, _('Download canceled'),_('Downloading has been canceled'))
                 break
-            log.debug("Trying to download subtitle '%s'" % destinationPath)
-            callback.update(i, QFileInfo(destinationPath).fileName(), i + 1, total_subs)
+            log.debug('Trying to download subtitle "{}"'.format(destinationPath))
+            callback.update(i, destinationPath.name, i + 1, total_subs)
+
+            skipSubtitle = False
 
             # Check if we have write permissions, otherwise show warning window
-            while True:
+            while not skipSubtitle:
                 # If the file and the folder don't have write access.
-                if not QFileInfo(destinationPath).isWritable() and not QFileInfo(QFileInfo(destinationPath).absoluteDir().path()).isWritable():
+                if not os.access(str(destinationPath), os.W_OK) and not os.access(str(destinationPath.parent), os.W_OK):
                     warningBox = QMessageBox(
                         QMessageBox.Warning,
                         _("Error write permission"),
-                        _("{destination} cannot be saved.\nCheck that the folder exists and you have write-access permissions.").format(destinationPath),
-                        QMessageBox.Retry | QMessageBox.Discard | QMessageBox.NoButton,
+                        _("{} cannot be saved.\nCheck that the folder exists and you have write-access permissions.").format(destinationPath),
+                        QMessageBox.Retry | QMessageBox.Discard,
                         self)
 
                     saveAsButton = warningBox.addButton(
                         _("Save as..."), QMessageBox.ActionRole)
-                    answer = warningBox.exec_()
-                    if answer == QMessageBox.Retry:
+                    boxExecResult = warningBox.exec_()
+                    if boxExecResult == QMessageBox.Retry:
                         continue
-                    elif answer == QMessageBox.Discard:
-                        break  # Let's get out from the While true
-                    # If we choose the SAVE AS
-                    elif answer == QMessageBox.NoButton:
-                        fileName, t = QFileDialog.getSaveFileName(
-                            self, _("Save subtitle as..."), destinationPath, 'All (*.*)')
-                        if fileName:
-                            destinationPath = fileName
-                else:  # If we have write access we leave the while loop.
+                    elif boxExecResult == QMessageBox.Abort:
+                        skipSubtitle = True
+                        continue
+                    else:
+                        clickedButton = warningBox.clickedButton()
+                        if clickedButton is None:
+                            skipSubtitle = True
+                            continue
+                        elif clickedButton == saveAsButton:
+                            newFilePath, t = QFileDialog.getSaveFileName(
+                                self, _("Save subtitle as..."), str(destinationPath), 'All (*.*)')
+                            if not newFilePath:
+                                skipSubtitle = True
+                                continue
+                            destinationPath = Path(newFilePath)
+                        else:
+                            log.debug('Unknown button clicked: result={}, button={}, role: {}'.format(boxExecResult, clickedButton, warningBox.buttonRole(clickedButton)))
+                            skipSubtitle = True
+                            continue
+
+                if skipSubtitle:
                     break
 
-            # If we have chosen Discard subtitle button.
-            if answer == QMessageBox.Discard:
-                continue  # Continue the next subtitle
-
-            optionWhereToDownload = QSettings().value("options/whereToDownload", "SAME_FOLDER")
-            # Check if doesn't exists already, otherwise show fileExistsBox
-            # dialog
-            if QFileInfo(destinationPath).exists() and not replace_all and not skip_all and optionWhereToDownload != "ASK_FOLDER":
-                # The "remote filename" below is actually not the real filename. Real name could be confusing
-                # since we always rename downloaded sub to match movie
-                # filename.
-                fileExistsBox = QMessageBox(
-                    QMessageBox.Warning,
-                    _("File already exists"),
-                    _("Local: {local}\n\nRemote: {remote}\n\nHow would you like to proceed?").format(
-                        local=destinationPath, remote=QFileInfo(destinationPath).fileName()),
-                    QMessageBox.NoButton,
-                    self)
-                skipButton = fileExistsBox.addButton(
-                    _("Skip"), QMessageBox.ActionRole)
-#                    skipAllButton = fileExistsBox.addButton(_("Skip all"), QMessageBox.ActionRole)
-                replaceButton = fileExistsBox.addButton(
-                    _("Replace"), QMessageBox.ActionRole)
-                replaceAllButton = fileExistsBox.addButton(
-                    _("Replace all"), QMessageBox.ActionRole)
-                saveAsButton = fileExistsBox.addButton(
-                    _("Save as..."), QMessageBox.ActionRole)
-                cancelButton = fileExistsBox.addButton(
-                    _("Cancel"), QMessageBox.ActionRole)
-                fileExistsBox.exec_()
-                answer = fileExistsBox.clickedButton()
-                if answer == replaceAllButton:
-                    # Don't ask us again (for this batch of files)
-                    replace_all = True
-                elif answer == saveAsButton:
-                    # We will find a uniqiue filename and suggest this to user.
-                    # add .<lang> to (inside) the filename. If that is not enough, start adding numbers.
-                    # There should also be a preferences setting "Autorename
-                    # files" or similar ( =never ask) FIXME
-                    suggBaseName, suggFileExt = os.path.splitext(
-                        destinationPath)
-                    fNameCtr = 0  # Counter used to generate a unique filename
-                    suggestedFileName = suggBaseName + '.' + \
-                        sub.get_language().xxx() + suggFileExt
-                    while (os.path.exists(suggestedFileName)):
-                        fNameCtr += 1
-                        suggestedFileName = suggBaseName + '.' + \
-                            sub.get_language().xxx() + '-' + \
-                            str(fNameCtr) + suggFileExt
-                    fileName, t = QFileDialog.getSaveFileName(
-                        None, _("Save subtitle as..."), suggestedFileName, 'All (*.*)')
-                    if fileName:
-                        destinationPath = fileName
-                    else:
-                        # Skip this particular file if no filename chosen
+                if destinationPath.exists():
+                    if skip_all:
+                        skipSubtitle = True
                         continue
-                elif answer == skipButton:
-                    continue  # Skip this particular file
-#                    elif answer == skipAllButton:
-#                        count += percentage
-#                        skip_all = True # Skip all files already downloaded
-#                        continue
-                elif answer == cancelButton:
-                    break  # Break out of DL loop - cancel was pushed
-                elif answer == replaceButton:
-                    pass
-                else:
-                    assert False
-            QCoreApplication.processEvents()
+                    elif replace_all:
+                        pass
+                    else:
+                        fileExistsBox = QMessageBox(QMessageBox.Warning, _('File already exists'),
+                                                    '{localLbl}: {local}\n\n{remoteLbl}: {remote}\n\n{question}'.format(
+                                                        localLbl=_('Local'),
+                                                        local=destinationPath,
+                                                        remoteLbl=_('remote'),
+                                                        remote=sub.get_filename(),
+                                                        question=_('How would you like to proceed?'),),
+                                                    QMessageBox.NoButton, self)
+                        skipButton = fileExistsBox.addButton(_('Skip'), QMessageBox.ActionRole)
+                        skipAllButton = fileExistsBox.addButton(_('Skip all'), QMessageBox.ActionRole)
+                        replaceButton = fileExistsBox.addButton(_('Replace'), QMessageBox.ActionRole)
+                        replaceAllButton = fileExistsBox.addButton(_('Replace all'), QMessageBox.ActionRole)
+                        saveAsButton = fileExistsBox.addButton(_('Save as...'), QMessageBox.ActionRole)
+                        cancelButton = fileExistsBox.addButton(_('Cancel'), QMessageBox.ActionRole)
+                        fileExistsBox.exec_()
+
+                        clickedButton = fileExistsBox.clickedButton()
+                        if clickedButton == skipButton:
+                            skipSubtitle = True
+                            continue
+                        elif clickedButton == skipAllButton:
+                            skipSubtitle = True
+                            skip_all = True
+                            continue
+                        elif clickedButton == replaceButton:
+                            pass
+                        elif clickedButton == replaceAllButton:
+                            replace_all = True
+                        elif clickedButton == saveAsButton:
+                            suggestedDestinationPath = self._state.calculate_download_path(sub, self._create_choose_target_subtitle_path_cb(), conflict_free=True)
+                            fileName, t = QFileDialog.getSaveFileName(
+                                None, _('Save subtitle as...'), str(suggestedDestinationPath), 'All (*.*)')
+                            if not fileName:
+                                skipSubtitle = True
+                            destinationPath = Path(fileName)
+                        elif clickedButton == cancelButton:
+                            callback.cancel()
+                            continue
+                        else:
+                            log.debug('Unknown button clicked: result={}, button={}, role: {}'.format(boxExecResult, clickedButton, warningBox.buttonRole(clickedButton)))
+                            skipSubtitle = True
+                            continue
+                break
+
+            if skipSubtitle:
+                continue
+
+            if callback.canceled():
+                break
+
             # FIXME: redundant update?
-            callback.update(i, QFileInfo(destinationPath).fileName(), i + 1, total_subs)
+            callback.update(i, destinationPath, i + 1, total_subs)
+
             try:
-                if not skip_all:
-                    log.debug("Downloading subtitle '%s'" % destinationPath)
-                    download_callback = ProgressCallback()  # FIXME
-                    data_stream = sub.download(
-                        provider_instance=self.get_state().get_OSDBServer(),
-                        callback=download_callback,
-                    )
-                    write_stream(data_stream, destinationPath)
+                log.debug('Downloading subtitle "{}"'.format(destinationPath))
+                download_callback = ProgressCallback()  # FIXME
+                sub.download(destinationPath, self._state.providers.get(sub.get_provider), callback)
             except ProviderConnectionError:
-                log.exception('Unable to Download subtitle {}'.format(sub.get_filename()))
-                QMessageBox.about(self, _("Error"), _(
-                    "Unable to download subtitle %s") % sub.get_filename())
+                log.debug('Unable to download subtitle "{}"'.format(sub.get_filename()), exc_info=sys.exc_info())
+                QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(
+                    subtitle=sub.get_filename()))
+                callback.finish()
+                return
         callback.finish(success_downloaded, total_subs)
 
     def onViewOnlineInfo(self):
@@ -649,6 +657,7 @@ class SearchFileWidget(QWidget):
         elif isinstance(data_item, RemoteSubtitleFile):
             sub = data_item
             webbrowser.open(sub.get_link(), new=2, autoraise=1)
+
     @pyqtSlot()
     def on_set_imdb_info(self):
         #FIXME: DUPLICATED WITH SEARCHNAMEWIDGET

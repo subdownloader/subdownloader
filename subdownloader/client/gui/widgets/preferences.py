@@ -158,12 +158,22 @@ class PreferencesDialog(QDialog):
             provider = providerState.provider
             provider_name = provider.get_name()
             self.ui.providerComboBox.addItem(provider_name, provider)
-            providerWidget = QWidget()
-            providerLayout = QFormLayout()
+            from PyQt5.QtWidgets import QVBoxLayout, QLabel
             ui_items = {
                 '_enabled': QCheckBox(),
+                '_textDisabled': QLabel(_("This provider is connected and cannot be updated")),
             }
-            providerLayout.addRow(_('enabled').capitalize(), ui_items['_enabled'])
+            ui_items['_textDisabled'].setVisible(providerState.provider.connected())
+            ui_items['_textDisabled'].setEnabled(False)
+            providerWidget = QWidget()
+            providerLayout = QVBoxLayout()
+            providerLayout.addWidget(ui_items['_textDisabled'])
+            dataWidget = QWidget()
+            providerLayout.addWidget(dataWidget)
+            providerLayout.addStretch()
+            dataLayout = QFormLayout()
+            dataWidget.setLayout(dataLayout)
+            dataLayout.addRow(_('enabled').capitalize(), ui_items['_enabled'])
 
             for key, key_type in provider.get_settings().key_types().items():
                 if key_type == ProviderSettingsType.String:
@@ -178,7 +188,7 @@ class PreferencesDialog(QDialog):
                                         '\n'.join((_('An unknown settings type has been passed.'),
                                                    _('Please open an issue'))))
                     continue
-                providerLayout.addRow(key.capitalize(), widget)
+                dataLayout.addRow(key.capitalize(), widget)
                 ui_items[key] = widget
             providerWidget.setLayout(providerLayout)
             self.ui.providerStack.addWidget(providerWidget)
@@ -251,6 +261,10 @@ class PreferencesDialog(QDialog):
             provider_name = provider.get_name()
             provider_ui = self.providers_ui[provider_name]
             provider_ui['_enabled'].setChecked(providerState.getEnabled())
+
+            if self._state.providers.connected():
+                provider_ui['_enabled'].setEnabled(False)
+
             dataDict = provider.get_settings().as_dict()
             for key, key_type in provider.get_settings().key_types().items():
                 if key_type == ProviderSettingsType.String:
@@ -259,6 +273,9 @@ class PreferencesDialog(QDialog):
                     provider_ui[key].setText(dataDict[key])
                 else:
                     continue
+
+                if self._state.providers.connected():
+                    provider_ui[key].setEnabled(False)
 
         # 5. Others tab
 
@@ -317,8 +334,11 @@ class PreferencesDialog(QDialog):
                     dataDict[key] = provider_ui[key].text()
                 else:
                     continue
-            new_settings = provider.get_settings().load(**dataDict)
-            provider.set_settings(new_settings)
+            if providerState.getEnabled() and not providerState.provider.connected():
+                new_settings = provider.get_settings().load(**dataDict)
+                provider.set_settings(new_settings)
+        # Emit signal to update number of providers
+        self._state.signals.login_status_changed.emit()
 
         # 5. Others tab
 
