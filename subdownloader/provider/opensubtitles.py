@@ -15,6 +15,7 @@ from urllib.parse import quote
 from urllib.request import urlopen
 from xmlrpc.client import ProtocolError, ServerProxy
 
+from subdownloader.video2 import VideoFile
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.identification import ImdbIdentity, ProviderIdentities, SeriesIdentity, VideoIdentity
 from subdownloader.movie import RemoteMovie
@@ -677,7 +678,7 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         from subdownloader.util import unzip_stream
         write_stream(src_file=unzip_stream(stream), destination_path=target_path)
         local_sub = LocalSubtitleFile(filepath=target_path)
-        super_parent = self.get_super_parent()
+        super_parent = self.get_super_parent(VideoFile)
         if super_parent:
             super_parent.add_subtitle(local_sub, priority=True)
         return local_sub,

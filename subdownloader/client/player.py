@@ -28,16 +28,19 @@ class VideoPlayer(object):
     def get_command(self):
         return self._command
 
-    def play_video(self, video, subtitleFile):
+    def play_video(self, video, subtitleFile=None):
         args = [self._path]
 
-        try:
-            parameters_args = shlex.split(self._command)
-        except ValueError:
-            raise RuntimeError(_('Unable to launch videoplayer'))  # FIXME: catch + show messagebox
+        if subtitleFile is None:
+            args.append(str(video.get_filepath()))
+        else:
+            try:
+                parameters_args = shlex.split(self._command)
+            except ValueError:
+                raise RuntimeError(_('Unable to launch videoplayer'))  # FIXME: catch + show messagebox
 
-        for param in parameters_args:
-            args.append(param.format(video.get_filepath(), subtitleFile.get_filepath()))
+            for param in parameters_args:
+                args.append(param.format(video.get_filepath(), subtitleFile.get_filepath()))
 
         log.debug('VideoPlayer.play_video: args={}'.format(args))
         try:

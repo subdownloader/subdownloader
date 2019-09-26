@@ -26,14 +26,14 @@ class SubtitleFile(object):
     def set_parent(self, parent):
         self._parent = parent
 
-    def get_super_parent(self):
+    def get_super_parent(self, typ=None):
         parents = set()
         obj = self
         while True:
             parent = obj.get_parent()
-            if parent is None:
-                return None
-            if not isinstance(parent, SubtitleFile):
+            if parent is None and type is None:
+                return obj
+            if isinstance(parent, typ):
                 return parent
             if parent in parents:
                 log.warning('Loop detected in parents of "{self}": parent {parent} already in {parents}'.format(

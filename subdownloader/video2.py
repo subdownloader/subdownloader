@@ -170,12 +170,12 @@ class VideoFile(object):
         """
         return self._subtitles
 
-    def add_subtitle(self, subtitle):
+    def add_subtitle(self, subtitle, priority=False):
         """
         Add subtitle to the the subtitle collection of this video.
         :param subtitle: subtitle to add
         """
-        self._subtitles.add_subtitle(subtitle)
+        self._subtitles.add_subtitle(subtitle, priority=True)
 
     def get_identities(self):
         """

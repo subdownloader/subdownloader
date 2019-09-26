@@ -377,19 +377,24 @@ class SearchFileWidget(QWidget):
 
     @pyqtSlot()
     def onButtonPlay(self):
-        selected_subtitle = self.get_current_selected_item_videomodel()
-        log.debug('Trying to play selected subtitle: {}'.format(selected_subtitle))
+        selected_item = self.get_current_selected_item_videomodel()
+        log.debug('Trying to play selected item: {}'.format(selected_item))
 
-        if selected_subtitle is None:
+        if selected_item is None:
             QMessageBox.warning(self, _('No subtitle selected'), _('Select a subtitle and try again'))
             return
 
-        if isinstance(selected_subtitle, SubtitleFileNetwork):
-            selected_subtitle = selected_subtitle.get_subtitles()[0]
+        if isinstance(selected_item, SubtitleFileNetwork):
+            selected_item = selected_item.get_subtitles()[0]
 
-        if isinstance(selected_subtitle, LocalSubtitleFile):
-            subtitle_file_path = selected_subtitle.get_filepath()
-        elif isinstance(selected_subtitle, RemoteSubtitleFile):
+        if isinstance(selected_item, VideoFile):
+            subtitle_file_path = None
+            video = selected_item
+        elif isinstance(selected_item, LocalSubtitleFile):
+            subtitle_file_path = selected_item.get_filepath()
+            video = selected_item.get_super_parent(VideoFile)
+        elif isinstance(selected_item, RemoteSubtitleFile):
+            video = selected_item.get_super_parent(VideoFile)
             subtitle_file_path = Path(tempfile.gettempdir()) / 'subdownloader.tmp.srt'
             log.debug('tmp path is {}'.format(subtitle_file_path))
             log.debug('Temporary subtitle will be downloaded into: {temp_path}'.format(temp_path=subtitle_file_path))
@@ -403,11 +408,11 @@ class SearchFileWidget(QWidget):
             callback.show()
 
             try:
-                selected_subtitle.download(subtitle_file_path, self._state.providers.get(selected_subtitle.get_provider), callback)
+                selected_item.download(subtitle_file_path, self._state.providers.get(selected_item.get_provider), callback)
             except ProviderConnectionError:
-                log.debug('Unable to download subtitle "{}"'.format(selected_subtitle.get_filename()), exc_info=sys.exc_info())
+                log.debug('Unable to download subtitle "{}"'.format(selected_item.get_filename()), exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(
-                    subtitle=selected_subtitle.get_filename()))
+                    subtitle=selected_item.get_filename()))
                 callback.finish()
                 return
             callback.finish()
@@ -415,9 +420,12 @@ class SearchFileWidget(QWidget):
             QMessageBox.about(self, _('Error'), '{}\n{}'.format(_('Unknown Error'), _('Please submit bug report')))
             return
 
-        video = selected_subtitle.get_parent().get_parent().get_parent()
+        # video = selected_item.get_parent().get_parent().get_parent()
         # FIXME: download subtitle with provider + use returned localSubtitleFile instead of creating one here
-        local_subtitle = LocalSubtitleFile(subtitle_file_path)
+        if subtitle_file_path:
+            local_subtitle = LocalSubtitleFile(subtitle_file_path)
+        else:
+            local_subtitle = None
         try:
             player = self._state.get_videoplayer()
             player.play_video(video, local_subtitle)
@@ -445,10 +453,11 @@ class SearchFileWidget(QWidget):
     def onSelectVideoTreeView(self, index):
         data_item = self.videoModel.getSelectedItem(index)
 
-        if isinstance(data_item, SubtitleFile):
-            self.ui.buttonPlay.setEnabled(True)
-        else:
-            self.ui.buttonPlay.setEnabled(False)
+        self.ui.buttonPlay.setEnabled(True)
+        # if isinstance(data_item, SubtitleFile):
+        #     self.ui.buttonPlay.setEnabled(True)
+        # else:
+        #     self.ui.buttonPlay.setEnabled(False)
 
     def onContext(self, point):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget
@@ -639,6 +648,7 @@ class SearchFileWidget(QWidget):
                 callback.finish()
                 return
         callback.finish(success_downloaded, total_subs)
+        self.videoModel.underlying_data_changed()
 
     def onViewOnlineInfo(self):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget

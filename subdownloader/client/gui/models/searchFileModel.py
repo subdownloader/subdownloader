@@ -137,23 +137,54 @@ class VideoModel(QAbstractItemModel):
         self._language_filter.set_languages(languages)
         self._apply_filters()
 
+    @pyqtSlot()
+    def underlying_data_changed(self):
+        for video_node in self._all_root.get_children():
+            video = video_node.get_data()
+
+            # Remove unknown subtitle networks and add new subtitle networks as Node (from Video Node)
+            new_video_subtitle_networks = list(video.get_subtitles())
+            for subtitle_network_node in list(video_node.get_children()):
+                subtitle_network = subtitle_network_node.get_data()
+                if subtitle_network not in new_video_subtitle_networks:
+                    video_node.remove_child(subtitle_network_node)
+                else:
+                    new_video_subtitle_networks.remove(subtitle_network)
+
+            for new_subtitle_network in new_video_subtitle_networks:
+                video_node.add_child(new_subtitle_network)
+
+            # Remove unknown subtitles and add new subtitle as Node (from SubtitleNetwork Nodes)
+            for subtitle_network_node in video_node.get_children():
+                subtitle_network = subtitle_network_node.get_data()
+
+                new_subtitles = list(subtitle_network.get_subtitles())
+                for subtitle_node in list(subtitle_network_node.get_children()):
+                    subtitle = subtitle_node.get_data()
+                    if subtitle not in new_subtitles:
+                        subtitle_network_node.remove_child(subtitle_node)
+                    else:
+                        new_subtitles.remove(subtitle)
+
+                for new_subtitle in new_subtitles:
+                    subtitle_node = subtitle_network_node.add_child(new_subtitle)
+                    if isinstance(new_subtitle, LocalSubtitleFile):
+                        subtitle_node.set_checked(True)
+
+        self._apply_filters()
+
     def set_videos(self, videos):
         log.debug('set_videos(#videos={nbVideos})'.format(nbVideos=len(videos)))
 
         self._all_root = Node(data=None, parent=None)
         for video in videos:
-            video_node = self._all_root.add_child(video)
-            for subtitle_network in video.get_subtitles().get_subtitle_networks():
-                subtitle_network_node = video_node.add_child(subtitle_network)
-                for subtitle in subtitle_network.get_subtitles():
-                    subtitle_node = subtitle_network_node.add_child(subtitle)
-                    if isinstance(subtitle, LocalSubtitleFile):
-                        subtitle_node.set_checked(True)
+            self._all_root.add_child(video)
+            continue
 
-        self._apply_filters()
+        self.underlying_data_changed()
 
     def clear(self):
-        log.debug("Clearing VideoTree")
+        log.debug('Clearing VideoTree')
 
         self._all_root = Node(data=None, parent=None)
         self._apply_filters()
