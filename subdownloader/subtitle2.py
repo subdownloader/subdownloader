@@ -167,31 +167,40 @@ class SubtitleFileStorage(SubtitleFile):
         """
 
         vid_fn = video.get_filename()
-        vid_base, _ = os.path.splitext(vid_fn)
-        vid_base = vid_base.lower()
+        vid_stem, _ = os.path.splitext(vid_fn)
+        vid_stem = vid_stem.lower()
 
         sub_fn = self.get_filename()
-        sub_base, _ = os.path.splitext(sub_fn)
-        sub_base = sub_base.lower()
+        sub_stem, _ = os.path.splitext(sub_fn)
+        sub_stem = sub_stem.lower()
 
         log.debug('matches_filename(subtitle="{sub_filename}", video="{vid_filename}") ...'.format(
             sub_filename=sub_fn, vid_filename=vid_fn))
-
-        matches = sub_base == vid_base
+        matches = sub_stem == vid_stem
 
         lang = None
         if not matches:
-            if sub_base.startswith(vid_base):
-                sub_rest = sub_base[len(vid_base):]
-                while len(sub_rest) > 0:
-                    if sub_rest[0].isalnum():
-                        break
-                    sub_rest = sub_rest[1:]
-                try:
-                    lang = Language.from_unknown(sub_rest, xx=True, xxx=True)
-                    matches = True
-                except NotALanguageException:
-                    matches = False
+            if sub_stem.startswith(vid_stem):
+                sub_rest = sub_stem[len(vid_stem):]
+                rests = sub_rest.split('.')
+                rest_matches = True
+                for rest in rests:
+                    if not rest:
+                        continue
+                    try:
+                        int(rest)
+                        continue
+                    except ValueError:
+                        pass
+                    try:
+                        lang = Language.from_unknown(rest, xx=True, xxx=True)
+                        continue
+                    except NotALanguageException:
+                        pass
+                    rest_matches = False
+                    break
+
+                matches = rest_matches
 
         if matches:
             log.debug('... matches (language={language})'.format(language=lang))
