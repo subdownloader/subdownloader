@@ -18,7 +18,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QDir
 from PyQt5.QtWidgets import QCheckBox, QCompleter, QDialog, QDirModel, QFileDialog, QFormLayout, QLineEdit, \
     QMessageBox, QWidget
 
-log = logging.getLogger("subdownloader.client.gui.preferences")
+log = logging.getLogger('subdownloader.client.gui.preferences')
 # FIXME: add more logging
 
 
@@ -161,7 +161,7 @@ class PreferencesDialog(QDialog):
             from PyQt5.QtWidgets import QVBoxLayout, QLabel
             ui_items = {
                 '_enabled': QCheckBox(),
-                '_textDisabled': QLabel(_("This provider is connected and cannot be updated")),
+                '_textDisabled': QLabel(_('This provider is connected and cannot be configured')),
             }
             ui_items['_textDisabled'].setVisible(providerState.provider.connected())
             ui_items['_textDisabled'].setEnabled(False)
@@ -368,7 +368,7 @@ class PreferencesDialog(QDialog):
         dlDestinationUser = self.ui.inputDlDestinationUser.text()
         if self._dlDestinationType == SubtitlePathStrategy.PREDEFINED and not os.path.isdir(dlDestinationUser):
             QMessageBox.about(
-                self, _("Error"), _("Predefined Folder is invalid"))
+                self, _('Error'), _('Predefined Folder is invalid'))
             return False
         return True
 
@@ -405,9 +405,9 @@ class PreferencesDialog(QDialog):
 
     @pyqtSlot()
     def onButtonDlDestinationClicked(self):
-        directory = QFileDialog.getExistingDirectory(self, _("Select a directory"), str(self._dlDestinationPredefined))
+        directory = QFileDialog.getExistingDirectory(self, _('Select a directory'), str(self._dlDestinationPredefined))
         if not directory:
-            # Cancelled
+            # Canceled
             return
         if os.path.isdir(directory):
             self.ui.inputDlDestinationUser.setText(directory)
@@ -459,11 +459,11 @@ class PreferencesDialog(QDialog):
 
     @pyqtSlot()
     def onButtonVideoAppLocationChoose(self):
-        extensions = ""
-        if platform.system == "Windows":
-            extensions = "*.exe"
+        extensions = ''
+        if platform.system == 'Windows':
+            extensions = '*.exe'
 
         fileName, t = QFileDialog.getOpenFileName(
-            self, _("Select the Video Player executable file"), "", extensions)
+            self, _('Select the Video Player executable file'), '', extensions)
         if fileName:
             self.ui.inputVideoAppLocation.setText(fileName)
