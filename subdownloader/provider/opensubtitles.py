@@ -9,6 +9,7 @@ import logging
 import re
 from socket import error as SocketError
 import string
+import time
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -34,6 +35,7 @@ class OpenSubtitles(SubtitleProvider):
         SubtitleProvider.__init__(self)
         self._xmlrpc = None
         self._token = None
+        self._last_time = None
 
         if settings is None:
             settings = OpenSubtitlesSettings()
@@ -52,6 +54,7 @@ class OpenSubtitles(SubtitleProvider):
         if self.connected():
             return
         self._xmlrpc = ServerProxy(self.URL, allow_none=False)
+        self._last_time = time.time()
 
     def disconnect(self):
         log.debug('disconnect()')
@@ -89,6 +92,24 @@ class OpenSubtitles(SubtitleProvider):
 
     def logged_in(self):
         return self._token is not None
+
+    def reestablish(self):
+        log.debug('reestablish()')
+        connected = self.connected()
+        logged_in = self.logged_in()
+        self.disconnect()
+        if connected:
+            self.connect()
+        if logged_in:
+            self.login()
+
+    _TIMEOUT_MS = 60_000
+
+    def _ensure_connection(self):
+        now = time.time()
+        if now - time.time() > self._TIMEOUT_MS:
+            self.reestablish()
+            self._last_time = now
 
     SEARCH_LIMIT = 500
 
@@ -254,6 +275,7 @@ class OpenSubtitles(SubtitleProvider):
         pass
 
     def _safe_exec(self, query, default):
+        self._ensure_connection()
         try:
             result = query()
             return result
@@ -657,7 +679,7 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         local_sub = LocalSubtitleFile(filepath=target_path)
         super_parent = self.get_super_parent()
         if super_parent:
-            super_parent.add_subtitle(local_sub)
+            super_parent.add_subtitle(local_sub, priority=True)
         return local_sub,
 
     def _download_service(self, provider_instance):

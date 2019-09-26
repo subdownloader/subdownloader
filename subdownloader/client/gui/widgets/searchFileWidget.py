@@ -631,7 +631,7 @@ class SearchFileWidget(QWidget):
             try:
                 log.debug('Downloading subtitle "{}"'.format(destinationPath))
                 download_callback = ProgressCallback()  # FIXME
-                sub.download(destinationPath, self._state.providers.get(sub.get_provider), callback)
+                sub.download(destinationPath, self._state.providers.get(sub.get_provider), download_callback)
             except ProviderConnectionError:
                 log.debug('Unable to download subtitle "{}"'.format(sub.get_filename()), exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(

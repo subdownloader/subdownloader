@@ -23,6 +23,9 @@ class SubtitleFile(object):
     def get_parent(self):
         return self._parent
 
+    def set_parent(self, parent):
+        self._parent = parent
+
     def get_super_parent(self):
         parents = set()
         obj = self
@@ -152,9 +155,6 @@ class SubtitleFileStorage(SubtitleFile):
         self._language = language
         self._file_size = file_size
         self._md5_hash = md5_hash
-
-    def set_parent(self, parent):
-        self._parent = parent
 
     def get_filename(self):  # FIXME: abstractmethod
         raise NotImplementedError()
@@ -296,7 +296,7 @@ class SubtitleFileCollection(object):
     def get_subtitle_networks(self):
         return self._networks
 
-    def add_subtitle(self, subtitle):
+    def add_subtitle(self, subtitle, priority=False):
         for network in self._networks:
             if network.equals_subtitle_file(subtitle):
                 network.add_subtitle(subtitle)
@@ -305,7 +305,10 @@ class SubtitleFileCollection(object):
             if candidate.equals_subtitle_file(subtitle):
                 network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
                 network.add_subtitle(candidate.get_subtitles()[0])
-                self._networks.append(network)
+                if priority:
+                    self._networks.insert(0, network)
+                else:
+                    self._networks.append(network)
                 self._candidates.remove(candidate)
                 return
         network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
