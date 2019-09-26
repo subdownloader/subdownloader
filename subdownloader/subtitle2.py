@@ -94,10 +94,13 @@ class SubtitleFileNetwork(SubtitleFile):
     def get_filename(self):
         return self._subtitles[0].get_filename()
 
-    def add_subtitle(self, subtitle_file, reparent=True):
+    def add_subtitle(self, subtitle_file, reparent=True, priority=True):
         if reparent:
             subtitle_file.set_parent(self)
-        self._subtitles.append(subtitle_file)
+        if priority:
+            self._subtitles.insert(0, subtitle_file)
+        else:
+            self._subtitles.append(subtitle_file)
 
     def get_language(self):
         result_lang = UnknownLanguage.create_generic()
@@ -299,7 +302,7 @@ class SubtitleFileCollection(object):
     def add_subtitle(self, subtitle, priority=False):
         for network in self._networks:
             if network.equals_subtitle_file(subtitle):
-                network.add_subtitle(subtitle)
+                network.add_subtitle(subtitle, priority=priority)
                 return
         for candidate in self._candidates:
             if candidate.equals_subtitle_file(subtitle):
@@ -312,7 +315,10 @@ class SubtitleFileCollection(object):
                 self._candidates.remove(candidate)
                 return
         network = SubtitleFileNetwork(parent=self, subtitle_file=subtitle)
-        self._networks.append(network)
+        if priority:
+            self._networks.insert(0, network)
+        else:
+            self._networks.append(network)
 
     def add_candidates(self, subtitles):
         for subtitle in subtitles:

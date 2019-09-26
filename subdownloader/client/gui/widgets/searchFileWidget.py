@@ -540,6 +540,10 @@ class SearchFileWidget(QWidget):
 
             # Check if we have write permissions, otherwise show warning window
             while not skipSubtitle:
+
+                if callback.canceled():
+                    break
+
                 # If the file and the folder don't have write access.
                 if not os.access(str(destinationPath), os.W_OK) and not os.access(str(destinationPath.parent), os.W_OK):
                     warningBox = QMessageBox(
@@ -641,6 +645,7 @@ class SearchFileWidget(QWidget):
                 log.debug('Downloading subtitle "{}"'.format(destinationPath))
                 download_callback = ProgressCallback()  # FIXME
                 sub.download(destinationPath, self._state.providers.get(sub.get_provider), download_callback)
+                self.videoModel.uncheck_subtitle(sub)
             except ProviderConnectionError:
                 log.debug('Unable to download subtitle "{}"'.format(sub.get_filename()), exc_info=sys.exc_info())
                 QMessageBox.about(self, _('Error'), _('Unable to download subtitle "{subtitle}"').format(

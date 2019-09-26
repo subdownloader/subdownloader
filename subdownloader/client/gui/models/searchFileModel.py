@@ -51,6 +51,9 @@ class Node:
     def get_parent(self):
         return self._parent
 
+    def sort_children(self, key):
+        self._children.sort(key=key)
+
     def get_children(self):
         return self._children
 
@@ -154,6 +157,9 @@ class VideoModel(QAbstractItemModel):
             for new_subtitle_network in new_video_subtitle_networks:
                 video_node.add_child(new_subtitle_network)
 
+            # Use the same order
+            video_node.sort_children(lambda n: video.get_subtitles().get_subtitle_networks().index(n.get_data()))
+
             # Remove unknown subtitles and add new subtitle as Node (from SubtitleNetwork Nodes)
             for subtitle_network_node in video_node.get_children():
                 subtitle_network = subtitle_network_node.get_data()
@@ -170,6 +176,9 @@ class VideoModel(QAbstractItemModel):
                     subtitle_node = subtitle_network_node.add_child(new_subtitle)
                     if isinstance(new_subtitle, LocalSubtitleFile):
                         subtitle_node.set_checked(True)
+
+                # Use the same order
+                subtitle_network_node.sort_children(lambda n: subtitle_network.get_subtitles().index(n.get_data()))
 
         self._apply_filters()
 
@@ -411,6 +420,13 @@ class VideoModel(QAbstractItemModel):
                     if isinstance(subtitle_node.get_data(), RemoteSubtitleFile) and subtitle_node.is_checked():
                         checked_subtitles.append(subtitle_node.get_data())
         return checked_subtitles
+
+    def uncheck_subtitle(self, sub):
+        for video_node in self._root.get_children():
+            for network_node in video_node.get_children():
+                for subtitle_node in network_node.get_children():
+                    if isinstance(subtitle_node.get_data(), RemoteSubtitleFile) and subtitle_node.get_data() == sub:
+                        subtitle_node.set_checked(False)
 
     def headerData(self, section, orientation, role=None):
         """
