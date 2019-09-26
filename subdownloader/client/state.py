@@ -461,6 +461,13 @@ class BaseState(object):
         log.debug('set_video_paths({})'.format(video_paths))
         self._video_paths = video_paths
 
+    def get_video_path(self):
+        video_paths = self.get_video_paths()
+        if video_paths:
+            return video_paths[0]
+        else:
+            return Path()
+
     def get_interface_language(self):
         return self._interface_language
 

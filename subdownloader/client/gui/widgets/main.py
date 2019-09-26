@@ -48,7 +48,7 @@ class Main(QMainWindow):
 
         self.setup_ui()
 
-        self.ui.tabSearchFile.set_state(self._state_original, self._state)
+        self.ui.tabSearchFile.set_state(self._state)
         self.ui.tabSearchName.set_state(self._state_original, self._state)
         self.ui.tabUpload.set_state(self._state_original, self._state)
 
