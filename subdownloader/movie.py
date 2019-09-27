@@ -148,29 +148,33 @@ class RemoteMovieNetwork(object):
         return any(m.more_subtitles_available() for m in self._movies)
 
     def get_nb_subs_total(self):
-        return sum(m.get_nb_subs_total() for m in self.iter_movies())
+        return sum(m.get_nb_subs_total() for m in self.movies())
 
     def get_nb_subs_available(self):
-        return sum(m.get_nb_subs_available() for m in self.iter_movies())
+        return sum(m.get_nb_subs_available() for m in self.movies())
 
     def get_identities(self):
         from subdownloader.identification import Identities
         identity = Identities()
-        for movie in self.iter_movies():
+        for movie in self.movies():
             identity.merge(movie.get_identities())
         return identity
 
-    def iter_movies(self):
-        return iter(self._movies)
+    def movies(self):
+        return self._movies
 
     def get_subtitles(self):
         return self._subtitles
 
     def search_more_subtitles(self):
+        found_new = False
         for movie, query in zip(self._movies, self._queries):
             new_subs = query.search_more_subtitles(movie)
             for new_sub in new_subs:
                 self._subtitles.add_subtitle(new_sub)
+            if new_subs:
+                found_new = True
+        return found_new
 
 
 class RemoteMovieCollection(object):

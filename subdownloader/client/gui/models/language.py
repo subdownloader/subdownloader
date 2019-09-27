@@ -12,8 +12,8 @@ log = logging.getLogger('subdownloader.client.gui.models.language')
 
 
 class LanguageModel(QAbstractListModel):
-    def __init__(self, unknown_text, unknown_visible, languages, parent=None):
-        QAbstractListModel.__init__(self, parent)
+    def __init__(self, unknown_text, unknown_visible, languages):
+        QAbstractListModel.__init__(self)
         self._unknown_visible = unknown_visible
         self._unknown_text = unknown_text
 
@@ -53,17 +53,17 @@ class LanguageModel(QAbstractListModel):
         if role == Qt.UserRole:
             return language
 
-        if role == Qt.FontRole:
+        elif role == Qt.FontRole:
             if language.is_generic():
                 font = QFont()
                 font.setItalic(True)
                 return font
 
-        if role == Qt.DecorationRole:
+        elif role == Qt.DecorationRole:
             xx = language.xx()
             return QIcon(':/images/flags/{xx}.png'.format(xx=xx)).pixmap(QSize(24, 24), QIcon.Normal)
 
-        if role == Qt.DisplayRole:
+        elif role == Qt.DisplayRole:
             if language.is_generic():
                 return _(self._unknown_text)
             else:
@@ -83,7 +83,7 @@ class LanguageModel(QAbstractListModel):
         return None
 
     def rowCount(self, parent=None, *args, **kwargs):
-        if not parent.isValid():
+        if parent is None or not parent.isValid():
             return len(self._languages) + (1 if self._unknown_visible else 0)
         return 0
 

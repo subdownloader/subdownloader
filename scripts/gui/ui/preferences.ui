@@ -232,14 +232,10 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
-        <widget class="QComboBox" name="providerComboBox"/>
+        <widget class="ProviderComboBox" name="providerComboBox"/>
        </item>
        <item>
-        <widget class="QStackedWidget" name="providerStack">
-         <property name="currentIndex">
-          <number>-1</number>
-         </property>
-        </widget>
+        <widget class="QStackedWidget" name="providerStack"/>
        </item>
       </layout>
      </widget>
@@ -390,6 +386,11 @@
    <class>InterfaceLanguageComboBox</class>
    <extends>QComboBox</extends>
    <header>subdownloader.client.gui.views.language</header>
+  </customwidget>
+  <customwidget>
+   <class>ProviderComboBox</class>
+   <extends>QComboBox</extends>
+   <header>subdownloader.client.gui.views.provider</header>
   </customwidget>
  </customwidgets>
  <tabstops>

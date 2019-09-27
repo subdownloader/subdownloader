@@ -9,7 +9,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QObject, QPoint
 from PyQt5.QtWidgets import QFileDialog
 
 from subdownloader.callback import ProgressCallback
-from subdownloader.client.state import BaseState, ProvidersStateCallback, StateConfigKey
+from subdownloader.client.state import BaseState, ProviderStateCallback, StateConfigKey
 from subdownloader.identification import identificator_add
 from subdownloader.languages.language import Language
 
@@ -17,9 +17,10 @@ from subdownloader.provider.SDService import ProviderConnectionError, SDService,
 
 log = logging.getLogger('subdownloader.client.gui.state')
 
-#FIXME: add logging!!
+# FIXME: add logging!!
 
 
+# FIXME: remove after gui refactoring complete
 class State(QObject):
     def __init__(self, parent, options):
         QObject.__init__(self, parent)
@@ -196,17 +197,17 @@ class State(QObject):
         return str(downloadFullPath)
 
 
-class GuiProvidersStateCallbacks(ProvidersStateCallback):
+class GuiProviderStateCallbacks(ProviderStateCallback):
     def __init__(self, state):
-        ProvidersStateCallback.__init__(self)
+        ProviderStateCallback.__init__(self)
         self._state = state
 
     def on_login(self, stage):
-        if stage == ProvidersStateCallback.Stage.Finished:
+        if stage == ProviderStateCallback.Stage.Finished:
             self._state.signals.login_status_changed.emit()
 
     def on_disconnect(self, stage):
-        if stage == ProvidersStateCallback.Stage.Finished:
+        if stage == ProviderStateCallback.Stage.Finished:
             self._state.signals.login_status_changed.emit()
 
 
@@ -224,8 +225,8 @@ class GuiStateConfigKey(Enum):
 class GuiState(BaseState):
     def __init__(self):
         self._signals = GuiStateSignals()
-        callbacks = GuiProvidersStateCallbacks(self)
-        BaseState.__init__(self, callbacks)
+        callback = GuiProviderStateCallbacks(self)
+        BaseState.__init__(self, callback)
 
         self._window_position = None
         self._window_size = None

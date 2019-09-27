@@ -623,12 +623,12 @@ class CliCmd(Cmd):
             else:
                 self.print(_('Unknown command "{}".').format(cmd))
         else:
-            providerStates = list(self._state.providers.iter_all())
+            providerStates = list(self._state.providers.all_states)
             nbEnabled = len(list(ps for ps in providerStates if ps.getEnabled()))
             if providerStates:
                 self.print(_('#providers: {}').format(len(providerStates)))
                 self.print(_('#enabled providers: {}').format(nbEnabled))
-                for providerState in self.state.providers.iter_all():
+                for providerState in iter(self.state.providers.all_states):
                     provider = providerState.provider
                     if providerState.getEnabled():
                         logged_in_str = _('logged in') if provider.logged_in() else _('logged out')

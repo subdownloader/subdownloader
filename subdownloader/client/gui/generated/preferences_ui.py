@@ -2,9 +2,10 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/preferences.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -131,7 +132,7 @@ class Ui_PreferencesDialog(object):
         self.tabProviders.setObjectName("tabProviders")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.tabProviders)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.providerComboBox = QtWidgets.QComboBox(self.tabProviders)
+        self.providerComboBox = ProviderComboBox(self.tabProviders)
         self.providerComboBox.setObjectName("providerComboBox")
         self.verticalLayout_9.addWidget(self.providerComboBox)
         self.providerStack = QtWidgets.QStackedWidget(self.tabProviders)
@@ -202,7 +203,6 @@ class Ui_PreferencesDialog(object):
         self.verticalLayout_5.addLayout(self.layoutPreferencesDialogButtons)
 
         self.retranslateUi(PreferencesDialog)
-        self.providerStack.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(PreferencesDialog)
         PreferencesDialog.setTabOrder(self.tabsPreferences, self.scrollAreaSearch)
         PreferencesDialog.setTabOrder(self.scrollAreaSearch, self.optionDlDestinationSame)
@@ -253,6 +253,5 @@ class Ui_PreferencesDialog(object):
         self.tabsPreferences.setTabText(self.tabsPreferences.indexOf(self.tabOthers), _("Others"))
         self.buttonApplyChanges.setText(_("Save"))
         self.buttonCancel.setText(_("Cancel"))
-
-
 from subdownloader.client.gui.views.language import InterfaceLanguageComboBox, LanguageComboBox
+from subdownloader.client.gui.views.provider import ProviderComboBox

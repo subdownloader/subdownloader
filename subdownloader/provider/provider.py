@@ -95,6 +95,10 @@ class SubtitleProvider(object):
     def get_short_name(cls):
         raise NotImplementedError()
 
+    @classmethod
+    def get_icon(cls):
+        raise NotImplementedError()
+
 
 class ProviderSettingsType(Enum):
     String = 'string'

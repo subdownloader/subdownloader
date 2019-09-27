@@ -28,22 +28,16 @@
        </widget>
       </item>
       <item row="1" column="4">
-       <widget class="QComboBox" name="searchSitesCombo">
+       <widget class="ProviderComboBox" name="searchProvidersCombo">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <item>
-         <property name="text">
-          <string>OpenSubtitles.org</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normaloff>:/images/sites/opensubtitles.png</normaloff>:/images/sites/opensubtitles.png</iconset>
-         </property>
-        </item>
+        <property name="currentText">
+         <string notr="true"/>
+        </property>
        </widget>
       </item>
       <item row="3" column="3">
@@ -116,7 +110,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeView" name="moviesView">
+    <widget class="MoviesTreeView" name="moviesView">
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -197,6 +191,16 @@
    <class>LanguageComboBox</class>
    <extends>QComboBox</extends>
    <header>subdownloader.client.gui.views.language</header>
+  </customwidget>
+  <customwidget>
+   <class>ProviderComboBox</class>
+   <extends>QComboBox</extends>
+   <header>subdownloader.client.gui.views.provider</header>
+  </customwidget>
+  <customwidget>
+   <class>MoviesTreeView</class>
+   <extends>QTreeView</extends>
+   <header>subdownloader.client.gui.views.movies</header>
   </customwidget>
  </customwidgets>
  <resources/>

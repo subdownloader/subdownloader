@@ -2,9 +2,10 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/searchNameWidget.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -23,17 +24,15 @@ class Ui_SearchNameWidget(object):
         self.label_3.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_3.setObjectName("label_3")
         self.gridLayout_2.addWidget(self.label_3, 1, 3, 1, 1)
-        self.searchSitesCombo = QtWidgets.QComboBox(self.widget)
+        self.searchProvidersCombo = ProviderComboBox(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.searchSitesCombo.sizePolicy().hasHeightForWidth())
-        self.searchSitesCombo.setSizePolicy(sizePolicy)
-        self.searchSitesCombo.setObjectName("searchSitesCombo")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/images/sites/opensubtitles.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.searchSitesCombo.addItem(icon, "")
-        self.gridLayout_2.addWidget(self.searchSitesCombo, 1, 4, 1, 1)
+        sizePolicy.setHeightForWidth(self.searchProvidersCombo.sizePolicy().hasHeightForWidth())
+        self.searchProvidersCombo.setSizePolicy(sizePolicy)
+        self.searchProvidersCombo.setCurrentText("")
+        self.searchProvidersCombo.setObjectName("searchProvidersCombo")
+        self.gridLayout_2.addWidget(self.searchProvidersCombo, 1, 4, 1, 1)
         self.label_10 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setBold(True)
@@ -61,9 +60,9 @@ class Ui_SearchNameWidget(object):
         self.movieNameText.setObjectName("movieNameText")
         self.gridLayout_2.addWidget(self.movieNameText, 1, 1, 1, 1)
         self.buttonSearchByName = QtWidgets.QPushButton(self.widget)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/images/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.buttonSearchByName.setIcon(icon1)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/images/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.buttonSearchByName.setIcon(icon)
         self.buttonSearchByName.setFlat(False)
         self.buttonSearchByName.setObjectName("buttonSearchByName")
         self.gridLayout_2.addWidget(self.buttonSearchByName, 1, 2, 1, 1)
@@ -71,7 +70,7 @@ class Ui_SearchNameWidget(object):
         self.label_12.setObjectName("label_12")
         self.gridLayout_2.addWidget(self.label_12, 3, 1, 1, 1)
         self.verticalLayout.addWidget(self.widget)
-        self.moviesView = QtWidgets.QTreeView(SearchNameWidget)
+        self.moviesView = MoviesTreeView(SearchNameWidget)
         self.moviesView.setAlternatingRowColors(True)
         self.moviesView.setObjectName("moviesView")
         self.verticalLayout.addWidget(self.moviesView)
@@ -100,9 +99,9 @@ class Ui_SearchNameWidget(object):
         font.setBold(True)
         font.setWeight(75)
         self.buttonDownloadByTitle.setFont(font)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/images/download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.buttonDownloadByTitle.setIcon(icon2)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/images/download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.buttonDownloadByTitle.setIcon(icon1)
         self.buttonDownloadByTitle.setObjectName("buttonDownloadByTitle")
         self.horizontalLayout_3.addWidget(self.buttonDownloadByTitle)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
@@ -114,12 +113,11 @@ class Ui_SearchNameWidget(object):
         _translate = QtCore.QCoreApplication.translate
         SearchNameWidget.setWindowTitle(_("Form"))
         self.label_3.setText(_("Site:"))
-        self.searchSitesCombo.setItemText(0, _("OpenSubtitles.org"))
         self.label_10.setText(_("Filter by :"))
         self.buttonSearchByName.setText(_("Search"))
         self.label_12.setText(_("Subtitles found:"))
         self.buttonIMDBByTitle.setText(_("Movie Info"))
         self.buttonDownloadByTitle.setText(_("Download"))
-
-
 from subdownloader.client.gui.views.language import LanguageComboBox
+from subdownloader.client.gui.views.movies import MoviesTreeView
+from subdownloader.client.gui.views.provider import ProviderComboBox

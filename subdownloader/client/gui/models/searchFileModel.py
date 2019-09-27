@@ -421,12 +421,13 @@ class VideoModel(QAbstractItemModel):
                         checked_subtitles.append(subtitle_node.get_data())
         return checked_subtitles
 
-    def uncheck_subtitle(self, sub):
+    def uncheck_subtitles(self, subs):
         for video_node in self._root.get_children():
             for network_node in video_node.get_children():
                 for subtitle_node in network_node.get_children():
-                    if isinstance(subtitle_node.get_data(), RemoteSubtitleFile) and subtitle_node.get_data() == sub:
+                    if isinstance(subtitle_node.get_data(), RemoteSubtitleFile) and subtitle_node.get_data() in subs:
                         subtitle_node.set_checked(False)
+        self.underlying_data_changed()
 
     def headerData(self, section, orientation, role=None):
         """

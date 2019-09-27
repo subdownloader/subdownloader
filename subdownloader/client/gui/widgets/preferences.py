@@ -7,7 +7,7 @@ from pathlib import Path
 import platform
 import webbrowser
 
-from subdownloader.client.state import SubtitlePathStrategy, SubtitleNamingStrategy
+from subdownloader.client.state import ProviderState, SubtitlePathStrategy, SubtitleNamingStrategy
 from subdownloader.client.player import VideoPlayer
 from subdownloader.client.gui.generated.preferences_ui import Ui_PreferencesDialog
 from subdownloader.languages.language import all_languages, Language, UnknownLanguage
@@ -154,10 +154,10 @@ class PreferencesDialog(QDialog):
 
         # 4. Providers tab
 
-        for providerState in self._state.providers.iter_all():
+        print(self._state.providers.all_states)
+        for providerState in self._state.providers.all_states:
             provider = providerState.provider
             provider_name = provider.get_name()
-            self.ui.providerComboBox.addItem(provider_name, provider)
             from PyQt5.QtWidgets import QVBoxLayout, QLabel
             ui_items = {
                 '_enabled': QCheckBox(),
@@ -191,8 +191,14 @@ class PreferencesDialog(QDialog):
                 dataLayout.addRow(key.capitalize(), widget)
                 ui_items[key] = widget
             providerWidget.setLayout(providerLayout)
-            self.ui.providerStack.addWidget(providerWidget)
+            ui_items['_stack_index'] = self.ui.providerStack.addWidget(providerWidget)
             self.providers_ui[provider_name] = ui_items
+
+        self.ui.providerComboBox.set_state(self._state)
+        self.ui.providerComboBox.set_general_visible(False)
+        self.ui.providerComboBox.set_filter_enable(False)
+        self.ui.providerComboBox.selected_provider_state_changed.connect(self.on_selected_provider_state_changed)
+        self.ui.providerComboBox.setCurrentIndex(0)
 
         # 5. Others tab
 
@@ -256,7 +262,7 @@ class PreferencesDialog(QDialog):
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         # 4. Providers' tab
-        for providerState in self._state.providers.iter_all():
+        for providerState in self._state.providers.all_states:
             provider = providerState.provider
             provider_name = provider.get_name()
             provider_ui = self.providers_ui[provider_name]
@@ -321,7 +327,7 @@ class PreferencesDialog(QDialog):
             self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
         # 4. Providers' tab
-        for providerState in self._state.providers.iter_all():
+        for providerState in self._state.providers.all_states:
             provider = providerState.provider
             provider_name = provider.get_name()
             provider_ui = self.providers_ui[provider_name]
@@ -445,6 +451,15 @@ class PreferencesDialog(QDialog):
     @pyqtSlot(Language)
     def onOptionUlDefaultLanguageChange(self, lang):
         self._uploadLanguage = lang
+
+    # 4. Providers tab
+
+    @pyqtSlot(ProviderState)
+    def on_selected_provider_state_changed(self, provider_state):
+        if provider_state.value is None:
+            return
+        provider = provider_state.value.provider
+        self.ui.providerStack.setCurrentIndex(self.providers_ui[provider.get_name()]['_stack_index'])
 
     # 5. Others tab
 

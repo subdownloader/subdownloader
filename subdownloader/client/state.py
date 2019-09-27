@@ -12,10 +12,12 @@ from subdownloader.client.player import VideoPlayer
 from subdownloader.client import ClientType, IllegalArgumentException
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
 from subdownloader.project import PROJECT_TITLE
+from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory
 from subdownloader.provider.provider import ProviderSettingsType, SubtitleProvider
 from subdownloader.text_query import SubtitlesTextQuery
+from subdownloader.video2 import VideoFile
 
 log = logging.getLogger('subdownloader.client.state')
 
@@ -75,8 +77,9 @@ class StateConfigKey(Enum):
 
 
 class ProviderState(object):
-    def __init__(self, provider):
+    def __init__(self, provider, callback):
         self._provider = provider
+        self._callback = callback
         self._enabled = True
 
     @property
@@ -119,6 +122,7 @@ class ProviderState(object):
             data[key] = d
         settings_new = provider_settings.load(**data)
         self._provider.set_settings(settings_new)
+        self._callback.on_change()
 
     def save_settings(self, settings):
         section = self._settings_section
@@ -142,6 +146,7 @@ class ProviderState(object):
         if not b:
             self._provider.disconnect()
         self._enabled = b
+        self._callback.on_change()
 
     def getEnabled(self):
         return self._enabled
@@ -150,7 +155,7 @@ class ProviderState(object):
 # FIXME: add more logging
 
 
-class ProvidersStateCallback(object):
+class ProviderStateCallback(object):
 
     class Stage(Enum):
         Started = 'started'
@@ -172,15 +177,55 @@ class ProvidersStateCallback(object):
     def on_logout(self, stage):
         pass
 
+    def on_change(self):
+        pass
+
+
+class ProvidersStateCallbackCollector(object):
+    def __init__(self):
+        self._callbacks = []
+
+    def add_callback(self, callback):
+        self._callbacks.append(callback)
+
+    def remove_callback(self, callback):
+        self._callbacks.remove(callback)
+
+    def on_connect(self, stage):
+        for callback in self._callbacks:
+            callback.on_connect(stage)
+
+    def on_disconnect(self, stage):
+        for callback in self._callbacks:
+            callback.on_disconnect(stage)
+
+    def on_login(self, stage):
+        for callback in self._callbacks:
+            callback.on_login(stage)
+
+    def on_logout(self, stage):
+        for callback in self._callbacks:
+            callback.on_logout(stage)
+
+    def on_change(self):
+        for callback in self._callbacks:
+            callback.on_change()
+
 
 class ProvidersState(object):
-    def __init__(self, callbacks=None):
+    def __init__(self, callback=None):
         providers_cls = ProviderFactory.list()
-        self._providerStates = list(ProviderState(provider_cls()) for provider_cls in providers_cls)
-        self._callbacks = ProvidersStateCallback() if callbacks is None else callbacks
+        self._callback = ProvidersStateCallbackCollector()
+        self._providerStates = list(ProviderState(provider_cls(), self._callback) for provider_cls in providers_cls)
+        self.add_callback(callback)
 
-    def set_callbacks(self, callbacks=None):
-        self._callbacks = ProvidersStateCallback() if callbacks is None else callbacks
+    def add_callback(self, callback):
+        if callback:
+            self._callback.add_callback(callback)
+
+    def remove_callback(self, callback):
+        if callback:
+            self._callback.remove_callback(callback)
 
     def load_settings(self, settings):
         for providerState in self._providerStates:
@@ -198,8 +243,10 @@ class ProvidersState(object):
             providerState.load_options(options)
             if providerState.provider.get_name().lower() not in options:
                 providerState.setEnabled(False)
+        self._callback.on_change()
 
-    def _load_provider_settings(self, provider, settings):
+    @staticmethod
+    def _load_provider_settings(provider, settings):
         section = 'provider_{name}'.format(name=provider.get_name())
         provider_settings = provider.get_settings()
         new_provider_data = {}
@@ -209,11 +256,9 @@ class ProvidersState(object):
         new_data = provider_settings.load(**new_provider_data)
         provider.set_settings(new_data)
 
-    def iter_all(self):
-        return iter(self._providerStates)
-
-    def iter(self):
-        return iter(providerState for providerState in self._providerStates if providerState.getEnabled())
+    @property
+    def all_states(self):
+        return self._providerStates
 
     def _item_to_providers(self, index):
         if index is None:
@@ -242,41 +287,50 @@ class ProvidersState(object):
         provider = provider_cls()
         self._load_provider_settings(provider, settings)
         self._providerStates.append(provider)
+        self._callback.on_change()
         return True
 
-    def get(self, index):
-        def _find_provider(providerState, item):
-            if isinstance(item, str):
-                return providerState.provider.get_name() == item
-            elif isinstance(item, type) and issubclass(item, SubtitleProvider):
-                return type(providerState.provider) == item
+    def get(self, index, filter_enable=True):
+        counter = 0
+        for providerState in self._providerStates:
+            if filter_enable:
+                if not providerState.getEnabled():
+                    continue
+            if isinstance(index, int):
+                res = counter == index
+            elif isinstance(index, str):
+                res = providerState.provider.get_name() == index
+            elif isinstance(index, type) and issubclass(index, SubtitleProvider):
+                res = type(providerState.provider) == index
             else:
-                return providerState.provider == item
-        try:
-            providerState = next(providerState for providerState in self._providerStates if _find_provider(providerState, index))
-        except StopIteration:
-            return None
-        return providerState
+                res = providerState.provider == index
+            counter += 1
+            if res:
+                return providerState
+        return None
 
     def connect(self, item=None):
         nb = 0
-        self._callbacks.on_connect(ProvidersStateCallback.Stage.Busy)
+        self._callback.on_connect(ProviderStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
-                providerState.provider.connect()
-                nb += 1
+                try:
+                    providerState.provider.connect()
+                    nb += 1
+                except ProviderConnectionError:
+                    pass
         if nb:
-            self._callbacks.on_connect(ProvidersStateCallback.Stage.Finished)
+            self._callback.on_connect(ProviderStateCallback.Stage.Finished)
 
     def disconnect(self, item=None):
         nb = 0
-        self._callbacks.on_disconnect(ProvidersStateCallback.Stage.Busy)
+        self._callback.on_disconnect(ProviderStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.disconnect()
                 nb += 1
         if nb:
-            self._callbacks.on_disconnect(ProvidersStateCallback.Stage.Finished)
+            self._callback.on_disconnect(ProviderStateCallback.Stage.Finished)
 
     def connected(self, item=None):
         for providerState in self._item_to_providers(item):
@@ -287,23 +341,26 @@ class ProvidersState(object):
 
     def login(self, item=None):
         nb = 0
-        self._callbacks.on_login(ProvidersStateCallback.Stage.Busy)
+        self._callback.on_login(ProviderStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
-                providerState.provider.login()
-                nb += 1
+                try:
+                    providerState.provider.login()
+                    nb += 1
+                except ProviderConnectionError:
+                    pass
         if nb:
-            self._callbacks.on_login(ProvidersStateCallback.Stage.Finished)
+            self._callback.on_login(ProviderStateCallback.Stage.Finished)
 
     def logout(self, item=None):
         nb = 0
-        self._callbacks.on_logout(ProvidersStateCallback.Stage.Busy)
+        self._callback.on_logout(ProviderStateCallback.Stage.Busy)
         for providerState in self._item_to_providers(item):
             if providerState.getEnabled():
                 providerState.provider.logout()
                 nb += 1
         if nb:
-            self._callbacks.on_logout(ProvidersStateCallback.Stage.Finished)
+            self._callback.on_logout(ProviderStateCallback.Stage.Finished)
 
     def get_providers(self, item=None):
         for providerState in self._item_to_providers(item):
@@ -335,13 +392,13 @@ class ProvidersState(object):
 
     def query_text(self, text):
         query = SubtitlesTextQuery(text=text)
-        query.search_init(list(ps.provider for ps in self.iter()))
+        query.search_init(list(ps.provider for ps in self.get_providers()))
         return query
 
 
 class BaseState(object):
-    def __init__(self, callbacks=None):
-        self._providersState = ProvidersState(callbacks)
+    def __init__(self, callback=None):
+        self._providersState = ProvidersState(callback)
 
         self._recursive = False
         self._video_paths = []
@@ -437,7 +494,7 @@ class BaseState(object):
         settings.write()
 
     def search_videos(self, videos, callback):
-        providerStates = list(self._providersState.iter())
+        providerStates = list(self._providersState.get_providers())
         callback.set_range(0, len(providerStates))
         prov_rsubs = {}
         for provider_i, providerState in enumerate(providerStates):
@@ -543,10 +600,14 @@ class BaseState(object):
         # FIXME: add accessibility method in subtitle?
         video = subtitle.get_parent().get_parent().get_parent()
 
-        sub_stem, sub_extension = os.path.splitext(subtitle.get_filename())
-        video_path = video.get_filepath()
-
         naming_strategy = self.get_subtitle_naming_strategy()
+
+        sub_stem, sub_extension = os.path.splitext(subtitle.get_filename())
+        if isinstance(video, VideoFile):
+            video_path = video.get_filepath()
+        else:
+            naming_strategy = SubtitleNamingStrategy.ONLINE
+
         if naming_strategy == SubtitleNamingStrategy.VIDEO:
             newsub_stem = video_path.stem
             newsub_extension = sub_extension
@@ -568,13 +629,23 @@ class BaseState(object):
 
         return newsub_stem, newsub_extension
 
-    def calculate_download_path(self, subtitle, file_save_as_cb, conflict_free=True):
+    def calculate_download_path(self, subtitle, file_save_as_cb, predefined_path=None, conflict_free=True):
         video = subtitle.get_parent().get_parent().get_parent()
+        location_strategy = self.get_subtitle_download_path_strategy()
+
+        if not isinstance(video, VideoFile):
+            if location_strategy == SubtitlePathStrategy.SAME:
+                location_strategy = SubtitlePathStrategy.ASK
+
+        if predefined_path is None:
+            if isinstance(video, VideoFile):
+                predefined_path = video.get_folderpath()
+            else:
+                predefined_path = self.get_default_download_path()
 
         sub_stem, sub_extension = self.calculate_subtitle_filename_parts(subtitle)
 
         if conflict_free:
-            location_strategy = self.get_subtitle_download_path_strategy()
             if location_strategy == SubtitlePathStrategy.ASK:
                 default_download_folder = self.get_default_download_path()
             elif location_strategy == SubtitlePathStrategy.SAME:
@@ -585,13 +656,12 @@ class BaseState(object):
 
         sub_filename = '{}{}'.format(sub_stem, sub_extension)
 
-        location_strategy = self.get_subtitle_download_path_strategy()
         if location_strategy == SubtitlePathStrategy.ASK:
-            download_path = file_save_as_cb(path=video.get_folderpath(), filename=sub_filename)  # How to cancel? None?
+            download_path = file_save_as_cb(path=predefined_path, filename=sub_filename)  # How to cancel? None?
         elif location_strategy == SubtitlePathStrategy.SAME:
             download_path = video.get_folderpath() / sub_filename
         else:  # location_strategy == SubtitlePath.PREDEFINED:
-            download_path = self.get_default_download_path() / sub_filename
+            download_path = predefined_path / sub_filename
         log.debug('Downloading to {}'.format(download_path))
 
         return download_path

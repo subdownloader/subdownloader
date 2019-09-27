@@ -9,7 +9,7 @@ from subdownloader.client.internationalization import i18n_get_supported_locales
 from subdownloader.client.gui.models.language import LanguageModel
 
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QSize
 from PyQt5.QtWidgets import QComboBox
 
 log = logging.getLogger('subdownloader.client.gui.views.language')
@@ -50,6 +50,8 @@ class AbstractLanguageComboBox(QComboBox):
 
     def setup_ui(self):
         self.setModel(self._model)
+
+        self.setIconSize(QSize(16, 16))
 
         self.currentIndexChanged.connect(self.onCurrentIndexChanged)
 

@@ -373,6 +373,11 @@ LANGUAGES = [
         'LanguageID': ['arm'],
         'LanguageName': [_('Armenian')],
     }, {
+        'locale': ['bn'],
+        'ISO639': ['bn'],
+        'LanguageID': [],
+        'LanguageName': [_('Bengali')],
+    }, {
         'locale': ['bs'],
         'ISO639': ['bs'],
         'LanguageID': ['bos'],
@@ -458,6 +463,11 @@ LANGUAGES = [
         'LanguageID': ['glg'],
         'LanguageName': [_('Galician')],
     }, {
+        'locale': ['hi'],
+        'ISO639': ['hi'],
+        'LanguageID': ['hin'],
+        'LanguageName': [_('Hindi')],
+    }, {
         'locale': ['ka'],
         'ISO639': ['ka'],
         'LanguageID': ['geo'],
@@ -528,6 +538,11 @@ LANGUAGES = [
         'LanguageID': ['mac'],
         'LanguageName': [_('Macedonian')],
     }, {
+        'locale': ['ml'],
+        'ISO639': ['ml'],
+        'LanguageID': ['mal'],
+        'LanguageName': [_('Malayalam')],
+    }, {
         'locale': ['ms'],
         'ISO639': ['ms'],
         'LanguageID': ['may'],
@@ -578,10 +593,10 @@ LANGUAGES = [
         'LanguageID': ['rus'],
         'LanguageName': [_('Russian')],
     }, {
-        'locale': ['sr'],
-        'ISO639': ['sr'],
-        'LanguageID': ['scc'],
-        'LanguageName': [_('Serbian')],
+        'locale': ['si'],
+        'ISO639': ['si'],
+        'LanguageID': ['sin'],
+        'LanguageName': [_('Sinhalese')],
     }, {
         'locale': ['sk'],
         'ISO639': ['sk'],
@@ -592,6 +607,11 @@ LANGUAGES = [
         'ISO639': ['sl'],
         'LanguageID': ['slv'],
         'LanguageName': [_('Slovenian')],
+    }, {
+        'locale': ['sr'],
+        'ISO639': ['sr'],
+        'LanguageID': ['scc'],
+        'LanguageName': [_('Serbian')],
     }, {
         'locale': ['es', 'es_ES'],
         'ISO639': ['es'],

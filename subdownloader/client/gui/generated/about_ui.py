@@ -2,9 +2,10 @@
 
 # Form implementation generated from reading ui file '/home/maarten/programming/subdownloader_old/scripts/gui/ui/about.ui'
 #
-# Created by: PyQt5 UI code generator 5.12.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -127,7 +128,6 @@ class Ui_AboutDialog(object):
         self.verticalLayout.addLayout(self.hboxlayout)
 
         self.retranslateUi(AboutDialog)
-        self.tabs.setCurrentIndex(0)
         self.buttonClose.clicked.connect(AboutDialog.close)
         QtCore.QMetaObject.connectSlotsByName(AboutDialog)
 
@@ -153,5 +153,3 @@ class Ui_AboutDialog(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Sans Serif\'; font-size:9pt;\">license</span></p></body></html>"))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_3), _("License Agreement"))
         self.buttonClose.setText(_("Close"))
-
-

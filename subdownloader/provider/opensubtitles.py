@@ -15,7 +15,6 @@ from urllib.parse import quote
 from urllib.request import urlopen
 from xmlrpc.client import ProtocolError, ServerProxy
 
-from subdownloader.video2 import VideoFile
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.identification import ImdbIdentity, ProviderIdentities, SeriesIdentity, VideoIdentity
 from subdownloader.movie import RemoteMovie
@@ -23,7 +22,7 @@ from subdownloader.provider import window_iterator
 from subdownloader.provider.provider import ProviderConnectionError, ProviderNotConnectedError, \
     ProviderSettings, ProviderSettingsType, SubtitleProvider, SubtitleTextQuery
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile
-from subdownloader.util import unzip_bytes, write_stream
+from subdownloader.util import unzip_bytes, unzip_stream, write_stream
 
 
 log = logging.getLogger('subdownloader.provider.opensubtitles')
@@ -271,6 +270,10 @@ class OpenSubtitles(SubtitleProvider):
     def get_short_name(cls):
         return 'os'
 
+    @classmethod
+    def get_icon(cls):
+        return ':/images/sites/opensubtitles.png'
+
     def _signal_connection_failed(self):
         # FIXME: set flag/... to signal users that the connection has failed
         pass
@@ -391,17 +394,10 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
         if xml_contents is None:
             raise ProviderConnectionError('Failed to fetch url {url}'.format(url=xml_url))
 
-        open('/tmp/sub', 'wb').write(xml_contents)
-
         subtitles, nb_so_far, nb_provider = self._xml_to_subtitles(xml_contents)
         if subtitles is None:
             raise ProviderConnectionError('Failed to load subtitles from xml at {!r}'.format(xml_url))
 
-        # if movie.get_nb_subs_available() != nb_so_far:
-        #     log.warning('Data mismatch: we know movie has {local_nb_so_far} subtitles available. '
-        #                 'Server says it has so far returned {nb_so_far} subtitles.'.format(
-        #         local_nb_so_far=movie.get_nb_subs_total(), nb_so_far=nb_so_far))
-        #     return None  # Detect series
         movie.add_subtitles(subtitles)
 
         return subtitles
@@ -674,14 +670,10 @@ class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
         if self._download_link is None:
             stream = self._download_service(provider_instance)
         else:
-            stream = self._download_http()
-        from subdownloader.util import unzip_stream
-        write_stream(src_file=unzip_stream(stream), destination_path=target_path)
+            stream = unzip_stream(self._download_http())
+        write_stream(src_file=stream, destination_path=target_path)
         local_sub = LocalSubtitleFile(filepath=target_path)
-        super_parent = self.get_super_parent(VideoFile)
-        if super_parent:
-            super_parent.add_subtitle(local_sub, priority=True)
-        return local_sub,
+        return local_sub
 
     def _download_service(self, provider_instance):
         subs = provider_instance.download_subtitles([self])

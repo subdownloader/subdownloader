@@ -137,9 +137,6 @@ p, li { white-space: pre-wrap; }
      <property name="focusPolicy">
       <enum>Qt::WheelFocus</enum>
      </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>About</string>

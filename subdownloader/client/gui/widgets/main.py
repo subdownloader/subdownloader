@@ -15,7 +15,7 @@ from subdownloader.languages import language
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR, WEBSITE_ISSUES, WEBSITE_MAIN,\
     WEBSITE_TRANSLATE
 
-from subdownloader.client.state import ProvidersStateCallback
+from subdownloader.client.state import ProviderStateCallback
 from subdownloader.client.gui.state import GuiState
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
@@ -30,7 +30,7 @@ class Main(QMainWindow):
 
     permanent_language_filter_changed = pyqtSignal(list)  # FIXME: moved to self._state.signals
 
-    def __init__(self, parent, log_packets, options, settings_new, options_new):
+    def __init__(self, parent, options, settings_new, options_new):
         QMainWindow.__init__(self, parent)
 
         self.setWindowTitle(PROJECT_TITLE)
@@ -49,12 +49,11 @@ class Main(QMainWindow):
         self.setup_ui()
 
         self.ui.tabSearchFile.set_state(self._state)
-        self.ui.tabSearchName.set_state(self._state_original, self._state)
+        self.ui.tabSearchName.set_state(self._state)
         self.ui.tabUpload.set_state(self._state_original, self._state)
 
         self._state_original.login_status_changed.connect(self.on_login_state_changed)
 
-        self.log_packets = log_packets
         self.options = options
 
         # Fill Out the Filters Language SelectBoxes
@@ -189,7 +188,7 @@ class Main(QMainWindow):
 
     @pyqtSlot()
     def onMenuProviders(self):
-        print('clicked on Providers...')
+        pass
 
     @pyqtSlot()
     def onMenuQuit(self):
