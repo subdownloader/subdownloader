@@ -72,7 +72,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    python_requires='>=3.4.*, <4',
+    python_requires='>=3.5.*, <4',
     provides=[
         'subdownloader'
     ],
