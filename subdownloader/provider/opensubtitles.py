@@ -148,7 +148,7 @@ class OpenSubtitles(SubtitleProvider):
         if logged_in:
             self.login()
 
-    _TIMEOUT_MS = 60_000
+    _TIMEOUT_MS = 60000
 
     def _ensure_connection(self):
         now = time.time()
