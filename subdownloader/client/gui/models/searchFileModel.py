@@ -88,13 +88,32 @@ class Node:
         return node
 
 
+class LanguageFilter(object):
+    def __init(self):
+        self._languages = []
+
+    def set_languages(self, languages):
+        self._languages = list(languages)
+
+    def contains(self, lang):
+        if lang.is_generic():
+            return True
+        if self._languages:
+            for l in self._languages:
+                if l == lang:
+                    return True
+            return False
+        else:
+            return True
+
+
 # FIXME: split model and view
 class VideoModel(QAbstractItemModel):
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self, parent)
         self._all_root = Node(data=None, parent=None)
         self._root = self._all_root.clone()
-        self._language_filter = []
+        self._language_filter = LanguageFilter()
         self._treeview = None
 
     def connect_treeview(self, treeview):
@@ -115,7 +134,7 @@ class VideoModel(QAbstractItemModel):
 
     @pyqtSlot(list)
     def on_filter_languages_change(self, languages):
-        self._language_filter = list(languages)
+        self._language_filter.set_languages(languages)
         self._apply_filters()
 
     def set_videos(self, videos):
@@ -144,9 +163,9 @@ class VideoModel(QAbstractItemModel):
         self.beginResetModel()
         self._root = self._all_root.clone()
         for node_video in self._root.get_children():
-            for node_subtitle_network in node_video.get_children():
+            for node_subtitle_network in list(node_video.get_children()):
                 subtitle_network = node_subtitle_network.get_data()
-                if self._language_filter and subtitle_network.get_language() not in self._language_filter:
+                if not self._language_filter.contains(subtitle_network.get_language()):
                     node_video.remove_child(node_subtitle_network)
         self.endResetModel()
 
