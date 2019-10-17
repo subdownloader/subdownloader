@@ -39,8 +39,8 @@ class GuiStateSignals(QObject):
 
 
 class GuiStateConfigKey(Enum):
-    WINDOW_POSITION = ('mainwindow', 'pos', )
-    WINDOW_SIZE = ('mainwindow', 'size', )
+    WINDOW_POSITION = ('mainwindow', 'pos2', )
+    WINDOW_SIZE = ('mainwindow', 'size2', )
 
 
 class GuiState(BaseState):
@@ -60,12 +60,16 @@ class GuiState(BaseState):
         BaseState.load_settings(self, settings)
 
         try:
-            self._window_position = tuple(settings.get_ints(GuiStateConfigKey.WINDOW_POSITION.value))
+            tup_pos = settings.get_ints(GuiStateConfigKey.WINDOW_POSITION.value, default=None)
+            if tup_pos is not None:
+                self._window_position = tuple(tup_pos)
         except ValueError:
             pass
 
         try:
-            self._window_size = tuple(settings.get_ints(GuiStateConfigKey.WINDOW_SIZE.value))
+            tup_size= settings.get_ints(GuiStateConfigKey.WINDOW_SIZE.value, default=None)
+            if tup_size is not None:
+                self._window_size = tuple(tup_size)
         except ValueError:
             pass
 

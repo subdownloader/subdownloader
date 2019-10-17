@@ -35,7 +35,7 @@ class ImdbMovieMatch:
 
 
 class ImdbHistory(object):
-    IMDB_HISTORY_KEY = ('upload', 'imdbHistory',)
+    IMDB_HISTORY_KEY = ('upload', 'imdbHistory2',)
 
     def __init__(self):
         self.__data = []
