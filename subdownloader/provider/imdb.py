@@ -28,8 +28,8 @@ class ImdbMovieMatch:
     def deserialize(cls, data: str) -> Optional['ImdbMovieMatch']:
         try:
             [imdb_id, year_str, title] = data.split(',', 2)
-            year = int(year_str) if year_str else None
-            return cls(imdb_id, title, year)
+            year = int(year_str.strip()) if year_str else None
+            return cls(imdb_id.strip(), title.strip(), year)
         except ValueError:
             return None
 
