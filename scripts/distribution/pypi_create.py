@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
+import os
 from pathlib import Path
 import subprocess
 import shutil
@@ -15,11 +16,16 @@ import subdownloader.project
 
 setup_file = project_dir / 'setup.py'
 
-shutil.rmtree(project_dir / 'build')
+build_dir = project_dir / 'build'
+try:
+    shutil.rmtree(build_dir)
+except FileNotFoundError:
+    pass
+os.mkdir(build_dir)
 
 subprocess.run([sys.executable, str(setup_file), 'clean'], cwd=project_dir, check=True)
 
-subprocess.run([sys.executable, str(setup_file), 'test'], cwd=project_dir, check=True)
+subprocess.run([sys.executable, str(setup_file), 'pytest'], cwd=project_dir, check=True)
 
 subprocess.run([sys.executable, str(setup_file), 'bdist_wheel'], cwd=project_dir, check=True)
 subprocess.run([sys.executable, str(setup_file), 'sdist'], cwd=project_dir, check=True)
