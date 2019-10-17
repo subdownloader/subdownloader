@@ -6,6 +6,19 @@ from subdownloader.languages.language import UnknownLanguage
 from subdownloader.subtitle2 import SubtitleFileCollection
 
 
+class VideoSubtitle(object):
+    def __init__(self, video=None, subtitle=None):
+        self.video = video
+        self.subtitle = subtitle
+
+    def check(self):
+        if not self.video or not self.video.exists():
+            return False
+        if not self.subtitle or not self.subtitle.exists():
+            return False
+        return True
+
+
 class LocalMovie(object):
     def __init__(self):
         self._movie_name = None
@@ -13,22 +26,45 @@ class LocalMovie(object):
         self._language = UnknownLanguage.create_generic()
         self._release_name = None
         self._comments = None
-        self._subtitle_author = None
+        self._author = None
 
         self._hearing_impaired = None
         self._high_definition = None
-        self._automatic_translation = None
         self._foreign_only = None
+        self._automatic_translation = None
 
-        self._videos = []
-        self._subtitles = []
+        self._data = []
 
     def add_video_subtitle(self, video, subtitle):
-        self._videos.append(video)
-        self._subtitles.append(subtitle)
+        self._data.append(VideoSubtitle(video, subtitle))
 
-    def iter_video_subtitle(self):
-        return iter(zip(self._videos, self._subtitles))
+    def check(self):
+        video_paths = set()
+        subtitle_paths = set()
+        for data in self._data:
+            if not data.check():
+                return False
+            vfp = str(data.video.get_filepath().resolve())
+            if vfp in video_paths:
+                return False
+            video_paths.add(vfp)
+
+            sfp = str(data.subtitle.get_filepath().resolve())
+            if sfp in subtitle_paths:
+                return False
+        if self._language.is_generic():
+            return False
+        return True
+
+    def get_data(self):
+        return self._data
+
+    def set_data(self, data):
+        self._data = data
+
+    def iter_video_subtitles(self):
+        for d in self._data:
+            yield d.video, d.subtitle
 
     def set_movie_name(self, movie_name):
         self._movie_name = movie_name
@@ -41,6 +77,9 @@ class LocalMovie(object):
 
     def get_imdb_id(self):
         return self._imdb_id
+
+    def set_language(self, language):
+        self._language = language
 
     def get_language(self):
         return self._language
@@ -57,11 +96,11 @@ class LocalMovie(object):
     def get_comments(self):
         return self._comments
 
-    def set_subtitle_author(self, subtitle_author):
-        self._subtitle_author = subtitle_author
+    def set_author(self, author):
+        self._author = author
 
-    def get_subtitle_author(self):
-        return self._subtitle_author
+    def get_author(self):
+        return self._author
 
     def set_hearing_impaired(self, hearing_impaired):
         self._hearing_impaired = hearing_impaired
@@ -75,17 +114,17 @@ class LocalMovie(object):
     def is_high_definition(self):
         return self._high_definition
 
-    def set_automatic_translation(self, automatic_translation):
-        self._automatic_translation = automatic_translation
-
-    def is_automatic_translation(self):
-        return self._automatic_translation
-
     def set_foreign_only(self, foreign_only):
         self._foreign_only = foreign_only
 
     def is_foreign_only(self):
         return self._foreign_only
+
+    def set_automatic_translation(self, automatic_translation):
+        self._automatic_translation = automatic_translation
+
+    def is_automatic_translation(self):
+        return self._automatic_translation
 
 
 class RemoteMovie(object):

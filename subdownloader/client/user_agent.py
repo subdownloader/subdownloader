@@ -3,8 +3,7 @@
 
 from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR
 
-from subdownloader.provider import opensubtitles
-
 
 def user_agent_init():
+    from subdownloader.provider import opensubtitles
     opensubtitles.set_default_user_agent('{title} {version}'.format(title=PROJECT_TITLE, version=PROJECT_VERSION_FULL_STR))

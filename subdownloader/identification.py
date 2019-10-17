@@ -271,7 +271,7 @@ class NFOIdentificator(object):
             if directory in directory_identification:
                 identity = directory_identification[directory]
                 if identity:
-                    video.add_identity(identity=identity)
+                    video.add_imdb(identity=identity)
                 continue
             identity = None
             for directory_file in directory.iterdir():

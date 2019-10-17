@@ -170,6 +170,13 @@ class VideoFile(object):
         """
         return self._subtitles
 
+    def exists(self):
+        """
+        Checks whether the path pointed to by this video actually exists and is a file.
+        :return: True if it exists, else False.
+        """
+        return self._filepath.is_file()
+
     def add_subtitle(self, subtitle, priority=False):
         """
         Add subtitle to the the subtitle collection of this video.

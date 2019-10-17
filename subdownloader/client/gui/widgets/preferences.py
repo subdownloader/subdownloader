@@ -154,7 +154,6 @@ class PreferencesDialog(QDialog):
 
         # 4. Providers tab
 
-        print(self._state.providers.all_states)
         for providerState in self._state.providers.all_states:
             provider = providerState.provider
             provider_name = provider.get_name()
@@ -258,7 +257,6 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         self._uploadLanguage = self._state.get_upload_language()
-        self._originalUploadLanguage = self._uploadLanguage
         self.ui.optionUlDefaultLanguage.set_selected_language(self._uploadLanguage)
 
         # 4. Providers' tab
@@ -323,8 +321,6 @@ class PreferencesDialog(QDialog):
         # - Default Subtitle Language
 
         self._state.set_upload_language(self._uploadLanguage)
-        if self._uploadLanguage != self._originalUploadLanguage:
-            self.defaultUploadLanguageChanged.emit(self._uploadLanguage)
 
         # 4. Providers' tab
         for providerState in self._state.providers.all_states:
@@ -443,8 +439,6 @@ class PreferencesDialog(QDialog):
     # 3. Upload tab
 
     # - Default Subtitle Language
-
-    defaultUploadLanguageChanged = pyqtSignal(Language)
 
     DEFAULT_UL_LANG = UnknownLanguage.create_generic()
 

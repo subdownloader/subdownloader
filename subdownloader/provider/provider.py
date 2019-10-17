@@ -9,24 +9,34 @@ log = logging.getLogger('subdownloader.provider.provider')
 
 
 class ProviderConnectionError(Exception):
-    def __init__(self, msg, code=None):
+    def __init__(self, msg, extra_data=None):
         Exception.__init__(self)
         self._msg = msg
-        self._code = code
+        self._extra_data = extra_data
 
     def get_msg(self):
         return self._msg
 
-    def get_code(self):
-        return self._code
+    def get_extra_data(self):
+        return self._extra_data
 
-    def __str__(self):
-        return 'code={code}; msg={msg}'.format(msg=self._msg, code=self._code)
+    def __repr__(self):
+        return '<ProviderConnectionError:msg={m}{e}>'.format(
+            m=self._msg,
+            e=(';extra={!r}'.format(self._extra_data) if self._extra_data else ''))
 
 
 class ProviderNotConnectedError(ProviderConnectionError):
     def __init__(self):
-        ProviderConnectionError.__init__(self, None)
+        ProviderConnectionError.__init__(self, _('Not connected'))
+
+
+# FIXME: let providers implement interfaces for these capabilities
+class ProviderCapability(Enum):
+    SEARCH_VIDEO_FILE = 'search_videofile'
+    SEARCH_MOVIE_NAME = 'search_moviename'
+    UPLOAD_SUBTITLES = 'upload_subtitles'
+    LOOKUP_IMDB_NAME = 'lookup_imdb_name'
 
 
 class SubtitleProvider(object):
@@ -74,13 +84,13 @@ class SubtitleProvider(object):
     def query_text(self, query):
         raise NotImplementedError()
 
-    # def download_subtitles(self, remotesubs):
-    #     raise NotImplementedError()
-    #
-    # def upload_subtitles(self, l_dict_subs):
-    #     raise NotImplementedError()
+    def upload_subtitles(self, local_movie):
+        raise NotImplementedError()
 
     def ping(self):
+        raise NotImplementedError()
+
+    def provider_info(self):
         raise NotImplementedError()
 
     # @classmethod
@@ -142,3 +152,32 @@ class SubtitleTextQuery(object):
 
     def search_more_subtitles(self, movie):
         raise NotImplementedError()
+
+
+class UploadResult(object):
+    class Type(Enum):
+        OK = 0
+        FAILED = 1
+        DUPLICATE = 2
+        MISSINGDATA = 3
+
+    def __init__(self, type, reason=None, rsubs=None):
+        self._type = type
+        self._reason = reason
+        self._rsubs = rsubs
+
+    @property
+    def ok(self):
+        return self._type == self.Type.OK
+
+    @property
+    def type(self):
+        return self._type
+
+    @property
+    def reason(self):
+        return self._reason
+
+    @property
+    def remote_subtitles(self):
+        return self._rsubs

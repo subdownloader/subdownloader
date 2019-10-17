@@ -236,11 +236,25 @@ class LocalSubtitleFile(SubtitleFileStorage):
         SubtitleFileStorage.__init__(self, parent=None, file_size=file_size, language=language, md5_hash=md5_hash)
         self._filepath = filepath
 
+    def detect_language_contents(self):
+        return Language.from_file(self._filepath)
+
+    def set_language_if_unknown(self, lang):
+        if self.get_language().is_generic():
+            self.set_language(lang)
+
     def get_filename(self):
         return self._filepath.name
 
     def get_filepath(self):
         return self._filepath
+
+    def exists(self):
+        """
+        Checks whether the path pointed to by this subtitle actually exists and is a file.
+        :return: True if it exists, else False.
+        """
+        return self._filepath.is_file()
 
     def set_language(self, language):
         self._language = language

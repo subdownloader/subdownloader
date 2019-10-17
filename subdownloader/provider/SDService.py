@@ -496,7 +496,7 @@ class SDService(object):
                                                   episode_identity=series_identity, provider=self)
 
                     video.add_subtitle(remote_subtitle)
-                    video.add_identity(identity)
+                    video.add_imdb(identity)
 
                     remote_subtitles.append(remote_subtitle)
                 except (KeyError, ValueError):
@@ -546,7 +546,7 @@ class SDService(object):
             for video_hash, video_info in result['data'].items():
                 identification = self._video_info_to_identification(video_info[0])
                 video = hash_video[video_hash]
-                video.add_identity(identification)
+                video.add_imdb(identification)
 
     def download_subtitles(self, os_rsubs):
         if not self.connected():

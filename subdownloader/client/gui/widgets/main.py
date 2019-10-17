@@ -12,15 +12,12 @@ from PyQt5.QtWidgets import QMainWindow
 
 from subdownloader.client.internationalization import i18n_install
 from subdownloader.languages import language
-from subdownloader.project import PROJECT_TITLE, PROJECT_VERSION_FULL_STR, WEBSITE_ISSUES, WEBSITE_MAIN,\
-    WEBSITE_TRANSLATE
+from subdownloader.project import PROJECT_TITLE, WEBSITE_ISSUES, WEBSITE_MAIN, WEBSITE_TRANSLATE
 
-from subdownloader.client.state import ProviderStateCallback
 from subdownloader.client.gui.state import GuiState
 from subdownloader.client.gui.generated.main_ui import Ui_MainWindow
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
 from subdownloader.client.gui.widgets.about import AboutDialog
-from subdownloader.client.gui.state import State
 
 # FIXME: replace with (__name__)
 log = logging.getLogger('subdownloader.client.gui.main')
@@ -44,15 +41,11 @@ class Main(QMainWindow):
         self._state.load_options(options_new)
         self._state.load_settings(settings_new)
 
-        self._state_original = State(self, options)
-
         self.setup_ui()
 
         self.ui.tabSearchFile.set_state(self._state)
         self.ui.tabSearchName.set_state(self._state)
-        self.ui.tabUpload.set_state(self._state_original, self._state)
-
-        self._state_original.login_status_changed.connect(self.on_login_state_changed)
+        self.ui.tabUpload.set_state(self._state)
 
         self.options = options
 
@@ -121,9 +114,6 @@ class Main(QMainWindow):
         self.setup_interface_language()
         self.ui.retranslateUi(self)
         self.retranslate()
-
-    def get_state(self):
-        return self._state_original
 
     def get_search_file_widget(self):
         return self.ui.tabSearchFile
@@ -252,6 +242,5 @@ class Main(QMainWindow):
 
     def onMenuPreferences(self):
         dialog = PreferencesDialog(self, state=self._state, settings=self._settings)
-        dialog.defaultUploadLanguageChanged.connect(self.ui.tabUpload.on_default_upload_language_change)
         dialog.exec_()
         QCoreApplication.processEvents(QEventLoop.ExcludeUserInputEvents)

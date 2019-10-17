@@ -14,18 +14,63 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 from xmlrpc.client import ProtocolError, ServerProxy
+from xml.parsers.expat import ExpatError
+import zlib
 
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.identification import ImdbIdentity, ProviderIdentities, SeriesIdentity, VideoIdentity
 from subdownloader.movie import RemoteMovie
+from subdownloader.provider.imdb import ImdbMovieMatch
 from subdownloader.provider import window_iterator
 from subdownloader.provider.provider import ProviderConnectionError, ProviderNotConnectedError, \
-    ProviderSettings, ProviderSettingsType, SubtitleProvider, SubtitleTextQuery
+    ProviderSettings, ProviderSettingsType, SubtitleProvider, SubtitleTextQuery, UploadResult
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile
 from subdownloader.util import unzip_bytes, unzip_stream, write_stream
 
 
 log = logging.getLogger('subdownloader.provider.opensubtitles')
+
+
+class OpenSubtitlesProviderConnectionError(ProviderConnectionError):
+    CODE_MAP = {
+        200: _('OK'),
+        206: _('Partial content; message'),
+        301: _('Moved (host)'),
+        401: _('Unauthorized'),
+        402: _('Subtitle(s) have invalid format'),
+        403: _('Subtitle hashes (content and sent subhash) are not same!'),
+        404: _('Subtitles have invalid language!'),
+        405: _('Not all mandatory parameters were specified'),
+        406: _('No session'),
+        407: _('Download limit reached'),
+        408: _('Invalid parameters'),
+        409: _('Method not found'),
+        410: _('Other or unknown error'),
+        411: _('Empty or invalid useragent'),
+        412: _('%s has invalid format (reason)'),
+        413: _('Invalid IMDb ID'),
+        414: _('Unknown User Agent'),
+        415: _('Disabled user agent'),
+        416: _('Internal subtitle validation failed'),
+        429: _('Too many requests'),
+        503: _('Service unavailable'),
+        506: _('Server under maintenance'),
+    }
+
+    def __init__(self, code, message, extra_data=None):
+        self._code = code
+        if self._code:
+            try:
+                msg = '{} {}'.format(self._code, self.CODE_MAP[self._code])
+            except TypeError:
+                self._code = None
+                msg = '{} {}'.format(self._code, message)
+        else:
+            msg = message
+        ProviderConnectionError.__init__(self, msg, extra_data=extra_data)
+
+    def get_code(self):
+        return self._code
 
 
 class OpenSubtitles(SubtitleProvider):
@@ -178,7 +223,7 @@ class OpenSubtitles(SubtitleProvider):
                         uploader=remote_uploader,
                         language=remote_language,
                         rating=remote_rating,
-                        age=remote_date,
+                        date=remote_date,
                     )
                     movie_hash = '{:>016}'.format(rsub_raw['MovieHash'])
                     video = hash_video[movie_hash]
@@ -243,6 +288,132 @@ class OpenSubtitles(SubtitleProvider):
         subtitles = [unzip_bytes(base64.b64decode(map_id_data[os_rsub.get_id_online()])).read() for os_rsub in os_rsubs]
         return subtitles
 
+    def upload_subtitles(self, local_movie):
+        log.debug('upload_subtitles()')
+        if not self.logged_in():
+            raise ProviderNotConnectedError()
+        video_subtitles = list(local_movie.iter_video_subtitles())
+        if not video_subtitles:
+            return UploadResult(type=UploadResult.Type.MISSINGDATA, reason=_('Need at least one subtitle to upload'))
+
+        query_try = dict()
+        for sub_i, (video, subtitle) in enumerate(video_subtitles):
+            if not video:
+                return UploadResult(type=UploadResult.Type.MISSINGDATA, reason=_('Each subtitle needs an accompanying video'))
+            query_try['cd{}'.format(sub_i+1)] = {
+                'subhash': subtitle.get_md5_hash(),
+                'subfilename': subtitle.get_filename(),
+                'moviehash': video.get_osdb_hash(),
+                'moviebytesize': str(video.get_size()),
+                'moviefps': str(video.get_fps()) if video.get_fps() else None,
+                'movieframes': str(video.get_framecount()) if video.get_framecount() else None,
+                'moviefilename': video.get_filename(),
+            }
+
+        def run_query_try_upload():
+            return self._xmlrpc.TryUploadSubtitles(self._token, query_try)
+        try_result = self._safe_exec(run_query_try_upload, None)
+        self.check_result(try_result)
+
+        if int(try_result['alreadyindb']):
+            return UploadResult(type=UploadResult.Type.DUPLICATE, reason=_('Subtitle is already in database'))
+
+        if local_movie.get_imdb_id() is None:
+            return UploadResult(type=UploadResult.Type.MISSINGDATA, reason=_('Need IMDb id'))
+        upload_base_info = {
+            'idmovieimdb': local_movie.get_imdb_id(),
+        }
+
+        if local_movie.get_comments() is not None:
+            upload_base_info['subauthorcomment'] = local_movie.get_comments()
+        if not local_movie.get_language().is_generic():
+            upload_base_info['sublanguageid'] = local_movie.get_language().xxx()
+        if local_movie.get_release_name() is not None:
+            upload_base_info['moviereleasename'] = local_movie.get_release_name()
+        if local_movie.get_movie_name() is not None:
+            upload_base_info['movieaka'] = local_movie.get_movie_name()
+        if local_movie.is_hearing_impaired() is not None:
+            upload_base_info['hearingimpaired'] = local_movie.is_hearing_impaired()
+        if local_movie.is_high_definition() is not None:
+            upload_base_info['highdefinition'] = local_movie.is_high_definition()
+        if local_movie.is_automatic_translation() is not None:
+            upload_base_info['automatictranslation'] = local_movie.is_automatic_translation()
+        if local_movie.get_author() is not None:
+            upload_base_info['subtranslator'] = local_movie.get_author()
+        if local_movie.is_foreign_only() is not None:
+            upload_base_info['foreignpartsonly'] = local_movie.is_foreign_only()
+
+        query_upload = {
+            'baseinfo': upload_base_info,
+        }
+        for sub_i, (video, subtitle) in enumerate(video_subtitles):
+            sub_bytes = subtitle.get_filepath().open(mode='rb').read()
+            sub_tx_data = base64.b64encode(zlib.compress(sub_bytes)).decode()
+
+            query_upload['cd{}'.format(sub_i+1)] = {
+                'subhash': subtitle.get_md5_hash(),
+                'subfilename': subtitle.get_filename(),
+                'moviehash': video.get_osdb_hash(),
+                'moviebytesize': str(video.get_size()),
+                'movietimems': str(video.get_time_ms()) if video.get_time_ms() else None,
+                'moviefps': str(video.get_fps()) if video.get_fps() else None,
+                'movieframes': str(video.get_framecount()) if video.get_framecount() else None,
+                'moviefilename': video.get_filename(),
+                'subcontent': sub_tx_data,
+            }
+
+        def run_query_upload():
+            return self._xmlrpc.UploadSubtitles(self._token, query_upload)
+
+        result = self._safe_exec(run_query_upload, None)
+        self.check_result(result)
+
+        rsubs = []
+
+        for sub_data in result['data']:
+            filename = sub_data['SubFileName']
+            file_size = sub_data['SubSize']
+            md5_hash = sub_data['SubHash']
+            id_online = sub_data['IDSubMOvieFile']
+            download_link = sub_data['SubDownloadLink']
+            link = None
+            uploader = sub_data['UserNickName']
+            language = Language.from_xxx(sub_data['SubLanguageID'])
+            rating = float(sub_data['SubRating'])
+            add_date = datetime.datetime.strptime(sub_data['SubAddDate'], '%Y-%m-%d %H:%M:%S')
+            sub = OpenSubtitlesSubtitleFile(
+                filename=filename, file_size=file_size, md5_hash=md5_hash, id_online=id_online,
+                download_link=download_link, link=link, uploader=uploader, language=language,
+                rating=rating, date=add_date)
+            rsubs.append(sub)
+
+        return UploadResult(type=UploadResult.Type.OK, rsubs=rsubs)
+
+    def imdb_search_title(self, title):
+        self._ensure_connection()
+
+        def run_query():
+            return self._xmlrpc.SearchMoviesOnIMDB(self._token, title.strip())
+
+        result = self._safe_exec(run_query, default=None)
+        self.check_result(result)
+
+        imdbs = []
+        re_title = re.compile(r'(?P<title>.*) \((?P<year>[0-9]+)\)')
+        for imdb_data in result['data']:
+            imdb_id = imdb_data['id']
+            if all(c in string.digits for c in imdb_id):
+                imdb_id = 'tt{}'.format(imdb_id)
+            m = re_title.match(imdb_data['title'])
+            if m:
+                imdb_title = m['title']
+                imdb_year = int(m['year'])
+            else:
+                imdb_title = imdb_data['title']
+                imdb_year = None
+            imdbs.append(ImdbMovieMatch(imdb_id=imdb_id, title=imdb_title, year=imdb_year))
+        return imdbs
+
     def ping(self):
         log.debug('ping()')
         if not self.logged_in():
@@ -252,6 +423,36 @@ class OpenSubtitles(SubtitleProvider):
             return self._xmlrpc.NoOperation(self._token)
         result = self._safe_exec(run_query, None)
         self.check_result(result)
+
+    def provider_info(self):
+        if self.connected():
+            def run_query():
+                return self._xmlrpc.ServerInfo()
+            result = self._safe_exec(run_query, None)
+            data = [
+                (_('XML-RPC version'), result['xmlrpc_version']),
+                (_('XML-RPC url'), result['xmlrpc_url']),
+                (_('Application'), result['application']),
+                (_('Contact'), result['contact']),
+                (_('Website url'), result['website_url']),
+                (_('Users online'), result['users_online_total']),
+                (_('Programs online'), result['users_online_program']),
+                (_('Users logged in'), result['users_loggedin']),
+                (_('Max users online'), result['users_max_alltime']),
+                (_('Users registered'), result['users_registered']),
+                (_('Subtitles downloaded'), result['subs_downloads']),
+                (_('Subtitles available'), result['subs_subtitle_files']),
+                (_('Number movies'), result['movies_total']),
+                (_('Number languages'), result['total_subtitles_languages']),
+                (_('Client IP'), result['download_limits']['client_ip']),
+                (_('24h global download limit'), result['download_limits']['global_24h_download_limit']),
+                (_('24h client download limit'), result['download_limits']['client_24h_download_limit']),
+                (_('24h client download count'), result['download_limits']['client_24h_download_count']),
+                (_('Client download quota'), result['download_limits']['client_download_quota']),
+            ]
+        else:
+            data = []
+        return data
 
     @staticmethod
     def _languages_to_str(languages):
@@ -283,7 +484,7 @@ class OpenSubtitles(SubtitleProvider):
         try:
             result = query()
             return result
-        except (ProtocolError, CannotSendRequest, SocketError) as e:
+        except (ProtocolError, CannotSendRequest, SocketError, ExpatError) as e:
             self._signal_connection_failed()
             log.debug('Query failed: {} {}'.format(type(e), e.args))
             return default
@@ -295,7 +496,7 @@ class OpenSubtitles(SubtitleProvider):
         log.debug('check_result(<data>)')
         if data is None:
             log.warning('data is None ==> FAIL')
-            raise ProviderConnectionError(_('No message'))
+            raise OpenSubtitlesProviderConnectionError(None, _('No message'))
         log.debug('checking presence of "status" in result ...')
         if 'status' not in data:
             log.debug('... no "status" in result ==> assuming SUCCESS')
@@ -314,7 +515,8 @@ class OpenSubtitles(SubtitleProvider):
             log.debug('Checking for presence of "200" ...')
             if '200' not in data['status']:
                 log.debug('... FAIL. Raising ProviderConnectionError.')
-                raise ProviderConnectionError(
+                raise OpenSubtitlesProviderConnectionError(
+                    None,
                     _('Server returned status="{status}". Expected "200 OK".').format(status=data['status']),
                     data['status'])
             log.debug('... SUCCESS')
@@ -322,17 +524,12 @@ class OpenSubtitles(SubtitleProvider):
         log.debug('Checking code={code} ...'.format(code=code))
         if code != 200:
             log.debug('... FAIL. Raising ProviderConnectionError.')
-            raise ProviderConnectionError(message, code)
+            raise OpenSubtitlesProviderConnectionError(code, message)
         log.debug('... SUCCESS.')
         log.debug('check_result() finished (data is ok)')
 
 
 class OpenSubtitlesTextQuery(SubtitleTextQuery):
-    def __init__(self, query):
-        SubtitleTextQuery.__init__(self, query)
-        self._movies = []
-        self._total = None
-
     def get_movies(self):
         return self._movies
 
@@ -343,6 +540,11 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
         if self._total is None:
             return True
         return len(self._movies) < self._total
+
+    def __init__(self, query):
+        SubtitleTextQuery.__init__(self, query)
+        self._movies = []
+        self._total = None
 
     def search_online(self):
         raise NotImplementedError()
@@ -366,11 +568,11 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         xml_page = self._fetch_url(xml_url)
         if xml_page is None:
-            raise ProviderConnectionError('Failed to fetch XML page at {!r}'.format(xml_url))
+            raise OpenSubtitlesProviderConnectionError(None, 'Failed to fetch XML page at {!r}'.format(xml_url))
 
         movies, nb_so_far, nb_provider = self._xml_to_movies(xml_page)
         if movies is None:
-            raise ProviderConnectionError('Failed to extract movies from data at {!r}'.format(xml_url))
+            raise OpenSubtitlesProviderConnectionError(None, 'Failed to extract movies from data at {!r}'.format(xml_url))
 
         self._total = nb_provider
         self._movies.extend(movies)
@@ -383,7 +585,6 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
         return movies
 
     def search_more_subtitles(self, movie):
-        # print('avail:', movie.get_nb_subs_available(), 'total:', movie.get_nb_subs_total())
         if movie.get_nb_subs_available() == movie.get_nb_subs_total():
             return None
         xml_url = 'http://www.opensubtitles.org{provider_link}/offset-{offset}/xml'.format(
@@ -392,11 +593,11 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
 
         xml_contents = self._fetch_url(xml_url)
         if xml_contents is None:
-            raise ProviderConnectionError('Failed to fetch url {url}'.format(url=xml_url))
+            raise OpenSubtitlesProviderConnectionError(None, 'Failed to fetch url {url}'.format(url=xml_url))
 
         subtitles, nb_so_far, nb_provider = self._xml_to_subtitles(xml_contents)
         if subtitles is None:
-            raise ProviderConnectionError('Failed to load subtitles from xml at {!r}'.format(xml_url))
+            raise OpenSubtitlesProviderConnectionError(None, 'Failed to load subtitles from xml at {!r}'.format(xml_url))
 
         movie.add_subtitles(subtitles)
 
@@ -541,7 +742,7 @@ class OpenSubtitlesTextQuery(SubtitleTextQuery):
                 subtitle = OpenSubtitlesSubtitleFile(filename=filename, file_size=subtitle_file_size,
                                                      md5_hash=subtitle_uuid, id_online=subtitlefile_id,
                                                      download_link=download_link, link=subtitle_link, uploader=uploader,
-                                                     language=language, rating=subtitle_rating, age=subtitle_add_date)
+                                                     language=language, rating=subtitle_rating, date=subtitle_add_date)
                 subtitles.append(subtitle)
             except (AttributeError, IndexError, ValueError) as e:
                 log.warning('subtitle_entry={}'.format(subtitle_entry.toxml()))
@@ -639,14 +840,14 @@ class OpenSubtitlesSettings(ProviderSettings):
 
 class OpenSubtitlesSubtitleFile(RemoteSubtitleFile):
     def __init__(self, filename, file_size, md5_hash, id_online, download_link,
-                 link, uploader, language, rating, age):
+                 link, uploader, language, rating, date):
         RemoteSubtitleFile.__init__(self, filename=filename, file_size=file_size, language=language, md5_hash=md5_hash)
         self._id_online = id_online
         self._download_link = download_link
         self._link = link
         self._uploader = uploader
         self._rating = rating
-        self._age = age
+        self._date = date
 
     def get_id_online(self):
         return self._id_online

@@ -335,9 +335,8 @@ class VideoTreeModel(QAbstractItemModel):
         elif isinstance(data, RemoteSubtitleFile):
             sub = data
             if role == Qt.DecorationRole:
-                language = data.get_language()
-                icon_mode = QIcon.Normal
-                return QIcon(':/images/flags/{xx}.png'.format(xx=language.xx())).pixmap(QSize(24, 24), icon_mode)
+                icon_path = sub.get_provider().get_icon()
+                return QIcon(icon_path).pixmap(QSize(24, 24), QIcon.Normal)
 
             if role == Qt.FontRole:
                 return QFont('Arial', 9, QFont.Bold)

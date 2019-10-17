@@ -39,6 +39,10 @@ def parse_arguments(args=None):
         if ns.console or ns.interactive:
             parser.error(_('Invalid arguments for GUI mode'))
 
+    video_path = ns.video_path
+    if video_path:
+        video_path = list(p.expanduser() for p in video_path)
+
     return get_argument_options(
         client=ArgumentClientSettings(
             type=ns.client_type,
@@ -54,7 +58,7 @@ def parse_arguments(args=None):
         log_level=ns.loglevel,
         settings_path=ns.settings_path,
         search_recursive=ns.recursive,
-        search_wd=ns.video_path,
+        search_wd=video_path,
         filter_languages=ns.languages,
         naming_strategy=ns.naming_strategy,
         providers=ns.providers,

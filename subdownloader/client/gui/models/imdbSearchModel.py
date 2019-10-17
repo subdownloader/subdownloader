@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
-from PyQt5.QtCore import Qt, QAbstractTableModel
+from subdownloader.provider.imdb import ImdbMovieMatch
+from typing import Optional, Sequence
+from PyQt5.QtCore import QModelIndex, QObject, Qt, QAbstractTableModel
 
 
 class ImdbSearchModel(QAbstractTableModel):
@@ -9,39 +11,37 @@ class ImdbSearchModel(QAbstractTableModel):
     COL_IMDB_ID = 0
     COL_NAME = 1
 
-    def __init__(self, parent=None):
+    def __init__(self, parent: QObject=None):
         QAbstractTableModel.__init__(self, parent)
-        self._item_identities = []
+        self._imdb_data = []
         self._headers = None
 
-    def set_imdb_data(self, imdb_data):
+    def set_imdb_data(self, imdb_data: Sequence[ImdbMovieMatch]) -> None:
         self.beginResetModel()
-        self._item_identities = [data for data in imdb_data]
+        self._imdb_data = list(imdb_data)
         self.endResetModel()
 
-    def rowCount(self, parent=None):
-        return len(self._item_identities)
+    def rowCount(self, parent: QModelIndex=None) -> int:
+        return len(self._imdb_data)
 
-    def columnCount(self, parent=None):
+    def columnCount(self, parent: QModelIndex=None) -> int:
         return self.NB_COLS
 
-    def data(self, index, role=None):
+    def data(self, index: QModelIndex, role=None) -> Optional[str]:
         row, col = index.row(), index.column()
         if role == Qt.DisplayRole:
-            provider_identity = self._item_identities[row]
+            imdb = self._imdb_data[row]
             if col == self.COL_IMDB_ID:
-                imdb_identity = provider_identity.imdb_identity
-                return imdb_identity.get_imdb_id()
+                return imdb.imdb_id
             else:  # if col == self.COL_NAME:
-                video_identity = provider_identity.video_identity
-                return video_identity.get_name()
+                return imdb.title_year
 
         return None
 
-    def get_identity_at_row(self, row):
-        return self._item_identities[row]
+    def get_imdb_at_row(self, row: int) -> ImdbMovieMatch:
+        return self._imdb_data[row]
 
-    def sort(self, column, order=Qt.AscendingOrder):
+    def sort(self, column: int, order=Qt.AscendingOrder) -> None:
         reverse = order is Qt.DescendingOrder
         self.beginResetModel()
         if column == self.COL_IMDB_ID:
@@ -50,11 +50,11 @@ class ImdbSearchModel(QAbstractTableModel):
         else:
             def key(identity):
                 return identity.video_identity.get_name().lower()
-        self._item_identities = sorted(self._item_identities, key=key,
-                                       reverse=reverse)
+        self._imdb_data = sorted(self._imdb_data, key=key,
+                                 reverse=reverse)
         self.endResetModel()
 
-    def headerData(self, section, orientation, role=None):
+    def headerData(self, section: int, orientation: int, role=None) -> Optional[str]:
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
                 if section == self.COL_IMDB_ID:

@@ -15,7 +15,7 @@ from subdownloader.subtitle2 import RemoteSubtitleFile
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.generated.searchNameWidget_ui import Ui_SearchNameWidget
 from subdownloader.client.gui.models.searchNameModel import VideoTreeModel
-from subdownloader.client.gui.util import download_subtitles_gui
+from subdownloader.client.gui.util import SubtitleDownloadProcess
 from subdownloader.languages.language import Language
 from subdownloader.provider.SDService import ProviderConnectionError  # FIXME: move to provider
 
@@ -171,8 +171,14 @@ class SearchNameWidget(QWidget):
         zipDestDir = Path(zipDestDir)
         self._state.set_default_download_path(zipDestDir)
 
-        downloaded_subs = download_subtitles_gui(self.parent(), self._state, subs, parent_add=False)
+        downloaded_subs = self.download_subtitles(subs)
         self.moviesModel.uncheck_subtitles(downloaded_subs)
+
+    def download_subtitles(self, rsubs):
+        sub_downloader = SubtitleDownloadProcess(parent=self.parent(), rsubtitles=rsubs, state=self._state, parent_add=False)
+        sub_downloader.download_all()
+        new_subs = sub_downloader.downloaded_subtitles()
+        return new_subs
 
     @pyqtSlot(RemoteMovieNetwork)
     def onViewImdbOnline(self, movie):
@@ -187,8 +193,8 @@ class SearchNameWidget(QWidget):
         webbrowser.open(sub.get_link(), new=2, autoraise=1)
 
     @pyqtSlot(RemoteSubtitleFile)
-    def onDownloadSelectedSub(self, sub):
-        download_subtitles_gui(self.parent(), self._state, [sub])
+    def onDownloadSelectedSub(self, rsub):
+        self.download_subtitles([rsub])
 
     @pyqtSlot()
     def onViewOnlineInfo(self):

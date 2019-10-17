@@ -375,7 +375,7 @@ LANGUAGES = [
     }, {
         'locale': ['bn'],
         'ISO639': ['bn'],
-        'LanguageID': [],
+        'LanguageID': ['ben'],
         'LanguageName': [_('Bengali')],
     }, {
         'locale': ['bs'],

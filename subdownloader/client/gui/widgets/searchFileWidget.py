@@ -22,7 +22,7 @@ from subdownloader.client.gui import get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget
 from subdownloader.client.gui.generated.searchFileWidget_ui import Ui_SearchFileWidget
 from subdownloader.client.gui.models.searchFileModel import VideoModel
-from subdownloader.client.gui.util import download_subtitles_gui
+from subdownloader.client.gui.util import SubtitleDownloadProcess
 
 log = logging.getLogger('subdownloader.client.gui.searchFileWidget')
 # FIXME: add logging
@@ -489,9 +489,12 @@ class SearchFileWidget(QWidget):
 
     def onButtonDownload(self):
         # We download the subtitle in the same folder than the video
-        subs = self.videoModel.get_checked_subtitles()
-        downloaded_subs = download_subtitles_gui(self.parent(), self._state, subs, parent_add=True)
-        self.videoModel.uncheck_subtitles(downloaded_subs)
+        rsubs = self.videoModel.get_checked_subtitles()
+
+        sub_downloader = SubtitleDownloadProcess(parent=self.parent(), rsubtitles=rsubs, state=self._state, parent_add=True)
+        sub_downloader.download_all()
+        new_subs = sub_downloader.downloaded_subtitles()
+        self.videoModel.uncheck_subtitles(new_subs)
 
     def onViewOnlineInfo(self):
         # FIXME: code duplication with Main.onContext and/or SearchNameWidget and/or SearchFileWidget

@@ -2,44 +2,48 @@
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
 import logging
+from typing import Optional, Sequence
 
-from PyQt5.QtCore import pyqtSlot, QAbstractListModel, QModelIndex, QSettings, Qt
+from PyQt5.QtCore import pyqtSlot, QAbstractListModel, QModelIndex, QObject, QSettings, Qt
 from PyQt5.QtWidgets import QAbstractItemView, QHeaderView, QMessageBox, QWidget
 
 from subdownloader.identification import ImdbIdentity, VideoIdentity, ProviderIdentities, identificators_get
 from subdownloader.languages import language
-from subdownloader.movie import LocalMovie
+from subdownloader.movie import LocalMovie, VideoSubtitle
+from subdownloader.provider.imdb import ImdbMovieMatch, ImdbHistory
 
 from subdownloader.client.gui.widgets.imdbSearch import ImdbSearchDialog
 from subdownloader.client.gui.widgets.preferences import PreferencesDialog
 from subdownloader.client.gui.generated.uploadWidget_ui import Ui_UploadWidget
 
-log = logging.getLogger('subdownloader.client.gui.uploadWidget')
+log = logging.getLogger('subdownloader.client.gui.widgets.uploadWidget')
 
 
 class UploadWidget(QWidget):
-
     def __init__(self):
         QWidget.__init__(self)
 
-        self._state = None  # FIXME: Remove
-        self._state_old = None
-        self._default_language_selected = False
+        self._state = None
 
         self._imdb_history_model = ImdbHistoryModel()
+        self._upload_movie = LocalMovie()
 
         self.ui = Ui_UploadWidget()
         self.setup_ui()
 
-    def set_state(self, state_old, state):
-        self._state_old = state_old  # FIXME: Remove
+    def set_state(self, state):
         self._state = state
         self._state.signals.interface_language_changed.connect(self.on_interface_language_changed)
 
-        self._state_old.login_status_changed.connect(self.on_upload_data_changed)
+        self._state.signals.login_status_changed.connect(self.on_login_status_changed)
+
+        self.ui.comboProvider.set_state(self._state)
+        self.ui.uploadView.set_local_movie(self._upload_movie)
+        self._imdb_history_model.set_state(self._state)
+        self.ui.uploadIMDB.setCurrentIndex(0)
 
     def get_state(self):
-        return self._state_old
+        return self._state
 
     def setup_ui(self):
         self.ui.setupUi(self)
@@ -56,7 +60,6 @@ class UploadWidget(QWidget):
         self.ui.buttonUploadPlusRow.clicked.connect(self.ui.uploadView.on_add_row)
         self.ui.buttonUploadMinusRow.clicked.connect(self.ui.uploadView.on_remove_selection)
 
-        self.ui.buttonUploadDeleteAllRow.clicked.connect(self.ui.uploadView.on_reset)
         self.ui.buttonUploadDeleteAllRow.clicked.connect(self.on_reset)
 
         self.ui.buttonUploadDownRow.clicked.connect(self.ui.uploadView.on_move_selection_down)
@@ -72,9 +75,19 @@ class UploadWidget(QWidget):
         self.ui.uploadView.upload_data_changed.connect(self.on_upload_data_changed)
 
         self.ui.uploadIMDB.setModel(self._imdb_history_model)
-        self.ui.uploadIMDB.currentIndexChanged.connect(self.on_upload_data_changed)
+        self.ui.uploadIMDB.currentIndexChanged.connect(self.onImdbComboIndexChanged)
 
-        self.ui.uploadReleaseText.textChanged.connect(self.on_upload_data_changed)
+        self.ui.uploadReleaseText.textChanged.connect(self.onReleaseNameChange)
+        self.ui.uploadComments.textChanged.connect(self.onCommentsChange)
+        self.ui.uploadTranslator.textChanged.connect(self.onTranslatorChange)
+
+        self.ui.comboProvider.set_general_visible(True)
+        self.ui.comboProvider.set_filter_enable(True)
+        self.ui.comboProvider.selected_provider_state_changed.connect(self.onUploadProviderChanged)
+
+        self.ui.comboHighDefinition.stateChanged.connect(self.onHighDefinitionChanged)
+        self.ui.comboAutomaticTranslation.stateChanged.connect(self.onAutomaticTranslationChanged)
+        self.ui.comboHearingImpaired.stateChanged.connect(self.onHearingImpairedChanged)
 
         self.on_reset()
         self.retranslate()
@@ -83,12 +96,21 @@ class UploadWidget(QWidget):
         self.ui.uploadLanguages.set_unknown_text(_('Unknown'))
         self.ui.uploadView.retranslate()
 
+        self.ui.buttonUploadBrowseFolder.setToolTip(_('Load videos and subtitles from directory'))
+        self.ui.buttonUploadDeleteAllRow.setToolTip(_('Reset videos and subtitles'))
+        self.ui.buttonUploadPlusRow.setToolTip(_('Insert row above selected row'))
+        self.ui.buttonUploadMinusRow.setToolTip(_('Remove table'))
+        self.ui.buttonUploadUpRow.setToolTip(_('Move selected row up'))
+        self.ui.buttonUploadDownRow.setToolTip(_('Move selected row down'))
+
+        self.ui.comboProvider.set_general_text('({})'.format(_('none')))
+
     @pyqtSlot()
     def on_interface_language_changed(self):
         self.ui.retranslateUi(self)
         self.retranslate()
 
-    def update_buttons(self):
+    def update_navigation_buttons(self):
         selected = self.ui.uploadView.selectionModel().selectedRows()
         if len(selected) == 0:
             self.ui.buttonUploadDownRow.setEnabled(False)
@@ -103,28 +125,27 @@ class UploadWidget(QWidget):
             self.ui.buttonUploadMinusRow.setEnabled(True)
 
     @pyqtSlot()
+    def on_login_status_changed(self):
+        self.check_enable_upload_button()
+
+    @pyqtSlot()
     def on_upload_data_changed(self):
-        self.update_buttons()
+        self.update_navigation_buttons()
 
         # FIXME: move to UploadDataCollection or more general place
-        data = self.ui.uploadView.get_data_collection()
+        data_collection = self.ui.uploadView.get_data_collection()
 
         for identificator in identificators_get():
             videos_to_identify = []
-            for video in data.iter_videos():
+            for video in data_collection.iter_videos():
                 if identificator in video.get_identities():
                     continue
                 videos_to_identify.append(video)
             identificator.identify_videos(videos_to_identify)
 
-        # merged_identity = ProviderIdentities()
-        # for video in data.iter_videos():
-        #     merged_identity.merge(video.get_identities())
-        # self.on_imdb_selected.emit(merged_identity)
-
-        if self._default_language_selected or self.ui.uploadLanguages.get_selected_language().is_generic():
+        if self.ui.uploadLanguages.get_selected_language().is_generic():
             language_nb = {}
-            for subtitle in data.iter_subtitles():
+            for subtitle in data_collection.iter_subtitles():
                 lang = subtitle.get_language()
                 if not lang.is_generic():
                     language_nb[lang] = language_nb.get(lang, 0) + 1
@@ -140,32 +161,56 @@ class UploadWidget(QWidget):
                 lang_popular = self.get_default_upload_language()
             self.ui.uploadLanguages.set_selected_language(lang_popular)
 
-        self.ui.buttonUpload.setEnabled(self.can_upload())
+        self.check_enable_upload_button()
+
+    def check_enable_upload_button(self):
+        data_ok = self._upload_movie.check()
+        providerState = self.ui.comboProvider.get_selected_provider_state()
+        provider_ok = providerState is not None
+        self.ui.buttonUpload.setEnabled(data_ok and provider_ok)
 
     @pyqtSlot()
     def on_selection_change(self):
-        self.update_buttons()
-
-    @pyqtSlot(language.Language)
-    def on_default_upload_language_change(self, upload_language):
-        if self._default_language_selected:
-            self.ui.uploadLanguages.set_selected_language(upload_language)
-            self._default_language_selected = True
+        self.update_navigation_buttons()
 
     @pyqtSlot()
     def on_reset(self):
-        default_upload_language = self.get_default_upload_language()
-        self.ui.uploadLanguages.set_selected_language(default_upload_language)
-        self._default_language_selected = True
-
-        self.ui.uploadIMDB.setCurrentIndex(0)
+        self._upload_movie = LocalMovie()
+        self.ui.uploadView.set_local_movie(self._upload_movie)
+        self._upload_movie.set_data([VideoSubtitle() for _ in range(2)])
 
         self.ui.uploadReleaseText.clear()
+        self.ui.uploadIMDB.setCurrentIndex(0)
+
+        default_upload_language = self.get_default_upload_language()
+        self.ui.uploadLanguages.set_selected_language(default_upload_language)
+        self._upload_movie.set_language(self.ui.uploadLanguages.get_selected_language())
+
+        self.ui.comboHighDefinition.setChecked(True if self._upload_movie.is_high_definition() else False)
+        self.ui.comboHearingImpaired.setChecked(True if self._upload_movie.is_hearing_impaired() else False)
+        self.ui.comboAutomaticTranslation.setChecked(True if self._upload_movie.is_automatic_translation() else False)
+
+        self.ui.uploadTranslator.clear()
         self.ui.uploadComments.clear()
+        self.ui.comboProvider.set_selected_provider(None)
+
+        self.ui.uploadView.on_reset()
 
     @pyqtSlot(language.Language)
-    def on_upload_language_change(self, lang):
-        self._default_language_selected = lang.is_generic()
+    def on_upload_language_change(self, language) -> None:
+        self._upload_movie.set_language(language)
+        self.check_enable_upload_button()
+        # new_language = None
+        # if lang.is_generic():
+        #     self._default_language_selected = True
+        #     default_upload_language = self._state.get_upload_language()
+        #     if not default_upload_language.is_generic():
+        #         new_language = default_upload_language
+        # else:
+        #     self._default_language_selected = False
+        #     new_language = lang
+        # if new_language:
+        #     self._upload_movie.set_language(new_language)
 
     def get_default_upload_language(self):
         # FIXME: move to generalized position
@@ -177,6 +222,7 @@ class UploadWidget(QWidget):
     @pyqtSlot()
     def on_find_imdb(self):
         imdb_dialog = ImdbSearchDialog(self)
+        imdb_dialog.set_state(self._state)
         imdb_dialog.identity_selected.connect(self.on_imdb_selected)
         imdb_dialog.exec_()
 
@@ -184,61 +230,85 @@ class UploadWidget(QWidget):
     def on_imdb_selected(self, identity):
         if identity is None:
             return
-        index_identity = self._imdb_history_model.add_identity(identity)
+        index_identity = self._imdb_history_model.add_imdb(identity)
         self.ui.uploadIMDB.setCurrentIndex(index_identity)
 
     def get_selected_imdb_identity(self):
         index_identity = self.ui.uploadIMDB.currentIndex()
         return self._imdb_history_model.index_to_identity(index_identity)
 
-    def can_upload(self):
-        if not self._state_old.connected():
-            return False
-        if not self.ui.uploadReleaseText.text().strip():
-            return False
-        if self.get_selected_imdb_identity() is None:
-            return False
-        data_collection = self.ui.uploadView.get_data_collection()
-        if not data_collection.is_valid():
-            return False
-        return True
+    @pyqtSlot(str)
+    def onReleaseNameChange(self, name: str) -> None:
+        self._upload_movie.set_release_name(name)
+        self.check_enable_upload_button()
+
+    @pyqtSlot(str)
+    def onTranslatorChange(self, name: str) -> None:
+        self._upload_movie.set_author(name)
+        self.check_enable_upload_button()
+
+    @pyqtSlot()
+    def onCommentsChange(self) -> None:
+        comments = self.ui.uploadComments.toPlainText()
+        self._upload_movie.set_comments(comments)
+        self.check_enable_upload_button()
+
+    @pyqtSlot(int)
+    def onImdbComboIndexChanged(self, index: int):
+        imdb = self._imdb_history_model.index_to_identity(index)
+        if imdb is None:
+            imdb_id = None
+            title = None
+        else:
+            imdb_id = imdb.imdb_id
+            title = imdb.title
+        self._upload_movie.set_imdb_id(imdb_id)
+        self._upload_movie.set_movie_name(title)
+        self.check_enable_upload_button()
+
+    @pyqtSlot(int)
+    def onHighDefinitionChanged(self, state: int) -> None:
+        self._upload_movie.set_high_definition(state == Qt.Checked)
+        self.check_enable_upload_button()
+
+    @pyqtSlot(int)
+    def onAutomaticTranslationChanged(self, state: int) -> None:
+        self._upload_movie.set_automatic_translation(state == Qt.Checked)
+        self.check_enable_upload_button()
+
+    @pyqtSlot(int)
+    def onHearingImpairedChanged(self, state: int) -> None:
+        self._upload_movie.set_hearing_impaired(state == Qt.Checked)
+        self.check_enable_upload_button()
+
+    def onUploadProviderChanged(self) -> None:
+        self.check_enable_upload_button()
 
     @pyqtSlot()
     def on_upload(self):
-        local_movie = LocalMovie()
+        providerState = self.ui.comboProvider.get_selected_provider_state()
+        if providerState is None:
+            QMessageBox.warning(self, _('Cannot upload'), _('No provider was selected.'))
+            return
 
-        identity = self.get_selected_imdb_identity()
-        local_movie.set_movie_name(identity.video_identity.get_name())
-        local_movie.set_imdb_id(identity.imdb_identity.get_imdb_id())
-        local_movie.set_release_name(self.ui.uploadReleaseText.text())
-        local_movie.set_comments(self.ui.uploadComments.toPlainText())
-
-        data = self.ui.uploadView.get_data_collection()
-        for video, subtitle in zip(data.iter_videos(), data.iter_subtitles()):
-            local_movie.add_video_subtitle(video, subtitle)
-        success = self.get_state().upload(local_movie)
-        if success:
+        upload_result = providerState.provider.upload_subtitles(self._upload_movie)
+        if upload_result.ok:
             QMessageBox.information(self, _('Upload succeeded'), _('The upload was successful.'))
-            self.on_reset()
+            self.ui.comboProvider.set_selected_provider(None)
         else:
-            QMessageBox.warning(self, _('Upload failed'), _('The upload failed.'))
+            QMessageBox.warning(self, _('Upload failed'), '{}\n{}'.format(
+                _('The upload failed.'), upload_result.reason))
 
 
 class ImdbHistoryModel(QAbstractListModel):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QObject=None):
         QAbstractListModel.__init__(self, parent)
-        self._item_identities = []
-        self.read_settings()
+        self._imdb_history = ImdbHistory()
 
-    def set_imdb_data(self, imdb_data):
-        self.beginResetModel()
-        self._item_identities = [data for data in imdb_data]
-        self.endResetModel()
+    def rowCount(self, parent: QModelIndex=None) -> int:
+        return 1 + len(self._imdb_history)
 
-    def rowCount(self, parent=None):
-        return 1 + len(self._item_identities)
-
-    def data(self, index, role=None):
+    def data(self, index: QModelIndex, role: int=None) -> Optional[str]:
         row, col = index.row(), index.column()
         if role == Qt.DisplayRole:
             if row == 0:
@@ -246,76 +316,26 @@ class ImdbHistoryModel(QAbstractListModel):
 
             row -= 1
 
-            provider_identity = self._item_identities[row]
-
-            imdb_identity = provider_identity.imdb_identity
-            imdb_id = imdb_identity.get_imdb_id()
-
-            video_identity = provider_identity.video_identity
-            name = video_identity.get_name()
-
-            return '{imdb_id} : {name}'.format(imdb_id=imdb_id, name=name)
+            imdb = self._imdb_history[row]
+            return '{} : {}'.format(imdb.imdb_id, imdb.title_year)
 
         return None
 
     MAX_IMDB_HISTORY = 20
 
-    def add_identity(self, new_identity):
-        new_imdb_id = new_identity.imdb_identity.get_imdb_id()
-        parent = QModelIndex()
-        for identity_i, identity in enumerate(self._item_identities):
-            imdb_id = identity.imdb_identity.get_imdb_id()
-            if new_imdb_id == imdb_id:
-                move_valid = self.beginMoveRows(parent, identity_i, identity_i, parent, 0)
-                if not move_valid:
-                    return 1
-                del self._item_identities[identity_i]
-                self._item_identities.insert(0, identity)
-                self.endMoveRows()
-                self.write_settings()
-                return 1
-        identities = [new_identity]
-        identities.extend(self._item_identities)
-        self.beginInsertRows(parent, 0, 0)
-        self._item_identities.insert(0, new_identity)
-        self.endInsertRows()
-        if len(self._item_identities) > self.MAX_IMDB_HISTORY:
-            self.beginRemoveRows(parent, self.MAX_IMDB_HISTORY, len(self._item_identities))
-            del self._item_identities[self.MAX_IMDB_HISTORY:]
-            self.endRemoveRows()
+    def add_imdb(self, new_imdb: ImdbMovieMatch) -> int:
+        self.beginResetModel()
+        index = self._imdb_history.insert_unique(0, new_imdb)
+        self.endResetModel()
+        self._imdb_history.limit(self.MAX_IMDB_HISTORY)
+        return 1 + index
 
-        self.write_settings()
-        return 1
+    def set_state(self, state) -> None:
+        self.beginResetModel()
+        self._imdb_history = state.get_imdb_history()
+        self.endResetModel()
 
-    def read_settings(self):
-        identities = []
-        settings = QSettings()
-        size = settings.beginReadArray('upload/imdbHistory')
-        for identity_i in range(size):
-            settings.setArrayIndex(identity_i)
-            imdb_id = settings.value('imdbId')
-            imdb_identity = ImdbIdentity(imdb_id=imdb_id, imdb_rating=None)
-            name = settings.value('title')
-            video_identity = VideoIdentity(name=name, year=None)
-            identities.append(ProviderIdentities(video_identity=video_identity, imdb_identity=imdb_identity,
-                                                 provider=self))
-        settings.endArray()
-
-        self.set_imdb_data(identities)
-
-    def write_settings(self):
-        settings = QSettings()
-        settings.beginWriteArray('upload/imdbHistory', size=len(self._item_identities))
-        settings.setValue("imdbId", id)
-        for identity_i, identity in enumerate(self._item_identities):
-            settings.setArrayIndex(identity_i)
-            imdb_identity = identity.imdb_identity
-            settings.setValue('imdbId', imdb_identity.get_imdb_id())
-            video_identity = identity.video_identity
-            settings.setValue('title', video_identity.get_name())
-        settings.endArray()
-
-    def index_to_identity(self, index):
-        if index == 0:
+    def index_to_identity(self, index: int) -> Optional[ImdbMovieMatch]:
+        if index <= 0:
             return None
-        return self._item_identities[index - 1]
+        return self._imdb_history[index - 1]

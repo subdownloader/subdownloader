@@ -14,7 +14,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QItemSelectionModel, \
     QModelIndex, QSettings
 from PyQt5.QtWidgets import QFileDialog, QTableView
 
-from subdownloader.client.gui.models.upload import UploadModel, UploadDataItem
+from subdownloader.client.gui.models.upload import UploadModel, UploadDataCollection
 
 log = logging.getLogger('subdownloader.client.gui.views.upload')
 
@@ -46,7 +46,10 @@ class UploadListView(QTableView):
         self.retranslate()
 
     def retranslate(self):
-        self._uploadModel.headerDataChanged.emit(Qt.Horizontal, 0, UploadDataItem.NB_COLS - 1)
+        self._uploadModel.headerDataChanged.emit(Qt.Horizontal, 0, UploadDataCollection.NB_COLS - 1)
+
+    def set_local_movie(self, local_movie):
+        self._uploadModel.set_local_movie(local_movie)
 
     @pyqtSlot()
     def on_browse_folder(self):
@@ -88,7 +91,7 @@ class UploadListView(QTableView):
 
     @pyqtSlot()
     def on_reset(self):
-        self._uploadModel.reset_data()
+        self._uploadModel.on_reset()
         self.upload_data_changed.emit()
 
     @pyqtSlot()
@@ -109,10 +112,10 @@ class UploadListView(QTableView):
         settings = QSettings()
         working_directory = settings.value('mainwindow/workingDirectory', '')
 
-        if col == UploadDataItem.COL_VIDEO:
+        if col == UploadDataCollection.COL_VIDEO:
             dialog_title = _("Browse video...")
             extensions = get_select_videos()
-        else: # if col == UploadDataItem.COL_SUB:
+        else: # if col == UploadDataCollection.COL_SUB:
             dialog_title = _("Browse subtitle...")
             extensions = get_select_subtitles()
 
@@ -124,17 +127,17 @@ class UploadListView(QTableView):
 
         model = self._uploadModel
 
-        if col == UploadDataItem.COL_VIDEO:
+        if col == UploadDataCollection.COL_VIDEO:
             callback = ProgressCallbackWidget(self)
             callback.show()
             videos, subs = scan_videopath(file_path, callback=callback, recursive=False)
             video = videos[0]
-            index = model.createIndex(row, UploadDataItem.COL_VIDEO)
+            index = model.createIndex(row, UploadDataCollection.COL_VIDEO)
             model.setData(index, video, Qt.UserRole)
 
-        elif col == UploadDataItem.COL_SUB:
+        elif col == UploadDataCollection.COL_SUB:
             subtitle = LocalSubtitleFile(file_path)
-            index = model.createIndex(row, UploadDataItem.COL_SUB)
+            index = model.createIndex(row, UploadDataCollection.COL_SUB)
             model.setData(index, subtitle, Qt.UserRole)
         else:
             log.warning('on_edit_item: nknown column: {column}'.format(column=col))

@@ -141,6 +141,20 @@ class ProviderModel(QAbstractListModel):
 
         return QModelIndex()
 
+    def index_of_provider(self, provider):
+        if self._state is None:
+            return None
+        if self._filter_enable:
+            providers = list(ps.provider for ps in self._state.providers.get_providers())
+        else:
+            providers = list(ps.provider for ps in self._state.providers.all_states)
+        if self._general_visible:
+            providers.insert(0, None)
+        try:
+            return providers.index(provider)
+        except ValueError:
+            return None
+
     def headerData(self, *args, **kwargs):
         return None
 

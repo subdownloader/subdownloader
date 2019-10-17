@@ -92,7 +92,7 @@ class ProgressCallbackWidget(ClientCallback):
         self.status_progress.setLabelText(finishedMsg)
         self.status_progress.done(0)
         if self._block:
-            self._parent.setCursor(Qt.ArrowCursor) # FIXME: restoreCursor? setCursor only in this class!!
+            self._parent.setCursor(Qt.ArrowCursor)  # FIXME: restoreCursor? setCursor only in this class!!
         QCoreApplication.processEvents()
 
     def on_rangeChange(self, minimum, maximum):

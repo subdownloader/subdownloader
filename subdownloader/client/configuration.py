@@ -149,6 +149,29 @@ class Settings(object):
     def set_path(self, key, value):
         self.set_str(key, str(value))
 
+    def get_list(self, key, default=None):
+        base_key = '{}.{}'.format(*key)
+        size_path = (base_key, 'size', )
+        size = self.get_int(size_path, None)
+        if size is None:
+            return default
+        result = list()
+        for elem_i_index in range(size):
+            elem_i_path = (base_key, str(elem_i_index), )
+            elem_i = self.get_str(elem_i_path, None)
+            if elem_i is None:
+                return default
+            result.append(elem_i)
+        return result
+
+    def set_list(self, key, value):
+        base_key = '{}.{}'.format(*key)
+        size_path = (base_key, 'size', )
+        self.set_int(size_path, len(value))
+        for elem_i_index, elem_i in enumerate(value):
+            elem_i_path = (base_key, str(elem_i_index), )
+            self.set_str(elem_i_path, str(elem_i))
+
     def clear(self):
         self._cfg.clear()
 

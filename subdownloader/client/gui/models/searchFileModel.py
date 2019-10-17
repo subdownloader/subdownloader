@@ -336,9 +336,10 @@ class VideoModel(QAbstractItemModel):
                 return QPalette().brush(QPalette.Normal, QPalette.Base)
 
             if role == Qt.DecorationRole:
-                xx = data.get_language().xx()
+                xx = sub.get_language().xx()
                 iconMode = QIcon.Disabled if isinstance(sub, LocalSubtitleFile) else QIcon.Normal
-                return QIcon(':/images/flags/{xx}.png'.format(xx=xx)).pixmap(QSize(24, 24), iconMode)
+                icon_path = ':/images/flags/{xx}.png'.format(xx=xx) if isinstance(sub, LocalSubtitleFile) else sub.get_provider().get_icon()
+                return QIcon(icon_path).pixmap(QSize(24, 24), iconMode)
 
             if role == Qt.ForegroundRole:
                 if isinstance(sub, LocalSubtitleFile):

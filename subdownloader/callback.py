@@ -22,6 +22,7 @@ class ProgressCallback(object):
         self._max = maximum
 
         self._canceled = False
+        self._finished = False
 
     def range_initialized(self):
         """
@@ -75,6 +76,7 @@ class ProgressCallback(object):
         :param kwargs: extra keyword arguments to pass on
         """
         log.debug('finish(args={args}, kwargs={kwargs})'.format(args=args, kwargs=kwargs))
+        self._finished = True
         self.on_finish(*args, **kwargs)
 
     def cancel(self):
@@ -116,13 +118,19 @@ class ProgressCallback(object):
         """
         pass
 
-
     def canceled(self):
         """
         Return true when the progress has been canceled.
         :return: Boolean value
         """
         return self._canceled
+
+    def finished(self):
+        """
+        Return true when the progress has been finished.
+        :return: Boolean value
+        """
+        return self._finished
 
 
 class SubProgressCallback(ProgressCallback):

@@ -12,6 +12,7 @@ from subdownloader.client.player import VideoPlayer
 from subdownloader.client import ClientType, IllegalArgumentException
 from subdownloader.client.internationalization import i18n_system_locale, i18n_locale_fallbacks_calculate
 from subdownloader.project import PROJECT_TITLE
+from subdownloader.provider.imdb import ImdbHistory
 from subdownloader.provider.provider import ProviderConnectionError
 from subdownloader.languages.language import Language, NotALanguageException, UnknownLanguage
 from subdownloader.provider.factory import NoProviderException, ProviderFactory
@@ -414,6 +415,8 @@ class BaseState(object):
 
         self._videoplayer = None
 
+        self._imdb_history = ImdbHistory()
+
     @property
     def providers(self):
         return self._providersState
@@ -471,6 +474,8 @@ class BaseState(object):
         if interface_language is not None:
             self.set_upload_language(interface_language)
 
+        self._imdb_history = ImdbHistory.from_settings(settings)
+
     def save_settings(self, settings):
         self._providersState.save_settings(settings)
 
@@ -488,6 +493,8 @@ class BaseState(object):
 
         if self._videoplayer:
             self._videoplayer.save_settings(settings)
+
+        self._imdb_history.save_settings(settings)
 
         settings.set_language(StateConfigKey.INTERFACE_LANGUAGE.value, self.get_interface_language())
 
@@ -572,6 +579,13 @@ class BaseState(object):
     def set_videoplayer(self, videoplayer):
         log.debug('set_videoplayer({})'.format(videoplayer))
         self._videoplayer = videoplayer
+
+    def get_imdb_history(self):
+        return self._imdb_history
+
+    def set_imdb_history(self, imdb_history):
+        log.debug('set_imdb_history({})'.format(imdb_history))
+        self._imdb_history = imdb_history
 
     @staticmethod
     def get_system_language():

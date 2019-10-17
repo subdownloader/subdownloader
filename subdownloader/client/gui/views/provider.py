@@ -45,6 +45,11 @@ class ProviderComboBox(QComboBox):
             current_index = self._model.rowCount() - 1
         self.setCurrentIndex(current_index)
 
+    def set_selected_provider(self, provider):
+        index = self._model.index_of_provider(provider)
+        if index is not None:
+            self.setCurrentIndex(index)
+
     def get_selected_provider_state(self):
         return self._current_provider_state
 
