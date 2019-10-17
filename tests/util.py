@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 SubDownloader Developers - See COPYING - GPLv3
 
-from collections import namedtuple
 import os
 from pathlib import Path
 import shutil
@@ -65,7 +64,7 @@ class TempDir(object):
 
     def delete(self):
         if self.path is not None:
-            shutil.rmtree(self.path)
+            shutil.rmtree(str(self.path))
             self.path = None
 
 
