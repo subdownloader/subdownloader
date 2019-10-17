@@ -12,12 +12,12 @@ PROJECT_TITLE = "SubDownloader"
 """
 Version of the project as a tuple.
 """
-PROJECT_VERSION = (2, 1, 0)
+PROJECT_VERSION = (2, 2, 0)
 
 """
 Full version of the project as a tuple.
 """
-PROJECT_VERSION_FULL = PROJECT_VERSION + ('rc4', )
+PROJECT_VERSION_FULL = PROJECT_VERSION + ('dev', )
 
 """
 Version of the project as a string.
