@@ -239,7 +239,7 @@ class ImdbHistoryModel(QAbstractListModel):
     def data(self, index, role=None):
         row, col = index.row(), index.column()
         if role == Qt.DisplayRole:
-            if row is 0:
+            if row == 0:
                 return _('Click on the "Find" button to identify the movie')
 
             row -= 1

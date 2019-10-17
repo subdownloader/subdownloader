@@ -143,7 +143,7 @@ class Language(object):
         :return: Language instance with instance.locale() == locale if locale is valid else instance of Unknown Language
         """
         locale = str(locale)
-        if locale is 'unknown':
+        if locale == 'unknown':
             return UnknownLanguage(locale)
         try:
             return cls._from_xyz('locale', locale)
@@ -159,7 +159,7 @@ class Language(object):
         :return: Language instance with instance.xx() == xx if xx is valid else instance of UnknownLanguage
         """
         xx = str(xx).lower()
-        if xx is 'unknown':
+        if xx == 'unknown':
             return UnknownLanguage(xx)
         try:
             return cls._from_xyz('ISO639', xx)
@@ -175,7 +175,7 @@ class Language(object):
         :return: Language instance with instance.xxx() == xxx if xxx is valid else instance of UnknownLanguage
         """
         xxx = str(xxx).lower()
-        if xxx is 'unknown':
+        if xxx == 'unknown':
             return UnknownLanguage(xxx)
         try:
             return cls._from_xyz('LanguageID', xxx)
@@ -191,7 +191,7 @@ class Language(object):
         :return: Language instance with instance.name() == name if name is valid else instance of UnknownLanguage
         """
         name = str(name).lower()
-        if name is 'unknown' or name is _('unknown'):
+        if name == 'unknown' or name == _('unknown'):
             return UnknownLanguage(name)
         try:
             return cls._from_xyz('LanguageName', name)
