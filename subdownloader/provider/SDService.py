@@ -17,7 +17,7 @@ import re
 import sys
 import threading
 import zlib
-from http.client import HTTPConnection
+from http.client import HTTPConnection, CannotSendRequest
 from io import BytesIO
 import socket
 from urllib.error import HTTPError, URLError
@@ -352,7 +352,7 @@ class SDService(object):
         try:
             result = query()
             return result
-        except (ProtocolError, xml.parsers.expat.ExpatError) as e:
+        except (ProtocolError, CannotSendRequest, xml.parsers.expat.ExpatError, socket.error) as e:
             self._signal_query_failed()
             log.debug("Query failed: {} {}".format(type(e), e.args))
             return default
