@@ -16,7 +16,7 @@ from subdownloader.languages.language import Language, UnknownLanguage
 from subdownloader.project import PROJECT_TITLE
 from subdownloader.video2 import VideoFile
 from subdownloader.subtitle2 import LocalSubtitleFile, RemoteSubtitleFile, SubtitleFile, SubtitleFileNetwork
-from subdownloader.provider.SDService import ProviderConnectionError  # FIXME: move to provider
+from subdownloader.provider.provider import ProviderConnectionError  # FIXME: move to provider
 
 from subdownloader.client.gui import get_select_videos
 from subdownloader.client.gui.callback import ProgressCallbackWidget

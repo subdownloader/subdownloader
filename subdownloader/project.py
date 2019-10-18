@@ -17,7 +17,7 @@ PROJECT_VERSION = (2, 2, 0)
 """
 Full version of the project as a tuple.
 """
-PROJECT_VERSION_FULL = PROJECT_VERSION + ('dev', )
+PROJECT_VERSION_FULL = PROJECT_VERSION + ('dev0', )
 
 """
 Version of the project as a string.

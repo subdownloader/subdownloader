@@ -3,17 +3,11 @@
 
 from enum import Enum
 import logging
-from pathlib import Path
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QObject, QPoint, QSettings, QSize
-from PyQt5.QtWidgets import QFileDialog
-
-from subdownloader.callback import ProgressCallback
-from subdownloader.client.state import BaseState, ProviderStateCallback, StateConfigKey
-from subdownloader.identification import identificator_add
+from subdownloader.client.state import BaseState, ProviderStateCallback
 from subdownloader.languages.language import Language
 
-from subdownloader.provider.SDService import ProviderConnectionError, SDService, TimeoutFunctionException
+from PyQt5.QtCore import pyqtSignal, QObject, QPoint, QSize
 
 log = logging.getLogger('subdownloader.client.gui.state')
 

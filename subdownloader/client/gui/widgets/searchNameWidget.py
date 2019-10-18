@@ -17,7 +17,7 @@ from subdownloader.client.gui.generated.searchNameWidget_ui import Ui_SearchName
 from subdownloader.client.gui.models.searchNameModel import VideoTreeModel
 from subdownloader.client.gui.util import SubtitleDownloadProcess
 from subdownloader.languages.language import Language
-from subdownloader.provider.SDService import ProviderConnectionError  # FIXME: move to provider
+from subdownloader.provider.provider import ProviderConnectionError  # FIXME: move to provider
 
 log = logging.getLogger('subdownloader.client.gui.widgets.searchNameWidget')
 
